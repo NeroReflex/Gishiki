@@ -19,13 +19,14 @@ Using apache as webserver it is easy to deploy an application with user-friendly
 ## Database
 Gishiki gives you the power of using a database without making you notice.
 Gishiki support different database types out of the box;
-    -   MongoDB
-    -   MySQL
-    -   PostgreSQL
-    -   SQLite
-    -   Oracle
-    -   Microsoft SQL Server / azure
-    -   Sybase
+
+- MongoDB
+- MySQL
+- PostgreSQL
+- SQLite
+- Oracle
+- Microsoft SQL Server / azure
+- Sybase
 
 ## License
 Gishiki is released under Apache-2.0 license terms, read the LICENSE file to find out more!

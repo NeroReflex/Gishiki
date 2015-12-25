@@ -40,7 +40,7 @@ abstract class lessIntegration {
             $lessCompiledHash = md5(filemtime(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$filePath)).".lesscache";
             //compiling it two time if it is not needed
 
-            if (!CacheManager::Exists($lessCompiledHash)) {
+            if (!\Gishiki\Caching\Cache::Exists($lessCompiledHash)) {
                 //get the content of the less file to be compiled
                 $lessContent = file_get_contents(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$filePath);
 
@@ -56,7 +56,7 @@ abstract class lessIntegration {
                 $compilationMinifiedResult = $minifier->minify();
 
                 //store the compilation result into the cache
-                CacheManager::Store($lessCompiledHash, $compilationMinifiedResult);
+                \Gishiki\Caching\Cache::Store($lessCompiledHash, $compilationMinifiedResult);
                 //to have a huge speedup the next time a visitor will 
                 //request the same less file to be compiled
 
@@ -64,10 +64,8 @@ abstract class lessIntegration {
                 return $compilationMinifiedResult;
             } else {
                 //return the content that was previously cached
-                return CacheManager::Fetch($lessCompiledHash);
+                return \Gishiki\Caching\Cache::Fetch($lessCompiledHash);
             }
-        } else {
-            throw new Exception("The given less file cannot be compiled because it does't exists");
         }
     }
     
@@ -112,84 +110,80 @@ abstract class lessIntegration {
      * @param string $content the non-preprocessed HTML
      * @throws Exception the error occurred while recognizing a less inclusion or compilation
      */
-    static function IncludeAnyLESS(&$content) {
+    static function IncludeAnyLESS(&$content)
+    {
         $openLESSInclusion = "{{{less ";
         $closeLESSInclusion = "}}}";
-        
-            //this is the array containing names of all less files
-            $lessFiles = [];
-        
-            //this is the key array that holds everything important to perform
-            $openingANDClosingLESSTags = [];
-            //a less inclusion
-            
-            //compile any LESS script included
-            $lastLESSInclusionPosition = TRUE;
-            $lastLESSExclusionPosition = TRUE;
-            $searchStartingFrom = 0;
-            while (($lastLESSInclusionPosition != FALSE) && ($lastLESSExclusionPosition != FALSE)) {
-                $lastLESSInclusionPosition = strpos($content, $openLESSInclusion, $searchStartingFrom);
-                $lastLESSExclusionPosition = strpos($content, $closeLESSInclusion, $searchStartingFrom);
-                
-                //was the LESS inclusion found?
-                if (($lastLESSInclusionPosition != FALSE) && ($lastLESSExclusionPosition != FALSE)) {
-                    $searchStartingFrom = $lastLESSExclusionPosition + strlen($closeLESSInclusion);
-                    
-                    $fileName = "";
-                    $ended = FALSE;
-                    $replacement = "";
-                
-                    //read the file name
-                    $readingTheName = FALSE;
-                    for ($j = $lastLESSInclusionPosition; $j < ($lastLESSExclusionPosition + strlen($closeLESSInclusion)); $j++) {
-                        $replacement = $replacement.$content[$j];
-                        if (!$ended) {
-                            if ((!$readingTheName) && ($content[$j] == "'")) {
-                                $readingTheName = TRUE;
-                            } else if (($readingTheName) && ($content[$j] != "'")) {
-                                //store the character
-                                $fileName = $fileName.$content[$j];
-                            } else if (($readingTheName) && ($content[$j] == "'")) {
-                                $readingTheName = FALSE;
-                                $ended = TRUE;
-                            }
+
+        //this is the array containing names of all less files
+        $lessFiles = [];
+
+        //this is the key array that holds everything important to perform
+        $openingANDClosingLESSTags = [];
+        //a less inclusion
+
+        //compile any LESS script included
+        $lastLESSInclusionPosition = TRUE;
+        $lastLESSExclusionPosition = TRUE;
+        $searchStartingFrom = 0;
+        while (($lastLESSInclusionPosition != FALSE) && ($lastLESSExclusionPosition != FALSE)) {
+            $lastLESSInclusionPosition = strpos($content, $openLESSInclusion, $searchStartingFrom);
+            $lastLESSExclusionPosition = strpos($content, $closeLESSInclusion, $searchStartingFrom);
+
+            //was the LESS inclusion found?
+            if (($lastLESSInclusionPosition != FALSE) && ($lastLESSExclusionPosition != FALSE)) {
+                $searchStartingFrom = $lastLESSExclusionPosition + strlen($closeLESSInclusion);
+
+                $fileName = "";
+                $ended = FALSE;
+                $replacement = "";
+
+                //read the file name
+                $readingTheName = FALSE;
+                for ($j = $lastLESSInclusionPosition; $j < ($lastLESSExclusionPosition + strlen($closeLESSInclusion)); $j++) {
+                    $replacement = $replacement . $content[$j];
+                    if (!$ended) {
+                        if ((!$readingTheName) && ($content[$j] == "'")) {
+                            $readingTheName = TRUE;
+                        } else if (($readingTheName) && ($content[$j] != "'")) {
+                            //store the character
+                            $fileName = $fileName . $content[$j];
+                        } else if (($readingTheName) && ($content[$j] == "'")) {
+                            $readingTheName = FALSE;
+                            $ended = TRUE;
                         }
                     }
-
-                    //check for the less file to be recognized
-                    if ((($ended) && ($fileName == "")) || (!$ended)) {
-                        throw new Exception("Syntax error in less inclusion usage");
-                    }
-
-                    //store the file name
-                    $lessFiles[] = $fileName;
-                    
-                    //store the opening and closing of the found less inclusion tag
-                    $openingANDClosingLESSTags[] = [0 => $lastLESSInclusionPosition, 1 => ($lastLESSExclusionPosition + strlen($closeLESSInclusion)), 2 => $fileName, 3 => $replacement];
                 }
-            }
-            
-            //this is the number of compiled files
-            $numberOfCompiledFiles = 0;
-            
-            //this is the array of compiled less files
-            $arrayOfSobstitutions = lessIntegration::MultipleFileCompilation($lessFiles, $numberOfCompiledFiles);
-            //and is organized like this: "file.less" => "compiled-and-minified CSS content"
-            
-            //cycle each less inclusion
-            for ($i = 0; $i < $numberOfCompiledFiles; $i++) {
-                //get everything necessary to replace a less inclusion with the compilation result
-                $lessFile = $openingANDClosingLESSTags[$i][2];
-                $srtTOReplace = $openingANDClosingLESSTags[$i][3];
-                
-                //perform the css inclusion
-                $times = 0;
-                $content = str_replace($srtTOReplace, '<style type="text/css">'.$arrayOfSobstitutions[$lessFile].'</style>', $content, $times);
-                
-                //perform the error check
-                if ($times <= 0) {
-                    throw new Exception("An error occurred while processing a less inclusion");
+
+                //check for the less file to be recognized
+                if ((($ended) && ($fileName == "")) || (!$ended)) {
+                    throw new Exception("Syntax error in less inclusion usage");
                 }
+
+                //store the file name
+                $lessFiles[] = $fileName;
+
+                //store the opening and closing of the found less inclusion tag
+                $openingANDClosingLESSTags[] = [0 => $lastLESSInclusionPosition, 1 => ($lastLESSExclusionPosition + strlen($closeLESSInclusion)), 2 => $fileName, 3 => $replacement];
             }
+        }
+
+        //this is the number of compiled files
+        $numberOfCompiledFiles = 0;
+
+        //this is the array of compiled less files
+        $arrayOfSobstitutions = lessIntegration::MultipleFileCompilation($lessFiles, $numberOfCompiledFiles);
+        //and is organized like this: "file.less" => "compiled-and-minified CSS content"
+
+        //cycle each less inclusion
+        for ($i = 0; $i < $numberOfCompiledFiles; $i++) {
+            //get everything necessary to replace a less inclusion with the compilation result
+            $lessFile = $openingANDClosingLESSTags[$i][2];
+            $srtTOReplace = $openingANDClosingLESSTags[$i][3];
+
+            //perform the css inclusion
+            $times = 0;
+            $content = str_replace($srtTOReplace, '<style type="text/css">' . $arrayOfSobstitutions[$lessFile] . '</style>', $content, $times);
+        }
     }
 }

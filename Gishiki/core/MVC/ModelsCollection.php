@@ -76,7 +76,7 @@ namespace Gishiki\Core\MVC {
          *
          * @return Gishiki_Model the currently selected model
          */
-        public function GetCurrentResult() : Gishiki_Model {
+        public function GetCurrentResult()/* : Gishiki_Model*/ {
             return $this->mdlsFetched[$this->getIndexOfCurrent()];
         }
 
@@ -86,7 +86,7 @@ namespace Gishiki\Core\MVC {
          *
          * @return Gishiki_Model the currently selected model
          */
-        public function GetCurrentResultAndStep() : Gishiki_Model {
+        public function GetCurrentResultAndStep()/* : Gishiki_Model*/ {
             $data = $this->mdlsFetched[$this->getIndexOfCurrent()];
             $this->current++;
             return $data;
@@ -98,7 +98,7 @@ namespace Gishiki\Core\MVC {
          *
          * @return Gishiki_Model the currently selected model
          */
-        public function GetNextResult() : Gishiki_Model {
+        public function GetNextResult()/* : Gishiki_Model*/ {
             $this->current++;
             return $this->mdlsFetched[$this->getIndexOfCurrent()];
         }
@@ -109,7 +109,7 @@ namespace Gishiki\Core\MVC {
          *
          * @return Gishiki_Model the currently selected model
          */
-        public function GetPreviousResult() : Gishiki_Model{
+        public function GetPreviousResult()/* : Gishiki_Model*/ {
             $this->current--;
             return $this->mdlsFetched[$this->getIndexOfCurrent()];
         }

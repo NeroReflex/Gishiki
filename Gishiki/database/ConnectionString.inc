@@ -32,7 +32,7 @@ namespace Gishiki\Database {
          * @return array the connection details extracted from the given connection string
          * @throws DatabaseException the exception occurred while opening the database
          */
-        static function Parse($connectionString) : array {
+        static function Parse($connectionString)/* : array*/ {
             //explode the string at the first ':' to get the database type
             $firstExplosion = explode("://", $connectionString, 2);
 
@@ -116,7 +116,7 @@ namespace Gishiki\Database {
          * @param string $connString the connection string without the database type
          * @return array the connection details extracted from the given connection string
          */
-        static function ParseSQLiteConnectionString($connString) : array
+        static function ParseSQLiteConnectionString($connString)/* : array*/
         {
             //start building the connection details array used for sonnection
             //and for a possible connection save
@@ -149,7 +149,7 @@ namespace Gishiki\Database {
          * @param string $connString the connection string without the database type
          * @return array the connection details extracted from the given connection string
          */
-        static function ParseMySQLConnectionString($connString) : array
+        static function ParseMySQLConnectionString($connString)/* : array*/
         {
             /* what part of the connection string is currently being read?
              * 0 = db name
@@ -224,7 +224,7 @@ namespace Gishiki\Database {
          * @param string $connString the connection string without the database type
          * @return array the connection details extracted from the given connection string
          */
-        static function ParseMongoDBConnectionString($connString) : array
+        static function ParseMongoDBConnectionString($connString)/* : array*/
         {
             /* what part of the connection string is currently being read?
              * 0 = db name
@@ -300,7 +300,7 @@ namespace Gishiki\Database {
          * @param string $connString the connection string without the database type
          * @return array the connection details extracted from the given connection string
          */
-        static function ParsePostgreSQLConnectionString($connString) : array
+        static function ParsePostgreSQLConnectionString($connString)/* : array*/
         {
             /* what part of the connection string is currently being read?
              * 0 = db name
@@ -375,7 +375,7 @@ namespace Gishiki\Database {
          * @param string $connString the connection string without the database type
          * @return array the connection details extracted from the given connection string
          */
-        static function ParseMicrosoftSQLConnectionString($connString)
+        static function ParseMicrosoftSQLConnectionString($connString)/* : array*/
         {
             /* what part of the connection string is currently being read?
              * 0 = db name
@@ -450,7 +450,7 @@ namespace Gishiki\Database {
          * @param string $connString the connection string without the database type
          * @return array the connection details extracted from the given connection string
          */
-        static function ParseOracleConnectionString($connString)
+        static function ParseOracleConnectionString($connString)/* : array*/
         {
             /* what part of the connection string is currently being read?
              * 0 = db name
@@ -525,7 +525,7 @@ namespace Gishiki\Database {
          * @param string $connString the connection string without the database type
          * @return array the connection details extracted from the given connection string
          */
-        static function ParseSybaseConnectionString($connString)
+        static function ParseSybaseConnectionString($connString) /* : array*/
         {
             /* what part of the connection string is currently being read?
              * 0 = db name

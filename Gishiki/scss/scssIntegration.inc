@@ -40,7 +40,7 @@ abstract class scssIntegration {
             $scssCompiledHash = md5(filemtime(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$filePath)).".scsscache";
             //compiling it two time if it is not needed
 
-            if (!CacheManager::Exists($scssCompiledHash)) {
+            if (!\Gishiki\Caching\Cache::Exists($scssCompiledHash)) {
                 //get the content of the scss file to be compiled
                 $scssContent = file_get_contents(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$filePath);
 
@@ -56,7 +56,7 @@ abstract class scssIntegration {
                 $compilationMinifiedResult = $minifier->minify();
 
                 //store the compilation result into the cache
-                CacheManager::Store($scssCompiledHash, $compilationMinifiedResult);
+                \Gishiki\Caching\Cache::Store($scssCompiledHash, $compilationMinifiedResult);
                 //to have a huge speedup the next time a visitor will 
                 //request the same scss file to be compiled
 
@@ -64,10 +64,8 @@ abstract class scssIntegration {
                 return $compilationMinifiedResult;
             } else {
                 //return the content that was previously cached
-                return CacheManager::Fetch($scssCompiledHash);
+                return \Gishiki\Caching\Cache::Fetch($scssCompiledHash);
             }
-        } else {
-            throw new Exception("The given scss file cannot be compiled because it does't exists");
         }
     }
     
@@ -112,81 +110,77 @@ abstract class scssIntegration {
      * @param string $content the non-preprocessed HTML
      * @throws Exception the error occurred while recognizing a scss inclusion or compilation
      */
-    static function IncludeAnySCSS(&$content) {
+    static function IncludeAnySCSS(&$content)
+    {
         $openSCSSInclusion = "{{{scss ";
         $closeSCSSInclusion = "}}}";
-        
-            //this is the array containing names of all scss files
-            $scssFiles = [];
-        
-            $openingANDClosingSCSSTags = [];
-            
-            //compile any SCSS script included
-            $lastSCSSInclusionPosition = TRUE;
-            $searchStartingFrom = 0;
-            while ($lastSCSSInclusionPosition != FALSE) {
-                $lastSCSSInclusionPosition = strpos($content, $openSCSSInclusion, $searchStartingFrom);
-                $lastSCSSExclusionPosition = strpos($content, $closeSCSSInclusion, $searchStartingFrom);
-                
-                //was the SCSS inclusion found?
-                if (($lastSCSSInclusionPosition != FALSE) && ($lastSCSSExclusionPosition != FALSE)) {
-                    $searchStartingFrom = $lastSCSSExclusionPosition + strlen($closeSCSSInclusion);
-                    
-                    $fileName = "";
-                    $ended = FALSE;
-                    $replacement = "";
-                
-                    //read the file name
-                    $readingTheName = FALSE;
-                    for ($j = $lastSCSSInclusionPosition; $j < ($lastSCSSExclusionPosition + strlen($closeSCSSInclusion)); $j++) {
-                        $replacement = $replacement.$content[$j];
-                        if (!$ended) {
-                            if ((!$readingTheName) && ($content[$j] == "'")) {
-                                $readingTheName = TRUE;
-                            } else if (($readingTheName) && ($content[$j] != "'")) {
-                                //store the character
-                                $fileName = $fileName.$content[$j];
-                            } else if (($readingTheName) && ($content[$j] == "'")) {
-                                $readingTheName = FALSE;
-                                $ended = TRUE;
-                            }
+
+        //this is the array containing names of all scss files
+        $scssFiles = [];
+
+        $openingANDClosingSCSSTags = [];
+
+        //compile any SCSS script included
+        $lastSCSSInclusionPosition = TRUE;
+        $searchStartingFrom = 0;
+        while ($lastSCSSInclusionPosition != FALSE) {
+            $lastSCSSInclusionPosition = strpos($content, $openSCSSInclusion, $searchStartingFrom);
+            $lastSCSSExclusionPosition = strpos($content, $closeSCSSInclusion, $searchStartingFrom);
+
+            //was the SCSS inclusion found?
+            if (($lastSCSSInclusionPosition != FALSE) && ($lastSCSSExclusionPosition != FALSE)) {
+                $searchStartingFrom = $lastSCSSExclusionPosition + strlen($closeSCSSInclusion);
+
+                $fileName = "";
+                $ended = FALSE;
+                $replacement = "";
+
+                //read the file name
+                $readingTheName = FALSE;
+                for ($j = $lastSCSSInclusionPosition; $j < ($lastSCSSExclusionPosition + strlen($closeSCSSInclusion)); $j++) {
+                    $replacement = $replacement . $content[$j];
+                    if (!$ended) {
+                        if ((!$readingTheName) && ($content[$j] == "'")) {
+                            $readingTheName = TRUE;
+                        } else if (($readingTheName) && ($content[$j] != "'")) {
+                            //store the character
+                            $fileName = $fileName . $content[$j];
+                        } else if (($readingTheName) && ($content[$j] == "'")) {
+                            $readingTheName = FALSE;
+                            $ended = TRUE;
                         }
                     }
-
-                    //check for the scss file to be recognized
-                    if ((($ended) && ($fileName == "")) || (!$ended)) {
-                        throw new Exception("Syntax error in scss inclusion usage");
-                    }
-
-                    //store the file name
-                    $scssFiles[] = $fileName;
-                    
-                    //store the opening and closing of the found scss inclusion tag
-                    $openingANDClosingSCSSTags[] = [0 => $lastSCSSInclusionPosition, 1 => ($lastSCSSExclusionPosition + strlen($closeSCSSInclusion)), 2 => $fileName, 3 => $replacement];
                 }
-            }
-            
-            //this is the number of compiled files
-            $numberOfCompiledFiles = 0;
-            
-            //this is the array of compiled scss files
-            $arrayOfSobstitutions = scssIntegration::MultipleFileCompilation($scssFiles, $numberOfCompiledFiles);
-            //and is organized like this: "file.scss" => "compiled-and-minified CSS content"
-            
-            //cycle each scss inclusion
-            for ($i = 0; $i < $numberOfCompiledFiles; $i++) {
-                //get everything necessary to replace a scss inclusion with the compilation result
-                $scssFile = $openingANDClosingSCSSTags[$i][2];
-                $srtTOReplace = $openingANDClosingSCSSTags[$i][3];
-                
-                //perform the css inclusion
-                $times = 0;
-                $content = str_replace($srtTOReplace, '<style type="text/css">'.$arrayOfSobstitutions[$scssFile].'</style>', $content, $times);
-                
-                //perform the error check
-                if ($times <= 0) {
-                    throw new Exception("An error occurred while processing a scss inclusion");
+
+                //check for the scss file to be recognized
+                if ((($ended) && ($fileName == "")) || (!$ended)) {
+                    throw new Exception("Syntax error in scss inclusion usage");
                 }
+
+                //store the file name
+                $scssFiles[] = $fileName;
+
+                //store the opening and closing of the found scss inclusion tag
+                $openingANDClosingSCSSTags[] = [0 => $lastSCSSInclusionPosition, 1 => ($lastSCSSExclusionPosition + strlen($closeSCSSInclusion)), 2 => $fileName, 3 => $replacement];
             }
+        }
+
+        //this is the number of compiled files
+        $numberOfCompiledFiles = 0;
+
+        //this is the array of compiled scss files
+        $arrayOfSobstitutions = scssIntegration::MultipleFileCompilation($scssFiles, $numberOfCompiledFiles);
+        //and is organized like this: "file.scss" => "compiled-and-minified CSS content"
+
+        //cycle each scss inclusion
+        for ($i = 0; $i < $numberOfCompiledFiles; $i++) {
+            //get everything necessary to replace a scss inclusion with the compilation result
+            $scssFile = $openingANDClosingSCSSTags[$i][2];
+            $srtTOReplace = $openingANDClosingSCSSTags[$i][3];
+
+            //perform the css inclusion
+            $times = 0;
+            $content = str_replace($srtTOReplace, '<style type="text/css">' . $arrayOfSobstitutions[$scssFile] . '</style>', $content, $times);
+        }
     }
 }

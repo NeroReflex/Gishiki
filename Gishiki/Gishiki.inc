@@ -50,7 +50,9 @@ include(ROOT."Gishiki".DS."serialization".DS."SerializationException.php");
 include(ROOT."Gishiki".DS."serialization".DS."DirectSerialization.php");
 
 //include the caching engine
-include(ROOT."Gishiki".DS."cache".DS."CacheManager.php");
+include(ROOT."Gishiki".DS."cache".DS."Cache.php");
+include(ROOT."Gishiki".DS."cache".DS."CacheConnectionString.php");
+include(ROOT."Gishiki".DS."cache".DS."CachedMinification.php");
 
 //include the cookie management system
 include(ROOT."Gishiki".DS."cookie".DS."CookieException.php");
@@ -77,9 +79,6 @@ include(ROOT."Gishiki".DS."minify".DS."Minify.inc");
 include(ROOT."Gishiki".DS."minify".DS."CSS.inc");
 include(ROOT."Gishiki".DS."minify".DS."JS.inc");
 include(ROOT."Gishiki".DS."minify".DS."Exception.inc");
-
-//include the minifier
-include(ROOT."Gishiki".DS."minify".DS."CachedMinification.inc");
 
 //include the less and scss compiler integration
 include(ROOT."Gishiki".DS."less".DS."lessIntegration.inc");

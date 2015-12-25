@@ -59,11 +59,17 @@ namespace Gishiki\Core {
             //this will be initialized later on if needed
             $this->resourceDetails = NULL;
             
-            //prepare the database connection
-            $this->databaseHandler = new \Gishiki\Database\Database($this->GetConfigurationProperty("CONNECTION_CONFIG"));
+            //prepare the database connection, but don't connect (yet)
+            $this->databaseHandler = new \Gishiki\Database\Database();
+            //the time to connect the database will come when including models
+
+            //initialize the caching engine
+            \Gishiki\Caching\Cache::Initialize();
 
             //prepare the cookie manager
             $this->Cookies = new \CookieProvider();
+
+
         }
 
         /**
@@ -110,7 +116,7 @@ namespace Gishiki\Core {
             if ((strtoupper($decoded[0]) == "RESOURCE") || (strtoupper($decoded[0]) == "STATIC")) {
                 //serve the static resource
                 $this->ServeStaticResource($decoded);
-            } if ((strtoupper($decoded[0]) == "SERVICE") || (strtoupper($decoded[0]) == "API")) {
+            } else if ((strtoupper($decoded[0]) == "SERVICE") || (strtoupper($decoded[0]) == "API")) {
                 //the resource that must be invoked
                 $resource = NULL;
 
@@ -182,6 +188,9 @@ namespace Gishiki\Core {
          * This is called if it is needed to include models from the models directory
          */
         private function IncludeModels() {
+            /*   models are used generally with a db, so try to connect the website/service db...   */
+            $this->databaseHandler->Connect($this->GetConfigurationProperty("CONNECTION_CONFIG"));
+
             /*    include every model inside the model directory    */
             //get the list of files inside the model direcotry (no: subdirectories are excluded)
             $incDir = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('MODEL_DIR');
@@ -440,7 +449,7 @@ namespace Gishiki\Core {
 
         /**
          * Load the framework configuration from the config file and return it in an
-         * format kwnow to the framework
+         * format kwnown to the framework
          */
         private function LoadConfiguration() {
             //setup a bare minimum configuration
@@ -456,8 +465,8 @@ namespace Gishiki\Core {
                 $config = Application::GetSettings();
                 //General Configuration
                 $this->configuration = [
-                    "DEVELOPMENT_ENVIRONMENT" => $config["general"]["development"],
-                    "ACTIVE_COMPRESSION" => $config["general"]["compression"],
+                    "DEVELOPMENT_ENVIRONMENT" => FALSE,
+                    "ACTIVE_COMPRESSION" => FALSE,
                 
                     //Security Settings
                     "SECURITY" => [
@@ -477,7 +486,6 @@ namespace Gishiki\Core {
                     //Filesystem Configuration
                     "FILESYSTEM" => [
                         "APPLICATION_DIRECTORY" => APPLICATION_DIR,
-                        "CACHE_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["cacheDirectory"].DS,
                         "INTERFACE_CONTROLLERS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["interfaceControllersDirectory"].DS,
                         "WEB_CONTROLLERS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["webControllersDirectory"].DS,
                         "MODELS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["modelsDirectory"].DS,
@@ -489,22 +497,38 @@ namespace Gishiki\Core {
                         "PASSIVE_ROUTING_FILE" => APPLICATION_DIR.$config["routing"]["passiveRules"],
                         "ACTIVE_ROUTING_FILE" => APPLICATION_DIR.$config["routing"]["activeRules"]
                     ],
+
+                    //Caching Configuration
+                    "CACHE" => [
+                        "ENABLED" => (($config["cache"]["enabled"] != NULL) && ($config["cache"]["enabled"] == TRUE)),
+                        "SERVER" => $config["cache"]["server"],
+
+                    ],
                     
                     //Routing Configuration
                     "ROUTING" => [
-                        "ENABLED" => $config["routing"]["routing"],
-                        "PASSIVE_ROUTING" => /*$RoutingRules*/[],
-                        "ACTIVE_ROUTING" => /*$RoutingRegex*/[],
+                        "ENABLED" => FALSE,
+                        "PASSIVE_ROUTING" => [],
+                        "ACTIVE_ROUTING" => [],
                     ],
                     
                     //database connection string
-                    "CONNECTION_STRING" => $config["database"]["connection"],
+                    "CONNECTION_STRING" => "",
                 ];
             }
             
-            if ($this->configuration["ROUTING"]["ENABLED"]) {
+            if (count($config) > 2) {
+                //get general environment configuration
+                $this->configuration["ACTIVE_COMPRESSION"] = $config["general"]["compression"];
+                $this->configuration["DEVELOPMENT_ENVIRONMENT"] = $config["general"]["development"];
+
+                //load the routing configuration
+                $this->configuration["ROUTING"]["ENABLED"] = $config["routing"]["routing"];
                 $this->configuration["ROUTING"]["PASSIVE_ROUTING"] = Routing::GetConfiguration($this->configuration["FILESYSTEM"]["PASSIVE_ROUTING_FILE"]);
                 $this->configuration["ROUTING"]["ACTIVE_ROUTING"] = Routing::GetConfiguration($this->configuration["FILESYSTEM"]["ACTIVE_ROUTING_FILE"]);
+
+                //load the database connection string
+                $this->configuration["CONNECTION_STRING"] = $config["database"]["connection"];
             }
             
             //check for the environment configuration
@@ -536,6 +560,12 @@ namespace Gishiki\Core {
          */
         public function GetConfigurationProperty($property) {
             switch(strtoupper($property)) {
+                case "CACHING_ENABLED":
+                    return $this->configuration["CACHE"]["ENABLED"];
+
+                case "CACHE_CONNECTION_STRING":
+                    return $this->configuration["CACHE"]["SERVER"];
+
                 case "CONNECTION_CONFIGURATION":
                 case "CONNECTION_CONFIG":
                     return $this->configuration["CONNECTION_STRING"];
@@ -578,10 +608,6 @@ namespace Gishiki\Core {
                 case "SCHEMATA_DIR":
                 case "SCHEMATA_DIRECTORY":
                     return $this->configuration["FILESYSTEM"]["SCHEMAS_DIRECTORY"];
-                    
-                case "CACHE_DIR":
-                case "CACHE_DIRECTORY":
-                    return $this->configuration["FILESYSTEM"]["CACHE_DIRECTORY"];
 
                 case "RESOURCE_DIR":
                 case "RESOURCE_DIRECTORY":
@@ -634,8 +660,8 @@ namespace Gishiki\Core {
          */
         static function ExtensionSupport($extensionAlias) {
             switch (strtoupper($extensionAlias)) {
-                case 'APC':
-                    return ((function_exists("apc_fetch")) && (function_exists("apc_store")));
+                case 'MEMCACHED':
+                    return class_exists("Memcached");
 
                 case 'OPENSSL':
                     return ((function_exists("openssl_pkey_get_private")) && (function_exists("openssl_verify")));
@@ -649,8 +675,8 @@ namespace Gishiki\Core {
                 case 'SIMPLEXML':
                     return class_exists("SimpleXMLElement");
 
-                case 'SQLITE':
-                    return class_exists("SQLite3");
+                case 'SQL':
+                    return extension_loaded('PDO');
                     
                 default:
                     return FALSE;

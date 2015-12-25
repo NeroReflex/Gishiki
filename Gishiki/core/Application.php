@@ -57,6 +57,9 @@ namespace Gishiki\Core {
         static function CreateNew() {
             //remove the php execution time limit
             set_time_limit(0);
+
+            //get a new password
+            $new_password = base64_encode(openssl_random_pseudo_bytes(256));
             
             //setup the error counter
             $errors = 0;
@@ -65,27 +68,12 @@ namespace Gishiki\Core {
                 if (!@mkdir(APPLICATION_DIR)) {
                     $errors++;
                 } else {
-                    file_put_contents(APPLICATION_DIR.".htaccess", "Deny from all", LOCK_EX);
+                    file_put_contents(APPLICATION_DIR . ".htaccess", "Deny from all", LOCK_EX);
                 }
             }
+
             
-            //get a new password
-            $new_password = base64_encode(openssl_random_pseudo_bytes(256));
-            
-            //check for prerequisites
-            if (!Environment::GetCurrentEnvironment()->ExtensionSupport('APC')) {
-                //show the warning to the user
-                echo "<div><b>APC:</b> Alternative PHP Caching extension is not installed, beside it is not necessary, it would increase performances and reduce disk usage.
-                <br />Please, install the APC extension for PHP. You can install it whenever you want.</div>";
-                
-                if ((!file_exists(APPLICATION_DIR."cache".DS)) && ($errors == 0)) {
-                    if (!@mkdir(APPLICATION_DIR."cache".DS)) {
-                        $errors++;
-                    }
-                }
-            }
-            
-            if (!Environment::GetCurrentEnvironment()->ExtensionSupport("SimpleXML")) {
+            /*if (!Environment::GetCurrentEnvironment()->ExtensionSupport("SimpleXML")) {
                 //update the number of errors
                 $errors++;
 
@@ -101,16 +89,7 @@ namespace Gishiki\Core {
                 //show the error to the user
                 echo "<div><b>OpenSSL:</b> OpenSSL PHP extension not installed, but it is required to install and run Gishiki.
                 <br />Please, install the OpenSSL extension for PHP and retry.</div>";
-            }
-        
-            if (!Environment::GetCurrentEnvironment()->ExtensionSupport("SQLite")) {
-                //update the number of errors
-                $errors++;
-
-                //show the error to the user
-                echo "<div><b>SQLite:</b> SQLite PHP extension not installed, but it is required to install and run Gishiki.
-                <br />Please, install the SQLite3 extension for PHP and retry.</div>";
-            }
+            }*/
             
             if ((!file_exists(APPLICATION_DIR."interfaceControllers".DS)) && ($errors == 0)) {
                 if (!@mkdir(APPLICATION_DIR."interfaceControllers".DS)) {
@@ -179,7 +158,6 @@ namespace Gishiki\Core {
                                 ."compression = off".PHP_EOL
                         .PHP_EOL."; filesystem related settings".PHP_EOL
                                 ."[filesystem]".PHP_EOL
-                                ."cacheDirectory = \"cache\"".PHP_EOL
                                 ."interfaceControllersDirectory = \"interfaceControllers\"".PHP_EOL
                                 ."webControllersDirectory = \"webControllers\"".PHP_EOL
                                 ."modelsDirectory = \"Models\"".PHP_EOL
@@ -206,7 +184,11 @@ namespace Gishiki\Core {
                                 ."activeRules = \"active_routing.cfg\"".PHP_EOL
                         .PHP_EOL."; database connection settings".PHP_EOL
                                 ."[database]".PHP_EOL
-                                ."connection = \"\"";
+                                ."connection = \"\""
+                        .PHP_EOL."; caching related settings".PHP_EOL
+                                ."[cache]".PHP_EOL
+                                ."enabled = false".PHP_EOL
+                                ."server = \"memcached://localhost:11211\"".PHP_EOL;
                 if (file_put_contents(APPLICATION_DIR."settings.ini", $configuration, LOCK_EX) === FALSE) {
                     $errors++;
                 }

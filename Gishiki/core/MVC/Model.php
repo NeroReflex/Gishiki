@@ -163,7 +163,7 @@ namespace Gishiki\Core\MVC {
          * @return ModelsCollection the collection of fetched models
          * @throws ModelException the error that prevents models to being retrived
          */
-        public static function Retrive($criteria) : ModelsCollection {
+        public static function Retrive($criteria)/* : ModelsCollection*/ {
             //this is the model rebuild result
             $models = [];
             

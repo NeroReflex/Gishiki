@@ -28,18 +28,18 @@ abstract class CachedMinification {
      * a second time if the file haven't changed from the last time it 
      * was minified
      * 
-     * @param string $resourcePath the server file path of the minified file to be minified
+     * @param string $resourcePath the server file path of the js file to be minified
      * @return string the minified JS
      */
     static function MinifyJavaScript($resourcePath) {
-        $minifiedHash = md5(filemtime($resourcePath)).".jsminified";
+        $minifiedHash = md5(filemtime($resourcePath).$resourcePath);
         
         //prepare the minified resource
         $minifiedResource = NULL;
         
-        if (CacheManager::Exists($minifiedHash)) {
+        if (\Gishiki\Caching\Cache::Exists($minifiedHash)) {
             //get the minified cached file
-            $minifiedResource = CacheManager::Fetch($minifiedHash);
+            $minifiedResource = \Gishiki\Caching\Cache::Fetch($minifiedHash);
         } else {
             //minify the js
             $minifier = new \MatthiasMullie\Minify\JS();
@@ -47,7 +47,7 @@ abstract class CachedMinification {
             $minifiedResource = $minifier->minify();
                     
             //and cache it
-            CacheManager::Store($minifiedHash, $minifiedResource);
+            \Gishiki\Caching\Cache::Store($minifiedHash, $minifiedResource);
         }
         
         //return the generated or fetched resource
@@ -59,18 +59,18 @@ abstract class CachedMinification {
      * a second time if the file haven't changed from the last time it 
      * was minified
      * 
-     * @param string $resourcePath the server file path of the minified file to be minified
+     * @param string $resourcePath the server file path of the css file to be minified
      * @return string the minified JS
      */
     static function MinifyCascadingSheetStyle($resourcePath) {
-        $minifiedHash = md5(filemtime($resourcePath)).".cssminified";
+        $minifiedHash = md5(filemtime($resourcePath).$resourcePath);
         
         //prepare the minified resource
         $minifiedResource = NULL;
         
-        if (CacheManager::Exists($minifiedHash)) {
+        if (\Gishiki\Caching\Cache::Exists($minifiedHash)) {
             //get the minified cached file
-            $minifiedResource = CacheManager::Fetch($minifiedHash);
+            $minifiedResource = \Gishiki\Caching\Cache::Fetch($minifiedHash);
         } else {
             //minify the js
             $minifier = new \MatthiasMullie\Minify\CSS();
@@ -78,7 +78,7 @@ abstract class CachedMinification {
             $minifiedResource = $minifier->minify();
                     
             //and cache it
-            CacheManager::Store($minifiedHash, $minifiedResource);
+            \Gishiki\Caching\Cache::Store($minifiedHash, $minifiedResource);
         }
         
         //return the generated or fetched resource

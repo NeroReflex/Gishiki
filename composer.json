@@ -1,0 +1,31 @@
+{
+  "name": "NeroReflex/Gishiki",
+  "description": "A modern and elegant MVC framework for PHP 7",
+  "type": "framework",
+  "keywords": ["database", "lightweight", "security", "PHP framework", "SQL", "MySQL", "MSSQL", "SQLite", "Sybase", "Oracle", "PGSQL"],
+  "minimum-stability": "alpha",
+  "license": "Apache License version 2.0",
+  "authors": [
+    {
+      "name": "Benato Denis",
+      "email": "benato.denis96@gmail.com"
+    }
+  ],
+
+  "require": {
+    "php": ">=7.0",
+    "lib-openssl": "*",
+    "lib-libxml": "*",
+    "lib-curl": "*",
+    "ext-pdo": "*"
+  },
+
+  "suggest": {
+    "ext-pdo_mysql": "For MySQL or MariaDB databases",
+    "ext-pdo_sqlsrv": "For MSSQL databases on Windows platform",
+    "ext-pdo_dblib": "For MSSQL or Sybase databases on Linux/UNIX platform",
+    "ext-pdo_oci": "For Oracle databases",
+    "ext-pdo_pqsql": "For PostgreSQL databases",
+    "ext-pdo_sqlite": "For SQLite databases"
+  }
+}

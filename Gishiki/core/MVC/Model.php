@@ -105,6 +105,9 @@ namespace Gishiki\Core\MVC {
                     throw new ModelException($dbGishikiException->getMessage(), 1);
                 }
             }
+
+            //return the ID of the object saved
+            return $this->uniqueIDOfSelf;
         }
         
         /**

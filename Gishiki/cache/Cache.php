@@ -54,12 +54,11 @@ namespace Gishiki\Caching {
                             self::$cacheServer["connection"]->setOption(\Memcached::OPT_SERVER_FAILURE_LIMIT, 50);
                             self::$cacheServer["connection"]->setOption(\Memcached::OPT_CONNECT_TIMEOUT, 500);
                             self::$cacheServer["connection"]->setOption(\Memcached::OPT_RETRY_TIMEOUT, 300);
+                            /* self::$cacheServer["connection"]->setOption(\Memcached::OPT_DISTRIBUTION, Memcached::DISTRIBUTION_CONSISTENT);
+                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_LIBKETAMA_COMPATIBLE, true); */
 
                             //suppress a warning on Memcached::append()
                             self::$cacheServer["connection"]->setOption(\Memcached::OPT_COMPRESSION, false);
-
-                            /* self::$cacheServer["connection"]->setOption(\Memcached::OPT_DISTRIBUTION, Memcached::DISTRIBUTION_CONSISTENT);
-                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_LIBKETAMA_COMPATIBLE, true); */
 
                             //connect to the memcached server
                             self::$cacheServer["connection"]->addServer(self::$cacheServer["details"]["server_address"], self::$cacheServer["details"]["server_port"]);
@@ -69,8 +68,9 @@ namespace Gishiki\Caching {
                         }
                         break;
 
-                    case "redis":
-
+                    case "filesystem":
+                        self::$connected = (file_exists(self::$cacheServer["details"]["directory"])) && (is_writable(self::$cacheServer["details"]["directory"]));
+                        var_dump(self::$cacheServer["details"]["directory"]);
                         break;
 
                     default:
@@ -91,8 +91,15 @@ namespace Gishiki\Caching {
             if ((self::$connected) && (gettype($cacheName) == "string") && ($cacheName != "")) {
 
                 //chose the proper way of storing the cache fragment
-                if (self::$cacheServer["details"]["server_type"] == "memcached") {
-                    self::$cacheServer["connection"]->set($cacheName, serialize($cacheValue));
+                switch (self::$cacheServer["details"]["server_type"]) {
+                    case "memcached":
+                        self::$cacheServer["connection"]->set($cacheName, serialize($cacheValue));
+                        break;
+
+                    case "filesystem":
+                        $filename = self::$cacheServer["details"]["directory"].self::$persistence_ID.md5($cacheName).".cachefragment";
+                        file_put_contents($filename, $cacheValue, LOCK_EX);
+                        break;
                 }
             }
         }
@@ -110,12 +117,17 @@ namespace Gishiki\Caching {
             //if a caching server is connected, and the cache fragment has a valid name
             if ((self::$connected) && (gettype($cacheName) == "string") && ($cacheName != "")) {
 
-                //chose the proper way of storing the cache fragment
-                if (self::$cacheServer["details"]["server_type"] == "memcached") {
-                    if (self::$cacheServer["connection"]->append($cacheName, "") != TRUE)
-                        $exists = self::$cacheServer["connection"]->getResultCode() !== \Memcached::RES_NOTSTORED;
-                    else
-                        $exists = TRUE;
+                //chose the proper way of checking the cache fragment
+                switch (self::$cacheServer["details"]["server_type"]) {
+                    case "memcached":
+                        if (self::$cacheServer["connection"]->append($cacheName, "") != TRUE)
+                            return self::$cacheServer["connection"]->getResultCode() !== \Memcached::RES_NOTSTORED;
+                        else
+                            return TRUE;
+                        break;
+
+                    case "filesystem":
+                        return file_exists(self::$cacheServer["details"]["directory"].self::$persistence_ID.md5($cacheName).".cachefragment");
                 }
             }
 
@@ -133,8 +145,12 @@ namespace Gishiki\Caching {
             if ((self::$connected) && (gettype($cacheName) == "string") && ($cacheName != "")) {
 
                 //chose the proper way of fetching the cache fragment
-                if (self::$cacheServer["details"]["server_type"] == "memcached") {
-                    return unserialize(self::$cacheServer["connection"]->get($cacheName));
+                switch (self::$cacheServer["details"]["server_type"]) {
+                    case "memcached":
+                        return unserialize(self::$cacheServer["connection"]->get($cacheName));
+
+                    case "filesystem":
+                        return unserialize(file_get_contents(self::$cacheServer["details"]["directory"].self::$persistence_ID.md5($cacheName).".cachefragment", FALSE));
                 }
             }
 
@@ -151,8 +167,15 @@ namespace Gishiki\Caching {
             if ((self::$connected) && (gettype($cacheName) == "string") && ($cacheName != "")) {
 
                 //chose the proper way of removing the cache fragment
-                if (self::$cacheServer["details"]["server_type"] == "memcached") {
-                    self::$cacheServer["connection"]->delete($cacheName);
+                switch (self::$cacheServer["details"]["server_type"]) {
+                    case "memcached":
+                        self::$cacheServer["connection"]->delete($cacheName);
+                        break;
+
+                    case "filesystem":
+                        if (self::Exists($cacheName))
+                            unlink(self::$cacheServer["details"]["directory"].self::$persistence_ID.md5($cacheName).".cachefragment");
+                        break;
                 }
             }
         }

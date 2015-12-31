@@ -136,7 +136,7 @@ namespace Gishiki\Core {
             }
             
             //try to create the log file
-            touch(APPLICATION_DIR."server_log.json");
+            touch(APPLICATION_DIR."server_log.xml");
             
             $passiveRoutingSetup = 
                     '"" > "Default/Index"'.PHP_EOL.
@@ -165,7 +165,7 @@ namespace Gishiki\Core {
                                 ."schemataDirectory = \"Schemas\"".PHP_EOL
                                 ."resourcesDirectory = \"Resources\"".PHP_EOL
                                 ."keysDirectory = \"Keyring\"".PHP_EOL
-                                ."logFile = \"server_log.json\"".PHP_EOL
+                                ."logFile = \"server_log.xml\"".PHP_EOL
                         .PHP_EOL."; do not change the serverPassword as it is the key of the serverKey".PHP_EOL
                                 ."[security]".PHP_EOL
                                 ."serverPassword = \"".$new_password."\"".PHP_EOL

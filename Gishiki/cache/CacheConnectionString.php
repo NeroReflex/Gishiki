@@ -40,11 +40,12 @@ namespace Gishiki\Caching {
             if (strlen($connectionString) > 0) {
                 //try fetching the caching server type, address and port
                 $strings = explode("://", $connectionString, 2);
-                if (($strings[0] == "memcached") || ($strings[0] == "memcache")) {
+                if ($strings[0] == "memcached") {
                     //update what is going to be returned
                     $conectionDetails = self::ParseMemcached($strings[1]);
-                } else {
-
+                } else if (($strings[0] == "directory") || ($strings[0] == "filesystem")) {
+                    //update what is going to be returned
+                    $conectionDetails = self::ParseFilesystem($strings[1]);
                 }
             }
             
@@ -72,6 +73,26 @@ namespace Gishiki\Caching {
                 "server_type" => "memcached",
                 "server_address" => $explosion[0],
                 "server_port" => intval($explosion[1]),
+            ];
+        }
+
+        /**
+         * Get the directory to be used as the caching entry.
+         * The string is given in form of "directory/" without "filesystem://" prepended
+         *
+         * @param string $directory the connection string
+         * @return array the connection details
+         */
+        static function ParseFilesystem($directory = "")/* : array*/ {
+            $directoryPath = "".$directory;
+            if ($directoryPath[strlen($directoryPath) - 1] != DS) {
+                $directoryPath .= DS;
+            }
+
+            //return the split result
+            return [
+                "server_type" => "filesystem",
+                "directory" => $directoryPath,
             ];
         }
     }

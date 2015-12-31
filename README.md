@@ -29,8 +29,16 @@ Gishiki support different database types out of the box:
 - Sybase
 
 ## Caching
-Gishiki gives you the ability of saving computational results into caching, saving time if the save computation is required once again in the future.
+Gishiki gives you the ability of saving computational results into caching, saving time if the same computation, with the same input is required once again in the future.
 Cache is managed automatically by Gishiki for most common operations.
+
+## Logging
+Gishiki gives you the power of logging what happens on your server. Gishiki automatically logs exceptions (including the stacktrace), but let you decide what you want to log, and gives you different levels of criticism for a log entry.
+Gishiki uses different logging technologies:
+
+- gelf
+- XML
+- JSON
 
 ## License
 Gishiki is released under Apache-2.0 license terms, read the LICENSE file to find out more!

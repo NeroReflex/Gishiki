@@ -165,7 +165,10 @@ namespace Gishiki\Core {
                                 ."schemataDirectory = \"Schemas\"".PHP_EOL
                                 ."resourcesDirectory = \"Resources\"".PHP_EOL
                                 ."keysDirectory = \"Keyring\"".PHP_EOL
-                                ."logFile = \"server_log.xml\"".PHP_EOL
+                        .PHP_EOL."; logging related settings".PHP_EOL
+                                ."[logging]".PHP_EOL
+                                ."enabled = true".PHP_EOL
+                                ."collectionSource = \"xml://server_log.xml\"".PHP_EOL
                         .PHP_EOL."; do not change the serverPassword as it is the key of the serverKey".PHP_EOL
                                 ."[security]".PHP_EOL
                                 ."serverPassword = \"".$new_password."\"".PHP_EOL

@@ -38,7 +38,29 @@ namespace Gishiki\Logging {
          */
         static function Initialize() {
             if (!self::$connected) {
+                //initialize the logging engine only if it is needed
+                if (\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('LOGGING_ENABLED')) {
+                    //parse the collection source string of log entries
+                    self::$logCollection["details"] = LogConnectionString::Parse(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("LOGGING_COLLECTION_SOURCE"));
 
+                    //connect the log collection source
+                    switch (self::$logCollection["details"]["source_type"]) {
+                        case "xml":
+                        case "json":
+                            //build the complete path to the log file
+                            self::$logCollection["connection"] = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("APPLICATION_DIR").self::$logCollection["details"]["source_file"];
+
+                            //create the file if it doesn't exists
+                            if (!file_exists(self::$logCollection["connection"]))
+                                touch(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("APPLICATION_DIR").self::$logCollection["details"]["source_file"]);
+
+                            //the source is connected
+                            self::$connected = TRUE;
+                        break;
+
+
+                    }
+                }
             }
         }
 

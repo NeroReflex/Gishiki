@@ -494,7 +494,6 @@ namespace Gishiki\Core {
                         "RESOURCES_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["resourcesDirectory"].DS,
                         "KEYS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["keysDirectory"].DS,
                         "SCHEMAS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["schemataDirectory"].DS,
-                        "LOG_FILE" => APPLICATION_DIR.$config["filesystem"]["logFile"],
                         "PASSIVE_ROUTING_FILE" => APPLICATION_DIR.$config["routing"]["passiveRules"],
                         "ACTIVE_ROUTING_FILE" => APPLICATION_DIR.$config["routing"]["activeRules"]
                     ],
@@ -505,7 +504,13 @@ namespace Gishiki\Core {
                         "SERVER" => $config["cache"]["server"],
 
                     ],
-                    
+
+                    //Logging configuration
+                    "LOG" => [
+                        "ENABLED" => FALSE,
+                        "SOURCES" => "",
+                    ],
+
                     //Routing Configuration
                     "ROUTING" => [
                         "ENABLED" => FALSE,
@@ -530,6 +535,10 @@ namespace Gishiki\Core {
 
                 //load the database connection string
                 $this->configuration["CONNECTION_STRING"] = $config["database"]["connection"];
+
+                //load logging configuration
+                $this->configuration["LOG"]["ENABLED"] = APPLICATION_DIR.$config["logging"]["enabled"];
+                $this->configuration["LOG"]["SOURCES"] = APPLICATION_DIR.$config["logging"]["collectionSource"];
             }
             
             //check for the environment configuration
@@ -561,6 +570,12 @@ namespace Gishiki\Core {
          */
         public function GetConfigurationProperty($property) {
             switch(strtoupper($property)) {
+                case "LOGGING_ENABLED":
+                    return $this->configuration["LOG"]["ENABLED"];
+
+                case "LOGGING_COLLECTION_SOURCE":
+                    return $this->configuration["LOG"]["SOURCES"];
+
                 case "CACHING_ENABLED":
                     return $this->configuration["CACHE"]["ENABLED"];
 
@@ -639,9 +654,6 @@ namespace Gishiki\Core {
                 case "APPLICATION_DIRECTORY":
                     return $this->configuration["FILESYSTEM"]["APPLICATION_DIRECTORY"];
 
-                case "LOG_FILE":
-                    return $this->configuration["FILESYSTEM"]["LOG_FILE"];
-                    
                 case "PASSIVE_ROUTING_FILE":
                     return ["FILESYSTEM"]["PASSIVE_ROUTING_FILE"];
                 

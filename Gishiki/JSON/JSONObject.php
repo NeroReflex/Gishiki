@@ -129,7 +129,30 @@ namespace Gishiki\JSON {
             //return the requested property
             return $toReturn;
         }
-        
+
+        /**
+         * remove from the current json object the property that has the given name.
+         * Be aware that a reset operation will be performed!
+         *
+         * @param string $propertyName the name of the property to be found
+         * @return \Gishiki\JSON\JSONProperty return the property of the current object or NULL if it is not found
+         */
+        public function RemovePropertyByName($propertyName) {
+            //get the property to be removed
+            $propertyToBeRemoved = $this->GetPropertyByName($propertyName);
+
+            //and remove it
+            if ($propertyToBeRemoved != NULL) {
+                //and delete it
+                if (($key = array_search($propertyToBeRemoved, $this->value)) !== false) {
+                    unset($this->value[$key]);
+                }
+            }
+
+            //reset the property pointer to the first element
+            $this->ResetProperties();
+        }
+
         /**
          * Add a JSON property to the current JSON object. 
          * Be aware that a reset operation will be performed!
@@ -137,9 +160,12 @@ namespace Gishiki\JSON {
          * @param \Gishiki\JSON\JSONProperty $newProperty the property to be added
          */
         public function AddProperty(JSONProperty $newProperty) {
+            //make sure there won't be another property with the same name
+            $this->RemovePropertyByName($newProperty->GetName());
+
             //store the new property
             $this->value[] = $newProperty;
-            
+
             //perform the reset
             $this->ResetProperties();
         }

@@ -56,6 +56,9 @@ namespace Gishiki\Core {
             //load the server configuration
             $this->LoadConfiguration();
 
+            //initialize the caching engine
+            \Gishiki\Logging\LogManagement::Initialize();
+
             //this will be initialized later on if needed
             $this->resourceDetails = NULL;
             
@@ -68,8 +71,6 @@ namespace Gishiki\Core {
 
             //prepare the cookie manager
             $this->Cookies = new \CookieProvider();
-
-
         }
 
         /**

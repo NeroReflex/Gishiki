@@ -25,6 +25,7 @@ include(ROOT."Gishiki".DS."core".DS."Routing.inc");
 //include the logging engine
 include(ROOT."Gishiki".DS."logs".DS."Priority.php");
 include(ROOT."Gishiki".DS."logs".DS."Log.php");
+include(ROOT."Gishiki".DS."logs".DS."LogManagement.php");
 
 //include the base class exception
 include(ROOT."Gishiki".DS."core".DS."Exception.php");

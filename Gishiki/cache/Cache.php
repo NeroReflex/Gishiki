@@ -38,43 +38,44 @@ namespace Gishiki\Caching {
          * Another call to this function won't produce any effects.
          */
         static function Initialize() {
-            //initialize the caching engine only if it is needed
-            if (\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('CACHING_ENABLED')) {
-                //parse the string stored to the application settings file
-                self::$cacheServer["details"] = CacheConnectionString::Parse(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("CACHE_CONNECTION_STRING"));
+            if (!self::$connected) {
+                //initialize the caching engine only if it is needed
+                if (\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('CACHING_ENABLED')) {
+                    //parse the string stored to the application settings file
+                    self::$cacheServer["details"] = CacheConnectionString::Parse(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("CACHE_CONNECTION_STRING"));
 
-                switch (self::$cacheServer["details"]["server_type"]) {
-                    case "memcached":
-                        if (\Gishiki\Core\Environment::ExtensionSupport("MEMCACHED")) {
-                            //open a new memcached instance
-                            self::$cacheServer["connection"] = new \Memcached(self::$persistence_ID);
-                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_RECV_TIMEOUT, 1000);
-                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_SEND_TIMEOUT, 1000);
-                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_TCP_NODELAY, true);
-                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_SERVER_FAILURE_LIMIT, 50);
-                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_CONNECT_TIMEOUT, 500);
-                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_RETRY_TIMEOUT, 300);
-                            /* self::$cacheServer["connection"]->setOption(\Memcached::OPT_DISTRIBUTION, Memcached::DISTRIBUTION_CONSISTENT);
-                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_LIBKETAMA_COMPATIBLE, true); */
+                    switch (self::$cacheServer["details"]["server_type"]) {
+                        case "memcached":
+                            if (\Gishiki\Core\Environment::ExtensionSupport("MEMCACHED")) {
+                                //open a new memcached instance
+                                self::$cacheServer["connection"] = new \Memcached(self::$persistence_ID);
+                                self::$cacheServer["connection"]->setOption(\Memcached::OPT_RECV_TIMEOUT, 1000);
+                                self::$cacheServer["connection"]->setOption(\Memcached::OPT_SEND_TIMEOUT, 1000);
+                                self::$cacheServer["connection"]->setOption(\Memcached::OPT_TCP_NODELAY, true);
+                                self::$cacheServer["connection"]->setOption(\Memcached::OPT_SERVER_FAILURE_LIMIT, 50);
+                                self::$cacheServer["connection"]->setOption(\Memcached::OPT_CONNECT_TIMEOUT, 500);
+                                self::$cacheServer["connection"]->setOption(\Memcached::OPT_RETRY_TIMEOUT, 300);
+                                /* self::$cacheServer["connection"]->setOption(\Memcached::OPT_DISTRIBUTION, Memcached::DISTRIBUTION_CONSISTENT);
+                                self::$cacheServer["connection"]->setOption(\Memcached::OPT_LIBKETAMA_COMPATIBLE, true); */
 
-                            //suppress a warning on Memcached::append()
-                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_COMPRESSION, false);
+                                //suppress a warning on Memcached::append()
+                                self::$cacheServer["connection"]->setOption(\Memcached::OPT_COMPRESSION, false);
 
-                            //connect to the memcached server
-                            self::$cacheServer["connection"]->addServer(self::$cacheServer["details"]["server_address"], self::$cacheServer["details"]["server_port"]);
+                                //connect to the memcached server
+                                self::$cacheServer["connection"]->addServer(self::$cacheServer["details"]["server_address"], self::$cacheServer["details"]["server_port"]);
 
-                            //was the server connected?
-                            self::$connected = count(self::$cacheServer["connection"]->getStats()) > 0;
-                        }
-                        break;
+                                //was the server connected?
+                                self::$connected = count(self::$cacheServer["connection"]->getStats()) > 0;
+                            }
+                            break;
 
-                    case "filesystem":
-                        self::$connected = (file_exists(self::$cacheServer["details"]["directory"])) && (is_writable(self::$cacheServer["details"]["directory"]));
-                        var_dump(self::$cacheServer["details"]["directory"]);
-                        break;
+                        case "filesystem":
+                            self::$connected = (file_exists(self::$cacheServer["details"]["directory"])) && (is_writable(self::$cacheServer["details"]["directory"]));
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
                 }
             }
         }

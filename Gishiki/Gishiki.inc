@@ -23,9 +23,12 @@ include(ROOT."Gishiki".DS."Version.inc");
 include(ROOT."Gishiki".DS."core".DS."Routing.inc");
 
 //include the logging engine
+include(ROOT."Gishiki".DS."logs".DS."Graylog2".DS."GELFMessage.inc");
+include(ROOT."Gishiki".DS."logs".DS."Graylog2".DS."GELFMessagePublisher.inc");
 include(ROOT."Gishiki".DS."logs".DS."Priority.php");
 include(ROOT."Gishiki".DS."logs".DS."Log.php");
 include(ROOT."Gishiki".DS."logs".DS."LogManagement.php");
+include(ROOT."Gishiki".DS."logs".DS."LogConnectionString.php");
 
 //include the base class exception
 include(ROOT."Gishiki".DS."core".DS."Exception.php");

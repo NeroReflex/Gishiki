@@ -58,7 +58,13 @@ namespace Gishiki\Logging {
                             self::$connected = TRUE;
                         break;
 
+                        case "graylog2":
+                            //build the connection to the server
+                            self::$logCollection["connection"] = new \GELFMessagePublisher(self::$logCollection["details"]["host"], self::$logCollection["details"]["port"]);
 
+                            //the source is connected
+                            self::$connected = TRUE;
+                            break;
                     }
                 }
             }
@@ -70,7 +76,32 @@ namespace Gishiki\Logging {
          * @param Log $entry the log entry to be saved/stored
          */
         static function Save(Log &$entry) {
+            //save the log entry only if the connection have been established
+            if (self::$connected) {
+                //choose the correct way of writing to the log collection
+                switch (self::$logCollection["details"]["source_type"]) {
+                    case "xml":
 
+                        break;
+
+                    case "json":
+
+                        break;
+
+                    case "graylog2":
+                        //build the GELF message
+                        $message = new \GELFMessage();
+
+                        //fill the message
+                        $message->setShortMessage($entry->GetShortMessage());
+                        $message->setFullMessage($entry->GetLongMessage());
+                        $message->setFacility($entry->GetFacility());
+
+                        //publish the log entry
+                        self::$logCollection["connection"]->publish($message);
+                        break;
+                }
+            }
         }
     }
 }

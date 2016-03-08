@@ -32,6 +32,45 @@ namespace Gishiki\Logging {
         protected static $logCollection;
 
         /**
+         * Parse the log source connection string
+         *
+         * @param $connectionString string the cache server connection string
+         * @return array the parsing results
+         */
+        static function ParseLogConnection($connectionString)/* : array*/
+        {
+            //create some empty log collection source details
+            $conectionDetails = [
+                "source_type" => "",
+            ];
+
+            //if the connection string is not empty.....
+            if (strlen($connectionString) > 0) {
+                //try fetching the log collection source type, address and port
+                $strings = explode("://", $connectionString, 2);
+                if (strtolower($strings[0]) == "log") {
+                    //update what is going to be returned
+                    $conectionDetails = [
+                        "source_type" => strtolower($strings[0]),
+                        "source_file" => \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').$strings[1]
+                    ];
+                } else if ((strtolower($strings[0]) == "graylog") || (strtolower($strings[0]) == "graylog2")) {
+                    //divide host from port
+                    $hostport = explode(":", $strings[1], 2);
+
+                    //return the parsed connection string
+                    return [
+                        "source_type" => "graylog2",
+                        "host" => $hostport[0],
+                        "port" => intval($hostport[1])
+                    ];
+                }
+            } var_dump($conectionDetails);
+            //return the connection details in form of an array
+            return $conectionDetails;
+        }
+
+        /**
          * Initialize the logging engine for the current request.
          * This function is automatically called by the framework.
          * Another call to this function won't produce any effects.
@@ -41,22 +80,16 @@ namespace Gishiki\Logging {
                 //initialize the logging engine only if it is needed
                 if (\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('LOGGING_ENABLED')) {
                     //parse the collection source string of log entries
-                    self::$logCollection["details"] = LogConnectionString::Parse(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("LOGGING_COLLECTION_SOURCE"));
+                    self::$logCollection["details"] = LogManagement::ParseLogConnection(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("LOGGING_COLLECTION_SOURCE"));
 
                     //connect the log collection source
                     switch (self::$logCollection["details"]["source_type"]) {
-                        case "xml":
-                        case "json":
-                            //build the complete path to the log file
-                            self::$logCollection["connection"] = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("APPLICATION_DIR").self::$logCollection["details"]["source_file"];
+                        case "log":
 
-                            //create the file if it doesn't exists
-                            if (!file_exists(self::$logCollection["connection"]))
-                                touch(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("APPLICATION_DIR").self::$logCollection["details"]["source_file"]);
 
                             //the source is connected
                             self::$connected = TRUE;
-                        break;
+                            break;
 
                         case "graylog2":
                             //build the connection to the server
@@ -80,11 +113,7 @@ namespace Gishiki\Logging {
             if (self::$connected) {
                 //choose the correct way of writing to the log collection
                 switch (self::$logCollection["details"]["source_type"]) {
-                    case "xml":
-
-                        break;
-
-                    case "json":
+                    case "log":
 
                         break;
 
@@ -96,6 +125,9 @@ namespace Gishiki\Logging {
                         $message->setShortMessage($entry->GetShortMessage());
                         $message->setFullMessage($entry->GetLongMessage());
                         $message->setFacility($entry->GetFacility());
+                        $message->setTimestamp($entry->GetTimestamp());
+                        $message->setAdditional("stacktrace", $entry->GetStacktrace());
+                        $message->setLevel($entry->GetLevel());
 
                         //publish the log entry
                         self::$logCollection["connection"]->publish($message);

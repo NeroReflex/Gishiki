@@ -28,7 +28,6 @@ include(ROOT."Gishiki".DS."logs".DS."Graylog2".DS."GELFMessagePublisher.inc");
 include(ROOT."Gishiki".DS."logs".DS."Priority.php");
 include(ROOT."Gishiki".DS."logs".DS."Log.php");
 include(ROOT."Gishiki".DS."logs".DS."LogManagement.php");
-include(ROOT."Gishiki".DS."logs".DS."LogConnectionString.php");
 
 //include the base class exception
 include(ROOT."Gishiki".DS."core".DS."Exception.php");

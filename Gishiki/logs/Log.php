@@ -129,6 +129,36 @@ namespace Gishiki\Logging {
         }
 
         /**
+         * Get the timestamp of the log entry
+         *
+         * @return integer the timestamp
+         */
+        public function GetTimestamp() {
+            //return the timestamp
+            return $this->unix_timestamp;
+        }
+
+        /**
+         * Get the stacktrace of the log entry
+         *
+         * @return string the timestamp
+         */
+        public function GetStacktrace() {
+            //return the stacktrace serialized
+            return json_encode($this->stackTrace);
+        }
+
+        /**
+         * Get the urgency level of the log entry
+         *
+         * @return string the level
+         */
+        public function GetLevel() {
+            //return the log level
+            return $this->level;
+        }
+
+        /**
          * Save the current log where it can be read in the future
          */
         public function Save() {

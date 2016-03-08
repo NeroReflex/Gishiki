@@ -65,7 +65,7 @@ namespace Gishiki\Logging {
                         "port" => intval($hostport[1])
                     ];
                 }
-            } var_dump($conectionDetails);
+            }
             //return the connection details in form of an array
             return $conectionDetails;
         }

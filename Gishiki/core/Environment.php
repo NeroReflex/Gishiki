@@ -537,8 +537,8 @@ namespace Gishiki\Core {
                 $this->configuration["CONNECTION_STRING"] = $config["database"]["connection"];
 
                 //load logging configuration
-                $this->configuration["LOG"]["ENABLED"] = $config["logging"]["enabled"];
-                $this->configuration["LOG"]["SOURCES"] = $config["logging"]["collectionSource"];
+                $this->configuration["LOG"]["ENABLED"] = $config["logging"]["forward_enabled"];
+                $this->configuration["LOG"]["SOURCES"] = $config["logging"]["forward_server"];
             }
             
             //check for the environment configuration

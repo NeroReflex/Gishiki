@@ -48,13 +48,7 @@ namespace Gishiki\Logging {
             if (strlen($connectionString) > 0) {
                 //try fetching the log collection source type, address and port
                 $strings = explode("://", $connectionString, 2);
-                if (strtolower($strings[0]) == "log") {
-                    //update what is going to be returned
-                    $conectionDetails = [
-                        "source_type" => strtolower($strings[0]),
-                        "source_file" => \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').$strings[1]
-                    ];
-                } else if ((strtolower($strings[0]) == "graylog") || (strtolower($strings[0]) == "graylog2")) {
+                if ((strtolower($strings[0]) == "graylog") || (strtolower($strings[0]) == "graylog2")) {
                     //divide host from port
                     $hostport = explode(":", $strings[1], 2);
 
@@ -84,19 +78,16 @@ namespace Gishiki\Logging {
 
                     //connect the log collection source
                     switch (self::$logCollection["details"]["source_type"]) {
-                        case "log":
-
-
-                            //the source is connected
-                            self::$connected = TRUE;
-                            break;
-
                         case "graylog2":
                             //build the connection to the server
                             self::$logCollection["connection"] = new \GELFMessagePublisher(self::$logCollection["details"]["host"], self::$logCollection["details"]["port"]);
 
                             //the source is connected
                             self::$connected = TRUE;
+                            break;
+
+                        default:
+
                             break;
                     }
                 }
@@ -109,14 +100,56 @@ namespace Gishiki\Logging {
          * @param Log $entry the log entry to be saved/stored
          */
         static function Save(Log &$entry) {
-            //save the log entry only if the connection have been established
+            //use syslog to store the log entry on the current machine
+            if (openlog("Gishiki" , LOG_NDELAY | LOG_PID, LOG_USER)) {
+                $log_priority = 0;
+                switch ($entry->GetLevel()) {
+                    case \Gishiki\Logging\Priority::DEBUG:
+                        $log_priority = LOG_DEBUG;
+                        break;
+
+                    case \Gishiki\Logging\Priority::ALERT:
+                        $log_priority = LOG_ALERT;
+                        break;
+
+                    case \Gishiki\Logging\Priority::CRITICAL:
+                        $log_priority = LOG_CRIT;
+                        break;
+
+                    case \Gishiki\Logging\Priority::EMERGENCY:
+                        $log_priority = LOG_EMERG;
+                        break;
+
+                    case \Gishiki\Logging\Priority::ERROR:
+                        $log_priority = LOG_ERR;
+                        break;
+
+                    case \Gishiki\Logging\Priority::INFO:
+                        $log_priority = LOG_INFO;
+                        break;
+
+                    case \Gishiki\Logging\Priority::NOTICE:
+                        $log_priority = LOG_NOTICE;
+                        break;
+
+                    case \Gishiki\Logging\Priority::WARNING:
+                        $log_priority = LOG_WARNING;
+                        break;
+
+                    default:
+                        $log_priority = LOG_CRIT;
+                        break;
+                }
+
+                //save the log using the UNIX standard logging ultility
+                syslog($log_priority, "[".$entry->GetTimestamp()."] (".$entry->GetShortMessage().") ".$entry->GetLongMessage()."");
+                closelog();
+            }
+
+            //forward the log entry only if the connection have been established
             if (self::$connected) {
                 //choose the correct way of writing to the log collection
                 switch (self::$logCollection["details"]["source_type"]) {
-                    case "log":
-
-                        break;
-
                     case "graylog2":
                         //build the GELF message
                         $message = new \GELFMessage();
@@ -124,13 +157,15 @@ namespace Gishiki\Logging {
                         //fill the message
                         $message->setShortMessage($entry->GetShortMessage());
                         $message->setFullMessage($entry->GetLongMessage());
-                        $message->setFacility($entry->GetFacility());
                         $message->setTimestamp($entry->GetTimestamp());
-                        $message->setAdditional("stacktrace", $entry->GetStacktrace());
                         $message->setLevel($entry->GetLevel());
 
                         //publish the log entry
                         self::$logCollection["connection"]->publish($message);
+                        break;
+
+                    default:
+
                         break;
                 }
             }

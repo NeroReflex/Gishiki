@@ -167,8 +167,8 @@ namespace Gishiki\Core {
                                 ."keysDirectory = \"Keyring\"".PHP_EOL
                         .PHP_EOL."; logging related settings".PHP_EOL
                                 ."[logging]".PHP_EOL
-                                ."enabled = true".PHP_EOL
-                                ."collectionSource = \"xml://server_log.xml\"".PHP_EOL
+                                ."forward_enabled = false".PHP_EOL
+                                ."forward_server = \"graylog2://127.0.0.1:3460\"".PHP_EOL
                         .PHP_EOL."; do not change the serverPassword as it is the key of the serverKey".PHP_EOL
                                 ."[security]".PHP_EOL
                                 ."serverPassword = \"".$new_password."\"".PHP_EOL

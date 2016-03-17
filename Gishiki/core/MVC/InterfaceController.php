@@ -27,16 +27,16 @@ namespace Gishiki\Core\MVC {
         /**
          * This is what a generic client has requested to your application
          * 
-         * @var \Gishiki\JSON\JSONObject the request made by the application through HTTP 
+         * @var array the request made by the application through HTTP
          */
         protected $Request;
         
         /**
-         * This is the response that will be given automatically to the client
+         * This is the response that will be sent automatically to the client
          * (at the end of the controller lifetime),
-         * the purpose of an interface controller is filling this JSON object 
+         * the purpose of an interface controller is filling this associative array
          * 
-         * @var \Gishiki\JSON\JSONObject the response that is going to be sent to the client 
+         * @var array the response that is going to be sent to the client
          */
         protected $Response;
 
@@ -47,7 +47,8 @@ namespace Gishiki\Core\MVC {
             //call the parent constructor
             parent::__construct();
             
-            
+            if (gettype($this->Request) != "array") $this->Request = array();
+            if (gettype($this->Response) != "array") $this->Response = array();
         }
 
         /**

@@ -122,7 +122,7 @@ namespace Gishiki\Core\MVC {
                     for ($i = 0; $i < $substitutions; $i++) {
                         $currentData = current($dataSubset);
                         $currentDataIndex = key($dataSubset);
-                        $content = str_replace("{{".$currentDataIndex."}}", $currentData, $content);
+                        $content = str_replace("{{".$currentDataIndex."}}", htmlentities($currentData, ENT_HTML5), $content);
                         next($dataSubset);
                     }
                 }

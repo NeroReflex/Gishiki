@@ -72,7 +72,7 @@ namespace Gishiki\Core {
                 }
             }
 
-            
+
             /*if (!Environment::GetCurrentEnvironment()->ExtensionSupport("SimpleXML")) {
                 //update the number of errors
                 $errors++;
@@ -81,7 +81,7 @@ namespace Gishiki\Core {
                 echo "<div><b>SimpleXML:</b> In order to install and run Gishiki you need (at least) PHP 5.3 compiled with SimpleXML enabled.
                 <br />Please, install a supported PHP version and retry.</div>";
             }
-        
+
             if (!Environment::GetCurrentEnvironment()->ExtensionSupport("openssl")) {
                 //update the number of errors
                 $errors++;

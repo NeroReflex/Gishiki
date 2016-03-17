@@ -223,7 +223,10 @@ namespace Gishiki\Core {
             header('Content-Type: application/json');
 
             //setup the json response
-            $response = new \Gishiki\JSON\JSONObject();
+            $response = array(
+                //append the timestamp to the response
+                "TIMESTAMP" => time()
+            );
 
             try {
                 //deserialize the request
@@ -281,10 +284,10 @@ namespace Gishiki\Core {
                 }
             } catch (\Gishiki\JSON\JSONException $ex) {
                 //add "Error": 1 to the JSON response
-                $response->AddProperty(new \Gishiki\JSON\JSONProperty("Error", new \Gishiki\JSON\JSONInteger(1)));
+                $response["Error"] = 1;
                 
                 //add the error message
-                $response->AddProperty(new \Gishiki\JSON\JSONProperty("ErrorDetails", new \Gishiki\JSON\JSONString($ex->getMessage())));
+                $response["ErrorDetails"] = $ex->getMessage();
                 
                 //give response
                 echo(\Gishiki\JSON\JSON::SerializeToString($response));

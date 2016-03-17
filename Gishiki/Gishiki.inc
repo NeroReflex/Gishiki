@@ -34,14 +34,6 @@ include(ROOT."Gishiki".DS."core".DS."Exception.php");
 
 //include the JSON manager
 include(ROOT."Gishiki".DS."JSON".DS."JSONException.php");
-include(ROOT."Gishiki".DS."JSON".DS."JSONValueType.php");
-include(ROOT."Gishiki".DS."JSON".DS."JSONValue.php");
-include(ROOT."Gishiki".DS."JSON".DS."JSONObject.php");
-include(ROOT."Gishiki".DS."JSON".DS."JSONString.php");
-include(ROOT."Gishiki".DS."JSON".DS."JSONInteger.php");
-include(ROOT."Gishiki".DS."JSON".DS."JSONFloat.php");
-include(ROOT."Gishiki".DS."JSON".DS."JSONBoolean.php");
-include(ROOT."Gishiki".DS."JSON".DS."JSONProperty.php");
 include(ROOT."Gishiki".DS."JSON".DS."JSON.php");
 
 //include generic algorithms

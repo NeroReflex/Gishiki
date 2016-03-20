@@ -542,6 +542,9 @@ namespace Gishiki\Core {
                 //load logging configuration
                 $this->configuration["LOG"]["ENABLED"] = $config["logging"]["forward_enabled"];
                 $this->configuration["LOG"]["SOURCES"] = $config["logging"]["forward_server"];
+                
+                //load the service interface external source
+                $this->configuration["FILESYSTEM"]["SERVICE_HOST"] = $config["filesystem"]["interfaceControllerHost"];
             }
             
             //check for the environment configuration
@@ -573,6 +576,9 @@ namespace Gishiki\Core {
          */
         public function GetConfigurationProperty($property) {
             switch(strtoupper($property)) {
+                case "INTERFACE_SERVICE_HOST":
+                    return $this->configuration["FILESYSTEM"]["SERVICE_HOST"];
+                
                 case "LOGGING_ENABLED":
                     return $this->configuration["LOG"]["ENABLED"];
 

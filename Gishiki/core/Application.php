@@ -158,6 +158,7 @@ namespace Gishiki\Core {
                                 ."compression = off".PHP_EOL
                         .PHP_EOL."; filesystem related settings".PHP_EOL
                                 ."[filesystem]".PHP_EOL
+                                ."interfaceControllerHost= \"http://localhost:80\"".PHP_EOL
                                 ."interfaceControllersDirectory = \"interfaceControllers\"".PHP_EOL
                                 ."webControllersDirectory = \"webControllers\"".PHP_EOL
                                 ."modelsDirectory = \"Models\"".PHP_EOL

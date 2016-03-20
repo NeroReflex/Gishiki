@@ -63,6 +63,52 @@ namespace Gishiki\Core\MVC {
         }
         
         /**
+         * Perform a call to the specified interface controller over the HTTP protocol.
+         * The service host is the server that exposes the given interface controllers as an API.
+         * 
+         * @param string $service_name the name of the interface controller
+         * @param string $service_action the name of the subroutine that the interface controller must execute
+         * @param array  $service_details additionals details that are required and used by the given subroutine
+         * 
+         * @return array the result of the subroutin execution
+         */
+        protected function API_Call($service_name, $service_action, $service_details) /*: array */ {
+            //check for data validity
+            if (strlen($service_name) == 0) $service_name = "Default";
+            if (strlen($service_action) == 0) $service_action = "Index";
+            if (gettype($service_details) != "array") $service_details = array();
+            
+            //build the request URL
+            $request_URL = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("INTERFACE_SERVICE_HOST")."/API/".$service_name."/".$service_action;
+
+            //pass request details as a json
+            $request_details = json_encode($service_details);
+            
+            // create a new cURL resource
+            $api_call = curl_init();
+
+            //build the cURL request to be performed
+            curl_setopt_array($api_call, [ 
+                CURLOPT_POST => true, 
+                CURLOPT_HEADER => false, 
+                CURLOPT_URL => $request_URL,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_CONNECTTIMEOUT => 5,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_POSTFIELDS => http_build_query(array("data" => $request_details)) 
+            ]);
+            
+            // grab URL and pass it to the browser
+            $result_details = curl_exec($api_call);
+
+            // close cURL resource, and free up system resources
+            curl_close($api_call);
+            
+            //return the API call result
+            return json_decode($result_details);
+        }
+        
+        /**
          * Return what the request detail at the given index
          * 
          * @param integer $argumentNumber the index number of the searched argument

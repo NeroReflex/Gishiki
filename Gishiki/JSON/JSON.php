@@ -34,26 +34,19 @@ namespace Gishiki\JSON {
          * @throws \Gishiki\JSON\JSONException the error that prevents this JSON to be deserialized
          */
         static function DeSerializeFromString($jsonAsString) {
-            //check if the given data is a valid string
-            if (gettype($jsonAsString) != "string") {
-                throw new JSONException("The given data is not a valid utf8 string", 0);
-            }
-            
             //try decoding the string
             $nativeSerialization = json_decode($jsonAsString, TRUE);
             
             //and check for the result
-            if (json_last_error() == JSON_ERROR_NONE) {
-                //the deserialization result MUST be an array
-                if (gettype($nativeSerialization) != "array") $nativeSerialization = [];
-
-                //return the deserialization result if everything went right
-                return $nativeSerialization;
-            } else {
+            if (json_last_error() != JSON_ERROR_NONE) {
                 throw new JSONException("The given string is not a valid JSON content", 1);
             }
+            
+            //the deserialization result MUST be an array
+            if (gettype($nativeSerialization) != "array") $nativeSerialization = [];
 
-
+            //return the deserialization result if everything went right
+            return $nativeSerialization;
         }
         
         /**

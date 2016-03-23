@@ -71,25 +71,6 @@ namespace Gishiki\Core {
                     file_put_contents(APPLICATION_DIR . ".htaccess", "Deny from all", LOCK_EX);
                 }
             }
-
-
-            /*if (!Environment::GetCurrentEnvironment()->ExtensionSupport("SimpleXML")) {
-                //update the number of errors
-                $errors++;
-
-                //show the error to the user
-                echo "<div><b>SimpleXML:</b> In order to install and run Gishiki you need (at least) PHP 5.3 compiled with SimpleXML enabled.
-                <br />Please, install a supported PHP version and retry.</div>";
-            }
-
-            if (!Environment::GetCurrentEnvironment()->ExtensionSupport("openssl")) {
-                //update the number of errors
-                $errors++;
-
-                //show the error to the user
-                echo "<div><b>OpenSSL:</b> OpenSSL PHP extension not installed, but it is required to install and run Gishiki.
-                <br />Please, install the OpenSSL extension for PHP and retry.</div>";
-            }*/
             
             if ((!file_exists(APPLICATION_DIR."interfaceControllers".DS)) && ($errors == 0)) {
                 if (!@mkdir(APPLICATION_DIR."interfaceControllers".DS)) {
@@ -158,18 +139,9 @@ namespace Gishiki\Core {
                                 ."compression = off".PHP_EOL
                         .PHP_EOL."; filesystem related settings".PHP_EOL
                                 ."[filesystem]".PHP_EOL
-                                ."interfaceControllerHost= \"http://localhost:80\"".PHP_EOL
-                                ."interfaceControllersDirectory = \"interfaceControllers\"".PHP_EOL
-                                ."webControllersDirectory = \"webControllers\"".PHP_EOL
+                                ."interfaceControllerHostSSL = false".PHP_EOL
+                                ."interfaceControllerHost = \"localhost:80\"".PHP_EOL
                                 ."modelsDirectory = \"Models\"".PHP_EOL
-                                ."viewsDirectory = \"Views\"".PHP_EOL
-                                ."schemataDirectory = \"Schemas\"".PHP_EOL
-                                ."resourcesDirectory = \"Resources\"".PHP_EOL
-                                ."keysDirectory = \"Keyring\"".PHP_EOL
-                        .PHP_EOL."; logging related settings".PHP_EOL
-                                ."[logging]".PHP_EOL
-                                ."forward_enabled = false".PHP_EOL
-                                ."forward_server = \"graylog2://127.0.0.1:3460\"".PHP_EOL
                         .PHP_EOL."; do not change the serverPassword as it is the key of the serverKey".PHP_EOL
                                 ."[security]".PHP_EOL
                                 ."serverPassword = \"".$new_password."\"".PHP_EOL

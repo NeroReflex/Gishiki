@@ -128,11 +128,54 @@ namespace Gishiki\Logging {
         }
 
         /**
-         * Save the current log where it can be read in the future
+         * Save the current log entry using syslogd
          */
         public function Save() {
-           //use the log management to save the current log entry
-           LogManagement::Save($this);
+           //use syslog to store the log entry on the current machine
+            if (openlog("Gishiki" , LOG_NDELAY | LOG_PID, LOG_USER)) {
+                $log_priority = 0;
+                switch ($this->GetLevel()) {
+                    case \Gishiki\Logging\Priority::DEBUG:
+                        $log_priority = LOG_DEBUG;
+                        break;
+
+                    case \Gishiki\Logging\Priority::ALERT:
+                        $log_priority = LOG_ALERT;
+                        break;
+
+                    case \Gishiki\Logging\Priority::CRITICAL:
+                        $log_priority = LOG_CRIT;
+                        break;
+
+                    case \Gishiki\Logging\Priority::EMERGENCY:
+                        $log_priority = LOG_EMERG;
+                        break;
+
+                    case \Gishiki\Logging\Priority::ERROR:
+                        $log_priority = LOG_ERR;
+                        break;
+
+                    case \Gishiki\Logging\Priority::INFO:
+                        $log_priority = LOG_INFO;
+                        break;
+
+                    case \Gishiki\Logging\Priority::NOTICE:
+                        $log_priority = LOG_NOTICE;
+                        break;
+
+                    case \Gishiki\Logging\Priority::WARNING:
+                        $log_priority = LOG_WARNING;
+                        break;
+
+                    default:
+                        $log_priority = LOG_CRIT;
+                        break;
+                }
+
+                //save the log using the UNIX standard logging ultility
+                syslog($log_priority, "[".$this->GetTimestamp()."] (".$this->GetShortMessage().") ".$this->GetLongMessage()."");
+                closelog();
+            }
         }
     }
 

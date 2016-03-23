@@ -100,7 +100,10 @@ namespace Gishiki\Core\MVC {
             
             // grab URL and pass it to the browser
             $result_details = curl_exec($api_call);
-
+            if ($result_details === false) {
+                throw new APICallException(curl_error($api_call), curl_errno($api_call));
+            }
+            
             // close cURL resource, and free up system resources
             curl_close($api_call);
             

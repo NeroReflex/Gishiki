@@ -184,33 +184,6 @@ namespace Gishiki\Core {
                 $this->ExecuteWebController($resource);
             }
         }
-
-        /**
-         * This is called if it is needed to include models from the models directory
-         */
-        private function IncludeModels() {
-            /*   models are used generally with a db, so try to connect the website/service db...   */
-            $this->databaseHandler->Connect($this->GetConfigurationProperty("CONNECTION_CONFIG"));
-
-            /*    include every model inside the model directory    */
-            //get the list of files inside the model direcotry (no: subdirectories are excluded)
-            $incDir = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('MODEL_DIR');
-            $dh  = opendir($incDir);
-            while (false !== ($filename = readdir($dh))) {
-                $files[] = $filename;
-            }
-            sort($files);
-            rsort($files);
-            
-            //include each file with the ".php" extension
-            foreach ($files as $file) {
-                if (strlen($file) >= 5) {
-                    if (strtolower(substr($file, strlen($file) - 4)) == ".php") {
-                        include($incDir.$file);
-                    }
-                }
-            }
-        }
         
         /**
          * Execute the requested interface controller
@@ -234,9 +207,6 @@ namespace Gishiki\Core {
                 
                 if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('CONTROLLER_DIR').$resource["controllerClass"].".php"))
                 {
-                    //a controller is going to be executed, so load every model
-                    $this->IncludeModels();
-
                     //require the controller file
                     include(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('CONTROLLER_DIR').$resource["controllerClass"].".php");
 
@@ -302,47 +272,45 @@ namespace Gishiki\Core {
         private function ExecuteWebController($resource) {
             if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('WEB_CONTROLLER_DIR').$resource["controllerClass"].".php"))
             {
-                //a controller is going to be executed, so load every model
-                $this->IncludeModels();
-                
                 //require the controller file
                 include(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('WEB_CONTROLLER_DIR').$resource["controllerClass"].".php");
 
                 //check for the class existence
                 if (class_exists($resource["controllerClass"]."_Controller")) {
-                    if (get_parent_class($resource["controllerClass"]."_Controller") == "Gishiki\\Core\\MVC\\Gishiki_WebController") {
-                        //prepare the name of the class and reflect the class with the given name
-                        $reflectedControllerClass = new \ReflectionClass($resource["controllerClass"]."_Controller");
+                    /*if (get_parent_class($resource["controllerClass"]."_Controller") == "Gishiki\\Core\\MVC\\Gishiki_WebController") {
+                     */
+                    //prepare the name of the class and reflect the class with the given name
+                    $reflectedControllerClass = new \ReflectionClass($resource["controllerClass"]."_Controller");
 
-                        //instantiate a new object from the reflected controller class
-                        $ctrl = $reflectedControllerClass->newInstance();
+                    //instantiate a new object from the reflected controller class
+                    $ctrl = $reflectedControllerClass->newInstance();
 
-                        //bind the additional request details to the current controller
-                        $reflectedControllersDetails = new \ReflectionProperty($ctrl, "receivedDetails");
-                        $reflectedControllersDetails->setAccessible(TRUE);
-                        $reflectedControllersDetails->setValue($ctrl, $this->resourceDetails);
+                    //bind the additional request details to the current controller
+                    $reflectedControllersDetails = new \ReflectionProperty($ctrl, "receivedDetails");
+                    $reflectedControllersDetails->setAccessible(TRUE);
+                    $reflectedControllersDetails->setValue($ctrl, $this->resourceDetails);
 
-                        //check for action existence
-                        if (method_exists($ctrl, $resource["controllerAction"])) {
-                            //call the method inside the controller instantiated object
-                            $action = new \ReflectionMethod($ctrl, $resource["controllerAction"]);
-                            $action->setAccessible(TRUE);
-                            $action->invoke($ctrl);
-                        } else { //display the custom error page
-                            $errorResource = [
-                                "controllerClass" => "Error",
-                                "controllerAction" => "InvalidAction"
-                            ];
+                    //check for action existence
+                    if (method_exists($ctrl, $resource["controllerAction"])) {
+                        //call the method inside the controller instantiated object
+                        $action = new \ReflectionMethod($ctrl, $resource["controllerAction"]);
+                        $action->setAccessible(TRUE);
+                        $action->invoke($ctrl);
+                    } else { //display the custom error page
+                        $errorResource = [
+                            "controllerClass" => "Error",
+                            "controllerAction" => "InvalidAction"
+                        ];
 
-                            if ($resource["controllerClass"] != "Error") {
-                                $this->ExecuteWebController($errorResource);
-                            } else {
-                                exit("The requested resource cannot be found and the error controller is not deployed");
-                            }
+                        if ($resource["controllerClass"] != "Error") {
+                            $this->ExecuteWebController($errorResource);
+                        } else {
+                            exit("The requested resource cannot be found and the error controller is not deployed");
                         }
-                    } else { //the controller is not a valid controller
-                        exit("a valid controller must inherit from the Gishiki_WebController class.");    
                     }
+                    /*} else { //the controller is not a valid controller
+                        exit("a valid controller must inherit from the Gishiki_WebController class.");    
+                    }*/
                 } else { //display the custom error page
                     $errorResource = [
                         "controllerClass" => "Error",
@@ -490,12 +458,12 @@ namespace Gishiki\Core {
                     //Filesystem Configuration
                     "FILESYSTEM" => [
                         "APPLICATION_DIRECTORY" => APPLICATION_DIR,
-                        "INTERFACE_CONTROLLERS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["interfaceControllersDirectory"].DS,
-                        "WEB_CONTROLLERS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["webControllersDirectory"].DS,
+                        "INTERFACE_CONTROLLERS_DIRECTORY" => APPLICATION_DIR."Services".DS,
+                        "WEB_CONTROLLERS_DIRECTORY" => APPLICATION_DIR."Controllers".DS,
                         "MODELS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["modelsDirectory"].DS,
-                        "VIEWS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["viewsDirectory"].DS,
-                        "RESOURCES_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["resourcesDirectory"].DS,
-                        "KEYS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["keysDirectory"].DS,
+                        "VIEWS_DIRECTORY" => APPLICATION_DIR."Views".DS,
+                        "RESOURCES_DIRECTORY" => APPLICATION_DIR."Resources".DS,
+                        "KEYS_DIRECTORY" => APPLICATION_DIR."Keyring".DS,
                         "SCHEMAS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["schemataDirectory"].DS,
                         "PASSIVE_ROUTING_FILE" => APPLICATION_DIR.$config["routing"]["passiveRules"],
                         "ACTIVE_ROUTING_FILE" => APPLICATION_DIR.$config["routing"]["activeRules"]
@@ -506,12 +474,6 @@ namespace Gishiki\Core {
                         "ENABLED" => (($config["cache"]["enabled"] != NULL) && ($config["cache"]["enabled"] == TRUE)),
                         "SERVER" => $config["cache"]["server"],
 
-                    ],
-
-                    //Logging configuration
-                    "LOG" => [
-                        "ENABLED" => FALSE,
-                        "SOURCES" => "",
                     ],
 
                     //Routing Configuration
@@ -538,13 +500,14 @@ namespace Gishiki\Core {
 
                 //load the database connection string
                 $this->configuration["CONNECTION_STRING"] = $config["database"]["connection"];
-
-                //load logging configuration
-                $this->configuration["LOG"]["ENABLED"] = $config["logging"]["forward_enabled"];
-                $this->configuration["LOG"]["SOURCES"] = $config["logging"]["forward_server"];
                 
                 //load the service interface external source
-                $this->configuration["FILESYSTEM"]["SERVICE_HOST"] = $config["filesystem"]["interfaceControllerHost"];
+                $protocol = "http://";
+                if ($config["filesystem"]["interfaceControllerHostSSL"]) {
+                    $protocol = "https://";
+                }
+                $this->configuration["FILESYSTEM"]["SERVICE_HOST"] = $protocol.$config["filesystem"]["interfaceControllerHost"];
+                
             }
             
             //check for the environment configuration

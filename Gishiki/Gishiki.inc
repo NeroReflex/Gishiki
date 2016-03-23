@@ -23,11 +23,8 @@ include(ROOT."Gishiki".DS."Version.inc");
 include(ROOT."Gishiki".DS."core".DS."Routing.inc");
 
 //include the logging engine
-include(ROOT."Gishiki".DS."logs".DS."Graylog2".DS."GELFMessage.inc");
-include(ROOT."Gishiki".DS."logs".DS."Graylog2".DS."GELFMessagePublisher.inc");
 include(ROOT."Gishiki".DS."logs".DS."Priority.php");
 include(ROOT."Gishiki".DS."logs".DS."Log.php");
-include(ROOT."Gishiki".DS."logs".DS."LogManagement.php");
 
 //include the base class exception
 include(ROOT."Gishiki".DS."core".DS."Exception.php");
@@ -80,6 +77,7 @@ include(ROOT."Gishiki".DS."less".DS."lessIntegration.inc");
 include(ROOT."Gishiki".DS."scss".DS."scssIntegration.inc");
 
 //require base model and controller classes
+include(ROOT."Gishiki".DS."core".DS."MVC".DS."APICallException.php");
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."ModelException.php");
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."ModelsCollection.php");
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."Model.php");
@@ -92,16 +90,6 @@ include(ROOT."Gishiki".DS."core".DS."Environment.php");
 
 //include the application manager
 include(ROOT."Gishiki".DS."core".DS."Application.php");
-
-//include the schema manager
-include(ROOT."Gishiki".DS."database".DS."medoo".DS."medoo.php");
-include(ROOT."Gishiki".DS."database".DS."DataTypes.php");
-include(ROOT."Gishiki".DS."database".DS."SchemaException.php");
-include(ROOT."Gishiki".DS."database".DS."DatabaseException.php");
-include(ROOT."Gishiki".DS."database".DS."Schema.php");
-include(ROOT."Gishiki".DS."database".DS."DatabaseType.php");
-include(ROOT."Gishiki".DS."database".DS."Database.php");
-include(ROOT."Gishiki".DS."database".DS."ConnectionString.inc");
 
 //this is the environment used to fulfill the incoming request
 $executionEnvironment = NULL;
@@ -138,7 +126,9 @@ class Gishiki {
     }
     
     /**
-     * Execute the requested control-model-view operations
+     * Execute the requested operation.
+     * That operation can be the execution of a service, controller or 
+     * the response with a static content
      * 
      * @param string $request the requested resource
      */
@@ -161,26 +151,5 @@ class Gishiki {
         //fulfill the client request
         global $executionEnvironment;
         $executionEnvironment->FulfillRequest($request);
-    }
-    
-    /**
-     * Get the current framework version
-     * 
-     * @return integer a number that identify the framework version
-     */
-    static function GetCurrentVersion()
-    {
-        $versionNumber = (GISHIKI_MAJOR * 100) + ((GISHIKI_MINOR % 10) * 10) + (GISHIKI_REVISION % 10);
-        
-        //return the retrived version as a single number
-        return $versionNumber;
-    }
-    
-    /**
-     * Install the framework
-     */
-    static function Install()
-    {
-        
     }
 }

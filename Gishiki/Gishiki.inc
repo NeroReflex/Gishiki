@@ -73,7 +73,7 @@ include(ROOT."Gishiki".DS."minify".DS."Exception.inc");
 include(ROOT."Gishiki".DS."less".DS."lessIntegration.inc");
 include(ROOT."Gishiki".DS."scss".DS."scssIntegration.inc");
 
-//require base model and controller classes
+//require base controller classes
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."APICallException.php");
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."Controller.php");
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."WebController.php");
@@ -97,7 +97,7 @@ $executionEnvironment = NULL;
 class Gishiki {
     /**
      * Initialize the Gishiki engine and prepare for
-     *  the execution of the framework
+     * the execution of a framework instance
      */
     static function Initialize()
     {
@@ -114,25 +114,21 @@ class Gishiki {
     
     /**
      * Execute the requested operation.
-     * That operation can be the execution of a service, controller or 
-     * the response with a static content
+     * That operation can be the execution of a service,
+     * a controller or the fetch of static content.
      * 
      * @param string $request the requested resource
      */
     static function Run($request)
     {
         if (strlen($request) >= 1) {
-            //remove the final / as it is not needed and may become a problem
-            if ($request[strlen($request) - 1] == '/') {
-                $request = substr($request, 0, strlen($request) - 1);
-            }
+            if ($request[strlen($request) - 1] == '/') //remove the final / as it is not needed and may become a problem
+            {   $request = substr($request, 0, strlen($request) - 1);   }
         }
         
         if (strlen($request) >= 1) {
-            //remove the starting / as it is not needed and may become a problem
-            if ($request[0] == '/') {
-                $request = substr($request, 1, strlen($request));
-            }
+            if ($request[0] == '/') //remove the starting / as it is not needed and may become a problem
+            {   $request = substr($request, 1, strlen($request));   }
         }
         
         //fulfill the client request

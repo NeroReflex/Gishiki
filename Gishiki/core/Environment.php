@@ -400,13 +400,10 @@ namespace Gishiki\Core {
 
             //get the security configuration of the current application
             $config = [];
-            if (Application::CheckExistence()) {
+            if (Application::Exists()) {
                 $config = Application::GetSettings();
                 //General Configuration
                 $this->configuration = [
-                    "DEVELOPMENT_ENVIRONMENT" => FALSE,
-                    "ACTIVE_COMPRESSION" => FALSE,
-                
                     //Security Settings
                     "SECURITY" => [
                         "MASTER_SYMMETRIC_KEY" => $config["security"]["serverPassword"],
@@ -424,13 +421,6 @@ namespace Gishiki\Core {
 
                     //Filesystem Configuration
                     "FILESYSTEM" => [
-                        "APPLICATION_DIRECTORY" => APPLICATION_DIR,
-                        "INTERFACE_CONTROLLERS_DIRECTORY" => APPLICATION_DIR."Services".DS,
-                        "WEB_CONTROLLERS_DIRECTORY" => APPLICATION_DIR."Controllers".DS,
-                        "VIEWS_DIRECTORY" => APPLICATION_DIR."Views".DS,
-                        "RESOURCES_DIRECTORY" => APPLICATION_DIR."Resources".DS,
-                        "KEYS_DIRECTORY" => APPLICATION_DIR."Keyring".DS,
-                        "SCHEMAS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["schemataDirectory"].DS,
                         "PASSIVE_ROUTING_FILE" => APPLICATION_DIR.$config["routing"]["passiveRules"],
                         "ACTIVE_ROUTING_FILE" => APPLICATION_DIR.$config["routing"]["activeRules"]
                     ],
@@ -439,7 +429,6 @@ namespace Gishiki\Core {
                     "CACHE" => [
                         "ENABLED" => (($config["cache"]["enabled"] != NULL) && ($config["cache"]["enabled"] == TRUE)),
                         "SERVER" => $config["cache"]["server"],
-
                     ],
 
                     //Routing Configuration
@@ -448,9 +437,6 @@ namespace Gishiki\Core {
                         "PASSIVE_ROUTING" => [],
                         "ACTIVE_ROUTING" => [],
                     ],
-                    
-                    //database connection string
-                    "CONNECTION_STRING" => "",
                 ];
             }
             
@@ -546,37 +532,31 @@ namespace Gishiki\Core {
 
                 case "COOKIE_DEFAULT_LIFETIME":
                     return $this->configuration["COOKIES"]["DEFAULT_LIFETIME"];
-                    
-                case "SCHEMAS_DIR":
-                case "SCHEMAS_DIRECTORY":
-                case "SCHEMATA_DIR":
-                case "SCHEMATA_DIRECTORY":
-                    return $this->configuration["FILESYSTEM"]["SCHEMAS_DIRECTORY"];
 
                 case "RESOURCE_DIR":
                 case "RESOURCE_DIRECTORY":
-                    return $this->configuration["FILESYSTEM"]["RESOURCES_DIRECTORY"];
+                    return APPLICATION_DIR."Resources".DS;
 
                 case "VIEW_DIR":
                 case "VIEW_DIRECTORY":
-                    return $this->configuration["FILESYSTEM"]["VIEWS_DIRECTORY"];
+                    return APPLICATION_DIR."Views".DS;
                     
                 case "WEB_CONTROLLER_DIR":
                 case "WEB_CONTROLLER_DIRECTORY":
-                    return $this->configuration["FILESYSTEM"]["WEB_CONTROLLERS_DIRECTORY"];
+                    return APPLICATION_DIR."Controllers".DS;
 
                 case "CONTROLLER_DIR":
                 case "CONTROLLER_DIRECTORY":
-                    return $this->configuration["FILESYSTEM"]["INTERFACE_CONTROLLERS_DIRECTORY"];
+                    return APPLICATION_DIR."Services".DS;
 
                 case "KEYS_DIR":
                 case "KEYS_DIRECTORY":
                 case "ASYMMETRIC_KEYS":
-                    return $this->configuration["FILESYSTEM"]["KEYS_DIRECTORY"];
+                    return APPLICATION_DIR."Keyring".DS;
 
                 case "APPLICATION_DIR":
                 case "APPLICATION_DIRECTORY":
-                    return $this->configuration["FILESYSTEM"]["APPLICATION_DIRECTORY"];
+                    return APPLICATION_DIR;
 
                 case "PASSIVE_ROUTING_FILE":
                     return ["FILESYSTEM"]["PASSIVE_ROUTING_FILE"];

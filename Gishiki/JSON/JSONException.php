@@ -11,15 +11,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
+
 namespace Gishiki\JSON {
     /**
-     * The JSON exception thrown by the Gishiki JSON manager component
-     *
+     * The JSON exception thrown by Gishiki 
+     * when a bad JSON serialization/deserializations
+     * operation takes place.
+     * 
+     * Data is probably malformed/unconformant or damaged!
+     * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
     class JSONException extends \Gishiki\Core\Gishiki_Exception {
+        
         /**
-         * Create the exception
+         * Create the JSON-related exception
          * @param string $message the error message
          * @param integer $errorCode the model error code
          */

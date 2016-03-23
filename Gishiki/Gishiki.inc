@@ -79,6 +79,9 @@ include(ROOT."Gishiki".DS."core".DS."MVC".DS."Controller.php");
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."WebController.php");
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."Service.php");
 
+//include the routing engine
+include(ROOT."Gishiki".DS."core".DS."Routing.inc");
+
 //include the environment manager
 include(ROOT."Gishiki".DS."core".DS."Environment.php");
 

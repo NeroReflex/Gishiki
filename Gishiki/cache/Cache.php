@@ -55,8 +55,6 @@ namespace Gishiki\Caching {
                                 self::$cacheServer["connection"]->setOption(\Memcached::OPT_SERVER_FAILURE_LIMIT, 50);
                                 self::$cacheServer["connection"]->setOption(\Memcached::OPT_CONNECT_TIMEOUT, 500);
                                 self::$cacheServer["connection"]->setOption(\Memcached::OPT_RETRY_TIMEOUT, 300);
-                                /* self::$cacheServer["connection"]->setOption(\Memcached::OPT_DISTRIBUTION, Memcached::DISTRIBUTION_CONSISTENT);
-                                self::$cacheServer["connection"]->setOption(\Memcached::OPT_LIBKETAMA_COMPATIBLE, true); */
 
                                 //suppress a warning on Memcached::append()
                                 self::$cacheServer["connection"]->setOption(\Memcached::OPT_COMPRESSION, false);
@@ -175,7 +173,7 @@ namespace Gishiki\Caching {
 
                     case "filesystem":
                         if (self::Exists($cacheName))
-                            unlink(self::$cacheServer["details"]["directory"].self::$persistence_ID.md5($cacheName).".cachefragment");
+                        {   unlink(self::$cacheServer["details"]["directory"].self::$persistence_ID.md5($cacheName).".cachefragment");  }
                         break;
                 }
             }

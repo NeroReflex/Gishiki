@@ -23,14 +23,13 @@ namespace Gishiki\Core {
      * @author Benato Denis <benato.denis96@gmail.com>
      */
     class Environment {
-
         /** each environment has its configuration */
         private $configuration;
 
         /** this is the currently active environment */
         private static $currentEnvironment;
 
-        /** an array containing the request befor and after the routing */
+        /** an array containing the request before and after the routing */
         private $request;
 
         /** additional details given by the client */
@@ -136,12 +135,13 @@ namespace Gishiki\Core {
                 }
 
                 $serializedRequest = "[]";
-                if ((isset($_POST["data"])) && ($_POST["data"] != "")) {
-                    $serializedRequest = $_POST["data"];
+                $received_json_data = filter_input(INPUT_POST, 'data');
+                if ((isset($received_json_data)) && ($received_json_data != "")) {
+                    $serializedRequest = $received_json_data;
                 }
 
                 //initialize and execute the controller
-                $this->ExecuteInterfaceController($resource, $serializedRequest);
+                $this->ExecuteService($resource, $serializedRequest);
             } else {
                 //the resource that must be invoked
                 $resource = NULL;
@@ -181,7 +181,7 @@ namespace Gishiki\Core {
          * @param array $resource the array filled by Environment::FulfillRequest()
          * @param string $jsonRequest the request encoded as a valid json string
          */
-        private function ExecuteInterfaceController($resource, $jsonRequest) {
+        private function ExecuteService($resource, $jsonRequest) {
             //the response will be in json format
             header('Content-Type: application/json');
 
@@ -449,9 +449,6 @@ namespace Gishiki\Core {
                 $this->configuration["ROUTING"]["ENABLED"] = $config["routing"]["routing"];
                 $this->configuration["ROUTING"]["PASSIVE_ROUTING"] = Routing::GetConfiguration($this->configuration["FILESYSTEM"]["PASSIVE_ROUTING_FILE"]);
                 $this->configuration["ROUTING"]["ACTIVE_ROUTING"] = Routing::GetConfiguration($this->configuration["FILESYSTEM"]["ACTIVE_ROUTING_FILE"]);
-
-                //load the database connection string
-                $this->configuration["CONNECTION_STRING"] = $config["database"]["connection"];
                 
                 //load the service interface external source
                 $protocol = "http://";
@@ -463,13 +460,15 @@ namespace Gishiki\Core {
             }
             
             //check for the environment configuration
-            if ($this->configuration["DEVELOPMENT_ENVIRONMENT"])
-            {
-                ini_set('display_errors', 1);
-                error_reporting(E_ALL);
-            } else {
-                ini_set('display_errors', 0);
-                error_reporting(0);
+            if (isset($this->configuration["DEVELOPMENT_ENVIRONMENT"])) {
+                if ($this->configuration["DEVELOPMENT_ENVIRONMENT"])
+                {
+                    ini_set('display_errors', 1);
+                    error_reporting(E_ALL);
+                } else {
+                    ini_set('display_errors', 0);
+                    error_reporting(0);
+                }
             }
         }
         
@@ -491,7 +490,9 @@ namespace Gishiki\Core {
                     return $this->configuration["LOG"]["SOURCES"];
 
                 case "CACHING_ENABLED":
-                    return $this->configuration["CACHE"]["ENABLED"];
+                    if (isset($this->configuration["CACHE"]["ENABLED"]))
+                    {   return $this->configuration["CACHE"]["ENABLED"];    }
+                    else {  return false;    }
 
                 case "CACHE_CONNECTION_STRING":
                     return $this->configuration["CACHE"]["SERVER"];

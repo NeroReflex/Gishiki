@@ -30,14 +30,14 @@ mb_internal_encoding("UTF-8");
 //get directory separator
 if (!defined('DS')) {
     if (defined('DIRECTORY_SEPARATOR'))
-        define('DS',DIRECTORY_SEPARATOR);
+    {   define('DS',DIRECTORY_SEPARATOR);   }
     else
-        define('DS', "/");
+    {   define('DS', "/");  }
 }
 
 //get the root path
 if ((!defined('ROOT')) || (ROOT == "") || (ROOT == NULL))
-    define('ROOT', realpath(__DIR__).DS);
+{    define('ROOT', realpath(__DIR__).DS);   }
 
 //include the base application and perform basic operations
 include(ROOT."Gishiki".DS."Gishiki.inc");
@@ -76,8 +76,7 @@ if ((isset($_GET["rewritten"])) && ($_GET["rewritten"] == "true")) {
 Gishiki::Initialize();
 
 //if the framework needs to be installed.....
-
-if (\Gishiki\Core\Application::CheckExistence() == 0)
+if (!\Gishiki\Core\Application::Exists())
 {
     //setup the new application
     if (\Gishiki\Core\Application::CreateNew()) {
@@ -86,9 +85,6 @@ if (\Gishiki\Core\Application::CheckExistence() == 0)
         exit("<div><br /><b>Check for the environment, delete the created application directory and retry the installation</b></div>");
     }
 } else {
-    //else create an instance of the application
-    $application = new Gishiki();
-    
-    //use that newly instance to execute the controler, which will call the associated model and then render the view
-    $application->Run($action);
+    //run an instance of the application
+    Gishiki::Run($action);
 }

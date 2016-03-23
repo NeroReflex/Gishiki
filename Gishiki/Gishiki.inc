@@ -19,9 +19,6 @@ limitations under the License.
 //set the gishiki version
 include(ROOT."Gishiki".DS."Version.inc");
 
-//include the routing engine
-include(ROOT."Gishiki".DS."core".DS."Routing.inc");
-
 //include the logging engine
 include(ROOT."Gishiki".DS."logs".DS."Priority.php");
 include(ROOT."Gishiki".DS."logs".DS."Log.php");
@@ -78,12 +75,9 @@ include(ROOT."Gishiki".DS."scss".DS."scssIntegration.inc");
 
 //require base model and controller classes
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."APICallException.php");
-include(ROOT."Gishiki".DS."core".DS."MVC".DS."ModelException.php");
-include(ROOT."Gishiki".DS."core".DS."MVC".DS."ModelsCollection.php");
-include(ROOT."Gishiki".DS."core".DS."MVC".DS."Model.php");
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."Controller.php");
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."WebController.php");
-include(ROOT."Gishiki".DS."core".DS."MVC".DS."InterfaceController.php");
+include(ROOT."Gishiki".DS."core".DS."MVC".DS."Service.php");
 
 //include the environment manager
 include(ROOT."Gishiki".DS."core".DS."Environment.php");
@@ -100,14 +94,7 @@ $executionEnvironment = NULL;
  * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class Gishiki {   
-    /**
-     * Setup a framework instance
-     */
-    public function __construct() {
-        
-    }
-
+class Gishiki {
     /**
      * Initialize the Gishiki engine and prepare for
      *  the execution of the framework
@@ -132,7 +119,7 @@ class Gishiki {
      * 
      * @param string $request the requested resource
      */
-    public function Run($request)
+    static function Run($request)
     {
         if (strlen($request) >= 1) {
             //remove the final / as it is not needed and may become a problem

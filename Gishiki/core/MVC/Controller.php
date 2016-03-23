@@ -22,7 +22,7 @@ namespace Gishiki\Core\MVC {
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class Gishiki_Controller {
+    class Controller {
         //an array with request details
         protected $receivedDetails;
 

@@ -44,7 +44,7 @@ namespace Gishiki\Core {
          * 
          * @return boolean the application existence
          */
-        static function CheckExistence() {
+        static function Exists() {
             //return the existence of an application directory and a configuratio file
             return ((file_exists(APPLICATION_DIR)) && (file_exists(APPLICATION_DIR."settings.ini")));
         }
@@ -72,20 +72,14 @@ namespace Gishiki\Core {
                 }
             }
             
-            if ((!file_exists(APPLICATION_DIR."interfaceControllers".DS)) && ($errors == 0)) {
-                if (!@mkdir(APPLICATION_DIR."interfaceControllers".DS)) {
+            if ((!file_exists(APPLICATION_DIR."Services".DS)) && ($errors == 0)) {
+                if (!@mkdir(APPLICATION_DIR."Services".DS)) {
                     $errors++;
                 }
             }
 
-            if ((!file_exists(APPLICATION_DIR."webControllers".DS)) && ($errors == 0)) {
-                if (!@mkdir(APPLICATION_DIR."webControllers".DS)) {
-                    $errors++;
-                }
-            }
-           
-            if ((!file_exists(APPLICATION_DIR."Models".DS)) && ($errors == 0)) {
-                if (!@mkdir(APPLICATION_DIR."Models".DS)) {
+            if ((!file_exists(APPLICATION_DIR."Controllers".DS)) && ($errors == 0)) {
+                if (!@mkdir(APPLICATION_DIR."Controllers".DS)) {
                     $errors++;
                 }
             }
@@ -110,15 +104,6 @@ namespace Gishiki\Core {
                 }
             }
             
-            if ((!file_exists(APPLICATION_DIR."Schemas".DS)) && ($errors == 0)) {
-                if (!@mkdir(APPLICATION_DIR."Schemas".DS)) {
-                    $errors++;
-                }
-            }
-            
-            //try to create the log file
-            touch(APPLICATION_DIR."server_log.xml");
-            
             $passiveRoutingSetup = 
                     '"" > "Default/Index"'.PHP_EOL.
                     '"index.php" > "Default/Index" ';
@@ -141,7 +126,6 @@ namespace Gishiki\Core {
                                 ."[filesystem]".PHP_EOL
                                 ."interfaceControllerHostSSL = false".PHP_EOL
                                 ."interfaceControllerHost = \"localhost:80\"".PHP_EOL
-                                ."modelsDirectory = \"Models\"".PHP_EOL
                         .PHP_EOL."; do not change the serverPassword as it is the key of the serverKey".PHP_EOL
                                 ."[security]".PHP_EOL
                                 ."serverPassword = \"".$new_password."\"".PHP_EOL
@@ -158,9 +142,6 @@ namespace Gishiki\Core {
                                 ."routing = on".PHP_EOL
                                 ."passiveRules = \"passive_rounting.cfg\"".PHP_EOL
                                 ."activeRules = \"active_routing.cfg\"".PHP_EOL
-                        .PHP_EOL."; database connection settings".PHP_EOL
-                                ."[database]".PHP_EOL
-                                ."connection = \"\""
                         .PHP_EOL."; caching related settings".PHP_EOL
                                 ."[cache]".PHP_EOL
                                 ."enabled = false".PHP_EOL

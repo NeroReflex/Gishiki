@@ -18,7 +18,7 @@ limitations under the License.
 namespace Gishiki\Core {
     
     /**
-     * The base environment for running controllers and models
+     * Represent the environment used to run controllers.
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
@@ -38,9 +38,6 @@ namespace Gishiki\Core {
 
         /** The cookie functions provider */
         public $Cookies;
-
-        /** the database handler */
-        private $databaseHandler;
         
         /**
          * Setup a new environment instance used to fulfill the client request
@@ -56,15 +53,8 @@ namespace Gishiki\Core {
             //load the server configuration
             $this->LoadConfiguration();
 
-            //initialize the caching engine
-            \Gishiki\Logging\LogManagement::Initialize();
-
             //this will be initialized later on if needed
             $this->resourceDetails = NULL;
-            
-            //prepare the database connection, but don't connect (yet)
-            $this->databaseHandler = new \Gishiki\Database\Database();
-            //the time to connect the database will come when including models
 
             //initialize the caching engine
             \Gishiki\Caching\Cache::Initialize();
@@ -212,39 +202,21 @@ namespace Gishiki\Core {
 
                     //check for the class existence
                     if (class_exists($resource["controllerClass"]."_Controller")) {
-                        if (get_parent_class($resource["controllerClass"]."_Controller") == "Gishiki\\Core\\MVC\\Gishiki_InterfaceController") {
-                            //prepare the name of the class and reflect the class with the given name
-                            $reflectedControllerClass = new \ReflectionClass($resource["controllerClass"]."_Controller");
+                        //prepare the name of the class and reflect the class with the given name
+                        $reflectedControllerClass = new \ReflectionClass($resource["controllerClass"]."_Controller");
 
-                            //instantiate a new object from the reflected controller class
-                            $ctrl = $reflectedControllerClass->newInstance();
+                        //instantiate a new object from the reflected controller class
+                        $ctrl = $reflectedControllerClass->newInstance();
 
-                            //bind the additional request details to the current controller
-                            $reflectedControllersDetails = new \ReflectionProperty($ctrl, "receivedDetails");
-                            $reflectedControllersDetails->setAccessible(TRUE);
-                            $reflectedControllersDetails->setValue($ctrl, $this->resourceDetails);
-
-                            //bind the additional request details to the current controller
-                            $reflectedControllersRequest = new \ReflectionProperty($ctrl, "Request");
-                            $reflectedControllersRequest->setAccessible(TRUE);
-                            $reflectedControllersRequest->setValue($ctrl, $request);
-
-                            //setup the response of the current controller
-                            $reflectedControllersResponse = new \ReflectionProperty($ctrl, "Response");
-                            $reflectedControllersResponse->setAccessible(TRUE);
-                            $reflectedControllersResponse->setValue($ctrl, $response);
-                            
-                            //check for action existence
-                            if (method_exists($ctrl, $resource["controllerAction"])) {
-                                //call the method inside the controller instantiated object
-                                $action = new \ReflectionMethod($ctrl, $resource["controllerAction"]);
-                                $action->setAccessible(TRUE);
-                                $action->invoke($ctrl);
-                            } else { //display the error
+                        //check for action existence
+                        if (method_exists($ctrl, $resource["controllerAction"])) {
+                            //call the method inside the controller instantiated object
+                            //binding the additional request details to the current controller
+                            $action = new \ReflectionMethod($ctrl, $resource["controllerAction"]);
+                            $action->setAccessible(TRUE);
+                            $response = $action->invoke($ctrl, [$request]);
+                        } else { //display the error
                                
-                            }
-                        } else { //the class is not a valid interface controller
-                            
                         }
                     } else { //display the error
                         
@@ -258,10 +230,10 @@ namespace Gishiki\Core {
                 
                 //add the error message
                 $response["ErrorDetails"] = $ex->getMessage();
-                
-                //give response
-                echo(\Gishiki\JSON\JSON::SerializeToString($response));
             }
+            
+            //give the result to the client in a JSON format
+            echo(\Gishiki\JSON\JSON::SerializeToString($response));
         }
         
         /**
@@ -277,8 +249,6 @@ namespace Gishiki\Core {
 
                 //check for the class existence
                 if (class_exists($resource["controllerClass"]."_Controller")) {
-                    /*if (get_parent_class($resource["controllerClass"]."_Controller") == "Gishiki\\Core\\MVC\\Gishiki_WebController") {
-                     */
                     //prepare the name of the class and reflect the class with the given name
                     $reflectedControllerClass = new \ReflectionClass($resource["controllerClass"]."_Controller");
 
@@ -308,9 +278,6 @@ namespace Gishiki\Core {
                             exit("The requested resource cannot be found and the error controller is not deployed");
                         }
                     }
-                    /*} else { //the controller is not a valid controller
-                        exit("a valid controller must inherit from the Gishiki_WebController class.");    
-                    }*/
                 } else { //display the custom error page
                     $errorResource = [
                         "controllerClass" => "Error",
@@ -460,7 +427,6 @@ namespace Gishiki\Core {
                         "APPLICATION_DIRECTORY" => APPLICATION_DIR,
                         "INTERFACE_CONTROLLERS_DIRECTORY" => APPLICATION_DIR."Services".DS,
                         "WEB_CONTROLLERS_DIRECTORY" => APPLICATION_DIR."Controllers".DS,
-                        "MODELS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["modelsDirectory"].DS,
                         "VIEWS_DIRECTORY" => APPLICATION_DIR."Views".DS,
                         "RESOURCES_DIRECTORY" => APPLICATION_DIR."Resources".DS,
                         "KEYS_DIRECTORY" => APPLICATION_DIR."Keyring".DS,
@@ -519,16 +485,6 @@ namespace Gishiki\Core {
                 ini_set('display_errors', 0);
                 error_reporting(0);
             }
-        }
-
-        /**
-         * Return the database driver automatically managed by Gishiki
-         * 
-         * @return \Gishiki\Database\Database the database driver
-         */
-        public function GetDatabaseDriver() {
-            //return the database driver
-            return $this->databaseHandler;
         }
         
         /**
@@ -604,11 +560,7 @@ namespace Gishiki\Core {
                 case "VIEW_DIR":
                 case "VIEW_DIRECTORY":
                     return $this->configuration["FILESYSTEM"]["VIEWS_DIRECTORY"];
-
-                case "MODEL_DIR":
-                case "MODEL_DIRECTORY":
-                    return $this->configuration["FILESYSTEM"]["MODELS_DIRECTORY"];
-
+                    
                 case "WEB_CONTROLLER_DIR":
                 case "WEB_CONTROLLER_DIRECTORY":
                     return $this->configuration["FILESYSTEM"]["WEB_CONTROLLERS_DIRECTORY"];

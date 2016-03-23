@@ -16,20 +16,36 @@ limitations under the License.
 *****************************************************************************/    
 
 namespace Gishiki\Core\MVC {
-
+    
     /**
-     * The model exception thrown by a model
+     * The Gishiki base controller for web services.
+     * 
+     * Every service offered by the application should
+     * a function inside a class that inherits from
+     * this class.
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class ModelException extends \Gishiki\Core\Gishiki_Exception {
+    class Service extends Controller {
+
         /**
-         * Create the exception
-         * @param string $message the error message
-         * @param integer $errorCode the model error code
+         * Initialize the services container instance.
+         * 
+         * Each interface controller should call this constructor.
          */
-        public function __construct($message, $errorCode) {
-            parent::__construct($message, $errorCode);
+        public function __construct() {
+            //call the parent constructor
+            parent::__construct();
+        }
+
+        /**
+         * Dispose the service container instance.
+         * 
+         * Each interface controller should call this destructor.
+         */
+        public function __destruct() {
+            //call the parent destructor
+            parent::__destruct();
         }
     }
 }

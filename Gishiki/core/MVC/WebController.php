@@ -23,7 +23,7 @@ namespace Gishiki\Core\MVC {
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class Gishiki_WebController extends Gishiki_Controller {
+    class WebController extends Controller {
         /** this is the HTML that will be sent to the client */
         private $rawContent;
         

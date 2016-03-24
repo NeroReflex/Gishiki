@@ -18,10 +18,10 @@
 namespace Gishiki\Logging {
     
     /**
-    * An helper class for storing logs of what happens on the server
-    *
-    * Benato Denis <benato.denis96@gmail.com>
-    */
+     * An helper class for storing logs of what happens on the server
+     *
+     * Benato Denis <benato.denis96@gmail.com>
+     */
     class Log {
         private $unix_timestamp;
         private $level;
@@ -133,47 +133,10 @@ namespace Gishiki\Logging {
         public function Save() {
            //use syslog to store the log entry on the current machine
             if (openlog("Gishiki" , LOG_NDELAY | LOG_PID, LOG_USER)) {
-                $log_priority = 0;
-                switch ($this->GetLevel()) {
-                    case \Gishiki\Logging\Priority::DEBUG:
-                        $log_priority = LOG_DEBUG;
-                        break;
-
-                    case \Gishiki\Logging\Priority::ALERT:
-                        $log_priority = LOG_ALERT;
-                        break;
-
-                    case \Gishiki\Logging\Priority::CRITICAL:
-                        $log_priority = LOG_CRIT;
-                        break;
-
-                    case \Gishiki\Logging\Priority::EMERGENCY:
-                        $log_priority = LOG_EMERG;
-                        break;
-
-                    case \Gishiki\Logging\Priority::ERROR:
-                        $log_priority = LOG_ERR;
-                        break;
-
-                    case \Gishiki\Logging\Priority::INFO:
-                        $log_priority = LOG_INFO;
-                        break;
-
-                    case \Gishiki\Logging\Priority::NOTICE:
-                        $log_priority = LOG_NOTICE;
-                        break;
-
-                    case \Gishiki\Logging\Priority::WARNING:
-                        $log_priority = LOG_WARNING;
-                        break;
-
-                    default:
-                        $log_priority = LOG_CRIT;
-                        break;
-                }
-
                 //save the log using the UNIX standard logging ultility
-                syslog($log_priority, "[".$this->GetTimestamp()."] (".$this->GetShortMessage().") ".$this->GetLongMessage()."");
+                syslog($this->GetLevel(), "[".$this->GetTimestamp()."] (".$this->GetShortMessage().") ".$this->GetLongMessage()."");
+                
+                //virtually close the connection to syslogd
                 closelog();
             }
         }

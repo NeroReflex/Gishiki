@@ -184,7 +184,7 @@ namespace Gishiki\Core {
         private function ExecuteService($resource, $jsonRequest) {
             //the response will be in json format
             header('Content-Type: application/json');
-
+            
             //setup the json response
             $response = array(
                 //append the timestamp to the response
@@ -442,7 +442,6 @@ namespace Gishiki\Core {
             
             if (count($config) > 2) {
                 //get general environment configuration
-                $this->configuration["ACTIVE_COMPRESSION"] = $config["general"]["compression"];
                 $this->configuration["DEVELOPMENT_ENVIRONMENT"] = $config["general"]["development"];
 
                 //load the routing configuration
@@ -496,13 +495,6 @@ namespace Gishiki\Core {
 
                 case "CACHE_CONNECTION_STRING":
                     return $this->configuration["CACHE"]["SERVER"];
-
-                case "CONNECTION_CONFIGURATION":
-                case "CONNECTION_CONFIG":
-                    return $this->configuration["CONNECTION_STRING"];
-                
-                case "ACTIVE_COMPRESSION_ON_RESPONSE":
-                    return $this->configuration["ACTIVE_COMPRESSION"];
 
                 case "MASTER_ASYMMETRIC_KEY_NAME":
                     return $this->configuration["SECURITY"]["MASTER_ASYMMETRIC_KEY_REFERENCE"];

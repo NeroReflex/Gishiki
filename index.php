@@ -15,9 +15,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-//turn off all error reporting
-error_reporting(0);
-
 //turn on all error reporting
 ini_set("display_errors", 1);
 error_reporting(E_ALL);

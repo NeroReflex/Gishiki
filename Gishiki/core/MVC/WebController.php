@@ -153,24 +153,6 @@ namespace Gishiki\Core\MVC {
                 //remove the placeholder from the page content and from the array
                 str_replace(array_pop($matches), "", $this->rawContent);
             }
-
-            //if the compression is enabled
-            if ((\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('ACTIVE_COMPRESSION_ON_RESPONSE')) && (!((strstr($_SERVER['HTTP_USER_AGENT'], 'W3C_Validator') !== FALSE) || (strstr($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') === FALSE)))){
-                //send GZIP compressed data
-                //tell the browser the response is gzipped
-                header("Content-Encoding: gzip");
-
-                //gzip the response
-                print("\x1f\x8b\x08\x00\x00\x00\x00\x00"); 
-                $contents = gzcompress($this->rawContent, 9);
-                $contents = substr($contents, 0, strlen($this->rawContent));
-
-                //send the gzipped response
-                echo($contents);
-            } else {
-                //print out the uncompressed content
-                echo($this->rawContent);
-            }
         }
         
     }

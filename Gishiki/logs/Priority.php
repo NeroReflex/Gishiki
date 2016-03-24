@@ -18,18 +18,18 @@
 namespace Gishiki\Logging {
     
     /**
-    * A collection of all possible log priorities
-    *
-    * Benato Denis <benato.denis96@gmail.com>
-    */
+     * A collection of all possible log priorities
+     *
+     * Benato Denis <benato.denis96@gmail.com>
+     */
     abstract class Priority {
-        const EMERGENCY = 0;
-        const ALERT = 1;
-        const CRITICAL = 2;
-        const ERROR = 3;
-        const WARNING = 4;
-        const NOTICE = 5;
-        const INFO = 6;
-        const DEBUG = 7;
+        const EMERGENCY = LOG_EMERG;
+        const ALERT = LOG_ALERT;
+        const CRITICAL = LOG_CRIT;
+        const ERROR = LOG_ERR;
+        const WARNING = LOG_WARNING;
+        const NOTICE = LOG_NOTICE;
+        const INFO = LOG_INFO;
+        const DEBUG = LOG_DEBUG;
     }
 }

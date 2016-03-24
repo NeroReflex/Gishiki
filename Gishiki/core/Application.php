@@ -121,7 +121,6 @@ namespace Gishiki\Core {
             if ((!file_exists(Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR')."settings.ini")) && ($errors == 0)) {
                 $configuration = "[general]".PHP_EOL
                                 ."development = on".PHP_EOL
-                                ."compression = off".PHP_EOL
                         .PHP_EOL."; filesystem related settings".PHP_EOL
                                 ."[filesystem]".PHP_EOL
                                 ."interfaceControllerHostSSL = false".PHP_EOL

@@ -196,7 +196,9 @@ namespace Gishiki\Core {
 
             try {
                 //deserialize the request
-                $request = \Gishiki\JSON\JSON::DeSerializeFromString($jsonRequest);
+                $request = \Gishiki\JSON\JSON::DeSerialize($jsonRequest);
+                if (!array_key_exists("TIMESTAMP", $request)) //add the timestamp of the request
+                {   $request["TIMESTAMP"] = time(); }
                 
                 if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('CONTROLLER_DIR').$resource["controllerClass"].".php"))
                 {
@@ -236,7 +238,7 @@ namespace Gishiki\Core {
             }
             
             //give the result to the client in a JSON format
-            echo(\Gishiki\JSON\JSON::SerializeToString($response));
+            echo(\Gishiki\JSON\JSON::Serialize($response));
         }
         
         /**

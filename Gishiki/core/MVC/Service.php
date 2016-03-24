@@ -59,6 +59,9 @@ namespace Gishiki\Core\MVC {
          * @return array the result of the Service execution
          */
         static function API_Call($service_URL, $service_details, $error_callback) /*: array */ {
+            if (!array_key_exists("TIMESTAMP", $service_details)) //add the timestamp to the request
+            {   $service_details["TIMESTAMP"] = time(); }
+
             //pass request details as a json
             $request_details = json_encode($service_details);
             

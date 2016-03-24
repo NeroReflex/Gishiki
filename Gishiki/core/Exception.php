@@ -28,7 +28,7 @@ namespace Gishiki\Core {
          * Create a base exception and save the log of what's happening
          *
          * @param string $message the error message
-         * @param integer $errorCode the Stack error code
+         * @param integer $errorCode the error code
          */
         public function __construct($message, $errorCode) {
             //perform a basic Exception constructor call

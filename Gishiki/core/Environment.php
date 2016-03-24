@@ -68,7 +68,10 @@ namespace Gishiki\Core {
          * @return boolean TRUE if SSL is enabled, false otherwise
          */
         public function SecureConnectionEnabled() {
-            return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off');
+            //filter $_SERVER (accessing superglobals directly is a bad idea)
+            $_server_filtered = filter_input_array(INPUT_SERVER);
+            
+            return (!empty($_server_filtered['HTTPS']) && $_server_filtered['HTTPS'] != 'off');
         }
 
         /**
@@ -134,7 +137,7 @@ namespace Gishiki\Core {
                     $this->resourceDetails[] = $decoded[$counter];
                 }
 
-                $serializedRequest = "[]";
+                $serializedRequest = "{ }";
                 $received_json_data = filter_input(INPUT_POST, 'data');
                 if ((isset($received_json_data)) && ($received_json_data != "")) {
                     $serializedRequest = $received_json_data;
@@ -344,27 +347,12 @@ namespace Gishiki\Core {
                 //provide the file as an attachment if it is requested or necessary due to the unknown mime type
                 if ($asAttachment) { header('Content-Disposition: attachment; filename="'.$resource[n - 1].'"'); }
 
-                if (($extension != "js") && ($extension != "css")) {
-                    //give to the client the file length
-                    header('Content-Length: '.filesize($resourcePath));
+                //give to the client the file length
+                header('Content-Length: '.filesize($resourcePath));
 
-                    //give to the client the file
-                    readfile($resourcePath);
-                } else if ($extension == "js") { //minify the js file
-                    //get the minified js script
-                    $minifiedResource = \CachedMinification::MinifyJavaScript($resourcePath);
-
-                    //and serve it
-                    header('Content-Length: '.strlen($minifiedResource));
-                    echo($minifiedResource);
-                } else { //minify the css file
-                    //get the minified css script
-                    $minifiedResource = \CachedMinification::MinifyCascadingSheetStyle($resourcePath);
-
-                    //and serve it
-                    header('Content-Length: '.strlen($minifiedResource));
-                    echo($minifiedResource);
-                }
+                //serve the static resource
+                readfile($resourcePath);
+                
             } else {
                 //build&run error page
                 $errorResource = [
@@ -599,7 +587,10 @@ namespace Gishiki\Core {
          * @return boolean TRUE if this is for sure an ajax request, FALSE otherwise
          */
         public function IsRequestAJAX() {
-            return (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
+            //filter $_SERVER (accessing superglobals directly is a bad idea)
+            $_server_filtered = filter_input_array(INPUT_SERVER);
+            
+            return (!empty($_server_filtered['HTTP_X_REQUESTED_WITH']) && strtolower($_server_filtered['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
         }
     }
 }

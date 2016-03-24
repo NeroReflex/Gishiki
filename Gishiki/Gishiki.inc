@@ -30,10 +30,6 @@ include(ROOT."Gishiki".DS."core".DS."Exception.php");
 include(ROOT."Gishiki".DS."JSON".DS."JSONException.php");
 include(ROOT."Gishiki".DS."JSON".DS."JSON.php");
 
-//include generic algorithms
-include(ROOT."Gishiki".DS."generic".DS."StackException.php");
-include(ROOT."Gishiki".DS."generic".DS."Stack.php");
-
 //include the serialization library
 include(ROOT."Gishiki".DS."serialization".DS."SerializationException.php");
 include(ROOT."Gishiki".DS."serialization".DS."DirectSerialization.php");
@@ -56,22 +52,8 @@ include(ROOT."Gishiki".DS."security".DS."AsymmetricPrivateKeyCipher.php");
 include(ROOT."Gishiki".DS."security".DS."AsymmetricPublicKeyCipher.php");
 include(ROOT."Gishiki".DS."security".DS."AsymmetricCipher.php");
 
-//include the list of http status codes
-include(ROOT."Gishiki".DS."HTTPResponseCodes.inc");
-
 //include the list of mime types
 include(ROOT."Gishiki".DS."MIMETypes.inc");
-
-//include the CSS and JS minifier
-include(ROOT."Gishiki".DS."minify".DS."Converter.inc");
-include(ROOT."Gishiki".DS."minify".DS."Minify.inc");
-include(ROOT."Gishiki".DS."minify".DS."CSS.inc");
-include(ROOT."Gishiki".DS."minify".DS."JS.inc");
-include(ROOT."Gishiki".DS."minify".DS."Exception.inc");
-
-//include the less and scss compiler integration
-include(ROOT."Gishiki".DS."less".DS."lessIntegration.inc");
-include(ROOT."Gishiki".DS."scss".DS."scssIntegration.inc");
 
 //require base controller classes
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."APICallException.php");

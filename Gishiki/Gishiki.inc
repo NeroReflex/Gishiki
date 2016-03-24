@@ -37,7 +37,6 @@ include(ROOT."Gishiki".DS."serialization".DS."DirectSerialization.php");
 //include the caching engine
 include(ROOT."Gishiki".DS."cache".DS."Cache.php");
 include(ROOT."Gishiki".DS."cache".DS."CacheConnectionString.php");
-include(ROOT."Gishiki".DS."cache".DS."CachedMinification.php");
 
 //include the cookie management system
 include(ROOT."Gishiki".DS."cookie".DS."CookieException.php");
@@ -56,7 +55,6 @@ include(ROOT."Gishiki".DS."security".DS."AsymmetricCipher.php");
 include(ROOT."Gishiki".DS."MIMETypes.inc");
 
 //require base controller classes
-include(ROOT."Gishiki".DS."core".DS."MVC".DS."APICallException.php");
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."Controller.php");
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."WebController.php");
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."Service.php");

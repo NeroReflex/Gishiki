@@ -436,14 +436,6 @@ namespace Gishiki\Core {
                 $this->configuration["ROUTING"]["ENABLED"] = $config["routing"]["routing"];
                 $this->configuration["ROUTING"]["PASSIVE_ROUTING"] = Routing::GetConfiguration($this->configuration["FILESYSTEM"]["PASSIVE_ROUTING_FILE"]);
                 $this->configuration["ROUTING"]["ACTIVE_ROUTING"] = Routing::GetConfiguration($this->configuration["FILESYSTEM"]["ACTIVE_ROUTING_FILE"]);
-                
-                //load the service interface external source
-                $protocol = "http://";
-                if ($config["filesystem"]["interfaceControllerHostSSL"]) {
-                    $protocol = "https://";
-                }
-                $this->configuration["FILESYSTEM"]["SERVICE_HOST"] = $protocol.$config["filesystem"]["interfaceControllerHost"];
-                
             }
             
             //check for the environment configuration
@@ -467,9 +459,6 @@ namespace Gishiki\Core {
          */
         public function GetConfigurationProperty($property) {
             switch(strtoupper($property)) {
-                case "INTERFACE_SERVICE_HOST":
-                    return $this->configuration["FILESYSTEM"]["SERVICE_HOST"];
-                
                 case "LOGGING_ENABLED":
                     return $this->configuration["LOG"]["ENABLED"];
 

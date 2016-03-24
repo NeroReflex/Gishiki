@@ -54,10 +54,11 @@ namespace Gishiki\Core\MVC {
          * 
          * @param string $service_URL the URL used to reach the needed service
          * @param array  $service_details additionals details that are required and used by the given subroutine
+         * @param function $error_callback this is the function called if the API call encoutered an error
          * 
-         * @return array the result of the subroutin execution
+         * @return array the result of the Service execution
          */
-        static function API_Call($service_URL, $service_details) /*: array */ {
+        static function API_Call($service_URL, $service_details, $error_callback) /*: array */ {
             //pass request details as a json
             $request_details = json_encode($service_details);
             
@@ -78,7 +79,8 @@ namespace Gishiki\Core\MVC {
             // grab URL and pass it to the browser
             $result_details = curl_exec($api_call);
             if ($result_details === false) {
-                throw new APICallException(curl_error($api_call), curl_errno($api_call));
+                $error_callback(/*curl_error($api_call), curl_errno($api_call)*/);
+                $result_details = "{ }";
             }
             
             // close cURL resource, and free up system resources

@@ -121,10 +121,6 @@ namespace Gishiki\Core {
             if ((!file_exists(Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR')."settings.ini")) && ($errors == 0)) {
                 $configuration = "[general]".PHP_EOL
                                 ."development = on".PHP_EOL
-                        .PHP_EOL."; filesystem related settings".PHP_EOL
-                                ."[filesystem]".PHP_EOL
-                                ."interfaceControllerHostSSL = false".PHP_EOL
-                                ."interfaceControllerHost = \"localhost:80\"".PHP_EOL
                         .PHP_EOL."; do not change the serverPassword as it is the key of the serverKey".PHP_EOL
                                 ."[security]".PHP_EOL
                                 ."serverPassword = \"".$new_password."\"".PHP_EOL

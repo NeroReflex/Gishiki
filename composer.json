@@ -1,0 +1,27 @@
+{
+    "name": "neroreflex/advanced-gishiki",
+    "description": "Advanced-Gishiki is a modern, fast and secure MVC framework perfect when creating a website or a web service.",
+    "license": "Apache License version 2.0",
+    "authors": [
+        {
+            "name": "Denis Benato",
+            "email": "benato.denis96@gmail.com"
+        }
+    ],
+    "require": {
+    "php": ">=5.6",
+    "ext-openssl": "*",
+    "ext-libxml": "*",
+    "ext-curl": "*",
+    "ext-pdo": "*"
+  },
+
+  "suggest": {
+    "ext-pdo_mysql": "For MySQL or MariaDB databases",
+    "ext-pdo_sqlsrv": "For MSSQL databases on Windows platform",
+    "ext-pdo_dblib": "For MSSQL or Sybase databases on Linux/UNIX platform",
+    "ext-pdo_oci": "For Oracle databases",
+    "ext-pdo_pqsql": "For PostgreSQL databases",
+    "ext-pdo_sqlite": "For SQLite databases"
+  }
+}

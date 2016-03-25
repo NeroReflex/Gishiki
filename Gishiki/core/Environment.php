@@ -408,16 +408,10 @@ namespace Gishiki\Core {
                         "DEFAULT_LIFETIME" => $config["cookies"]["cookiesExpiration"],
                         "VALIDITY_PATH" => $config["cookies"]["cookiesPath"],
                     ],
-
-                    //Filesystem Configuration
-                    "FILESYSTEM" => [
-                        "PASSIVE_ROUTING_FILE" => APPLICATION_DIR.$config["routing"]["passiveRules"],
-                        "ACTIVE_ROUTING_FILE" => APPLICATION_DIR.$config["routing"]["activeRules"]
-                    ],
-
+                    
                     //Caching Configuration
                     "CACHE" => [
-                        "ENABLED" => (($config["cache"]["enabled"] != NULL) && ($config["cache"]["enabled"] == TRUE)),
+                        "ENABLED" => $config["cache"]["enabled"],
                         "SERVER" => $config["cache"]["server"],
                     ],
 
@@ -436,8 +430,8 @@ namespace Gishiki\Core {
 
                 //load the routing configuration
                 $this->configuration["ROUTING"]["ENABLED"] = $config["routing"]["routing"];
-                $this->configuration["ROUTING"]["PASSIVE_ROUTING"] = Routing::GetConfiguration($this->configuration["FILESYSTEM"]["PASSIVE_ROUTING_FILE"]);
-                $this->configuration["ROUTING"]["ACTIVE_ROUTING"] = Routing::GetConfiguration($this->configuration["FILESYSTEM"]["ACTIVE_ROUTING_FILE"]);
+                $this->configuration["ROUTING"]["PASSIVE_ROUTING"] = $config["routing"]["passive_routing"];
+                $this->configuration["ROUTING"]["ACTIVE_ROUTING"] = $config["routing"]["active_routing"];
             }
             
             //check for the environment configuration

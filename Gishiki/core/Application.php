@@ -32,7 +32,7 @@ namespace Gishiki\Core {
          */
         static function GetSettings() {
             //parse the settings file
-            $appConfiguration = parse_ini_file(APPLICATION_DIR."settings.ini", TRUE, INI_SCANNER_TYPED);
+            $appConfiguration = \Gishiki\JSON\JSON::DeSerialize(file_get_contents(APPLICATION_DIR."settings.json"));
             
             //return the application configuration
             return $appConfiguration;
@@ -46,7 +46,7 @@ namespace Gishiki\Core {
          */
         static function Exists() {
             //return the existence of an application directory and a configuratio file
-            return ((file_exists(APPLICATION_DIR)) && (file_exists(APPLICATION_DIR."settings.ini")));
+            return ((file_exists(APPLICATION_DIR)) && (file_exists(APPLICATION_DIR."settings.json")));
         }
 
         /**
@@ -104,44 +104,39 @@ namespace Gishiki\Core {
                 }
             }
             
-            $passiveRoutingSetup = 
-                    '"" > "Default/Index"'.PHP_EOL.
-                    '"index.php" > "Default/Index" ';
-                
-            $activeRoutingSetup =
-                    '"-(.*)/Default-" > "{1}/Index"'.PHP_EOL.
-                    '"-(.*).php-" > "Default/Index/{1}.php" ';
-                
-            $passiveRoutingConfigWrite = file_put_contents(APPLICATION_DIR."passive_rounting.cfg", $passiveRoutingSetup, LOCK_EX);
-            $activeRoutingConfigWrite = file_put_contents(APPLICATION_DIR."active_routing.cfg", $activeRoutingSetup, LOCK_EX);
-            if (($passiveRoutingConfigWrite === FALSE) || ($activeRoutingConfigWrite === FALSE)) {
-                $errors++;
-            }
-            
-            if ((!file_exists(Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR')."settings.ini")) && ($errors == 0)) {
-                $configuration = "[general]".PHP_EOL
-                                ."development = on".PHP_EOL
-                        .PHP_EOL."; do not change the serverPassword as it is the key of the serverKey".PHP_EOL
-                                ."[security]".PHP_EOL
-                                ."serverPassword = \"".$new_password."\"".PHP_EOL
-                                ."serverKey = \"ServerKey\"".PHP_EOL
-                        .PHP_EOL."; cookies related settings".PHP_EOL
-                                ."[cookies]".PHP_EOL
-                                ."cookiesPrefix = \"GishikiCookie_\"".PHP_EOL
-                                ."cookiesEncryptedPrefix = \"".base64_encode(openssl_random_pseudo_bytes(16))."\"".PHP_EOL
-                                ."cookiesKey = \"".base64_encode(openssl_random_pseudo_bytes(256))."\"".PHP_EOL
-                                ."cookiesExpiration = 5184000".PHP_EOL
-                                ."cookiesPath = \"/\"".PHP_EOL
-                        .PHP_EOL."; routing related settings".PHP_EOL
-                                ."[routing]".PHP_EOL
-                                ."routing = on".PHP_EOL
-                                ."passiveRules = \"passive_rounting.cfg\"".PHP_EOL
-                                ."activeRules = \"active_routing.cfg\"".PHP_EOL
-                        .PHP_EOL."; caching related settings".PHP_EOL
-                                ."[cache]".PHP_EOL
-                                ."enabled = false".PHP_EOL
-                                ."server = \"memcached://localhost:11211\"".PHP_EOL;
-                if (file_put_contents(APPLICATION_DIR."settings.ini", $configuration, LOCK_EX) === FALSE) {
+            if ((!file_exists(Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR')."settings.json")) && ($errors == 0)) {
+                $configuration = "{".PHP_EOL 
+                                ."  \"general\": {".PHP_EOL
+                                ."      \"development\": true".PHP_EOL
+                                ."  },".PHP_EOL
+                        .PHP_EOL."  \"security\": {".PHP_EOL
+                                ."      \"serverPassword\": \"".$new_password."\",".PHP_EOL
+                                ."      \"serverKey\": \"ServerKey\"".PHP_EOL
+                                ."  },".PHP_EOL
+                        .PHP_EOL."  \"cookies\": {".PHP_EOL
+                                ."      \"cookiesPrefix\": \"GishikiCookie_\",".PHP_EOL
+                                ."      \"cookiesEncryptedPrefix\": \",".base64_encode(openssl_random_pseudo_bytes(16))."\",".PHP_EOL
+                                ."      \"cookiesKey\": \"".base64_encode(openssl_random_pseudo_bytes(256))."\",".PHP_EOL
+                                ."      \"cookiesExpiration\": 5184000,".PHP_EOL
+                                ."      \"cookiesPath\": \"/\"".PHP_EOL
+                                ."  },".PHP_EOL
+                        .PHP_EOL."  \"routing\": {".PHP_EOL
+                                ."      \"routing\": true,".PHP_EOL
+                                ."      \"passive_routing\": {".PHP_EOL
+                                ."          \"\": \"Default/Index\",".PHP_EOL
+                                ."          \"index.php\": \"\"".PHP_EOL
+                                ."      }, ".PHP_EOL
+                                ."      \"active_routing\": {".PHP_EOL
+                                ."          \"(.*)/Default\": \"{1}/Index\",".PHP_EOL
+                                ."          \"(.*).php\": \"Default/{1}\"".PHP_EOL
+                                ."      }".PHP_EOL
+                                ."  },".PHP_EOL
+                        .PHP_EOL."  \"cache\": {".PHP_EOL
+                                ."      \"enabled\": false,".PHP_EOL
+                                ."      \"server\": \"memcached://localhost:11211\"".PHP_EOL
+                                ."  }".PHP_EOL
+                                ."}";
+                if (file_put_contents(APPLICATION_DIR."settings.json", $configuration, LOCK_EX) === FALSE) {
                     $errors++;
                 }
             }

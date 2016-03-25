@@ -90,10 +90,10 @@ namespace Gishiki\Serialization {
 					$unserialized = NULL;
 					break;
 				case "object":
-					$unserialized = unserialize(base64_decode($valueSplit[0]));
+					$unserialized = unserialize(base64_decode($valueSplit[1]));
 					break;
 				case "array":
-					$serializedValue = "array:".json_decode($value);
+					$serializedValue = "array:".json_decode($valueSplit[1]);
 					break;
 				default:
 					throw new SerializationException("Invalid serialized value", 0);

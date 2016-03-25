@@ -43,30 +43,24 @@ include(ROOT."Gishiki".DS."Gishiki.inc");
 $action = "";
 
 //get the requested resource
-if ((isset($_GET["rewritten"])) && ($_GET["rewritten"] == "true")) {
+if (strlen(filter_input(INPUT_GET, 'rewritten') > 0)) {
     //read the requested resource if the mod_rewrite (or any rewrite module) has been used 
-    $CurrentScript = $_SERVER['PHP_SELF'];
-    $URL = urldecode($_SERVER["REQUEST_URI"]);
-    
+    $CurrentScript = filter_input(INPUT_SERVER, 'PHP_SELF');
+    $URL = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI'));
     for ($i = (strlen($CurrentScript) - 1); $i >= 0; $i--) {
         if ($CurrentScript[$i] == '/') {
             $CurrentScriptPath = substr($CurrentScript, 0, ($i + 1));
             if (($CurrentScriptPath != '') && ($CurrentScriptPath != '/')) {
                 $position = strpos($URL, $CurrentScriptPath);
-                if ($position !== FALSE) {
-                    $action = substr($URL, $position + strlen($CurrentScriptPath));
-                } else {
-                    exit("unexpected PHP behaviour!");
-                }
-            } else {
-                $action = $URL;
-            }
+                $action = substr($URL, $position + strlen($CurrentScriptPath));
+            } else
+            {   $action = $URL; }
             break;
         }
     }
 } else {
     //read the requested resource if the mod_rewrite was not used
-    $action = $_GET["action"];
+    $action = filter_input(INPUT_GET, 'action');
 }
     
 //start the framework

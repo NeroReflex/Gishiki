@@ -31,7 +31,7 @@ namespace Gishiki\Core {
          * @return array the application configuration
          */
         static function GetSettings() {
-            //sarse the settings file
+            //parse the settings file
             $appConfiguration = parse_ini_file(APPLICATION_DIR."settings.ini", TRUE, INI_SCANNER_TYPED);
             
             //return the application configuration

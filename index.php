@@ -43,7 +43,7 @@ include(ROOT."Gishiki".DS."Gishiki.inc");
 $action = "";
 
 //get the requested resource
-if (strlen(filter_input(INPUT_GET, 'rewritten') > 0)) {
+if (strlen(filter_input(INPUT_GET, 'rewritten')) > 0) {
     //read the requested resource if the mod_rewrite (or any rewrite module) has been used 
     $CurrentScript = filter_input(INPUT_SERVER, 'PHP_SELF');
     $URL = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI'));

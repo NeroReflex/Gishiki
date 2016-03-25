@@ -15,10 +15,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/    
 
-
-//set the gishiki version
-include(ROOT."Gishiki".DS."Version.inc");
-
 //include the logging engine
 include(ROOT."Gishiki".DS."logs".DS."Priority.php");
 include(ROOT."Gishiki".DS."logs".DS."Log.php");

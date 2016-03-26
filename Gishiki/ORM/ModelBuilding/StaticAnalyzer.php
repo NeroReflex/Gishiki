@@ -18,99 +18,47 @@
 namespace Gishiki\ORM\ModelBuilding {
     
     /**
-     * The static analysis of a database structure is performed by this component
-     * using an XML file that maps the database structure
+     * Every static analysis tools used to build the AOT component of the ORM
+     * must implements this interface
      *
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class StaticAnalyzer {
-        /** This is the path to the XML file containing the 
-         * structure of the database
-         */
-        protected $file_schemata;
+    class StaticAnalyzer implements StaticAnalyzerInterface {
+        //this is the analyzer (that implements StaticAnalyzerInterface)
+        //used for the analysis of the given resource
+        private $analyzer = NULL;
         
-        /** This is the structure of the database */
-        protected $database_schemata;
-
         /**
-         * Analyze the given XML file and create a representation of the database 
-         * structure.
+         * Analyze the given file using the proper analyzer for the given file
+         * format type.
          * 
-         * The resulting structure is no validated and almost no 
-         * errors check is performed 
-         * 
-         * @param string $schemata_filename the full path to the XML schemata file
-         * @throws ModelBuildingException the error encountered while building the database structure
+         * @param string $resource the full path to the schemata file
+         * @throws \Gishiki\ORM\ModelBuilding\ModelBuildingException the error occurred while detecting the proper analyzer
          */
-        function __construct($schemata_filename) {
-            //store the path to the database schemata
-            $this->file_schemata = $schemata_filename;
+        public function __construct($resource) {
+            //get the extension of the given resource
+            $extension = pathinfo($resource, PATHINFO_EXTENSION);
             
-            //setup an empty database schemata
-            $this->database_schemata = array();
-
-            //load the schema of a database
-            $schemata = simplexml_load_file($this->file_schemata);
-            
-            if (!$schemata) //check for the loading result
-            {   throw new ModelBuildingException("the file ".$this->file_schemata." couldn't be loaded", 0);  }
-            
-            foreach ($schemata->table as $table) {
-                //get the name of the current table
-                $table_name = "".$table->attributes()["name"][0];
-
-                if (($table_name == NULL) || (strlen($table_name) <= 0))
-                {   throw new ModelBuildingException("in file ".$this->file_schemata.": one or more tables have an invalid name", 1);  }
-
-                //create the table from its name
-                $current_table = new Table($table_name);
-
-                //add fields to currently analyzed the table
-                foreach ($table->field as $field) {
-                    $current_field = new Field();
-
-                    //read every attribute of the field
-                    foreach ($field->attributes() as $attribute_name => $value) {
-                        //get the real stringed-type value
-                        $attribute_value = "".$value;
-
-                        switch ($attribute_name) {
-                            case "name":
-                                //set the name of the current field
-                                $current_field->setName($attribute_value);
-                                break;
-                            case "primaryKey":
-                                if ($value == "true") //mark the current field as primary key
-                                {   $current_field->markAsPrimaryKey(); }
-                                break;
-
-                            default:
-                                //die("unknown field attribute");
-                                break;
-                        }
-                    }
-
-                    //each filed must have a name
-                    if (!$current_field->hasValidName())
-                    {   die("invalid field name");  }
-
-                    //try registering the current field as the table primary key
-                    if ($current_field->markedAsPrimaryKey()) {
-                        if (!$current_table->hasPrimaryKey()) //register the primary key
-                        {   $current_table->registerPrimaryKey($current_field);  }
-                        else //error: we have a second primary key inside the same table
-                        {   die("double primary key for the same table");  }
-                    } else  //add the current field to the standard fields list
-                    {   $current_table->registerField($current_field);  }
-                }
-
-                //add the analyzed table to the list of tables
-                $this->database_schemata[] = $current_table;
+            switch (strtolower($extension)) {
+                case "xml":
+                    $this->analyzer = new \Gishiki\ORM\ModelBuilding\Adapters\XML_StaticAnalyzer($resource);
+                    break;
+                
+                default:
+                    throw new \Gishiki\ORM\ModelBuilding\ModelBuildingException("in resource '".$resource."': unable to detect the analyzer to be used", 0);
             }
-            //the database structure has been figured out
         }
-
-
+        
+        public function Analyze() {
+            return $this->analyzer->Analyze();
+        }
+        
+        public function Analyzed() {
+            return $this->analyzer->Analyzed();
+        }
+        
+        public function Result() {
+            return $this->analyzer->Result();
+        }
     }
-
 }

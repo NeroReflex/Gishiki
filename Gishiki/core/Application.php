@@ -39,6 +39,33 @@ namespace Gishiki\Core {
         }
 
         /**
+         * Start the Object-relational mapping bundled with Gishiki:
+         *      -   Execute the AOT component to generate the PHP code (if needed)
+         *      -   Include the generated php code
+         *      -   Perform any additional setup operations
+         *      -   Perform database connection
+         */
+        static function StartORM() {
+            try {
+                //set the file containing the database structure
+                $analyzer = new \Gishiki\ORM\ModelBuilding\StaticAnalyzer(APPLICATION_DIR."orm.xml");
+                
+                //analyze that file
+                $analyzer->Analyze();
+                
+                //was that file correctly analyzed?
+                if ($analyzer->Analyzed()) {
+                    
+                } else {
+                    die("in resource '".APPLICATION_DIR."orm.xml"."': unknown error!");
+                }
+                
+            } catch (\Gishiki\ORM\ModelBuilding\ModelBuildingException $error) {
+                die("Error number (".$error->getCode()."): ".$error->getMessage());
+            }
+        }
+        
+        /**
          * Chack if the application to be executed exists, is valid and has the
          * configuration file
          * 

@@ -90,6 +90,9 @@ namespace Gishiki\Core {
          * @param string $nonRoutedResource the non re-routed request
          */
         public function FulfillRequest($nonRoutedResource) {
+            //perform any AOT compilation of application's models
+            Application::StartORM();
+            
             //check the route an active the router if it is enabled
             $rerouted = $nonRoutedResource;
             if (Routing::IsEnabled()) {

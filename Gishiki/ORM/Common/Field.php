@@ -33,6 +33,9 @@ namespace Gishiki\ORM\Common {
         //this is the data type of the field
         private $type;
         
+        //can the current field be NULL?
+        private $required;
+        
         /**
          * Create an empty field with no name, type and attributes
          */
@@ -43,9 +46,27 @@ namespace Gishiki\ORM\Common {
             //stub primary key
             $this->primary_key = NULL;
             
+            //a field can contain NULL-data by default
+            $this->required = FALSE;
             
             //integer by default....
             $this->type = \Gishiki\ORM\Common\DataType::INTEGER;
+        }
+        
+        /**
+         * the current field can contain data only if that data is not NULL
+         */
+        public function setDataRequired() {
+            $this->required = TRUE;
+        }
+        
+        /**
+         * Can NULL data be stored inside the current field?
+         * 
+         * @return boolean TRUE if the current field can only contain non-NULL data
+         */
+        public function isDataRequired() {
+            return ($this->required = TRUE);
         }
         
         /**

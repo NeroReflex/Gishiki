@@ -110,6 +110,10 @@ namespace Gishiki\ORM\ModelBuilding\Adapters {
                                 if ($value == "true") //mark the current field as primary key
                                 {   $current_field->markAsPrimaryKey(); }
                                 break;
+                            case "required":
+                                if ($value == "true") //mark the current field as primary key
+                                {   $current_field->setDataRequired(); }
+                                break;
 
                             default:
                                 if (($attribute_value == "integer") || ($attribute_value == "int"))

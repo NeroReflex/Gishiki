@@ -63,13 +63,17 @@ include(ROOT."Gishiki".DS."core".DS."Environment.php");
 //include the application manager
 include(ROOT."Gishiki".DS."core".DS."Application.php");
 
-//include database structure descruptiors entities
+//include the runtime (JIT) component of the ORM
+include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."DatabaseHandler.php");
+include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."Gishiki_Model.php");
+
+//include database structure descriptiors entities
 include(ROOT."Gishiki".DS."ORM".DS."Common".DS."DataType.php");
 include(ROOT."Gishiki".DS."ORM".DS."Common".DS."Field.php");
 include(ROOT."Gishiki".DS."ORM".DS."Common".DS."Table.php");
 include(ROOT."Gishiki".DS."ORM".DS."Common".DS."Database.php");
 
-//include database structure descruptiors analyzers
+//include models code generator (AOT)
 include(ROOT."Gishiki".DS."ORM".DS."ModelBuilding".DS."ModelBuildingException.php");
 include(ROOT."Gishiki".DS."ORM".DS."ModelBuilding".DS."ModelBuilder.php");
 include(ROOT."Gishiki".DS."ORM".DS."ModelBuilding".DS."StaticAnalyzerInterface.php");

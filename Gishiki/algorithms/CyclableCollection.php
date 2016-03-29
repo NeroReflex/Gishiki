@@ -82,7 +82,7 @@ class CyclableCollection implements \Iterator {
      */
     public function get($key) {
         //return the chosen field
-        if (exists_key($key)) {     return $this->array[$key];  }
+        if ($this->exists_key($key)) {     return $this->array[$key];  }
         else {                      return NULL;                }
     }
     
@@ -90,7 +90,7 @@ class CyclableCollection implements \Iterator {
      * Access the array element at the given value
      * 
      * @param integer|string $key the index of the array element to be accessed
-     * @return mixed the requested array element or NULL
+     * @return mixed the inserted array element
      */
     public function set($key, $value) {
         //return the chosen field

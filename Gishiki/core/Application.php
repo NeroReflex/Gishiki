@@ -38,7 +38,12 @@ namespace Gishiki\Core {
             return $appConfiguration;
         }
 
-        static function GenerateORMData($resource) {
+        /**
+         * Analyze a resource and build a model out of that resource
+         * 
+         * @param string $resource the resource to be analyzed
+         */
+        static function GenerateORMData($resource, $on_the_fly = FALSE) {
             try {
                 //set the file containing the database structure
                 $analyzer = new \Gishiki\ORM\ModelBuilding\StaticAnalyzer($resource);
@@ -48,6 +53,8 @@ namespace Gishiki\Core {
                 
                 //was that file correctly analyzed?
                 if ($analyzer->Analyzed()) {
+                    
+                    //get the analysis result
                     $database_structure = $analyzer->Result();
                     
                     //initialize the code generator
@@ -57,7 +64,10 @@ namespace Gishiki\Core {
                     $code_generator->ErrorsCheck();
                     
                     //perform the code generation
-                    echo $code_generator->Compile()."<br />";
+                    $compilation_result = $code_generator->Compile();
+                    
+                    //include the compilation result
+                    eval($compilation_result);
                 } else {
                     die("in resource '".$resource."': unknown error!");
                 }
@@ -72,13 +82,12 @@ namespace Gishiki\Core {
          *      -   Execute the AOT component to generate the PHP code (if needed)
          *      -   Include the generated php code
          *      -   Perform any additional setup operations
-         *      -   Perform database connection
          */
         static function StartORM($resources) {
             //iterate over each database descriptor
             foreach ($resources as &$resource) {
                 //compile the current database descriptor
-                Application::GenerateORMData(APPLICATION_DIR.$resource);
+                Application::GenerateORMData(APPLICATION_DIR.$resource, \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_AUTOCACHE"));
             }
         }
         
@@ -171,11 +180,15 @@ XML;
                                 ."      \"development\": true".PHP_EOL
                                 ."  },".PHP_EOL
                         .PHP_EOL."  \"database\": {".PHP_EOL
+                                ."      \"on-the-fly\": false,".PHP_EOL
                                 ."      \"mappers\": [".PHP_EOL
                                 ."          \"bookstore.xml\"".PHP_EOL
                                 ."      ],".PHP_EOL
                                 ."      \"connections\": {".PHP_EOL
-                                ."          \"default\": \"sqlite://example.sqlite\"".PHP_EOL
+                                ."          \"default\": {".PHP_EOL
+                                ."              \"database_type\": \"sqlite\",".PHP_EOL
+                                ."              \"database_file\": \"default_db.sqlite\"".PHP_EOL
+                                ."          }".PHP_EOL
                                 ."      }".PHP_EOL
                                 ."  },".PHP_EOL
                         .PHP_EOL."  \"security\": {".PHP_EOL

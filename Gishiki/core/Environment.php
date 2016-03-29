@@ -35,8 +35,30 @@ namespace Gishiki\Core {
         /** additional details given by the client */
         private $resourceDetails;
 
-        /** The cookie functions provider */
+        /** 
+         * Provide cookie management ability
+         * 
+         * @var \Gishiki\Cookie\CookieProvider the cookie functions provider
+         */
         public $Cookies;
+        
+        /**
+         * Return the given enstabilished connection to a database.
+         * 
+         * @param string $conn_name the name of the connection
+         * @param \Gishiki\ORM\Runtime\DatabaseHandler $conn_handler the connection to be registered
+         */
+        public function GetConnection($conn_name) {
+            try {
+                //get the connection details
+                $connections_options = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_CONNECTIONS")[$conn_name];
+
+                //return the connection
+                return new \Gishiki\ORM\Runtime\DatabaseHandler($connections_options);
+            } catch (\Exception $ex) {
+                die ("Error while enstabilishing the ".$connection_name." connection");
+            }
+        }
         
         /**
          * Setup a new environment instance used to fulfill the client request
@@ -60,6 +82,9 @@ namespace Gishiki\Core {
 
             //prepare the cookie manager
             $this->Cookies = new \Gishiki\Cookie\CookieProvider();
+            
+            //prepare the connections list
+            $this->connections = new \Gishiki\Algorithms\CyclableCollection();
         }
 
         /**
@@ -90,7 +115,7 @@ namespace Gishiki\Core {
          * @param string $nonRoutedResource the non re-routed request
          */
         public function FulfillRequest($nonRoutedResource) {
-            //perform any AOT compilation of application's models
+            //start the ORM
             Application::StartORM(Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_SOURCES"));
             
             //check the route an active the router if it is enabled
@@ -404,7 +429,9 @@ namespace Gishiki\Core {
                     ],
                     
                     "DATABASE" => [
+                        "CACHING" => $config["database"]["on-the-fly"],
                         "MAPPERS" => $config["database"]["mappers"],
+                        "CONNECTIONS" => $config["database"]["connections"]
                     ],
 
                     //Cookies Configuration
@@ -462,6 +489,12 @@ namespace Gishiki\Core {
          */
         public function GetConfigurationProperty($property) {
             switch(strtoupper($property)) {
+                case "DATA_AUTOCACHE":
+                    return $this->configuration["DATABASE"]["CACHING"];
+                
+                case "DATA_CONNECTIONS":
+                    return $this->configuration["DATABASE"]["CONNECTIONS"];
+                
                 case "DATA_SOURCES":
                     return $this->configuration["DATABASE"]["MAPPERS"];
                 

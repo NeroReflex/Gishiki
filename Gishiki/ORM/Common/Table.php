@@ -23,15 +23,55 @@ namespace Gishiki\ORM\Common {
      *
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class Table {
+    class Table extends \Gishiki\Algorithms\CyclableCollection {
         //this is the name of the table
         private $name;
         
         //this is the field that is a primary key
         private $primary_key;
         
-        //this is the list of fields
-        private $data_fields;
+        /**
+         * Check weather the table name can be used within any supported RDBMS
+         * 
+         * @return boolean TRUE if the database name is a valid one
+         */
+        public function hasValidName() {
+            if (strlen($this->name) > 0) {
+                //get the list of all valid characters
+                $valid_chars = str_split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789");
+                
+                //get the list of all used characters
+                $chars = str_split($this->name);
+                
+                //iterate each character to search for unallowed chars
+                reset($chars);
+                while ($c_char = current($chars)) {
+                    //if an invalid character is found.....
+                    if (array_search($c_char, $valid_chars) === FALSE)
+                    {   return FALSE;   } //flag the invalid forced name 
+                    
+                    next($chars);
+                }
+                
+                $uppername = strtoupper($this->name);
+                return (($uppername != "CREATE") && 
+                        ($uppername != "TABLE") && 
+                        ($uppername != "IF") && 
+                        ($uppername != "NOT") && 
+                        ($uppername != "EXISTS") && 
+                        ($uppername != "INSERT") && 
+                        ($uppername != "INTO") && 
+                        ($uppername != "DELETE") && 
+                        ($uppername != "UPDATE") && 
+                        ($uppername != "FROM") && 
+                        ($uppername != "WHERE") && 
+                        ($uppername != "ORDER") && 
+                        ($uppername != "BY") && 
+                        ($uppername != "DESC") && 
+                        ($uppername != "ASC") && 
+                        ($uppername != "JOIN"));
+            }
+        }
         
         /**
          * Create an empty table with no attributes nor fields
@@ -44,9 +84,6 @@ namespace Gishiki\ORM\Common {
             
             //stub primary key
             $this->primary_key = NULL;
-            
-            //empty field list
-            $this->data_fields = array();
         }
         
         /**
@@ -57,7 +94,18 @@ namespace Gishiki\ORM\Common {
          */
         public function hasPrimaryKey() {
             //check if the primary key is a valid primary key
-            return ($this->primary_key != NULL);
+            return ($this->getPrimaryKey() != NULL);
+        }
+        
+        /**
+         * Get the primary key of the current table.
+         * 
+         * If the current table lacks in primary key NULL will be returned
+         * 
+         * @return \Gishiki\ORM\Common\Field the primary key field
+         */
+        public function getPrimaryKey() {
+            return $this->primary_key;
         }
         
         /**
@@ -73,7 +121,7 @@ namespace Gishiki\ORM\Common {
             if ($table_field->markedAsPrimaryKey()) //save the field as the primary key
             {   $this->primary_key = $table_field;     }
             else //save the field as a data field
-            {   $this->data_fields[] = $table_field;   }
+            {   $this->array[] = $table_field;   }
         }
         
         /**

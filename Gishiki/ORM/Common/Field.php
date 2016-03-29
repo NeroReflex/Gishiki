@@ -40,7 +40,7 @@ namespace Gishiki\ORM\Common {
          * Create an empty field with no name, type and attributes
          */
         public function __construct() {
-            //store the name of the table
+            //empty name for the current field
             $this->name = "";
             
             //stub primary key

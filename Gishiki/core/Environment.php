@@ -59,7 +59,7 @@ namespace Gishiki\Core {
             \Gishiki\Caching\Cache::Initialize();
 
             //prepare the cookie manager
-            $this->Cookies = new \CookieProvider();
+            $this->Cookies = new \Gishiki\Cookie\CookieProvider();
         }
 
         /**
@@ -91,7 +91,7 @@ namespace Gishiki\Core {
          */
         public function FulfillRequest($nonRoutedResource) {
             //perform any AOT compilation of application's models
-            Application::StartORM();
+            Application::StartORM(Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_SOURCES"));
             
             //check the route an active the router if it is enabled
             $rerouted = $nonRoutedResource;
@@ -402,6 +402,10 @@ namespace Gishiki\Core {
                         "MASTER_SYMMETRIC_KEY" => $config["security"]["serverPassword"],
                         "MASTER_ASYMMETRIC_KEY_REFERENCE" => $config["security"]["serverKey"],
                     ],
+                    
+                    "DATABASE" => [
+                        "MAPPERS" => $config["database"]["mappers"],
+                    ],
 
                     //Cookies Configuration
                     "COOKIES" => [
@@ -458,6 +462,9 @@ namespace Gishiki\Core {
          */
         public function GetConfigurationProperty($property) {
             switch(strtoupper($property)) {
+                case "DATA_SOURCES":
+                    return $this->configuration["DATABASE"]["MAPPERS"];
+                
                 case "LOGGING_ENABLED":
                     return $this->configuration["LOG"]["ENABLED"];
 

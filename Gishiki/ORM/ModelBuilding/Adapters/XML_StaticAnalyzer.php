@@ -27,9 +27,6 @@ namespace Gishiki\ORM\ModelBuilding\Adapters {
         //this is the path to the XML file containing the structure of the database
         private $file_schemata;
         
-        //this is the structure of the database */
-        private $database_schemata;
-        
         //was the Analyze function been called
         private $analysis_performed;
         
@@ -76,8 +73,14 @@ namespace Gishiki\ORM\ModelBuilding\Adapters {
             if (strlen($database_name) <= 0) //check for the name of the database
             {   throw new \Gishiki\ORM\ModelBuilding\ModelBuildingException("in file ".$this->file_schemata.": unknown or invalid database name", 6);  }
             
+            //get the database connection name
+            $connection_name = $schemata->attributes()["connection"][0]."";
+            
+            if (strlen($connection_name) <= 0) //check for the name of the database
+            {   throw new \Gishiki\ORM\ModelBuilding\ModelBuildingException("in file ".$this->file_schemata.": unknown or invalid database connection name", 6);  }
+            
             //setup an empty database schemata
-            $this->database_schemata = new \Gishiki\ORM\Common\Database($database_name);
+            $this->database_structure = new \Gishiki\ORM\Common\Database($database_name, $connection_name);
             
             foreach ($schemata->table as $table) {
                 //get the name of the current table
@@ -90,7 +93,7 @@ namespace Gishiki\ORM\ModelBuilding\Adapters {
                 $current_table = new \Gishiki\ORM\Common\Table($table_name);
 
                 //add fields to currently analyzed the table
-                foreach ($table->field as $field) {
+                foreach ($table->column as $field) {
                     $current_field = new \Gishiki\ORM\Common\Field();
 
                     //read every attribute of the field
@@ -114,7 +117,7 @@ namespace Gishiki\ORM\ModelBuilding\Adapters {
                                 if ($value == "true") //mark the current field as primary key
                                 {   $current_field->setDataRequired(); }
                                 break;
-
+                                
                             default:
                                 if (($attribute_value == "integer") || ($attribute_value == "int"))
                                 {   $current_field->setDataType(\Gishiki\ORM\Common\DataType::INTEGER); }
@@ -142,7 +145,7 @@ namespace Gishiki\ORM\ModelBuilding\Adapters {
                 }
 
                 //add the analyzed table to the list of tables
-                $this->database_schemata->RegisterTable($current_table);
+                $this->database_structure->RegisterTable($current_table);
             }
             
             //the database structure has been figured out with no errors

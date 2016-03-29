@@ -15,6 +15,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/    
 
+//include basic common algorithms
+include(ROOT."Gishiki".DS."algorithms".DS."CyclableCollection.php");
+
 //include the logging engine
 include(ROOT."Gishiki".DS."logs".DS."Priority.php");
 include(ROOT."Gishiki".DS."logs".DS."Log.php");
@@ -25,10 +28,6 @@ include(ROOT."Gishiki".DS."core".DS."Exception.php");
 //include the JSON manager
 include(ROOT."Gishiki".DS."JSON".DS."JSONException.php");
 include(ROOT."Gishiki".DS."JSON".DS."JSON.php");
-
-//include the serialization library
-include(ROOT."Gishiki".DS."serialization".DS."SerializationException.php");
-include(ROOT."Gishiki".DS."serialization".DS."DirectSerialization.php");
 
 //include the caching engine
 include(ROOT."Gishiki".DS."cache".DS."Cache.php");

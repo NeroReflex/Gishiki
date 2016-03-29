@@ -38,6 +38,35 @@ namespace Gishiki\Core {
             return $appConfiguration;
         }
 
+        static function GenerateORMData($resource) {
+            try {
+                //set the file containing the database structure
+                $analyzer = new \Gishiki\ORM\ModelBuilding\StaticAnalyzer($resource);
+                
+                //analyze that file
+                $analyzer->Analyze();
+                
+                //was that file correctly analyzed?
+                if ($analyzer->Analyzed()) {
+                    $database_structure = $analyzer->Result();
+                    
+                    //initialize the code generator
+                    $code_generator = new \Gishiki\ORM\ModelBuilding\ModelBuilder($database_structure);
+                    
+                    //check for errors
+                    $code_generator->ErrorsCheck();
+                    
+                    //perform the code generation
+                    echo $code_generator->Compile()."<br />";
+                } else {
+                    die("in resource '".$resource."': unknown error!");
+                }
+                
+            } catch (\Gishiki\ORM\ModelBuilding\ModelBuildingException $error) {
+                die("Error number (".$error->getCode()."): ".$error->getMessage());
+            }
+        }
+        
         /**
          * Start the Object-relational mapping bundled with Gishiki:
          *      -   Execute the AOT component to generate the PHP code (if needed)
@@ -45,23 +74,11 @@ namespace Gishiki\Core {
          *      -   Perform any additional setup operations
          *      -   Perform database connection
          */
-        static function StartORM() {
-            try {
-                //set the file containing the database structure
-                $analyzer = new \Gishiki\ORM\ModelBuilding\StaticAnalyzer(APPLICATION_DIR."orm.xml");
-                
-                //analyze that file
-                $analyzer->Analyze();
-                
-                //was that file correctly analyzed?
-                if ($analyzer->Analyzed()) {
-                    
-                } else {
-                    die("in resource '".APPLICATION_DIR."orm.xml"."': unknown error!");
-                }
-                
-            } catch (\Gishiki\ORM\ModelBuilding\ModelBuildingException $error) {
-                die("Error number (".$error->getCode()."): ".$error->getMessage());
+        static function StartORM($resources) {
+            //iterate over each database descriptor
+            foreach ($resources as &$resource) {
+                //compile the current database descriptor
+                Application::GenerateORMData(APPLICATION_DIR.$resource);
             }
         }
         
@@ -131,10 +148,35 @@ namespace Gishiki\Core {
                 }
             }
             
+            $bookstore_example = <<<XML
+<?xml version='1.0' standalone='yes'?>
+<!-- the connection named "default" is added by the application initializer -->
+<database name="bookstore" connection="default">
+    <table name="book">
+        <column type="integer" name="id" primaryKey="true"></column>
+        <column type="string" name="title"></column>
+        <column type="float" name="price"></column>
+        <column type="string" name="author"></column>
+        <column type="integer" name="publication_date"></column>
+        <column type="boolean" name="interesting"></column>
+    </table>
+</database>
+XML;
+            $bookstore_example_xml = new \SimpleXMLElement($bookstore_example);
+            $bookstore_example_xml->asXML(APPLICATION_DIR."bookstore.xml");
+            
             if ((!file_exists(Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR')."settings.json")) && ($errors == 0)) {
                 $configuration = "{".PHP_EOL 
                                 ."  \"general\": {".PHP_EOL
                                 ."      \"development\": true".PHP_EOL
+                                ."  },".PHP_EOL
+                        .PHP_EOL."  \"database\": {".PHP_EOL
+                                ."      \"mappers\": [".PHP_EOL
+                                ."          \"bookstore.xml\"".PHP_EOL
+                                ."      ],".PHP_EOL
+                                ."      \"connections\": {".PHP_EOL
+                                ."          \"default\": \"sqlite://example.sqlite\"".PHP_EOL
+                                ."      }".PHP_EOL
                                 ."  },".PHP_EOL
                         .PHP_EOL."  \"security\": {".PHP_EOL
                                 ."      \"serverPassword\": \"".$new_password."\",".PHP_EOL

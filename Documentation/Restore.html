@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Gishiki Documentation</title>
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+	<link type="text/css" rel="stylesheet" href="styles/shCoreEclipse.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
+	<!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="bootstrap/js/html5shiv.min.js"></script>
+      <script src="bootstrap/js/respond.min.js"></script>
+    <![endif]-->
+	
+	<script src="bootstrap/js/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="documentation.css"/>
+	
+</head>
+
+<body role="document">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Gishiki Documentation</a>
+	</div>
+	
+	<ul class="nav navbar-nav">
+		<li><a href="https://github.com/NeroReflex/Gishiki">GitHub</a></li>
+		<li><a href="license.html">License</a></li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Credits <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="bootstrap.html">Bootstrap</a></li>
+			<li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li> <!--http://alexgorbatchev.com/SyntaxHighlighter/-->
+          </ul>
+        </li>
+	</ul>
+		
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="textBlock">
+<h2>Restore objects</h2>
+Since the included ORM is able to save an object into a database, it is obviously able to restore a saved object in the future.<br />
+In order to understand how the <b><i>Restore</i></b> function works, you have to understand what a clause is.<br /><br />
+A clause is a rule that gives you the ability to exclude results that doesn't match with that rule.<br /><br />
+In order to use the Restore function a list of clauses must be provided. That list of clauses is an instance of the <b><i>Clauses</i></b> class.<br />
+After you have instantiated that object, you can add as many clauses you want from that instance:
+<pre class="brush: php;">
+class Book_Controller extends Gishiki_Controller {
+    function RestoreBestSellingBooks()
+    {
+        //prepare the selection of objects to be restored
+        $conditions = new Clauses();
+        $conditions->AddClause("cost", Criteria::LESS_THAN, 25.00);
+        $conditions->AddClause("sold", Criteria::GREATER_EQUAL, 500);
+
+        //restore every book fulfilling each given clause
+        $books = $this->Restore("Book", $conditions);
+
+        //work with this book from the controller
+        return $books;
+    }
+}
+</pre>
+As you can see the Restore function takes two arguments: the first is the name of the class objects were instantiated from, the second one is the object with the given list of clauses.<br />
+In this example books that cost less than 25$ AND sold 500 or more copies are retrived.<br />
+It is important to remember that <i>cost</i> and <i>sold</i> are two properties of the "Book" class, and giving the name of a property that does't exist in the given class name will lead to a DatabaseException.<br />
+
+<div class='alert alert-info'>
+    <b>Restored elements count: </b>the Restore function can return three results:<ul>
+        <li><i>NULL</i> if no objects fulfilling the list of given clauses are found</li>
+        <li><i>object</i> an instance of the given class name if only one object fulfilling the list of given clauses is found</li>
+        <li><i>array of objects</i> if two or more objects fulfilling the list of given clauses are found</li>
+    </ul>
+</div>
+
+    </div>
+</body>
+
+</html>

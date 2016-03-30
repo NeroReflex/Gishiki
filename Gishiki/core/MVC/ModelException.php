@@ -15,21 +15,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/    
 
-namespace Gishiki\Core\MVC {
 
+/**
+ * The model exception thrown by the ModelManaged class
+ * 
+ * @author Benato Denis <benato.denis96@gmail.com>
+ */
+class ModelException extends Exception {
     /**
-     * The model exception thrown by a model
-     * 
-     * @author Benato Denis <benato.denis96@gmail.com>
+     * Create the exception
+     * @param string $message the error message
+     * @param integer $errorCode the model error code
      */
-    class ModelException extends \Gishiki\Core\Gishiki_Exception {
-        /**
-         * Create the exception
-         * @param string $message the error message
-         * @param integer $errorCode the model error code
-         */
-        public function __construct($message, $errorCode) {
-            parent::__construct($message, $errorCode);
-        }
+    public function __construct($message, $errorCode) {
+        parent::__construct($message, $errorCode);
     }
 }

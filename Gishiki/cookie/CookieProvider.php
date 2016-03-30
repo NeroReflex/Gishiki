@@ -26,20 +26,16 @@ class CookieProvider {
      * Retrive the list of all cookies stored by the client 
      */
     public function RestoreCookies() {
-        $cookies = [];
+        $cookies = array();
         
         //cache the cookie prefix in order to avoid calling GetConfigurationProperty for each propery
-        $cookiePrefix = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_PREFIX');
+        $cookiePrefix = Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_PREFIX');
         
         //start cycling from the first cookie
         reset($_COOKIE);
         
         //cycle each cookie
-        $i = 0;
-        $e = count($_COOKIE);
-        while ($i < $e) {
-            $currentCookie = current($_COOKIE);
-            
+        while ($currentCookie = current($_COOKIE)) {
             //get the cookie complete name
             $cookieCompleteName = key($_COOKIE);
             
@@ -54,9 +50,6 @@ class CookieProvider {
             
             //jump over the next cookie
             next($_COOKIE);
-            
-            //increase the counter
-            $i++;
         }
         
         //return the list of fetched cookies
@@ -71,7 +64,7 @@ class CookieProvider {
      */
     public function RestoreCookie($cookieName) {
         //get the cookie complete name
-        $name = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_PREFIX').$cookieName;
+        $name = Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_PREFIX').$cookieName;
         
         //check if the requested cookie exists
         if ((!empty($_COOKIE[$name])) && (isset($_COOKIE[$name]))) {
@@ -83,16 +76,17 @@ class CookieProvider {
             
             //check if the value is encrypted
             $count = 0;
-            $cookieValue = str_replace(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_ENCRYPTION_MARK'), "", $cookieValue, $count);
+            $cookieValue = str_replace(Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_ENCRYPTION_MARK'), "", $cookieValue, $count);
             
             //and, if the value is encrypted, decrypt&check it
             if ($count == 1) {
                 //prepare the value digital signer verifier
-                $signer = \Gishiki\Security\AsymmetricCipher::LoadPublicKey(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('MASTER_ASYMMETRIC_KEY_NAME'));
+                $signer = new AsymmetricCipher();
+                $signer->LoadKey(Environment::GetCurrentEnvironment()->GetConfigurationProperty('MASTER_ASYMMETRIC_KEY_NAME'));
 
                 //prepare the value decrypter
-                $decrypter = new \Gishiki\Security\SymmetricCipher(\Gishiki\Security\SymmetricCipher::AES128);
-                $decrypter->SetKey(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_ENCRYPTION_KEY'));
+                $decrypter = new SymmetricCipher(SymmetricCipher::AES128);
+                $decrypter->SetKey(Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_ENCRYPTION_KEY'));
 
                 //decrypt the cookie value
                 $cookieValue = $decrypter->Decrypt($cookieValue);
@@ -130,7 +124,7 @@ class CookieProvider {
      */
     public function DeleteCookie(Cookie &$cookie) {
         //get the cookie complete name
-        $name = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_PREFIX').$cookie->getName();
+        $name = Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_PREFIX').$cookie->getName();
         
         //delete the cookie from the client
         $success = setcookie($name, NULL, time() - 3600);
@@ -157,7 +151,7 @@ class CookieProvider {
      */
     public function StoreCookie(Cookie &$cookie, $expireIn = NULL, $encrypted = FALSE, $secure = FALSE) {
         //get the cookie complete name
-        $name = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_PREFIX').$cookie->getName();
+        $name = Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_PREFIX').$cookie->getName();
         
         //get the cookie serialized value
         $reflectedCookieValueInspection = new ReflectionMethod($cookie, "inspectSerializedValue");
@@ -167,11 +161,12 @@ class CookieProvider {
             /*          encrypt the cookie value            */
             
             //prepare the value digital signer
-            $signer = \Gishiki\Security\AsymmetricCipher::LoadPrivateKey(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('MASTER_ASYMMETRIC_KEY_NAME'), \Gishiki\Core\Enviroment::GetCurrentEnvironment()->GetConfigurationProperty("SECURITY_MASTER_SYMMETRIC_KEY"));
+            $signer = new AsymmetricCipher();
+            $signer->LoadKey(Environment::GetCurrentEnvironment()->GetConfigurationProperty('MASTER_ASYMMETRIC_KEY_NAME'));
             
             //prepare the value encrypter
-            $encrypter = new \Gishiki\Security\SymmetricCipher(\Gishiki\Security\SymmetricCipher::AES128);
-            $encrypter->SetKey(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_ENCRYPTION_KEY'));
+            $encrypter = new SymmetricCipher(SymmetricCipher::AES128);
+            $encrypter->SetKey(Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_ENCRYPTION_KEY'));
             
             //generate the digital signature
             $digitalSign = $signer->GenerateDigitalSignature($value);
@@ -180,20 +175,20 @@ class CookieProvider {
             $value = $digitalSign."<-||^||->".$value;
             
             //encrypt the cookie append the string that mark an encrypted cookie
-            $value = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_ENCRYPTION_MARK').$encrypter->Encrypt($value);
+            $value = Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_ENCRYPTION_MARK').$encrypter->Encrypt($value);
         }
         
         //get the cookie exiration time
         if (gettype($expireIn) == "NULL") {
-            $expireIn = time() + abs(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_DEFAULT_LIFETIME'));
+            $expireIn = time() + abs(Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_DEFAULT_LIFETIME'));
         }
         
         //get the cookie path
-        $path = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_VALIDITY_PATH');
+        $path = Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_VALIDITY_PATH');
         
         //return a flag of the cookie export status
         if ($secure) {
-            if (\Gishiki\Core\Environment::GetCurrentEnvironment()->SecureConnectionEnabled()) {
+            if (Environment::GetCurrentEnvironment()->SecureConnectionEnabled()) {
                 return setcookie($name, $value, $expireIn, $path, $secure, $secure);
             } else {
                 return FALSE;

@@ -4,4 +4,3 @@ Disallow: /README.md
 Disallow: /LICENSE
 Disallow: /Documentation/
 Disallow: /Gishiki/
-Disallow: /Application/

@@ -40,7 +40,7 @@ class Cookie {
         $this->name = $cookieName;
         
         //and its value
-        $this->value = \Gishiki\Serialization\DirectSerialization::SerializeValue($cookieValue);
+        $this->value = DirectSerialization::SerializeValue($cookieValue);
     }
     
     /**
@@ -50,7 +50,7 @@ class Cookie {
      */
     public function setValue($newValue) {
         //store the cookie value
-        $this->value = \Gishiki\Serialization\DirectSerialization::SerializeValue($newValue);
+        $this->value = DirectSerialization::SerializeValue($newValue);
     }
     
     /**
@@ -60,7 +60,7 @@ class Cookie {
      */
     public function getValue() {
         //get the cookie value
-        return \Gishiki\Serialization\DirectSerialization::DeserializeValue($this->value);
+        return DirectSerialization::DeserializeValue($this->value);
     }
     
     /**

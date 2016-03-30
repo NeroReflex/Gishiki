@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Gishiki Documentation</title>
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+	<link type="text/css" rel="stylesheet" href="styles/shCoreEclipse.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
+	<!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="bootstrap/js/html5shiv.min.js"></script>
+      <script src="bootstrap/js/respond.min.js"></script>
+    <![endif]-->
+	
+	<script src="bootstrap/js/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="documentation.css"/>
+	
+</head>
+
+<body role="document">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Gishiki Documentation</a>
+	</div>
+	
+	<ul class="nav navbar-nav">
+		<li><a href="https://github.com/NeroReflex/Gishiki">GitHub</a></li>
+		<li><a href="license.html">License</a></li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Credits <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="bootstrap.html">Bootstrap</a></li>
+			<li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li> <!--http://alexgorbatchev.com/SyntaxHighlighter/-->
+          </ul>
+        </li>
+	</ul>
+		
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="textBlock">
+<h2>Using a View within a controller</h2>
+How to create a <b>View</b> is discussed in the view chapter. This section shows you how to use one or more views to create a page.
+<br /><br />
+You CANNOT echo out things within a controller, because that will destroy the order your data is sent to the client, and because, if you have the gzip compression enable that will cause an invalid gzip content to be generated.
+The legitimate way to build the content the client will access to, is to use the <b>ProcessPartialView</b> function.
+<pre class="brush: php;">
+class My_controller_Controller extends Gishiki_Controller {
+    function __construct($arguments)
+    {
+	    parent::__construct($arguments);
+
+        /*   TODO: add your code here   */
+    }
+
+    function Index()
+    {
+        $agedUsers = array(
+            "maxAge" => 18,
+            "minAge" => 21,
+        );
+
+        //get the list of users that are 18, 18, 20 or 21 years old
+        $users = $this->Model->ExecuteOperation("getAgedUserList", $agedUsers);
+
+        //start drawing the table
+        $this->ProcessPartialView("userTable");
+
+        //show each user retrived
+        foreach ($singleUser as $users) {
+            //draw a single table line; username, name and age are automatically updated on each line,
+            $this->ProcessPartialView("userEntry", $singleUser);
+            //because the view defines how to print your data, not your data, which is fetched by the model
+        }
+
+        //end drawing the table
+        $this->ProcessPartialView("userTableEnd");
+    }
+}
+</pre>
+The above code will print a table containing the list of all users fetched from somewhere by the model. This is another strong point of the MVC pattern: where is the data? Well, who cares! The one who fetches data is the model! 
+
+
+<br /><br />
+<div class="alert alert-info">
+<b><i>Note that:</i></b> ProcessPartialView doesn't actually draw/output anything. What perform the output operation is the class destructor automatically called by PHP.
+</div></div>
+</body>
+
+</html>

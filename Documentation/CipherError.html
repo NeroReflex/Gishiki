@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Gishiki Documentation</title>
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+	<link type="text/css" rel="stylesheet" href="styles/shCoreEclipse.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
+	<!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="bootstrap/js/html5shiv.min.js"></script>
+      <script src="bootstrap/js/respond.min.js"></script>
+    <![endif]-->
+	
+	<script src="bootstrap/js/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="documentation.css"/>
+	
+</head>
+
+<body role="document">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Gishiki Documentation</a>
+	</div>
+	
+	<ul class="nav navbar-nav">
+		<li><a href="https://github.com/NeroReflex/Gishiki">GitHub</a></li>
+		<li><a href="license.html">License</a></li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Credits <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="bootstrap.html">Bootstrap</a></li>
+			<li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li> <!--http://alexgorbatchev.com/SyntaxHighlighter/-->
+          </ul>
+        </li>
+	</ul>
+		
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="textBlock">
+<h2>Error catching</h2>
+AsymmetricCipher and SymmetricCipher objects will thrown an exception, that is an instance of <b>CipherException</b> when something isn't going as expected.
+<br />
+You can find a list of exceptions and relative errors at the end of this page. For now, in order to generate an exception, consider this example and the following condition: the asymmetric key testKey was not generated before.<br /><br />
+Look at the screen result:
+<pre class='brush: php;'>
+class CryptoRSA_Controller extends Gishiki_Controller {
+    function RSAEncryptionTest()
+    {
+        //get the string http://localhost/CryptoRSA/RSAEncryptionTest/....................
+        $dataToEncrypt = $receivedDetails[0];
+
+        //setup the symmetric cipher
+        $asymmCipher = new AsymmetricCipher();
+
+        //change the default key with the given one
+        $asymmCipher->LoadKey("testKey");
+
+        //crypt and decrypt data
+        $encrypted = $asymmCipher->Encrypt($dataToEncrypt);
+        $decrypted = $asymmCipher->Decrypt($encrypted);
+
+        //prepare the page to be shown
+        $dataToDisplay = array(
+            "enc" => $encrypted,
+            "dec" => $decrypted,
+        );
+        
+        //show the page
+        $this->ProcessPartialView("RSAEncryptionTest", $dataToDisplay);
+    }
+}
+</pre>
+Save this page as CryptoRSA.php, create a CryptoRSA.php that contains an empty model and create an RSAEncryptionTest.html like this one:
+<pre class='brush: xml;'>
+&lt;!DOCTYPE html&gt;
+
+&lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;RSA Encryption test&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        The RSA encryption result is:&lt;br /&gt;
+        {{enc}}
+        &lt;br />&lt;br />&lt;br /&gt;
+        The RSA deryption result is:&lt;br /&gt;
+        {{dec}}
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+Direct the browser to http://localhost/CryptoRSA/RSAEncryptionTest/This+is+the+message+that+was+encrypted+%3B-)
+As you can see the exception is badly reported to the client, exposing your website at a potential security issue, that may lead to an attack, and, if you have the gzip compression enabled, the exception will break the output, and the client will receive an invalid gzip content. To avoid any security issue use the php's try/catch feature to catch exceptions:
+<pre class='brush: php;'>
+class CryptoRSA_Controller extends Gishiki_Controller {
+    function RSAEncryptionTest()
+    {
+        try {
+            //get the string http://localhost/CryptoRSA/RSAEncryptionTest/....................
+            $dataToEncrypt = $receivedDetails[0];
+
+            //setup the symmetric cipher
+            $asymmCipher = new AsymmetricCipher();
+
+            //change the default key with the given one
+            $asymmCipher->LoadKey("testKey");
+
+            //crypt and decrypt data
+            $encrypted = $asymmCipher->Encrypt($dataToEncrypt);
+            $decrypted = $asymmCipher->Decrypt($encrypted);
+
+            //prepare the page to be shown
+            $dataToDisplay = array(
+                "enc" => $encrypted,
+                "dec" => $decrypted,
+            );
+
+            //show the page
+            $this->ProcessPartialView("RSAEncryptionTest", $dataToDisplay);
+        } catch (CipherException $ex) {
+            $this->ProcessPartialView("RSABadEncryption");
+        }
+    }
+}
+</pre>
+Now, create the RSABadEncryption, and diplay anything you like with it. As you will see the RSABadEncryption view will be processed and the client will not be able to access to the exception in any way: this is the end of the security issue.
+<br /><div class="alert alert-danger">
+    <b><i>Be aware that: </i></b> Every ciphering-related operation can throw a CipherExtension, and you should try/catch the code that uses both ciphers (<i>AsymmetricCipher</i> and <i>SymmetricCipher</i>).
+</div>
+<br />
+This is a list of all CipherExtension that can be catched
+<ul>
+<table class="table">
+    <!-- table header, Denis: DO NOT TOUCH! -->
+    <tr class="active">
+        <td><b>No.</b></td>
+        <td><b>Message</b></td>
+        <td><b>Thrown by</b></td>
+        <td><b>Details</b></td>
+    </tr>
+    
+    <tr>
+        <td>0</td>
+        <td>The given key length is not valid</td>
+        <td><i>AsymmetricCipher::GenerateNewKey()</i></td>
+        <td>You are trying to generate a key with an invalid key length. Read the <a href="AsymmetricCipher.html">Asymmetric Cipher</a> chapter to understand which key lengths are supported</td>
+    </tr>
+    
+    <tr>
+        <td>1</td>
+        <td>OpenSSL couldn't generate the new key</td>
+        <td><i>AsymmetricCipher::GenerateNewKey()</i></td>
+        <td>OpenSSL encountered an unexpected error while generating the new key. Try reinstalling OpenSSL, check the configuration or try deleting the configuration file included with the framework</td>
+    </tr>
+    
+    <tr>
+        <td>2</td>
+        <td>OpenSSL was unable to create the digital signature</td>
+        <td><i>AsymmetricCipher::GenerateDigitalSignature()</i></td>
+        <td>OpenSSL encountered an unexpected error while generating the digital signature. Check for the key validity, try reinstalling OpenSSL, check the configuration or try deleting the configuration file included with the framework</td>
+    </tr>
+    
+    <tr>
+        <td>3</td>
+        <td>An error occurred while verifying the digital signature</td>
+        <td><i>AsymmetricCipher::VerifyDigitalSignature()</i></td>
+        <td>OpenSSL encountered an unexpected error while using the digital signature to valutate a message. Check for the key validity, try reinstalling OpenSSL, check the configuration or try deleting the configuration file included with the framework</td>
+    </tr>
+    
+    <tr>
+        <td>4</td>
+        <td>OpenSSL couldn't encrypt the given message</td>
+        <td><i>AsymmetricCipher::Encrypt()</i></td>
+        <td>OpenSSL encountered an unexpected error while encrypting messate. I have no ideas on how to solve this issue</td>
+    </tr>
+    
+    <tr>
+        <td>5</td>
+        <td>OpenSSL couldn't decrypt the given message</td>
+        <td><i>AsymmetricCipher::Decrypt()</i></td>
+        <td>OpenSSL encountered an unexpected error while decrypting messate. I have no ideas on how to solve this issue</td>
+    </tr>
+    
+    <tr>
+        <td>6</td>
+        <td>The application unique key cannot be removed</td>
+        <td><i>AsymmetricCipher::RemoveKey()</i></td>
+        <td>The key you are trying to delete is the master asymmetric key used by the framework and SHOULTN'T and CANNOT be deleted</td>
+    </tr>
+    
+    <tr>
+        <td>7</td>
+        <td>The given key doesn't exists or is not completed</td>
+        <td><i>AsymmetricCipher::LoadKey()</i></td>
+        <td>One (or both) of the two files used to store the key doesn't exitst. You need to change the key name or generate a key with the given name</td>
+    </tr>
+    
+    <tr>
+        <td>8</td>
+        <td>The given algoryth/key length is not valid</td>
+        <td><i>SymmetricCipher::__construct()</i></td>
+        <td>You are trying to use an unsupported key length or encryption algorithm. Read the <a href="SymmetricCipher.html">Symmetric Cipher</a> chapter to understand which algorithms/key lengths are supported</td>
+    </tr>
+    
+    <tr>
+        <td>9</td>
+        <td>The content is not a valid encrypted content</td>
+        <td><i>SymmetricCipher::Decrypt()</i></td>
+        <td>You are trying to decrypt something that was not encrypted with SymmetricCipher::Encrypt()</td>
+    </tr>
+</table>
+</ul>    
+    </div>
+</body>
+
+</html>

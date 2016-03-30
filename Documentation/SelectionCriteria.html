@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Gishiki Documentation</title>
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+        <script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+	<link type="text/css" rel="stylesheet" href="styles/shCoreEclipse.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
+        <!-- Bootstrap core CSS -->
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap theme -->
+        <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="bootstrap/js/html5shiv.min.js"></script>
+          <script src="bootstrap/js/respond.min.js"></script>
+        <![endif]-->
+	
+	<script src="bootstrap/js/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="documentation.css"/>
+	
+</head>
+
+<body role="document">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Gishiki Documentation</a>
+	</div>
+	
+	<ul class="nav navbar-nav">
+		<li><a href="https://github.com/NeroReflex/Gishiki">GitHub</a></li>
+		<li><a href="license.html">License</a></li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Credits <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="bootstrap.html">Bootstrap</a></li>
+			<li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li> <!--http://alexgorbatchev.com/SyntaxHighlighter/-->
+          </ul>
+        </li>
+	</ul>
+		
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="textBlock">
+<h2>Selection criteria</h2>
+A single clause is composed by a field name, a field value and the criteria that specify how to select objects to be restored or deleted.
+<br /><br />
+You can find each possible criteria inside the Criteria abstract class:
+<ul>
+    <li><b>Criteria::EQUAL</b></li>
+    <li><b>Criteria::NOT_EQUAL</b></li>
+    <li><b>Criteria::GREATER_THAN</b></li>
+    <li><b>Criteria::LESS_THAN</b></li>
+    <li><b>Criteria::GREATER_EQUAL</b></li>
+    <li><b>Criteria::LESS_EQUAL</b></li>
+    <li><b>Criteria::LIKE</b></li>
+    <li><b>Criteria::NOT_LIKE</b></li>
+    <li><b>Criteria::IS_NULL</b></li>
+    <li><b>Criteria::IS_NOT_NULL</b></li>
+</ul>
+<i>Criteria::LIKE</i> and <i>Criteria::NOT_LIKE</i> are reserved to strings-only values.<br />
+<i>Criteria::EQUAL</i> and <i>Criteria::NOT_EQUAL</i> are both valid for every data types.<br />
+Any other criteria is reserved to numbers, both integers and decimals.<br />
+When using<i>Criteria::IS_NULL</i> and <i>Criteria::IS_NOT_NULL</i> you don't need to specify the value for that clause.
+</div>
+</body>
+
+</html>

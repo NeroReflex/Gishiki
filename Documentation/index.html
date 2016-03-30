@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Gishiki Documentation</title>
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+	<link type="text/css" rel="stylesheet" href="styles/shCoreEclipse.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
+	<!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="bootstrap/js/html5shiv.min.js"></script>
+      <script src="bootstrap/js/respond.min.js"></script>
+    <![endif]-->
+	
+	<script src="bootstrap/js/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="documentation.css"/>
+	
+</head>
+
+<body role="document">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Gishiki Documentation</a>
+	</div>
+	
+	<ul class="nav navbar-nav">
+		<li><a href="https://github.com/NeroReflex/Gishiki">GitHub</a></li>
+		<li><a href="license.html">License</a></li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Credits <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="bootstrap.html">Bootstrap</a></li>
+			<li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li> <!--http://alexgorbatchev.com/SyntaxHighlighter/-->
+          </ul>
+        </li>
+	</ul>
+		
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="jumbotron">
+<h1>Gishiki</h1>
+The <i>Gishiki</i> framework follows the MVC pattern to display content to a client. That content can be an HTML page or a JSON object, that will be used with javascript or other applications.<br /><br />
+The MVC pattern is based around three components: <b>Model</b>, <b>View</b> and <b>Controller</b>. <br /><br />
+The controller is used to elaborate a request from the client and the given data, in order to have the model retrive or store that data. The last task that a controller perform is creating the final result using one or more <b>Views</b>. You can see the controller as a glue for models and views.<br /><br />
+The model is called by the controller and is used to store or retrive data from a data collection. The default data collection in Gishiki is a SQLite3 database, but you can use everything you want: from MySQL to a text file, or even JSON. The choice is yours.<br /><br />
+The view is the model of the output data. You define how your data is going to be organized and Gishiki place the data in that model.<br /><br />
+This pattern is used to separate logic, data storing operations and display operations.<br /><br />
+</div>
+
+<div class="textBlock">
+<h2>Chapters</h2><br />
+<h3>Installation</h3>
+<ul>
+    <li><a href="Install.html">Install</a></li>
+    <li><a href="Update.html">Update</a></li>
+</ul>
+
+<h3>Controller</h3>
+<ul>
+    <li><a href="Controller.html">Controllers</a></li>
+    <li><a href="ControllerModel.html">Using a Model within a controller</a></li>
+    <li><a href="ControllerViews.html">Using a View within a controller</a></li>
+    <li><a href="LoadModel.html">Load a model</a></li>
+    <li><a href="Class.html">Custom classes</a></li>
+</ul>
+
+<h3>Model</h3>
+<ul>
+    <li><a href="Model.html">Models</a></li>
+</ul>
+
+<h3>View</h3>
+<ul>
+    <li><a href="View.html">Views</a></li>
+</ul>
+
+<h3>Connection Strings</h3>
+<ul>
+    <li><a href="SQLiteConnectionString.html">SQLite v2 and v3</a></li>
+    <li><a href="ServebasedConnectionString.html">RDBMS Server-based</a></li>
+</ul>
+
+<h3>Database</h3>
+<ul>
+    <li><a href="Connection.html">Connections</a></li>
+    <li><a href="Store.html">Store objects</a></li>
+    <li><a href="Restore.html">Restore objects</a></li>
+    <li><a href="Remove.html">Remove objects</a></li>
+    <li><a href="SelectionCriteria.html">Field selection criteria</a></li>
+    <li><a href="#">ORM Data types</a></li>
+</ul>
+
+<h3>Security</h3>
+<ul>
+    <li><a href="SymmetricCipher.html">Symmetric Cipher</a></li>
+    <li><a href="AsymmetricCipher.html">Asymmetric Cipher</a></li>
+    <li><a href="DSAsymmetricCipher.html">Digital Signature with Asymmetric Cipher</a></li>
+    <li><a href="CipherError.html">Error catching</a></li>
+</ul>
+    </div>
+</body>
+
+</html>

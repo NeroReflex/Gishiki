@@ -16,14 +16,7 @@ limitations under the License.
 *****************************************************************************/
 
 //turn off all error reporting
-error_reporting(0);
-
-//turn on all error reporting
-ini_set("display_errors", 1);
-error_reporting(E_ALL);
-
-//change the character encoding
-mb_internal_encoding("UTF-8");
+//error_reporting(0);
 
 /* The first operations to execute is figuring out directory separator character and the root path (the path Gishiki is installed) */
 
@@ -38,9 +31,9 @@ if (!defined('DS')) {
 //get the root path
 if ((!defined('ROOT')) || (ROOT == "") || (ROOT == NULL))
     define('ROOT', realpath(__DIR__).DS);
-
+     
 //include the base application and perform basic operations
-include(ROOT."Gishiki".DS."Gishiki.inc");
+require_once(ROOT."Gishiki".DS."Gishiki.php");
 
 //what action was required?
 $action = "";
@@ -71,24 +64,30 @@ if ((isset($_GET["rewritten"])) && ($_GET["rewritten"] == "true")) {
     //read the requested resource if the mod_rewrite was not used
     $action = $_GET["action"];
 }
-    
+
+//get the requested page:
+$requestedPage = "";
+if ($action != "")
+    $requestedPage = $action;
+else
+    $requestedPage = "Default/Index";
+
 //start the framework
 Gishiki::Initialize();
 
 //if the framework needs to be installed.....
-
-if (\Gishiki\Core\Application::CheckExistence() == 0)
+$installedVersion = Gishiki::GetInstalledVersion();
+if ($installedVersion == 0)
 {
-    //setup the new application
-    if (\Gishiki\Core\Application::CreateNew()) {
-        
-    } else {
-        exit("<div><br /><b>Check for the environment, delete the created application directory and retry the installation</b></div>");
-    }
+    //.....then install it......
+    Gishiki::Install();
+} else if ($installedVersion != Gishiki::GetCurrentVersion()) {
+    //....or apply the updater
+    Gishiki::Update();
 } else {
     //else create an instance of the application
     $application = new Gishiki();
     
     //use that newly instance to execute the controler, which will call the associated model and then render the view
-    $application->Run($action);
+    $application->Run($requestedPage);
 }

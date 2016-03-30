@@ -15,22 +15,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\Security {
+/**
+ * An exception thrown by a cipher
+ *
+ * @author Benato Denis <benato.denis96@gmail.com>
+ */
+class CipherException extends Exception {
     
     /**
-     * An exception thrown by a cipher
-     *
-     * @author Benato Denis <benato.denis96@gmail.com>
+     * Create the exception
+     * @param string $message the error message
+     * @param integer $errorCode the cipher error code
      */
-    class CipherException extends \Gishiki\Core\Gishiki_Exception {
-
-        /**
-         * Create the exception
-         * @param string $message the error message
-         * @param integer $errorCode the cipher error code
-         */
-        public function __construct($message, $errorCode) {
-            parent::__construct($message, $errorCode);
-        }
+    public function __construct($message, $errorCode) {
+        parent::__construct($message, $errorCode);
     }
 }

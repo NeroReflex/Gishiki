@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Gishiki Documentation</title>
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+        <script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+	<link type="text/css" rel="stylesheet" href="styles/shCoreEclipse.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
+        <!-- Bootstrap core CSS -->
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap theme -->
+        <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="bootstrap/js/html5shiv.min.js"></script>
+          <script src="bootstrap/js/respond.min.js"></script>
+        <![endif]-->
+	
+	<script src="bootstrap/js/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="documentation.css"/>
+	
+</head>
+
+<body role="document">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Gishiki Documentation</a>
+	</div>
+	
+	<ul class="nav navbar-nav">
+		<li><a href="https://github.com/NeroReflex/Gishiki">GitHub</a></li>
+		<li><a href="license.html">License</a></li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Credits <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="bootstrap.html">Bootstrap</a></li>
+			<li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li> <!--http://alexgorbatchev.com/SyntaxHighlighter/-->
+          </ul>
+        </li>
+	</ul>
+		
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="textBlock">
+<h2>SQLite v2 and v3 Connection Strings</h2>
+<i>Database connections are explained in the next chapter.</i><br />In the next chapter you will read about a function, called <b>CreateConnection</b>, that connects
+a model to a database using a given connection string.
+<br />
+This paragraph focuses on how to write a SQLite connection string.<br />
+<br />
+A SQLite connection string is written as:
+<pre class="brush: php;">
+$connString = "sqlite://Database";
+</pre>
+The connection string contains the database type, in this example 'sqlite', and the database name.<br /><br />
+Allowed database types are:<ul>
+    <li><b><i>sqlite</i></b> and <b><i>sqlite2</i></b> for a SQLite v2 connection</li>
+    <li><b><i>sqlite3</i></b> for a SQLite v3 connection</li>
+</ul>
+To use a SQLite v2 database you have to install pdo and sqlite driver for pdo.<br />
+To use a SQLite v3 database you have to enable the sqlite3 php extension.<br />
+SQLite v3 databases support password. To use a password with your database you have to modify your connection string to:
+<pre class="brush: php;">
+$connString = "sqlite://Database:my secret p@ssword";
+</pre>
+
+</div>
+</body>
+
+</html>

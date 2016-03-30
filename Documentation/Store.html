@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Gishiki Documentation</title>
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+        <script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+	<link type="text/css" rel="stylesheet" href="styles/shCoreEclipse.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
+        <!-- Bootstrap core CSS -->
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap theme -->
+        <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="bootstrap/js/html5shiv.min.js"></script>
+          <script src="bootstrap/js/respond.min.js"></script>
+        <![endif]-->
+	
+	<script src="bootstrap/js/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="documentation.css"/>
+	
+</head>
+
+<body role="document">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Gishiki Documentation</a>
+	</div>
+	
+	<ul class="nav navbar-nav">
+		<li><a href="https://github.com/NeroReflex/Gishiki">GitHub</a></li>
+		<li><a href="license.html">License</a></li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Credits <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="bootstrap.html">Bootstrap</a></li>
+			<li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li> <!--http://alexgorbatchev.com/SyntaxHighlighter/-->
+          </ul>
+        </li>
+	</ul>
+		
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="textBlock">
+<h2>Store objects</h2>
+The included ORM is able to save an object into a database, however not every object can be stored, and some requirements must be met.<br />
+To be saved into a database an object cannot:
+<ul>
+    <li>Contains one or more resources as a property</li>
+    <li>Contains one or more objects inside an array</li>
+    <li>Contains data of unknown type as a property</li>
+</ul><br />
+Storing an object is as simple as calling the <b>Store</b> function:
+<pre class="brush: php;">
+class Book_Controller extends Gishiki_Controller {
+    function StoreBook($book)
+    {
+        //the model is auto-connected
+
+        //store the new book object into the database
+        $this->Store($book);
+        //the new book is now stored into the database
+        //and is now ready to be used
+    }
+}
+</pre>
+A connection to a database must be active when calling the Store function.<br /><br />
+<br />
+
+The Store function serialize each property of the given object and pace that serialized value into the column with the name of that property, this way
+you can edit the content of an object manually, without using the framewor.<br />
+The Store function generates (if it doesn't exists) a table with the name of the class the object was instantiated from, and adds a column for each class property.<br />
+<div class='alert alert-danger'>
+    <b>Object updates: </b>If you modify/update an object an exception will be thrown each time the Store function is called. You will have to manually update the database table.   
+</div>
+<br />
+<div class='alert alert-success'>
+    <b>Object dependencies: </b>There is no limit to the number of object that an object can hold: the serialization will serialize everything, and will 
+    prepair everything needed for the <b>Restore</b> function. Each object has its unique <i>ObjectDescriptor</b>. Due to the presence of ObjectDescriptor,
+    you cannot store two times the same object to the database.
+</div>
+
+</div>
+</body>
+
+</html>

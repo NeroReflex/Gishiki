@@ -1,0 +1,28 @@
+/* horizontal line */
+hr {
+    color: rgb(255, 255, 250);
+    display: compact;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+
+/* the text of the page */
+.textBlock {
+    min-height: 100px;
+    margin: 5%;
+}
+
+/*.tip {
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    background-color: rgba(135, 206, 250, 0.3); 
+    color: rgba(30, 70, 188, 0.5);
+}
+
+.tip b {
+    color: Blue;
+}*/

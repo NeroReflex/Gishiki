@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Gishiki Documentation</title>
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+	<link type="text/css" rel="stylesheet" href="styles/shCoreEclipse.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
+	<!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="bootstrap/js/html5shiv.min.js"></script>
+      <script src="bootstrap/js/respond.min.js"></script>
+    <![endif]-->
+	
+	<script src="bootstrap/js/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="documentation.css"/>
+	
+</head>
+
+<body role="document">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Gishiki Documentation</a>
+	</div>
+	
+	<ul class="nav navbar-nav">
+		<li><a href="https://github.com/NeroReflex/Gishiki">GitHub</a></li>
+		<li><a href="license.html">License</a></li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Credits <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="bootstrap.html">Bootstrap</a></li>
+			<li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li> <!--http://alexgorbatchev.com/SyntaxHighlighter/-->
+          </ul>
+        </li>
+	</ul>
+		
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="textBlock">
+<h2>Load a model</h2>
+In the previous chapter was shown how to use the model associated with the controller, however you may need to use another model to complete any secondary task.<br /><br />
+To load a controller you must perform a call to the <b>LoadNewModel</b> function.<br /><br />
+To successfolly load a model you have to know the name of the model you want to use (<i>without _Model</i>) and call LoadNewModel with that name as an argument:
+<pre class="brush: php;">
+class My_controller_Controller extends Gishiki_Controller {
+    function __construct($arguments)
+    {
+	    parent::__construct($arguments);
+
+        /*   TODO: add your code here   */
+    }
+
+    function Index()
+    {
+        $agedUsers = array(
+            "maxAge" => 18,
+            "minAge" => 21,
+        );
+
+        //use a model that is not the model associated with the current controller
+        $userModel = ModelManager::LoadNewModel("User");
+
+        //use a model that is not the model associated with the current controller
+        $messageModel = ModelManager::LoadNewModel("Message");
+
+        //get the list of users that are 18, 18, 20 or 21 years old
+        $users = $userModel->ExecuteOperation("getAgedUserList", $agedUsers);
+
+        //get a list of messages for the current user
+        $messages = $messageModel->ExecuteOperation("getMessageList");
+
+        //start drawing the table
+        $this->ProcessPartialView("userTable");
+
+        //show each user retrived
+        foreach ($singleUser as $users) {
+            //draw a single table line; username, name and age are automatically updated on each line,
+            $this->ProcessPartialView("userEntry", $singleUser);
+            //because the view defines how to print your data, not your data, which is fetched by the model
+        }
+
+        //end drawing the table
+        $this->ProcessPartialView("userTableEnd");
+
+        //start drawing the message list
+        $this->ProcessPartialView("messageList");
+
+        //show each message retrived
+        foreach ($singleUser as $users) {
+            //draw a single message, sender and subject are automatically updated on each line.
+            $this->ProcessPartialView("message", $messages);
+        }
+
+        //end drawing the message list
+        $this->ProcessPartialView("messageListEnd");
+    }
+}
+</pre>
+<br /><br />
+<div class="alert alert-warning">
+<b><i>Note that: </i></b> exactly as with the default model, automatically associated with the controller by Gishiki, you <b>CANNOT</b> have the full access to any model (unless you know how to use php Reflection and how the model is managed inside the framework), so..... ExecuteOperation is used.
+</div></div>
+</body>
+
+</html>

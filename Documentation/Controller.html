@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Gishiki Documentation</title>
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+	<link type="text/css" rel="stylesheet" href="styles/shCoreEclipse.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
+	<!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="bootstrap/js/html5shiv.min.js"></script>
+      <script src="bootstrap/js/respond.min.js"></script>
+    <![endif]-->
+	
+	<script src="bootstrap/js/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="documentation.css"/>
+	
+</head>
+
+<body role="document">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Gishiki Documentation</a>
+	</div>
+	
+	<ul class="nav navbar-nav">
+		<li><a href="https://github.com/NeroReflex/Gishiki">GitHub</a></li>
+		<li><a href="license.html">License</a></li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Credits <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="bootstrap.html">Bootstrap</a></li>
+			<li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li> <!--http://alexgorbatchev.com/SyntaxHighlighter/-->
+          </ul>
+        </li>
+	</ul>
+		
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="textBlock">
+<h2>Controllers</h2>
+A controller is represented as a class with functions needed to manipulate data through a model and render the final content through one or more <b>views</b>, may that contant be an HTML page or a JSON object.<br />
+The task of creating a controller is really easy and takes no time at all.<br />
+To create controllers you must keep in your mind three things: <ul>
+<li>The class must be named as the controller + <b>_Controller</b>, and must be placed in a PHP file with the name of the controller, inside the controller directory</li>
+<li>You have to create a new class that <b>inherits</b> from the Gishiki_Controller class, which is the base controller class</li>
+<li>If you are using a custom class contructor, you have to remember to do parent::__construct(); in the first line of your controller class constructor</li>
+<li>If you are using a custom class destructor, you have to remember to do parent::__destruct(); in the first line of your controller class destructor</li>
+</ul><br />
+You can see an example above:
+<pre class="brush: php;">
+class My_controller_Controller extends Gishiki_Controller {
+    function __construct($arguments)
+    {
+	    parent::__construct($arguments);
+
+        /*   TODO: add your code here   */
+    }
+
+    function __destruct()
+    {
+	    parent::__destruct();
+
+        /*   TODO: add your code here   */
+    }
+}
+</pre>
+Remember to save this file as My_controller.php inside the controller directory and you have created your new controller.<br /><br />
+However this is not enough to create a working controller. You have to create, for each controller, at least the <b>Index</b> function. The Index function is the default action for a controller, and is called when no specific actions are required by the browser/client.<br />
+<br />
+For example think about a browser that request the page yourdomain.com/My_controller. You know that the controller that must be used is your new controller, but you can't figure out what is the action to be performed.<br />
+Index is that default action! For Gishiki a controller that doesn't have an Index function and/or doesn't inherit from Gishiki_Controller is not a valid controller.<br /><br />
+A controller instance is created automatically by Gishiki, and the given function is executed automatically. In order to have a function to be executed the browser must be redirected to: yourdomain.com/Controller/Function. This will have Gishiki execute the <b>Function</b> function inside the new object instantiated from the Controller class.<br /><br />
+Keep in mind that if no controller is given, than the <b>Default</b> controller is executed. This means you should include a controller called <b>Default_Controller</b>.<br /><br />That said, a minimum valid controller is:
+<pre class="brush: php;">
+class My_controller_Controller extends Gishiki_Controller {
+    function __construct($arguments)
+    {
+	    parent::__construct($arguments);
+
+        /*   TODO: add your code here   */
+    }
+
+    function Index()
+    {
+        /*   TODO: add your code here to do stuff   */
+    }
+
+    function __destruct()
+    {
+	    parent::__destruct();
+
+        /*   TODO: add your code here   */
+    }
+}
+</pre>
+Remember to save this controller with the name: My_controller.php in order to get it working.<br />
+<div class="alert alert-info">
+<b><i>Tip: </i></b>you are not obliged to define a class constructor or destructor.
+</div> you don't need a class constructor or destructor, just use the default one:
+<pre class="brush: php;">
+class My_controller_Controller extends Gishiki_Controller {
+    
+    function Index()
+    {
+        /*   TODO: add your code here to do stuff   */
+    }
+}
+</pre>
+This still is a valid controller.
+    </div>
+</body>
+
+</html>

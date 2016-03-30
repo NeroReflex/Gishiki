@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Gishiki Documentation</title>
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+	<link type="text/css" rel="stylesheet" href="styles/shCoreEclipse.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
+	<!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="bootstrap/js/html5shiv.min.js"></script>
+      <script src="bootstrap/js/respond.min.js"></script>
+    <![endif]-->
+	
+	<script src="bootstrap/js/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="documentation.css"/>
+	
+</head>
+
+<body role="document">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Gishiki Documentation</a>
+	</div>
+	
+	<ul class="nav navbar-nav">
+		<li><a href="https://github.com/NeroReflex/Gishiki">GitHub</a></li>
+		<li><a href="license.html">License</a></li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Credits <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="bootstrap.html">Bootstrap</a></li>
+			<li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li> <!--http://alexgorbatchev.com/SyntaxHighlighter/-->
+          </ul>
+        </li>
+	</ul>
+		
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="textBlock">
+<h2>Asymmetric cipher</h2>
+Gishiki has its own asymmetric cipher implementation, based on the <b>OpenSSL</b> PHP extension. You can read more about OpenSSL in the <a href="SymmetricCipher.html">symmetric chiper</a> chapter.<br /><br />
+The asymmetric cipher is used by the framework to encrypt and sign the content sent to the client when some requirements are met.<br />
+<br />
+In order to use the asymmetric cipher it is required to instantiate an <b>AsymmetricCipher</b> object.<br />
+After that it is necessary to load a key, using <b>LoadKey</b>, or create a new random key using <b>GenerateNewKey</b> to generate a new one.<br /><br />
+In each AsymmetricCipher instance a private and a public key exists, this means you can encrypt and decrypt a message in the same way you do with a symmetric cipher, 
+however on the disk, when a GenerateNewKey call is performed, two files are created: one is for the private key, and MUST be kept secret: keyname.private.pem, and the other key is the public key
+that can be given to a client, allowing that client to read data and/or check for data changes: keyname.public.pem<br /><br />
+Let's try to encrypt something:
+<pre class='brush: php;'>
+class CryptoRSA_Controller extends Gishiki_Controller {
+    function RSAEncryptionTest()
+    {
+        //get the string http://localhost/CryptoRSA/RSAEncryptionTest/....................
+        $dataToEncrypt = $receivedDetails[0];
+
+        //setup the symmetric cipher
+        $asymmCipher = new AsymmetricCipher();
+
+        //change the default key with the given one
+        $asymmCipher->GenerateNewKey("testKey", AsymmetricCipher::RSA4096);
+
+        //crypt and decrypt data
+        $encrypted = $asymmCipher->Encrypt($dataToEncrypt);
+        $decrypted = $asymmCipher->Decrypt($encrypted);
+
+        //prepare the page to be shown
+        $dataToDisplay = array(
+            "enc" => $encrypted,
+            "dec" => $decrypted,
+        );
+        
+        //show the page
+        ProcessPartialView("RSAEncryptionTest", $dataToDisplay);
+    }
+}
+</pre>
+Save this page as CryptoRSA.php, create a CryptoRSA.php that contains an empty model and create an RSAEncryptionTest.html like this one:
+<pre class='brush: xml;'>
+&lt;!DOCTYPE html&gt;
+
+&lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;RSA Encryption test&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        The RSA encryption result is:&lt;br /&gt;
+        {{enc}}
+        &lt;br />&lt;br />&lt;br /&gt;
+        The RSA deryption result is:&lt;br /&gt;
+        {{dec}}
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+Direct the browser to http://localhost/CryptoRSA/RSAEncryptionTest/This+is+the+message+that+was+encrypted+%3B-)
+As you can see the encryption result (the string returned by the <b>Encrypt</b> function) is base64 encoded, because, once encoded it can be displayed completely by the browser/client. Keep in mind that the result il base64 encoded when you develop your custom client.<br /><br />
+You can generate keys of different bit number. You can use any of the following key length: <ul>
+    <li>AsymmetricCipher::RSA1024</li>
+    <li>AsymmetricCipher::RSA2048</li>
+    <li>AsymmetricCipher::RSA4096</li>
+    <li>AsymmetricCipher::RSAEXTREME</li>
+</ul>However, keep in mind that AsymmetricCipher::RSAEXTREME requres a lot of time to generate a new key, but it is the most secure key length.
+<br /><br />
+<div class="alert alert-info">
+<b><i>Note that: </i></b> it is possible to use the OpenSSL library (or one of its porting) to write a program that decrypts and encrypts messages with the same algorithm used by Gishiki.<br />
+You can find two examples: one for a C# application, the other one for a C++ application.
+</div></div>
+</body>
+
+</html>

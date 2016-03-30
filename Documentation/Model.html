@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Gishiki Documentation</title>
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+	<link type="text/css" rel="stylesheet" href="styles/shCoreEclipse.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
+	<!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="bootstrap/js/html5shiv.min.js"></script>
+      <script src="bootstrap/js/respond.min.js"></script>
+    <![endif]-->
+	
+	<script src="bootstrap/js/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="documentation.css"/>
+	
+</head>
+
+<body role="document">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Gishiki Documentation</a>
+	</div>
+	
+	<ul class="nav navbar-nav">
+		<li><a href="https://github.com/NeroReflex/Gishiki">GitHub</a></li>
+		<li><a href="license.html">License</a></li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Credits <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="bootstrap.html">Bootstrap</a></li>
+			<li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li> <!--http://alexgorbatchev.com/SyntaxHighlighter/-->
+          </ul>
+        </li>
+	</ul>
+		
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="textBlock">
+<h2>Models</h2>
+A model is, basically, like a controller, a class. Creating a model is easy as creating a controller, you just need to keep in mind that:<br /><ul>
+<li>The class must be named as the model + <b>_Model</b>, and must be placed in a PHP file with the name of the model, inside the model directory</li>
+<li>You have to create a new class that <b>inherits</b> from the Gishiki_Model class, which is the base model class</li>
+<li>If you are using a custom class contructor, you have to remember to do parent::__construct(); in the first line of your model class constructor</li>
+</ul><br />
+This is an example of a model:
+<pre class="brush: php;">
+class User_Model extends Gishiki_Model {
+    function __construct()
+    {
+	    parent::__construct();
+
+        /*   TODO: add your code here   */
+    }
+
+    public function __destruct() {
+	    parent::__destruct();
+
+        /*   TODO: add your code here   */
+    }
+}
+</pre>
+Remember to save this file as User.php inside the model directory and you have created your new controller.<br /><br />
+        <div class="alert alert-info">
+<b><i>Tip: </i></b>Remember that you are not obliged to define a class constructor. If you don't need it, just use the default one.<br />
+            </div><br />
+The model is where you load and store data from a data collection. A data collection can be any type of data collection, for example a database (SQLite, MySQL or MSSQL), a JSON file or a simple text file.<br /><br />
+Despite the fact you can store information where you want, Gishiki gives you additional power helping you to store and load data from a RDBMS.<br /><br />
+On the controller chapter there are two examples that shows you to perform a model operation within a controller:
+<pre class="brush: php;">
+$users = $userModel->ExecuteOperation("getAgedUserList", $agedUsers);
+</pre>
+When you read that you may have asked: Where and what getAgedUserList is? Well, getAgedUserList is a function inside your model. That function accept an array and return an array of fetched data.
+<pre class="brush: php;">
+class User_Model extends Gishiki_Model {
+    function getAgedUserList($usersSpecifications = null)
+    {
+        //setup the array that will be returned
+        $users = array();
+
+        /*  use $usersSpecifications to fetch $users */
+
+        //and return that array
+        return $users;
+    }
+}
+</pre>
+You have already seen somethig similar, don't you :D ?<br /><br /><div class="alert alert-success">
+<b><i>Remember that: </i></b>you are the one who decide what your function returns, but I am the one who has decided that your function will take only an argument (I suggest you to use an array, but you can use anything).<br /></div><br />
+The documentation about interacting with the database can be found in a separate chapter. 
+</div>
+</body>
+
+</html>

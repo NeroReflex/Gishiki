@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Gishiki Documentation</title>
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+	<link type="text/css" rel="stylesheet" href="styles/shCoreEclipse.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
+	<!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="bootstrap/js/html5shiv.min.js"></script>
+      <script src="bootstrap/js/respond.min.js"></script>
+    <![endif]-->
+	
+	<script src="bootstrap/js/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="documentation.css"/>
+	
+</head>
+
+<body role="document">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Gishiki Documentation</a>
+	</div>
+	
+	<ul class="nav navbar-nav">
+		<li><a href="https://github.com/NeroReflex/Gishiki">GitHub</a></li>
+		<li><a href="license.html">License</a></li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Credits <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="bootstrap.html">Bootstrap</a></li>
+			<li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li> <!--http://alexgorbatchev.com/SyntaxHighlighter/-->
+          </ul>
+        </li>
+	</ul>
+		
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="textBlock">
+<h2>Views</h2>
+A view defines how your data, fetched by the model and/or processed by the controller will be given to the browser/client. Creating a view is even simpler than
+creating a model. You only have to remember three things:<ul>
+<li>A view can be an HTML or a JSON file, but if an HTML file is found the JSON is ignored</li>
+<li>A view must be saved inside the view directory, with the name of the view + <b>.html</b> or <b>.json</b></li>
+<li>A view is modified at runtime to show the content, but the data on disk remains untouched</li>
+</ul><br />
+Consider this example from the controller chapter:
+<pre class="brush: php;">
+class My_controller_Controller extends Gishiki_Controller {
+    function __construct($arguments)
+    {
+	    parent::__construct($arguments);
+
+        /*   TODO: add your code here   */
+    }
+
+    function Index()
+    {
+        $agedUsers = array(
+            "maxAge" => 18,
+            "minAge" => 21,
+        );
+
+        //get the list of users that are 18, 19, 20 or 21 years old
+        $users = $this->ExecuteModelOperation("getAgedUserList", $agedUsers);
+
+        //start drawing the table
+        $this->ProcessPartialView("userTable");
+
+        //show each user retrived
+        foreach ($singleUser as $users) {
+            //draw a single table line; username, name and age are automatically updated on each line,
+            $this->ProcessPartialView("userEntry", $singleUser);
+            //because the view defines how to print your data, not your data, which is fetched by the model
+        }
+
+        //end drawing the table
+        $this->ProcessPartialView("userTableEnd");
+    }
+}
+</pre>
+userTable is a view that gets repeated for each user fetched by the model. Suppose $singleUser is an array, for example:
+<pre class="brush: php;">
+$singleUser = array(
+    "username"  => "Jolly",
+    "name"      => "Jolla",
+    "age"       => 20,
+);
+</pre>
+consequently the view should contain: {{username}} {{name}} {{age}}. Where, in the view {{username}} is found, it is substituted with Jolly,
+where, in the view {{name}} is found, it is substituted with Jolla, where, in the view {{age}} is found, it is substituted with 20.<br /><br />
+
+In the given example $users is an array of users, each user is represented as an array with the structure of $singleUser and, for this reason, the view userEntry is updated 
+each user and than added to the final result.<br /><br />
+A simple example can be:
+<pre class="brush: php;">
+class User_Controller extends Gishiki_Controller {
+    function __construct($arguments)
+    {
+	    parent::__construct($arguments);
+
+        /*   TODO: add your code here   */
+    }
+
+    function GetUser()
+    {
+        $agedUsers = array(
+            "username"  => "Maty",
+            "self"      => "I am a software developer........",
+            "name"      => "Mathew",
+            "age"       => 21,
+        );
+
+        
+        $this->ProcessPartialView("userInfo", $singleUser);
+    }
+}
+</pre>
+The model is omitted for simplicity and the view can be:
+<pre class="brush: xml;">
+<h2>{{name}} ({{age}})</h2><br /><h3>{{username}}</h3>
+<p>{{self}}</p>
+</pre>
+Remember to save the view as userInfo.html and the view will be served to the client like this:
+<hr /><hr />
+<h2>Mathew (21)</h2><br /><h3>Maty</h3>
+<p>I am a software developer........</p>
+<hr /><hr />
+<div class="alert alert-info">
+<b><i>Remember that: </i></b>You are not obliged to pass an array of sobstitutions to your view, if you don't pass an array, than the view will be served to the client as it is
+stored on disk.
+</div>
+</div>
+    </body>
+</html>

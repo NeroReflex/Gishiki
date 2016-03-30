@@ -15,21 +15,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\Serialization {
-		
-	/**
-	 * An exception thrown by a function inside the Serialization abstract class
-	 *
-	 * @author Benato Denis <benato.denis96@gmail.com>
-	 */
-	class SerializationException extends \Gishiki\Core\Gishiki_Exception {
-		/**
-		 * Create the exception
-		 * @param string $message the error message
-		 * @param integer $errorCode the Serialization error code
-		 */
-		public function __construct($message, $errorCode) {
-			parent::__construct($message, $errorCode);
-		}
-	}
+/**
+ * An exception thrown by a function inside the Serialization abstract class
+ *
+ * @author Benato Denis <benato.denis96@gmail.com>
+ */
+class SerializationException extends Exception {
+    /**
+     * Create the exception
+     * @param string $message the error message
+     * @param integer $errorCode the Serialization error code
+     */
+    public function __construct($message, $errorCode) {
+        parent::__construct($message, $errorCode, NULL);
+    }
 }

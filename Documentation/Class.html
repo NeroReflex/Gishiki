@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Gishiki Documentation</title>
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+	<link type="text/css" rel="stylesheet" href="styles/shCoreEclipse.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="bootstrap/js/html5shiv.min.js"></script>
+      <script src="bootstrap/js/respond.min.js"></script>
+    <![endif]-->
+	
+	<script src="bootstrap/js/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="documentation.css"/>
+	
+</head>
+
+<body role="document">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Gishiki Documentation</a>
+	</div>
+	
+	<ul class="nav navbar-nav">
+		<li><a href="https://github.com/NeroReflex/Gishiki">GitHub</a></li>
+		<li><a href="license.html">License</a></li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Credits <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="bootstrap.html">Bootstrap</a></li>
+			<li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li> <!--http://alexgorbatchev.com/SyntaxHighlighter/-->
+          </ul>
+        </li>
+	</ul>
+		
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="textBlock">
+<h2>Custom classes</h2>
+You probably already know: object helps you keeping the code clean and readable, easy to modify and easy to understand.<br />
+As this weren't enought Gishiki also includes an <b><i>ORM</i></b>, that allows you to store, restore, udate and delete objects
+on databases.<br />
+<br />
+For those reasons you might want to import classes on your application. The most obvious way to do this is doing: include("myClass.php"); in each controller.<br />
+This is really bad: what about if you need to add another class or delete one? You have to modify <b>each</b> controller that includes the modified class, and you have to remember them.<br />
+To avoid this classes inside the directory "Classes", inside the "application" directory are automatically included.<br />
+
+<br /><br />
+<div class="alert alert-info">
+    <b>inclusion directory: </b>
+    Only files inside the "Classes" directory are autometically included. No files from subdirectories are included.<br />
+    You can change the classes inclusion directory editing the config.php file.<br />
+</div>
+<br /><br />
+<div class="alert alert-danger">
+    <b>inclusion check: </b>
+    After the inclusion of a file, a check is performed: if the included file doesn't contains a class with the name of the included file an error is shown.<br />
+    This is for helping you maintaning a good class management.
+</div>
+</div>
+</body>
+
+</html>

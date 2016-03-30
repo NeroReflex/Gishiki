@@ -1,44 +1,62 @@
-# Advanced-Gishiki
-Also called Gishiki: a modern and elegant MVC framework for PHP 7.
-
-Gishiki means 'ritual' in japanese, this name was chosen because this framework will help you to perform the
-ritual of creating and rendering a web digital content.
+#Gishiki
+__**Gishiki**__ is a classic MVC PHP framework written with speed, security and simplicity in mind.
 
 
-## Description
-This framework was written with speed, security and simplicity in mind!
-Gishiki helps you creating in a very short amount of time web services and web applications which are both: maintainable and expandable.
-With Gishiki you can create any digital service that your new business activity may need, without permanently binding yourself to a single technology, program or 3rd party service.
-This is achieved by giving you the option of changing a service just by editing a configuration file.
+Gishiki means 'ritual' in japanese, this name was choosen because this framework will help you to perform the ritual of creating and rendering a web page or a json object.
+To achieve that, Gishiki includes a base class for model and controller, alongside with a useful and powerful database manager.
+Gishiki automatically bind a database connection to yours models, it is up to you to connect your model with a database, however, to avoid writing the connection string, auto-connections are also supported. Database supported types are: SQLite v3, SQLite v2, MySQL/MariaDB, PostgreSQL, Firebird and MSSQL.
 
-It is easy to create services and web content, because this framework has a templating engine that simplify the web development and a JSON management api to help you writing web services.
-Gishiki also support runtime SCSS and Less compilation with caching ability, static resource servicing and a lot more!
+Gishiki not only support database connections, but it also include a simple ORM. To use it, you only need three functions: Store, Restore and Remove.
 
-Using apache as webserver it is easy to deploy an application with user-friendly URLs, thanks to the routing engine included in Gishiki, that supports both: regex routing and passive routing!
+Gishiki is very simple, easy to setup, run, and most importantly to understand. Due to its simple design and its short, simple and concise documentation, this framework can be used by everyone who can use PHP, even without a prior knowledge of the MVC pattern.
 
-## Database
-Gishiki gives you the power of using a database without making you notice.
-Gishiki support different database types out of the box:
 
-- MongoDB
-- MySQL
-- PostgreSQL
-- SQLite
-- Oracle
-- Microsoft SQL Server / azure
-- Sybase
 
-## Caching
-Gishiki gives you the ability of saving computational results into caching, saving time if the same computation, with the same input is required once again in the future.
-Cache is managed automatically by Gishiki for most common operations.
+Gishiki can be expanded at will and gives you no limit of customization. This framework is so small that a single controller-model-view cycle, with a SQLite connection is executed at lighting speed, because no useless code is included.
 
-## Logging
-Gishiki gives you the power of logging what happens on your server. Gishiki automatically logs exceptions (including the stacktrace), but let you decide what you want to log, and gives you different levels of criticism for a log entry.
-Gishiki uses different logging technologies:
 
-- gelf
-- XML
-- JSON
 
-## License
-Gishiki is released under Apache-2.0 license terms, read the LICENSE file to find out more!
+### License
+Gishiki is released under apache-2.0 license, so feel free to modify, contribute and fork this project.
+
+### System Requirements
+Gishiki only requires non-optional extensions that are part of the PHP core or bundled with PHP,
+that means you can perform your rituals on every machine, server infrastructure, vps or cloud with a vanilla PHP installation.
+This is the full list of requirements:
+
+   *   Web Server with PHP support [nginx](http://wiki.nginx.org/Main) and [apache](http://httpd.apache.org) are both strongly suggested)
+   *   PHP 5.3.x or higher 
+   *   [HHVM](http://hhvm.com) if running an x64 OS (optional, but strongly suggested)
+   *   HTTP root directory and subdirectories complete read and write permissions to PHP (Unix only)
+   *   OpenSSL extension for PHP5
+   *   SimpleXML extension for PHP5
+   *   zlib extension for PHP5
+   *   active php_fileinfo.dll for PHP5 (on windows only)
+   *   SQLite3 extension for PHP5
+   *   PDO drivers (add support for others RDBMS)
+   *   Alternative PHP Cache (optional but strongly suggested)
+   
+### Installation
+Instructions on how to install Gishiki can be found in the project *Documentation*. I suggest you to read the documentation, 
+but, for who don't like to read documentation here you are the steps to be performed:
+
+   *   Download Gishiki as a zip or clone the repository
+   *   Edit the config.php file
+   *   Edit openssl.cnf file (or delete it if you want to use the default one)
+   *   Upload Gishiki to your web root directory or a sub directory
+   *   Assign to php complete write/read permissions on the Gishiki directory and subdirectory (Unix only)
+   *   Direct your browser to index.php
+   *   Follow on-screen instructions
+   *   Open the Documentation folder
+   *   double-click on index.html
+
+###PHP 7 Support
+The first release of the Gishiki framework will be the only release compatible with PHP 5.3+, any other version will be compatible with PHP 7+ only.
+
+I am planning to release the second version of Gishiki in the coincidence of PHP 7 major release.
+
+If you are using Gishiki for performance reasons you can use the first release of the framework with HHVM, but, starting from the second release, HHVM will be unsupportend until anonymous classes support will be added to HHVM.
+
+Stay up-to-date and come to visit this project after the PHP 7 stable release.
+
+__Update:__ The new project has been called Advanced Gishiki and you can reach it [here](https://github.com/NeroReflex/Advanced-Gishiki).

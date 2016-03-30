@@ -15,21 +15,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\Algorithms {
-    
+/**
+ * An exception thrown by a function inside the Stack class
+ *
+ * @author Benato Denis <benato.denis96@gmail.com>
+ */
+class StackException extends Exception {
     /**
-     * An exception thrown by a function inside the Stack class
-     *
-     * @author Benato Denis <benato.denis96@gmail.com>
+     * Create the exception
+     * @param string $message the error message
+     * @param integer $errorCode the Stack error code
      */
-    class StackException extends \Gishiki\Core\Gishiki_Exception {
-        /**
-         * Create the exception
-         * @param string $message the error message
-         * @param integer $errorCode the Stack error code
-         */
-        public function __construct($message, $errorCode) {
-            parent::__construct($message, $errorCode, NULL);
-        }
+    public function __construct($message, $errorCode) {
+        parent::__construct($message, $errorCode, NULL);
     }
 }

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Gishiki Documentation</title>
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+	<link type="text/css" rel="stylesheet" href="styles/shCoreEclipse.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
+	<!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="bootstrap/js/html5shiv.min.js"></script>
+      <script src="bootstrap/js/respond.min.js"></script>
+    <![endif]-->
+	
+	<script src="bootstrap/js/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="documentation.css"/>
+	
+</head>
+
+<body role="document">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Gishiki Documentation</a>
+	</div>
+	
+	<ul class="nav navbar-nav">
+		<li><a href="https://github.com/NeroReflex/Gishiki">GitHub</a></li>
+		<li><a href="license.html">License</a></li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Credits <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="bootstrap.html">Bootstrap</a></li>
+			<li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li> <!--http://alexgorbatchev.com/SyntaxHighlighter/-->
+          </ul>
+        </li>
+	</ul>
+		
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="textBlock">
+<h2>Symmetric cipher</h2>
+Gishiki has its own symmetric cipher implementation, based on the <b>OpenSSL</b> PHP extension. OpenSSL is really important in order to run 
+this framework, because it is used for everything that concerns security.<br />
+OpenSSL was chosen because it is released in the PHP bundle, it is the fastest library for cryptography and because it has all the necessary algorithms.<br /><br />
+The symmetric cipher is used by the framework to encrypt the password in a database connection using the default password and the AES192 algorithm.<br />
+<br />
+In order to use the symmetric cipher it is required to instantiate a <b>SymmetricCipher</b> object.<br />
+If no key is given (using <b>SetKey</b>) than the default one is used.<br /><br />Using the OpenSSL program it is possible to decrypt a message
+encrypted by the symmetric cipher, but it is necessary that you understand how the symmetric cipher encrypts your messages.<br /><br />
+Let's try to encrypt something:
+<pre class='brush: php;'>
+class Crypto_Controller extends Gishiki_Controller {
+    function EncryptionTest()
+    {
+        //get the string http://localhost/Crypto/EncryptionTest/....................
+        $dataToEncrypt = $receivedDetails[0];
+
+        //setup the symmetric cipher
+        $symmCipher = new SymmetricCipher(SymmetricCipher::AES256);
+
+        //change the default key with the given one
+        $symmCipher->SetKey("This is the key used to encrypt AND decrypt");
+
+        //crypt and decrypt data
+        $encrypted = $symmCipher->Encrypt($dataToEncrypt);
+        $decrypted = $symmCipher->Decrypt($encrypted);
+
+        //prepare the page to be shown
+        $dataToDisplay = array(
+            "enc" => $encrypted,
+            "dec" => $decrypted,
+        );
+        
+        //show the page
+        $this->ProcessPartialView("encryptionTest", $dataToDisplay);
+    }
+}
+</pre>
+Save this page as Crypto.php, create a Crypto.php that contains an empty model and create an encryptionTest.html like this one:
+<pre class='brush: xml;'>
+&lt;!DOCTYPE html&gt;
+
+&lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;title&gt;AES256 Encryption test&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        The encryption result is:&lt;br /&gt;
+        {{enc}}
+        &lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+        The deryption result is:&lt;br /&gt;
+        {{dec}}
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+Direct the browser to http://localhost/Crypto/EncryptionTest/This+is+the+message+that+was+encrypted+%3B-)
+As you can see the encryption result (the string returned by the <b>Encrypt</b> function) is base64 encoded, because, once encoded it can be displayed completely by the browser/client.
+<br /><br />
+<div class="alert alert-info">
+<b><i>Note that: </i></b> it is possible to use the OpenSSL library (or one of its porting) to write a program that decrypts and encrypts messages with the same algorithm used by Gishiki, 
+but no sources will be given to accomplish this job. 
+</div></div>
+</body>
+
+</html>

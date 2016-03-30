@@ -107,4 +107,3 @@ class SqliteAdapter extends Connection
 	}
 
 }
-?>

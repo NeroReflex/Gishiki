@@ -23,26 +23,29 @@ namespace Gishiki\ORM\Common {
      * @author Benato Denis <benato.denis96@gmail.com>
      */
     abstract class DataType {
-        /** integer-number data type 
-         * (automatically chosen from the available ones for a given RDBMS) 
+        /** 
+         * integer-number data type 
          */
         const INTEGER = 0;
         
-        /** string data type 
-         * (every RDBMS should be able to handle string type) 
+        /** 
+         * string data type
          */
         const STRING = 1;
         
-        /** floating-point-number data type 
-         * (every RDBMS should be able to handle a floating-point type, 
-         * but the actual implementation may vary)
+        /** 
+         * floating-point-number data type 
          */
         const FLOAT = 2;
         
-        /** boolean data type 
-         * (if an RDBMS doesn't support bool data it is automatically translated
-         * into an integer that resembles a boolean)
+        /** 
+         * boolean data type 
          */
         const BOOLEAN = 3;
+        
+        /**
+         * date data type
+         */
+        const DATETIME = 4;
     }
 }

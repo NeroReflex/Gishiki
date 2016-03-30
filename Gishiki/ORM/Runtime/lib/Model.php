@@ -1861,10 +1861,9 @@ class Model
 	public function __destruct() {
 		$should_save = $this->dirty_attributes();
 
-		if (gettype($this->dirty_attributes()) == "array") {
+		if (gettype($should_save) == "array") {
 			$this->save();
 		}
 	}
 
-};
-?>
+}

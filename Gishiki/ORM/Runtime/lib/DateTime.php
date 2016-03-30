@@ -35,6 +35,18 @@ namespace ActiveRecord;
  */
 class DateTime extends \DateTime
 {
+        /**
+         * Get the current server time, ready to be assigned to the 
+         * property of a model
+         * 
+         * @return \ActiveRecord\DateTime the current time
+         */
+        public static function NOW() {
+            $current_time = new DateTime();
+            $current_time->setTimestamp(time());
+            return $current_time;
+        }
+    
 	/**
 	 * Default format used for format() and __toString()
 	 */
@@ -113,6 +125,12 @@ class DateTime extends \DateTime
 		return $format;
 	}
 
+        /**
+         * If the class instance is used as a string the formatted time 
+         * is returned
+         * 
+         * @return string the formatted time
+         */
 	public function __toString()
 	{
 		return $this->format();
@@ -148,4 +166,3 @@ class DateTime extends \DateTime
 		call_user_func_array(array($this,'parent::setTimestamp'),func_get_args());
 	}
 }
-?>

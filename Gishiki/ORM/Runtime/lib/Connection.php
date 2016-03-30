@@ -236,6 +236,8 @@ abstract class Connection
 			else
 				$host = "unix_socket=$info->host";
 
+                        static::$PDO_OPTIONS = ((strtolower($info->protocol) == "mysql") ? array_merge(static::$PDO_OPTIONS, [ PDO::ATTR_PERSISTENT => true ]) : static::$PDO_OPTIONS);
+                        
 			$this->connection = new PDO("$info->protocol:$host;dbname=$info->db", $info->user, $info->pass, static::$PDO_OPTIONS);
 		} catch (PDOException $e) {
 			throw new DatabaseException($e);
@@ -518,6 +520,3 @@ abstract class Connection
 	}
 
 }
-
-;
-?>

@@ -77,7 +77,7 @@ namespace Gishiki\ORM\ModelBuilding\Adapters {
             $connection_name = $schemata->attributes()["connection"][0]."";
             
             if (strlen($connection_name) <= 0) //check for the name of the database
-            {   throw new \Gishiki\ORM\ModelBuilding\ModelBuildingException("in file ".$this->file_schemata.": unknown or invalid database connection name", 6);  }
+            {   throw new \Gishiki\ORM\ModelBuilding\ModelBuildingException("in file ".$this->file_schemata.": unknown or invalid database connection name", 8);  }
             
             //setup an empty database schemata
             $this->database_structure = new \Gishiki\ORM\Common\Database($database_name, $connection_name);
@@ -101,7 +101,7 @@ namespace Gishiki\ORM\ModelBuilding\Adapters {
                         //get the real stringed-type value
                         $attribute_value = "".$value;
 
-                        switch ($attribute_name) {
+                        switch (strtolower($attribute_name)) {
                             case "name":
                                 //set the name of the current field
                                 if (!$current_field->hasValidName())
@@ -109,7 +109,7 @@ namespace Gishiki\ORM\ModelBuilding\Adapters {
                                 else
                                 {   throw new \Gishiki\ORM\ModelBuilding\ModelBuildingException("in file ".$this->file_schemata.": in table ".$current_table.": field '".$current_field."' already have a name", 2);    }
                                 break;
-                            case "primaryKey":
+                            case "primarykey":
                                 if ($value == "true") //mark the current field as primary key
                                 {   $current_field->markAsPrimaryKey(); }
                                 break;
@@ -117,18 +117,24 @@ namespace Gishiki\ORM\ModelBuilding\Adapters {
                                 if ($value == "true") //mark the current field as primary key
                                 {   $current_field->setDataRequired(); }
                                 break;
+                            case "type":
+                                $type_name = strtolower($attribute_value);
+                                if (($type_name == "integer") || ($type_name == "int"))
+                                {   $current_field->setDataType(\Gishiki\ORM\Common\DataType::INTEGER); }
+                                else if (($type_name == "string") || ($type_name == "str"))
+                                {   $current_field->setDataType(\Gishiki\ORM\Common\DataType::STRING); }
+                                else if (($type_name == "float") || ($type_name == "double"))
+                                {   $current_field->setDataType(\Gishiki\ORM\Common\DataType::FLOAT); }
+                                else if (($type_name == "boolean") || ($type_name == "bool"))
+                                {   $current_field->setDataType(\Gishiki\ORM\Common\DataType::BOOLEAN); }
+                                else if (($type_name == "date") || ($type_name == "time") || ($type_name == "datetime"))
+                                {   $current_field->setDataType(\Gishiki\ORM\Common\DataType::DATETIME); }
+                                else //unknown data type
+                                {   throw new \Gishiki\ORM\ModelBuilding\ModelBuildingException("in file ".$this->file_schemata.": in table ".$current_table.": unknown data type '".$type_name."' for a field", 3);   }
+                                break;
                                 
                             default:
-                                if (($attribute_value == "integer") || ($attribute_value == "int"))
-                                {   $current_field->setDataType(\Gishiki\ORM\Common\DataType::INTEGER); }
-                                else if (($attribute_value == "string") || ($attribute_value == "str"))
-                                {   $current_field->setDataType(\Gishiki\ORM\Common\DataType::STRING); }
-                                else if (($attribute_value == "float") || ($attribute_value == "double"))
-                                {   $current_field->setDataType(\Gishiki\ORM\Common\DataType::FLOAT); }
-                                else if (($attribute_value == "boolean") || ($attribute_value == "bool"))
-                                {   $current_field->setDataType(\Gishiki\ORM\Common\DataType::BOOLEAN); }
-                                else //unknown data type
-                                {   throw new \Gishiki\ORM\ModelBuilding\ModelBuildingException("in file ".$this->file_schemata.": in table ".$current_table.": unknown data type '".$attribute_name."' for a field", 3);   }
+                                throw new \Gishiki\ORM\ModelBuilding\ModelBuildingException("in file ".$this->file_schemata.": in table ".$current_table.": unknown attribute '".$attribute_name."' for a field", 9);
                         }
                     }
 

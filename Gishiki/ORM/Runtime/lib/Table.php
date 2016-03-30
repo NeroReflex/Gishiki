@@ -367,9 +367,26 @@ class Table
 
 		$table_name = $this->get_fully_qualified_table_name($quote_name);
 		$conn = $this->conn;
-		$this->columns = Cache::get("get_meta_data-$table_name", function() use ($conn, $table_name) { return $conn->columns($table_name); });
+		$this->columns = static::get_cache_metadata("get_meta_data-$table_name", function() use ($conn, $table_name) { return $conn->columns($table_name); });
 	}
 
+        private static function get_cache_metadata($key, $closure)
+	{
+            if (!\Gishiki\Caching\Cache::Connected())
+            {   return $closure();  }
+            else {
+                if (!\Gishiki\Caching\Cache::Exists($key))
+                {   
+                    $value = $closure();
+                    \Gishiki\Caching\Cache::Store($key, $value); 
+                    return $value;
+                }
+                else {
+                    return \Gishiki\Caching\Cache::Fetch($key);
+                }
+            }
+	}
+        
 	/**
 	 * Replaces any aliases used in a hash based condition.
 	 *
@@ -552,4 +569,3 @@ class Table
 			http://www.phpactiverecord.org/projects/main/wiki/Utilities#attribute-setters and http://www.phpactiverecord.org/projects/main/wiki/Utilities#attribute-getters on how to make use of this option.', E_USER_DEPRECATED);
 	}
 };
-?>

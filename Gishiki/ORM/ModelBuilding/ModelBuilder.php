@@ -152,6 +152,7 @@ namespace Gishiki\ORM\ModelBuilding {
                     //type subsystem
                     $type_name = "";
                     $type_filter = "";
+                    $type_prepend = "";
                     switch ($current_field->getDataType()) {
                         case \Gishiki\ORM\Common\DataType::BOOLEAN:
                             $type_name = "boolean";
@@ -169,40 +170,39 @@ namespace Gishiki\ORM\ModelBuilding {
                             $type_name = "string";
                             $type_filter = "strval";
                             break;
+                        case \Gishiki\ORM\Common\DataType::DATETIME:
+                            $type_name = "\ActiveRecord\DateTime";
+                            $type_prepend = $type_name;
+                            break;
                         default:
                             $type_name = "mixed";
                             $type_filter = "";
                             break;
+                    } $type_prepend .= " ";
+                    
+                    //avoid breaking ActiveRecord getters and setters
+                    if ($field_upchar_name[0] != '_') {
+                        //generate the getter
+                        $generated_code .= "    /**".PHP_EOL;
+                        $generated_code .= "     * Get the ".$comment_field_name." of the current ".$model_name."".PHP_EOL;
+                        $generated_code .= "     *".PHP_EOL;
+                        $generated_code .= "     * @return ".$type_name." the ".$comment_field_name." of the ".$model_name.PHP_EOL;
+                        $generated_code .= "     */".PHP_EOL;
+                        $generated_code .= "    public function get".$field_upchar_name."() {".PHP_EOL;
+                        $generated_code .= "        return ".$type_filter."(\$this->read_attribute('".$field_name."'));".PHP_EOL;
+                        $generated_code .= "    }".PHP_EOL.PHP_EOL;
+
+                        //generate the setter
+                        $generated_code .= "    /**".PHP_EOL;
+                        $generated_code .= "     * Set the ".$comment_field_name." of the current ".$model_name."".PHP_EOL;
+                        $generated_code .= "     *".PHP_EOL;
+                        $generated_code .= "     * @param mixed \$val the new ".$comment_field_name." of the ".$model_name.PHP_EOL;
+                        $generated_code .= "     * @return ".$type_name." the new ".$comment_field_name." of the ".$model_name." casted to the correct type".PHP_EOL;
+                        $generated_code .= "     */".PHP_EOL;
+                        $generated_code .= "    public function set".$field_upchar_name."(".$type_prepend."\$val) {".PHP_EOL;
+                        $generated_code .= "        return \$this->assign_attribute('".$field_name."', ".$type_filter."(\$val));".PHP_EOL;
+                        $generated_code .= "    }".PHP_EOL.PHP_EOL.PHP_EOL;
                     }
-                    
-                    //generate the property
-                    $generated_code .= "    /**".PHP_EOL;
-                    $generated_code .= "     * The ".$comment_field_name." property of the current ".$model_name." model".PHP_EOL;
-                    $generated_code .= "     *".PHP_EOL;
-                    $generated_code .= "     * @var ".$type_name." the ".$comment_field_name." of the ".$model_name.PHP_EOL;
-                    $generated_code .= "     */".PHP_EOL;
-                    $generated_code .= "    protected \$".$field_name.";".PHP_EOL.PHP_EOL;
-                    
-                    //generate the getter
-                    $generated_code .= "    /**".PHP_EOL;
-                    $generated_code .= "     * Get the ".$comment_field_name." of the current ".$model_name."".PHP_EOL;
-                    $generated_code .= "     *".PHP_EOL;
-                    $generated_code .= "     * @return ".$type_name." the ".$comment_field_name." of the ".$model_name.PHP_EOL;
-                    $generated_code .= "     */".PHP_EOL;
-                    $generated_code .= "    public function get".$field_upchar_name."() {".PHP_EOL;
-                    $generated_code .= "        return \$this->read_attribute('".$field_name."');".PHP_EOL;
-                    $generated_code .= "    }".PHP_EOL.PHP_EOL;
-                    
-                    //generate the setter
-                    $generated_code .= "    /**".PHP_EOL;
-                    $generated_code .= "     * Set the ".$comment_field_name." of the current ".$model_name."".PHP_EOL;
-                    $generated_code .= "     *".PHP_EOL;
-                    $generated_code .= "     * @param mixed \$val the new ".$comment_field_name." of the ".$model_name.PHP_EOL;
-                    $generated_code .= "     * @return ".$type_name." the new ".$comment_field_name." of the ".$model_name." casted to the correct type".PHP_EOL;
-                    $generated_code .= "     */".PHP_EOL;
-                    $generated_code .= "    public function set".$field_upchar_name."(\$val) {".PHP_EOL;
-                    $generated_code .= "        return \$this->assign_attribute('".$field_name."', ".$type_filter."(\$val));".PHP_EOL;
-                    $generated_code .= "    }".PHP_EOL.PHP_EOL.PHP_EOL;
                 }
                 
                 

@@ -128,9 +128,11 @@ namespace Gishiki\Logging {
         }
 
         /**
-         * Save the current log entry using syslogd
+         * Save the current log entry using syslogd.
+         * 
+         * The log entry is saved automatically
          */
-        public function Save() {
+        public function __destruct() {
            //use syslog to store the log entry on the current machine
             if (openlog("Gishiki" , LOG_NDELAY | LOG_PID, LOG_USER)) {
                 //save the log using the UNIX standard logging ultility

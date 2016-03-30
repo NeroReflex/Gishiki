@@ -35,10 +35,8 @@ namespace Gishiki\Core {
             parent::__construct($message, $errorCode, NULL);
             
             //build the new log entry
-            $currentExceptionLog = new \Gishiki\Logging\Log(get_class($this)." exception thrown", $message, \Gishiki\Logging\Priority::CRITICAL);
-
-            //save the log entry
-            $currentExceptionLog->Save();
+            new \Gishiki\Logging\Log(get_class($this)." exception thrown", $message, \Gishiki\Logging\Priority::CRITICAL);
+            //the log entry is automatically saved
         }
     }
 }

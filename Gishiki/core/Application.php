@@ -95,12 +95,10 @@ namespace Gishiki\Core {
          */
         static function StartORM($resources) {
             //iterate over each database descriptor
-            foreach ($resources as &$resource) {
-                //compile the current database descriptor
-                Application::GenerateORMData(APPLICATION_DIR.$resource, \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_AUTOCACHE"));
-            }
+            foreach ($resources as &$resource) //compile the current database descriptor 
+            {   Application::GenerateORMData(APPLICATION_DIR.$resource, \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_AUTOCACHE"));    }
             
-            //start up activerecord
+            //start up PHP ActiveRecord
             \ActiveRecord\Config::initialize(function($cfg)
             {
                 $cfg->set_model_directory(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("MODEL_DIR"));
@@ -189,13 +187,25 @@ namespace Gishiki\Core {
         <column type="string" name="title"></column>
         <column type="float" name="price"></column>
         <column type="string" name="author"></column>
-        <column type="integer" name="publication_date"></column>
+        <column type="datetime" name="publication_date"></column>
         <column type="boolean" name="interesting"></column>
     </table>
 </database>
 XML;
             $bookstore_example_xml = new \SimpleXMLElement($bookstore_example);
             $bookstore_example_xml->asXML(APPLICATION_DIR."bookstore.xml");
+            
+            if (in_array("sqlite", \PDO::getAvailableDrivers())) {
+                try {
+                    //create a new example db
+                    $example_db = new \PDO("sqlite:default_db.sqlite");
+                    
+                    //this is the query for the creation of the example table
+                    $example_db->exec("CREATE TABLE 'books' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'title' TEXT, 'author' TEXT, 'price' REAL, 'publication_date' DATETIME, 'interesting' INTEGER)");
+                } catch (\PDOException $ex) {
+                    new \Gishiki\Logging\Log("Error in the default db", "The following error was encountered while creating the default database: ".$ex->getMessage(), \Gishiki\Logging\Priority::WARNING);
+                }
+            }
             
             if ((!file_exists(Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR')."settings.json")) && ($errors == 0)) {
                 $configuration = "{".PHP_EOL 

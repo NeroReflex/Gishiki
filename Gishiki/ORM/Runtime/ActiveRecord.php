@@ -17,13 +17,14 @@ include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."lib".DS."Reflections.php");
 include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."lib".DS."Inflector.php");
 include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."lib".DS."CallBack.php");
 include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."lib".DS."Exceptions.php");
-include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."lib".DS."Cache.php");
 
 if (!defined('PHP_ACTIVERECORD_AUTOLOAD_DISABLE'))
-	spl_autoload_register('activerecord_autoload',false,PHP_ACTIVERECORD_AUTOLOAD_PREPEND);
+{   spl_autoload_register('activerecord_autoload', false, 
+            PHP_ACTIVERECORD_AUTOLOAD_PREPEND); }
 
-function activerecord_autoload($class_name)
-{
+if (!function_exists("activerecord_autoload")) {
+    function activerecord_autoload($class_name)
+    {
 	$path = ActiveRecord\Config::instance()->get_model_directory();
 	$root = realpath(isset($path) ? $path : '.');
 
@@ -42,4 +43,5 @@ function activerecord_autoload($class_name)
 
 	if (file_exists($file))
         {	include($file);      }
+    }
 }

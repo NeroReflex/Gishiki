@@ -355,5 +355,4 @@ class Utils
 	{
 		return preg_replace("/$char+/",$char,$string);
 	}
-};
-?>
+}

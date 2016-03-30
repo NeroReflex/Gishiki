@@ -1,5 +1,5 @@
-# Advanced-Gishiki
-Also called Gishiki: a modern and elegant MVC framework for PHP >= 5.6 and HHVM.
+# Gishiki
+_*Gishiki*_: a modern and elegant MVC framework for PHP >= 5.6 and HHVM.
 
 Gishiki means 'ritual' in japanese, this name was chosen because this framework will help you to perform the
 ritual of creation and deployment of web digital contents.

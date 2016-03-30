@@ -64,8 +64,7 @@ include(ROOT."Gishiki".DS."core".DS."Environment.php");
 include(ROOT."Gishiki".DS."core".DS."Application.php");
 
 //include the runtime (JIT) component of the ORM
-include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."DatabaseHandler.php");
-include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."Gishiki_Model.php");
+include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."ActiveRecord.php");
 
 //include database structure descriptiors entities
 include(ROOT."Gishiki".DS."ORM".DS."Common".DS."DataType.php");
@@ -115,19 +114,9 @@ class Gishiki {
      * @param string $request the requested resource
      */
     static function Run($request)
-    {
-        if (strlen($request) >= 1) {
-            if ($request[strlen($request) - 1] == '/') //remove the final / as it is not needed and may become a problem
-            {   $request = substr($request, 0, strlen($request) - 1);   }
-        }
-        
-        if (strlen($request) >= 1) {
-            if ($request[0] == '/') //remove the starting / as it is not needed and may become a problem
-            {   $request = substr($request, 1, strlen($request));   }
-        }
-        
+    {   
         //fulfill the client request
         global $executionEnvironment;
-        $executionEnvironment->FulfillRequest($request);
+        $executionEnvironment->FulfillRequest(trim($request, "/"));
     }
 }

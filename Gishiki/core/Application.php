@@ -44,36 +44,46 @@ namespace Gishiki\Core {
          * @param string $resource the resource to be analyzed
          */
         static function GenerateORMData($resource, $on_the_fly = FALSE) {
-            try {
-                //set the file containing the database structure
-                $analyzer = new \Gishiki\ORM\ModelBuilding\StaticAnalyzer($resource);
-                
-                //analyze that file
-                $analyzer->Analyze();
-                
-                //was that file correctly analyzed?
-                if ($analyzer->Analyzed()) {
-                    
-                    //get the analysis result
-                    $database_structure = $analyzer->Result();
-                    
-                    //initialize the code generator
-                    $code_generator = new \Gishiki\ORM\ModelBuilding\ModelBuilder($database_structure);
-                    
-                    //check for errors
-                    $code_generator->ErrorsCheck();
-                    
-                    //perform the code generation
-                    $compilation_result = $code_generator->Compile();
-                    
-                    //include the compilation result
-                    eval($compilation_result);
-                } else {
-                    die("in resource '".$resource."': unknown error!");
+            //get the file path of the model
+            $model_filepath = APPLICATION_DIR."Models".DS.pathinfo($resource, PATHINFO_FILENAME).".php";
+            
+            if (($on_the_fly) || (!file_exists($model_filepath))) {
+                try {
+                    //set the file containing the database structure
+                    $analyzer = new \Gishiki\ORM\ModelBuilding\StaticAnalyzer($resource);
+
+                    //analyze that file
+                    $analyzer->Analyze();
+
+                    //was that file correctly analyzed?
+                    if ($analyzer->Analyzed()) {
+
+                        //get the analysis result
+                        $database_structure = $analyzer->Result();
+
+                        //initialize the code generator
+                        $code_generator = new \Gishiki\ORM\ModelBuilding\ModelBuilder($database_structure);
+
+                        //check for errors
+                        $code_generator->ErrorsCheck();
+
+                        //perform the code generation
+                        $compilation_result = $code_generator->Compile();
+
+                        //include the compilation result
+                        eval($compilation_result);
+
+                        if (!\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_AUTOCACHE"))
+                        {   file_put_contents($model_filepath, "<?php".PHP_EOL.$compilation_result, LOCK_EX);  }
+                    } else {
+                        die("in resource '".$resource."': unknown error!");
+                    }
+
+                } catch (\Gishiki\ORM\ModelBuilding\ModelBuildingException $error) {
+                    die("Error number (".$error->getCode()."): ".$error->getMessage());
                 }
-                
-            } catch (\Gishiki\ORM\ModelBuilding\ModelBuildingException $error) {
-                die("Error number (".$error->getCode()."): ".$error->getMessage());
+            } else if (!$on_the_fly) {
+                include($model_filepath);
             }
         }
         
@@ -89,6 +99,13 @@ namespace Gishiki\Core {
                 //compile the current database descriptor
                 Application::GenerateORMData(APPLICATION_DIR.$resource, \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_AUTOCACHE"));
             }
+            
+            //start up activerecord
+            \ActiveRecord\Config::initialize(function($cfg)
+            {
+                $cfg->set_model_directory(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("MODEL_DIR"));
+                $cfg->set_connections(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_CONNECTIONS"));
+            });
         }
         
         /**
@@ -143,6 +160,12 @@ namespace Gishiki\Core {
                 }
             }
             
+            if ((!file_exists(APPLICATION_DIR."Models".DS)) && ($errors == 0)) {
+                if (!@mkdir(APPLICATION_DIR."Models".DS)) {
+                    $errors++;
+                }
+            }
+            
             if ((!file_exists(APPLICATION_DIR."Keyring".DS)) && ($errors == 0)) {
                 if (!@mkdir(APPLICATION_DIR."Keyring".DS)) {
                     $errors++;
@@ -161,7 +184,7 @@ namespace Gishiki\Core {
 <?xml version='1.0' standalone='yes'?>
 <!-- the connection named "default" is added by the application initializer -->
 <database name="bookstore" connection="default">
-    <table name="book">
+    <table name="books"><!-- table names always ends with a trailing 's' -->
         <column type="integer" name="id" primaryKey="true"></column>
         <column type="string" name="title"></column>
         <column type="float" name="price"></column>
@@ -185,10 +208,12 @@ XML;
                                 ."          \"bookstore.xml\"".PHP_EOL
                                 ."      ],".PHP_EOL
                                 ."      \"connections\": {".PHP_EOL
-                                ."          \"default\": {".PHP_EOL
-                                ."              \"database_type\": \"sqlite\",".PHP_EOL
-                                ."              \"database_file\": \"default_db.sqlite\"".PHP_EOL
-                                ."          }".PHP_EOL
+                                ."          \"default\":  \"sqlite://default_db.sqlite\", ".PHP_EOL
+                                ."          \"MySQL\":  \"mysql://username:password@localhost/development?charset=utf8\", ".PHP_EOL
+                                ."          \"PostgreSQL\":  \"pgsql://username:password@localhost/development\", ".PHP_EOL
+                                ."          \"SQLite\":  \"sqlite://development_database.db\", ".PHP_EOL
+                                ."          \"SQLite_file\":  \"sqlite://unix(/var/www/html/database.sqlite)\", ".PHP_EOL
+                                ."          \"oci\":  \"oci://username:passsword@localhost/xe\" ".PHP_EOL
                                 ."      }".PHP_EOL
                                 ."  },".PHP_EOL
                         .PHP_EOL."  \"security\": {".PHP_EOL

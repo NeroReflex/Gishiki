@@ -43,24 +43,6 @@ namespace Gishiki\Core {
         public $Cookies;
         
         /**
-         * Return the given enstabilished connection to a database.
-         * 
-         * @param string $conn_name the name of the connection
-         * @param \Gishiki\ORM\Runtime\DatabaseHandler $conn_handler the connection to be registered
-         */
-        public function GetConnection($conn_name) {
-            try {
-                //get the connection details
-                $connections_options = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_CONNECTIONS")[$conn_name];
-
-                //return the connection
-                return new \Gishiki\ORM\Runtime\DatabaseHandler($connections_options);
-            } catch (\Exception $ex) {
-                die ("Error while enstabilishing the ".$connection_name." connection");
-            }
-        }
-        
-        /**
          * Setup a new environment instance used to fulfill the client request
          * 
          * @param boolean $selfRegister TRUE if the environment must be assigned as the currently valid one
@@ -82,9 +64,6 @@ namespace Gishiki\Core {
 
             //prepare the cookie manager
             $this->Cookies = new \Gishiki\Cookie\CookieProvider();
-            
-            //prepare the connections list
-            $this->connections = new \Gishiki\Algorithms\CyclableCollection();
         }
 
         /**
@@ -489,6 +468,9 @@ namespace Gishiki\Core {
          */
         public function GetConfigurationProperty($property) {
             switch(strtoupper($property)) {
+                case "MODEL_DIR":
+                    return APPLICATION_DIR."Models";
+                
                 case "DATA_AUTOCACHE":
                     return $this->configuration["DATABASE"]["CACHING"];
                 

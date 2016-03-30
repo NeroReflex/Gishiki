@@ -41,7 +41,7 @@ class Config extends Singleton
 	 *
 	 * @var string
 	 */
-	private $default_connection = 'development';
+	private $default_connection = 'default';
 
 	/**
 	 * Contains the list of database connection strings.
@@ -279,26 +279,4 @@ class Config extends Singleton
 		trigger_error('Use ActiveRecord\Serialization::$DATETIME_FORMAT. Config::set_date_format() has been deprecated.', E_USER_DEPRECATED);
 		Serialization::$DATETIME_FORMAT = $format;
 	}
-
-	/**
-	 * Sets the url for the cache server to enable query caching.
-	 *
-	 * Only table schema queries are cached at the moment. A general query cache
-	 * will follow.
-	 *
-	 * Example:
-	 *
-	 * <code>
-	 * $config->set_cache("memcached://localhost");
-	 * $config->set_cache("memcached://localhost",array("expire" => 60));
-	 * </code>
-	 *
-	 * @param string $url Url to your cache server.
-	 * @param array $options Array of options
-	 */
-	public function set_cache($url, $options=array())
-	{
-		Cache::initialize($url,$options);
-	}
-};
-?>
+}

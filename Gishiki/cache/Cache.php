@@ -33,11 +33,20 @@ namespace Gishiki\Caching {
         protected static $cacheServer = [];
 
         /**
+         * Check for the availability of a cache server/container
+         * 
+         * @return boolean TRUE if a cache container is actually connected
+         */
+        public static function Connected() {
+            return (self::$connected);
+        }
+        
+        /**
          * Initialize the caching engine for the current request.
          * This function is automatically called by the framework.
          * Another call to this function won't produce any effects.
          */
-        static function Initialize() {
+        public static function Initialize() {
             if (!self::$connected) {
                 //initialize the caching engine only if it is needed
                 if (\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('CACHING_ENABLED')) {
@@ -178,5 +187,29 @@ namespace Gishiki\Caching {
                 }
             }
         }
+        
+        /**
+         * Invalidate all items in the cache
+         */
+        public static function Flush() {
+            //if a caching server is connected, and the cache fragment has a valid name
+            if ((self::$connected) && (gettype($cacheName) == "string") && ($cacheName != "")) {
+
+                //chose the proper way of removing the cache fragment
+                switch (self::$cacheServer["details"]["server_type"]) {
+                    case "memcached":
+                        self::$cacheServer["connection"]->flush();
+                        break;
+
+                    case "filesystem":
+                        if (self::Exists($cacheName)) {
+                            unlink(self::$cacheServer["details"]["directory"]);
+                            mkdir(self::$cacheServer["details"]["directory"]);
+                        }
+                        break;
+                }
+            }
+        }
+        
     }
 }

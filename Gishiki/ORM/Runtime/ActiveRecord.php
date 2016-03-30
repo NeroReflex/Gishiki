@@ -33,7 +33,7 @@ function activerecord_autoload($class_name)
 		$directories = array();
 
 		foreach ($namespaces as $directory)
-			$directories[] = $directory;
+                {	$directories[] = $directory;    }
 
 		$root .= DIRECTORY_SEPARATOR . implode($directories, DIRECTORY_SEPARATOR);
 	}
@@ -41,5 +41,5 @@ function activerecord_autoload($class_name)
 	$file = "$root/$class_name.php";
 
 	if (file_exists($file))
-		require $file;
+        {	include($file);      }
 }

@@ -45,7 +45,8 @@ thanks to the routing engine included bundled with Gishiki, that supports both: 
 ## Database
 Gishiki uses an ORM (Object-relational mapping) to help you interacting with your own databases.
 
-The provided ORM is designed to be extremely fast on query generation and execution.
+The provided ORM is built around the php ActiveRecord ORM, because it is designed 
+to be extremely fast on query generation and execution.
 
 
 ## Caching
@@ -77,6 +78,8 @@ If you plan to install Gishiki without composer you will have to manually instal
 
 ## Installation
 You just checkout (or decompress a snapshot) from the github repository in your apache root directory and it just run out of the box.
+
+Using "git clone" is the preferred installation procedure, because it will be easier to update the framework.
 
 
 ## License

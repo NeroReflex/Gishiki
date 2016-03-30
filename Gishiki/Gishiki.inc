@@ -88,7 +88,7 @@ $executionEnvironment = NULL;
  * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class Gishiki {
+abstract class Gishiki {
     /**
      * Initialize the Gishiki engine and prepare for
      * the execution of a framework instance

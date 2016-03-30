@@ -50,13 +50,5 @@ but, for who don't like to read documentation here you are the steps to be perfo
    *   Open the Documentation folder
    *   double-click on index.html
 
-###PHP 7 Support
-The first release of the Gishiki framework will be the only release compatible with PHP 5.3+, any other version will be compatible with PHP 7+ only.
-
-I am planning to release the second version of Gishiki in the coincidence of PHP 7 major release.
-
-If you are using Gishiki for performance reasons you can use the first release of the framework with HHVM, but, starting from the second release, HHVM will be unsupportend until anonymous classes support will be added to HHVM.
-
-Stay up-to-date and come to visit this project after the PHP 7 stable release.
-
-__Update:__ The new project has been called Advanced Gishiki and you can reach it [here](https://github.com/NeroReflex/Advanced-Gishiki).
+### Obsolete notice
+This branch is obsolete, move to master for a stable version or to development to have the latest, ugfixed and cutting-edge version

@@ -16,7 +16,7 @@ Installing is as simple as cloning the repository and in 2 minutes you are up in
 ## Documentation
 A simple tutorial and a hand-written documentation will be available in the near future.
 
-While waiting you can browse the API documentation for the current version on the master branch that can be found [here](http://neroreflex.github.io/Gishiki_doc/).
+While waiting you can browse the API documentation for the current version on the master branch that can be found [here](http://neroreflex.github.io/Gishiki).
 
 If you are looking for the next cutting-edge documentation you can build the documentation for the development branch by yourself using PHP ApiGen!
 

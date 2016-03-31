@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class ActiveRecord\Table | Gishiki</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-ActiveRecord.html">
+						ActiveRecord					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.html">
+						Gishiki<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Algorithms.html">
+						Algorithms					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Caching.html">
+						Caching					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Cookie.html">
+						Cookie					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Core.html">
+						Core<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Core.MVC.html">
+						MVC					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.JSON.html">
+						JSON					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Logging.html">
+						Logging					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.ORM.html">
+						ORM<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.ORM.Common.html">
+						Common					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.ORM.ModelBuilding.html">
+						ModelBuilding<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.ORM.ModelBuilding.Adapters.html">
+						Adapters					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-Gishiki.Security.html">
+						Security					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-ActiveRecord.AbstractRelationship.html">AbstractRelationship</a></li>
+				<li><a href="class-ActiveRecord.ArraySerializer.html">ArraySerializer</a></li>
+				<li><a href="class-ActiveRecord.BelongsTo.html">BelongsTo</a></li>
+				<li><a href="class-ActiveRecord.CallBack.html">CallBack</a></li>
+				<li><a href="class-ActiveRecord.Column.html">Column</a></li>
+				<li><a href="class-ActiveRecord.Config.html">Config</a></li>
+				<li><a href="class-ActiveRecord.Connection.html">Connection</a></li>
+				<li><a href="class-ActiveRecord.ConnectionManager.html">ConnectionManager</a></li>
+				<li><a href="class-ActiveRecord.CsvSerializer.html">CsvSerializer</a></li>
+				<li><a href="class-ActiveRecord.DateTime.html">DateTime</a></li>
+				<li><a href="class-ActiveRecord.Errors.html">Errors</a></li>
+				<li><a href="class-ActiveRecord.Expressions.html">Expressions</a></li>
+				<li><a href="class-ActiveRecord.HasAndBelongsToMany.html">HasAndBelongsToMany</a></li>
+				<li><a href="class-ActiveRecord.HasMany.html">HasMany</a></li>
+				<li><a href="class-ActiveRecord.HasOne.html">HasOne</a></li>
+				<li><a href="class-ActiveRecord.Inflector.html">Inflector</a></li>
+				<li><a href="class-ActiveRecord.JsonSerializer.html">JsonSerializer</a></li>
+				<li><a href="class-ActiveRecord.Model.html">Model</a></li>
+				<li><a href="class-ActiveRecord.MysqlAdapter.html">MysqlAdapter</a></li>
+				<li><a href="class-ActiveRecord.OciAdapter.html">OciAdapter</a></li>
+				<li><a href="class-ActiveRecord.PgsqlAdapter.html">PgsqlAdapter</a></li>
+				<li><a href="class-ActiveRecord.Reflections.html">Reflections</a></li>
+				<li><a href="class-ActiveRecord.Serialization.html">Serialization</a></li>
+				<li><a href="class-ActiveRecord.Singleton.html">Singleton</a></li>
+				<li><a href="class-ActiveRecord.SQLBuilder.html">SQLBuilder</a></li>
+				<li><a href="class-ActiveRecord.SqliteAdapter.html">SqliteAdapter</a></li>
+				<li><a href="class-ActiveRecord.StandardInflector.html">StandardInflector</a></li>
+				<li class="active"><a href="class-ActiveRecord.Table.html">Table</a></li>
+				<li><a href="class-ActiveRecord.Utils.html">Utils</a></li>
+				<li><a href="class-ActiveRecord.Validations.html">Validations</a></li>
+				<li><a href="class-ActiveRecord.XmlSerializer.html">XmlSerializer</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-ActiveRecord.InterfaceRelationship.html">InterfaceRelationship</a></li>
+			</ul>
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-ActiveRecord.ActiveRecordException.html">ActiveRecordException</a></li>
+				<li><a href="class-ActiveRecord.ConfigException.html">ConfigException</a></li>
+				<li><a href="class-ActiveRecord.DatabaseException.html">DatabaseException</a></li>
+				<li><a href="class-ActiveRecord.ExpressionsException.html">ExpressionsException</a></li>
+				<li><a href="class-ActiveRecord.HasManyThroughAssociationException.html">HasManyThroughAssociationException</a></li>
+				<li><a href="class-ActiveRecord.ModelException.html">ModelException</a></li>
+				<li><a href="class-ActiveRecord.ReadOnlyException.html">ReadOnlyException</a></li>
+				<li><a href="class-ActiveRecord.RecordNotFound.html">RecordNotFound</a></li>
+				<li><a href="class-ActiveRecord.RelationshipException.html">RelationshipException</a></li>
+				<li><a href="class-ActiveRecord.UndefinedPropertyException.html">UndefinedPropertyException</a></li>
+				<li><a href="class-ActiveRecord.ValidationsArgumentError.html">ValidationsArgumentError</a></li>
+			</ul>
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-ActiveRecord.all.html">all</a></li>
+				<li><a href="function-ActiveRecord.array_flatten.html">array_flatten</a></li>
+				<li><a href="function-ActiveRecord.classify.html">classify</a></li>
+				<li><a href="function-ActiveRecord.collect.html">collect</a></li>
+				<li><a href="function-ActiveRecord.denamespace.html">denamespace</a></li>
+				<li><a href="function-ActiveRecord.get_namespaces.html">get_namespaces</a></li>
+				<li><a href="function-ActiveRecord.has_namespace.html">has_namespace</a></li>
+				<li><a href="function-ActiveRecord.is_hash.html">is_hash</a></li>
+				<li><a href="function-ActiveRecord.wrap_strings_in_arrays.html">wrap_strings_in_arrays</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-ActiveRecord.html" title="Summary of ActiveRecord"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Table</h1>
+
+
+	<div class="description">
+	<p>Manages reading and writing to a database table.</p>
+
+<p>This class manages a database table and is used by the Model class for
+reading and writing to its database table. There is one instance of Table
+for every table you have a model for.</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-ActiveRecord.html">ActiveRecord</a><br>
+		<b>Package:</b> ActiveRecord<br>
+
+			<b>Located at</b> <a href="source-class-ActiveRecord.Table.html#7-571" title="Go to source code">Gishiki/ORM/Runtime/lib/Table.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="load" id="_load">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_load">#</a>
+		<code><a href="source-class-ActiveRecord.Table.html#55-66" title="Go to source code">load</a>( <span> <var>$model_class_name</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="clear_cache" id="_clear_cache">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clear_cache">#</a>
+		<code><a href="source-class-ActiveRecord.Table.html#68-74" title="Go to source code">clear_cache</a>( <span> <var>$model_class_name</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-ActiveRecord.Table.html#76-91" title="Go to source code">__construct</a>( <span> <var>$class_name</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="reestablish_connection" id="_reestablish_connection">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_reestablish_connection">#</a>
+		<code><a href="source-class-ActiveRecord.Table.html#93-104" title="Go to source code">reestablish_connection</a>( <span> <var>$close</var> = <span class="php-keyword1">true</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="create_joins" id="_create_joins">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_create_joins">#</a>
+		<code><a href="source-class-ActiveRecord.Table.html#106-148" title="Go to source code">create_joins</a>( <span> <var>$joins</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="options_to_sql" id="_options_to_sql">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_options_to_sql">#</a>
+		<code><a href="source-class-ActiveRecord.Table.html#150-201" title="Go to source code">options_to_sql</a>( <span> <var>$options</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="find" id="_find">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_find">#</a>
+		<code><a href="source-class-ActiveRecord.Table.html#203-210" title="Go to source code">find</a>( <span> <var>$options</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="find_by_sql" id="_find_by_sql">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_find_by_sql">#</a>
+		<code><a href="source-class-ActiveRecord.Table.html#212-237" title="Go to source code">find_by_sql</a>( <span> <var>$sql</var></span>, <span> <var>$values</var> = <span class="php-keyword1">null</span></span>, <span> <var>$readonly</var> = <span class="php-keyword1">false</span></span>, <span> <var>$includes</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get_column_by_inflected_name" id="_get_column_by_inflected_name">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get_column_by_inflected_name">#</a>
+		<code><a href="source-class-ActiveRecord.Table.html#268-276" title="Go to source code">get_column_by_inflected_name</a>( <span> <var>$inflected_name</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get_fully_qualified_table_name" id="_get_fully_qualified_table_name">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get_fully_qualified_table_name">#</a>
+		<code><a href="source-class-ActiveRecord.Table.html#278-286" title="Go to source code">get_fully_qualified_table_name</a>( <span> <var>$quote_name</var> = <span class="php-keyword1">true</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get_relationship" id="_get_relationship">
+
+		<td class="attributes"><code>
+			 public 
+
+			Relationship
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get_relationship">#</a>
+		<code><a href="source-class-ActiveRecord.Table.html#288-306" title="Go to source code">get_relationship</a>( <span> <var>$name</var></span>, <span> <var>$strict</var> = <span class="php-keyword1">false</span></span> )</code>
+
+		<div class="description short">
+			<p>Retrieve a relationship object for this table. Strict as true will throw an error
+if the relationship name does not exist.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Retrieve a relationship object for this table. Strict as true will throw an error
+if the relationship name does not exist.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd>name of Relationship</dd>
+					<dt><var>$strict</var></dt>
+					<dd>bool</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Relationship<br>or null
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-ActiveRecord.RelationshipException.html">ActiveRecord\RelationshipException</a></code>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="has_relationship" id="_has_relationship">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_has_relationship">#</a>
+		<code><a href="source-class-ActiveRecord.Table.html#308-317" title="Go to source code">has_relationship</a>( <span> <var>$name</var></span> )</code>
+
+		<div class="description short">
+			<p>Does a given relationship exist?</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Does a given relationship exist?</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd>name of Relationship</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="insert" id="_insert">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_insert">#</a>
+		<code><a href="source-class-ActiveRecord.Table.html#319-328" title="Go to source code">insert</a>( <span> <var>&amp; $data</var></span>, <span> <var>$pk</var> = <span class="php-keyword1">null</span></span>, <span> <var>$sequence_name</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="update" id="_update">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_update">#</a>
+		<code><a href="source-class-ActiveRecord.Table.html#330-339" title="Go to source code">update</a>( <span> <var>&amp; $data</var></span>, <span> <var>$where</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="delete" id="_delete">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_delete">#</a>
+		<code><a href="source-class-ActiveRecord.Table.html#341-350" title="Go to source code">delete</a>( <span> <var>$data</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="class" id="$class">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ActiveRecord.Table.html#20" title="Go to source code"><var>$class</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$class" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="conn" id="$conn">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ActiveRecord.Table.html#21" title="Go to source code"><var>$conn</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$conn" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="pk" id="$pk">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ActiveRecord.Table.html#22" title="Go to source code"><var>$pk</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$pk" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="last_sql" id="$last_sql">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ActiveRecord.Table.html#23" title="Go to source code"><var>$last_sql</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$last_sql" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="columns" id="$columns">
+		<td class="attributes"><code>
+			public  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ActiveRecord.Table.html#26" title="Go to source code"><var>$columns</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$columns" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>()</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="table" id="$table">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ActiveRecord.Table.html#28-31" title="Go to source code"><var>$table</var></a>
+
+			<div class="description short">
+				<p>Name of the table.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Name of the table.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$table" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="db_name" id="$db_name">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ActiveRecord.Table.html#33-36" title="Go to source code"><var>$db_name</var></a>
+
+			<div class="description short">
+				<p>Name of the database (optional)</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Name of the database (optional)</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$db_name" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="sequence" id="$sequence">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ActiveRecord.Table.html#38-41" title="Go to source code"><var>$sequence</var></a>
+
+			<div class="description short">
+				<p>Name of the sequence for this table (optional). Defaults to {$table}_seq</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Name of the sequence for this table (optional). Defaults to {$table}_seq</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$sequence" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="callback" id="$callback">
+		<td class="attributes"><code>
+			public  
+			object
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ActiveRecord.Table.html#43-48" title="Go to source code"><var>$callback</var></a>
+
+			<div class="description short">
+				<p>A instance of CallBack for this model/table</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>A instance of CallBack for this model/table</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$callback" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

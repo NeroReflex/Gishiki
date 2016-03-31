@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class ActiveRecord\Errors | Gishiki</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-ActiveRecord.html">
+						ActiveRecord					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.html">
+						Gishiki<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Algorithms.html">
+						Algorithms					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Caching.html">
+						Caching					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Cookie.html">
+						Cookie					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Core.html">
+						Core<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Core.MVC.html">
+						MVC					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.JSON.html">
+						JSON					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Logging.html">
+						Logging					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.ORM.html">
+						ORM<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.ORM.Common.html">
+						Common					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.ORM.ModelBuilding.html">
+						ModelBuilding<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.ORM.ModelBuilding.Adapters.html">
+						Adapters					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-Gishiki.Security.html">
+						Security					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-ActiveRecord.AbstractRelationship.html">AbstractRelationship</a></li>
+				<li><a href="class-ActiveRecord.ArraySerializer.html">ArraySerializer</a></li>
+				<li><a href="class-ActiveRecord.BelongsTo.html">BelongsTo</a></li>
+				<li><a href="class-ActiveRecord.CallBack.html">CallBack</a></li>
+				<li><a href="class-ActiveRecord.Column.html">Column</a></li>
+				<li><a href="class-ActiveRecord.Config.html">Config</a></li>
+				<li><a href="class-ActiveRecord.Connection.html">Connection</a></li>
+				<li><a href="class-ActiveRecord.ConnectionManager.html">ConnectionManager</a></li>
+				<li><a href="class-ActiveRecord.CsvSerializer.html">CsvSerializer</a></li>
+				<li><a href="class-ActiveRecord.DateTime.html">DateTime</a></li>
+				<li class="active"><a href="class-ActiveRecord.Errors.html">Errors</a></li>
+				<li><a href="class-ActiveRecord.Expressions.html">Expressions</a></li>
+				<li><a href="class-ActiveRecord.HasAndBelongsToMany.html">HasAndBelongsToMany</a></li>
+				<li><a href="class-ActiveRecord.HasMany.html">HasMany</a></li>
+				<li><a href="class-ActiveRecord.HasOne.html">HasOne</a></li>
+				<li><a href="class-ActiveRecord.Inflector.html">Inflector</a></li>
+				<li><a href="class-ActiveRecord.JsonSerializer.html">JsonSerializer</a></li>
+				<li><a href="class-ActiveRecord.Model.html">Model</a></li>
+				<li><a href="class-ActiveRecord.MysqlAdapter.html">MysqlAdapter</a></li>
+				<li><a href="class-ActiveRecord.OciAdapter.html">OciAdapter</a></li>
+				<li><a href="class-ActiveRecord.PgsqlAdapter.html">PgsqlAdapter</a></li>
+				<li><a href="class-ActiveRecord.Reflections.html">Reflections</a></li>
+				<li><a href="class-ActiveRecord.Serialization.html">Serialization</a></li>
+				<li><a href="class-ActiveRecord.Singleton.html">Singleton</a></li>
+				<li><a href="class-ActiveRecord.SQLBuilder.html">SQLBuilder</a></li>
+				<li><a href="class-ActiveRecord.SqliteAdapter.html">SqliteAdapter</a></li>
+				<li><a href="class-ActiveRecord.StandardInflector.html">StandardInflector</a></li>
+				<li><a href="class-ActiveRecord.Table.html">Table</a></li>
+				<li><a href="class-ActiveRecord.Utils.html">Utils</a></li>
+				<li><a href="class-ActiveRecord.Validations.html">Validations</a></li>
+				<li><a href="class-ActiveRecord.XmlSerializer.html">XmlSerializer</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-ActiveRecord.InterfaceRelationship.html">InterfaceRelationship</a></li>
+			</ul>
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-ActiveRecord.ActiveRecordException.html">ActiveRecordException</a></li>
+				<li><a href="class-ActiveRecord.ConfigException.html">ConfigException</a></li>
+				<li><a href="class-ActiveRecord.DatabaseException.html">DatabaseException</a></li>
+				<li><a href="class-ActiveRecord.ExpressionsException.html">ExpressionsException</a></li>
+				<li><a href="class-ActiveRecord.HasManyThroughAssociationException.html">HasManyThroughAssociationException</a></li>
+				<li><a href="class-ActiveRecord.ModelException.html">ModelException</a></li>
+				<li><a href="class-ActiveRecord.ReadOnlyException.html">ReadOnlyException</a></li>
+				<li><a href="class-ActiveRecord.RecordNotFound.html">RecordNotFound</a></li>
+				<li><a href="class-ActiveRecord.RelationshipException.html">RelationshipException</a></li>
+				<li><a href="class-ActiveRecord.UndefinedPropertyException.html">UndefinedPropertyException</a></li>
+				<li><a href="class-ActiveRecord.ValidationsArgumentError.html">ValidationsArgumentError</a></li>
+			</ul>
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-ActiveRecord.all.html">all</a></li>
+				<li><a href="function-ActiveRecord.array_flatten.html">array_flatten</a></li>
+				<li><a href="function-ActiveRecord.classify.html">classify</a></li>
+				<li><a href="function-ActiveRecord.collect.html">collect</a></li>
+				<li><a href="function-ActiveRecord.denamespace.html">denamespace</a></li>
+				<li><a href="function-ActiveRecord.get_namespaces.html">get_namespaces</a></li>
+				<li><a href="function-ActiveRecord.has_namespace.html">has_namespace</a></li>
+				<li><a href="function-ActiveRecord.is_hash.html">is_hash</a></li>
+				<li><a href="function-ActiveRecord.wrap_strings_in_arrays.html">wrap_strings_in_arrays</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-ActiveRecord.html" title="Summary of ActiveRecord"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Errors</h1>
+
+
+	<div class="description">
+	<p>Class that holds <code><a href="class-ActiveRecord.Validations.html">ActiveRecord\Validations</a></code> errors.</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>ActiveRecord\Errors</span></b>			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-ActiveRecord.html">ActiveRecord</a><br>
+		<b>Package:</b> ActiveRecord<br>
+
+			<b>Located at</b> <a href="source-class-ActiveRecord.Errors.html#625-911" title="Go to source code">Gishiki/ORM/Runtime/lib/Validations.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-ActiveRecord.Errors.html">ActiveRecord\Errors</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-ActiveRecord.Errors.html#658-667" title="Go to source code">__construct</a>( <span><code><a href="class-ActiveRecord.Model.html">ActiveRecord\Model</a></code> <var>$model</var></span> )</code>
+
+		<div class="description short">
+			<p>Constructs an <code><a href="class-ActiveRecord.Errors.html">ActiveRecord\Errors</a></code> object.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Constructs an <code><a href="class-ActiveRecord.Errors.html">ActiveRecord\Errors</a></code> object.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$model</var></dt>
+					<dd>The model the error is for</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ActiveRecord.Errors.html">ActiveRecord\Errors</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="clear_model" id="_clear_model">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clear_model">#</a>
+		<code><a href="source-class-ActiveRecord.Errors.html#669-676" title="Go to source code">clear_model</a>( )</code>
+
+		<div class="description short">
+			<p>Nulls $model so we don't get pesky circular references. $model is only needed during the
+validation process and so can be safely cleared once that is done.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Nulls $model so we don't get pesky circular references. $model is only needed during the
+validation process and so can be safely cleared once that is done.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="add" id="_add">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_add">#</a>
+		<code><a href="source-class-ActiveRecord.Errors.html#678-693" title="Go to source code">add</a>( <span>string <var>$attribute</var></span>, <span>string <var>$msg</var></span> )</code>
+
+		<div class="description short">
+			<p>Add an error message.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Add an error message.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$attribute</var></dt>
+					<dd>Name of an attribute on the model</dd>
+					<dt><var>$msg</var></dt>
+					<dd>The error message</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="add_on_empty" id="_add_on_empty">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_add_on_empty">#</a>
+		<code><a href="source-class-ActiveRecord.Errors.html#695-708" title="Go to source code">add_on_empty</a>( <span>string <var>$attribute</var></span>, <span>string <var>$msg</var></span> )</code>
+
+		<div class="description short">
+			<p>Adds an error message only if the attribute value is <a href="http://www.php.net/empty">empty</a>.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Adds an error message only if the attribute value is <a href="http://www.php.net/empty">empty</a>.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$attribute</var></dt>
+					<dd>Name of an attribute on the model</dd>
+					<dt><var>$msg</var></dt>
+					<dd>The error message</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__get" id="___get">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___get">#</a>
+		<code><a href="source-class-ActiveRecord.Errors.html#710-722" title="Go to source code">__get</a>( <span>string <var>$attribute</var></span> )</code>
+
+		<div class="description short">
+			<p>Retrieve error messages for an attribute.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Retrieve error messages for an attribute.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$attribute</var></dt>
+					<dd>Name of an attribute on the model</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>or null if there is no error.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="add_on_blank" id="_add_on_blank">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_add_on_blank">#</a>
+		<code><a href="source-class-ActiveRecord.Errors.html#724-737" title="Go to source code">add_on_blank</a>( <span>string <var>$attribute</var></span>, <span>string <var>$msg</var></span> )</code>
+
+		<div class="description short">
+			<p>Adds the error message only if the attribute value was null or an empty string.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Adds the error message only if the attribute value was null or an empty string.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$attribute</var></dt>
+					<dd>Name of an attribute on the model</dd>
+					<dt><var>$msg</var></dt>
+					<dd>The error message</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="is_invalid" id="_is_invalid">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_is_invalid">#</a>
+		<code><a href="source-class-ActiveRecord.Errors.html#739-748" title="Go to source code">is_invalid</a>( <span>string <var>$attribute</var></span> )</code>
+
+		<div class="description short">
+			<p>Returns true if the specified attribute had any error messages.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns true if the specified attribute had any error messages.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$attribute</var></dt>
+					<dd>Name of an attribute on the model</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="on" id="_on">
+
+		<td class="attributes"><code>
+			 public 
+
+			string/array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_on">#</a>
+		<code><a href="source-class-ActiveRecord.Errors.html#750-761" title="Go to source code">on</a>( <span>string <var>$attribute</var></span> )</code>
+
+		<div class="description short">
+			<p>Returns the error message(s) for the specified attribute or null if none.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the error message(s) for the specified attribute or null if none.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$attribute</var></dt>
+					<dd>Name of an attribute on the model</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string/array<br>Array of strings if several error occured on this attribute.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get_raw_errors" id="_get_raw_errors">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get_raw_errors">#</a>
+		<code><a href="source-class-ActiveRecord.Errors.html#763-778" title="Go to source code">get_raw_errors</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the internal errors object.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the internal errors object.</p>
+
+<pre><span class="php-var">$model</span>-&gt;errors-&gt;get_raw_errors();
+
+<span class="php-comment"># array(</span>
+<span class="php-comment">#  &quot;name&quot; =&gt; array(&quot;can't be blank&quot;),</span>
+<span class="php-comment">#  &quot;state&quot; =&gt; array(&quot;is the wrong length (should be 2 chars)&quot;,</span>
+<span class="php-comment"># )</span></pre>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="full_messages" id="_full_messages">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_full_messages">#</a>
+		<code><a href="source-class-ActiveRecord.Errors.html#780-803" title="Go to source code">full_messages</a>( )</code>
+
+		<div class="description short">
+			<p>Returns all the error messages as an array.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns all the error messages as an array.</p>
+
+<pre><span class="php-var">$model</span>-&gt;errors-&gt;full_messages();
+
+<span class="php-comment"># array(</span>
+<span class="php-comment">#  &quot;Name can't be blank&quot;,</span>
+<span class="php-comment">#  &quot;State is the wrong length (should be 2 chars)&quot;</span>
+<span class="php-comment"># )</span></pre>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="to_array" id="_to_array">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_to_array">#</a>
+		<code><a href="source-class-ActiveRecord.Errors.html#805-843" title="Go to source code">to_array</a>( <span>array <var>$closure</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Returns all the error messages as an array, including error key.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns all the error messages as an array, including error key.</p>
+
+<pre><span class="php-var">$model</span>-&gt;errors-&gt;errors();
+
+<span class="php-comment"># array(</span>
+<span class="php-comment">#  &quot;name&quot; =&gt; array(&quot;Name can't be blank&quot;),</span>
+<span class="php-comment">#  &quot;state&quot; =&gt; array(&quot;State is the wrong length (should be 2 chars)&quot;)</span>
+<span class="php-comment"># )</span></pre>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$closure</var></dt>
+					<dd><p>Closure to fetch the errors in some other format (optional)
+                      This closure has the signature function($attribute, $message)
+                      and is called for each available error message.</p></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__toString" id="___toString">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___toString">#</a>
+		<code><a href="source-class-ActiveRecord.Errors.html#845-859" title="Go to source code">__toString</a>( )</code>
+
+		<div class="description short">
+			<p>Convert all error messages to a String.
+This function is called implicitely if the object is casted to a string:</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Convert all error messages to a String.
+This function is called implicitely if the object is casted to a string:</p>
+
+<pre><span class="php-keyword1">echo</span> <span class="php-var">$error</span>;
+
+<span class="php-comment"># &quot;Name can't be blank\nState is the wrong length (should be 2 chars)&quot;</span></pre>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="is_empty" id="_is_empty">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_is_empty">#</a>
+		<code><a href="source-class-ActiveRecord.Errors.html#861-868" title="Go to source code">is_empty</a>( )</code>
+
+		<div class="description short">
+			<p>Returns true if there are no error messages.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns true if there are no error messages.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="clear" id="_clear">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clear">#</a>
+		<code><a href="source-class-ActiveRecord.Errors.html#870-876" title="Go to source code">clear</a>( )</code>
+
+		<div class="description short">
+			<p>Clears out all error messages.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Clears out all error messages.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="size" id="_size">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_size">#</a>
+		<code><a href="source-class-ActiveRecord.Errors.html#878-893" title="Go to source code">size</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the number of error messages there are.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the number of error messages there are.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getIterator" id="_getIterator">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-ArrayIterator.html">ArrayIterator</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getIterator">#</a>
+		<code><a href="source-class-ActiveRecord.Errors.html#895-910" title="Go to source code">getIterator</a>( )</code>
+
+		<div class="description short">
+			<p>Returns an iterator to the error messages.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns an iterator to the error messages.</p>
+
+<p>This will allow you to iterate over the <code><a href="class-ActiveRecord.Errors.html">ActiveRecord\Errors</a></code> object using foreach.</p>
+
+<pre><span class="php-keyword1">foreach</span> (<span class="php-var">$model</span>-&gt;errors <span class="php-keyword1">as</span> <span class="php-var">$msg</span>)
+  <span class="php-keyword1">echo</span> <span class="php-quote">&quot;</span><span class="php-var">$msg</span><span class="php-quote">\n&quot;</span>;</pre>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ArrayIterator.html">ArrayIterator</a></code>
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-IteratorAggregate.html#_getIterator">IteratorAggregate::getIterator()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="DEFAULT_ERROR_MESSAGES" id="$DEFAULT_ERROR_MESSAGES">
+		<td class="attributes"><code>
+			public static 
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ActiveRecord.Errors.html#635-656" title="Go to source code"><var>$DEFAULT_ERROR_MESSAGES</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$DEFAULT_ERROR_MESSAGES" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>(
+    <span class="php-quote">'inclusion'</span>    =&gt; <span class="php-quote">&quot;is not included in the list&quot;</span>,
+    <span class="php-quote">'exclusion'</span>    =&gt; <span class="php-quote">&quot;is reserved&quot;</span>,
+    <span class="php-quote">'invalid'</span>      =&gt; <span class="php-quote">&quot;is invalid&quot;</span>,
+    <span class="php-quote">'confirmation'</span> =&gt; <span class="php-quote">&quot;doesn't match confirmation&quot;</span>,
+    <span class="php-quote">'accepted'</span>     =&gt; <span class="php-quote">&quot;must be accepted&quot;</span>,
+    <span class="php-quote">'empty'</span>        =&gt; <span class="php-quote">&quot;can't be empty&quot;</span>,
+    <span class="php-quote">'blank'</span>        =&gt; <span class="php-quote">&quot;can't be blank&quot;</span>,
+    <span class="php-quote">'too_long'</span>     =&gt; <span class="php-quote">&quot;is too long (maximum is %d characters)&quot;</span>,
+    <span class="php-quote">'too_short'</span>    =&gt; <span class="php-quote">&quot;is too short (minimum is %d characters)&quot;</span>,
+    <span class="php-quote">'wrong_length'</span> =&gt; <span class="php-quote">&quot;is the wrong length (should be %d characters)&quot;</span>,
+    <span class="php-quote">'taken'</span>        =&gt; <span class="php-quote">&quot;has already been taken&quot;</span>,
+    <span class="php-quote">'not_a_number'</span> =&gt; <span class="php-quote">&quot;is not a number&quot;</span>,
+    <span class="php-quote">'greater_than'</span> =&gt; <span class="php-quote">&quot;must be greater than %d&quot;</span>,
+    <span class="php-quote">'equal_to'</span>     =&gt; <span class="php-quote">&quot;must be equal to %d&quot;</span>,
+    <span class="php-quote">'less_than'</span>    =&gt; <span class="php-quote">&quot;must be less than %d&quot;</span>,
+    <span class="php-quote">'odd'</span>          =&gt; <span class="php-quote">&quot;must be odd&quot;</span>,
+    <span class="php-quote">'even'</span>         =&gt; <span class="php-quote">&quot;must be even&quot;</span>,
+    <span class="php-quote">'unique'</span>       =&gt; <span class="php-quote">&quot;must be unique&quot;</span>,
+    <span class="php-quote">'less_than_or_equal_to'</span> =&gt; <span class="php-quote">&quot;must be less than or equal to %d&quot;</span>,
+    <span class="php-quote">'greater_than_or_equal_to'</span> =&gt; <span class="php-quote">&quot;must be greater than or equal to %d&quot;</span>
+)</code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

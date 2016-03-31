@@ -34,6 +34,17 @@ class CyclableCollection implements \Iterator {
     protected $array = array();
     
     /**
+     * Setup the new collection with provided key=>value pairs
+     * 
+     * @param array $setup_values the array containing properties and values
+     */
+    public function __construct($setup_values = []) {
+        if (gettype($setup_values) == "array")
+        //type is very important here!
+        {   $this->array = $setup_values;   }
+    }
+    
+    /**
      * Start up a new iteration cycle: reset the currently active array element
      */
     public function rewind() {

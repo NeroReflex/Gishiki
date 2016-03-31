@@ -31,22 +31,90 @@ namespace Gishiki\Core {
          * @return array the application configuration
          */
         static function GetSettings() {
-            //sarse the settings file
-            $appConfiguration = parse_ini_file(APPLICATION_DIR."settings.ini", TRUE, INI_SCANNER_TYPED);
+            //parse the settings file
+            $appConfiguration = \Gishiki\JSON\JSON::DeSerialize(file_get_contents(APPLICATION_DIR."settings.json"));
             
             //return the application configuration
             return $appConfiguration;
         }
 
         /**
+         * Analyze a resource and build a model out of that resource
+         * 
+         * @param string $resource the resource to be analyzed
+         */
+        static function GenerateORMData($resource, $on_the_fly = FALSE) {
+            //get the file path of the model
+            $model_filepath = APPLICATION_DIR."Models".DS.pathinfo($resource, PATHINFO_FILENAME).".php";
+            
+            if (($on_the_fly) || (!file_exists($model_filepath))) {
+                try {
+                    //set the file containing the database structure
+                    $analyzer = new \Gishiki\ORM\ModelBuilding\StaticAnalyzer($resource);
+
+                    //analyze that file
+                    $analyzer->Analyze();
+
+                    //was that file correctly analyzed?
+                    if ($analyzer->Analyzed()) {
+
+                        //get the analysis result
+                        $database_structure = $analyzer->Result();
+
+                        //initialize the code generator
+                        $code_generator = new \Gishiki\ORM\ModelBuilding\ModelBuilder($database_structure);
+
+                        //check for errors
+                        $code_generator->ErrorsCheck();
+
+                        //perform the code generation
+                        $compilation_result = $code_generator->Compile();
+
+                        //include the compilation result
+                        eval($compilation_result);
+
+                        if (!\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_AUTOCACHE"))
+                        {   file_put_contents($model_filepath, "<?php".PHP_EOL.$compilation_result, LOCK_EX);  }
+                    } else {
+                        die("in resource '".$resource."': unknown error!");
+                    }
+
+                } catch (\Gishiki\ORM\ModelBuilding\ModelBuildingException $error) {
+                    die("Error number (".$error->getCode()."): ".$error->getMessage());
+                }
+            } else if (!$on_the_fly) {
+                include($model_filepath);
+            }
+        }
+        
+        /**
+         * Start the Object-relational mapping bundled with Gishiki:
+         *      -   Execute the AOT component to generate the PHP code (if needed)
+         *      -   Include the generated php code
+         *      -   Perform any additional setup operations
+         */
+        static function StartORM($resources) {
+            //iterate over each database descriptor
+            foreach ($resources as &$resource) //compile the current database descriptor 
+            {   Application::GenerateORMData(APPLICATION_DIR.$resource, \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_AUTOCACHE"));    }
+            
+            //start up PHP ActiveRecord
+            \ActiveRecord\Config::initialize(function($cfg)
+            {
+                $cfg->set_model_directory(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("MODEL_DIR"));
+                $cfg->set_connections(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_CONNECTIONS"));
+            });
+        }
+        
+        /**
          * Chack if the application to be executed exists, is valid and has the
          * configuration file
          * 
          * @return boolean the application existence
          */
-        static function CheckExistence() {
+        static function Exists() {
             //return the existence of an application directory and a configuratio file
-            return ((file_exists(APPLICATION_DIR)) && (file_exists(APPLICATION_DIR."settings.ini")));
+            return ((file_exists(APPLICATION_DIR)) && (file_exists(APPLICATION_DIR."settings.json")));
         }
 
         /**
@@ -71,46 +139,27 @@ namespace Gishiki\Core {
                     file_put_contents(APPLICATION_DIR . ".htaccess", "Deny from all", LOCK_EX);
                 }
             }
-
             
-            /*if (!Environment::GetCurrentEnvironment()->ExtensionSupport("SimpleXML")) {
-                //update the number of errors
-                $errors++;
-
-                //show the error to the user
-                echo "<div><b>SimpleXML:</b> In order to install and run Gishiki you need (at least) PHP 5.3 compiled with SimpleXML enabled.
-                <br />Please, install a supported PHP version and retry.</div>";
-            }
-        
-            if (!Environment::GetCurrentEnvironment()->ExtensionSupport("openssl")) {
-                //update the number of errors
-                $errors++;
-
-                //show the error to the user
-                echo "<div><b>OpenSSL:</b> OpenSSL PHP extension not installed, but it is required to install and run Gishiki.
-                <br />Please, install the OpenSSL extension for PHP and retry.</div>";
-            }*/
-            
-            if ((!file_exists(APPLICATION_DIR."interfaceControllers".DS)) && ($errors == 0)) {
-                if (!@mkdir(APPLICATION_DIR."interfaceControllers".DS)) {
+            if ((!file_exists(APPLICATION_DIR."Services".DS)) && ($errors == 0)) {
+                if (!@mkdir(APPLICATION_DIR."Services".DS)) {
                     $errors++;
                 }
             }
 
-            if ((!file_exists(APPLICATION_DIR."webControllers".DS)) && ($errors == 0)) {
-                if (!@mkdir(APPLICATION_DIR."webControllers".DS)) {
-                    $errors++;
-                }
-            }
-           
-            if ((!file_exists(APPLICATION_DIR."Models".DS)) && ($errors == 0)) {
-                if (!@mkdir(APPLICATION_DIR."Models".DS)) {
+            if ((!file_exists(APPLICATION_DIR."Controllers".DS)) && ($errors == 0)) {
+                if (!@mkdir(APPLICATION_DIR."Controllers".DS)) {
                     $errors++;
                 }
             }
             
             if ((!file_exists(APPLICATION_DIR."Views".DS)) && ($errors == 0)) {
                 if (!@mkdir(APPLICATION_DIR."Views".DS)) {
+                    $errors++;
+                }
+            }
+            
+            if ((!file_exists(APPLICATION_DIR."Models".DS)) && ($errors == 0)) {
+                if (!@mkdir(APPLICATION_DIR."Models".DS)) {
                     $errors++;
                 }
             }
@@ -129,67 +178,82 @@ namespace Gishiki\Core {
                 }
             }
             
-            if ((!file_exists(APPLICATION_DIR."Schemas".DS)) && ($errors == 0)) {
-                if (!@mkdir(APPLICATION_DIR."Schemas".DS)) {
-                    $errors++;
+            $bookstore_example = <<<XML
+<?xml version='1.0' standalone='yes'?>
+<!-- the connection named "default" is added by the application initializer -->
+<database name="bookstore" connection="default">
+    <table name="books"><!-- table names always ends with a trailing 's' -->
+        <column type="integer" name="id" primaryKey="true"></column>
+        <column type="string" name="title"></column>
+        <column type="float" name="price"></column>
+        <column type="string" name="author"></column>
+        <column type="datetime" name="publication_date"></column>
+        <column type="boolean" name="interesting"></column>
+    </table>
+</database>
+XML;
+            $bookstore_example_xml = new \SimpleXMLElement($bookstore_example);
+            $bookstore_example_xml->asXML(APPLICATION_DIR."bookstore.xml");
+            
+            if (in_array("sqlite", \PDO::getAvailableDrivers())) {
+                try {
+                    //create a new example db
+                    $example_db = new \PDO("sqlite:default_db.sqlite");
+                    
+                    //this is the query for the creation of the example table
+                    $example_db->exec("CREATE TABLE 'books' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'title' TEXT, 'author' TEXT, 'price' REAL, 'publication_date' DATETIME, 'interesting' INTEGER)");
+                } catch (\PDOException $ex) {
+                    new \Gishiki\Logging\Log("Error in the default db", "The following error was encountered while creating the default database: ".$ex->getMessage(), \Gishiki\Logging\Priority::WARNING);
                 }
             }
             
-            //try to create the log file
-            touch(APPLICATION_DIR."server_log.xml");
-            
-            $passiveRoutingSetup = 
-                    '"" > "Default/Index"'.PHP_EOL.
-                    '"index.php" > "Default/Index" ';
-                
-            $activeRoutingSetup =
-                    '"-(.*)/Default-" > "{1}/Index"'.PHP_EOL.
-                    '"-(.*).php-" > "Default/Index/{1}.php" ';
-                
-            $passiveRoutingConfigWrite = file_put_contents(APPLICATION_DIR."passive_rounting.cfg", $passiveRoutingSetup, LOCK_EX);
-            $activeRoutingConfigWrite = file_put_contents(APPLICATION_DIR."active_routing.cfg", $activeRoutingSetup, LOCK_EX);
-            if (($passiveRoutingConfigWrite === FALSE) || ($activeRoutingConfigWrite === FALSE)) {
-                $errors++;
-            }
-            
-            if ((!file_exists(Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR')."settings.ini")) && ($errors == 0)) {
-                $configuration = "[general]".PHP_EOL
-                                ."development = on".PHP_EOL
-                                ."compression = off".PHP_EOL
-                        .PHP_EOL."; filesystem related settings".PHP_EOL
-                                ."[filesystem]".PHP_EOL
-                                ."interfaceControllersDirectory = \"interfaceControllers\"".PHP_EOL
-                                ."webControllersDirectory = \"webControllers\"".PHP_EOL
-                                ."modelsDirectory = \"Models\"".PHP_EOL
-                                ."viewsDirectory = \"Views\"".PHP_EOL
-                                ."schemataDirectory = \"Schemas\"".PHP_EOL
-                                ."resourcesDirectory = \"Resources\"".PHP_EOL
-                                ."keysDirectory = \"Keyring\"".PHP_EOL
-                                ."logFile = \"server_log.xml\"".PHP_EOL
-                        .PHP_EOL."; do not change the serverPassword as it is the key of the serverKey".PHP_EOL
-                                ."[security]".PHP_EOL
-                                ."serverPassword = \"".$new_password."\"".PHP_EOL
-                                ."serverKey = \"ServerKey\"".PHP_EOL
-                        .PHP_EOL."; cookies related settings".PHP_EOL
-                                ."[cookies]".PHP_EOL
-                                ."cookiesPrefix = \"GishikiCookie_\"".PHP_EOL
-                                ."cookiesEncryptedPrefix = \"".base64_encode(openssl_random_pseudo_bytes(16))."\"".PHP_EOL
-                                ."cookiesKey = \"".base64_encode(openssl_random_pseudo_bytes(256))."\"".PHP_EOL
-                                ."cookiesExpiration = 5184000".PHP_EOL
-                                ."cookiesPath = \"/\"".PHP_EOL
-                        .PHP_EOL."; routing related settings".PHP_EOL
-                                ."[routing]".PHP_EOL
-                                ."routing = on".PHP_EOL
-                                ."passiveRules = \"passive_rounting.cfg\"".PHP_EOL
-                                ."activeRules = \"active_routing.cfg\"".PHP_EOL
-                        .PHP_EOL."; database connection settings".PHP_EOL
-                                ."[database]".PHP_EOL
-                                ."connection = \"\""
-                        .PHP_EOL."; caching related settings".PHP_EOL
-                                ."[cache]".PHP_EOL
-                                ."enabled = false".PHP_EOL
-                                ."server = \"memcached://localhost:11211\"".PHP_EOL;
-                if (file_put_contents(APPLICATION_DIR."settings.ini", $configuration, LOCK_EX) === FALSE) {
+            if ((!file_exists(Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR')."settings.json")) && ($errors == 0)) {
+                $configuration = "{".PHP_EOL 
+                                ."  \"general\": {".PHP_EOL
+                                ."      \"development\": true".PHP_EOL
+                                ."  },".PHP_EOL
+                        .PHP_EOL."  \"database\": {".PHP_EOL
+                                ."      \"on-the-fly\": false,".PHP_EOL
+                                ."      \"mappers\": [".PHP_EOL
+                                ."          \"bookstore.xml\"".PHP_EOL
+                                ."      ],".PHP_EOL
+                                ."      \"connections\": {".PHP_EOL
+                                ."          \"default\":  \"sqlite://default_db.sqlite\", ".PHP_EOL
+                                ."          \"MySQL\":  \"mysql://username:password@localhost/development?charset=utf8\", ".PHP_EOL
+                                ."          \"PostgreSQL\":  \"pgsql://username:password@localhost/development\", ".PHP_EOL
+                                ."          \"SQLite\":  \"sqlite://development_database.db\", ".PHP_EOL
+                                ."          \"SQLite_file\":  \"sqlite://unix(/var/www/html/database.sqlite)\", ".PHP_EOL
+                                ."          \"oci\":  \"oci://username:passsword@localhost/xe\" ".PHP_EOL
+                                ."      }".PHP_EOL
+                                ."  },".PHP_EOL
+                        .PHP_EOL."  \"security\": {".PHP_EOL
+                                ."      \"serverPassword\": \"".$new_password."\",".PHP_EOL
+                                ."      \"serverKey\": \"ServerKey\"".PHP_EOL
+                                ."  },".PHP_EOL
+                        .PHP_EOL."  \"cookies\": {".PHP_EOL
+                                ."      \"cookiesPrefix\": \"GishikiCookie_\",".PHP_EOL
+                                ."      \"cookiesEncryptedPrefix\": \",".base64_encode(openssl_random_pseudo_bytes(16))."\",".PHP_EOL
+                                ."      \"cookiesKey\": \"".base64_encode(openssl_random_pseudo_bytes(256))."\",".PHP_EOL
+                                ."      \"cookiesExpiration\": 5184000,".PHP_EOL
+                                ."      \"cookiesPath\": \"/\"".PHP_EOL
+                                ."  },".PHP_EOL
+                        .PHP_EOL."  \"routing\": {".PHP_EOL
+                                ."      \"routing\": true,".PHP_EOL
+                                ."      \"passive_routing\": {".PHP_EOL
+                                ."          \"\": \"Default/Index\",".PHP_EOL
+                                ."          \"index.php\": \"\"".PHP_EOL
+                                ."      }, ".PHP_EOL
+                                ."      \"active_routing\": {".PHP_EOL
+                                ."          \"(.*)/Default\": \"{1}/Index\",".PHP_EOL
+                                ."          \"(.*).php\": \"Default/{1}\"".PHP_EOL
+                                ."      }".PHP_EOL
+                                ."  },".PHP_EOL
+                        .PHP_EOL."  \"cache\": {".PHP_EOL
+                                ."      \"enabled\": false,".PHP_EOL
+                                ."      \"server\": \"memcached://localhost:11211\"".PHP_EOL
+                                ."  }".PHP_EOL
+                                ."}";
+                if (file_put_contents(APPLICATION_DIR."settings.json", $configuration, LOCK_EX) === FALSE) {
                     $errors++;
                 }
             }

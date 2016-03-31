@@ -15,6 +15,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/  
 
+namespace Gishiki\Cookie;
+
 /**
  * The class that, once instantiated, provides cookie management ability
  * 
@@ -109,7 +111,7 @@ class CookieProvider {
             }
             
             //get the reflected cookie value
-            $reflectedCookieValue = new ReflectionProperty($cookie, 'value');
+            $reflectedCookieValue = new \ReflectionProperty($cookie, 'value');
             $reflectedCookieValue->setAccessible(TRUE);
             
             //and assign the cookie value
@@ -160,7 +162,7 @@ class CookieProvider {
         $name = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_PREFIX').$cookie->getName();
         
         //get the cookie serialized value
-        $reflectedCookieValueInspection = new ReflectionMethod($cookie, "inspectSerializedValue");
+        $reflectedCookieValueInspection = new \ReflectionMethod($cookie, "inspectSerializedValue");
         $reflectedCookieValueInspection->setAccessible(TRUE);
         $value = $reflectedCookieValueInspection->invoke($cookie);
         if ($encrypted) {

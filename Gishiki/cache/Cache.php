@@ -33,48 +33,56 @@ namespace Gishiki\Caching {
         protected static $cacheServer = [];
 
         /**
+         * Check for the availability of a cache server/container
+         * 
+         * @return boolean TRUE if a cache container is actually connected
+         */
+        public static function Connected() {
+            return (self::$connected);
+        }
+        
+        /**
          * Initialize the caching engine for the current request.
          * This function is automatically called by the framework.
          * Another call to this function won't produce any effects.
          */
-        static function Initialize() {
-            //initialize the caching engine only if it is needed
-            if (\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('CACHING_ENABLED')) {
-                //parse the string stored to the application settings file
-                self::$cacheServer["details"] = CacheConnectionString::Parse(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("CACHE_CONNECTION_STRING"));
+        public static function Initialize() {
+            if (!self::$connected) {
+                //initialize the caching engine only if it is needed
+                if (\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('CACHING_ENABLED')) {
+                    //parse the string stored to the application settings file
+                    self::$cacheServer["details"] = CacheConnectionString::Parse(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("CACHE_CONNECTION_STRING"));
 
-                switch (self::$cacheServer["details"]["server_type"]) {
-                    case "memcached":
-                        if (\Gishiki\Core\Environment::ExtensionSupport("MEMCACHED")) {
-                            //open a new memcached instance
-                            self::$cacheServer["connection"] = new \Memcached(self::$persistence_ID);
-                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_RECV_TIMEOUT, 1000);
-                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_SEND_TIMEOUT, 1000);
-                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_TCP_NODELAY, true);
-                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_SERVER_FAILURE_LIMIT, 50);
-                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_CONNECT_TIMEOUT, 500);
-                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_RETRY_TIMEOUT, 300);
-                            /* self::$cacheServer["connection"]->setOption(\Memcached::OPT_DISTRIBUTION, Memcached::DISTRIBUTION_CONSISTENT);
-                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_LIBKETAMA_COMPATIBLE, true); */
+                    switch (self::$cacheServer["details"]["server_type"]) {
+                        case "memcached":
+                            if (\Gishiki\Core\Environment::ExtensionSupport("MEMCACHED")) {
+                                //open a new memcached instance
+                                self::$cacheServer["connection"] = new \Memcached(self::$persistence_ID);
+                                self::$cacheServer["connection"]->setOption(\Memcached::OPT_RECV_TIMEOUT, 1000);
+                                self::$cacheServer["connection"]->setOption(\Memcached::OPT_SEND_TIMEOUT, 1000);
+                                self::$cacheServer["connection"]->setOption(\Memcached::OPT_TCP_NODELAY, true);
+                                self::$cacheServer["connection"]->setOption(\Memcached::OPT_SERVER_FAILURE_LIMIT, 50);
+                                self::$cacheServer["connection"]->setOption(\Memcached::OPT_CONNECT_TIMEOUT, 500);
+                                self::$cacheServer["connection"]->setOption(\Memcached::OPT_RETRY_TIMEOUT, 300);
 
-                            //suppress a warning on Memcached::append()
-                            self::$cacheServer["connection"]->setOption(\Memcached::OPT_COMPRESSION, false);
+                                //suppress a warning on Memcached::append()
+                                self::$cacheServer["connection"]->setOption(\Memcached::OPT_COMPRESSION, false);
 
-                            //connect to the memcached server
-                            self::$cacheServer["connection"]->addServer(self::$cacheServer["details"]["server_address"], self::$cacheServer["details"]["server_port"]);
+                                //connect to the memcached server
+                                self::$cacheServer["connection"]->addServer(self::$cacheServer["details"]["server_address"], self::$cacheServer["details"]["server_port"]);
 
-                            //was the server connected?
-                            self::$connected = count(self::$cacheServer["connection"]->getStats()) > 0;
-                        }
-                        break;
+                                //was the server connected?
+                                self::$connected = count(self::$cacheServer["connection"]->getStats()) > 0;
+                            }
+                            break;
 
-                    case "filesystem":
-                        self::$connected = (file_exists(self::$cacheServer["details"]["directory"])) && (is_writable(self::$cacheServer["details"]["directory"]));
-                        var_dump(self::$cacheServer["details"]["directory"]);
-                        break;
+                        case "filesystem":
+                            self::$connected = (file_exists(self::$cacheServer["details"]["directory"])) && (is_writable(self::$cacheServer["details"]["directory"]));
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
@@ -174,10 +182,34 @@ namespace Gishiki\Caching {
 
                     case "filesystem":
                         if (self::Exists($cacheName))
-                            unlink(self::$cacheServer["details"]["directory"].self::$persistence_ID.md5($cacheName).".cachefragment");
+                        {   unlink(self::$cacheServer["details"]["directory"].self::$persistence_ID.md5($cacheName).".cachefragment");  }
                         break;
                 }
             }
         }
+        
+        /**
+         * Invalidate all items in the cache
+         */
+        public static function Flush() {
+            //if a caching server is connected, and the cache fragment has a valid name
+            if ((self::$connected) && (gettype($cacheName) == "string") && ($cacheName != "")) {
+
+                //chose the proper way of removing the cache fragment
+                switch (self::$cacheServer["details"]["server_type"]) {
+                    case "memcached":
+                        self::$cacheServer["connection"]->flush();
+                        break;
+
+                    case "filesystem":
+                        if (self::Exists($cacheName)) {
+                            unlink(self::$cacheServer["details"]["directory"]);
+                            mkdir(self::$cacheServer["details"]["directory"]);
+                        }
+                        break;
+                }
+            }
+        }
+        
     }
 }

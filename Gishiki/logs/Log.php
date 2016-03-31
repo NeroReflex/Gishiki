@@ -18,97 +18,130 @@
 namespace Gishiki\Logging {
     
     /**
-    * An helper class for storing logs of what happens on the server
-    *
-    * Benato Denis <benato.denis96@gmail.com>
-    */
+     * An helper class for storing logs of what happens on the server
+     *
+     * Benato Denis <benato.denis96@gmail.com>
+     */
     class Log {
         private $unix_timestamp;
-        private $info;
         private $level;
-        private $details;
         private $stackTrace;
-        
+        private $shortMessage;
+        private $longMessage;
+
         /**
          * Setup a new log entry
-         * 
-         * @param string $info
-         * @param string $details
+         *
+         * @param string $shortMessage
+         * @param string $longMessage
          * @param integer $priority
          */
-        public function __construct($info, $details = "", $priority = Priority::WARNING) {
+        public function __construct($shortMessage = "", $longMessage = "", $priority = Priority::WARNING) {
             //setup the log
             $this->unix_timestamp = time();
-            $this->info = $info;
-            $this->details = $details;
-            $this->stackTrace = NULL;
-            
+            $this->stackTrace = debug_backtrace();
+            $this->shortMessage = $shortMessage;
+            $this->longMessage = $longMessage;
+
             //assign a priority to the current log
-            $this->ChangePriority($priority);
-       }
-       
-       /**
-        * Add details to the current log entry
-        * 
-        * @param string $newDetails details to be added
+            $this->SetPriority($priority);
+        }
+
+        /**
+         * Change the priority of the current log
+         *
+         * @param integer $priorityLevel one of the Gishiki\Logging\Priority priority code
         */
-       public function AddDetails($newDetails) {
-            if (gettype($newDetails) == "string") {
-                $this->details = $this->details.$newDetails;
+        public function SetPriority($priorityLevel) {
+            //change the priority level
+            $this->level = $priorityLevel;
+        }
+
+        /**
+         * Set the short message/description of the log entry
+         *
+         * @param string the short message
+         */
+        public function SetShortMessage($message) {
+            //change the short message
+            $this->shortMessage = "".$message;
+        }
+
+        /**
+         * Get the short message/description of the log entry
+         *
+         * @param string the long message
+         */
+        public function SetLongMessage($message) {
+            //change the long message
+            $this->longMessage = "".$message;
+        }
+
+        /**
+         * Get the long message/description of the log entry
+         *
+         * @return string the short message
+         */
+        public function GetShortMessage() {
+            //return the short message
+            return $this->shortMessage;
+        }
+
+        /**
+         * Get the long message/description of the log entry
+         *
+         * @return string the long message
+         */
+        public function GetLongMessage() {
+            //return the long message
+            return $this->longMessage;
+        }
+
+        /**
+         * Get the timestamp of the log entry
+         *
+         * @return integer the timestamp
+         */
+        public function GetTimestamp() {
+            //return the timestamp
+            return $this->unix_timestamp;
+        }
+
+        /**
+         * Get the stacktrace of the log entry
+         *
+         * @return string the timestamp
+         */
+        public function GetStacktrace() {
+            //return the stacktrace serialized
+            return json_encode($this->stackTrace);
+        }
+
+        /**
+         * Get the urgency level of the log entry
+         *
+         * @return string the level
+         */
+        public function GetLevel() {
+            //return the log level
+            return $this->level;
+        }
+
+        /**
+         * Save the current log entry using syslogd.
+         * 
+         * The log entry is saved automatically
+         */
+        public function __destruct() {
+           //use syslog to store the log entry on the current machine
+            if (openlog("Gishiki" , LOG_NDELAY | LOG_PID, LOG_USER)) {
+                //save the log using the UNIX standard logging ultility
+                syslog($this->GetLevel(), "[".$this->GetTimestamp()."] (".$this->GetShortMessage().") ".$this->GetLongMessage()."");
+                
+                //virtually close the connection to syslogd
+                closelog();
             }
-       }
-       
-       /**
-        * Change the priority of the current log
-        * 
-        * @param integer $priorityLevel one of the Gishiki\Logging\Priority priority code
-        */
-       public function ChangePriority($priorityLevel) {
-           if (($priorityLevel != Priority::ERROR) && ($priorityLevel != Priority::EXCEPTION) && ($priorityLevel != Priority::INFO) && ($priorityLevel != Priority::WARNING)) {
-               $this->level = Priority::UNKNOWN;
-           } else {
-               $this->level = $priorityLevel;
-           }
-       }
-       
-       /**
-        * Add a stack trace of the PHP execution to the log, so it will be easier 
-        * check for errors. The stack trace is given as an array, it can 
-        * be a stack trace of an exception or generated by debug_backtrace()
-        * 
-        * @param array $stackTrace the stack trace
-        */
-       public function AddStackTrace($stackTrace = NULL) {
-           //add the current stack trace if no one was provided
-           if (gettype($stackTrace) != "array") {
-               $this->stackTrace = debug_backtrace();
-           } else {
-               $this->stackTrace = $stackTrace;
-           }
-       }
-       
-       /**
-        * Save the current log where it can be read in the future
-        */
-       public function Save() {
-           //add the current stack trace if no one was provided
-           $this->AddStackTrace();
-           
-           //build the log structure
-           $logStruct = [
-               "timestamp"      => $this->unix_timestamp,
-               "information"    => $this->info,
-               "details"        => $this->details,
-               "level"          => $this->level,
-               "trace"          => $this->stackTrace
-           ];
-           
-           //encode the log structure in something that can be saved easily
-           $logEntry = json_encode($logStruct);
-           
-           //request write permission, lock the file and write the newly created log entry on it
-           file_put_contents(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("LOG_FILE"), $logEntry.PHP_EOL, FILE_APPEND | LOCK_EX);
-       }
+        }
     }
 
 }

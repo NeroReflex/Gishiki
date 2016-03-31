@@ -15,12 +15,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
+namespace Gishiki\Cookie;
+
 /**
  * An exception thrown by a managed cookie
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class CookieException extends Exception {
+class CookieException extends \Exception {
     
     /**
      * Create the exception

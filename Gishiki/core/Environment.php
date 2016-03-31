@@ -18,29 +18,29 @@ limitations under the License.
 namespace Gishiki\Core {
     
     /**
-     * The base environment for running controllers and models
+     * Represent the environment used to run controllers.
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
     class Environment {
-
         /** each environment has its configuration */
         private $configuration;
 
         /** this is the currently active environment */
         private static $currentEnvironment;
 
-        /** an array containing the request befor and after the routing */
+        /** an array containing the request before and after the routing */
         private $request;
 
         /** additional details given by the client */
         private $resourceDetails;
 
-        /** The cookie functions provider */
+        /** 
+         * Provide cookie management ability
+         * 
+         * @var \Gishiki\Cookie\CookieProvider the cookie functions provider
+         */
         public $Cookies;
-
-        /** the database handler */
-        private $databaseHandler;
         
         /**
          * Setup a new environment instance used to fulfill the client request
@@ -58,18 +58,12 @@ namespace Gishiki\Core {
 
             //this will be initialized later on if needed
             $this->resourceDetails = NULL;
-            
-            //prepare the database connection, but don't connect (yet)
-            $this->databaseHandler = new \Gishiki\Database\Database();
-            //the time to connect the database will come when including models
 
             //initialize the caching engine
             \Gishiki\Caching\Cache::Initialize();
 
             //prepare the cookie manager
-            $this->Cookies = new \CookieProvider();
-
-
+            $this->Cookies = new \Gishiki\Cookie\CookieProvider();
         }
 
         /**
@@ -78,7 +72,10 @@ namespace Gishiki\Core {
          * @return boolean TRUE if SSL is enabled, false otherwise
          */
         public function SecureConnectionEnabled() {
-            return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off');
+            //filter $_SERVER (accessing superglobals directly is a bad idea)
+            $_server_filtered = filter_input_array(INPUT_SERVER);
+            
+            return (!empty($_server_filtered['HTTPS']) && $_server_filtered['HTTPS'] != 'off');
         }
 
         /**
@@ -97,6 +94,9 @@ namespace Gishiki\Core {
          * @param string $nonRoutedResource the non re-routed request
          */
         public function FulfillRequest($nonRoutedResource) {
+            //start the ORM
+            Application::StartORM(Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_SOURCES"));
+            
             //check the route an active the router if it is enabled
             $rerouted = $nonRoutedResource;
             if (Routing::IsEnabled()) {
@@ -144,13 +144,14 @@ namespace Gishiki\Core {
                     $this->resourceDetails[] = $decoded[$counter];
                 }
 
-                $serializedRequest = "[]";
-                if ((isset($_POST["data"])) && ($_POST["data"] != "")) {
-                    $serializedRequest = $_POST["data"];
+                $serializedRequest = "{ }";
+                $received_json_data = filter_input(INPUT_POST, 'data');
+                if ((isset($received_json_data)) && ($received_json_data != "")) {
+                    $serializedRequest = $received_json_data;
                 }
 
                 //initialize and execute the controller
-                $this->ExecuteInterfaceController($resource, $serializedRequest);
+                $this->ExecuteService($resource, $serializedRequest);
             } else {
                 //the resource that must be invoked
                 $resource = NULL;
@@ -183,33 +184,6 @@ namespace Gishiki\Core {
                 $this->ExecuteWebController($resource);
             }
         }
-
-        /**
-         * This is called if it is needed to include models from the models directory
-         */
-        private function IncludeModels() {
-            /*   models are used generally with a db, so try to connect the website/service db...   */
-            $this->databaseHandler->Connect($this->GetConfigurationProperty("CONNECTION_CONFIG"));
-
-            /*    include every model inside the model directory    */
-            //get the list of files inside the model direcotry (no: subdirectories are excluded)
-            $incDir = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('MODEL_DIR');
-            $dh  = opendir($incDir);
-            while (false !== ($filename = readdir($dh))) {
-                $files[] = $filename;
-            }
-            sort($files);
-            rsort($files);
-            
-            //include each file with the ".php" extension
-            foreach ($files as $file) {
-                if (strlen($file) >= 5) {
-                    if (strtolower(substr($file, strlen($file) - 4)) == ".php") {
-                        include($incDir.$file);
-                    }
-                }
-            }
-        }
         
         /**
          * Execute the requested interface controller
@@ -217,60 +191,44 @@ namespace Gishiki\Core {
          * @param array $resource the array filled by Environment::FulfillRequest()
          * @param string $jsonRequest the request encoded as a valid json string
          */
-        private function ExecuteInterfaceController($resource, $jsonRequest) {
+        private function ExecuteService($resource, $jsonRequest) {
             //the response will be in json format
             header('Content-Type: application/json');
-
+            
             //setup the json response
-            $response = new \Gishiki\JSON\JSONObject();
+            $response = array(
+                //append the timestamp to the response
+                "TIMESTAMP" => time()
+            );
 
             try {
                 //deserialize the request
-                $request = \Gishiki\JSON\JSON::DeSerializeFromString($jsonRequest);
+                $request = \Gishiki\JSON\JSON::DeSerialize($jsonRequest);
+                if (!array_key_exists("TIMESTAMP", $request)) //add the timestamp of the request
+                {   $request["TIMESTAMP"] = time(); }
                 
                 if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('CONTROLLER_DIR').$resource["controllerClass"].".php"))
                 {
-                    //a controller is going to be executed, so load every model
-                    $this->IncludeModels();
-
                     //require the controller file
                     include(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('CONTROLLER_DIR').$resource["controllerClass"].".php");
 
                     //check for the class existence
                     if (class_exists($resource["controllerClass"]."_Controller")) {
-                        if (get_parent_class($resource["controllerClass"]."_Controller") == "Gishiki\\Core\\MVC\\Gishiki_InterfaceController") {
-                            //prepare the name of the class and reflect the class with the given name
-                            $reflectedControllerClass = new \ReflectionClass($resource["controllerClass"]."_Controller");
+                        //prepare the name of the class and reflect the class with the given name
+                        $reflectedControllerClass = new \ReflectionClass($resource["controllerClass"]."_Controller");
 
-                            //instantiate a new object from the reflected controller class
-                            $ctrl = $reflectedControllerClass->newInstance();
+                        //instantiate a new object from the reflected controller class
+                        $ctrl = $reflectedControllerClass->newInstance();
 
-                            //bind the additional request details to the current controller
-                            $reflectedControllersDetails = new \ReflectionProperty($ctrl, "receivedDetails");
-                            $reflectedControllersDetails->setAccessible(TRUE);
-                            $reflectedControllersDetails->setValue($ctrl, $this->resourceDetails);
-
-                            //bind the additional request details to the current controller
-                            $reflectedControllersRequest = new \ReflectionProperty($ctrl, "Request");
-                            $reflectedControllersRequest->setAccessible(TRUE);
-                            $reflectedControllersRequest->setValue($ctrl, $request);
-
-                            //setup the response of the current controller
-                            $reflectedControllersResponse = new \ReflectionProperty($ctrl, "Response");
-                            $reflectedControllersResponse->setAccessible(TRUE);
-                            $reflectedControllersResponse->setValue($ctrl, $response);
-                            
-                            //check for action existence
-                            if (method_exists($ctrl, $resource["controllerAction"])) {
-                                //call the method inside the controller instantiated object
-                                $action = new \ReflectionMethod($ctrl, $resource["controllerAction"]);
-                                $action->setAccessible(TRUE);
-                                $action->invoke($ctrl);
-                            } else { //display the error
+                        //check for action existence
+                        if (method_exists($ctrl, $resource["controllerAction"])) {
+                            //call the method inside the controller instantiated object
+                            //binding the additional request details to the current controller
+                            $action = new \ReflectionMethod($ctrl, $resource["controllerAction"]);
+                            $action->setAccessible(TRUE);
+                            $response = $action->invoke($ctrl, [$request]);
+                        } else { //display the error
                                
-                            }
-                        } else { //the class is not a valid interface controller
-                            
                         }
                     } else { //display the error
                         
@@ -280,14 +238,14 @@ namespace Gishiki\Core {
                 }
             } catch (\Gishiki\JSON\JSONException $ex) {
                 //add "Error": 1 to the JSON response
-                $response->AddProperty(new \Gishiki\JSON\JSONProperty("Error", new \Gishiki\JSON\JSONInteger(1)));
+                $response["Error"] = 1;
                 
                 //add the error message
-                $response->AddProperty(new \Gishiki\JSON\JSONProperty("ErrorDetails", new \Gishiki\JSON\JSONString($ex->getMessage())));
-                
-                //give response
-                echo(\Gishiki\JSON\JSON::SerializeToString($response));
+                $response["ErrorDetails"] = $ex->getMessage();
             }
+            
+            //give the result to the client in a JSON format
+            echo(\Gishiki\JSON\JSON::Serialize($response));
         }
         
         /**
@@ -298,46 +256,39 @@ namespace Gishiki\Core {
         private function ExecuteWebController($resource) {
             if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('WEB_CONTROLLER_DIR').$resource["controllerClass"].".php"))
             {
-                //a controller is going to be executed, so load every model
-                $this->IncludeModels();
-                
                 //require the controller file
                 include(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('WEB_CONTROLLER_DIR').$resource["controllerClass"].".php");
 
                 //check for the class existence
                 if (class_exists($resource["controllerClass"]."_Controller")) {
-                    if (get_parent_class($resource["controllerClass"]."_Controller") == "Gishiki\\Core\\MVC\\Gishiki_WebController") {
-                        //prepare the name of the class and reflect the class with the given name
-                        $reflectedControllerClass = new \ReflectionClass($resource["controllerClass"]."_Controller");
+                    //prepare the name of the class and reflect the class with the given name
+                    $reflectedControllerClass = new \ReflectionClass($resource["controllerClass"]."_Controller");
 
-                        //instantiate a new object from the reflected controller class
-                        $ctrl = $reflectedControllerClass->newInstance();
+                    //instantiate a new object from the reflected controller class
+                    $ctrl = $reflectedControllerClass->newInstance();
 
-                        //bind the additional request details to the current controller
-                        $reflectedControllersDetails = new \ReflectionProperty($ctrl, "receivedDetails");
-                        $reflectedControllersDetails->setAccessible(TRUE);
-                        $reflectedControllersDetails->setValue($ctrl, $this->resourceDetails);
+                    //bind the additional request details to the current controller
+                    $reflectedControllersDetails = new \ReflectionProperty($ctrl, "receivedDetails");
+                    $reflectedControllersDetails->setAccessible(TRUE);
+                    $reflectedControllersDetails->setValue($ctrl, $this->resourceDetails);
 
-                        //check for action existence
-                        if (method_exists($ctrl, $resource["controllerAction"])) {
-                            //call the method inside the controller instantiated object
-                            $action = new \ReflectionMethod($ctrl, $resource["controllerAction"]);
-                            $action->setAccessible(TRUE);
-                            $action->invoke($ctrl);
-                        } else { //display the custom error page
-                            $errorResource = [
-                                "controllerClass" => "Error",
-                                "controllerAction" => "InvalidAction"
-                            ];
+                    //check for action existence
+                    if (method_exists($ctrl, $resource["controllerAction"])) {
+                        //call the method inside the controller instantiated object
+                        $action = new \ReflectionMethod($ctrl, $resource["controllerAction"]);
+                        $action->setAccessible(TRUE);
+                        $action->invoke($ctrl);
+                    } else { //display the custom error page
+                        $errorResource = [
+                            "controllerClass" => "Error",
+                            "controllerAction" => "InvalidAction"
+                        ];
 
-                            if ($resource["controllerClass"] != "Error") {
-                                $this->ExecuteWebController($errorResource);
-                            } else {
-                                exit("The requested resource cannot be found and the error controller is not deployed");
-                            }
+                        if ($resource["controllerClass"] != "Error") {
+                            $this->ExecuteWebController($errorResource);
+                        } else {
+                            exit("The requested resource cannot be found and the error controller is not deployed");
                         }
-                    } else { //the controller is not a valid controller
-                        exit("a valid controller must inherit from the Gishiki_WebController class.");    
                     }
                 } else { //display the custom error page
                     $errorResource = [
@@ -405,27 +356,12 @@ namespace Gishiki\Core {
                 //provide the file as an attachment if it is requested or necessary due to the unknown mime type
                 if ($asAttachment) { header('Content-Disposition: attachment; filename="'.$resource[n - 1].'"'); }
 
-                if (($extension != "js") && ($extension != "css")) {
-                    //give to the client the file length
-                    header('Content-Length: '.filesize($resourcePath));
+                //give to the client the file length
+                header('Content-Length: '.filesize($resourcePath));
 
-                    //give to the client the file
-                    readfile($resourcePath);
-                } else if ($extension == "js") { //minify the js file
-                    //get the minified js script
-                    $minifiedResource = \CachedMinification::MinifyJavaScript($resourcePath);
-
-                    //and serve it
-                    header('Content-Length: '.strlen($minifiedResource));
-                    echo($minifiedResource);
-                } else { //minify the css file
-                    //get the minified css script
-                    $minifiedResource = \CachedMinification::MinifyCascadingSheetStyle($resourcePath);
-
-                    //and serve it
-                    header('Content-Length: '.strlen($minifiedResource));
-                    echo($minifiedResource);
-                }
+                //serve the static resource
+                readfile($resourcePath);
+                
             } else {
                 //build&run error page
                 $errorResource = [
@@ -461,17 +397,20 @@ namespace Gishiki\Core {
 
             //get the security configuration of the current application
             $config = [];
-            if (Application::CheckExistence()) {
+            if (Application::Exists()) {
                 $config = Application::GetSettings();
                 //General Configuration
                 $this->configuration = [
-                    "DEVELOPMENT_ENVIRONMENT" => FALSE,
-                    "ACTIVE_COMPRESSION" => FALSE,
-                
                     //Security Settings
                     "SECURITY" => [
                         "MASTER_SYMMETRIC_KEY" => $config["security"]["serverPassword"],
                         "MASTER_ASYMMETRIC_KEY_REFERENCE" => $config["security"]["serverKey"],
+                    ],
+                    
+                    "DATABASE" => [
+                        "CACHING" => $config["database"]["on-the-fly"],
+                        "MAPPERS" => $config["database"]["mappers"],
+                        "CONNECTIONS" => $config["database"]["connections"]
                     ],
 
                     //Cookies Configuration
@@ -482,74 +421,43 @@ namespace Gishiki\Core {
                         "DEFAULT_LIFETIME" => $config["cookies"]["cookiesExpiration"],
                         "VALIDITY_PATH" => $config["cookies"]["cookiesPath"],
                     ],
-
-                    //Filesystem Configuration
-                    "FILESYSTEM" => [
-                        "APPLICATION_DIRECTORY" => APPLICATION_DIR,
-                        "INTERFACE_CONTROLLERS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["interfaceControllersDirectory"].DS,
-                        "WEB_CONTROLLERS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["webControllersDirectory"].DS,
-                        "MODELS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["modelsDirectory"].DS,
-                        "VIEWS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["viewsDirectory"].DS,
-                        "RESOURCES_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["resourcesDirectory"].DS,
-                        "KEYS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["keysDirectory"].DS,
-                        "SCHEMAS_DIRECTORY" => APPLICATION_DIR.$config["filesystem"]["schemataDirectory"].DS,
-                        "LOG_FILE" => APPLICATION_DIR.$config["filesystem"]["logFile"],
-                        "PASSIVE_ROUTING_FILE" => APPLICATION_DIR.$config["routing"]["passiveRules"],
-                        "ACTIVE_ROUTING_FILE" => APPLICATION_DIR.$config["routing"]["activeRules"]
-                    ],
-
+                    
                     //Caching Configuration
                     "CACHE" => [
-                        "ENABLED" => (($config["cache"]["enabled"] != NULL) && ($config["cache"]["enabled"] == TRUE)),
+                        "ENABLED" => $config["cache"]["enabled"],
                         "SERVER" => $config["cache"]["server"],
-
                     ],
-                    
+
                     //Routing Configuration
                     "ROUTING" => [
                         "ENABLED" => FALSE,
                         "PASSIVE_ROUTING" => [],
                         "ACTIVE_ROUTING" => [],
                     ],
-                    
-                    //database connection string
-                    "CONNECTION_STRING" => "",
                 ];
             }
             
             if (count($config) > 2) {
                 //get general environment configuration
-                $this->configuration["ACTIVE_COMPRESSION"] = $config["general"]["compression"];
                 $this->configuration["DEVELOPMENT_ENVIRONMENT"] = $config["general"]["development"];
 
                 //load the routing configuration
                 $this->configuration["ROUTING"]["ENABLED"] = $config["routing"]["routing"];
-                $this->configuration["ROUTING"]["PASSIVE_ROUTING"] = Routing::GetConfiguration($this->configuration["FILESYSTEM"]["PASSIVE_ROUTING_FILE"]);
-                $this->configuration["ROUTING"]["ACTIVE_ROUTING"] = Routing::GetConfiguration($this->configuration["FILESYSTEM"]["ACTIVE_ROUTING_FILE"]);
-
-                //load the database connection string
-                $this->configuration["CONNECTION_STRING"] = $config["database"]["connection"];
+                $this->configuration["ROUTING"]["PASSIVE_ROUTING"] = $config["routing"]["passive_routing"];
+                $this->configuration["ROUTING"]["ACTIVE_ROUTING"] = $config["routing"]["active_routing"];
             }
             
             //check for the environment configuration
-            if ($this->configuration["DEVELOPMENT_ENVIRONMENT"])
-            {
-                ini_set('display_errors', 1);
-                error_reporting(E_ALL);
-            } else {
-                ini_set('display_errors', 0);
-                error_reporting(0);
+            if (isset($this->configuration["DEVELOPMENT_ENVIRONMENT"])) {
+                if ($this->configuration["DEVELOPMENT_ENVIRONMENT"])
+                {
+                    ini_set('display_errors', 1);
+                    error_reporting(E_ALL);
+                } else {
+                    ini_set('display_errors', 0);
+                    error_reporting(0);
+                }
             }
-        }
-
-        /**
-         * Return the database driver automatically managed by Gishiki
-         * 
-         * @return \Gishiki\Database\Database the database driver
-         */
-        public function GetDatabaseDriver() {
-            //return the database driver
-            return $this->databaseHandler;
         }
         
         /**
@@ -560,18 +468,31 @@ namespace Gishiki\Core {
          */
         public function GetConfigurationProperty($property) {
             switch(strtoupper($property)) {
+                case "MODEL_DIR":
+                    return APPLICATION_DIR."Models";
+                
+                case "DATA_AUTOCACHE":
+                    return $this->configuration["DATABASE"]["CACHING"];
+                
+                case "DATA_CONNECTIONS":
+                    return $this->configuration["DATABASE"]["CONNECTIONS"];
+                
+                case "DATA_SOURCES":
+                    return $this->configuration["DATABASE"]["MAPPERS"];
+                
+                case "LOGGING_ENABLED":
+                    return $this->configuration["LOG"]["ENABLED"];
+
+                case "LOGGING_COLLECTION_SOURCE":
+                    return $this->configuration["LOG"]["SOURCES"];
+
                 case "CACHING_ENABLED":
-                    return $this->configuration["CACHE"]["ENABLED"];
+                    if (isset($this->configuration["CACHE"]["ENABLED"]))
+                    {   return $this->configuration["CACHE"]["ENABLED"];    }
+                    else {  return false;    }
 
                 case "CACHE_CONNECTION_STRING":
                     return $this->configuration["CACHE"]["SERVER"];
-
-                case "CONNECTION_CONFIGURATION":
-                case "CONNECTION_CONFIG":
-                    return $this->configuration["CONNECTION_STRING"];
-                
-                case "ACTIVE_COMPRESSION_ON_RESPONSE":
-                    return $this->configuration["ACTIVE_COMPRESSION"];
 
                 case "MASTER_ASYMMETRIC_KEY_NAME":
                     return $this->configuration["SECURITY"]["MASTER_ASYMMETRIC_KEY_REFERENCE"];
@@ -602,45 +523,32 @@ namespace Gishiki\Core {
 
                 case "COOKIE_DEFAULT_LIFETIME":
                     return $this->configuration["COOKIES"]["DEFAULT_LIFETIME"];
-                    
-                case "SCHEMAS_DIR":
-                case "SCHEMAS_DIRECTORY":
-                case "SCHEMATA_DIR":
-                case "SCHEMATA_DIRECTORY":
-                    return $this->configuration["FILESYSTEM"]["SCHEMAS_DIRECTORY"];
 
                 case "RESOURCE_DIR":
                 case "RESOURCE_DIRECTORY":
-                    return $this->configuration["FILESYSTEM"]["RESOURCES_DIRECTORY"];
+                    return APPLICATION_DIR."Resources".DS;
 
                 case "VIEW_DIR":
                 case "VIEW_DIRECTORY":
-                    return $this->configuration["FILESYSTEM"]["VIEWS_DIRECTORY"];
-
-                case "MODEL_DIR":
-                case "MODEL_DIRECTORY":
-                    return $this->configuration["FILESYSTEM"]["MODELS_DIRECTORY"];
-
+                    return APPLICATION_DIR."Views".DS;
+                    
                 case "WEB_CONTROLLER_DIR":
                 case "WEB_CONTROLLER_DIRECTORY":
-                    return $this->configuration["FILESYSTEM"]["WEB_CONTROLLERS_DIRECTORY"];
+                    return APPLICATION_DIR."Controllers".DS;
 
                 case "CONTROLLER_DIR":
                 case "CONTROLLER_DIRECTORY":
-                    return $this->configuration["FILESYSTEM"]["INTERFACE_CONTROLLERS_DIRECTORY"];
+                    return APPLICATION_DIR."Services".DS;
 
                 case "KEYS_DIR":
                 case "KEYS_DIRECTORY":
                 case "ASYMMETRIC_KEYS":
-                    return $this->configuration["FILESYSTEM"]["KEYS_DIRECTORY"];
+                    return APPLICATION_DIR."Keyring".DS;
 
                 case "APPLICATION_DIR":
                 case "APPLICATION_DIRECTORY":
-                    return $this->configuration["FILESYSTEM"]["APPLICATION_DIRECTORY"];
+                    return APPLICATION_DIR;
 
-                case "LOG_FILE":
-                    return $this->configuration["FILESYSTEM"]["LOG_FILE"];
-                    
                 case "PASSIVE_ROUTING_FILE":
                     return ["FILESYSTEM"]["PASSIVE_ROUTING_FILE"];
                 
@@ -689,7 +597,10 @@ namespace Gishiki\Core {
          * @return boolean TRUE if this is for sure an ajax request, FALSE otherwise
          */
         public function IsRequestAJAX() {
-            return (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
+            //filter $_SERVER (accessing superglobals directly is a bad idea)
+            $_server_filtered = filter_input_array(INPUT_SERVER);
+            
+            return (!empty($_server_filtered['HTTP_X_REQUESTED_WITH']) && strtolower($_server_filtered['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
         }
     }
 }

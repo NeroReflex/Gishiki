@@ -23,12 +23,9 @@ namespace Gishiki\Core\MVC {
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class Gishiki_WebController extends Gishiki_Controller {
+    class WebController extends Controller {
         /** this is the HTML that will be sent to the client */
         private $rawContent;
-        
-        /** this is a flag used to know if a template was loaded */
-        private $templateLoaded;
         
         /**
          * Initialize the we controller. Each web controller MUST call this constructor
@@ -39,32 +36,23 @@ namespace Gishiki\Core\MVC {
             
             //load an empty response buffer
             $this->rawContent = "";
-            
-            //no template loaded (yet)
-            $this->templateLoaded = FALSE;
         }
         
         /**
          * Load a template inside the HTML response buffer
          * 
-         * @param string $templateName the template name WITHOUT '.template'
+         * @param string $templateName the name of the page template
          * @throws \Exception an exception is thrown if the template cannot be found
          */
         protected function LoadTemplate($templateName) {
             //check for the partial view existence
-            if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$viewName.".template")) {
+            if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$templateName.".template")) {
                 
                 //get the raw partial view
                 $content = "";
-                if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$viewName.".template")) {
-                    $content = file_get_contents(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$viewName.".template");
+                if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$templateName.".template")) {
+                    $content = file_get_contents(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$templateName.".template");
                 }
-
-                //compile & include every less file included in the current view
-                \lessIntegration::IncludeAnyLESS($content);
-
-                //compile & include every scss file included in the current view
-                \scssIntegration::IncludeAnySCSS($content);
 
                 //for each data subset query update the partial view
                 if (gettype($dataSubset) == "array")
@@ -81,11 +69,8 @@ namespace Gishiki\Core\MVC {
 
                 //include the template
                 $this->rawContent = $content;
-                
-                //a template has been loaded
-                $this->templateLoaded = TRUE;
             } else {
-                throw new \Exception("The partial view \'".$viewName."\' cannot be found");
+                throw new \Exception("The template '".$templateName."' cannot be found");
             }
         }
         
@@ -107,13 +92,7 @@ namespace Gishiki\Core\MVC {
                 if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$viewName.".html")) {
                     $content = file_get_contents(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$viewName.".html");
                 }
-
-                //compile & include every less file included in the current view
-                \lessIntegration::IncludeAnyLESS($content);
-
-                //compile & include every scss file included in the current view
-                \scssIntegration::IncludeAnySCSS($content);
-
+                
                 //for each data subset query update the partial view
                 if (gettype($dataSubset) == "array")
                 {
@@ -122,25 +101,20 @@ namespace Gishiki\Core\MVC {
                     for ($i = 0; $i < $substitutions; $i++) {
                         $currentData = current($dataSubset);
                         $currentDataIndex = key($dataSubset);
-                        $content = str_replace("{{".$currentDataIndex."}}", $currentData, $content);
+                        $content = str_replace("{{".$currentDataIndex."}}", htmlentities($currentData, ENT_HTML5), $content);
                         next($dataSubset);
                     }
                 }
 
-                //store the partial view or complete the template
-                if (($viewPlaceHolder == "") || (!$this->templateLoaded)) {    
-                    $this->rawContent .= $content;
-                } else {
-                    $this->rawContent = str_replace("{{{".$viewPlaceHolder."}}}", $content."{{{".$viewPlaceHolder."}}}", $this->rawContent);
-                }
+                if (strlen($viewPlaceHolder) > 0) //complete the template if a valid placeholder is given
+                {   $this->rawContent = str_replace("{{{".$viewPlaceHolder."}}}", $content."{{{".$viewPlaceHolder."}}}", $this->rawContent);    }
             } else {
                 throw new \Exception("The partial view \'".$viewName."\' cannot be found");
             }
         }
         
         /**
-         * Compress the web page (according to the request) 
-         * and send it to the client (probably a browser)
+         * Send the result of the controller execution to the browser
          */
         public function __destruct() {
             //call the controller standard destructor
@@ -149,28 +123,8 @@ namespace Gishiki\Core\MVC {
             //delete every content placeholder
             $matches = [];
             preg_match('/{{{(.*)\?}}}/', $this->rawContent, $matches);
-            while (count($matches) > 0) {
-                //remove the placeholder from the page content and from the array
-                str_replace(array_pop($matches), "", $this->rawContent);
-            }
-
-            //if the compression is enabled
-            if ((\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('ACTIVE_COMPRESSION_ON_RESPONSE')) && (!((strstr($_SERVER['HTTP_USER_AGENT'], 'W3C_Validator') !== FALSE) || (strstr($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') === FALSE)))){
-                //send GZIP compressed data
-                //tell the browser the response is gzipped
-                header("Content-Encoding: gzip");
-
-                //gzip the response
-                print("\x1f\x8b\x08\x00\x00\x00\x00\x00"); 
-                $contents = gzcompress($this->rawContent, 9);
-                $contents = substr($contents, 0, strlen($this->rawContent));
-
-                //send the gzipped response
-                echo($contents);
-            } else {
-                //print out the uncompressed content
-                echo($this->rawContent);
-            }
+            while (count($matches) > 0) //remove any placeholder from the page content and from the array
+            {   str_replace(array_pop($matches), "", $this->rawContent);    }
         }
         
     }

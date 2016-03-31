@@ -18,7 +18,7 @@
 namespace Gishiki\Core {
 
     /**
-    * A base class of an exception
+    * The base class of an exception related with the framework
     *
     * Benato Denis <benato.denis96@gmail.com>
     */
@@ -26,21 +26,17 @@ namespace Gishiki\Core {
         
         /**
          * Create a base exception and save the log of what's happening
+         *
          * @param string $message the error message
-         * @param integer $errorCode the Stack error code
+         * @param integer $errorCode the error code
          */
         public function __construct($message, $errorCode) {
             //perform a basic Exception constructor call
             parent::__construct($message, $errorCode, NULL);
             
             //build the new log entry
-            $currentExceptionLog = new \Gishiki\Logging\Log(get_class($this).": ".$message, $message, \Gishiki\Logging\Priority::EXCEPTION);
-            
-            //register the stack trace
-            $currentExceptionLog->AddStackTrace($this->getTrace());
-            
-            //save the log entry
-            $currentExceptionLog->Save();
+            new \Gishiki\Logging\Log(get_class($this)." exception thrown", $message, \Gishiki\Logging\Priority::CRITICAL);
+            //the log entry is automatically saved
         }
     }
 }

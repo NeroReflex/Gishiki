@@ -22,44 +22,15 @@ namespace Gishiki\Core\MVC {
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class Gishiki_Controller {
+    class Controller {
         //an array with request details
         protected $receivedDetails;
-
-        //the HTTP Status Code to be sent to the client
-        private $httpStatusCode;
 
         /**
          * Initialize the controller. Each controller MUST call this constructor
          */
         public function __construct() {
-            //this is an OK response by default
-            $this->httpStatusCode = "200";
-        }
-
-        /**
-         * Set a new HTTP status code for the response
-         * 
-         * @param mixed $code the new HTTP status code, can be given as a number or as a string
-         * @throws Exception the exception that prevent the new status to be used
-         */
-        protected function ChangeHTTPStatus($code) {
-            //check the given input
-            $codeType = gettype($code);
-            if (($codeType != "string") && ($codeType != "integer")) {
-                throw new \Exception("The http error code must be given a string or an integer value, ".$codeType." given");
-            }
-
-            //make the $code a string-type variable
-            $code = (string)$code;
-
-            //check if the given code is a valid one
-            if (!array_key_exists("".$code, getHTTPResponseCodes())) {
-                throw new \Exception("The given error code is not recognized as a valid one");
-            }
-
-            //change the status code
-            $this->httpStatusCode = $code;
+            
         }
         
         /**
@@ -90,16 +61,7 @@ namespace Gishiki\Core\MVC {
          * Change the HTTP status code
          */
         public function __destruct() {
-            //get the supported php status code
-            $httpStatusList = getHTTPResponseCodes();
-
-            //build the http status code message
-            $httpStatusMessage = $httpStatusList[$this->httpStatusCode];
-            $protocol = (isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0');
-            header($protocol.' '.$this->httpStatusCode.' '.$httpStatusMessage);
-
-            //set the http status code
-            $GLOBALS['http_response_code'] = $this->httpStatusCode;
+            
         }
     }
 }

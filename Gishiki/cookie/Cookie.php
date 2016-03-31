@@ -15,6 +15,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/  
 
+namespace Gishiki\Cookie;
+
 /**
  * The class that represents an unsecure cookie: the cookie is accessible from 
  * HTTP, HTTPS and client-side, because the cookie is not encrypted. 
@@ -40,7 +42,7 @@ class Cookie {
         $this->name = $cookieName;
         
         //and its value
-        $this->value = \Gishiki\Serialization\DirectSerialization::SerializeValue($cookieValue);
+        $this->value = serialize($cookieValue);
     }
     
     /**
@@ -50,7 +52,7 @@ class Cookie {
      */
     public function setValue($newValue) {
         //store the cookie value
-        $this->value = \Gishiki\Serialization\DirectSerialization::SerializeValue($newValue);
+        $this->value = serialize($newValue);
     }
     
     /**
@@ -60,7 +62,7 @@ class Cookie {
      */
     public function getValue() {
         //get the cookie value
-        return \Gishiki\Serialization\DirectSerialization::DeserializeValue($this->value);
+        return unserialize($this->value);
     }
     
     /**

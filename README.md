@@ -4,6 +4,14 @@ _*Gishiki*_: a modern and elegant MVC framework for PHP >= 5.6 and HHVM.
 Gishiki means 'ritual' in japanese, this name was chosen because this framework will help you to perform the
 ritual of creation and deployment of web digital contents.
 
+Due to its design this framework won't force you to use its features: you are completely free of using it as you wish,
+even if that breaks up MVC principles and/or uses a custom ORM.
+
+Gishiki is so fast to deploy that you don't even need to configure it to get started!
+
+What are you waiting for? 
+Installing is as simple as cloning the repository and in 2 minutes you are up in experimenting its features!
+
 
 ## Services
 Gishiki focuses on high-performance cloud computing in an MVC-oriented paradigm.

@@ -59,20 +59,6 @@ class Config extends Singleton
 	private $model_directory;
 
 	/**
-	 * Switch for logging.
-	 *
-	 * @var bool
-	 */
-	private $logging = false;
-
-	/**
-	 * Contains a Logger object that must impelement a log() method.
-	 *
-	 * @var object
-	 */
-	private $logger;
-
-	/**
 	 * The format to serialize DateTime values into.
 	 *
 	 * @var string
@@ -212,54 +198,6 @@ class Config extends Singleton
 			throw new ConfigException('Invalid or non-existent directory: '.$this->model_directory);
 
 		return $this->model_directory;
-	}
-
-	/**
-	 * Turn on/off logging
-	 *
-	 * @param boolean $bool
-	 * @return void
-	 */
-	public function set_logging($bool)
-	{
-		$this->logging = (bool)$bool;
-	}
-
-	/**
-	 * Sets the logger object for future SQL logging
-	 *
-	 * @param object $logger
-	 * @return void
-	 * @throws ConfigException if Logger objecct does not implement public log()
-	 */
-	public function set_logger($logger)
-	{
-		$klass = Reflections::instance()->add($logger)->get($logger);
-
-		if (!$klass->getMethod('log') || !$klass->getMethod('log')->isPublic())
-			throw new ConfigException("Logger object must implement a public log method");
-
-		$this->logger = $logger;
-	}
-
-	/**
-	 * Return whether or not logging is on
-	 *
-	 * @return boolean
-	 */
-	public function get_logging()
-	{
-		return $this->logging;
-	}
-
-	/**
-	 * Returns the logger
-	 *
-	 * @return object
-	 */
-	public function get_logger()
-	{
-		return $this->logger;
 	}
 
 	/**

@@ -25,29 +25,20 @@ abstract class Connection
 	 * @var mixed
 	 */
 	public $connection;
-	/**
+	
+        /**
 	 * The last query run.
 	 * @var string
 	 */
 	public $last_query;
-	/**
-	 * Switch for logging.
-	 *
-	 * @var bool
-	 */
-	private $logging = false;
-	/**
-	 * Contains a Logger object that must impelement a log() method.
-	 *
-	 * @var object
-	 */
-	private $logger;
+        
 	/**
 	 * The name of the protocol that is used.
 	 * @var string
 	 */
 	public $protocol;
-	/**
+	
+        /**
 	 * Default PDO options to set for each connection.
 	 * @var array
 	 */
@@ -100,11 +91,9 @@ abstract class Connection
 		try {
 			$connection = new $fqclass($info);
 			$connection->protocol = $info->protocol;
-			$connection->logging = $config->get_logging();
-			$connection->logger = $connection->logging ? $config->get_logger() : null;
 
 			if (isset($info->charset))
-				$connection->set_encoding($info->charset);
+			{   $connection->set_encoding($info->charset);  }
 		} catch (PDOException $e) {
 			throw new DatabaseException($e);
 		}
@@ -293,9 +282,6 @@ abstract class Connection
 	 */
 	public function query($sql, &$values=array())
 	{
-		if ($this->logging)
-			$this->logger->log($sql);
-
 		$this->last_query = $sql;
 
 		try {

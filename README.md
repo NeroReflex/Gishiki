@@ -53,8 +53,13 @@ thanks to the routing engine included bundled with Gishiki, that supports both: 
 ## Database
 Gishiki uses an ORM (Object-relational mapping) to help you interacting with your own databases.
 
-The provided ORM is built around the php ActiveRecord ORM, because it is designed 
+The provided ORM is built around the PHP ActiveRecord ORM, because it is designed 
 to be extremely fast on query generation and execution.
+
+With the Gishiki ORM you are free to decide whether to use the ActiveRecord component writing your own PHP classes or let
+Gishiki creating your documented PHP code for the table you describe.
+
+Gishiki can generate models out of a simple XML file, but it is planned to extend the code generation with the JSON and yaml formats.
 
 
 ## Caching
@@ -64,12 +69,14 @@ with the same input is required once again in the future.
 
 Cache is managed automatically by Gishiki for most common operations.
 
+
 ## Logging
 Gishiki gives you the ability of logging what happens on your server.
 
 Gishiki automatically logs exceptions, but delivers you full-control over your logs, exposing a simple logging API.
 
 Gishiki uses UNIX syslog for all of its logging management, allowing you to do whatever you want with your log entries.
+
 
 ## Requirements
 Gishiki has a few dependencies that you should install to have the framework fully-functional.

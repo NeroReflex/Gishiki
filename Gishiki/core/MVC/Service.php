@@ -26,29 +26,8 @@ namespace Gishiki\Core\MVC {
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class Service extends Controller {
+    class Service {
 
-        /**
-         * Initialize the services container instance.
-         * 
-         * Each interface controller should call this constructor.
-         */
-        public function __construct() {
-            //call the parent constructor
-            parent::__construct();
-        }
-
-        /**
-         * Dispose the service container instance.
-         * 
-         * Each interface controller should call this destructor.
-         */
-        public function __destruct() {
-            //call the parent destructor
-            parent::__destruct();
-        }
-        
-        
         /**
          * Perform a call to the specified Service over the HTTP or HTTPS protocol.
          * 

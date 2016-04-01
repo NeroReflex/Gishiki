@@ -50,12 +50,11 @@ include(ROOT."Gishiki".DS."security".DS."AsymmetricCipher.php");
 include(ROOT."Gishiki".DS."MIMETypes.inc");
 
 //require base controller classes
-include(ROOT."Gishiki".DS."core".DS."MVC".DS."Controller.php");
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."WebController.php");
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."Service.php");
 
 //include the routing engine
-include(ROOT."Gishiki".DS."core".DS."Routing.inc");
+include(ROOT."Gishiki".DS."core".DS."Routing.php");
 
 //include the environment manager
 include(ROOT."Gishiki".DS."core".DS."Environment.php");
@@ -89,6 +88,7 @@ $executionEnvironment = NULL;
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 abstract class Gishiki {
+    
     /**
      * Initialize the Gishiki engine and prepare for
      * the execution of a framework instance
@@ -113,10 +113,14 @@ abstract class Gishiki {
      * 
      * @param string $request the requested resource
      */
-    static function Run($request)
+    static function Run()
     {   
         //fulfill the client request
         global $executionEnvironment;
-        $executionEnvironment->FulfillRequest(trim($request, "/"));
+        $executionEnvironment->FulfillRequest();
+    }
+    
+    static function RunAdminPanel() {
+        
     }
 }

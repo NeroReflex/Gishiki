@@ -23,17 +23,14 @@ namespace Gishiki\Core\MVC {
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class WebController extends Controller {
+    class WebController {
         /** this is the HTML that will be sent to the client */
         private $rawContent;
         
         /**
-         * Initialize the we controller. Each web controller MUST call this constructor
+         * Initialize the web controller. Each web controller MUST call this constructor
          */
         public function __construct() {
-            //call the controller constructor
-            parent::__construct();
-            
             //load an empty response buffer
             $this->rawContent = "";
         }

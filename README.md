@@ -91,7 +91,7 @@ Gishiki has a few dependencies that you should install to have the framework ful
 
 If you plan to install Gishiki without composer you will have to manually install:
 
-   -    Apache with mod_rewrite
+   -    Apache with mod_rewrite or nginx
    -    HHVM or PHP >= 5.6
    -    OpenSSL extension (usually included in the standard PHP release)
    -    libxml2 extension (usually included in the standard PHP release)
@@ -102,7 +102,7 @@ If you plan to install Gishiki without composer you will have to manually instal
 ## Installation
 You just checkout (or decompress a snapshot) from the github repository in your apache root directory and it just run out of the box.
 
-Using "git clone" is the preferred installation procedure, because it will be easier to update the framework.
+To have a step-by-step mini tutorial read the INSTALL.md file on this repository!
 
 
 ## License

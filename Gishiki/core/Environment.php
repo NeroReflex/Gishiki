@@ -29,12 +29,6 @@ namespace Gishiki\Core {
         /** this is the currently active environment */
         private static $currentEnvironment;
 
-        /** an array containing the request before and after the routing */
-        private $request;
-
-        /** additional details given by the client */
-        private $resourceDetails;
-
         /** 
          * Provide cookie management ability
          * 
@@ -55,9 +49,6 @@ namespace Gishiki\Core {
 
             //load the server configuration
             $this->LoadConfiguration();
-
-            //this will be initialized later on if needed
-            $this->resourceDetails = NULL;
 
             //initialize the caching engine
             \Gishiki\Caching\Cache::Initialize();
@@ -90,58 +81,27 @@ namespace Gishiki\Core {
 
         /**
          * Fullfill the request made by the client
-         * 
-         * @param string $nonRoutedResource the non re-routed request
          */
-        public function FulfillRequest($nonRoutedResource) {
+        public function FulfillRequest() {
             //start the ORM
             Application::StartORM(Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_SOURCES"));
-            
-            //check the route an active the router if it is enabled
-            $rerouted = $nonRoutedResource;
-            if (Routing::IsEnabled()) {
-                $rerouted = Routing::Route($rerouted);
-            }
-
-            //save the request before and after re-routing
-            $this->request = [
-                0 => $nonRoutedResource,
-                1 => $rerouted
-            ];
 
             //split the requested resource string to
-            $decoded = explode("/", $this->request[1]);
+            $decoded = explode("/", trim(\Gishiki\Core\Routing::getRequestURI(), '/'));
             //analyze it
 
-            if ((strtoupper($decoded[0]) == "RESOURCE") || (strtoupper($decoded[0]) == "STATIC")) {
-                //serve the static resource
-                $this->ServeStaticResource($decoded);
-            } else if ((strtoupper($decoded[0]) == "SERVICE") || (strtoupper($decoded[0]) == "API")) {
+            if ((strtoupper($decoded[0]) == "SERVICE") || (strtoupper($decoded[0]) == "API")) {
                 //the resource that must be invoked
                 $resource = NULL;
 
                 //get the controller name and the action to be performed
                 $argn = count($decoded);
                 if ($argn >= 3) {
-                    $resource = [
-                        "controllerClass" => $decoded[1],
-                        "controllerAction" => $decoded[2]
-                    ];
+                    $resource = [ "controllerClass" => $decoded[1], "controllerAction" => $decoded[2] ];
                 } else if ($argn == 2) {
-                    $resource = [
-                        "controllerClass" => $decoded[1],
-                        "controllerAction" => "Index"
-                    ];
+                    $resource = [ "controllerClass" => $decoded[1], "controllerAction" => "Index" ];
                 } else {
-                    $resource = [
-                        "controllerClass" => "Default",
-                        "controllerAction" => "Index"
-                    ];
-                }
-
-                //fill the additional resource details
-                for ($counter = 3; $counter < count($decoded); $counter++) {
-                    $this->resourceDetails[] = $decoded[$counter];
+                    $resource = [ "controllerClass" => "Default", "controllerAction" => "Index" ];
                 }
 
                 $serializedRequest = "{ }";
@@ -153,35 +113,14 @@ namespace Gishiki\Core {
                 //initialize and execute the controller
                 $this->ExecuteService($resource, $serializedRequest);
             } else {
-                //the resource that must be invoked
-                $resource = NULL;
-
-                //get the controller name and the action to be performed
-                $argn = count($decoded);
-                if ($argn >= 2) {
-                    $resource = [
-                        "controllerClass" => $decoded[0],
-                        "controllerAction" => $decoded[1]
-                    ];
-                } else if ($argn == 1) {
-                    $resource = [
-                        "controllerClass" => $decoded[0],
-                        "controllerAction" => "Index"
-                    ];
-                } else {
-                    $resource = [
-                        "controllerClass" => "Default",
-                        "controllerAction" => "Index"
-                    ];
-                }
-
-                //fill the additional resource details
-                for ($counter = 2; $counter < count($decoded); $counter++) {
-                    $this->resourceDetails[] = $decoded[$counter];
-                }
-
-                //initialize and execute the controller
-                $this->ExecuteWebController($resource);
+                //start up the routing
+                \Gishiki\Core\Routing::Initialize();
+                
+                //include the list of routes (and user controllers)
+                include(APPLICATION_DIR."controllers.php");
+                
+                //finish the routing
+                \Gishiki\Core\Routing::Deinitialize();
             }
         }
         
@@ -205,7 +144,7 @@ namespace Gishiki\Core {
                 //deserialize the request
                 $request = \Gishiki\JSON\JSON::DeSerialize($jsonRequest);
                 if (!array_key_exists("TIMESTAMP", $request)) //add the timestamp of the request
-                {   $request["TIMESTAMP"] = time(); }
+                {   $request["TIMESTAMP"] = filter_input(INPUT_SERVER, 'REQUEST_TIME'); }
                 
                 if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('CONTROLLER_DIR').$resource["controllerClass"].".php"))
                 {
@@ -246,131 +185,6 @@ namespace Gishiki\Core {
             
             //give the result to the client in a JSON format
             echo(\Gishiki\JSON\JSON::Serialize($response));
-        }
-        
-        /**
-         * Execute the requested web controller or the error one
-         * 
-         * @param array $resource the array filled by Environment::FulfillRequest()
-         */
-        private function ExecuteWebController($resource) {
-            if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('WEB_CONTROLLER_DIR').$resource["controllerClass"].".php"))
-            {
-                //require the controller file
-                include(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('WEB_CONTROLLER_DIR').$resource["controllerClass"].".php");
-
-                //check for the class existence
-                if (class_exists($resource["controllerClass"]."_Controller")) {
-                    //prepare the name of the class and reflect the class with the given name
-                    $reflectedControllerClass = new \ReflectionClass($resource["controllerClass"]."_Controller");
-
-                    //instantiate a new object from the reflected controller class
-                    $ctrl = $reflectedControllerClass->newInstance();
-
-                    //bind the additional request details to the current controller
-                    $reflectedControllersDetails = new \ReflectionProperty($ctrl, "receivedDetails");
-                    $reflectedControllersDetails->setAccessible(TRUE);
-                    $reflectedControllersDetails->setValue($ctrl, $this->resourceDetails);
-
-                    //check for action existence
-                    if (method_exists($ctrl, $resource["controllerAction"])) {
-                        //call the method inside the controller instantiated object
-                        $action = new \ReflectionMethod($ctrl, $resource["controllerAction"]);
-                        $action->setAccessible(TRUE);
-                        $action->invoke($ctrl);
-                    } else { //display the custom error page
-                        $errorResource = [
-                            "controllerClass" => "Error",
-                            "controllerAction" => "InvalidAction"
-                        ];
-
-                        if ($resource["controllerClass"] != "Error") {
-                            $this->ExecuteWebController($errorResource);
-                        } else {
-                            exit("The requested resource cannot be found and the error controller is not deployed");
-                        }
-                    }
-                } else { //display the custom error page
-                    $errorResource = [
-                        "controllerClass" => "Error",
-                        "controllerAction" => "InvalidController"
-                    ];
-
-                    if ($resource["controllerClass"] != "Error") {
-                        $this->ExecuteWebController($errorResource);
-                    } else {
-                        exit("The requested controller cannot be found and the error controller is not deployed");
-                    }
-                }
-            } else {
-                $errorResource = [
-                    "controllerClass" => "Error",
-                    "controllerAction" => "ControllerNotFound"
-                ];
-
-                if ($resource["controllerClass"] != "Error") {
-                    $this->ExecuteWebController($errorResource);
-                } else {
-                    exit("The requested controller cannot be found and the error controller is not deployed");
-                }
-            }
-        }
-
-        /**
-         * Serve a static resource to the client
-         * 
-         * @param array $resource the exploded resource to be served
-         * @param boolean $asAttachment should the resource be provided as an attachment?
-         */
-        private function ServeStaticResource($resource, $asAttachment = FALSE) {
-            //import the array of MIME Types
-            $mime_types_map = getMIMETypes();
-
-            $resourcePath = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('RESOURCE_DIR');
-
-            //build the resource full system path
-            $n = count($resource);
-            for ($i = 1; $i < $n; $i++) {
-                $resourcePath = $resourcePath.$resource[$i];
-
-                if ($i != ($n - 1)) {
-                    $resourcePath = $resourcePath.DS;
-                }
-            }
-
-            //give the file to the client if it exists
-            if (file_exists($resourcePath)) {
-                //get the file extension to provide the MIME Type
-                $info = new \SplFileInfo($resourcePath);
-                $extension = $info->getExtension();
-
-                //get the correct mime type
-
-                if (array_key_exists($extension, $mime_types_map)) {
-                    //give to the client the correct mime type
-                    header('Content-Type: '.$mime_types_map[$extension]);
-                } else {
-                    $asAttachment = TRUE;
-                }
-
-                //provide the file as an attachment if it is requested or necessary due to the unknown mime type
-                if ($asAttachment) { header('Content-Disposition: attachment; filename="'.$resource[n - 1].'"'); }
-
-                //give to the client the file length
-                header('Content-Length: '.filesize($resourcePath));
-
-                //serve the static resource
-                readfile($resourcePath);
-                
-            } else {
-                //build&run error page
-                $errorResource = [
-                    "controllerClass" => "Error",
-                    "controllerAction" => "ResourceNotFound"
-                ];
-
-                $this->ExecuteWebController($errorResource);
-            }
         }
 
         /**
@@ -427,24 +241,12 @@ namespace Gishiki\Core {
                         "ENABLED" => $config["cache"]["enabled"],
                         "SERVER" => $config["cache"]["server"],
                     ],
-
-                    //Routing Configuration
-                    "ROUTING" => [
-                        "ENABLED" => FALSE,
-                        "PASSIVE_ROUTING" => [],
-                        "ACTIVE_ROUTING" => [],
-                    ],
                 ];
             }
             
             if (count($config) > 2) {
                 //get general environment configuration
                 $this->configuration["DEVELOPMENT_ENVIRONMENT"] = $config["general"]["development"];
-
-                //load the routing configuration
-                $this->configuration["ROUTING"]["ENABLED"] = $config["routing"]["routing"];
-                $this->configuration["ROUTING"]["PASSIVE_ROUTING"] = $config["routing"]["passive_routing"];
-                $this->configuration["ROUTING"]["ACTIVE_ROUTING"] = $config["routing"]["active_routing"];
             }
             
             //check for the environment configuration
@@ -497,15 +299,6 @@ namespace Gishiki\Core {
                 case "MASTER_ASYMMETRIC_KEY_NAME":
                     return $this->configuration["SECURITY"]["MASTER_ASYMMETRIC_KEY_REFERENCE"];
 
-                case "ROUTING_ACTIVE_CONFIGURATION":
-                    return $this->configuration["ROUTING"]["ACTIVE_ROUTING"];
-
-                case "ROUTING_CONSTANT_CONFIGURATION":
-                    return $this->configuration["ROUTING"]["PASSIVE_ROUTING"];
-
-                case "ROUTING_ENABLED":
-                    return $this->configuration["ROUTING"]["ENABLED"];
-
                 case "SECURITY_MASTER_SYMMETRIC_KEY":
                     return $this->configuration["SECURITY"]["MASTER_SYMMETRIC_KEY"];
 
@@ -548,12 +341,6 @@ namespace Gishiki\Core {
                 case "APPLICATION_DIR":
                 case "APPLICATION_DIRECTORY":
                     return APPLICATION_DIR;
-
-                case "PASSIVE_ROUTING_FILE":
-                    return ["FILESYSTEM"]["PASSIVE_ROUTING_FILE"];
-                
-                case "ACTIVE_ROUTING_FILE":
-                    return ["FILESYSTEM"]["ACTIVE_ROUTING_FILE"];
                     
                 default:
                     return NULL;

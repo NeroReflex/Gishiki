@@ -116,6 +116,7 @@
 			<ul>
 				<li><a href="class-Gishiki.Core.Application.html">Application</a></li>
 				<li class="active"><a href="class-Gishiki.Core.Environment.html">Environment</a></li>
+				<li><a href="class-Gishiki.Core.Routing.html">Routing</a></li>
 			</ul>
 
 
@@ -184,7 +185,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Core.Environment.html#20-605" title="Go to source code">Gishiki/core/Environment.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Core.Environment.html#20-392" title="Go to source code">Gishiki/core/Environment.php</a>
 		<br>
 	</div>
 
@@ -204,7 +205,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.Core.Environment.html#45-67" title="Go to source code">__construct</a>( <span>boolean <var>$selfRegister</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+		<code><a href="source-class-Gishiki.Core.Environment.html#39-58" title="Go to source code">__construct</a>( <span>boolean <var>$selfRegister</var> = <span class="php-keyword1">FALSE</span></span> )</code>
 
 		<div class="description short">
 			<p>Setup a new environment instance used to fulfill the client request</p>
@@ -239,7 +240,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_SecureConnectionEnabled">#</a>
-		<code><a href="source-class-Gishiki.Core.Environment.html#69-79" title="Go to source code">SecureConnectionEnabled</a>( )</code>
+		<code><a href="source-class-Gishiki.Core.Environment.html#60-70" title="Go to source code">SecureConnectionEnabled</a>( )</code>
 
 		<div class="description short">
 			<p>Test if the current connection uses HTTP over SSL</p>
@@ -273,7 +274,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_RegisterEnvironment">#</a>
-		<code><a href="source-class-Gishiki.Core.Environment.html#81-89" title="Go to source code">RegisterEnvironment</a>( <span><code><a href="class-Gishiki.Core.Environment.html">Gishiki\Core\Environment</a></code> <var>&amp; $env</var></span> )</code>
+		<code><a href="source-class-Gishiki.Core.Environment.html#72-80" title="Go to source code">RegisterEnvironment</a>( <span><code><a href="class-Gishiki.Core.Environment.html">Gishiki\Core\Environment</a></code> <var>&amp; $env</var></span> )</code>
 
 		<div class="description short">
 			<p>Register the currently active environment</p>
@@ -308,7 +309,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_FulfillRequest">#</a>
-		<code><a href="source-class-Gishiki.Core.Environment.html#91-186" title="Go to source code">FulfillRequest</a>( <span>string <var>$nonRoutedResource</var></span> )</code>
+		<code><a href="source-class-Gishiki.Core.Environment.html#82-125" title="Go to source code">FulfillRequest</a>( )</code>
 
 		<div class="description short">
 			<p>Fullfill the request made by the client</p>
@@ -318,11 +319,6 @@
 			<p>Fullfill the request made by the client</p>
 
 
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$nonRoutedResource</var></dt>
-					<dd>the non re-routed request</dd>
-				</dl></div>
 
 
 
@@ -343,7 +339,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_GetCurrentEnvironment">#</a>
-		<code><a href="source-class-Gishiki.Core.Environment.html#376-384" title="Go to source code">GetCurrentEnvironment</a>( )</code>
+		<code><a href="source-class-Gishiki.Core.Environment.html#190-198" title="Go to source code">GetCurrentEnvironment</a>( )</code>
 
 		<div class="description short">
 			<p>Return the currenlty active environment used to run the controller</p>
@@ -377,7 +373,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_GetConfigurationProperty">#</a>
-		<code><a href="source-class-Gishiki.Core.Environment.html#463-561" title="Go to source code">GetConfigurationProperty</a>( <span>string <var>$property</var></span> )</code>
+		<code><a href="source-class-Gishiki.Core.Environment.html#265-348" title="Go to source code">GetConfigurationProperty</a>( <span>string <var>$property</var></span> )</code>
 
 		<div class="description short">
 			<p>Return the configuration property</p>
@@ -416,7 +412,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_ExtensionSupport">#</a>
-		<code><a href="source-class-Gishiki.Core.Environment.html#563-592" title="Go to source code">ExtensionSupport</a>( <span>string <var>$extensionAlias</var></span> )</code>
+		<code><a href="source-class-Gishiki.Core.Environment.html#350-379" title="Go to source code">ExtensionSupport</a>( <span>string <var>$extensionAlias</var></span> )</code>
 
 		<div class="description short">
 			<p>Detect the disponibility of a php extension or feature</p>
@@ -455,7 +451,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_IsRequestAJAX">#</a>
-		<code><a href="source-class-Gishiki.Core.Environment.html#594-604" title="Go to source code">IsRequestAJAX</a>( )</code>
+		<code><a href="source-class-Gishiki.Core.Environment.html#381-391" title="Go to source code">IsRequestAJAX</a>( )</code>
 
 		<div class="description short">
 			<p>Detect if the http request was done using AJAX. Note that this function may fail at detecting ajax calls.</p>
@@ -499,7 +495,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.Core.Environment.html#38-43" title="Go to source code"><var>$Cookies</var></a>
+				<a href="source-class-Gishiki.Core.Environment.html#32-37" title="Go to source code"><var>$Cookies</var></a>
 
 			<div class="description short">
 				<p>Provide cookie management ability</p>

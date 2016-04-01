@@ -195,7 +195,7 @@ a foreach cycle</p>
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Algorithms.CyclableCollection.html#20-168" title="Go to source code">Gishiki/algorithms/CyclableCollection.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Algorithms.CyclableCollection.html#20-177" title="Go to source code">Gishiki/algorithms/CyclableCollection.php</a>
 		<br>
 	</div>
 
@@ -437,14 +437,14 @@ the currently active array element with the following one</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_set">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#100-109" title="Go to source code">set</a>( <span>integer|string <var>$key</var></span>, <span> <var>$value</var></span> )</code>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#100-110" title="Go to source code">set</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
-			<p>Access the array element at the given value</p>
+			<p>Access the array element at the given index and insert the given value</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Access the array element at the given value</p>
+			<p>Access the array element at the given index and insert the given value</p>
 
 
 				<h4>Parameters</h4>
@@ -452,7 +452,7 @@ the currently active array element with the following one</p>
 					<dt><var>$key</var></dt>
 					<dd>the index of the array element to be accessed</dd>
 					<dt><var>$value</var></dt>
-					<dd></dd>
+					<dd>the value to insert</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -478,7 +478,7 @@ the currently active array element with the following one</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_valid">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#111-120" title="Go to source code">valid</a>( )</code>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#112-121" title="Go to source code">valid</a>( )</code>
 
 		<div class="description short">
 			<p>Check if the currently active array element is a valid and existing one</p>
@@ -514,7 +514,7 @@ the currently active array element with the following one</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_previous">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#122-132" title="Go to source code">previous</a>( )</code>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#123-133" title="Go to source code">previous</a>( )</code>
 
 		<div class="description short">
 			<p>Get the previous field preceding the currently active one and switch
@@ -552,7 +552,7 @@ the currently active field with the preceding one</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_end">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#134-144" title="Go to source code">end</a>( )</code>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#135-145" title="Go to source code">end</a>( )</code>
 
 		<div class="description short">
 			<p>Get the last element of the array and change the currently active array
@@ -590,7 +590,7 @@ element with the last one.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_search">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#146-156" title="Go to source code">search</a>( <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#147-157" title="Go to source code">search</a>( <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
 			<p>Perform a search withing the current array to find the given value.</p>
@@ -631,7 +631,7 @@ element with the last one.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_exists_key">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#158-166" title="Go to source code">exists_key</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#159-167" title="Go to source code">exists_key</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Check if the given key is part of the current array</p>
@@ -651,6 +651,41 @@ element with the last one.</p>
 				<div class="list">
 					boolean<br>TRUE if the given key exists
 				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="emplace" id="_emplace">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_emplace">#</a>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#169-176" title="Go to source code">emplace</a>( <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Insert the given element into the array</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Insert the given element into the array</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd>the value to insert</dd>
+				</dl></div>
+
 
 
 

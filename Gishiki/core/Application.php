@@ -145,18 +145,6 @@ namespace Gishiki\Core {
                     $errors++;
                 }
             }
-
-            if ((!file_exists(APPLICATION_DIR."Controllers".DS)) && ($errors == 0)) {
-                if (!@mkdir(APPLICATION_DIR."Controllers".DS)) {
-                    $errors++;
-                }
-            }
-            
-            if ((!file_exists(APPLICATION_DIR."Views".DS)) && ($errors == 0)) {
-                if (!@mkdir(APPLICATION_DIR."Views".DS)) {
-                    $errors++;
-                }
-            }
             
             if ((!file_exists(APPLICATION_DIR."Models".DS)) && ($errors == 0)) {
                 if (!@mkdir(APPLICATION_DIR."Models".DS)) {
@@ -176,6 +164,20 @@ namespace Gishiki\Core {
                 if (!@mkdir(APPLICATION_DIR."Resources".DS)) {
                     $errors++;
                 }
+            }
+            
+            $routing_example = 
+                    "//import the namespace for Routing".PHP_EOL.
+                    "use \\Gishiki\\Core\\Routing;".PHP_EOL.PHP_EOL.
+                    "Routing::setRoute(Routing::GET, \"/\", function(\$params) {".PHP_EOL.
+                    "   //this is the homepage, just render a small list of books...".PHP_EOL.
+                    "});".PHP_EOL.PHP_EOL.
+                    "Routing::setRoute(Routing::GET, \"/book/{id}\", function(\$params) {".PHP_EOL.
+                    "   //parameter \"id\" contains the id of the searched user, you just search the user in your database and return it".PHP_EOL.
+                    "   echo 'You have requested to see the book with ID '.\$params->get(\"id\");".PHP_EOL.
+                    "});".PHP_EOL;
+            if (file_put_contents(APPLICATION_DIR."controllers.php", "<?php ".PHP_EOL.$routing_example."?>", LOCK_EX) === FALSE) {
+                $errors++;
             }
             
             $bookstore_example = <<<XML
@@ -236,17 +238,6 @@ XML;
                                 ."      \"cookiesKey\": \"".base64_encode(openssl_random_pseudo_bytes(256))."\",".PHP_EOL
                                 ."      \"cookiesExpiration\": 5184000,".PHP_EOL
                                 ."      \"cookiesPath\": \"/\"".PHP_EOL
-                                ."  },".PHP_EOL
-                        .PHP_EOL."  \"routing\": {".PHP_EOL
-                                ."      \"routing\": true,".PHP_EOL
-                                ."      \"passive_routing\": {".PHP_EOL
-                                ."          \"\": \"Default/Index\",".PHP_EOL
-                                ."          \"index.php\": \"\"".PHP_EOL
-                                ."      }, ".PHP_EOL
-                                ."      \"active_routing\": {".PHP_EOL
-                                ."          \"(.*)/Default\": \"{1}/Index\",".PHP_EOL
-                                ."          \"(.*).php\": \"Default/{1}\"".PHP_EOL
-                                ."      }".PHP_EOL
                                 ."  },".PHP_EOL
                         .PHP_EOL."  \"cache\": {".PHP_EOL
                                 ."      \"enabled\": false,".PHP_EOL

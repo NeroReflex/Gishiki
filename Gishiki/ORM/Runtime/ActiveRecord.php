@@ -2,7 +2,7 @@
 define('PHP_ACTIVERECORD_VERSION_ID','1.0');
 
 if (!defined('PHP_ACTIVERECORD_AUTOLOAD_PREPEND'))
-	define('PHP_ACTIVERECORD_AUTOLOAD_PREPEND',true);
+{   define('PHP_ACTIVERECORD_AUTOLOAD_PREPEND',true);   }
 
 include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."lib".DS."Singleton.php");
 include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."lib".DS."Config.php");

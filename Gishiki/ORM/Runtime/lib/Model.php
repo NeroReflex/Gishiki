@@ -60,8 +60,7 @@ namespace ActiveRecord;
  * }
  * </code>
  *
- * For a more in-depth look at defining models, relationships, callbacks and many other things
- * please consult our {@link http://www.phpactiverecord.org/guides Guides}.
+ * For a more in-depth look at defining models, relationships, callbacks and many other things.
  *
  * @package ActiveRecord
  * @see BelongsTo

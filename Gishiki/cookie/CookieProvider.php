@@ -33,32 +33,18 @@ class CookieProvider {
         //cache the cookie prefix in order to avoid calling GetConfigurationProperty for each propery
         $cookiePrefix = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_PREFIX');
         
-        //start cycling from the first cookie
-        reset($_COOKIE);
+        //filter the cookie array as it is an external input
+        $filtered_cookies = filter_input_array(INPUT_COOKIE);
         
         //cycle each cookie
-        $i = 0;
-        $e = count($_COOKIE);
-        while ($i < $e) {
-            $currentCookie = current($_COOKIE);
-            
-            //get the cookie complete name
-            $cookieCompleteName = key($_COOKIE);
+        foreach ($filtered_cookies as $cookieCompleteName => $currentCookie) {
             
             //get the cookie name for the managed object
             $count = 0;
             $cookieName = str_replace($cookiePrefix, "", $cookieCompleteName, $count);
             
-            if ($count == 1) {
-                //fetch the cookie and store the managed cookie object into the list
-                $cookies[] = $this->getCookie($cookieName);
-            }
-            
-            //jump over the next cookie
-            next($_COOKIE);
-            
-            //increase the counter
-            $i++;
+            if ($count == 1) //fetch the cookie and store the managed cookie object into the list
+            {   $cookies[] = $this->getCookie($cookieName);     }
         }
         
         //return the list of fetched cookies
@@ -72,20 +58,20 @@ class CookieProvider {
      * @return mixed return the cookie if the cookie is on the client, NULL otherwise
      */
     public function RestoreCookie($cookieName) {
+        //filter the cookie array as it is an external input
+        $filtered_cookies = filter_input_array(INPUT_COOKIE);
+        
         //get the cookie complete name
         $name = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_PREFIX').$cookieName;
         
         //check if the requested cookie exists
-        if ((!empty($_COOKIE[$name])) && (isset($_COOKIE[$name]))) {
+        if ((!empty($filtered_cookies[$name])) && (isset($filtered_cookies[$name]))) {
             //create the new managed cookie object
             $cookie = new Cookie($cookieName);
             
-            //get the cookie value
-            $cookieValue = $_COOKIE[$name];
-            
             //check if the value is encrypted
             $count = 0;
-            $cookieValue = str_replace(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_ENCRYPTION_MARK'), "", $cookieValue, $count);
+            $cookieValue = str_replace(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_ENCRYPTION_MARK'), "", $filtered_cookies[$name], $count);
             
             //and, if the value is encrypted, decrypt&check it
             if ($count == 1) {

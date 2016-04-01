@@ -39,30 +39,8 @@ if ((!defined('ROOT')) || (ROOT == "") || (ROOT == NULL))
 //include the base application and perform basic operations
 include(ROOT."Gishiki".DS."Gishiki.inc");
 
-//what action was required?
-$action = "";
+//\Gishiki\Core\Routing::getRequestURI();
 
-//get the requested resource
-if (strlen(filter_input(INPUT_GET, 'rewritten')) > 0) {
-    //read the requested resource if the mod_rewrite (or any rewrite module) has been used 
-    $CurrentScript = filter_input(INPUT_SERVER, 'PHP_SELF');
-    $URL = urldecode(filter_input(INPUT_SERVER, 'REQUEST_URI'));
-    for ($i = (strlen($CurrentScript) - 1); $i >= 0; $i--) {
-        if ($CurrentScript[$i] == '/') {
-            $CurrentScriptPath = substr($CurrentScript, 0, ($i + 1));
-            if (($CurrentScriptPath != '') && ($CurrentScriptPath != '/')) {
-                $position = strpos($URL, $CurrentScriptPath);
-                $action = substr($URL, $position + strlen($CurrentScriptPath));
-            } else
-            {   $action = $URL; }
-            break;
-        }
-    }
-} else {
-    //read the requested resource if the mod_rewrite was not used
-    $action = filter_input(INPUT_GET, 'action');
-}
-    
 //start the framework
 Gishiki::Initialize();
 
@@ -77,5 +55,5 @@ if (!\Gishiki\Core\Application::Exists())
     }
 } else {
     //run an instance of the application
-    Gishiki::Run($action);
+    Gishiki::Run();
 }

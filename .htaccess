@@ -1,4 +1,5 @@
-<IfModule mod_rewrite.c>  
-RewriteEngine on  
-RewriteRule ([^\s]) index.php?rewritten=true
+<IfModule mod_rewrite.c>
+    Options +FollowSymLinks
+    RewriteEngine On
+    RewriteRule ^(.*)$ index.php [NC,L]
 </IfModule>

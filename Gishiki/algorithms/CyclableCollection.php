@@ -34,6 +34,17 @@ class CyclableCollection implements \Iterator {
     protected $array = array();
     
     /**
+     * Setup the new collection with provided key=>value pairs
+     * 
+     * @param array $setup_values the array containing properties and values
+     */
+    public function __construct($setup_values = []) {
+        if (gettype($setup_values) == "array")
+        //type is very important here!
+        {   $this->array = $setup_values;   }
+    }
+    
+    /**
      * Start up a new iteration cycle: reset the currently active array element
      */
     public function rewind() {
@@ -87,9 +98,10 @@ class CyclableCollection implements \Iterator {
     }
     
     /**
-     * Access the array element at the given value
+     * Access the array element at the given index and insert the given value
      * 
      * @param integer|string $key the index of the array element to be accessed
+     * @param mixed $value the value to insert
      * @return mixed the inserted array element
      */
     public function set($key, $value) {
@@ -154,5 +166,13 @@ class CyclableCollection implements \Iterator {
         return array_key_exists($key, $this->array);
     }
     
+    /**
+     * Insert the given element into the array
+     * 
+     * @param mixed $value the value to insert
+     */
+    public function emplace($value) {
+        $this->array[] = $value;
+    }
 }
 

@@ -4,6 +4,22 @@ _*Gishiki*_: a modern and elegant MVC framework for PHP >= 5.6 and HHVM.
 Gishiki means 'ritual' in japanese, this name was chosen because this framework will help you to perform the
 ritual of creation and deployment of web digital contents.
 
+Due to its design this framework won't force you to use its features: you are completely free of using it as you wish,
+even if that breaks up MVC principles and/or uses a custom ORM.
+
+Gishiki is so fast to deploy that you don't even need to configure it to get started!
+
+What are you waiting for? 
+Installing is as simple as cloning the repository and in 2 minutes you are up in experimenting its features!
+
+
+## Documentation
+A simple tutorial and a hand-written documentation will be available in the near future.
+
+While waiting you can browse the API documentation for the current version on the master branch that can be found [here](http://neroreflex.github.io/Gishiki).
+
+If you are looking for the next cutting-edge documentation you can build the documentation for the development branch by yourself using PHP ApiGen!
+
 
 ## Services
 Gishiki focuses on high-performance cloud computing in an MVC-oriented paradigm.
@@ -45,8 +61,13 @@ thanks to the routing engine included bundled with Gishiki, that supports both: 
 ## Database
 Gishiki uses an ORM (Object-relational mapping) to help you interacting with your own databases.
 
-The provided ORM is built around the php ActiveRecord ORM, because it is designed 
+The provided ORM is built around the PHP ActiveRecord ORM, because it is designed 
 to be extremely fast on query generation and execution.
+
+With the Gishiki ORM you are free to decide whether to use the ActiveRecord component writing your own PHP classes or let
+Gishiki creating your documented PHP code for the table you describe.
+
+Gishiki can generate models out of a simple XML file, but it is planned to extend the code generation with the JSON and yaml formats.
 
 
 ## Caching
@@ -56,6 +77,7 @@ with the same input is required once again in the future.
 
 Cache is managed automatically by Gishiki for most common operations.
 
+
 ## Logging
 Gishiki gives you the ability of logging what happens on your server.
 
@@ -63,12 +85,13 @@ Gishiki automatically logs exceptions, but delivers you full-control over your l
 
 Gishiki uses UNIX syslog for all of its logging management, allowing you to do whatever you want with your log entries.
 
+
 ## Requirements
 Gishiki has a few dependencies that you should install to have the framework fully-functional.
 
 If you plan to install Gishiki without composer you will have to manually install:
 
-   -    Apache with mod_rewrite
+   -    Apache with mod_rewrite or nginx
    -    HHVM or PHP >= 5.6
    -    OpenSSL extension (usually included in the standard PHP release)
    -    libxml2 extension (usually included in the standard PHP release)
@@ -79,7 +102,7 @@ If you plan to install Gishiki without composer you will have to manually instal
 ## Installation
 You just checkout (or decompress a snapshot) from the github repository in your apache root directory and it just run out of the box.
 
-Using "git clone" is the preferred installation procedure, because it will be easier to update the framework.
+To have a step-by-step mini tutorial read the INSTALL.md file on this repository!
 
 
 ## License

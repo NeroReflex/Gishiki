@@ -23,17 +23,14 @@ namespace Gishiki\Core\MVC {
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class WebController extends Controller {
+    class WebController {
         /** this is the HTML that will be sent to the client */
         private $rawContent;
         
         /**
-         * Initialize the we controller. Each web controller MUST call this constructor
+         * Initialize the web controller. Each web controller MUST call this constructor
          */
         public function __construct() {
-            //call the controller constructor
-            parent::__construct();
-            
             //load an empty response buffer
             $this->rawContent = "";
         }
@@ -93,17 +90,9 @@ namespace Gishiki\Core\MVC {
                     $content = file_get_contents(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$viewName.".html");
                 }
                 
-                //for each data subset query update the partial view
-                if (gettype($dataSubset) == "array")
-                {
-                    //perform swaps/replacements
-                    $substitutions = count($dataSubset);
-                    for ($i = 0; $i < $substitutions; $i++) {
-                        $currentData = current($dataSubset);
-                        $currentDataIndex = key($dataSubset);
-                        $content = str_replace("{{".$currentDataIndex."}}", htmlentities($currentData, ENT_HTML5), $content);
-                        next($dataSubset);
-                    }
+                //perform swaps/replacements
+                foreach ($dataSubset as $currentDataIndex => $currentData) {
+                    $content = str_replace("{{".$currentDataIndex."}}", htmlentities($currentData, ENT_HTML5), $content);
                 }
 
                 if (strlen($viewPlaceHolder) > 0) //complete the template if a valid placeholder is given

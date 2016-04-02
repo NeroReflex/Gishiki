@@ -2,9 +2,20 @@
 Installing Gishiki is really simple, even a child could be able to do it:
 however, in order to succeed you need to complete following steps.
 
+
 ## Windows
 You may want to test Gishiki or develop your application on Windows:
-to install the application on windows you should install XAMPP and enable PDO drivers on php.ini. 
+to install the application on windows you should install [XAMPP](https://www.apachefriends.org/) and enable PDO drivers on php.ini. 
+
+
+## Mac OS X
+If you are willing to develop your application on a Mac system you should use
+[XAMPP](https://www.apachefriends.org/) too!
+
+## Virtual Machine
+If you don't want to pollute your desktop environment you can use a virtualization
+program to install [Ubuntu Server](http://www.ubuntu.com/download/server) and follow the tutorial on that virtual machine!
+
 
 ## Webserver (Apache 2)
 Gishiki is a framework for the web.... of course, you need to setup a web server!
@@ -12,7 +23,7 @@ Gishiki is a framework for the web.... of course, you need to setup a web server
 If you are using a debian or ubuntu based distro you just:
 
 ```shell
-sudo apt-get install apache2 php5 libapache2-mod-php5 nano git
+sudo apt-get install apache2 php5 php5-sqlite php5-pgsql php5-mysql libapache2-mod-php5 nano git
 sudo a2enmod rewrite
 sudo nano /etc/apache2/sites-available/000-default.conf
 sudo service apache2 restart
@@ -29,8 +40,8 @@ do your job, so just remember to enable the rewriting engine:
 ```nginx
 server {
 	listen 80;
-	server_name mydevsite.dev;
-	root /var/www/mydevsite/public;
+	server_name site.com;
+	root /var/www/html/Gishiki;
 
 	index index.php;
 
@@ -79,7 +90,7 @@ immediatly after the installation went fine!
 So... did you managed to arrive here? Fine! now let's dig into the real installation process:
 
 ```shell
-cd <server_dir>
+cd /var/www/html/Gishiki
 git clone https://github.com/NeroReflex/Gishiki.git
 git checkout master
 ```
@@ -88,8 +99,13 @@ In the above steps you can checkout the development branch to have the latest,
 cutting-edge (and unstable) version of the framework to play with.
 
 ## Getting the framework (alternative)
-You would be better like unzipping, because it is what you will do after 
-downloading a release or a snapshot of your favourite branch!
+I hope you like unzipping, because it is what you will do after 
+downloading a release (or a snapshot of your favourite branch)!
+
+```shell
+sudo apt-get install unzip
+unzip Gishiki-X.Y.Z.zip -d /var/www/html
+```
 
 ## Setting privileges
 Gishiki needs to create a directory inside its installation path, so you have to
@@ -108,14 +124,19 @@ You have been warned......
 Direct your browser to the Gishiki directory and presto!
 
 A new directory called application have appeared on your server...
-Just explore it.... You are provided with:
+Just explore it! The framework has given you a fresh start:
 
-   - the settings file named setting.json
+   - settings file is named setting.json
    - a model descriptor in an XML file (named bookstore.xml)
    - an SQLite database with the table to use the bookstore example
    - a routing + controller example named router.php
-   - obscure encryption stuff
+   - obscure encryption stuff (discussed later)
 
 Why don't directing your browser to the [book insertion example](site.com/book/new/Example%20Book/Example%20Author/19.99/2010-01-02%2003:04:05)?
 
 This should help you understanding routing and model creation (just look at router.php).
+
+If you check your sqlite database you will notice that.....
+
+## What's next?
+To start learning how to accomplish things you have to learn what the framework does when a request arrives from a client.

@@ -1,0 +1,10 @@
+site_name: Gishiki
+
+pages:
+- Home: index.md
+- License: license.md
+- Installation: installation.md
+- Routing: routing.md
+
+
+theme: readthedocs

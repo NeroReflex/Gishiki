@@ -113,6 +113,9 @@ Just explore it.... You are provided with:
    - the settings file named setting.json
    - a model descripto in an XML file (named bookstore.xml)
    - an SQLite database with the table to use the bookstore example
-   - a routing + controller example named controllers.php
+   - a routing + controller example named router.php
    - obscure encryption stuff
-   - 
+
+Why don't directing your browser to the [book insertion example](site.com/book/new/Example%20Book/Example%20Author/19.99/2010-01-02%2003:04:05)?
+
+This should help you understanding routing and model creation (just look at router.php).

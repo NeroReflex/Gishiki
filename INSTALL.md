@@ -2,6 +2,10 @@
 Installing Gishiki is really simple, even a child could be able to do it:
 however, in order to succeed you need to complete following steps.
 
+## Windows
+You may want to test Gishiki or develop your application on Windows:
+to install the application on windows you should install XAMPP and enable PDO drivers on php.ini. 
+
 ## Webserver (Apache 2)
 Gishiki is a framework for the web.... of course, you need to setup a web server!
 

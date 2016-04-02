@@ -31,7 +31,7 @@ namespace Gishiki\Core {
         const PUT       = 4;
         
         //events collections
-        const NotFoud   = 5;
+        const NotFoudCallback   = 5;
         
         //functions called on particular events
         private static $notFound = null;
@@ -117,6 +117,10 @@ namespace Gishiki\Core {
          * @param function $function the function executed when the URL is called
          */
         public static function setRoute($Method, $URI, $function) {
+            //fix the URI
+            $URI = '/'.trim($URI, '/');
+            
+            //get the requested URI
             $real_URI = static::getRequestURI();
             
             if ((!static::$executed) && (static::getRequestMethod() == $Method)) {
@@ -146,18 +150,18 @@ namespace Gishiki\Core {
                         foreach ($params as &$param) {
                             //from /book/{id}/page/{pg} I extract /book/ and, next cycle /page/
                             $before_after = explode($param, $to_be_splitted, 2);
-                            $to_be_splitted = str_replace($before_after[0], "", $to_be_splitted);
-                            $to_be_splitted = str_replace($param, "", $to_be_splitted);
+                            $to_be_splitted = str_replace_once($before_after[0], "", $to_be_splitted);
+                            $to_be_splitted = str_replace_once($param, "", $to_be_splitted);
                             
                             //than I remove /book/ from my real uri, and i look for what it is between the start of the string and the near / or end of string
-                            $real_URI = str_replace($before_after[0], "", $real_URI);
+                            $real_URI = str_replace_once($before_after[0], "", $real_URI);
                             for ($i = 0; ($i < strlen($real_URI) && ($real_URI[$i] != '/')); $i++) ;
                             
                             //what i have found is the real value of the param
                             $param_real_value = substr($real_URI, 0, $i);
                             
                             //i just remove it to avoid breaking the alogirth for the next execution of the cycle
-                            $real_URI = str_replace($param_real_value, "", $real_URI);
+                            $real_URI = str_replace_once($param_real_value, "", $real_URI);
                             
                             //I am doing all this just for this line of code:
                             $resolved_regex->set(substr($param, 1, strlen($param) - 2), $param_real_value);
@@ -167,8 +171,8 @@ namespace Gishiki\Core {
                         $function($resolved_regex);
                         static::$executed = TRUE;
                     }
-                    
-                } else if ($real_URI == $URI) { //no regex routing: just check if the current request is done to the given routing
+                //no regex routing: just check if the current request is done to the given routing
+                } else if ($real_URI == $URI) {
                     //trigger the function execution
                     $function(null);
                     static::$executed = TRUE;
@@ -186,9 +190,11 @@ namespace Gishiki\Core {
          * @param function $function this is the function automatically called when that error type occurs
          */
         public static function setErrorCallback($error, $function) {
-            if ($error == static::NotFoud) {
+            if ($error == static::NotFoudCallback) {
                 static::$notFound = $function;
             }
         }
     }
+    
 }
+

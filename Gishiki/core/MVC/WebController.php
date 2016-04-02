@@ -23,16 +23,17 @@ namespace Gishiki\Core\MVC {
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class WebController {
+    abstract class WebController {
+        
         /** this is the HTML that will be sent to the client */
-        private $rawContent;
+        private static $rawContent;
         
         /**
          * Initialize the web controller. Each web controller MUST call this constructor
          */
-        public function __construct() {
+        public static function Initialize() {
             //load an empty response buffer
-            $this->rawContent = "";
+            static::$rawContent = "";
         }
         
         /**
@@ -41,7 +42,7 @@ namespace Gishiki\Core\MVC {
          * @param string $templateName the name of the page template
          * @throws \Exception an exception is thrown if the template cannot be found
          */
-        protected function LoadTemplate($templateName) {
+        public static function LoadTemplate($templateName) {
             //check for the partial view existence
             if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$templateName.".template")) {
                 
@@ -51,21 +52,8 @@ namespace Gishiki\Core\MVC {
                     $content = file_get_contents(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$templateName.".template");
                 }
 
-                //for each data subset query update the partial view
-                if (gettype($dataSubset) == "array")
-                {
-                    //perform swaps/replacements
-                    $substitutions = count($dataSubset);
-                    for ($i = 0; $i < $substitutions; $i++) {
-                        $currentData = current($dataSubset);
-                        $currentDataIndex = key($dataSubset);
-                        $content = str_replace("{{".$currentDataIndex."}}", $currentData, $content);
-                        next($dataSubset);
-                    }
-                }
-
                 //include the template
-                $this->rawContent = $content;
+                static::$rawContent = $content;
             } else {
                 throw new \Exception("The template '".$templateName."' cannot be found");
             }
@@ -80,7 +68,7 @@ namespace Gishiki\Core\MVC {
          * @param string $viewPlaceHolder this is used to complete the template previously loaded
          * @throws \Exception an exception is thrown if the partial view cannot be found
          */
-        protected function LoadView($viewName, $dataSubset = NULL, $viewPlaceHolder = "") {
+        public static function LoadView($viewName, $dataSubset = NULL, $viewPlaceHolder = "") {
             //check for the partial view existence
             if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$viewName.".html")) {
                 
@@ -105,15 +93,12 @@ namespace Gishiki\Core\MVC {
         /**
          * Send the result of the controller execution to the browser
          */
-        public function __destruct() {
-            //call the controller standard destructor
-            parent::__destruct();
-
+        public static function Deinitialize() {
             //delete every content placeholder
             $matches = [];
-            preg_match('/{{{(.*)\?}}}/', $this->rawContent, $matches);
+            preg_match('/{{{(.*)\?}}}/', static::$rawContent, $matches);
             while (count($matches) > 0) //remove any placeholder from the page content and from the array
-            {   str_replace(array_pop($matches), "", $this->rawContent);    }
+            {   str_replace(array_pop($matches), "", static::$rawContent);    }
         }
         
     }

@@ -216,7 +216,7 @@ XML;
                     $example_db = new \PDO("sqlite:default_db.sqlite");
                     
                     //this is the query for the creation of the example table
-                    $example_db->exec("CREATE TABLE 'books' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'title' TEXT, 'author' TEXT, 'price' REAL, 'publication_date' DATETIME)");
+                    $example_db->exec("CREATE TABLE IF NOT EXISTS 'books' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'title' TEXT, 'author' TEXT, 'price' REAL, 'publication_date' DATETIME)");
                 } catch (\PDOException $ex) {
                     new \Gishiki\Logging\Log("Error in the default db", "The following error was encountered while creating the default database: ".$ex->getMessage(), \Gishiki\Logging\Priority::WARNING);
                 }

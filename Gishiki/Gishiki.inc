@@ -111,8 +111,6 @@ abstract class Gishiki {
      * Execute the requested operation.
      * That operation can be the execution of a service,
      * a controller or the fetch of static content.
-     * 
-     * @param string $request the requested resource
      */
     static function Run()
     {   
@@ -121,6 +119,9 @@ abstract class Gishiki {
         $executionEnvironment->FulfillRequest();
     }
     
+    /**
+     * Execute the administration panel of Gishiki-
+     */
     static function RunAdminPanel() {
         
     }

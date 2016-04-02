@@ -116,11 +116,17 @@ namespace Gishiki\Core {
                 //start up the routing
                 \Gishiki\Core\Routing::Initialize();
                 
+                //initialize the web controller
+                \Gishiki\Core\MVC\WebController::Initialize();
+                
                 //include the list of routes (and user controllers)
-                include(APPLICATION_DIR."controllers.php");
+                include(APPLICATION_DIR."router.php");
                 
                 //finish the routing
                 \Gishiki\Core\Routing::Deinitialize();
+                
+                //show content to the client
+                \Gishiki\Core\MVC\WebController::Deinitialize();
             }
         }
         
@@ -324,10 +330,6 @@ namespace Gishiki\Core {
                 case "VIEW_DIR":
                 case "VIEW_DIRECTORY":
                     return APPLICATION_DIR."Views".DS;
-                    
-                case "WEB_CONTROLLER_DIR":
-                case "WEB_CONTROLLER_DIRECTORY":
-                    return APPLICATION_DIR."Controllers".DS;
 
                 case "CONTROLLER_DIR":
                 case "CONTROLLER_DIRECTORY":

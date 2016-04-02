@@ -17,6 +17,7 @@ limitations under the License.
 
 //include basic common algorithms
 include(ROOT."Gishiki".DS."algorithms".DS."CyclableCollection.php");
+include(ROOT."Gishiki".DS."algorithms".DS."string_functions.php");
 
 //include the logging engine
 include(ROOT."Gishiki".DS."logs".DS."Priority.php");

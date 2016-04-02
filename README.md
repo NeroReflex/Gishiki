@@ -33,10 +33,16 @@ an Android/iOS application, another service, a Desktop program or another websit
 
 
 ## Websites
-Gishiki deploy a classic MVC pattern to help you building any website you want.
+Gishiki deploy a minimal but classic MVC pattern to help you building any website you want.
 
 In order to help you achieving your goals Gishiki provides helpers to help you with most common operations,
 but let you free of doing things the way you want.
+
+
+## RESTful services
+Thanks to the really fast router you can deploy a RESTful service in a minute or two...
+
+The HTTP router is written from scratch to be as fast as possible!
 
 
 ## Security

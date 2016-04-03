@@ -39,8 +39,6 @@ if ((!defined('ROOT')) || (ROOT == "") || (ROOT == NULL))
 //include the base application and perform basic operations
 include(ROOT."Gishiki".DS."Gishiki.inc");
 
-//\Gishiki\Core\Routing::getRequestURI();
-
 //start the framework
 Gishiki::Initialize();
 

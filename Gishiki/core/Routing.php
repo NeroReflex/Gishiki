@@ -126,12 +126,10 @@ namespace Gishiki\Core {
             if ((!static::$executed) && (static::getRequestMethod() == $Method)) {
                 //this will contain the matched expressions placeholders
                 $params = array();
-
                 //detect if regex are involved in the furnished URI
                 if (preg_match_all('/\\{[[:alnum:]]+\\}/', $URI, $params)) {
                     //stupid preg_match_all stop breaking my algorithm!
                     $params = $params[0];
-
                     //this is the regular expression an URL must match to trigger the function execution
                     $RegexURI = $URI;
                     

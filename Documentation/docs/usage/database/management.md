@@ -59,5 +59,5 @@ and et voila' Oracle database connection performed!
 ## Conclusions
 Connecting a database is simple, using it even more: the connection string is the only thing you have to change when changing RDBMS and/or host!
 
-As you may have noticed you settings file now contains your database password! You __MUST__ ensure no one will ever being
+As you may have noticed you settings file now contains your database password! You __MUST__ ensure no one will ever be
 able to reach that file!

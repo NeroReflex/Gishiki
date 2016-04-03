@@ -12,8 +12,8 @@ Gishiki is so fast to deploy that you don't even need to configure it to get sta
 ## Give it a shot!
 You want to try it, just to see if it really works, don't you?
 
-Well, to test it you neet to [install](installation/) it!
+Well, to test it you neet to [install](installation.md) it!
 
 
 ## License
-Gishiki is released under Apache-2.0 license terms, read the [LICENSE](license/) to find out more!
+Gishiki is released under Apache-2.0 license terms, read the [LICENSE](license.md) to find out more!

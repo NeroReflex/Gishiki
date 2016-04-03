@@ -108,7 +108,8 @@ If you plan to install Gishiki without composer you will have to manually instal
 ## Installation
 You just checkout (or decompress a snapshot) from the github repository in your apache root directory and it just run out of the box.
 
-To have a step-by-step mini tutorial read the INSTALL.md file on this repository!
+To have a step-by-step mini tutorial read the Documentation/docs/installation.md file on this repository or the 
+documentation section of the documentation!
 
 
 ## License

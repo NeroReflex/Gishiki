@@ -27,6 +27,7 @@ Routing::setRoute(Routing::GET, "/Home", function() {
 
 To try this rule open rules.php and paste the provided code into it and direct your browser to: https://site.com/Home
 
+
 ## Custom dynamic rules
 
 This route is really simple: just an URI check... but you are creating a dynamic application, 
@@ -64,11 +65,12 @@ in that route.
 
 This is particulary handy when creating a RESTful service.
 
+
 ## Error catching
-You know.... things doesn't always go as you want....
+You know.... things doesn't always goes as you want....
 
 This means it is necessary to think about unexpected circumstances. You do it by setting an error callback, 
-that is nothing more than a bit special routing rule:
+which is nothing more than a bit special routing rule:
 
 ```php
 use \Gishiki\Core\Routing;
@@ -81,4 +83,22 @@ Routing::setErrorCallback(Routing::NotFoudCallback, function() {
 });
 ```
 
-As you can see a routing rule is unique for all request methods.
+As you can see an error routing rule (or error callback) is unique for all request methods.
+
+
+## Limitation
+You cannot route URIs that start with /API/ or /service/ because they are reserved for web services (explained in a different chapter).
+
+You cannot match something that has a slash '/' character using a dynamic placeholder: {name} cannot capture something like "mario/rossi".
+
+
+## Conclusions
+You can consider your anonymous functions passed to the routing as your controllers: they will be the glue between
+your models and your views! 
+
+The router is the fastest and easiest component within Gishiki, 
+because it is the first component that is used and the only one you REALLY HAVE TO use.
+
+This means that you are now good to go... Everything you MUST know in order to use Gishiki ends here.
+
+Everything else is a plus you may need to accelerate the development of your projects!

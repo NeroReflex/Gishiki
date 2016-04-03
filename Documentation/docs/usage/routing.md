@@ -30,7 +30,7 @@ To try this rule open rules.php and paste the provided code into it and direct y
 
 ## Custom dynamic rules
 This route is really simple: just an URI check... but you are creating a dynamic application, 
-and URIs cannot be static URIs every time, in fact soon or later you will need to capture a parameter passed 
+and URIs cannot be static URIs every time, in fact sooner or later you will need to capture a parameter passed 
 as a parameter with the URL.
 
 Let's just consider this simple example:

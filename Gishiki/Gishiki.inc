@@ -47,9 +47,6 @@ include(ROOT."Gishiki".DS."security".DS."AsymmetricPrivateKeyCipher.php");
 include(ROOT."Gishiki".DS."security".DS."AsymmetricPublicKeyCipher.php");
 include(ROOT."Gishiki".DS."security".DS."AsymmetricCipher.php");
 
-//include the list of mime types
-include(ROOT."Gishiki".DS."MIMETypes.inc");
-
 //require base controller classes
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."WebController.php");
 include(ROOT."Gishiki".DS."core".DS."MVC".DS."Service.php");

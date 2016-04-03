@@ -1,14 +1,14 @@
 # Routing
 When a request arrives the framework must fulfill it.
 
-The framework automatically map a request to a resource located at "https://site.com/Home" into "/Home" (GET request).
+The framework automatically maps a request to a resource located at "https://site.com/Home" into "/Home" (GET request).
 
 The /Home string is the URI of the requested resource, the GET request is the HTTP method used to query that resource...
 the question is.... 
 
 How do I route that request to what I want to serve? The answer is: using the router!
 
-The router is that fantastinc component empowering your user-friendly URLs!
+The router is that fantastic component empowering your user-friendly URLs!
 
 
 ## Custom static rules
@@ -29,9 +29,8 @@ To try this rule open rules.php and paste the provided code into it and direct y
 
 
 ## Custom dynamic rules
-
 This route is really simple: just an URI check... but you are creating a dynamic application, 
-and URLs cannot be static URLs every time.... first or later you will need to capture a parameter passed 
+and URIs cannot be static URIs every time, in fact soon or later you will need to capture a parameter passed 
 as a parameter with the URL.
 
 Let's just consider this simple example:
@@ -67,7 +66,7 @@ This is particulary handy when creating a RESTful service.
 
 
 ## Error catching
-You know.... things doesn't always goes as you want....
+You know.... things doesn't always go as you want....
 
 This means it is necessary to think about unexpected circumstances. You do it by setting an error callback, 
 which is nothing more than a bit special routing rule:
@@ -97,8 +96,8 @@ You can consider your anonymous functions passed to the routing as your controll
 your models and your views! 
 
 The router is the fastest and easiest component within Gishiki, 
-because it is the first component that is used and the only one you REALLY HAVE TO use.
+because it is the first component that is used and the only one you __REALLY HAVE TO__ use.
 
-This means that you are now good to go... Everything you MUST know in order to use Gishiki ends here.
+This means that you are now good to go... Everything you *MUST* know in order to use Gishiki ends here.
 
 Everything else is a plus you may need to accelerate the development of your projects!

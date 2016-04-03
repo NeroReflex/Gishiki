@@ -26,7 +26,7 @@ Since the syslogd is something that is not (and MUST be not) accessible by the c
 the user will never notice the creation of a log entry.
 
 ## Priority
-You know... priorities are important in software development as they are in real life.
+Priorities are important as in software development as in real life.
 
 To help you better organizing your priorities you can change the default priority of a log entry:
 
@@ -82,7 +82,7 @@ What i gave you is just a simple example to get you started... There is no limit
 so configure it as you want (read your syslogd documentation).
 
 
-## Exception autologging
+## Exceptions autologging
 Every exception that inherits from Gishiki_Exception and call the parent constructor is automatically logged with 
 the Priority::CRITICAL level of priority.
 

@@ -7,6 +7,8 @@ pages:
 - Usage:
     - Router: usage/routing.md
     - Logger: usage/logging.md
+    - Database: 
+        - Management: usage/database/management.md
 
 - About:
     - License: license.md

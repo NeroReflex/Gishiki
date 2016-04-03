@@ -116,6 +116,21 @@
     </li>
 
         
+            
+    <ul class="subnav">
+    <li><span>Database</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../database/management/">Management</a>
+        
+    </li>
+
+        
+    </ul>
+
+        
     </ul>
 <li>
           
@@ -172,11 +187,11 @@
               
                 <h1 id="routing">Routing</h1>
 <p>When a request arrives the framework must fulfill it.</p>
-<p>The framework automatically map a request to a resource located at "https://site.com/Home" into "/Home" (GET request).</p>
+<p>The framework automatically maps a request to a resource located at "https://site.com/Home" into "/Home" (GET request).</p>
 <p>The /Home string is the URI of the requested resource, the GET request is the HTTP method used to query that resource...
 the question is.... </p>
 <p>How do I route that request to what I want to serve? The answer is: using the router!</p>
-<p>The router is that fantastinc component empowering your user-friendly URLs!</p>
+<p>The router is that fantastic component empowering your user-friendly URLs!</p>
 <h2 id="custom-static-rules">Custom static rules</h2>
 <p>Let's see how to create a custom route:</p>
 <pre><code class="php">use \Gishiki\Core\Routing;
@@ -192,7 +207,7 @@ Routing::setRoute(Routing::GET, &quot;/Home&quot;, function() {
 <p>To try this rule open rules.php and paste the provided code into it and direct your browser to: https://site.com/Home</p>
 <h2 id="custom-dynamic-rules">Custom dynamic rules</h2>
 <p>This route is really simple: just an URI check... but you are creating a dynamic application, 
-and URLs cannot be static URLs every time.... first or later you will need to capture a parameter passed 
+and URIs cannot be static URIs every time, in fact soon or later you will need to capture a parameter passed 
 as a parameter with the URL.</p>
 <p>Let's just consider this simple example:</p>
 <pre><code class="php">use \Gishiki\Core\Routing;
@@ -220,7 +235,7 @@ Routing::setRoute(Routing::GET, &quot;/Home/{name}&quot;, function($params) {
 in that route.</p>
 <p>This is particulary handy when creating a RESTful service.</p>
 <h2 id="error-catching">Error catching</h2>
-<p>You know.... things doesn't always goes as you want....</p>
+<p>You know.... things doesn't always go as you want....</p>
 <p>This means it is necessary to think about unexpected circumstances. You do it by setting an error callback, 
 which is nothing more than a bit special routing rule:</p>
 <pre><code class="php">use \Gishiki\Core\Routing;
@@ -241,8 +256,8 @@ Routing::setErrorCallback(Routing::NotFoudCallback, function() {
 <p>You can consider your anonymous functions passed to the routing as your controllers: they will be the glue between
 your models and your views! </p>
 <p>The router is the fastest and easiest component within Gishiki, 
-because it is the first component that is used and the only one you REALLY HAVE TO use.</p>
-<p>This means that you are now good to go... Everything you MUST know in order to use Gishiki ends here.</p>
+because it is the first component that is used and the only one you <strong>REALLY HAVE TO</strong> use.</p>
+<p>This means that you are now good to go... Everything you <em>MUST</em> know in order to use Gishiki ends here.</p>
 <p>Everything else is a plus you may need to accelerate the development of your projects!</p>
               
             </div>

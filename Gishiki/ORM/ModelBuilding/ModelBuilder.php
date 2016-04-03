@@ -111,6 +111,32 @@ namespace Gishiki\ORM\ModelBuilding {
             //generate a class from each table
             foreach ($this->database_structure as $current_table) {
                 $model_name = rtrim("".$current_table, "s");
+                $model_name = str_replace("_a", "A", $model_name);
+                $model_name = str_replace("_b", "B", $model_name);
+                $model_name = str_replace("_c", "C", $model_name);
+                $model_name = str_replace("_d", "D", $model_name);
+                $model_name = str_replace("_e", "E", $model_name);
+                $model_name = str_replace("_f", "F", $model_name);
+                $model_name = str_replace("_g", "G", $model_name);
+                $model_name = str_replace("_h", "H", $model_name);
+                $model_name = str_replace("_i", "I", $model_name);
+                $model_name = str_replace("_j", "J", $model_name);
+                $model_name = str_replace("_k", "K", $model_name);
+                $model_name = str_replace("_l", "L", $model_name);
+                $model_name = str_replace("_m", "M", $model_name);
+                $model_name = str_replace("_n", "N", $model_name);
+                $model_name = str_replace("_o", "O", $model_name);
+                $model_name = str_replace("_p", "P", $model_name);
+                $model_name = str_replace("_q", "Q", $model_name);
+                $model_name = str_replace("_r", "R", $model_name);
+                $model_name = str_replace("_s", "S", $model_name);
+                $model_name = str_replace("_t", "T", $model_name);
+                $model_name = str_replace("_u", "U", $model_name);
+                $model_name = str_replace("_v", "V", $model_name);
+                $model_name = str_replace("_w", "W", $model_name);
+                $model_name = str_replace("_x", "X", $model_name);
+                $model_name = str_replace("_y", "Y", $model_name);
+                $model_name = str_replace("_z", "Z", $model_name);
                 
                 //add the base structure of the class
                 $generated_code .= "/**".PHP_EOL;
@@ -148,7 +174,33 @@ namespace Gishiki\ORM\ModelBuilding {
                     
                     //this is the field name for function names
                     $field_upchar_name = ucfirst($field_name);
-                    
+                    $field_upchar_name = str_replace("_a", "A", $field_upchar_name);
+                    $field_upchar_name = str_replace("_b", "B", $field_upchar_name);
+                    $field_upchar_name = str_replace("_c", "C", $field_upchar_name);
+                    $field_upchar_name = str_replace("_d", "D", $field_upchar_name);
+                    $field_upchar_name = str_replace("_e", "E", $field_upchar_name);
+                    $field_upchar_name = str_replace("_f", "F", $field_upchar_name);
+                    $field_upchar_name = str_replace("_g", "G", $field_upchar_name);
+                    $field_upchar_name = str_replace("_h", "H", $field_upchar_name);
+                    $field_upchar_name = str_replace("_i", "I", $field_upchar_name);
+                    $field_upchar_name = str_replace("_j", "J", $field_upchar_name);
+                    $field_upchar_name = str_replace("_k", "K", $field_upchar_name);
+                    $field_upchar_name = str_replace("_l", "L", $field_upchar_name);
+                    $field_upchar_name = str_replace("_m", "M", $field_upchar_name);
+                    $field_upchar_name = str_replace("_n", "N", $field_upchar_name);
+                    $field_upchar_name = str_replace("_o", "O", $field_upchar_name);
+                    $field_upchar_name = str_replace("_p", "P", $field_upchar_name);
+                    $field_upchar_name = str_replace("_q", "Q", $field_upchar_name);
+                    $field_upchar_name = str_replace("_r", "R", $field_upchar_name);
+                    $field_upchar_name = str_replace("_s", "S", $field_upchar_name);
+                    $field_upchar_name = str_replace("_t", "T", $field_upchar_name);
+                    $field_upchar_name = str_replace("_u", "U", $field_upchar_name);
+                    $field_upchar_name = str_replace("_v", "V", $field_upchar_name);
+                    $field_upchar_name = str_replace("_w", "W", $field_upchar_name);
+                    $field_upchar_name = str_replace("_x", "X", $field_upchar_name);
+                    $field_upchar_name = str_replace("_y", "Y", $field_upchar_name);
+                    $field_upchar_name = str_replace("_z", "Z", $field_upchar_name);
+                    var_dump($field_upchar_name);
                     //type subsystem
                     $type_name = "";
                     $type_filter = "";

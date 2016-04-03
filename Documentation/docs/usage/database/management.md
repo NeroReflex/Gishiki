@@ -50,14 +50,31 @@ If you are using Oracle as your RDBMS you can connect to your database exactly l
 you just need to change mysql with oci:
 
 ```
-oci://root:admin@localhost/site_db
+oci://root:admin@host:port/site_db
 ```
 
 and et voila' Oracle database connection performed!
 
 
-## Conclusions
-Connecting a database is simple, using it even more: the connection string is the only thing you have to change when changing RDBMS and/or host!
+## PostgreSQL
+I can't believe people are just ingnoring the fantastic [PostgreSQL](http://www.postgresql.org/) project: 
+it is a fantastic RDBMS with a great usage license!
 
-As you may have noticed you settings file now contains your database password! You __MUST__ ensure no one will ever be
-able to reach that file!
+Everyone should think about PostgreSQL as its first choice as RDBMS, because it is easy to use, mature, 
+well supported and really performs well!
+
+To enstabilish a connection with a Postgre server you  have to use pgsql as the server protocol:
+
+```
+pgsql://root:admin@host:port/site_db
+```
+
+If you don't provide a port to your connection the ORM will use the default PostgreSQL port, which is the 5432 port.
+
+
+## Conclusions
+Connecting a database is simple, using it even more: the connection string is 
+the only thing you have to change when changing RDBMS and/or host!
+
+As you may have noticed you settings file now contains your database password! 
+You __MUST__ ensure no one will ever be able to reach that file!

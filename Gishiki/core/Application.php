@@ -182,7 +182,7 @@ namespace Gishiki\Core {
                     "   \$book->setAuthor(\$params->get(\"author\"));".PHP_EOL.
                     "   \$book->setTitle(\$params->get(\"name\"));".PHP_EOL.
                     "   \$book->setPrice(\$params->get(\"cost\"));".PHP_EOL.
-                    "   \$book->setPublication_date(new ActiveRecord\\DateTime(\$params->get(\"date\")));".PHP_EOL.
+                    "   \$book->setPublicationDate(new ActiveRecord\\DateTime(\$params->get(\"date\")));".PHP_EOL.
                     "   //the model is automatically saved into the database. Enjoy!".PHP_EOL.
                     "   echo \"Book stored into the default database!\";".PHP_EOL.
                     "});".PHP_EOL.

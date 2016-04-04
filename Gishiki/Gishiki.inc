@@ -75,6 +75,7 @@ include(ROOT."Gishiki".DS."ORM".DS."ModelBuilding".DS."ModelBuilder.php");
 include(ROOT."Gishiki".DS."ORM".DS."ModelBuilding".DS."StaticAnalyzerInterface.php");
 include(ROOT."Gishiki".DS."ORM".DS."ModelBuilding".DS."StaticAnalyzer.php");
 include(ROOT."Gishiki".DS."ORM".DS."ModelBuilding".DS."Adapters".DS."XML_StaticAnalyzer.php");
+include(ROOT."Gishiki".DS."ORM".DS."ModelBuilding".DS."Adapters".DS."JSON_StaticAnalyzer.php");
 
 //this is the environment used to fulfill the incoming request
 $executionEnvironment = NULL;

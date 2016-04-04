@@ -1857,12 +1857,28 @@ class Model
 		return true;
 	}
 	
+        private $autosaving = true;
+        
+        /**
+         * A call to this function will disable the model auto-save for the rest
+         * of the model in-memory lifetime.
+         */
+        public function prevent_autosave() {
+            $this->autosaving = false;
+        }
+        
+        /**
+         * Remove the model from volatile memory and store it on the non-volatile
+         * memory, if that operation was not prevented to be happening.
+         */
 	public function __destruct() {
+            if ($this->autosaving) {
 		$should_save = $this->dirty_attributes();
 
 		if (gettype($should_save) == "array") {
 			$this->save();
 		}
+            }
 	}
 
 }

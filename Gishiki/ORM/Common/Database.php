@@ -36,13 +36,9 @@ namespace Gishiki\ORM\Common {
          * The newly created database structure must be filled by a 
          * static analyzer (a component that implements the StaticAnalyzerInterface)
          * 
-         * @param string $database_name the name of the current database
          * @param string $database_connection the name of the database connection
          */
-        public function __construct($database_name, $database_connection) {
-            //store the name of the current database
-            $this->name = $database_name;
-            
+        public function __construct($database_connection) {
             //store the name of the database connection
             $this->connection = $database_connection;
         }
@@ -53,52 +49,9 @@ namespace Gishiki\ORM\Common {
          * 
          * @return string the name of the connection
          */
-        public function getConnection() {
+        public function __toString() {
             //return the reference to the connection
             return $this->connection;
-        }
-        
-        /**
-         * Check weather the database name can be used within any supported RDBMS
-         * 
-         * @return boolean TRUE if the database name is a valid one
-         */
-        public function hasValidName() {
-            if (strlen($this->name) > 0) {
-                //get the list of all valid characters
-                $valid_chars = str_split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789");
-                
-                //get the list of all used characters
-                $chars = str_split($this->name);
-                
-                //iterate each character to search for unallowed chars
-                reset($chars);
-                while ($c_char = current($chars)) {
-                    //if an invalid character is found.....
-                    if (array_search($c_char, $valid_chars) === FALSE)
-                    {   return FALSE;   } //flag the invalid forced name 
-                    
-                    next($chars);
-                }
-                
-                $uppername = strtoupper($this->name);
-                return (($uppername != "CREATE") && 
-                        ($uppername != "TABLE") && 
-                        ($uppername != "IF") && 
-                        ($uppername != "NOT") && 
-                        ($uppername != "EXISTS") && 
-                        ($uppername != "INSERT") && 
-                        ($uppername != "INTO") && 
-                        ($uppername != "DELETE") && 
-                        ($uppername != "UPDATE") && 
-                        ($uppername != "FROM") && 
-                        ($uppername != "WHERE") && 
-                        ($uppername != "ORDER") && 
-                        ($uppername != "BY") && 
-                        ($uppername != "DESC") && 
-                        ($uppername != "ASC") && 
-                        ($uppername != "JOIN"));
-            }
         }
         
         /**
@@ -109,15 +62,6 @@ namespace Gishiki\ORM\Common {
         public function RegisterTable(Table &$database_table) {
             //add the given table
             $this->array[] = $database_table;
-        }
-        
-        /**
-         * Get the name of the database if used as a string
-         * 
-         * @return string the name of the current database
-         */
-        public function __toString() {
-            return $this->name;
         }
     }
 }

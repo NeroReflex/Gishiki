@@ -94,16 +94,16 @@ namespace Gishiki\Core {
          *      -   Perform any additional setup operations
          */
         static function StartORM($resources) {
-            //iterate over each database descriptor
-            foreach ($resources as &$resource) //compile the current database descriptor 
-            {   Application::GenerateORMData(APPLICATION_DIR.$resource, \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_AUTOCACHE"));    }
-            
             //start up PHP ActiveRecord
             \ActiveRecord\Config::initialize(function($cfg)
             {
                 $cfg->set_model_directory(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("MODEL_DIR"));
                 $cfg->set_connections(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_CONNECTIONS"));
             });
+            
+            //iterate over each database descriptor
+            foreach ($resources as &$resource) //compile the current database descriptor 
+            {   Application::GenerateORMData(APPLICATION_DIR.$resource, \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_AUTOCACHE"));    }
         }
         
         /**

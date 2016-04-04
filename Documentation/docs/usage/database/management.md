@@ -14,7 +14,11 @@ with Gishiki.
 Before discussing about how you manage your database you have to provide a valid connection to your database.
 
 You do this by editing the config.json file. A connection to a database is a JSON property inside the __connections__
-class. Adding a database connection is as simple as adding a JSON property like: "&lt;connection_name&gt;": "&lt;connection_str&gt;".
+class.
+
+The default database connection is named 'default' and you *shouldn't* delete it, however you are free to change it.
+
+Adding a database connection is as simple as adding a JSON property like: "&lt;connection_name&gt;": "&lt;connection_str&gt;".
 
 The connection string is something like:
 ```

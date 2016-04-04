@@ -62,7 +62,13 @@ namespace Gishiki\ORM\ModelBuilding\Adapters {
         
         public function Analyze() {
             //load the schema of the database
-            \Gishiki\JSON\JSON::DeSerialize($this->file_schemata);
+            try {
+                \Gishiki\JSON\JSON::DeSerialize($this->file_schemata);
+            } catch (\Gishiki\JSON\JSONException $ex) {
+                throw new \Gishiki\ORM\ModelBuilding\ModelBuildingException("in file ".$this->file_schemata.": invalid JSON structure (".$ex->getMessage().")", 8);
+            }
+            
+            
             
             //the database structure has been figured out with no errors
             $this->analysis_performed = TRUE;

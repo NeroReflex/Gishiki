@@ -9,6 +9,8 @@ pages:
     - Logger: usage/logging.md
     - Database: 
         - Management: usage/database/management.md
+        - Models: usage/database/models.md
+        - CRUD: usage/database/CRUD.md
 
 - About:
     - License: license.md

@@ -67,20 +67,11 @@ namespace Gishiki\ORM\ModelBuilding\Adapters {
             if (!$schemata) //check for the loading result
             {   throw new \Gishiki\ORM\ModelBuilding\ModelBuildingException("in file ".$this->file_schemata.": invalid XML structure", 7);  }
             
-            //get the database name
-            $database_name = $schemata->attributes()["name"][0]."";
-            
-            if (strlen($database_name) <= 0) //check for the name of the database
-            {   throw new \Gishiki\ORM\ModelBuilding\ModelBuildingException("in file ".$this->file_schemata.": unknown or invalid database name", 6);  }
-            
             //get the database connection name
             $connection_name = $schemata->attributes()["connection"][0]."";
             
-            if (strlen($connection_name) <= 0) //check for the name of the database
-            {   throw new \Gishiki\ORM\ModelBuilding\ModelBuildingException("in file ".$this->file_schemata.": unknown or invalid database connection name", 8);  }
-            
             //setup an empty database schemata
-            $this->database_structure = new \Gishiki\ORM\Common\Database($database_name, $connection_name);
+            $this->database_structure = new \Gishiki\ORM\Common\Database($connection_name);
             
             foreach ($schemata->table as $table) {
                 //get the name of the current table

@@ -99,7 +99,7 @@ abstract class Connection
 		}
 		return $connection;
 	}
-
+        
 	/**
 	 * Loads the specified class for an adapter.
 	 *
@@ -108,13 +108,13 @@ abstract class Connection
 	 */
 	private static function load_adapter_class($adapter)
 	{
-		$class = ucwords($adapter) . 'Adapter';
-		$fqclass = 'ActiveRecord\\' . $class;
-		
-		if (!file_exists($source))
-                {   throw new DatabaseException("$fqclass not found!");     }
+            $class = ucwords($adapter) . 'Adapter';
+            $fqclass = 'ActiveRecord\\' . $class;
+	
+            if (!class_exists($fqclass))
+            {   throw new DatabaseException("$fqclass not found!");     }
                 
-		return $fqclass;
+            return $fqclass;
 	}
 
 	/**
@@ -133,7 +133,7 @@ abstract class Connection
 	 * sqlite://file.db
 	 * sqlite://../relative/path/to/file.db
 	 * sqlite://unix(/absolute/path/to/file.db)
-	 * sqlite://windows(c%2A/absolute/path/to/file.db)
+	 * sqlite://windows(C:/absolute/path/to/file.db)
 	 * </code>
 	 *
 	 * @param string $connection_url A connection URL

@@ -1,7 +1,7 @@
 # Database support
 If you are reading this it means that you are tired of using *SQL*, aren't you? :D
 
-I know: using SQL is tedious, error-prone and stuck you on a RDBMS, because changing it would force you 
+I know: using SQL is tedious, error-prone and stucks you on a RDBMS, because changing it would force you 
 changing every SQL query you created.
 
 In order to abstract SQL away from your project you need an ORM (Object-relational mapping).

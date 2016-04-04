@@ -54,3 +54,33 @@ $my_book->prevent_autosave();
 $my_book->save();
 ```
 
+__Disclaimer__: please, keep in mind that a bad usage of prevent_autosave may lead to data loss 
+and/or data corruption!
+
+
+## Delete
+There is data meant to stay forever in your database and data that will stay for 
+a short amount of time.
+
+Let's make an example: a book that is not going to be sold anymore because the new
+edition was released:
+
+```PHP
+class Book extends \Activerecord\Model { }
+
+//get the (only) book with that isbn
+$my_old_book = Book::last(array('conditions' => "isbn = 'book_isbn'"));
+//more about database read in the "Read" section
+
+//time to be removed! Bye!
+$my_book->delete();
+```
+
+As you can see the delete() usage is equal to save() usage: you can say that
+the delete is the evil twin of save :D.
+
+
+## Read
+Read operations are harder than write operations, thanks to the ActiveRecord design 
+you have great flexibility on your database researches while maintaining distances 
+from the hand-written SQL!

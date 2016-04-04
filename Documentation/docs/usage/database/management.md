@@ -56,7 +56,7 @@ oci://root:admin@host:port/site_db
 and et voila' Oracle database connection performed!
 
 
-## PostgreSQL
+## PostgreSQL Connection
 I can't believe people are just ingnoring the fantastic [PostgreSQL](http://www.postgresql.org/) project: 
 it is a fantastic RDBMS with a great usage license!
 
@@ -70,6 +70,32 @@ pgsql://root:admin@host:port/site_db
 ```
 
 If you don't provide a port to your connection the ORM will use the default PostgreSQL port, which is the 5432 port.
+
+
+## SQLite Connection
+Connecting to a sqlite database is super simple: you just provide the file name:
+
+```
+sqlite://../relative/path/database_file.db
+```
+
+On a Unix system you can provide the full path to a database this way:
+
+```
+sqlite://unix(/var/database_file.db)
+```
+
+On a windows system you can do the exact same thing:
+
+```
+sqlite://unix(C:\absolute\path\database_file.db)
+```
+
+If you adopt this solution you can keep the database file outside the web-server directory.
+
+Using SQLite is great for prototyping but you don't want a sqlite file to be 
+your database in a production environment due to the limited number of concurrent 
+accesses sqlite can handle.
 
 
 ## Conclusions

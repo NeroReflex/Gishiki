@@ -18,6 +18,13 @@ include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."lib".DS."Inflector.php");
 include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."lib".DS."CallBack.php");
 include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."lib".DS."Exceptions.php");
 
+//include database adapters:
+include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."lib".DS."adapters".DS."MysqlAdapter.php");
+include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."lib".DS."adapters".DS."OciAdapter.php");
+include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."lib".DS."adapters".DS."PgsqlAdapter.php");
+include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."lib".DS."adapters".DS."SqliteAdapter.php");
+
+
 if (!defined('PHP_ACTIVERECORD_AUTOLOAD_DISABLE'))
 {   spl_autoload_register('activerecord_autoload', false, 
             PHP_ACTIVERECORD_AUTOLOAD_PREPEND); }

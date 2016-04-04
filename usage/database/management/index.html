@@ -116,10 +116,28 @@
                 
                     <li><a class="toctree-l4" href="#oracle-connection">Oracle Connection</a></li>
                 
+                    <li><a class="toctree-l4" href="#postgresql-connection">PostgreSQL Connection</a></li>
+                
+                    <li><a class="toctree-l4" href="#sqlite-connection">SQLite Connection</a></li>
+                
                     <li><a class="toctree-l4" href="#conclusions">Conclusions</a></li>
                 
             
             </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../models/">Models</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../CRUD/">CRUD</a>
         
     </li>
 
@@ -195,7 +213,9 @@ with Gishiki.</p>
 <h2 id="connection">Connection</h2>
 <p>Before discussing about how you manage your database you have to provide a valid connection to your database.</p>
 <p>You do this by editing the config.json file. A connection to a database is a JSON property inside the <strong>connections</strong>
-class. Adding a database connection is as simple as adding a JSON property like: "&lt;connection_name&gt;": "&lt;connection_str&gt;".</p>
+class.</p>
+<p>The default database connection is named 'default' and you <em>shouldn't</em> delete it, however you are free to change it.</p>
+<p>Adding a database connection is as simple as adding a JSON property like: "&lt;connection_name&gt;": "&lt;connection_str&gt;".</p>
 <p>The connection string is something like:</p>
 <pre><code>server://username:password@host:port/db_name
 </code></pre>
@@ -217,14 +237,42 @@ class. Adding a database connection is as simple as adding a JSON property like:
 <h2 id="oracle-connection">Oracle Connection</h2>
 <p>If you are using Oracle as your RDBMS you can connect to your database exactly like you would connect to a MySQL database...
 you just need to change mysql with oci:</p>
-<pre><code>oci://root:admin@localhost/site_db
+<pre><code>oci://root:admin@host:port/site_db
 </code></pre>
 
 <p>and et voila' Oracle database connection performed!</p>
+<h2 id="postgresql-connection">PostgreSQL Connection</h2>
+<p>I can't believe people are just ingnoring the fantastic <a href="http://www.postgresql.org/">PostgreSQL</a> project: 
+it is a fantastic RDBMS with a great usage license!</p>
+<p>Everyone should think about PostgreSQL as its first choice as RDBMS, because it is easy to use, mature, 
+well supported and really performs well!</p>
+<p>To enstabilish a connection with a Postgre server you  have to use pgsql as the server protocol:</p>
+<pre><code>pgsql://root:admin@host:port/site_db
+</code></pre>
+
+<p>If you don't provide a port to your connection the ORM will use the default PostgreSQL port, which is the 5432 port.</p>
+<h2 id="sqlite-connection">SQLite Connection</h2>
+<p>Connecting to a sqlite database is super simple: you just provide the file name:</p>
+<pre><code>sqlite://../relative/path/database_file.db
+</code></pre>
+
+<p>On a Unix system you can provide the full path to a database this way:</p>
+<pre><code>sqlite://unix(/var/database_file.db)
+</code></pre>
+
+<p>On a windows system you can do the exact same thing:</p>
+<pre><code>sqlite://unix(C:\absolute\path\database_file.db)
+</code></pre>
+
+<p>If you adopt this solution you can keep the database file outside the web-server directory.</p>
+<p>Using SQLite is great for prototyping but you don't want a sqlite file to be 
+your database in a production environment due to the limited number of concurrent 
+accesses sqlite can handle.</p>
 <h2 id="conclusions">Conclusions</h2>
-<p>Connecting a database is simple, using it even more: the connection string is the only thing you have to change when changing RDBMS and/or host!</p>
-<p>As you may have noticed you settings file now contains your database password! You <strong>MUST</strong> ensure no one will ever be
-able to reach that file!</p>
+<p>Connecting a database is simple, using it even more: the connection string is 
+the only thing you have to change when changing RDBMS and/or host!</p>
+<p>As you may have noticed you settings file now contains your database password! 
+You <strong>MUST</strong> ensure no one will ever be able to reach that file!</p>
               
             </div>
           </div>
@@ -232,7 +280,7 @@ able to reach that file!</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../../../license/" class="btn btn-neutral float-right" title="License">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../models/" class="btn btn-neutral float-right" title="Models">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../../logging/" class="btn btn-neutral" title="Logger"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -264,7 +312,7 @@ able to reach that file!</p>
         <span><a href="../../logging/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../../../license/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../models/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

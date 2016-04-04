@@ -15,8 +15,9 @@ class SqliteAdapter extends Connection
 {
 	protected function __construct($info)
 	{
-		if (!file_exists($info->host))
-			throw new DatabaseException("Could not find sqlite db: $info->host");
+                //why exception on file not esists? It can be created by sqlite....
+		/*if (!file_exists($info->host))
+			throw new DatabaseException("Could not find sqlite db: $info->host");*/
 
 		$this->connection = new PDO("sqlite:$info->host",null,null,static::$PDO_OPTIONS);
 	}
@@ -83,6 +84,7 @@ class SqliteAdapter extends Connection
 
 	public function set_encoding($charset)
 	{
+                //why exception on set_encoding? you just no-op
 		//throw new ActiveRecordException("SqliteAdapter::set_charset not supported.");
 	}
 

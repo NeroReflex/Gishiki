@@ -44,6 +44,10 @@ namespace Gishiki\ORM\ModelBuilding {
                     $this->analyzer = new \Gishiki\ORM\ModelBuilding\Adapters\XML_StaticAnalyzer($resource);
                     break;
                 
+                case "json":
+                    $this->analyzer = new \Gishiki\ORM\ModelBuilding\Adapters\JSON_StaticAnalyzer($resource);
+                    break;
+                
                 default:
                     throw new \Gishiki\ORM\ModelBuilding\ModelBuildingException("in resource '".$resource."': unable to detect the analyzer to be used", 0);
             }

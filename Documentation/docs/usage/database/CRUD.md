@@ -161,4 +161,11 @@ done with the book model :) .
 
 
 ## Multiple record result
+You should already know (as it is written in the above section) a call to 
+last(...) or first(...) results in a find('last', ...) or find('first', ...) call. 
 
+'first' and 'last' are used when a single record result is needed, but what triggers
+a multiple record result? The answer is 'all'.
+
+When using find('all', ....) or its alias all(...) the operation result is an array and
+the result cannot be NULL: if no records are found then an empty array is returned.

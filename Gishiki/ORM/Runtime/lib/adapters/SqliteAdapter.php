@@ -13,7 +13,7 @@ use PDO;
  */
 class SqliteAdapter extends Connection
 {
-	protected function __construct($info)
+	public function __construct($info)
 	{
                 //why exception on file not esists? It can be created by sqlite....
 		/*if (!file_exists($info->host))

@@ -172,10 +172,11 @@ namespace Gishiki\Core {
                     "Route::get(\"/\", function() {".PHP_EOL.
                     "   //this is the homepage, just render a small list of books...".PHP_EOL.
                     "});".PHP_EOL.PHP_EOL.
-                    "Route::get(\"/book/{id}\", function(\$params) {".PHP_EOL.
-                    "   //parameter \"id\" contains the id of the searched user, you just search the user in your database and return it".PHP_EOL.
-                    "   echo 'You have requested to see the book with ID '.\$params->get(\"id\");".PHP_EOL.
-                    "});".PHP_EOL.
+                    "Route::get(\"/book/{isbn}\", function(\$params) {".PHP_EOL.
+                    "   //parameter \"isbn\" contains the isbn of the searched book, you just search the book in your database and return it".PHP_EOL.
+                    "   \$my_book = book::last(['conditions' => \"isbn = '\".\$params->get(\"isbn\").\"'\"]);".PHP_EOL.
+                    "   var_dump(\$my_book);".PHP_EOL.
+                    "});".PHP_EOL.PHP_EOL.
                     "Route::get(\"/book/new/{isbn}/{name}/{author}/{cost}/{date}\", function(\$params) {".PHP_EOL.
                     "   //look at bookstore.xml to review the used data model".PHP_EOL.
                     "   \$book = new book();".PHP_EOL.
@@ -186,7 +187,7 @@ namespace Gishiki\Core {
                     "   \$book->publication_date = new ActiveRecord\\DateTime(\$params->get(\"date\"));".PHP_EOL.
                     "   //the model is automatically saved into the database. Enjoy!".PHP_EOL.
                     "   echo \"Book stored into the default database!\";".PHP_EOL.
-                    "});".PHP_EOL.
+                    "});".PHP_EOL.PHP_EOL.
                     "Route::error(Route::NotFound, function() {".PHP_EOL.
                     "   //this is what is executed if the router is unable to find a suitable route for a request".PHP_EOL.
                     "   die(\"Sorry man.... 404 Page Not Found!\");".PHP_EOL.

@@ -18,7 +18,7 @@ class OciAdapter extends Connection
 
 	public $dsn_params;
 
-	protected function __construct($info)
+	public function __construct($info)
 	{
 		try {
 			$this->dsn_params = isset($info->charset) ? ";charset=$info->charset" : "";

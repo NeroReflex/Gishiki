@@ -89,11 +89,15 @@ abstract class Connection
 		$fqclass = static::load_adapter_class($info->protocol);
 
 		try {
-			$connection = new $fqclass($info);
-			$connection->protocol = $info->protocol;
+                    //reflect the database adapter
+                    $adapter = new \ReflectionClass($fqclass);
+                    
+                    //enstabilish the database connection
+                    $connection = $adapter->newInstance($info);
+                    $connection->protocol = $info->protocol;
 
-			if (isset($info->charset))
-			{   $connection->set_encoding($info->charset);  }
+                    if (isset($info->charset))
+                    {   $connection->set_encoding($info->charset);  }
 		} catch (PDOException $e) {
 			throw new DatabaseException($e);
 		}
@@ -111,9 +115,12 @@ abstract class Connection
             $class = ucwords($adapter) . 'Adapter';
             $fqclass = 'ActiveRecord\\' . $class;
 	
-            if (!class_exists($fqclass))
-            {   throw new DatabaseException("$fqclass not found!");     }
-                
+            if (!class_exists($fqclass)) {
+                if (file_exists(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."lib".DS."adapters".DS.$class.".php"))
+                {   include((ROOT."Gishiki".DS."ORM".DS."Runtime".DS."lib".DS."adapters".DS.$class.".php"));    }
+                else {  throw new DatabaseException("$fqclass not found!");     }
+            }
+            
             return $fqclass;
 	}
 
@@ -204,12 +211,12 @@ abstract class Connection
 	}
 
 	/**
-	 * Class Connection is a singleton. Access it via instance().
+	 * The correct way of create a connection is using the instance() function.
 	 *
 	 * @param array $info Array containing URL parts
 	 * @return Connection
 	 */
-	protected function __construct($info)
+	public function __construct($info)
 	{
 		try {
 			// unix sockets start with a /

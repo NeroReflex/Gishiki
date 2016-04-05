@@ -50,8 +50,8 @@ As you can see if you don't specify a server port the dafault one will be used (
 
 
 ## Oracle Connection
-If you are using Oracle as your RDBMS you can connect to your database exactly like you would connect to a MySQL database...
-you just need to change mysql with oci:
+If you are using Oracle as your RDBMS you can connect to your database exactly like you would connect to a MySQL database,
+you only need to use oci as server protocol (change mysql with oci):
 
 ```
 oci://root:admin@host:port/site_db

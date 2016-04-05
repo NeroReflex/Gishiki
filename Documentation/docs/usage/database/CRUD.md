@@ -4,6 +4,7 @@ CRUD stands for __C__reate, __R__ead, __U__pdate and __D__elete.
 Those are the names of most common operations you perform on your database, 
 and the easiest way you have to manage your database using your models.
 
+
 ## Create and Update
 Create the representation of a model inside your database and updating an existing 
 one are two tasks ActiveRecord automatically performs when yours models exit from
@@ -76,8 +77,8 @@ $my_old_book = Book::last(array('conditions' => "isbn = 'book_isbn'"));
 $my_book->delete();
 ```
 
-As you can see the delete() usage is equal to save() usage: you can say that
-the delete is the evil twin of save :D.
+As you can see the delete() usage is equal to save() usage: you can think about
+delete as the evil twin of save :D.
 
 
 ## Read

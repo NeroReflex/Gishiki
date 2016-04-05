@@ -448,12 +448,12 @@ class Model
 
 		// convert php's \DateTime to ours
 		if ($value instanceof \DateTime)
-			$value = new DateTime($value->format('Y-m-d H:i:s T'));
+                {   $value = new DateTime($value->format('Y-m-d H:i:s T'));     }
 
 		// make sure DateTime values know what model they belong to so
 		// dirty stuff works when calling set methods on the DateTime object
 		if ($value instanceof DateTime)
-			$value->attribute_of($this,$name);
+                {   $value->attribute_of($this,$name);  }
 
 		$this->attributes[$name] = $value;
 		$this->flag_dirty($name);

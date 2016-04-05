@@ -16,8 +16,9 @@ that inherits from the \Activerecord\Model class:
 class BookSeller extends \Activerecord\Model { }
 ```
 
-ActiveRecord uses Ruby's ActiveRecord naming conventions, so.... this class is a 
-direct representation of the table named 'book_sellers' inside the default database.
+ActiveRecord uses Ruby's ActiveRecord naming conventions, this means the declared 
+model class is a direct representation of the table named 'book_sellers' residing 
+inside the default database.
 
 You can change both: the database you connect to and the name that the table has
 inside the database pointed by the database connection:
@@ -33,7 +34,7 @@ class BookSeller extends \Activerecord\Model {
 }
 ```
 
-Every table you create a model from __MUST__ contains a primary key, and if the 
+Each table __MUST__ contain a primary key, and if the 
 name of the primary key is __NOT__ 'id' you will have to specify it in the model:
 
 ```PHP
@@ -88,6 +89,7 @@ Oh? What was that!? Was my database filled!?!? How?!?!? Where?!?!?
 Yup. As explained in the [CRUD](CRUD.md) section, in order to simplify even more your 
 database interaction, you have your models being saved automatically!
 
+
 ## Advanced model operations
 Accessiong your model data as a class property can be easy, but it doesn't give you 
 a lot of flexibility: think about a password: You want to encrypt a password before 
@@ -140,6 +142,7 @@ echo $my_user->get_password(); //print out $plain_password
 If you call a custom getter/setter you haven't created it will result in a standard value
 read/write, without custom behaviour, so... just use the syntax you like the most when
 dealing with your models.
+
 
 ## Date and Time
 As you can see from above examples you need to use ActiveRecord\DateTime object when

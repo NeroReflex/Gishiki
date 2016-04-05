@@ -27,7 +27,7 @@ namespace Gishiki\JSON {
         /**
          * Create the JSON-related exception
          * @param string $message the error message
-         * @param integer $errorCode the model error code
+         * @param integer $errorCode the json error code
          */
         public function __construct($message, $errorCode) {
             parent::__construct($message, $errorCode);

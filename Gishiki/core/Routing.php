@@ -30,14 +30,20 @@ namespace Gishiki\Core {
         const HEAD      = 3;
         const PUT       = 4;
         
+        const UNKNOWN   = 5; //should never happend
+        
         //events collections
-        const NotFoudCallback   = 5;
+        const NotFoudCallback   = 10;
+        
+        //cache method calls
+        protected static $current_URI = null;
+        protected static $current_Request = null;
         
         //functions called on particular events
-        private static $notFound = null;
+        protected static $notFound = null;
         
         //was a routing function being executed?
-        private static $executed = FALSE;
+        protected static $executed = FALSE;
         
         /**
          * Automatically called by the framework: perform a reset 
@@ -63,12 +69,16 @@ namespace Gishiki\Core {
          * @return string the request from the client
          */
         public static function getRequestURI() {
-            $basepath = implode('/', array_slice(explode('/', filter_input(INPUT_SERVER, 'SCRIPT_NAME')), 0, -1)) . '/';
-            $uri = substr(filter_input(INPUT_SERVER, 'REQUEST_URI'), strlen($basepath));
-            if (strstr($uri, '?'))
-            {   $uri = substr($uri, 0, strpos($uri, '?'));  }
-            $uri = '/' . trim($uri, '/');
-            return urldecode($uri);
+            if (static::$current_URI === null) {
+                $basepath = implode('/', array_slice(explode('/', filter_input(INPUT_SERVER, 'SCRIPT_NAME')), 0, -1)) . '/';
+                $uri = substr(filter_input(INPUT_SERVER, 'REQUEST_URI'), strlen($basepath));
+                if (strstr($uri, '?'))
+                {   $uri = substr($uri, 0, strpos($uri, '?'));  }
+                $uri = '/' . trim($uri, '/');
+                static::$current_URI = urldecode($uri);
+            }
+            
+            return static::$current_URI ;
         }
         
         /**
@@ -77,28 +87,39 @@ namespace Gishiki\Core {
          * @return integer one of GET, POST, HEAD, DELTE or put contants
          */
         public static function getRequestMethod() {
-            //get the string representation of the used method
-            switch (strtoupper(filter_input(INPUT_SERVER, 'REQUEST_METHOD'))) {
-                case "POST":
-                    return static::POST;
-                case "HEAD":
-                    return static::HEAD;
-                case "PUT":
-                    return static::PUT;    
-                case "DELETE":
-                    return static::DELETE;
-                default:
-                    return static::GET;
+            if (static::$current_Request === null) {
+                //get the non-string representation of the used method
+                switch (strtoupper(filter_input(INPUT_SERVER, 'REQUEST_METHOD'))) {
+                    case "POST":
+                        static::$current_Request = static::POST;
+                        break;
+                    case "HEAD":
+                        static::$current_Request = static::HEAD;
+                        break;
+                    case "PUT":
+                        static::$current_Request = static::PUT;
+                        break;
+                    case "DELETE":
+                        static::$current_Request = static::DELETE;
+                        break;
+                    case "GET":
+                        static::$current_Request = static::GET;
+                        break;
+                    default:
+                        static::$current_Request = static::UNKNOWN;
+                }
             }
+            
+            return static::$current_Request;
         }
         
         /**
          * Set the routing for a given method/URI pair (or group of URI if regex is used).
          * An example of usage can be:
          * <code>
-         * use Gishiki\Core;
+         * use \Gishiki\Core\Routing;
          * 
-         * Core\Routing::setRoute(Core\Routing::GET, "/user/{id}", function ($params) {
+         * Routing::setRoute(Routing::GET, "/user/{id}", function ($params) {
          *      foreach ($params as $param_name => $param_value) {
          *          echo $param_name." => ".$param_value;
          *      }
@@ -193,6 +214,5 @@ namespace Gishiki\Core {
             }
         }
     }
-    
 }
 

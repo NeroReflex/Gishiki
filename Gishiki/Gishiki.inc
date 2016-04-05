@@ -53,6 +53,7 @@ include(ROOT."Gishiki".DS."core".DS."MVC".DS."Service.php");
 
 //include the routing engine
 include(ROOT."Gishiki".DS."core".DS."Routing.php");
+include(ROOT."Gishiki".DS."core".DS."Route.php");
 
 //include the environment manager
 include(ROOT."Gishiki".DS."core".DS."Environment.php");
@@ -115,12 +116,5 @@ abstract class Gishiki {
         //fulfill the client request
         global $executionEnvironment;
         $executionEnvironment->FulfillRequest();
-    }
-    
-    /**
-     * Execute the administration panel of Gishiki-
-     */
-    static function RunAdminPanel() {
-        
     }
 }

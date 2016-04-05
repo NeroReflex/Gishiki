@@ -147,6 +147,9 @@ namespace Gishiki\Core {
             );
 
             try {
+                //has an error occurred?
+                $error = false;
+                
                 //deserialize the request
                 $request = \Gishiki\JSON\JSON::DeSerialize($jsonRequest);
                 if (!array_key_exists("TIMESTAMP", $request)) //add the timestamp of the request
@@ -172,21 +175,29 @@ namespace Gishiki\Core {
                             $action = new \ReflectionMethod($ctrl, $resource["controllerAction"]);
                             $action->setAccessible(TRUE);
                             $response = $action->invoke($ctrl, [$request]);
-                        } else { //display the error
-                               
+                        } else {
+                            $error = true;
                         }
-                    } else { //display the error
-                        
+                    } else {
+                        $error = true;
                     }
-                } else { //dispay the error
-                    
+                } else {
+                    $error = true;
+                }
+                
+                if ($error) {
+                     //add "error": 2 to the JSON response
+                    $response["error"] = 2;
+
+                    //add the error message
+                    $response["error_details"] = "The resource you have requested cannot be fulfilled";
                 }
             } catch (\Gishiki\JSON\JSONException $ex) {
-                //add "Error": 1 to the JSON response
-                $response["Error"] = 1;
+                //add "error": 1 to the JSON response
+                $response["error"] = 1;
                 
                 //add the error message
-                $response["ErrorDetails"] = $ex->getMessage();
+                $response["error_details"] = $ex->getMessage();
             }
             
             //give the result to the client in a JSON format

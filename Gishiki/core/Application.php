@@ -168,29 +168,30 @@ namespace Gishiki\Core {
             
             $routing_example = 
                     "//import the namespace for Routing".PHP_EOL.
-                    "use \\Gishiki\\Core\\Routing;".PHP_EOL.PHP_EOL.
-                    "Routing::setRoute(Routing::GET, \"/\", function() {".PHP_EOL.
+                    "use \\Gishiki\\Core\\Route;".PHP_EOL.PHP_EOL.
+                    "Route::get(\"/\", function() {".PHP_EOL.
                     "   //this is the homepage, just render a small list of books...".PHP_EOL.
                     "});".PHP_EOL.PHP_EOL.
-                    "Routing::setRoute(Routing::GET, \"/book/{id}\", function(\$params) {".PHP_EOL.
+                    "Route::get(\"/book/{id}\", function(\$params) {".PHP_EOL.
                     "   //parameter \"id\" contains the id of the searched user, you just search the user in your database and return it".PHP_EOL.
                     "   echo 'You have requested to see the book with ID '.\$params->get(\"id\");".PHP_EOL.
                     "});".PHP_EOL.
-                    "Routing::setRoute(Routing::GET, \"/book/new/{name}/{author}/{cost}/{date}\", function(\$params) {".PHP_EOL.
+                    "Route::get(\"/book/new/{isbn}/{name}/{author}/{cost}/{date}\", function(\$params) {".PHP_EOL.
                     "   //look at bookstore.xml to review the used data model".PHP_EOL.
                     "   \$book = new book();".PHP_EOL.
-                    "   \$book->setAuthor(\$params->get(\"author\"));".PHP_EOL.
-                    "   \$book->setTitle(\$params->get(\"name\"));".PHP_EOL.
-                    "   \$book->setPrice(\$params->get(\"cost\"));".PHP_EOL.
-                    "   \$book->setPublicationDate(new ActiveRecord\\DateTime(\$params->get(\"date\")));".PHP_EOL.
+                    "   \$book->isbn = \$params->get(\"isbn\");".PHP_EOL.
+                    "   \$book->author = \$params->get(\"author\");".PHP_EOL.
+                    "   \$book->title = \$params->get(\"name\");".PHP_EOL.
+                    "   \$book->price = \$params->get(\"cost\");".PHP_EOL.
+                    "   \$book->publication_date = new ActiveRecord\\DateTime(\$params->get(\"date\"));".PHP_EOL.
                     "   //the model is automatically saved into the database. Enjoy!".PHP_EOL.
                     "   echo \"Book stored into the default database!\";".PHP_EOL.
                     "});".PHP_EOL.
-                    "Routing::setErrorCallback(Routing::NotFoudCallback, function() {".PHP_EOL.
+                    "Route::error(Route::NotFound, function() {".PHP_EOL.
                     "   //this is what is executed if the router is unable to find a suitable route for a request".PHP_EOL.
                     "   die(\"Sorry man.... 404 Page Not Found!\");".PHP_EOL.
                     "});".PHP_EOL;
-            if (file_put_contents(APPLICATION_DIR."router.php", "<?php ".PHP_EOL.$routing_example."?>", LOCK_EX) === FALSE) {
+            if (file_put_contents(APPLICATION_DIR."router.php", "<?php ".PHP_EOL.$routing_example, LOCK_EX) === FALSE) {
                 $errors++;
             }
             
@@ -200,6 +201,7 @@ namespace Gishiki\Core {
 <database name="bookstore" connection="default">
     <table name="books"><!-- table names always ends with a trailing 's' -->
         <column type="integer" name="id" primaryKey="true"></column>
+        <column type="string" name="isbn"></column>
         <column type="string" name="title"></column>
         <column type="float" name="price"></column>
         <column type="string" name="author"></column>
@@ -216,7 +218,7 @@ XML;
                     $example_db = new \PDO("sqlite:default_db.sqlite");
                     
                     //this is the query for the creation of the example table
-                    $example_db->exec("CREATE TABLE IF NOT EXISTS 'books' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'title' TEXT, 'author' TEXT, 'price' REAL, 'publication_date' DATETIME)");
+                    $example_db->exec("CREATE TABLE IF NOT EXISTS 'books' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'isbn' TEXT, 'title' TEXT, 'author' TEXT, 'price' REAL, 'publication_date' DATETIME)");
                 } catch (\PDOException $ex) {
                     new \Gishiki\Logging\Log("Error in the default db", "The following error was encountered while creating the default database: ".$ex->getMessage(), \Gishiki\Logging\Priority::WARNING);
                 }

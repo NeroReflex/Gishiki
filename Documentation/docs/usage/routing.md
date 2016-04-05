@@ -11,13 +11,28 @@ How do I route that request to what I want to serve? The answer is: using the ro
 The router is that fantastic component empowering your user-friendly URLs!
 
 
+## Different methods
+As for HTTP standards a client can perform a resource request using these verbs:
+  
+   -  GET identified as Route::GET
+   -  POST  identified as Route::POST
+   -  DELETE identified as Route::DELETE
+   -  PUT identified as Route::PUT
+   -  HEAD identified as Route::HEAD
+   
+When you set a routing rule (either static or dynamic) you have to select the 
+verb that you want to be served in that route.
+
+This is particulary handy when creating a RESTful service.
+
+
 ## Custom static rules
 Let's see how to create a custom route:
 
 ```php
-use \Gishiki\Core\Routing;
+use \Gishiki\Core\Route;
 
-Routing::setRoute(Routing::GET, "/Home", function() {
+Route::get("/Home", function() {
     //this is what will be executed when the client asks for "https://site.com/Home"
     
     //let's just forget about MVC pattern this time :)
@@ -25,7 +40,8 @@ Routing::setRoute(Routing::GET, "/Home", function() {
 });
 ```
 
-To try this rule open rules.php and paste the provided code into it and direct your browser to: https://site.com/Home
+To try this rule out you have to open rules.php and paste the provided code into 
+it and direct your browser to: https://site.com/Home .
 
 
 ## Custom dynamic rules
@@ -35,10 +51,10 @@ as a parameter with the URL.
 
 Let's just consider this simple example:
 ```php
-use \Gishiki\Core\Routing;
+use \Gishiki\Core\Route;
 
-Routing::setRoute(Routing::GET, "/Home/{name}", function($params) {
-    //this is what will be executed when the client asks for "https://site.com/Home"
+Route::get("/Home/{name}", function($params) {
+    //this is what will be executed when the client asks for "https://site.com/Home/some_name"
     
     //nice to meet you!
     echo "Hello, ".$params->get("name")."!";
@@ -50,31 +66,46 @@ You already know what you are going to do, right? :D
 https://site.com/Home/your_name and you will see "Hello, your_name!" nothing complex here, right?
 
 
-## Different methods
-As for HTTP standards a client can perform a resource request using this methods:
-  
-   -  GET identified as Routing::GET
-   -  POST  identified as Routing::POST
-   -  DELETE identified as Routing::DELETE
-   -  PUT identified as Routing::PUT
-   -  HEAD identified as Routing::HEAD
-   
-When you set a routing rule (either static or dynamic) you have to select the method you want to serve
-in that route.
+## All request methods
+Sometimes you may need to register a route that responds to all HTTP verbs, you 
+are alowed to do that by using 'any':
 
-This is particulary handy when creating a RESTful service.
+```php
+use \Gishiki\Core\Route;
+
+Route::any("/Home", function() {
+    //do something here
+});
+```
+
+the action is taken if that URI is hit, regardless of the method the client used 
+to perform the request.
+
+
+## Two or more request methods
+An interesting feature of the router is how you create a route for two or more
+request methods:
+
+```php
+use \Gishiki\Core\Route;
+
+Route::match([Route::GET, Route::POST], "/Home", function() {
+    //do something here
+});
+```
+
+the action is taken if that URI is hit only when using get or post request method. 
 
 
 ## Error catching
-You know.... things doesn't always go as you want....
-
-This means it is necessary to think about unexpected circumstances. You do it by setting an error callback, 
+You know, things doesn't always go as you want: it is necessary to think about 
+unexpected circumstances. You do it by setting an error callback, 
 which is nothing more than a bit special routing rule:
 
 ```php
-use \Gishiki\Core\Routing;
+use \Gishiki\Core\Route;
 
-Routing::setErrorCallback(Routing::NotFoudCallback, function() {
+Route::error(Route::NotFound, function() {
     //this is what will be executed when the client asks for an unrouted URI
     
     //error message!

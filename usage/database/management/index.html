@@ -205,7 +205,7 @@
               
                 <h1 id="database-support">Database support</h1>
 <p>If you are reading this it means that you are tired of using <em>SQL</em>, aren't you? :D</p>
-<p>I know: using SQL is tedious, error-prone and stuck you on a RDBMS, because changing it would force you 
+<p>I know: using SQL is tedious, error-prone and stucks you on a RDBMS, because changing it would force you 
 changing every SQL query you created.</p>
 <p>In order to abstract SQL away from your project you need an ORM (Object-relational mapping).</p>
 <p>Gishiki uses an ORM that is similar to ruby's one: PHP ActiveRecord. This ORM has been modified to better integrate 
@@ -235,8 +235,8 @@ class.</p>
 
 <p>As you can see if you don't specify a server port the dafault one will be used (in MySQL it is 3306).</p>
 <h2 id="oracle-connection">Oracle Connection</h2>
-<p>If you are using Oracle as your RDBMS you can connect to your database exactly like you would connect to a MySQL database...
-you just need to change mysql with oci:</p>
+<p>If you are using Oracle as your RDBMS you can connect to your database exactly like you would connect to a MySQL database,
+you only need to use oci as server protocol (change mysql with oci):</p>
 <pre><code>oci://root:admin@host:port/site_db
 </code></pre>
 

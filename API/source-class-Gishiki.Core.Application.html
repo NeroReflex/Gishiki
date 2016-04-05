@@ -158,6 +158,7 @@
 				<li><a href="class-Gishiki.Core.Environment.html">Gishiki\Core\Environment</a></li>
 				<li><a href="class-Gishiki.Core.MVC.Service.html">Gishiki\Core\MVC\Service</a></li>
 				<li><a href="class-Gishiki.Core.MVC.WebController.html">Gishiki\Core\MVC\WebController</a></li>
+				<li><a href="class-Gishiki.Core.Route.html">Gishiki\Core\Route</a></li>
 				<li><a href="class-Gishiki.Core.Routing.html">Gishiki\Core\Routing</a></li>
 				<li><a href="class-Gishiki.JSON.JSON.html">Gishiki\JSON\JSON</a></li>
 				<li><a href="class-Gishiki.Logging.Log.html">Gishiki\Logging\Log</a></li>
@@ -166,6 +167,7 @@
 				<li><a href="class-Gishiki.ORM.Common.DataType.html">Gishiki\ORM\Common\DataType</a></li>
 				<li><a href="class-Gishiki.ORM.Common.Field.html">Gishiki\ORM\Common\Field</a></li>
 				<li><a href="class-Gishiki.ORM.Common.Table.html">Gishiki\ORM\Common\Table</a></li>
+				<li><a href="class-Gishiki.ORM.ModelBuilding.Adapters.JSON_StaticAnalyzer.html">Gishiki\ORM\ModelBuilding\Adapters\JSON_StaticAnalyzer</a></li>
 				<li><a href="class-Gishiki.ORM.ModelBuilding.Adapters.XML_StaticAnalyzer.html">Gishiki\ORM\ModelBuilding\Adapters\XML_StaticAnalyzer</a></li>
 				<li><a href="class-Gishiki.ORM.ModelBuilding.ModelBuilder.html">Gishiki\ORM\ModelBuilding\ModelBuilder</a></li>
 				<li><a href="class-Gishiki.ORM.ModelBuilding.StaticAnalyzer.html">Gishiki\ORM\ModelBuilding\StaticAnalyzer</a></li>
@@ -357,16 +359,16 @@
 </span></span><span id="94" class="l"><a href="#94"> 94: </a><span class="php-comment">         *      -   Perform any additional setup operations
 </span></span><span id="95" class="l"><a href="#95"> 95: </a><span class="php-comment">         */</span>
 </span><span id="96" class="l"><a href="#96"> 96: </a>        <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> StartORM(<span class="php-var">$resources</span>) {
-</span><span id="97" class="l"><a href="#97"> 97: </a>            <span class="php-comment">//iterate over each database descriptor</span>
-</span><span id="98" class="l"><a href="#98"> 98: </a>            <span class="php-keyword1">foreach</span> (<span class="php-var">$resources</span> <span class="php-keyword1">as</span> &amp;<span class="php-var">$resource</span>) <span class="php-comment">//compile the current database descriptor </span>
-</span><span id="99" class="l"><a href="#99"> 99: </a>            {   Application::GenerateORMData(APPLICATION_DIR.<span class="php-var">$resource</span>, \Gishiki\Core\Environment::GetCurrentEnvironment()-&gt;GetConfigurationProperty(<span class="php-quote">&quot;DATA_AUTOCACHE&quot;</span>));    }
-</span><span id="100" class="l"><a href="#100">100: </a>            
-</span><span id="101" class="l"><a href="#101">101: </a>            <span class="php-comment">//start up PHP ActiveRecord</span>
-</span><span id="102" class="l"><a href="#102">102: </a>            \ActiveRecord\Config::initialize(<span class="php-keyword1">function</span>(<span class="php-var">$cfg</span>)
-</span><span id="103" class="l"><a href="#103">103: </a>            {
-</span><span id="104" class="l"><a href="#104">104: </a>                <span class="php-var">$cfg</span>-&gt;set_model_directory(\Gishiki\Core\Environment::GetCurrentEnvironment()-&gt;GetConfigurationProperty(<span class="php-quote">&quot;MODEL_DIR&quot;</span>));
-</span><span id="105" class="l"><a href="#105">105: </a>                <span class="php-var">$cfg</span>-&gt;set_connections(\Gishiki\Core\Environment::GetCurrentEnvironment()-&gt;GetConfigurationProperty(<span class="php-quote">&quot;DATA_CONNECTIONS&quot;</span>));
-</span><span id="106" class="l"><a href="#106">106: </a>            });
+</span><span id="97" class="l"><a href="#97"> 97: </a>            <span class="php-comment">//start up PHP ActiveRecord</span>
+</span><span id="98" class="l"><a href="#98"> 98: </a>            \ActiveRecord\Config::initialize(<span class="php-keyword1">function</span>(<span class="php-var">$cfg</span>)
+</span><span id="99" class="l"><a href="#99"> 99: </a>            {
+</span><span id="100" class="l"><a href="#100">100: </a>                <span class="php-var">$cfg</span>-&gt;set_model_directory(\Gishiki\Core\Environment::GetCurrentEnvironment()-&gt;GetConfigurationProperty(<span class="php-quote">&quot;MODEL_DIR&quot;</span>));
+</span><span id="101" class="l"><a href="#101">101: </a>                <span class="php-var">$cfg</span>-&gt;set_connections(\Gishiki\Core\Environment::GetCurrentEnvironment()-&gt;GetConfigurationProperty(<span class="php-quote">&quot;DATA_CONNECTIONS&quot;</span>));
+</span><span id="102" class="l"><a href="#102">102: </a>            });
+</span><span id="103" class="l"><a href="#103">103: </a>            
+</span><span id="104" class="l"><a href="#104">104: </a>            <span class="php-comment">//iterate over each database descriptor</span>
+</span><span id="105" class="l"><a href="#105">105: </a>            <span class="php-keyword1">foreach</span> (<span class="php-var">$resources</span> <span class="php-keyword1">as</span> &amp;<span class="php-var">$resource</span>) <span class="php-comment">//compile the current database descriptor </span>
+</span><span id="106" class="l"><a href="#106">106: </a>            {   Application::GenerateORMData(APPLICATION_DIR.<span class="php-var">$resource</span>, \Gishiki\Core\Environment::GetCurrentEnvironment()-&gt;GetConfigurationProperty(<span class="php-quote">&quot;DATA_AUTOCACHE&quot;</span>));    }
 </span><span id="107" class="l"><a href="#107">107: </a>        }
 </span><span id="108" class="l"><a href="#108">108: </a>        
 </span><span id="109" class="l"><a href="#109">109: </a>        <span class="php-comment">/**
@@ -439,115 +441,117 @@
 </span><span id="176" class="l"><a href="#176">176: </a>                    <span class="php-quote">&quot;   //parameter \&quot;id\&quot; contains the id of the searched user, you just search the user in your database and return it&quot;</span>.PHP_EOL.
 </span><span id="177" class="l"><a href="#177">177: </a>                    <span class="php-quote">&quot;   echo 'You have requested to see the book with ID '.\</span><span class="php-var">$params</span><span class="php-quote">-&gt;get(\&quot;id\&quot;);&quot;</span>.PHP_EOL.
 </span><span id="178" class="l"><a href="#178">178: </a>                    <span class="php-quote">&quot;});&quot;</span>.PHP_EOL.
-</span><span id="179" class="l"><a href="#179">179: </a>                    <span class="php-quote">&quot;Routing::setRoute(Routing::GET, \&quot;/book/new/{name}/{author}/{cost}/{date}\&quot;, function(\</span><span class="php-var">$params</span><span class="php-quote">) {&quot;</span>.PHP_EOL.
+</span><span id="179" class="l"><a href="#179">179: </a>                    <span class="php-quote">&quot;Routing::setRoute(Routing::GET, \&quot;/book/new/{isbn}/{name}/{author}/{cost}/{date}\&quot;, function(\</span><span class="php-var">$params</span><span class="php-quote">) {&quot;</span>.PHP_EOL.
 </span><span id="180" class="l"><a href="#180">180: </a>                    <span class="php-quote">&quot;   //look at bookstore.xml to review the used data model&quot;</span>.PHP_EOL.
 </span><span id="181" class="l"><a href="#181">181: </a>                    <span class="php-quote">&quot;   \</span><span class="php-var">$book</span><span class="php-quote"> = new book();&quot;</span>.PHP_EOL.
-</span><span id="182" class="l"><a href="#182">182: </a>                    <span class="php-quote">&quot;   \</span><span class="php-var">$book</span><span class="php-quote">-&gt;setAuthor(\</span><span class="php-var">$params</span><span class="php-quote">-&gt;get(\&quot;author\&quot;));&quot;</span>.PHP_EOL.
-</span><span id="183" class="l"><a href="#183">183: </a>                    <span class="php-quote">&quot;   \</span><span class="php-var">$book</span><span class="php-quote">-&gt;setTitle(\</span><span class="php-var">$params</span><span class="php-quote">-&gt;get(\&quot;name\&quot;));&quot;</span>.PHP_EOL.
-</span><span id="184" class="l"><a href="#184">184: </a>                    <span class="php-quote">&quot;   \</span><span class="php-var">$book</span><span class="php-quote">-&gt;setPrice(\</span><span class="php-var">$params</span><span class="php-quote">-&gt;get(\&quot;cost\&quot;));&quot;</span>.PHP_EOL.
-</span><span id="185" class="l"><a href="#185">185: </a>                    <span class="php-quote">&quot;   \</span><span class="php-var">$book</span><span class="php-quote">-&gt;setPublication_date(new ActiveRecord\\DateTime(\</span><span class="php-var">$params</span><span class="php-quote">-&gt;get(\&quot;date\&quot;)));&quot;</span>.PHP_EOL.
-</span><span id="186" class="l"><a href="#186">186: </a>                    <span class="php-quote">&quot;   //the model is automatically saved into the database. Enjoy!&quot;</span>.PHP_EOL.
-</span><span id="187" class="l"><a href="#187">187: </a>                    <span class="php-quote">&quot;   echo \&quot;Book stored into the default database!\&quot;;&quot;</span>.PHP_EOL.
-</span><span id="188" class="l"><a href="#188">188: </a>                    <span class="php-quote">&quot;});&quot;</span>.PHP_EOL.
-</span><span id="189" class="l"><a href="#189">189: </a>                    <span class="php-quote">&quot;Routing::setErrorCallback(Routing::NotFoudCallback, function() {&quot;</span>.PHP_EOL.
-</span><span id="190" class="l"><a href="#190">190: </a>                    <span class="php-quote">&quot;   //this is what is executed if the router is unable to find a suitable route for a request&quot;</span>.PHP_EOL.
-</span><span id="191" class="l"><a href="#191">191: </a>                    <span class="php-quote">&quot;   die(\&quot;Sorry man.... 404 Page Not Found!\&quot;);&quot;</span>.PHP_EOL.
-</span><span id="192" class="l"><a href="#192">192: </a>                    <span class="php-quote">&quot;});&quot;</span>.PHP_EOL;
-</span><span id="193" class="l"><a href="#193">193: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">file_put_contents</span>(APPLICATION_DIR.<span class="php-quote">&quot;router.php&quot;</span>, <span class="php-quote">&quot;&lt;?php &quot;</span>.PHP_EOL.<span class="php-var">$routing_example</span>.<span class="php-quote">&quot;?&gt;&quot;</span>, LOCK_EX) === <span class="php-keyword1">FALSE</span>) {
-</span><span id="194" class="l"><a href="#194">194: </a>                <span class="php-var">$errors</span>++;
-</span><span id="195" class="l"><a href="#195">195: </a>            }
-</span><span id="196" class="l"><a href="#196">196: </a>            
-</span><span id="197" class="l"><a href="#197">197: </a>            <span class="php-var">$bookstore_example</span> = <span class="php-quote">&lt;&lt;&lt;XML
-</span></span><span id="198" class="l"><a href="#198">198: </a><span class="php-quote">&lt;?xml version='1.0' standalone='yes'?&gt;
-</span></span><span id="199" class="l"><a href="#199">199: </a><span class="php-quote">&lt;!-- the connection named &quot;default&quot; is added by the application initializer --&gt;
-</span></span><span id="200" class="l"><a href="#200">200: </a><span class="php-quote">&lt;database name=&quot;bookstore&quot; connection=&quot;default&quot;&gt;
-</span></span><span id="201" class="l"><a href="#201">201: </a><span class="php-quote">    &lt;table name=&quot;books&quot;&gt;&lt;!-- table names always ends with a trailing 's' --&gt;
-</span></span><span id="202" class="l"><a href="#202">202: </a><span class="php-quote">        &lt;column type=&quot;integer&quot; name=&quot;id&quot; primaryKey=&quot;true&quot;&gt;&lt;/column&gt;
-</span></span><span id="203" class="l"><a href="#203">203: </a><span class="php-quote">        &lt;column type=&quot;string&quot; name=&quot;title&quot;&gt;&lt;/column&gt;
-</span></span><span id="204" class="l"><a href="#204">204: </a><span class="php-quote">        &lt;column type=&quot;float&quot; name=&quot;price&quot;&gt;&lt;/column&gt;
-</span></span><span id="205" class="l"><a href="#205">205: </a><span class="php-quote">        &lt;column type=&quot;string&quot; name=&quot;author&quot;&gt;&lt;/column&gt;
-</span></span><span id="206" class="l"><a href="#206">206: </a><span class="php-quote">        &lt;column type=&quot;datetime&quot; name=&quot;publication_date&quot;&gt;&lt;/column&gt;
-</span></span><span id="207" class="l"><a href="#207">207: </a><span class="php-quote">    &lt;/table&gt;
-</span></span><span id="208" class="l"><a href="#208">208: </a><span class="php-quote">&lt;/database&gt;
-</span></span><span id="209" class="l"><a href="#209">209: </a><span class="php-quote">XML;
-</span></span><span id="210" class="l"><a href="#210">210: </a>            <span class="php-var">$bookstore_example_xml</span> = <span class="php-keyword1">new</span> \SimpleXMLElement(<span class="php-var">$bookstore_example</span>);
-</span><span id="211" class="l"><a href="#211">211: </a>            <span class="php-var">$bookstore_example_xml</span>-&gt;asXML(APPLICATION_DIR.<span class="php-quote">&quot;bookstore.xml&quot;</span>);
-</span><span id="212" class="l"><a href="#212">212: </a>            
-</span><span id="213" class="l"><a href="#213">213: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">in_array</span>(<span class="php-quote">&quot;sqlite&quot;</span>, \PDO::getAvailableDrivers())) {
-</span><span id="214" class="l"><a href="#214">214: </a>                <span class="php-keyword1">try</span> {
-</span><span id="215" class="l"><a href="#215">215: </a>                    <span class="php-comment">//create a new example db</span>
-</span><span id="216" class="l"><a href="#216">216: </a>                    <span class="php-var">$example_db</span> = <span class="php-keyword1">new</span> \PDO(<span class="php-quote">&quot;sqlite:default_db.sqlite&quot;</span>);
-</span><span id="217" class="l"><a href="#217">217: </a>                    
-</span><span id="218" class="l"><a href="#218">218: </a>                    <span class="php-comment">//this is the query for the creation of the example table</span>
-</span><span id="219" class="l"><a href="#219">219: </a>                    <span class="php-var">$example_db</span>-&gt;<span class="php-keyword2">exec</span>(<span class="php-quote">&quot;CREATE TABLE IF NOT EXISTS 'books' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'title' TEXT, 'author' TEXT, 'price' REAL, 'publication_date' DATETIME)&quot;</span>);
-</span><span id="220" class="l"><a href="#220">220: </a>                } <span class="php-keyword1">catch</span> (\PDOException <span class="php-var">$ex</span>) {
-</span><span id="221" class="l"><a href="#221">221: </a>                    <span class="php-keyword1">new</span> \Gishiki\Logging\<span class="php-keyword2">Log</span>(<span class="php-quote">&quot;Error in the default db&quot;</span>, <span class="php-quote">&quot;The following error was encountered while creating the default database: &quot;</span>.<span class="php-var">$ex</span>-&gt;getMessage(), \Gishiki\Logging\Priority::WARNING);
-</span><span id="222" class="l"><a href="#222">222: </a>                }
-</span><span id="223" class="l"><a href="#223">223: </a>            }
-</span><span id="224" class="l"><a href="#224">224: </a>            
-</span><span id="225" class="l"><a href="#225">225: </a>            <span class="php-keyword1">if</span> ((!<span class="php-keyword2">file_exists</span>(Environment::GetCurrentEnvironment()-&gt;GetConfigurationProperty(<span class="php-quote">'APPLICATION_DIR'</span>).<span class="php-quote">&quot;settings.json&quot;</span>)) &amp;&amp; (<span class="php-var">$errors</span> == <span class="php-num">0</span>)) {
-</span><span id="226" class="l"><a href="#226">226: </a>                <span class="php-var">$configuration</span> = <span class="php-quote">&quot;{&quot;</span>.PHP_EOL 
-</span><span id="227" class="l"><a href="#227">227: </a>                                .<span class="php-quote">&quot;  \&quot;general\&quot;: {&quot;</span>.PHP_EOL
-</span><span id="228" class="l"><a href="#228">228: </a>                                .<span class="php-quote">&quot;      \&quot;development\&quot;: true&quot;</span>.PHP_EOL
-</span><span id="229" class="l"><a href="#229">229: </a>                                .<span class="php-quote">&quot;  },&quot;</span>.PHP_EOL
-</span><span id="230" class="l"><a href="#230">230: </a>                        .PHP_EOL.<span class="php-quote">&quot;  \&quot;database\&quot;: {&quot;</span>.PHP_EOL
-</span><span id="231" class="l"><a href="#231">231: </a>                                .<span class="php-quote">&quot;      \&quot;on-the-fly\&quot;: false,&quot;</span>.PHP_EOL
-</span><span id="232" class="l"><a href="#232">232: </a>                                .<span class="php-quote">&quot;      \&quot;mappers\&quot;: [&quot;</span>.PHP_EOL
-</span><span id="233" class="l"><a href="#233">233: </a>                                .<span class="php-quote">&quot;          \&quot;bookstore.xml\&quot;&quot;</span>.PHP_EOL
-</span><span id="234" class="l"><a href="#234">234: </a>                                .<span class="php-quote">&quot;      ],&quot;</span>.PHP_EOL
-</span><span id="235" class="l"><a href="#235">235: </a>                                .<span class="php-quote">&quot;      \&quot;connections\&quot;: {&quot;</span>.PHP_EOL
-</span><span id="236" class="l"><a href="#236">236: </a>                                .<span class="php-quote">&quot;          \&quot;default\&quot;:  \&quot;sqlite://default_db.sqlite\&quot;, &quot;</span>.PHP_EOL
-</span><span id="237" class="l"><a href="#237">237: </a>                                .<span class="php-quote">&quot;          \&quot;MySQL\&quot;:  \&quot;mysql://username:password@localhost/development?charset=utf8\&quot;, &quot;</span>.PHP_EOL
-</span><span id="238" class="l"><a href="#238">238: </a>                                .<span class="php-quote">&quot;          \&quot;PostgreSQL\&quot;:  \&quot;pgsql://username:password@localhost/development\&quot;, &quot;</span>.PHP_EOL
-</span><span id="239" class="l"><a href="#239">239: </a>                                .<span class="php-quote">&quot;          \&quot;SQLite\&quot;:  \&quot;sqlite://development_database.db\&quot;, &quot;</span>.PHP_EOL
-</span><span id="240" class="l"><a href="#240">240: </a>                                .<span class="php-quote">&quot;          \&quot;SQLite_file\&quot;:  \&quot;sqlite://unix(/var/www/html/database.sqlite)\&quot;, &quot;</span>.PHP_EOL
-</span><span id="241" class="l"><a href="#241">241: </a>                                .<span class="php-quote">&quot;          \&quot;oci\&quot;:  \&quot;oci://username:passsword@localhost/xe\&quot; &quot;</span>.PHP_EOL
-</span><span id="242" class="l"><a href="#242">242: </a>                                .<span class="php-quote">&quot;      }&quot;</span>.PHP_EOL
-</span><span id="243" class="l"><a href="#243">243: </a>                                .<span class="php-quote">&quot;  },&quot;</span>.PHP_EOL
-</span><span id="244" class="l"><a href="#244">244: </a>                        .PHP_EOL.<span class="php-quote">&quot;  \&quot;security\&quot;: {&quot;</span>.PHP_EOL
-</span><span id="245" class="l"><a href="#245">245: </a>                                .<span class="php-quote">&quot;      \&quot;serverPassword\&quot;: \&quot;&quot;</span>.<span class="php-var">$new_password</span>.<span class="php-quote">&quot;\&quot;,&quot;</span>.PHP_EOL
-</span><span id="246" class="l"><a href="#246">246: </a>                                .<span class="php-quote">&quot;      \&quot;serverKey\&quot;: \&quot;ServerKey\&quot;&quot;</span>.PHP_EOL
-</span><span id="247" class="l"><a href="#247">247: </a>                                .<span class="php-quote">&quot;  },&quot;</span>.PHP_EOL
-</span><span id="248" class="l"><a href="#248">248: </a>                        .PHP_EOL.<span class="php-quote">&quot;  \&quot;cookies\&quot;: {&quot;</span>.PHP_EOL
-</span><span id="249" class="l"><a href="#249">249: </a>                                .<span class="php-quote">&quot;      \&quot;cookiesPrefix\&quot;: \&quot;GishikiCookie_\&quot;,&quot;</span>.PHP_EOL
-</span><span id="250" class="l"><a href="#250">250: </a>                                .<span class="php-quote">&quot;      \&quot;cookiesEncryptedPrefix\&quot;: \&quot;,&quot;</span>.<span class="php-keyword2">base64_encode</span>(<span class="php-keyword2">openssl_random_pseudo_bytes</span>(<span class="php-num">16</span>)).<span class="php-quote">&quot;\&quot;,&quot;</span>.PHP_EOL
-</span><span id="251" class="l"><a href="#251">251: </a>                                .<span class="php-quote">&quot;      \&quot;cookiesKey\&quot;: \&quot;&quot;</span>.<span class="php-keyword2">base64_encode</span>(<span class="php-keyword2">openssl_random_pseudo_bytes</span>(<span class="php-num">256</span>)).<span class="php-quote">&quot;\&quot;,&quot;</span>.PHP_EOL
-</span><span id="252" class="l"><a href="#252">252: </a>                                .<span class="php-quote">&quot;      \&quot;cookiesExpiration\&quot;: 5184000,&quot;</span>.PHP_EOL
-</span><span id="253" class="l"><a href="#253">253: </a>                                .<span class="php-quote">&quot;      \&quot;cookiesPath\&quot;: \&quot;/\&quot;&quot;</span>.PHP_EOL
-</span><span id="254" class="l"><a href="#254">254: </a>                                .<span class="php-quote">&quot;  },&quot;</span>.PHP_EOL
-</span><span id="255" class="l"><a href="#255">255: </a>                        .PHP_EOL.<span class="php-quote">&quot;  \&quot;cache\&quot;: {&quot;</span>.PHP_EOL
-</span><span id="256" class="l"><a href="#256">256: </a>                                .<span class="php-quote">&quot;      \&quot;enabled\&quot;: false,&quot;</span>.PHP_EOL
-</span><span id="257" class="l"><a href="#257">257: </a>                                .<span class="php-quote">&quot;      \&quot;server\&quot;: \&quot;memcached://localhost:11211\&quot;&quot;</span>.PHP_EOL
-</span><span id="258" class="l"><a href="#258">258: </a>                                .<span class="php-quote">&quot;  }&quot;</span>.PHP_EOL
-</span><span id="259" class="l"><a href="#259">259: </a>                                .<span class="php-quote">&quot;}&quot;</span>;
-</span><span id="260" class="l"><a href="#260">260: </a>                <span class="php-keyword1">if</span> (<span class="php-keyword2">file_put_contents</span>(APPLICATION_DIR.<span class="php-quote">&quot;settings.json&quot;</span>, <span class="php-var">$configuration</span>, LOCK_EX) === <span class="php-keyword1">FALSE</span>) {
-</span><span id="261" class="l"><a href="#261">261: </a>                    <span class="php-var">$errors</span>++;
-</span><span id="262" class="l"><a href="#262">262: </a>                }
-</span><span id="263" class="l"><a href="#263">263: </a>            }
-</span><span id="264" class="l"><a href="#264">264: </a>            
-</span><span id="265" class="l"><a href="#265">265: </a>            <span class="php-keyword1">if</span> (<span class="php-var">$errors</span> == <span class="php-num">0</span>) {
-</span><span id="266" class="l"><a href="#266">266: </a>                <span class="php-comment">//force the settings refresh</span>
-</span><span id="267" class="l"><a href="#267">267: </a>                <span class="php-var">$environment</span> = Environment::GetCurrentEnvironment();
-</span><span id="268" class="l"><a href="#268">268: </a>                <span class="php-var">$configurationReload</span> = <span class="php-keyword1">new</span> \ReflectionMethod(<span class="php-var">$environment</span>, <span class="php-quote">&quot;LoadConfiguration&quot;</span>);
-</span><span id="269" class="l"><a href="#269">269: </a>                <span class="php-var">$configurationReload</span>-&gt;setAccessible(<span class="php-keyword1">TRUE</span>);
-</span><span id="270" class="l"><a href="#270">270: </a>                <span class="php-var">$configurationReload</span>-&gt;invoke(<span class="php-var">$environment</span>);
-</span><span id="271" class="l"><a href="#271">271: </a>                
-</span><span id="272" class="l"><a href="#272">272: </a>                <span class="php-comment">//setup the application unique RSA encryption key</span>
-</span><span id="273" class="l"><a href="#273">273: </a>                <span class="php-var">$privateMasterKey</span> = <span class="php-keyword1">new</span> \Gishiki\Security\AsymmetricPrivateKeyCipher();
-</span><span id="274" class="l"><a href="#274">274: </a>                <span class="php-var">$privateMasterKey</span>-&gt;ImportPrivateKey(\Gishiki\Security\AsymmetricCipher::GenerateNewKey(\Gishiki\Security\AsymmetricCipherAlgorithms::RSA4096));
-</span><span id="275" class="l"><a href="#275">275: </a>                \Gishiki\Security\AsymmetricCipher::StorePrivateKey(<span class="php-var">$privateMasterKey</span>, <span class="php-quote">&quot;ServerKey&quot;</span>, <span class="php-var">$new_password</span>);
-</span><span id="276" class="l"><a href="#276">276: </a>                \Gishiki\Security\AsymmetricCipher::StorePublicKey(<span class="php-var">$privateMasterKey</span>, <span class="php-quote">&quot;ServerKey&quot;</span>);
-</span><span id="277" class="l"><a href="#277">277: </a>                
-</span><span id="278" class="l"><a href="#278">278: </a>                <span class="php-keyword1">echo</span> <span class="php-quote">&quot;&lt;div&gt;&lt;b&gt;Installation&lt;/b&gt; The base directory for a Gishiki application have been created successfully.
-</span></span><span id="279" class="l"><a href="#279">279: </a><span class="php-quote">                &lt;br /&gt;You can now create your special application.&lt;/div&gt;&quot;</span>;
-</span><span id="280" class="l"><a href="#280">280: </a>            } <span class="php-keyword1">else</span> {
-</span><span id="281" class="l"><a href="#281">281: </a>                <span class="php-keyword1">echo</span> <span class="php-quote">&quot;&lt;div&gt;&lt;b&gt;Installation&lt;/b&gt; The base directory for a Gishiki application cannot be created.
-</span></span><span id="282" class="l"><a href="#282">282: </a><span class="php-quote">                &lt;br /&gt;Please, fix directory permissions.&lt;/div&gt;&quot;</span>;
-</span><span id="283" class="l"><a href="#283">283: </a>            }
-</span><span id="284" class="l"><a href="#284">284: </a>            <span class="php-keyword1">return</span> (<span class="php-var">$errors</span> == <span class="php-num">0</span>);
-</span><span id="285" class="l"><a href="#285">285: </a>        }
-</span><span id="286" class="l"><a href="#286">286: </a>    }
-</span><span id="287" class="l"><a href="#287">287: </a>}</span></code></pre>
+</span><span id="182" class="l"><a href="#182">182: </a>                    <span class="php-quote">&quot;   \</span><span class="php-var">$book</span><span class="php-quote">-&gt;isbn = \</span><span class="php-var">$params</span><span class="php-quote">-&gt;get(\&quot;isbn\&quot;);&quot;</span>.PHP_EOL.
+</span><span id="183" class="l"><a href="#183">183: </a>                    <span class="php-quote">&quot;   \</span><span class="php-var">$book</span><span class="php-quote">-&gt;author = \</span><span class="php-var">$params</span><span class="php-quote">-&gt;get(\&quot;author\&quot;);&quot;</span>.PHP_EOL.
+</span><span id="184" class="l"><a href="#184">184: </a>                    <span class="php-quote">&quot;   \</span><span class="php-var">$book</span><span class="php-quote">-&gt;title = \</span><span class="php-var">$params</span><span class="php-quote">-&gt;get(\&quot;name\&quot;);&quot;</span>.PHP_EOL.
+</span><span id="185" class="l"><a href="#185">185: </a>                    <span class="php-quote">&quot;   \</span><span class="php-var">$book</span><span class="php-quote">-&gt;price = \</span><span class="php-var">$params</span><span class="php-quote">-&gt;get(\&quot;cost\&quot;);&quot;</span>.PHP_EOL.
+</span><span id="186" class="l"><a href="#186">186: </a>                    <span class="php-quote">&quot;   \</span><span class="php-var">$book</span><span class="php-quote">-&gt;publication_date = new ActiveRecord\\DateTime(\</span><span class="php-var">$params</span><span class="php-quote">-&gt;get(\&quot;date\&quot;));&quot;</span>.PHP_EOL.
+</span><span id="187" class="l"><a href="#187">187: </a>                    <span class="php-quote">&quot;   //the model is automatically saved into the database. Enjoy!&quot;</span>.PHP_EOL.
+</span><span id="188" class="l"><a href="#188">188: </a>                    <span class="php-quote">&quot;   echo \&quot;Book stored into the default database!\&quot;;&quot;</span>.PHP_EOL.
+</span><span id="189" class="l"><a href="#189">189: </a>                    <span class="php-quote">&quot;});&quot;</span>.PHP_EOL.
+</span><span id="190" class="l"><a href="#190">190: </a>                    <span class="php-quote">&quot;Routing::setErrorCallback(Routing::NotFoud, function() {&quot;</span>.PHP_EOL.
+</span><span id="191" class="l"><a href="#191">191: </a>                    <span class="php-quote">&quot;   //this is what is executed if the router is unable to find a suitable route for a request&quot;</span>.PHP_EOL.
+</span><span id="192" class="l"><a href="#192">192: </a>                    <span class="php-quote">&quot;   die(\&quot;Sorry man.... 404 Page Not Found!\&quot;);&quot;</span>.PHP_EOL.
+</span><span id="193" class="l"><a href="#193">193: </a>                    <span class="php-quote">&quot;});&quot;</span>.PHP_EOL;
+</span><span id="194" class="l"><a href="#194">194: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">file_put_contents</span>(APPLICATION_DIR.<span class="php-quote">&quot;router.php&quot;</span>, <span class="php-quote">&quot;&lt;?php &quot;</span>.PHP_EOL.<span class="php-var">$routing_example</span>, LOCK_EX) === <span class="php-keyword1">FALSE</span>) {
+</span><span id="195" class="l"><a href="#195">195: </a>                <span class="php-var">$errors</span>++;
+</span><span id="196" class="l"><a href="#196">196: </a>            }
+</span><span id="197" class="l"><a href="#197">197: </a>            
+</span><span id="198" class="l"><a href="#198">198: </a>            <span class="php-var">$bookstore_example</span> = <span class="php-quote">&lt;&lt;&lt;XML
+</span></span><span id="199" class="l"><a href="#199">199: </a><span class="php-quote">&lt;?xml version='1.0' standalone='yes'?&gt;
+</span></span><span id="200" class="l"><a href="#200">200: </a><span class="php-quote">&lt;!-- the connection named &quot;default&quot; is added by the application initializer --&gt;
+</span></span><span id="201" class="l"><a href="#201">201: </a><span class="php-quote">&lt;database name=&quot;bookstore&quot; connection=&quot;default&quot;&gt;
+</span></span><span id="202" class="l"><a href="#202">202: </a><span class="php-quote">    &lt;table name=&quot;books&quot;&gt;&lt;!-- table names always ends with a trailing 's' --&gt;
+</span></span><span id="203" class="l"><a href="#203">203: </a><span class="php-quote">        &lt;column type=&quot;integer&quot; name=&quot;id&quot; primaryKey=&quot;true&quot;&gt;&lt;/column&gt;
+</span></span><span id="204" class="l"><a href="#204">204: </a><span class="php-quote">        &lt;column type=&quot;string&quot; name=&quot;isbn&quot;&gt;&lt;/column&gt;
+</span></span><span id="205" class="l"><a href="#205">205: </a><span class="php-quote">        &lt;column type=&quot;string&quot; name=&quot;title&quot;&gt;&lt;/column&gt;
+</span></span><span id="206" class="l"><a href="#206">206: </a><span class="php-quote">        &lt;column type=&quot;float&quot; name=&quot;price&quot;&gt;&lt;/column&gt;
+</span></span><span id="207" class="l"><a href="#207">207: </a><span class="php-quote">        &lt;column type=&quot;string&quot; name=&quot;author&quot;&gt;&lt;/column&gt;
+</span></span><span id="208" class="l"><a href="#208">208: </a><span class="php-quote">        &lt;column type=&quot;datetime&quot; name=&quot;publication_date&quot;&gt;&lt;/column&gt;
+</span></span><span id="209" class="l"><a href="#209">209: </a><span class="php-quote">    &lt;/table&gt;
+</span></span><span id="210" class="l"><a href="#210">210: </a><span class="php-quote">&lt;/database&gt;
+</span></span><span id="211" class="l"><a href="#211">211: </a><span class="php-quote">XML;
+</span></span><span id="212" class="l"><a href="#212">212: </a>            <span class="php-var">$bookstore_example_xml</span> = <span class="php-keyword1">new</span> \SimpleXMLElement(<span class="php-var">$bookstore_example</span>);
+</span><span id="213" class="l"><a href="#213">213: </a>            <span class="php-var">$bookstore_example_xml</span>-&gt;asXML(APPLICATION_DIR.<span class="php-quote">&quot;bookstore.xml&quot;</span>);
+</span><span id="214" class="l"><a href="#214">214: </a>            
+</span><span id="215" class="l"><a href="#215">215: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">in_array</span>(<span class="php-quote">&quot;sqlite&quot;</span>, \PDO::getAvailableDrivers())) {
+</span><span id="216" class="l"><a href="#216">216: </a>                <span class="php-keyword1">try</span> {
+</span><span id="217" class="l"><a href="#217">217: </a>                    <span class="php-comment">//create a new example db</span>
+</span><span id="218" class="l"><a href="#218">218: </a>                    <span class="php-var">$example_db</span> = <span class="php-keyword1">new</span> \PDO(<span class="php-quote">&quot;sqlite:default_db.sqlite&quot;</span>);
+</span><span id="219" class="l"><a href="#219">219: </a>                    
+</span><span id="220" class="l"><a href="#220">220: </a>                    <span class="php-comment">//this is the query for the creation of the example table</span>
+</span><span id="221" class="l"><a href="#221">221: </a>                    <span class="php-var">$example_db</span>-&gt;<span class="php-keyword2">exec</span>(<span class="php-quote">&quot;CREATE TABLE IF NOT EXISTS 'books' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'isbn' TEXT, 'title' TEXT, 'author' TEXT, 'price' REAL, 'publication_date' DATETIME)&quot;</span>);
+</span><span id="222" class="l"><a href="#222">222: </a>                } <span class="php-keyword1">catch</span> (\PDOException <span class="php-var">$ex</span>) {
+</span><span id="223" class="l"><a href="#223">223: </a>                    <span class="php-keyword1">new</span> \Gishiki\Logging\<span class="php-keyword2">Log</span>(<span class="php-quote">&quot;Error in the default db&quot;</span>, <span class="php-quote">&quot;The following error was encountered while creating the default database: &quot;</span>.<span class="php-var">$ex</span>-&gt;getMessage(), \Gishiki\Logging\Priority::WARNING);
+</span><span id="224" class="l"><a href="#224">224: </a>                }
+</span><span id="225" class="l"><a href="#225">225: </a>            }
+</span><span id="226" class="l"><a href="#226">226: </a>            
+</span><span id="227" class="l"><a href="#227">227: </a>            <span class="php-keyword1">if</span> ((!<span class="php-keyword2">file_exists</span>(Environment::GetCurrentEnvironment()-&gt;GetConfigurationProperty(<span class="php-quote">'APPLICATION_DIR'</span>).<span class="php-quote">&quot;settings.json&quot;</span>)) &amp;&amp; (<span class="php-var">$errors</span> == <span class="php-num">0</span>)) {
+</span><span id="228" class="l"><a href="#228">228: </a>                <span class="php-var">$configuration</span> = <span class="php-quote">&quot;{&quot;</span>.PHP_EOL 
+</span><span id="229" class="l"><a href="#229">229: </a>                                .<span class="php-quote">&quot;  \&quot;general\&quot;: {&quot;</span>.PHP_EOL
+</span><span id="230" class="l"><a href="#230">230: </a>                                .<span class="php-quote">&quot;      \&quot;development\&quot;: true&quot;</span>.PHP_EOL
+</span><span id="231" class="l"><a href="#231">231: </a>                                .<span class="php-quote">&quot;  },&quot;</span>.PHP_EOL
+</span><span id="232" class="l"><a href="#232">232: </a>                        .PHP_EOL.<span class="php-quote">&quot;  \&quot;database\&quot;: {&quot;</span>.PHP_EOL
+</span><span id="233" class="l"><a href="#233">233: </a>                                .<span class="php-quote">&quot;      \&quot;on-the-fly\&quot;: false,&quot;</span>.PHP_EOL
+</span><span id="234" class="l"><a href="#234">234: </a>                                .<span class="php-quote">&quot;      \&quot;mappers\&quot;: [&quot;</span>.PHP_EOL
+</span><span id="235" class="l"><a href="#235">235: </a>                                .<span class="php-quote">&quot;          \&quot;bookstore.xml\&quot;&quot;</span>.PHP_EOL
+</span><span id="236" class="l"><a href="#236">236: </a>                                .<span class="php-quote">&quot;      ],&quot;</span>.PHP_EOL
+</span><span id="237" class="l"><a href="#237">237: </a>                                .<span class="php-quote">&quot;      \&quot;connections\&quot;: {&quot;</span>.PHP_EOL
+</span><span id="238" class="l"><a href="#238">238: </a>                                .<span class="php-quote">&quot;          \&quot;default\&quot;:  \&quot;sqlite://default_db.sqlite\&quot;, &quot;</span>.PHP_EOL
+</span><span id="239" class="l"><a href="#239">239: </a>                                .<span class="php-quote">&quot;          \&quot;MySQL\&quot;:  \&quot;mysql://username:password@localhost/development?charset=utf8\&quot;, &quot;</span>.PHP_EOL
+</span><span id="240" class="l"><a href="#240">240: </a>                                .<span class="php-quote">&quot;          \&quot;PostgreSQL\&quot;:  \&quot;pgsql://username:password@localhost/development\&quot;, &quot;</span>.PHP_EOL
+</span><span id="241" class="l"><a href="#241">241: </a>                                .<span class="php-quote">&quot;          \&quot;SQLite\&quot;:  \&quot;sqlite://development_database.db\&quot;, &quot;</span>.PHP_EOL
+</span><span id="242" class="l"><a href="#242">242: </a>                                .<span class="php-quote">&quot;          \&quot;SQLite_file\&quot;:  \&quot;sqlite://unix(/var/www/html/database.sqlite)\&quot;, &quot;</span>.PHP_EOL
+</span><span id="243" class="l"><a href="#243">243: </a>                                .<span class="php-quote">&quot;          \&quot;oci\&quot;:  \&quot;oci://username:passsword@localhost/xe\&quot; &quot;</span>.PHP_EOL
+</span><span id="244" class="l"><a href="#244">244: </a>                                .<span class="php-quote">&quot;      }&quot;</span>.PHP_EOL
+</span><span id="245" class="l"><a href="#245">245: </a>                                .<span class="php-quote">&quot;  },&quot;</span>.PHP_EOL
+</span><span id="246" class="l"><a href="#246">246: </a>                        .PHP_EOL.<span class="php-quote">&quot;  \&quot;security\&quot;: {&quot;</span>.PHP_EOL
+</span><span id="247" class="l"><a href="#247">247: </a>                                .<span class="php-quote">&quot;      \&quot;serverPassword\&quot;: \&quot;&quot;</span>.<span class="php-var">$new_password</span>.<span class="php-quote">&quot;\&quot;,&quot;</span>.PHP_EOL
+</span><span id="248" class="l"><a href="#248">248: </a>                                .<span class="php-quote">&quot;      \&quot;serverKey\&quot;: \&quot;ServerKey\&quot;&quot;</span>.PHP_EOL
+</span><span id="249" class="l"><a href="#249">249: </a>                                .<span class="php-quote">&quot;  },&quot;</span>.PHP_EOL
+</span><span id="250" class="l"><a href="#250">250: </a>                        .PHP_EOL.<span class="php-quote">&quot;  \&quot;cookies\&quot;: {&quot;</span>.PHP_EOL
+</span><span id="251" class="l"><a href="#251">251: </a>                                .<span class="php-quote">&quot;      \&quot;cookiesPrefix\&quot;: \&quot;GishikiCookie_\&quot;,&quot;</span>.PHP_EOL
+</span><span id="252" class="l"><a href="#252">252: </a>                                .<span class="php-quote">&quot;      \&quot;cookiesEncryptedPrefix\&quot;: \&quot;,&quot;</span>.<span class="php-keyword2">base64_encode</span>(<span class="php-keyword2">openssl_random_pseudo_bytes</span>(<span class="php-num">16</span>)).<span class="php-quote">&quot;\&quot;,&quot;</span>.PHP_EOL
+</span><span id="253" class="l"><a href="#253">253: </a>                                .<span class="php-quote">&quot;      \&quot;cookiesKey\&quot;: \&quot;&quot;</span>.<span class="php-keyword2">base64_encode</span>(<span class="php-keyword2">openssl_random_pseudo_bytes</span>(<span class="php-num">256</span>)).<span class="php-quote">&quot;\&quot;,&quot;</span>.PHP_EOL
+</span><span id="254" class="l"><a href="#254">254: </a>                                .<span class="php-quote">&quot;      \&quot;cookiesExpiration\&quot;: 5184000,&quot;</span>.PHP_EOL
+</span><span id="255" class="l"><a href="#255">255: </a>                                .<span class="php-quote">&quot;      \&quot;cookiesPath\&quot;: \&quot;/\&quot;&quot;</span>.PHP_EOL
+</span><span id="256" class="l"><a href="#256">256: </a>                                .<span class="php-quote">&quot;  },&quot;</span>.PHP_EOL
+</span><span id="257" class="l"><a href="#257">257: </a>                        .PHP_EOL.<span class="php-quote">&quot;  \&quot;cache\&quot;: {&quot;</span>.PHP_EOL
+</span><span id="258" class="l"><a href="#258">258: </a>                                .<span class="php-quote">&quot;      \&quot;enabled\&quot;: false,&quot;</span>.PHP_EOL
+</span><span id="259" class="l"><a href="#259">259: </a>                                .<span class="php-quote">&quot;      \&quot;server\&quot;: \&quot;memcached://localhost:11211\&quot;&quot;</span>.PHP_EOL
+</span><span id="260" class="l"><a href="#260">260: </a>                                .<span class="php-quote">&quot;  }&quot;</span>.PHP_EOL
+</span><span id="261" class="l"><a href="#261">261: </a>                                .<span class="php-quote">&quot;}&quot;</span>;
+</span><span id="262" class="l"><a href="#262">262: </a>                <span class="php-keyword1">if</span> (<span class="php-keyword2">file_put_contents</span>(APPLICATION_DIR.<span class="php-quote">&quot;settings.json&quot;</span>, <span class="php-var">$configuration</span>, LOCK_EX) === <span class="php-keyword1">FALSE</span>) {
+</span><span id="263" class="l"><a href="#263">263: </a>                    <span class="php-var">$errors</span>++;
+</span><span id="264" class="l"><a href="#264">264: </a>                }
+</span><span id="265" class="l"><a href="#265">265: </a>            }
+</span><span id="266" class="l"><a href="#266">266: </a>            
+</span><span id="267" class="l"><a href="#267">267: </a>            <span class="php-keyword1">if</span> (<span class="php-var">$errors</span> == <span class="php-num">0</span>) {
+</span><span id="268" class="l"><a href="#268">268: </a>                <span class="php-comment">//force the settings refresh</span>
+</span><span id="269" class="l"><a href="#269">269: </a>                <span class="php-var">$environment</span> = Environment::GetCurrentEnvironment();
+</span><span id="270" class="l"><a href="#270">270: </a>                <span class="php-var">$configurationReload</span> = <span class="php-keyword1">new</span> \ReflectionMethod(<span class="php-var">$environment</span>, <span class="php-quote">&quot;LoadConfiguration&quot;</span>);
+</span><span id="271" class="l"><a href="#271">271: </a>                <span class="php-var">$configurationReload</span>-&gt;setAccessible(<span class="php-keyword1">TRUE</span>);
+</span><span id="272" class="l"><a href="#272">272: </a>                <span class="php-var">$configurationReload</span>-&gt;invoke(<span class="php-var">$environment</span>);
+</span><span id="273" class="l"><a href="#273">273: </a>                
+</span><span id="274" class="l"><a href="#274">274: </a>                <span class="php-comment">//setup the application unique RSA encryption key</span>
+</span><span id="275" class="l"><a href="#275">275: </a>                <span class="php-var">$privateMasterKey</span> = <span class="php-keyword1">new</span> \Gishiki\Security\AsymmetricPrivateKeyCipher();
+</span><span id="276" class="l"><a href="#276">276: </a>                <span class="php-var">$privateMasterKey</span>-&gt;ImportPrivateKey(\Gishiki\Security\AsymmetricCipher::GenerateNewKey(\Gishiki\Security\AsymmetricCipherAlgorithms::RSA4096));
+</span><span id="277" class="l"><a href="#277">277: </a>                \Gishiki\Security\AsymmetricCipher::StorePrivateKey(<span class="php-var">$privateMasterKey</span>, <span class="php-quote">&quot;ServerKey&quot;</span>, <span class="php-var">$new_password</span>);
+</span><span id="278" class="l"><a href="#278">278: </a>                \Gishiki\Security\AsymmetricCipher::StorePublicKey(<span class="php-var">$privateMasterKey</span>, <span class="php-quote">&quot;ServerKey&quot;</span>);
+</span><span id="279" class="l"><a href="#279">279: </a>                
+</span><span id="280" class="l"><a href="#280">280: </a>                <span class="php-keyword1">echo</span> <span class="php-quote">&quot;&lt;div&gt;&lt;b&gt;Installation&lt;/b&gt; The base directory for a Gishiki application have been created successfully.
+</span></span><span id="281" class="l"><a href="#281">281: </a><span class="php-quote">                &lt;br /&gt;You can now create your special application.&lt;/div&gt;&quot;</span>;
+</span><span id="282" class="l"><a href="#282">282: </a>            } <span class="php-keyword1">else</span> {
+</span><span id="283" class="l"><a href="#283">283: </a>                <span class="php-keyword1">echo</span> <span class="php-quote">&quot;&lt;div&gt;&lt;b&gt;Installation&lt;/b&gt; The base directory for a Gishiki application cannot be created.
+</span></span><span id="284" class="l"><a href="#284">284: </a><span class="php-quote">                &lt;br /&gt;Please, fix directory permissions.&lt;/div&gt;&quot;</span>;
+</span><span id="285" class="l"><a href="#285">285: </a>            }
+</span><span id="286" class="l"><a href="#286">286: </a>            <span class="php-keyword1">return</span> (<span class="php-var">$errors</span> == <span class="php-num">0</span>);
+</span><span id="287" class="l"><a href="#287">287: </a>        }
+</span><span id="288" class="l"><a href="#288">288: </a>    }
+</span><span id="289" class="l"><a href="#289">289: </a>}</span></code></pre>
 
 	<div id="footer">
 		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>
@@ -555,6 +559,6 @@
 </div>
 </div>
 <script src="resources/combined.js?e6b8017723d402b07f5bb866288819b3e7032e36"></script>
-<script src="elementlist.js?48f0e60e6db94e342b8f7b49ee1149b621e4c0bf"></script>
+<script src="elementlist.js?19d27f84733a6e3990ba53aa21a47fe29fc13f44"></script>
 </body>
 </html>

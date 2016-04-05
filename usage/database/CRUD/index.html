@@ -126,6 +126,10 @@
                 
                     <li><a class="toctree-l4" href="#create-and-update">Create and Update</a></li>
                 
+                    <li><a class="toctree-l4" href="#delete">Delete</a></li>
+                
+                    <li><a class="toctree-l4" href="#read">Read</a></li>
+                
             
             </ul>
         
@@ -240,6 +244,30 @@ $my_book-&gt;prevent_autosave();
 //here your book will be lost: YOU HAVE TO SAVE IT!
 $my_book-&gt;save();
 </code></pre>
+
+<p><strong>Disclaimer</strong>: please, keep in mind that a bad usage of prevent_autosave may lead to data loss 
+and/or data corruption!</p>
+<h2 id="delete">Delete</h2>
+<p>There is data meant to stay forever in your database and data that will stay for 
+a short amount of time.</p>
+<p>Let's make an example: a book that is not going to be sold anymore because the new
+edition was released:</p>
+<pre><code class="PHP">class Book extends \Activerecord\Model { }
+
+//get the (only) book with that isbn
+$my_old_book = Book::last(array('conditions' =&gt; &quot;isbn = 'book_isbn'&quot;));
+//more about database read in the &quot;Read&quot; section
+
+//time to be removed! Bye!
+$my_book-&gt;delete();
+</code></pre>
+
+<p>As you can see the delete() usage is equal to save() usage: you can think about
+delete as the evil twin of save :D.</p>
+<h2 id="read">Read</h2>
+<p>Read operations are harder than write operations, thanks to the ActiveRecord design 
+you have great flexibility on your database researches while maintaining distances 
+from the hand-written SQL!</p>
               
             </div>
           </div>

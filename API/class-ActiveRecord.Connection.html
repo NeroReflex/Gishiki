@@ -244,7 +244,7 @@
 		<b>Namespace:</b> <a href="namespace-ActiveRecord.html">ActiveRecord</a><br>
 		<b>Package:</b> ActiveRecord<br>
 
-			<b>Located at</b> <a href="source-class-ActiveRecord.Connection.html#15-508" title="Go to source code">Gishiki/ORM/Runtime/lib/Connection.php</a>
+			<b>Located at</b> <a href="source-class-ActiveRecord.Connection.html#15-506" title="Go to source code">Gishiki/ORM/Runtime/lib/Connection.php</a>
 		<br>
 	</div>
 
@@ -311,7 +311,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_parse_connection_url">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#122-206" title="Go to source code">parse_connection_url</a>( <span>string <var>$connection_url</var></span> )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#120-204" title="Go to source code">parse_connection_url</a>( <span>string <var>$connection_url</var></span> )</code>
 
 		<div class="description short">
 			<p>Use this for any adapters that can take connection info in the form below
@@ -331,7 +331,7 @@ protocol:<span class="php-comment">//username:password@unix(/some/file/path)/dbn
 <pre>sqlite:<span class="php-comment">//file.db</span>
 sqlite:<span class="php-comment">//../relative/path/to/file.db</span>
 sqlite:<span class="php-comment">//unix(/absolute/path/to/file.db)</span>
-sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span></pre>
+sqlite:<span class="php-comment">//windows(C:/absolute/path/to/file.db)</span></pre>
 
 
 				<h4>Parameters</h4>
@@ -363,7 +363,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#208-234" title="Go to source code">__construct</a>( <span>array <var>$info</var></span> )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#206-232" title="Go to source code">__construct</a>( <span>array <var>$info</var></span> )</code>
 
 		<div class="description short">
 			<p>Class Connection is a singleton. Access it via instance().</p>
@@ -402,7 +402,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_columns">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#236-252" title="Go to source code">columns</a>( <span>string <var>$table</var></span> )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#234-250" title="Go to source code">columns</a>( <span>string <var>$table</var></span> )</code>
 
 		<div class="description short">
 			<p>Retrieves column meta data for the specified table.</p>
@@ -441,7 +441,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_escape">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#254-263" title="Go to source code">escape</a>( <span>string <var>$string</var></span> )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#252-261" title="Go to source code">escape</a>( <span>string <var>$string</var></span> )</code>
 
 		<div class="description short">
 			<p>Escapes quotes in a string.</p>
@@ -480,7 +480,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_insert_id">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#265-274" title="Go to source code">insert_id</a>( <span>string <var>$sequence</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#263-272" title="Go to source code">insert_id</a>( <span>string <var>$sequence</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Retrieve the insert id of the last model saved.</p>
@@ -519,7 +519,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_query">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#276-303" title="Go to source code">query</a>( <span>string <var>$sql</var></span>, <span>array <var>&amp; $values</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#274-301" title="Go to source code">query</a>( <span>string <var>$sql</var></span>, <span>array <var>&amp; $values</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			<p>Execute a raw SQL query on the database.</p>
@@ -560,7 +560,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_query_and_fetch_one">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#305-317" title="Go to source code">query_and_fetch_one</a>( <span>string <var>$sql</var></span>, <span>array <var>&amp; $values</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#303-315" title="Go to source code">query_and_fetch_one</a>( <span>string <var>$sql</var></span>, <span>array <var>&amp; $values</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			<p>Execute a query that returns maximum of one row with one field and return it.</p>
@@ -601,7 +601,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_query_and_fetch">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#319-331" title="Go to source code">query_and_fetch</a>( <span>string <var>$sql</var></span>, <span><code><a href="class-Closure.html">Closure</a></code> <var>$handler</var></span> )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#317-329" title="Go to source code">query_and_fetch</a>( <span>string <var>$sql</var></span>, <span><code><a href="class-Closure.html">Closure</a></code> <var>$handler</var></span> )</code>
 
 		<div class="description short">
 			<p>Execute a raw SQL query and fetch the results.</p>
@@ -638,7 +638,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_tables">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#333-347" title="Go to source code">tables</a>( )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#331-345" title="Go to source code">tables</a>( )</code>
 
 		<div class="description short">
 			<p>Returns all tables for the current database.</p>
@@ -672,7 +672,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_transaction">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#349-356" title="Go to source code">transaction</a>( )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#347-354" title="Go to source code">transaction</a>( )</code>
 
 		<div class="description short">
 			<p>Starts a transaction.</p>
@@ -702,7 +702,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_commit">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#358-365" title="Go to source code">commit</a>( )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#356-363" title="Go to source code">commit</a>( )</code>
 
 		<div class="description short">
 			<p>Commits the current transaction.</p>
@@ -732,7 +732,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_rollback">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#367-374" title="Go to source code">rollback</a>( )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#365-372" title="Go to source code">rollback</a>( )</code>
 
 		<div class="description short">
 			<p>Rollback a transaction.</p>
@@ -762,7 +762,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_supports_sequences">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#376-384" title="Go to source code">supports_sequences</a>( )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#374-382" title="Go to source code">supports_sequences</a>( )</code>
 
 		<div class="description short">
 			<p>Tells you if this adapter supports sequences or not.</p>
@@ -796,7 +796,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_get_sequence_name">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#386-396" title="Go to source code">get_sequence_name</a>( <span>string <var>$table</var></span>, <span>string <var>$column_name</var></span> )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#384-394" title="Go to source code">get_sequence_name</a>( <span>string <var>$table</var></span>, <span>string <var>$column_name</var></span> )</code>
 
 		<div class="description short">
 			<p>Return a default sequence name for the specified table.</p>
@@ -837,7 +837,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_next_sequence_value">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#398-407" title="Go to source code">next_sequence_value</a>( <span>string <var>$sequence_name</var></span> )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#396-405" title="Go to source code">next_sequence_value</a>( <span>string <var>$sequence_name</var></span> )</code>
 
 		<div class="description short">
 			<p>Return SQL for getting the next value in a sequence.</p>
@@ -876,7 +876,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_quote_name">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#409-419" title="Go to source code">quote_name</a>( <span>string <var>$string</var></span> )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#407-417" title="Go to source code">quote_name</a>( <span>string <var>$string</var></span> )</code>
 
 		<div class="description short">
 			<p>Quote a name like table names and field names.</p>
@@ -915,7 +915,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_date_to_string">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#421-430" title="Go to source code">date_to_string</a>( <span><code><a href="class-ActiveRecord.DateTime.html">ActiveRecord\DateTime</a></code> <var>$datetime</var></span> )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#419-428" title="Go to source code">date_to_string</a>( <span><code><a href="class-ActiveRecord.DateTime.html">ActiveRecord\DateTime</a></code> <var>$datetime</var></span> )</code>
 
 		<div class="description short">
 			<p>Return a date time formatted into the database's date format.</p>
@@ -954,7 +954,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_datetime_to_string">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#432-441" title="Go to source code">datetime_to_string</a>( <span><code><a href="class-ActiveRecord.DateTime.html">ActiveRecord\DateTime</a></code> <var>$datetime</var></span> )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#430-439" title="Go to source code">datetime_to_string</a>( <span><code><a href="class-ActiveRecord.DateTime.html">ActiveRecord\DateTime</a></code> <var>$datetime</var></span> )</code>
 
 		<div class="description short">
 			<p>Return a date time formatted into the database's datetime format.</p>
@@ -993,7 +993,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_string_to_datetime">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#443-458" title="Go to source code">string_to_datetime</a>( <span>string <var>$string</var></span> )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#441-456" title="Go to source code">string_to_datetime</a>( <span>string <var>$string</var></span> )</code>
 
 		<div class="description short">
 			<p>Converts a string representation of a datetime into a DateTime object.</p>
@@ -1032,7 +1032,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_limit">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#460-468" title="Go to source code">limit</a>( <span>string <var>$sql</var></span>, <span>integer <var>$offset</var></span>, <span>integer <var>$limit</var></span> )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#458-466" title="Go to source code">limit</a>( <span>string <var>$sql</var></span>, <span>integer <var>$offset</var></span>, <span>integer <var>$limit</var></span> )</code>
 
 		<div class="description short">
 			<p>Adds a limit clause to the SQL query.</p>
@@ -1075,7 +1075,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_query_column_info">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#470-476" title="Go to source code">query_column_info</a>( <span>string <var>$table</var></span> )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#468-474" title="Go to source code">query_column_info</a>( <span>string <var>$table</var></span> )</code>
 
 		<div class="description short">
 			<p>Query for column meta info and return statement handle.</p>
@@ -1114,7 +1114,7 @@ sqlite:<span class="php-comment">//windows(c%2A/absolute/path/to/file.db)</span>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_query_for_tables">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#478-484" title="Go to source code">query_for_tables</a>( )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#476-482" title="Go to source code">query_for_tables</a>( )</code>
 
 		<div class="description short">
 			<p>Query for all tables in the current database. The result must only
@@ -1150,7 +1150,7 @@ contain one column which has the name of the table.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_set_encoding">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#486-489" title="Go to source code">set_encoding</a>( <span> <var>$charset</var></span> )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#484-487" title="Go to source code">set_encoding</a>( <span> <var>$charset</var></span> )</code>
 
 		<div class="description short">
 			<p>Executes query to specify the character set for this connection.</p>
@@ -1180,7 +1180,7 @@ contain one column which has the name of the table.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_native_database_types">#</a>
-		<code><a href="source-class-ActiveRecord.Connection.html#495" title="Go to source code">native_database_types</a>( )</code>
+		<code><a href="source-class-ActiveRecord.Connection.html#493" title="Go to source code">native_database_types</a>( )</code>
 
 		<div class="description short">
 			

@@ -158,6 +158,7 @@
 				<li><a href="class-Gishiki.Core.Environment.html">Gishiki\Core\Environment</a></li>
 				<li><a href="class-Gishiki.Core.MVC.Service.html">Gishiki\Core\MVC\Service</a></li>
 				<li><a href="class-Gishiki.Core.MVC.WebController.html">Gishiki\Core\MVC\WebController</a></li>
+				<li><a href="class-Gishiki.Core.Route.html">Gishiki\Core\Route</a></li>
 				<li><a href="class-Gishiki.Core.Routing.html">Gishiki\Core\Routing</a></li>
 				<li><a href="class-Gishiki.JSON.JSON.html">Gishiki\JSON\JSON</a></li>
 				<li><a href="class-Gishiki.Logging.Log.html">Gishiki\Logging\Log</a></li>
@@ -166,6 +167,7 @@
 				<li><a href="class-Gishiki.ORM.Common.DataType.html">Gishiki\ORM\Common\DataType</a></li>
 				<li><a href="class-Gishiki.ORM.Common.Field.html">Gishiki\ORM\Common\Field</a></li>
 				<li><a href="class-Gishiki.ORM.Common.Table.html">Gishiki\ORM\Common\Table</a></li>
+				<li><a href="class-Gishiki.ORM.ModelBuilding.Adapters.JSON_StaticAnalyzer.html">Gishiki\ORM\ModelBuilding\Adapters\JSON_StaticAnalyzer</a></li>
 				<li><a href="class-Gishiki.ORM.ModelBuilding.Adapters.XML_StaticAnalyzer.html">Gishiki\ORM\ModelBuilding\Adapters\XML_StaticAnalyzer</a></li>
 				<li><a href="class-Gishiki.ORM.ModelBuilding.ModelBuilder.html">Gishiki\ORM\ModelBuilding\ModelBuilder</a></li>
 				<li><a href="class-Gishiki.ORM.ModelBuilding.StaticAnalyzer.html">Gishiki\ORM\ModelBuilding\StaticAnalyzer</a></li>
@@ -711,12 +713,12 @@
 </span><span id="448" class="l"><a href="#448"> 448: </a>
 </span><span id="449" class="l"><a href="#449"> 449: </a>        <span class="php-comment">// convert php's \DateTime to ours</span>
 </span><span id="450" class="l"><a href="#450"> 450: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$value</span> <span class="php-keyword1">instanceof</span> \DateTime)
-</span><span id="451" class="l"><a href="#451"> 451: </a>            <span class="php-var">$value</span> = <span class="php-keyword1">new</span> DateTime(<span class="php-var">$value</span>-&gt;format(<span class="php-quote">'Y-m-d H:i:s T'</span>));
+</span><span id="451" class="l"><a href="#451"> 451: </a>                {   <span class="php-var">$value</span> = <span class="php-keyword1">new</span> DateTime(<span class="php-var">$value</span>-&gt;format(<span class="php-quote">'Y-m-d H:i:s T'</span>));     }
 </span><span id="452" class="l"><a href="#452"> 452: </a>
 </span><span id="453" class="l"><a href="#453"> 453: </a>        <span class="php-comment">// make sure DateTime values know what model they belong to so</span>
 </span><span id="454" class="l"><a href="#454"> 454: </a>        <span class="php-comment">// dirty stuff works when calling set methods on the DateTime object</span>
 </span><span id="455" class="l"><a href="#455"> 455: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$value</span> <span class="php-keyword1">instanceof</span> DateTime)
-</span><span id="456" class="l"><a href="#456"> 456: </a>            <span class="php-var">$value</span>-&gt;attribute_of(<span class="php-var">$this</span>,<span class="php-var">$name</span>);
+</span><span id="456" class="l"><a href="#456"> 456: </a>                {   <span class="php-var">$value</span>-&gt;attribute_of(<span class="php-var">$this</span>,<span class="php-var">$name</span>);  }
 </span><span id="457" class="l"><a href="#457"> 457: </a>
 </span><span id="458" class="l"><a href="#458"> 458: </a>        <span class="php-var">$this</span>-&gt;attributes[<span class="php-var">$name</span>] = <span class="php-var">$value</span>;
 </span><span id="459" class="l"><a href="#459"> 459: </a>        <span class="php-var">$this</span>-&gt;flag_dirty(<span class="php-var">$name</span>);
@@ -2120,16 +2122,32 @@
 </span><span id="1857" class="l"><a href="#1857">1857: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
 </span><span id="1858" class="l"><a href="#1858">1858: </a>    }
 </span><span id="1859" class="l"><a href="#1859">1859: </a>    
-</span><span id="1860" class="l"><a href="#1860">1860: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __destruct() {
-</span><span id="1861" class="l"><a href="#1861">1861: </a>        <span class="php-var">$should_save</span> = <span class="php-var">$this</span>-&gt;dirty_attributes();
-</span><span id="1862" class="l"><a href="#1862">1862: </a>
-</span><span id="1863" class="l"><a href="#1863">1863: </a>        <span class="php-keyword1">if</span> (<span class="php-keyword2">gettype</span>(<span class="php-var">$should_save</span>) == <span class="php-quote">&quot;array&quot;</span>) {
-</span><span id="1864" class="l"><a href="#1864">1864: </a>            <span class="php-var">$this</span>-&gt;save();
-</span><span id="1865" class="l"><a href="#1865">1865: </a>        }
-</span><span id="1866" class="l"><a href="#1866">1866: </a>    }
-</span><span id="1867" class="l"><a href="#1867">1867: </a>
-</span><span id="1868" class="l"><a href="#1868">1868: </a>}
-</span><span id="1869" class="l"><a href="#1869">1869: </a></span></code></pre>
+</span><span id="1860" class="l"><a href="#1860">1860: </a>        <span class="php-keyword1">private</span> <span class="php-var">$autosaving</span> = <span class="php-keyword1">true</span>;
+</span><span id="1861" class="l"><a href="#1861">1861: </a>        
+</span><span id="1862" class="l"><a href="#1862">1862: </a>        <span class="php-comment">/**
+</span></span><span id="1863" class="l"><a href="#1863">1863: </a><span class="php-comment">         * A call to this function will disable the model auto-save for the rest
+</span></span><span id="1864" class="l"><a href="#1864">1864: </a><span class="php-comment">         * of the model in-memory lifetime.
+</span></span><span id="1865" class="l"><a href="#1865">1865: </a><span class="php-comment">         */</span>
+</span><span id="1866" class="l"><a href="#1866">1866: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> prevent_autosave() {
+</span><span id="1867" class="l"><a href="#1867">1867: </a>            <span class="php-var">$this</span>-&gt;autosaving = <span class="php-keyword1">false</span>;
+</span><span id="1868" class="l"><a href="#1868">1868: </a>        }
+</span><span id="1869" class="l"><a href="#1869">1869: </a>        
+</span><span id="1870" class="l"><a href="#1870">1870: </a>        <span class="php-comment">/**
+</span></span><span id="1871" class="l"><a href="#1871">1871: </a><span class="php-comment">         * Remove the model from volatile memory and store it on the non-volatile
+</span></span><span id="1872" class="l"><a href="#1872">1872: </a><span class="php-comment">         * memory, if that operation was not prevented to be happening.
+</span></span><span id="1873" class="l"><a href="#1873">1873: </a><span class="php-comment">         */</span>
+</span><span id="1874" class="l"><a href="#1874">1874: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __destruct() {
+</span><span id="1875" class="l"><a href="#1875">1875: </a>            <span class="php-keyword1">if</span> (<span class="php-var">$this</span>-&gt;autosaving) {
+</span><span id="1876" class="l"><a href="#1876">1876: </a>        <span class="php-var">$should_save</span> = <span class="php-var">$this</span>-&gt;dirty_attributes();
+</span><span id="1877" class="l"><a href="#1877">1877: </a>
+</span><span id="1878" class="l"><a href="#1878">1878: </a>        <span class="php-keyword1">if</span> (<span class="php-keyword2">gettype</span>(<span class="php-var">$should_save</span>) == <span class="php-quote">&quot;array&quot;</span>) {
+</span><span id="1879" class="l"><a href="#1879">1879: </a>            <span class="php-var">$this</span>-&gt;save();
+</span><span id="1880" class="l"><a href="#1880">1880: </a>        }
+</span><span id="1881" class="l"><a href="#1881">1881: </a>            }
+</span><span id="1882" class="l"><a href="#1882">1882: </a>    }
+</span><span id="1883" class="l"><a href="#1883">1883: </a>
+</span><span id="1884" class="l"><a href="#1884">1884: </a>}
+</span><span id="1885" class="l"><a href="#1885">1885: </a></span></code></pre>
 
 	<div id="footer">
 		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>
@@ -2137,6 +2155,6 @@
 </div>
 </div>
 <script src="resources/combined.js?e6b8017723d402b07f5bb866288819b3e7032e36"></script>
-<script src="elementlist.js?48f0e60e6db94e342b8f7b49ee1149b621e4c0bf"></script>
+<script src="elementlist.js?19d27f84733a6e3990ba53aa21a47fe29fc13f44"></script>
 </body>
 </html>

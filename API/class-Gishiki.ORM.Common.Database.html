@@ -199,7 +199,7 @@ on a data mapper ORM</p>
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.ORM.Common.Database.html#20-122" title="Go to source code">Gishiki/ORM/Common/Database.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.ORM.Common.Database.html#20-66" title="Go to source code">Gishiki/ORM/Common/Database.php</a>
 		<br>
 	</div>
 
@@ -219,7 +219,7 @@ on a data mapper ORM</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.ORM.Common.Database.html#33-48" title="Go to source code">__construct</a>( <span>string <var>$database_name</var></span>, <span>string <var>$database_connection</var></span> )</code>
+		<code><a href="source-class-Gishiki.ORM.Common.Database.html#33-44" title="Go to source code">__construct</a>( <span>string <var>$database_connection</var></span> )</code>
 
 		<div class="description short">
 			<p>Create a database structure that has the name of the given database.</p>
@@ -234,8 +234,6 @@ static analyzer (a component that implements the StaticAnalyzerInterface)</p>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$database_name</var></dt>
-					<dd>the name of the current database</dd>
 					<dt><var>$database_connection</var></dt>
 					<dd>the name of the database connection</dd>
 				</dl></div>
@@ -249,7 +247,7 @@ static analyzer (a component that implements the StaticAnalyzerInterface)</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getConnection" id="_getConnection">
+	<tr data-order="__toString" id="___toString">
 
 		<td class="attributes"><code>
 			 public 
@@ -260,8 +258,8 @@ static analyzer (a component that implements the StaticAnalyzerInterface)</p>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getConnection">#</a>
-		<code><a href="source-class-Gishiki.ORM.Common.Database.html#50-59" title="Go to source code">getConnection</a>( )</code>
+		<a class="anchor" href="#___toString">#</a>
+		<code><a href="source-class-Gishiki.ORM.Common.Database.html#46-55" title="Go to source code">__toString</a>( )</code>
 
 		<div class="description short">
 			<p>Get the name of the connection that needs to be used to reach the
@@ -285,40 +283,6 @@ current database</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="hasValidName" id="_hasValidName">
-
-		<td class="attributes"><code>
-			 public 
-
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_hasValidName">#</a>
-		<code><a href="source-class-Gishiki.ORM.Common.Database.html#61-102" title="Go to source code">hasValidName</a>( )</code>
-
-		<div class="description short">
-			<p>Check weather the database name can be used within any supported RDBMS</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Check weather the database name can be used within any supported RDBMS</p>
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					boolean<br>TRUE if the database name is a valid one
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="RegisterTable" id="_RegisterTable">
 
 		<td class="attributes"><code>
@@ -331,7 +295,7 @@ current database</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_RegisterTable">#</a>
-		<code><a href="source-class-Gishiki.ORM.Common.Database.html#104-112" title="Go to source code">RegisterTable</a>( <span><code><a href="class-Gishiki.ORM.Common.Table.html">Gishiki\ORM\Common\Table</a></code> <var>&amp; $database_table</var></span> )</code>
+		<code><a href="source-class-Gishiki.ORM.Common.Database.html#57-65" title="Go to source code">RegisterTable</a>( <span><code><a href="class-Gishiki.ORM.Common.Table.html">Gishiki\ORM\Common\Table</a></code> <var>&amp; $database_table</var></span> )</code>
 
 		<div class="description short">
 			<p>Register a table that is part of the current database</p>
@@ -347,40 +311,6 @@ current database</p>
 					<dd>the table to be registered</dd>
 				</dl></div>
 
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="__toString" id="___toString">
-
-		<td class="attributes"><code>
-			 public 
-
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#___toString">#</a>
-		<code><a href="source-class-Gishiki.ORM.Common.Database.html#114-121" title="Go to source code">__toString</a>( )</code>
-
-		<div class="description short">
-			<p>Get the name of the database if used as a string</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Get the name of the database if used as a string</p>
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					string<br>the name of the current database
-				</div>
 
 
 

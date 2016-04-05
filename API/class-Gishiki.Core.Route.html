@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Gishiki\Core\Route | Gishiki</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li>
+					<a href="namespace-ActiveRecord.html">
+						ActiveRecord					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-Gishiki.html">
+						Gishiki<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Algorithms.html">
+						Algorithms					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Caching.html">
+						Caching					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Cookie.html">
+						Cookie					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-Gishiki.Core.html">
+						Core<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Core.MVC.html">
+						MVC					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.JSON.html">
+						JSON					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Logging.html">
+						Logging					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.ORM.html">
+						ORM<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.ORM.Common.html">
+						Common					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.ORM.ModelBuilding.html">
+						ModelBuilding<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.ORM.ModelBuilding.Adapters.html">
+						Adapters					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-Gishiki.Security.html">
+						Security					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Gishiki.Core.Application.html">Application</a></li>
+				<li><a href="class-Gishiki.Core.Environment.html">Environment</a></li>
+				<li class="active"><a href="class-Gishiki.Core.Route.html">Route</a></li>
+				<li><a href="class-Gishiki.Core.Routing.html">Routing</a></li>
+			</ul>
+
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-Gishiki.Core.Gishiki_Exception.html">Gishiki_Exception</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Gishiki.Core.html" title="Summary of Gishiki\Core"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Route</h1>
+
+
+	<div class="description">
+	<p>This class is used to provide a small layer of Laravel-compatibility
+and ease of routing usage</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-Gishiki.Core.Routing.html"><span>Gishiki\Core\Routing</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>Gishiki\Core\Route</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br>
+		
+		<b>Namespace:</b> <a href="namespace-Gishiki.html">Gishiki</a>\<a href="namespace-Gishiki.Core.html">Core</a><br>
+		
+
+				<b>Author:</b>
+				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
+			<b>Located at</b> <a href="source-class-Gishiki.Core.Route.html#20-164" title="Go to source code">Gishiki/core/Route.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="any" id="_any">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_any">#</a>
+		<code><a href="source-class-Gishiki.Core.Route.html#28-60" title="Go to source code">any</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
+
+		<div class="description short">
+			<p>Convinient proxy function to call:</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Convinient proxy function to call:</p>
+
+<ul>
+<li>Routing::setRoute(Routing::GET, ..., ...)
+
+<ul>
+<li>Routing::setRoute(Routing::POST, ..., ...)</li>
+<li>Routing::setRoute(Routing::DELETE, ..., ...)</li>
+<li>Routing::setRoute(Routing::HEAD, ..., ...)</li>
+<li>Routing::setRoute(Routing::PUT, ..., ...)</li>
+</ul></li>
+</ul>
+
+<pre><span class="php-keyword1">use</span> \Gishiki\Core\Route;
+
+Routing::get(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+     <span class="php-comment">//perform your amazing magic here</span>
+});</pre>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$URI</var></dt>
+					<dd>the URI that will bring to the function execution</dd>
+					<dt><var>$function</var></dt>
+					<dd>the function executed when the URL is called</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						\Gishiki\Core\Routing\setRoute<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get" id="_get">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get">#</a>
+		<code><a href="source-class-Gishiki.Core.Route.html#63-81" title="Go to source code">get</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
+
+		<div class="description short">
+			<p>Convinient proxy function to call Routing::setRoute(Routing::GET, ..., ...)</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Convinient proxy function to call Routing::setRoute(Routing::GET, ..., ...)</p>
+
+<pre><span class="php-keyword1">use</span> \Gishiki\Core\Route;
+
+Routing::get(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+     <span class="php-comment">//perform your amazing magic here</span>
+});</pre>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$URI</var></dt>
+					<dd>the URI that will bring to the function execution</dd>
+					<dt><var>$function</var></dt>
+					<dd>the function executed when the URL is called</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						\Gishiki\Core\Routing\setRoute<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="post" id="_post">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_post">#</a>
+		<code><a href="source-class-Gishiki.Core.Route.html#83-101" title="Go to source code">post</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
+
+		<div class="description short">
+			<p>Convinient proxy function to call Routing::setRoute(Routing::POST, ..., ...)</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Convinient proxy function to call Routing::setRoute(Routing::POST, ..., ...)</p>
+
+<pre><span class="php-keyword1">use</span> \Gishiki\Core\Route;
+
+Routing::post(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+     <span class="php-comment">//perform your amazing magic here</span>
+});</pre>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$URI</var></dt>
+					<dd>the URI that will bring to the function execution</dd>
+					<dt><var>$function</var></dt>
+					<dd>the function executed when the URL is called</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						\Gishiki\Core\Routing\setRoute<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="put" id="_put">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_put">#</a>
+		<code><a href="source-class-Gishiki.Core.Route.html#103-121" title="Go to source code">put</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
+
+		<div class="description short">
+			<p>Convinient proxy function to call Routing::setRoute(Routing::PUT, ..., ...)</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Convinient proxy function to call Routing::setRoute(Routing::PUT, ..., ...)</p>
+
+<pre><span class="php-keyword1">use</span> \Gishiki\Core\Route;
+
+Routing::put(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+     <span class="php-comment">//perform your amazing magic here</span>
+});</pre>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$URI</var></dt>
+					<dd>the URI that will bring to the function execution</dd>
+					<dt><var>$function</var></dt>
+					<dd>the function executed when the URL is called</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						\Gishiki\Core\Routing\setRoute<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="delete" id="_delete">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_delete">#</a>
+		<code><a href="source-class-Gishiki.Core.Route.html#123-141" title="Go to source code">delete</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
+
+		<div class="description short">
+			<p>Convinient proxy function to call Routing::setRoute(Routing::DELETE, ..., ...)</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Convinient proxy function to call Routing::setRoute(Routing::DELETE, ..., ...)</p>
+
+<pre><span class="php-keyword1">use</span> \Gishiki\Core\Route;
+
+Routing::<span class="php-keyword2">delete</span>(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+     <span class="php-comment">//perform your amazing magic here</span>
+});</pre>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$URI</var></dt>
+					<dd>the URI that will bring to the function execution</dd>
+					<dt><var>$function</var></dt>
+					<dd>the function executed when the URL is called</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						\Gishiki\Core\Routing\setRoute<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="head" id="_head">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_head">#</a>
+		<code><a href="source-class-Gishiki.Core.Route.html#143-161" title="Go to source code">head</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
+
+		<div class="description short">
+			<p>Convinient proxy function to call Routing::setRoute(Routing::HEAD, ..., ...)</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Convinient proxy function to call Routing::setRoute(Routing::HEAD, ..., ...)</p>
+
+<pre><span class="php-keyword1">use</span> \Gishiki\Core\Route;
+
+Routing::head(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+     <span class="php-comment">//perform your amazing magic here</span>
+});</pre>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$URI</var></dt>
+					<dd>the URI that will bring to the function execution</dd>
+					<dt><var>$function</var></dt>
+					<dd>the function executed when the URL is called</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						\Gishiki\Core\Routing\setRoute<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-Gishiki.Core.Routing.html#methods">Gishiki\Core\Routing</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Gishiki.Core.Routing.html#_Deinitialize">Deinitialize()</a>, 
+			<a href="class-Gishiki.Core.Routing.html#_Initialize">Initialize()</a>, 
+			<a href="class-Gishiki.Core.Routing.html#_getRequestMethod">getRequestMethod()</a>, 
+			<a href="class-Gishiki.Core.Routing.html#_getRequestURI">getRequestURI()</a>, 
+			<a href="class-Gishiki.Core.Routing.html#_setErrorCallback">setErrorCallback()</a>, 
+			<a href="class-Gishiki.Core.Routing.html#_setRoute">setRoute()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-Gishiki.Core.Routing.html#constants">Gishiki\Core\Routing</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Gishiki.Core.Routing.html#DELETE"><b>DELETE</b></a>, 
+			<a href="class-Gishiki.Core.Routing.html#GET"><b>GET</b></a>, 
+			<a href="class-Gishiki.Core.Routing.html#HEAD"><b>HEAD</b></a>, 
+			<a href="class-Gishiki.Core.Routing.html#NotFoudCallback"><b>NotFoudCallback</b></a>, 
+			<a href="class-Gishiki.Core.Routing.html#POST"><b>POST</b></a>, 
+			<a href="class-Gishiki.Core.Routing.html#PUT"><b>PUT</b></a>, 
+			<a href="class-Gishiki.Core.Routing.html#UNKNOWN"><b>UNKNOWN</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

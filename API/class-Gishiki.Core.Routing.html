@@ -116,6 +116,7 @@
 			<ul>
 				<li><a href="class-Gishiki.Core.Application.html">Application</a></li>
 				<li><a href="class-Gishiki.Core.Environment.html">Environment</a></li>
+				<li><a href="class-Gishiki.Core.Route.html">Route</a></li>
 				<li class="active"><a href="class-Gishiki.Core.Routing.html">Routing</a></li>
 			</ul>
 
@@ -171,6 +172,10 @@
 
 
 
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-Gishiki.Core.Route.html">Gishiki\Core\Route</a>
+	</div>
 
 
 
@@ -185,7 +190,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Core.Routing.html#20-197" title="Go to source code">Gishiki/core/Routing.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Core.Routing.html#20-216" title="Go to source code">Gishiki/core/Routing.php</a>
 		<br>
 	</div>
 
@@ -205,7 +210,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Initialize">#</a>
-		<code><a href="source-class-Gishiki.Core.Routing.html#42-49" title="Go to source code">Initialize</a>( )</code>
+		<code><a href="source-class-Gishiki.Core.Routing.html#48-55" title="Go to source code">Initialize</a>( )</code>
 
 		<div class="description short">
 			<p>Automatically called by the framework: perform a reset
@@ -237,7 +242,7 @@ to the router of the framework</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Deinitialize">#</a>
-		<code><a href="source-class-Gishiki.Core.Routing.html#51-58" title="Go to source code">Deinitialize</a>( )</code>
+		<code><a href="source-class-Gishiki.Core.Routing.html#57-64" title="Go to source code">Deinitialize</a>( )</code>
 
 		<div class="description short">
 			<p>Automatically called by the framework:
@@ -269,7 +274,7 @@ end the execution of the router</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRequestURI">#</a>
-		<code><a href="source-class-Gishiki.Core.Routing.html#60-72" title="Go to source code">getRequestURI</a>( )</code>
+		<code><a href="source-class-Gishiki.Core.Routing.html#66-82" title="Go to source code">getRequestURI</a>( )</code>
 
 		<div class="description short">
 			<p>Get the URI requested by the client.</p>
@@ -303,7 +308,7 @@ end the execution of the router</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRequestMethod">#</a>
-		<code><a href="source-class-Gishiki.Core.Routing.html#74-93" title="Go to source code">getRequestMethod</a>( )</code>
+		<code><a href="source-class-Gishiki.Core.Routing.html#84-114" title="Go to source code">getRequestMethod</a>( )</code>
 
 		<div class="description short">
 			<p>Return the method used by the client to reach the framework execution</p>
@@ -337,22 +342,22 @@ end the execution of the router</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setRoute">#</a>
-		<code><a href="source-class-Gishiki.Core.Routing.html#95-181" title="Go to source code">setRoute</a>( <span>integer <var>$Method</var></span>, <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
+		<code><a href="source-class-Gishiki.Core.Routing.html#116-200" title="Go to source code">setRoute</a>( <span>integer <var>$Method</var></span>, <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
 
 		<div class="description short">
 			<p>Set the routing for a given method/URI pair (or group of URI if regex is used).
 An example of usage can be:
 <code>
-use Gishiki\Core;</p>
+use \Gishiki\Core\Routing;</p>
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Set the routing for a given method/URI pair (or group of URI if regex is used).
 An example of usage can be:</p>
 
-<pre><span class="php-keyword1">use</span> Gishiki\Core;
+<pre><span class="php-keyword1">use</span> \Gishiki\Core\Routing;
 
-Core\Routing::setRoute(Core\Routing::GET, <span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+Routing::setRoute(Routing::GET, <span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
      <span class="php-keyword1">foreach</span> (<span class="php-var">$params</span> <span class="php-keyword1">as</span> <span class="php-var">$param_name</span> =&gt; <span class="php-var">$param_value</span>) {
          <span class="php-keyword1">echo</span> <span class="php-var">$param_name</span>.<span class="php-quote">&quot; =&gt; &quot;</span>.<span class="php-var">$param_value</span>;
      }
@@ -395,7 +400,7 @@ otherwise it is NULL</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setErrorCallback">#</a>
-		<code><a href="source-class-Gishiki.Core.Routing.html#183-196" title="Go to source code">setErrorCallback</a>( <span>integer <var>$error</var></span>, <span>function <var>$function</var></span> )</code>
+		<code><a href="source-class-Gishiki.Core.Routing.html#202-215" title="Go to source code">setErrorCallback</a>( <span>integer <var>$error</var></span>, <span>function <var>$function</var></span> )</code>
 
 		<div class="description short">
 			<p>Set the function callback for the given error type.</p>
@@ -554,12 +559,36 @@ method inside the function, if you really need to...</p>
 			</div>
 		</td>
 	</tr>
+	<tr data-order="UNKNOWN" id="UNKNOWN">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Gishiki.Core.Routing.html#33" title="Go to source code"><b>UNKNOWN</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#UNKNOWN" class="anchor">#</a>
+				<code><span class="php-num">5</span></code>
+			</div>
+		</td>
+	</tr>
 	<tr data-order="NotFoudCallback" id="NotFoudCallback">
 
 		<td class="attributes"><code>integer</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-Gishiki.Core.Routing.html#34" title="Go to source code"><b>NotFoudCallback</b></a>
+				<a href="source-class-Gishiki.Core.Routing.html#36" title="Go to source code"><b>NotFoudCallback</b></a>
 			</code>
 
 			<div class="description short">
@@ -574,7 +603,7 @@ method inside the function, if you really need to...</p>
 		<td class="value">
 			<div>
 				<a href="#NotFoudCallback" class="anchor">#</a>
-				<code><span class="php-num">5</span></code>
+				<code><span class="php-num">10</span></code>
 			</div>
 		</td>
 	</tr>

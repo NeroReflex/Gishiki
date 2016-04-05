@@ -300,7 +300,7 @@ CREATE TABLE orders(
 				<code><a href="class-ActiveRecord.Serialization.html">ActiveRecord\Serialization</a></code><br>
 				<b>See:</b>
 				<code><a href="class-ActiveRecord.Validations.html">ActiveRecord\Validations</a></code><br>
-			<b>Located at</b> <a href="source-class-ActiveRecord.Model.html#7-1868" title="Go to source code">Gishiki/ORM/Runtime/lib/Model.php</a>
+			<b>Located at</b> <a href="source-class-ActiveRecord.Model.html#7-1884" title="Go to source code">Gishiki/ORM/Runtime/lib/Model.php</a>
 		<br>
 	</div>
 
@@ -2825,6 +2825,38 @@ YourModel::transaction(<span class="php-keyword1">function</span>()
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="prevent_autosave" id="_prevent_autosave">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_prevent_autosave">#</a>
+		<code><a href="source-class-ActiveRecord.Model.html#1862-1868" title="Go to source code">prevent_autosave</a>( )</code>
+
+		<div class="description short">
+			<p>A call to this function will disable the model auto-save for the rest
+of the model in-memory lifetime.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>A call to this function will disable the model auto-save for the rest
+of the model in-memory lifetime.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="__destruct" id="___destruct">
 
 		<td class="attributes"><code>
@@ -2837,14 +2869,16 @@ YourModel::transaction(<span class="php-keyword1">function</span>()
 
 		<td class="name"><div>
 		<a class="anchor" href="#___destruct">#</a>
-		<code><a href="source-class-ActiveRecord.Model.html#1860-1866" title="Go to source code">__destruct</a>( )</code>
+		<code><a href="source-class-ActiveRecord.Model.html#1870-1882" title="Go to source code">__destruct</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Remove the model from volatile memory and store it on the non-volatile
+memory, if that operation was not prevented to be happening.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Remove the model from volatile memory and store it on the non-volatile
+memory, if that operation was not prevented to be happening.</p>
 
 
 

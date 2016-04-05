@@ -224,7 +224,8 @@ program to install <a href="http://www.ubuntu.com/download/server">Ubuntu Server
 <h2 id="webserver-apache-2">Webserver (Apache 2)</h2>
 <p>Gishiki is a framework for the web.... of course, you need to setup a web server!</p>
 <p>If you are using a debian or ubuntu based distro you just:</p>
-<pre><code class="shell">sudo apt-get install apache2 php5 php5-sqlite php5-pgsql php5-mysql libapache2-mod-php5 nano git
+<pre><code class="shell">sudo apt-get update
+sudo apt-get install apache2 php5 php5-curl php5-sqlite php5-pgsql php5-mysql libapache2-mod-php5 nano git
 sudo a2enmod rewrite
 sudo nano /etc/apache2/sites-available/000-default.conf
 sudo service apache2 restart
@@ -232,6 +233,27 @@ sudo service apache2 restart
 
 <p>You must have AllowOverride set to "All" and not to "None" in the file being edited by nano.</p>
 <p>When you are done with nano just ctrl+O, Enter, ctrl+X.</p>
+<p>You can simply cut 'n' paste this configuration:</p>
+<pre><code class="apache">&lt;VirtualHost *:80&gt;
+    #ServerName www.example.com
+
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        # globally allow .htaccess
+    &lt;Directory &quot;/var/www/html&quot;&gt;
+        AllowOverride All
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+</code></pre>
+
+<p>Remember that using .htaccess slows down your apache server, so if you have access
+to the configuration file of your production server you <em>should</em> embed the provided .htaccess.</p>
 <h2 id="webserver-nginx">Webserver (nginx)</h2>
 <p>You may want to use nginx.... That's legit and smart, but you already know how to 
 do your job, so just remember to enable the rewriting engine:</p>
@@ -259,6 +281,7 @@ do your job, so just remember to enable the rewriting engine:</p>
 }
 </code></pre>
 
+<p>Your server configuration file should be located at /etc/nginx/nginx.conf</p>
 <h2 id="php-v7">PHP v7</h2>
 <p>This framework is fully compatible with PHP 7, and you are encouraged to use it.</p>
 <p>PHP v7 is the PHP version I am using while developing Gishiki.</p>
@@ -293,6 +316,12 @@ downloading a release (or a snapshot of your favourite branch)!</p>
 unzip Gishiki-X.Y.Z.zip -d /var/www/html
 </code></pre>
 
+<p>You can use the tar.gz archive:
+tar -zxvf backup.tar.gz</p>
+<pre><code class="shell">tar -zxvf Gishiki-X.Y.Z.tar.gz
+</code></pre>
+
+<p>Using the gzipped archive you'll avoid to install unzip.</p>
 <h2 id="setting-privileges">Setting privileges</h2>
 <p>Gishiki needs to create a directory inside its installation path, so you have to
 grant writing priviledges to php on your Gishiki installation directory.</p>
@@ -311,9 +340,9 @@ Just explore it! The framework has given you a fresh start:</p>
 <li>a model descriptor in an XML file (named bookstore.xml)</li>
 <li>an SQLite database with the table to use the bookstore example</li>
 <li>a routing + controller example named router.php</li>
-<li>obscure encryption stuff (discussed later)</li>
+<li>obscure encryption stuff (discussed in another chapter)</li>
 </ul>
-<p>Why don't directing your browser to the <a href="../site.com/book/new/Example%20Book/Example%20Author/19.99/2010-01-02%2003:04:05">book insertion example</a>?</p>
+<p>Why don't directing your browser to the <a href="../site.com/book/new/1485254039/Example%20Book/Example%20Author/19.99/2010-01-02%2003:04:05">book insertion example</a>?</p>
 <p>This should help you understanding routing and model creation (just look at router.php).</p>
 <p>If you check your sqlite database you will notice that.....</p>
 <h2 id="whats-next">What's next?</h2>

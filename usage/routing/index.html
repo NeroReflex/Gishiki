@@ -91,11 +91,15 @@
             
                 <li class="toctree-l3"><a href="#routing">Routing</a></li>
                 
+                    <li><a class="toctree-l4" href="#different-methods">Different methods</a></li>
+                
                     <li><a class="toctree-l4" href="#custom-static-rules">Custom static rules</a></li>
                 
                     <li><a class="toctree-l4" href="#custom-dynamic-rules">Custom dynamic rules</a></li>
                 
-                    <li><a class="toctree-l4" href="#different-methods">Different methods</a></li>
+                    <li><a class="toctree-l4" href="#all-request-methods">All request methods</a></li>
+                
+                    <li><a class="toctree-l4" href="#two-or-more-request-methods">Two or more request methods</a></li>
                 
                     <li><a class="toctree-l4" href="#error-catching">Error catching</a></li>
                 
@@ -206,11 +210,23 @@
 the question is.... </p>
 <p>How do I route that request to what I want to serve? The answer is: using the router!</p>
 <p>The router is that fantastic component empowering your user-friendly URLs!</p>
+<h2 id="different-methods">Different methods</h2>
+<p>As for HTTP standards a client can perform a resource request using these verbs:</p>
+<ul>
+<li>GET identified as Route::GET</li>
+<li>POST  identified as Route::POST</li>
+<li>DELETE identified as Route::DELETE</li>
+<li>PUT identified as Route::PUT</li>
+<li>HEAD identified as Route::HEAD</li>
+</ul>
+<p>When you set a routing rule (either static or dynamic) you have to select the 
+verb that you want to be served in that route.</p>
+<p>This is particulary handy when creating a RESTful service.</p>
 <h2 id="custom-static-rules">Custom static rules</h2>
 <p>Let's see how to create a custom route:</p>
-<pre><code class="php">use \Gishiki\Core\Routing;
+<pre><code class="php">use \Gishiki\Core\Route;
 
-Routing::setRoute(Routing::GET, &quot;/Home&quot;, function() {
+Route::get(&quot;/Home&quot;, function() {
     //this is what will be executed when the client asks for &quot;https://site.com/Home&quot;
 
     //let's just forget about MVC pattern this time :)
@@ -218,16 +234,17 @@ Routing::setRoute(Routing::GET, &quot;/Home&quot;, function() {
 });
 </code></pre>
 
-<p>To try this rule open rules.php and paste the provided code into it and direct your browser to: https://site.com/Home</p>
+<p>To try this rule out you have to open rules.php and paste the provided code into 
+it and direct your browser to: https://site.com/Home .</p>
 <h2 id="custom-dynamic-rules">Custom dynamic rules</h2>
 <p>This route is really simple: just an URI check... but you are creating a dynamic application, 
 and URIs cannot be static URIs every time, in fact sooner or later you will need to capture a parameter passed 
 as a parameter with the URL.</p>
 <p>Let's just consider this simple example:</p>
-<pre><code class="php">use \Gishiki\Core\Routing;
+<pre><code class="php">use \Gishiki\Core\Route;
 
-Routing::setRoute(Routing::GET, &quot;/Home/{name}&quot;, function($params) {
-    //this is what will be executed when the client asks for &quot;https://site.com/Home&quot;
+Route::get(&quot;/Home/{name}&quot;, function($params) {
+    //this is what will be executed when the client asks for &quot;https://site.com/Home/some_name&quot;
 
     //nice to meet you!
     echo &quot;Hello, &quot;.$params-&gt;get(&quot;name&quot;).&quot;!&quot;;
@@ -236,25 +253,36 @@ Routing::setRoute(Routing::GET, &quot;/Home/{name}&quot;, function($params) {
 
 <p>You already know what you are going to do, right? :D</p>
 <p>https://site.com/Home/your_name and you will see "Hello, your_name!" nothing complex here, right?</p>
-<h2 id="different-methods">Different methods</h2>
-<p>As for HTTP standards a client can perform a resource request using this methods:</p>
-<ul>
-<li>GET identified as Routing::GET</li>
-<li>POST  identified as Routing::POST</li>
-<li>DELETE identified as Routing::DELETE</li>
-<li>PUT identified as Routing::PUT</li>
-<li>HEAD identified as Routing::HEAD</li>
-</ul>
-<p>When you set a routing rule (either static or dynamic) you have to select the method you want to serve
-in that route.</p>
-<p>This is particulary handy when creating a RESTful service.</p>
-<h2 id="error-catching">Error catching</h2>
-<p>You know.... things doesn't always go as you want....</p>
-<p>This means it is necessary to think about unexpected circumstances. You do it by setting an error callback, 
-which is nothing more than a bit special routing rule:</p>
-<pre><code class="php">use \Gishiki\Core\Routing;
+<h2 id="all-request-methods">All request methods</h2>
+<p>Sometimes you may need to register a route that responds to all HTTP verbs, you 
+are alowed to do that by using 'any':</p>
+<pre><code class="php">use \Gishiki\Core\Route;
 
-Routing::setErrorCallback(Routing::NotFoudCallback, function() {
+Route::any(&quot;/Home&quot;, function() {
+    //do something here
+});
+</code></pre>
+
+<p>the action is taken if that URI is hit, regardless of the method the client used 
+to perform the request.</p>
+<h2 id="two-or-more-request-methods">Two or more request methods</h2>
+<p>An interesting feature of the router is how you create a route for two or more
+request methods:</p>
+<pre><code class="php">use \Gishiki\Core\Route;
+
+Route::match([Route::GET, Route::POST], &quot;/Home&quot;, function() {
+    //do something here
+});
+</code></pre>
+
+<p>the action is taken if that URI is hit only when using get or post request method. </p>
+<h2 id="error-catching">Error catching</h2>
+<p>You know, things doesn't always go as you want: it is necessary to think about 
+unexpected circumstances. You do it by setting an error callback, 
+which is nothing more than a bit special routing rule:</p>
+<pre><code class="php">use \Gishiki\Core\Route;
+
+Route::error(Route::NotFound, function() {
     //this is what will be executed when the client asks for an unrouted URI
 
     //error message!

@@ -158,6 +158,7 @@
 				<li><a href="class-Gishiki.Core.Environment.html">Gishiki\Core\Environment</a></li>
 				<li><a href="class-Gishiki.Core.MVC.Service.html">Gishiki\Core\MVC\Service</a></li>
 				<li><a href="class-Gishiki.Core.MVC.WebController.html">Gishiki\Core\MVC\WebController</a></li>
+				<li><a href="class-Gishiki.Core.Route.html">Gishiki\Core\Route</a></li>
 				<li><a href="class-Gishiki.Core.Routing.html">Gishiki\Core\Routing</a></li>
 				<li><a href="class-Gishiki.JSON.JSON.html">Gishiki\JSON\JSON</a></li>
 				<li><a href="class-Gishiki.Logging.Log.html">Gishiki\Logging\Log</a></li>
@@ -166,6 +167,7 @@
 				<li><a href="class-Gishiki.ORM.Common.DataType.html">Gishiki\ORM\Common\DataType</a></li>
 				<li><a href="class-Gishiki.ORM.Common.Field.html">Gishiki\ORM\Common\Field</a></li>
 				<li><a href="class-Gishiki.ORM.Common.Table.html">Gishiki\ORM\Common\Table</a></li>
+				<li><a href="class-Gishiki.ORM.ModelBuilding.Adapters.JSON_StaticAnalyzer.html">Gishiki\ORM\ModelBuilding\Adapters\JSON_StaticAnalyzer</a></li>
 				<li><a href="class-Gishiki.ORM.ModelBuilding.Adapters.XML_StaticAnalyzer.html">Gishiki\ORM\ModelBuilding\Adapters\XML_StaticAnalyzer</a></li>
 				<li><a href="class-Gishiki.ORM.ModelBuilding.ModelBuilder.html">Gishiki\ORM\ModelBuilding\ModelBuilder</a></li>
 				<li><a href="class-Gishiki.ORM.ModelBuilding.StaticAnalyzer.html">Gishiki\ORM\ModelBuilding\StaticAnalyzer</a></li>
@@ -330,99 +332,90 @@
 </span><span id="67" class="l"><a href="#67"> 67: </a>            <span class="php-keyword1">if</span> (!<span class="php-var">$schemata</span>) <span class="php-comment">//check for the loading result</span>
 </span><span id="68" class="l"><a href="#68"> 68: </a>            {   <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \Gishiki\ORM\ModelBuilding\ModelBuildingException(<span class="php-quote">&quot;in file &quot;</span>.<span class="php-var">$this</span>-&gt;file_schemata.<span class="php-quote">&quot;: invalid XML structure&quot;</span>, <span class="php-num">7</span>);  }
 </span><span id="69" class="l"><a href="#69"> 69: </a>            
-</span><span id="70" class="l"><a href="#70"> 70: </a>            <span class="php-comment">//get the database name</span>
-</span><span id="71" class="l"><a href="#71"> 71: </a>            <span class="php-var">$database_name</span> = <span class="php-var">$schemata</span>-&gt;attributes()[<span class="php-quote">&quot;name&quot;</span>][<span class="php-num">0</span>].<span class="php-quote">&quot;&quot;</span>;
+</span><span id="70" class="l"><a href="#70"> 70: </a>            <span class="php-comment">//get the database connection name</span>
+</span><span id="71" class="l"><a href="#71"> 71: </a>            <span class="php-var">$connection_name</span> = <span class="php-var">$schemata</span>-&gt;attributes()[<span class="php-quote">&quot;connection&quot;</span>][<span class="php-num">0</span>].<span class="php-quote">&quot;&quot;</span>;
 </span><span id="72" class="l"><a href="#72"> 72: </a>            
-</span><span id="73" class="l"><a href="#73"> 73: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">strlen</span>(<span class="php-var">$database_name</span>) &lt;= <span class="php-num">0</span>) <span class="php-comment">//check for the name of the database</span>
-</span><span id="74" class="l"><a href="#74"> 74: </a>            {   <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \Gishiki\ORM\ModelBuilding\ModelBuildingException(<span class="php-quote">&quot;in file &quot;</span>.<span class="php-var">$this</span>-&gt;file_schemata.<span class="php-quote">&quot;: unknown or invalid database name&quot;</span>, <span class="php-num">6</span>);  }
+</span><span id="73" class="l"><a href="#73"> 73: </a>            <span class="php-comment">//setup an empty database schemata</span>
+</span><span id="74" class="l"><a href="#74"> 74: </a>            <span class="php-var">$this</span>-&gt;database_structure = <span class="php-keyword1">new</span> \Gishiki\ORM\Common\Database(<span class="php-var">$connection_name</span>);
 </span><span id="75" class="l"><a href="#75"> 75: </a>            
-</span><span id="76" class="l"><a href="#76"> 76: </a>            <span class="php-comment">//get the database connection name</span>
-</span><span id="77" class="l"><a href="#77"> 77: </a>            <span class="php-var">$connection_name</span> = <span class="php-var">$schemata</span>-&gt;attributes()[<span class="php-quote">&quot;connection&quot;</span>][<span class="php-num">0</span>].<span class="php-quote">&quot;&quot;</span>;
-</span><span id="78" class="l"><a href="#78"> 78: </a>            
-</span><span id="79" class="l"><a href="#79"> 79: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">strlen</span>(<span class="php-var">$connection_name</span>) &lt;= <span class="php-num">0</span>) <span class="php-comment">//check for the name of the database</span>
-</span><span id="80" class="l"><a href="#80"> 80: </a>            {   <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \Gishiki\ORM\ModelBuilding\ModelBuildingException(<span class="php-quote">&quot;in file &quot;</span>.<span class="php-var">$this</span>-&gt;file_schemata.<span class="php-quote">&quot;: unknown or invalid database connection name&quot;</span>, <span class="php-num">8</span>);  }
-</span><span id="81" class="l"><a href="#81"> 81: </a>            
-</span><span id="82" class="l"><a href="#82"> 82: </a>            <span class="php-comment">//setup an empty database schemata</span>
-</span><span id="83" class="l"><a href="#83"> 83: </a>            <span class="php-var">$this</span>-&gt;database_structure = <span class="php-keyword1">new</span> \Gishiki\ORM\Common\Database(<span class="php-var">$database_name</span>, <span class="php-var">$connection_name</span>);
-</span><span id="84" class="l"><a href="#84"> 84: </a>            
-</span><span id="85" class="l"><a href="#85"> 85: </a>            <span class="php-keyword1">foreach</span> (<span class="php-var">$schemata</span>-&gt;table <span class="php-keyword1">as</span> <span class="php-var">$table</span>) {
-</span><span id="86" class="l"><a href="#86"> 86: </a>                <span class="php-comment">//get the name of the current table</span>
-</span><span id="87" class="l"><a href="#87"> 87: </a>                <span class="php-var">$table_name</span> = <span class="php-quote">&quot;&quot;</span>.<span class="php-var">$table</span>-&gt;attributes()[<span class="php-quote">&quot;name&quot;</span>][<span class="php-num">0</span>];
-</span><span id="88" class="l"><a href="#88"> 88: </a>
-</span><span id="89" class="l"><a href="#89"> 89: </a>                <span class="php-keyword1">if</span> ((<span class="php-var">$table_name</span> == <span class="php-keyword1">NULL</span>) || (<span class="php-keyword2">strlen</span>(<span class="php-var">$table_name</span>) &lt;= <span class="php-num">0</span>))
-</span><span id="90" class="l"><a href="#90"> 90: </a>                {   <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \Gishiki\ORM\ModelBuilding\ModelBuildingException(<span class="php-quote">&quot;in file &quot;</span>.<span class="php-var">$this</span>-&gt;file_schemata.<span class="php-quote">&quot;: one or more tables have an invalid name&quot;</span>, <span class="php-num">1</span>);  }
-</span><span id="91" class="l"><a href="#91"> 91: </a>
-</span><span id="92" class="l"><a href="#92"> 92: </a>                <span class="php-comment">//create the table from its name</span>
-</span><span id="93" class="l"><a href="#93"> 93: </a>                <span class="php-var">$current_table</span> = <span class="php-keyword1">new</span> \Gishiki\ORM\Common\Table(<span class="php-var">$table_name</span>);
+</span><span id="76" class="l"><a href="#76"> 76: </a>            <span class="php-keyword1">foreach</span> (<span class="php-var">$schemata</span>-&gt;table <span class="php-keyword1">as</span> <span class="php-var">$table</span>) {
+</span><span id="77" class="l"><a href="#77"> 77: </a>                <span class="php-comment">//get the name of the current table</span>
+</span><span id="78" class="l"><a href="#78"> 78: </a>                <span class="php-var">$table_name</span> = <span class="php-quote">&quot;&quot;</span>.<span class="php-var">$table</span>-&gt;attributes()[<span class="php-quote">&quot;name&quot;</span>][<span class="php-num">0</span>];
+</span><span id="79" class="l"><a href="#79"> 79: </a>
+</span><span id="80" class="l"><a href="#80"> 80: </a>                <span class="php-keyword1">if</span> ((<span class="php-var">$table_name</span> == <span class="php-keyword1">NULL</span>) || (<span class="php-keyword2">strlen</span>(<span class="php-var">$table_name</span>) &lt;= <span class="php-num">0</span>))
+</span><span id="81" class="l"><a href="#81"> 81: </a>                {   <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \Gishiki\ORM\ModelBuilding\ModelBuildingException(<span class="php-quote">&quot;in file &quot;</span>.<span class="php-var">$this</span>-&gt;file_schemata.<span class="php-quote">&quot;: one or more tables have an invalid name&quot;</span>, <span class="php-num">1</span>);  }
+</span><span id="82" class="l"><a href="#82"> 82: </a>
+</span><span id="83" class="l"><a href="#83"> 83: </a>                <span class="php-comment">//create the table from its name</span>
+</span><span id="84" class="l"><a href="#84"> 84: </a>                <span class="php-var">$current_table</span> = <span class="php-keyword1">new</span> \Gishiki\ORM\Common\Table(<span class="php-var">$table_name</span>);
+</span><span id="85" class="l"><a href="#85"> 85: </a>
+</span><span id="86" class="l"><a href="#86"> 86: </a>                <span class="php-comment">//add fields to currently analyzed the table</span>
+</span><span id="87" class="l"><a href="#87"> 87: </a>                <span class="php-keyword1">foreach</span> (<span class="php-var">$table</span>-&gt;column <span class="php-keyword1">as</span> <span class="php-var">$field</span>) {
+</span><span id="88" class="l"><a href="#88"> 88: </a>                    <span class="php-var">$current_field</span> = <span class="php-keyword1">new</span> \Gishiki\ORM\Common\Field();
+</span><span id="89" class="l"><a href="#89"> 89: </a>
+</span><span id="90" class="l"><a href="#90"> 90: </a>                    <span class="php-comment">//read every attribute of the field</span>
+</span><span id="91" class="l"><a href="#91"> 91: </a>                    <span class="php-keyword1">foreach</span> (<span class="php-var">$field</span>-&gt;attributes() <span class="php-keyword1">as</span> <span class="php-var">$attribute_name</span> =&gt; <span class="php-var">$value</span>) {
+</span><span id="92" class="l"><a href="#92"> 92: </a>                        <span class="php-comment">//get the real stringed-type value</span>
+</span><span id="93" class="l"><a href="#93"> 93: </a>                        <span class="php-var">$attribute_value</span> = <span class="php-quote">&quot;&quot;</span>.<span class="php-var">$value</span>;
 </span><span id="94" class="l"><a href="#94"> 94: </a>
-</span><span id="95" class="l"><a href="#95"> 95: </a>                <span class="php-comment">//add fields to currently analyzed the table</span>
-</span><span id="96" class="l"><a href="#96"> 96: </a>                <span class="php-keyword1">foreach</span> (<span class="php-var">$table</span>-&gt;column <span class="php-keyword1">as</span> <span class="php-var">$field</span>) {
-</span><span id="97" class="l"><a href="#97"> 97: </a>                    <span class="php-var">$current_field</span> = <span class="php-keyword1">new</span> \Gishiki\ORM\Common\Field();
-</span><span id="98" class="l"><a href="#98"> 98: </a>
-</span><span id="99" class="l"><a href="#99"> 99: </a>                    <span class="php-comment">//read every attribute of the field</span>
-</span><span id="100" class="l"><a href="#100">100: </a>                    <span class="php-keyword1">foreach</span> (<span class="php-var">$field</span>-&gt;attributes() <span class="php-keyword1">as</span> <span class="php-var">$attribute_name</span> =&gt; <span class="php-var">$value</span>) {
-</span><span id="101" class="l"><a href="#101">101: </a>                        <span class="php-comment">//get the real stringed-type value</span>
-</span><span id="102" class="l"><a href="#102">102: </a>                        <span class="php-var">$attribute_value</span> = <span class="php-quote">&quot;&quot;</span>.<span class="php-var">$value</span>;
-</span><span id="103" class="l"><a href="#103">103: </a>
-</span><span id="104" class="l"><a href="#104">104: </a>                        <span class="php-keyword1">switch</span> (<span class="php-keyword2">strtolower</span>(<span class="php-var">$attribute_name</span>)) {
-</span><span id="105" class="l"><a href="#105">105: </a>                            <span class="php-keyword1">case</span> <span class="php-quote">&quot;name&quot;</span>:
-</span><span id="106" class="l"><a href="#106">106: </a>                                <span class="php-comment">//set the name of the current field</span>
-</span><span id="107" class="l"><a href="#107">107: </a>                                <span class="php-keyword1">if</span> (!<span class="php-var">$current_field</span>-&gt;hasValidName())
-</span><span id="108" class="l"><a href="#108">108: </a>                                {   <span class="php-var">$current_field</span>-&gt;setName(<span class="php-var">$attribute_value</span>);  }
-</span><span id="109" class="l"><a href="#109">109: </a>                                <span class="php-keyword1">else</span>
-</span><span id="110" class="l"><a href="#110">110: </a>                                {   <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \Gishiki\ORM\ModelBuilding\ModelBuildingException(<span class="php-quote">&quot;in file &quot;</span>.<span class="php-var">$this</span>-&gt;file_schemata.<span class="php-quote">&quot;: in table &quot;</span>.<span class="php-var">$current_table</span>.<span class="php-quote">&quot;: field '&quot;</span>.<span class="php-var">$current_field</span>.<span class="php-quote">&quot;' already have a name&quot;</span>, <span class="php-num">2</span>);    }
-</span><span id="111" class="l"><a href="#111">111: </a>                                <span class="php-keyword1">break</span>;
-</span><span id="112" class="l"><a href="#112">112: </a>                            <span class="php-keyword1">case</span> <span class="php-quote">&quot;primarykey&quot;</span>:
-</span><span id="113" class="l"><a href="#113">113: </a>                                <span class="php-keyword1">if</span> (<span class="php-var">$value</span> == <span class="php-quote">&quot;true&quot;</span>) <span class="php-comment">//mark the current field as primary key</span>
-</span><span id="114" class="l"><a href="#114">114: </a>                                {   <span class="php-var">$current_field</span>-&gt;markAsPrimaryKey(); }
-</span><span id="115" class="l"><a href="#115">115: </a>                                <span class="php-keyword1">break</span>;
-</span><span id="116" class="l"><a href="#116">116: </a>                            <span class="php-keyword1">case</span> <span class="php-quote">&quot;required&quot;</span>:
-</span><span id="117" class="l"><a href="#117">117: </a>                                <span class="php-keyword1">if</span> (<span class="php-var">$value</span> == <span class="php-quote">&quot;true&quot;</span>) <span class="php-comment">//mark the current field as primary key</span>
-</span><span id="118" class="l"><a href="#118">118: </a>                                {   <span class="php-var">$current_field</span>-&gt;setDataRequired(); }
-</span><span id="119" class="l"><a href="#119">119: </a>                                <span class="php-keyword1">break</span>;
-</span><span id="120" class="l"><a href="#120">120: </a>                            <span class="php-keyword1">case</span> <span class="php-quote">&quot;type&quot;</span>:
-</span><span id="121" class="l"><a href="#121">121: </a>                                <span class="php-var">$type_name</span> = <span class="php-keyword2">strtolower</span>(<span class="php-var">$attribute_value</span>);
-</span><span id="122" class="l"><a href="#122">122: </a>                                <span class="php-keyword1">if</span> ((<span class="php-var">$type_name</span> == <span class="php-quote">&quot;integer&quot;</span>) || (<span class="php-var">$type_name</span> == <span class="php-quote">&quot;int&quot;</span>))
-</span><span id="123" class="l"><a href="#123">123: </a>                                {   <span class="php-var">$current_field</span>-&gt;setDataType(\Gishiki\ORM\Common\DataType::INTEGER); }
-</span><span id="124" class="l"><a href="#124">124: </a>                                <span class="php-keyword1">else</span> <span class="php-keyword1">if</span> ((<span class="php-var">$type_name</span> == <span class="php-quote">&quot;string&quot;</span>) || (<span class="php-var">$type_name</span> == <span class="php-quote">&quot;str&quot;</span>))
-</span><span id="125" class="l"><a href="#125">125: </a>                                {   <span class="php-var">$current_field</span>-&gt;setDataType(\Gishiki\ORM\Common\DataType::STRING); }
-</span><span id="126" class="l"><a href="#126">126: </a>                                <span class="php-keyword1">else</span> <span class="php-keyword1">if</span> ((<span class="php-var">$type_name</span> == <span class="php-quote">&quot;float&quot;</span>) || (<span class="php-var">$type_name</span> == <span class="php-quote">&quot;double&quot;</span>))
-</span><span id="127" class="l"><a href="#127">127: </a>                                {   <span class="php-var">$current_field</span>-&gt;setDataType(\Gishiki\ORM\Common\DataType::FLOAT); }
-</span><span id="128" class="l"><a href="#128">128: </a>                                <span class="php-keyword1">else</span> <span class="php-keyword1">if</span> ((<span class="php-var">$type_name</span> == <span class="php-quote">&quot;boolean&quot;</span>) || (<span class="php-var">$type_name</span> == <span class="php-quote">&quot;bool&quot;</span>))
-</span><span id="129" class="l"><a href="#129">129: </a>                                {   <span class="php-var">$current_field</span>-&gt;setDataType(\Gishiki\ORM\Common\DataType::BOOLEAN); }
-</span><span id="130" class="l"><a href="#130">130: </a>                                <span class="php-keyword1">else</span> <span class="php-keyword1">if</span> ((<span class="php-var">$type_name</span> == <span class="php-quote">&quot;date&quot;</span>) || (<span class="php-var">$type_name</span> == <span class="php-quote">&quot;time&quot;</span>) || (<span class="php-var">$type_name</span> == <span class="php-quote">&quot;datetime&quot;</span>))
-</span><span id="131" class="l"><a href="#131">131: </a>                                {   <span class="php-var">$current_field</span>-&gt;setDataType(\Gishiki\ORM\Common\DataType::DATETIME); }
-</span><span id="132" class="l"><a href="#132">132: </a>                                <span class="php-keyword1">else</span> <span class="php-comment">//unknown data type</span>
-</span><span id="133" class="l"><a href="#133">133: </a>                                {   <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \Gishiki\ORM\ModelBuilding\ModelBuildingException(<span class="php-quote">&quot;in file &quot;</span>.<span class="php-var">$this</span>-&gt;file_schemata.<span class="php-quote">&quot;: in table &quot;</span>.<span class="php-var">$current_table</span>.<span class="php-quote">&quot;: unknown data type '&quot;</span>.<span class="php-var">$type_name</span>.<span class="php-quote">&quot;' for a field&quot;</span>, <span class="php-num">3</span>);   }
-</span><span id="134" class="l"><a href="#134">134: </a>                                <span class="php-keyword1">break</span>;
-</span><span id="135" class="l"><a href="#135">135: </a>                                
-</span><span id="136" class="l"><a href="#136">136: </a>                            <span class="php-keyword1">default</span>:
-</span><span id="137" class="l"><a href="#137">137: </a>                                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \Gishiki\ORM\ModelBuilding\ModelBuildingException(<span class="php-quote">&quot;in file &quot;</span>.<span class="php-var">$this</span>-&gt;file_schemata.<span class="php-quote">&quot;: in table &quot;</span>.<span class="php-var">$current_table</span>.<span class="php-quote">&quot;: unknown attribute '&quot;</span>.<span class="php-var">$attribute_name</span>.<span class="php-quote">&quot;' for a field&quot;</span>, <span class="php-num">9</span>);
-</span><span id="138" class="l"><a href="#138">138: </a>                        }
-</span><span id="139" class="l"><a href="#139">139: </a>                    }
-</span><span id="140" class="l"><a href="#140">140: </a>
-</span><span id="141" class="l"><a href="#141">141: </a>                    <span class="php-comment">//each filed must have a name</span>
-</span><span id="142" class="l"><a href="#142">142: </a>                    <span class="php-keyword1">if</span> (!<span class="php-var">$current_field</span>-&gt;hasValidName())
-</span><span id="143" class="l"><a href="#143">143: </a>                    {   <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \Gishiki\ORM\ModelBuilding\ModelBuildingException(<span class="php-quote">&quot;in file &quot;</span>.<span class="php-var">$this</span>-&gt;file_schemata.<span class="php-quote">&quot;: invalid name for one or more fields&quot;</span>, <span class="php-num">4</span>);  }
-</span><span id="144" class="l"><a href="#144">144: </a>
-</span><span id="145" class="l"><a href="#145">145: </a>                    <span class="php-comment">//test for an already registered primary key</span>
-</span><span id="146" class="l"><a href="#146">146: </a>                    <span class="php-keyword1">if</span> ((<span class="php-var">$current_field</span>-&gt;markedAsPrimaryKey()) &amp;&amp; (<span class="php-var">$current_table</span>-&gt;hasPrimaryKey()))
-</span><span id="147" class="l"><a href="#147">147: </a>                    {   <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \Gishiki\ORM\ModelBuilding\ModelBuildingException(<span class="php-quote">&quot;in file &quot;</span>.<span class="php-var">$this</span>-&gt;file_schemata.<span class="php-quote">&quot;: double primary key for the table '&quot;</span>.<span class="php-var">$current_table</span>.<span class="php-quote">&quot;'&quot;</span>, <span class="php-num">5</span>);  }
-</span><span id="148" class="l"><a href="#148">148: </a>
-</span><span id="149" class="l"><a href="#149">149: </a>                    <span class="php-comment">//register the field (automatically becomes the primary key if marked as such)</span>
-</span><span id="150" class="l"><a href="#150">150: </a>                    <span class="php-var">$current_table</span>-&gt;RegisterField(<span class="php-var">$current_field</span>);
-</span><span id="151" class="l"><a href="#151">151: </a>                }
+</span><span id="95" class="l"><a href="#95"> 95: </a>                        <span class="php-keyword1">switch</span> (<span class="php-keyword2">strtolower</span>(<span class="php-var">$attribute_name</span>)) {
+</span><span id="96" class="l"><a href="#96"> 96: </a>                            <span class="php-keyword1">case</span> <span class="php-quote">&quot;name&quot;</span>:
+</span><span id="97" class="l"><a href="#97"> 97: </a>                                <span class="php-comment">//set the name of the current field</span>
+</span><span id="98" class="l"><a href="#98"> 98: </a>                                <span class="php-keyword1">if</span> (!<span class="php-var">$current_field</span>-&gt;hasValidName())
+</span><span id="99" class="l"><a href="#99"> 99: </a>                                {   <span class="php-var">$current_field</span>-&gt;setName(<span class="php-var">$attribute_value</span>);  }
+</span><span id="100" class="l"><a href="#100">100: </a>                                <span class="php-keyword1">else</span>
+</span><span id="101" class="l"><a href="#101">101: </a>                                {   <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \Gishiki\ORM\ModelBuilding\ModelBuildingException(<span class="php-quote">&quot;in file &quot;</span>.<span class="php-var">$this</span>-&gt;file_schemata.<span class="php-quote">&quot;: in table &quot;</span>.<span class="php-var">$current_table</span>.<span class="php-quote">&quot;: field '&quot;</span>.<span class="php-var">$current_field</span>.<span class="php-quote">&quot;' already have a name&quot;</span>, <span class="php-num">2</span>);    }
+</span><span id="102" class="l"><a href="#102">102: </a>                                <span class="php-keyword1">break</span>;
+</span><span id="103" class="l"><a href="#103">103: </a>                            <span class="php-keyword1">case</span> <span class="php-quote">&quot;primarykey&quot;</span>:
+</span><span id="104" class="l"><a href="#104">104: </a>                                <span class="php-keyword1">if</span> (<span class="php-var">$value</span> == <span class="php-quote">&quot;true&quot;</span>) <span class="php-comment">//mark the current field as primary key</span>
+</span><span id="105" class="l"><a href="#105">105: </a>                                {   <span class="php-var">$current_field</span>-&gt;markAsPrimaryKey(); }
+</span><span id="106" class="l"><a href="#106">106: </a>                                <span class="php-keyword1">break</span>;
+</span><span id="107" class="l"><a href="#107">107: </a>                            <span class="php-keyword1">case</span> <span class="php-quote">&quot;required&quot;</span>:
+</span><span id="108" class="l"><a href="#108">108: </a>                                <span class="php-keyword1">if</span> (<span class="php-var">$value</span> == <span class="php-quote">&quot;true&quot;</span>) <span class="php-comment">//mark the current field as primary key</span>
+</span><span id="109" class="l"><a href="#109">109: </a>                                {   <span class="php-var">$current_field</span>-&gt;setDataRequired(); }
+</span><span id="110" class="l"><a href="#110">110: </a>                                <span class="php-keyword1">break</span>;
+</span><span id="111" class="l"><a href="#111">111: </a>                            <span class="php-keyword1">case</span> <span class="php-quote">&quot;type&quot;</span>:
+</span><span id="112" class="l"><a href="#112">112: </a>                                <span class="php-var">$type_name</span> = <span class="php-keyword2">strtolower</span>(<span class="php-var">$attribute_value</span>);
+</span><span id="113" class="l"><a href="#113">113: </a>                                <span class="php-keyword1">if</span> ((<span class="php-var">$type_name</span> == <span class="php-quote">&quot;integer&quot;</span>) || (<span class="php-var">$type_name</span> == <span class="php-quote">&quot;int&quot;</span>))
+</span><span id="114" class="l"><a href="#114">114: </a>                                {   <span class="php-var">$current_field</span>-&gt;setDataType(\Gishiki\ORM\Common\DataType::INTEGER); }
+</span><span id="115" class="l"><a href="#115">115: </a>                                <span class="php-keyword1">else</span> <span class="php-keyword1">if</span> ((<span class="php-var">$type_name</span> == <span class="php-quote">&quot;string&quot;</span>) || (<span class="php-var">$type_name</span> == <span class="php-quote">&quot;str&quot;</span>))
+</span><span id="116" class="l"><a href="#116">116: </a>                                {   <span class="php-var">$current_field</span>-&gt;setDataType(\Gishiki\ORM\Common\DataType::STRING); }
+</span><span id="117" class="l"><a href="#117">117: </a>                                <span class="php-keyword1">else</span> <span class="php-keyword1">if</span> ((<span class="php-var">$type_name</span> == <span class="php-quote">&quot;float&quot;</span>) || (<span class="php-var">$type_name</span> == <span class="php-quote">&quot;double&quot;</span>))
+</span><span id="118" class="l"><a href="#118">118: </a>                                {   <span class="php-var">$current_field</span>-&gt;setDataType(\Gishiki\ORM\Common\DataType::FLOAT); }
+</span><span id="119" class="l"><a href="#119">119: </a>                                <span class="php-keyword1">else</span> <span class="php-keyword1">if</span> ((<span class="php-var">$type_name</span> == <span class="php-quote">&quot;boolean&quot;</span>) || (<span class="php-var">$type_name</span> == <span class="php-quote">&quot;bool&quot;</span>))
+</span><span id="120" class="l"><a href="#120">120: </a>                                {   <span class="php-var">$current_field</span>-&gt;setDataType(\Gishiki\ORM\Common\DataType::BOOLEAN); }
+</span><span id="121" class="l"><a href="#121">121: </a>                                <span class="php-keyword1">else</span> <span class="php-keyword1">if</span> ((<span class="php-var">$type_name</span> == <span class="php-quote">&quot;date&quot;</span>) || (<span class="php-var">$type_name</span> == <span class="php-quote">&quot;time&quot;</span>) || (<span class="php-var">$type_name</span> == <span class="php-quote">&quot;datetime&quot;</span>))
+</span><span id="122" class="l"><a href="#122">122: </a>                                {   <span class="php-var">$current_field</span>-&gt;setDataType(\Gishiki\ORM\Common\DataType::DATETIME); }
+</span><span id="123" class="l"><a href="#123">123: </a>                                <span class="php-keyword1">else</span> <span class="php-comment">//unknown data type</span>
+</span><span id="124" class="l"><a href="#124">124: </a>                                {   <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \Gishiki\ORM\ModelBuilding\ModelBuildingException(<span class="php-quote">&quot;in file &quot;</span>.<span class="php-var">$this</span>-&gt;file_schemata.<span class="php-quote">&quot;: in table &quot;</span>.<span class="php-var">$current_table</span>.<span class="php-quote">&quot;: unknown data type '&quot;</span>.<span class="php-var">$type_name</span>.<span class="php-quote">&quot;' for a field&quot;</span>, <span class="php-num">3</span>);   }
+</span><span id="125" class="l"><a href="#125">125: </a>                                <span class="php-keyword1">break</span>;
+</span><span id="126" class="l"><a href="#126">126: </a>                                
+</span><span id="127" class="l"><a href="#127">127: </a>                            <span class="php-keyword1">default</span>:
+</span><span id="128" class="l"><a href="#128">128: </a>                                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \Gishiki\ORM\ModelBuilding\ModelBuildingException(<span class="php-quote">&quot;in file &quot;</span>.<span class="php-var">$this</span>-&gt;file_schemata.<span class="php-quote">&quot;: in table &quot;</span>.<span class="php-var">$current_table</span>.<span class="php-quote">&quot;: unknown attribute '&quot;</span>.<span class="php-var">$attribute_name</span>.<span class="php-quote">&quot;' for a field&quot;</span>, <span class="php-num">9</span>);
+</span><span id="129" class="l"><a href="#129">129: </a>                        }
+</span><span id="130" class="l"><a href="#130">130: </a>                    }
+</span><span id="131" class="l"><a href="#131">131: </a>
+</span><span id="132" class="l"><a href="#132">132: </a>                    <span class="php-comment">//each filed must have a name</span>
+</span><span id="133" class="l"><a href="#133">133: </a>                    <span class="php-keyword1">if</span> (!<span class="php-var">$current_field</span>-&gt;hasValidName())
+</span><span id="134" class="l"><a href="#134">134: </a>                    {   <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \Gishiki\ORM\ModelBuilding\ModelBuildingException(<span class="php-quote">&quot;in file &quot;</span>.<span class="php-var">$this</span>-&gt;file_schemata.<span class="php-quote">&quot;: invalid name for one or more fields&quot;</span>, <span class="php-num">4</span>);  }
+</span><span id="135" class="l"><a href="#135">135: </a>
+</span><span id="136" class="l"><a href="#136">136: </a>                    <span class="php-comment">//test for an already registered primary key</span>
+</span><span id="137" class="l"><a href="#137">137: </a>                    <span class="php-keyword1">if</span> ((<span class="php-var">$current_field</span>-&gt;markedAsPrimaryKey()) &amp;&amp; (<span class="php-var">$current_table</span>-&gt;hasPrimaryKey()))
+</span><span id="138" class="l"><a href="#138">138: </a>                    {   <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \Gishiki\ORM\ModelBuilding\ModelBuildingException(<span class="php-quote">&quot;in file &quot;</span>.<span class="php-var">$this</span>-&gt;file_schemata.<span class="php-quote">&quot;: double primary key for the table '&quot;</span>.<span class="php-var">$current_table</span>.<span class="php-quote">&quot;'&quot;</span>, <span class="php-num">5</span>);  }
+</span><span id="139" class="l"><a href="#139">139: </a>
+</span><span id="140" class="l"><a href="#140">140: </a>                    <span class="php-comment">//register the field (automatically becomes the primary key if marked as such)</span>
+</span><span id="141" class="l"><a href="#141">141: </a>                    <span class="php-var">$current_table</span>-&gt;RegisterField(<span class="php-var">$current_field</span>);
+</span><span id="142" class="l"><a href="#142">142: </a>                }
+</span><span id="143" class="l"><a href="#143">143: </a>
+</span><span id="144" class="l"><a href="#144">144: </a>                <span class="php-comment">//add the analyzed table to the list of tables</span>
+</span><span id="145" class="l"><a href="#145">145: </a>                <span class="php-var">$this</span>-&gt;database_structure-&gt;RegisterTable(<span class="php-var">$current_table</span>);
+</span><span id="146" class="l"><a href="#146">146: </a>            }
+</span><span id="147" class="l"><a href="#147">147: </a>            
+</span><span id="148" class="l"><a href="#148">148: </a>            <span class="php-comment">//the database structure has been figured out with no errors</span>
+</span><span id="149" class="l"><a href="#149">149: </a>            <span class="php-var">$this</span>-&gt;analysis_performed = <span class="php-keyword1">TRUE</span>;
+</span><span id="150" class="l"><a href="#150">150: </a>        }
+</span><span id="151" class="l"><a href="#151">151: </a>    }
 </span><span id="152" class="l"><a href="#152">152: </a>
-</span><span id="153" class="l"><a href="#153">153: </a>                <span class="php-comment">//add the analyzed table to the list of tables</span>
-</span><span id="154" class="l"><a href="#154">154: </a>                <span class="php-var">$this</span>-&gt;database_structure-&gt;RegisterTable(<span class="php-var">$current_table</span>);
-</span><span id="155" class="l"><a href="#155">155: </a>            }
-</span><span id="156" class="l"><a href="#156">156: </a>            
-</span><span id="157" class="l"><a href="#157">157: </a>            <span class="php-comment">//the database structure has been figured out with no errors</span>
-</span><span id="158" class="l"><a href="#158">158: </a>            <span class="php-var">$this</span>-&gt;analysis_performed = <span class="php-keyword1">TRUE</span>;
-</span><span id="159" class="l"><a href="#159">159: </a>        }
-</span><span id="160" class="l"><a href="#160">160: </a>    }
-</span><span id="161" class="l"><a href="#161">161: </a>
-</span><span id="162" class="l"><a href="#162">162: </a>}</span></code></pre>
+</span><span id="153" class="l"><a href="#153">153: </a>}</span></code></pre>
 
 	<div id="footer">
 		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>
@@ -430,6 +423,6 @@
 </div>
 </div>
 <script src="resources/combined.js?e6b8017723d402b07f5bb866288819b3e7032e36"></script>
-<script src="elementlist.js?48f0e60e6db94e342b8f7b49ee1149b621e4c0bf"></script>
+<script src="elementlist.js?19d27f84733a6e3990ba53aa21a47fe29fc13f44"></script>
 </body>
 </html>

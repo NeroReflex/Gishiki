@@ -213,8 +213,9 @@ that inherits from the \Activerecord\Model class:</p>
 <pre><code class="PHP">class BookSeller extends \Activerecord\Model { }
 </code></pre>
 
-<p>ActiveRecord uses Ruby's ActiveRecord naming conventions, so.... this class is a 
-direct representation of the table named 'book_sellers' inside the default database.</p>
+<p>ActiveRecord uses Ruby's ActiveRecord naming conventions, this means the declared 
+model class is a direct representation of the table named 'book_sellers' residing 
+inside the default database.</p>
 <p>You can change both: the database you connect to and the name that the table has
 inside the database pointed by the database connection:</p>
 <pre><code class="PHP">class BookSeller extends \Activerecord\Model {
@@ -227,7 +228,7 @@ inside the database pointed by the database connection:</p>
 }
 </code></pre>
 
-<p>Every table you create a model from <strong>MUST</strong> contains a primary key, and if the 
+<p>Each table <strong>MUST</strong> contain a primary key, and if the 
 name of the primary key is <strong>NOT</strong> 'id' you will have to specify it in the model:</p>
 <pre><code class="PHP">class BookSeller extends \Activerecord\Model {
     # the primary key of the table isn't named 'id'

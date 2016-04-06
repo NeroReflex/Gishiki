@@ -28,10 +28,7 @@ class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
     
     public function __construct($connection_query) {
         try {
-            $this->native_connection = new \PDO("sqlite:" . $connection_query,
-                                                                null,
-                                                                null,
-                                                                [ \PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION ]);
+            $this->native_connection = new \PDO("sqlite:" . $connection_query);
         } catch (\PDOException $ex) {
             throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a connection to the sqlite db, PDO reports: " . $ex->getMessage(), 2);
         }

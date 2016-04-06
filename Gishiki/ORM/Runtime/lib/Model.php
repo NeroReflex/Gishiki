@@ -67,7 +67,6 @@ namespace ActiveRecord;
  * @see CallBack
  * @see HasMany
  * @see HasAndBelongsToMany
- * @see Serialization
  * @see Validations
  */
 class Model
@@ -690,18 +689,6 @@ class Model
 	}
 
 	/**
-	 * Throws an exception if this model is set to readonly.
-	 *
-	 * @throws ActiveRecord\ReadOnlyException
-	 * @param string $method_name Name of method that was invoked on model for exception message
-	 */
-	private function verify_not_readonly($method_name)
-	{
-		if ($this->is_readonly())
-			throw new ReadOnlyException(get_class($this), $method_name);
-	}
-
-	/**
 	 * Flag model as readonly.
 	 *
 	 * @param boolean $readonly Set to true to put the model into readonly mode
@@ -772,8 +759,8 @@ class Model
 	 */
 	public function save($validate=true)
 	{
-		$this->verify_not_readonly('save');
-		return $this->is_new_record() ? $this->insert($validate) : $this->update($validate);
+		if (!$this->is_readonly())
+                {   return $this->is_new_record() ? $this->insert($validate) : $this->update($validate);    }
 	}
 
 	/**
@@ -785,8 +772,9 @@ class Model
 	 */
 	private function insert($validate=true)
 	{
-		$this->verify_not_readonly('insert');
-
+		if ($this->is_readonly())
+                {    return;    }
+                
 		if (($validate && !$this->_validate() || !$this->invoke_callback('before_create',false)))
 			return false;
 
@@ -844,8 +832,8 @@ class Model
 	 */
 	private function update($validate=true)
 	{
-		$this->verify_not_readonly('update');
-
+		if ($this->is_readonly())
+                {   return;     }
 		if ($validate && !$this->_validate())
 			return false;
 
@@ -983,14 +971,15 @@ class Model
 	}
 
 	/**
-	 * Deletes this model from the database and returns true if successful.
+	 * Deletes this model from the database.
 	 *
-	 * @return boolean
+	 * @return boolean TRUE only if the delete operation succeeded
 	 */
 	public function delete()
 	{
-		$this->verify_not_readonly('delete');
-
+		if ($this->is_readonly())
+                {   return false;     }
+                    
 		$pk = $this->values_for_pk();
 
 		if (empty($pk))
@@ -1705,92 +1694,6 @@ class Model
 	}
 
 	/**
-	 * Returns a JSON representation of this model.
-	 *
-	 * @see Serialization
-	 * @param array $options An array containing options for json serialization (see {@link Serialization} for valid options)
-	 * @return string JSON representation of the model
-	 */
-	public function to_json(array $options=array())
-	{
-		return $this->serialize('Json', $options);
-	}
-
-	/**
-	 * Returns an XML representation of this model.
-	 *
-	 * @see Serialization
-	 * @param array $options An array containing options for xml serialization (see {@link Serialization} for valid options)
-	 * @return string XML representation of the model
-	 */
-	public function to_xml(array $options=array())
-	{
-		return $this->serialize('Xml', $options);
-	}
-
-   /**
-   * Returns an CSV representation of this model.
-   * Can take optional delimiter and enclosure
-   * (defaults are , and double quotes)
-   *
-   * Ex:
-   * <code>
-   * ActiveRecord\CsvSerializer::$delimiter=';';
-   * ActiveRecord\CsvSerializer::$enclosure='';
-   * YourModel::find('first')->to_csv(array('only'=>array('name','level')));
-   * returns: Joe,2
-   *
-   * YourModel::find('first')->to_csv(array('only_header'=>true,'only'=>array('name','level')));
-   * returns: name,level
-   * </code>
-   *
-   * @see Serialization
-   * @param array $options An array containing options for csv serialization (see {@link Serialization} for valid options)
-   * @return string CSV representation of the model
-   */
-  public function to_csv(array $options=array())
-  {
-    return $this->serialize('Csv', $options);
-  }
-
-	/**
-	 * Returns an Array representation of this model.
-	 *
-	 * @see Serialization
-	 * @param array $options An array containing options for json serialization (see {@link Serialization} for valid options)
-	 * @return array Array representation of the model
-	 */
-	public function to_array(array $options=array())
-	{
-		return $this->serialize('Array', $options);
-	}
-
-	/**
-	 * Creates a serializer based on pre-defined to_serializer()
-	 *
-	 * An options array can take the following parameters:
-	 *
-	 * <ul>
-	 * <li><b>only:</b> a string or array of attributes to be included.</li>
-	 * <li><b>excluded:</b> a string or array of attributes to be excluded.</li>
-	 * <li><b>methods:</b> a string or array of methods to invoke. The method's name will be used as a key for the final attributes array
-	 * along with the method's returned value</li>
-	 * <li><b>include:</b> a string or array of associated models to include in the final serialized product.</li>
-	 * </ul>
-	 *
-	 * @param string $type Either Xml, Json, Csv or Array
-	 * @param array $options Options array for the serializer
-	 * @return string Serialized representation of the model
-	 */
-	private function serialize($type, $options)
-	{
-		require_once 'Serialization.php';
-		$class = "ActiveRecord\\{$type}Serializer";
-		$serializer = new $class($this, $options);
-		return $serializer->to_s();
-	}
-
-	/**
 	 * Invokes the specified callback on this model.
 	 *
 	 * @param string $method_name Name of the call back to run.
@@ -1862,9 +1765,11 @@ class Model
         /**
          * A call to this function will disable the model auto-save for the rest
          * of the model in-memory lifetime.
+         * 
+         * @param $set_auto should the autosaving feature being disabled?
          */
-        public function prevent_autosave() {
-            $this->autosaving = false;
+        public function prevent_autosave($set_auto = false) {
+            $this->autosaving = ($set_auto == true);
         }
         
         /**
@@ -1872,12 +1777,11 @@ class Model
          * memory, if that operation was not prevented to be happening.
          */
 	public function __destruct() {
-            if ($this->autosaving) {
+            if (($this->autosaving) && (!$this->is_readonly())) {
 		$should_save = $this->dirty_attributes();
 
-		if (gettype($should_save) == "array") {
-			$this->save();
-		}
+		if ((gettype($should_save) == "array") && (count($should_save)))
+                {   $this->save(false);     } //save ignoring validation
             }
 	}
 

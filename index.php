@@ -20,7 +20,7 @@ ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 //change the character encoding
-mb_internal_encoding("UTF-8");
+//mb_internal_encoding("UTF-8");
 
 /* The first operations to execute is figuring out directory separator character and the root path (the path Gishiki is installed) */
 

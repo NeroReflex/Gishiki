@@ -192,7 +192,7 @@ namespace Gishiki\Core {
                     "   //this is what is executed if the router is unable to find a suitable route for a request".PHP_EOL.
                     "   die(\"Sorry man.... 404 Page Not Found!\");".PHP_EOL.
                     "});".PHP_EOL;
-            if (file_put_contents(APPLICATION_DIR."router.php", "<?php ".PHP_EOL.$routing_example, LOCK_EX) === FALSE) {
+            if (file_put_contents(APPLICATION_DIR."routes.php", "<?php ".PHP_EOL.$routing_example, LOCK_EX) === FALSE) {
                 $errors++;
             }
             

@@ -169,3 +169,105 @@ a multiple record result? The answer is 'all'.
 
 When using find('all', ....) or its alias all(...) the operation result is an array and
 the result cannot be NULL: if no records are found then an empty array is returned.
+
+Look at this trivial example:
+
+```PHP
+class Book extends \Activerecord\Model { }
+
+//retrive all books
+$my_books = Book::all();
+
+echo "I have " . count($my_books) . " book in my library!";
+```
+
+It is a bit trivial to query all books to know the number of books,
+but it is a perfect example to have you understand all().
+
+
+## Limiting results
+Sooner or later you will want to limit the subset of records you want to retrive 
+from your database: fetching every database record means rebuilding the entire database 
+in volatile memory, which is __REALLY BAD__!
+
+
+### Fetch criteria
+The result set of a fetch operation can be limited by adding criteria to your fetch.
+
+With "criteria" I mean the set of contitions a record must satisfy to be retrieved 
+from your database:
+
+```PHP
+class Book extends \Activerecord\Model { }
+
+$criteria = ["genre = ? AND author = ? OR price < ?", "romance", "Example Author", 9.90];
+
+//retrive all books matching criteria
+$my_books = Book::all(['conditions' => $criteria]);
+
+
+//inline everithing: $my_books = Book::all(['conditions' => ["genre = ? AND author = ? OR price < ?", "romance", "Example Author", 9.90]]);
+echo "I have " . count($my_books) . " book in my library that you may enjoy reading!";
+```
+
+You can even fetch the first (or the last) record that matches given conditions:
+
+```PHP
+class Book extends \Activerecord\Model { }
+
+$criteria = ["genre = ? AND author = ? OR price < ?", "romance", "Example Author", 9.90];
+
+//retrive all books matching criteria
+$my_book = Book::first(['conditions' => $criteria]);
+
+if ($my_book) {
+    echo "You may enjoy reading '" . $my_book->title . "'!";
+} else {
+    echo "I have no books you may enjoy reading :(";
+}
+```
+
+Always add conditions when performing a fetch operation in your database. 
+
+### Limit and offset
+
+However you may want to limit the number of records result, you do this by adding a limit rule:
+
+```PHP
+class Book extends \Activerecord\Model { }
+
+//retrive 10 books matching criteria
+$my_books = Book::all(['limit' => 10 , 'conditions' => ["genre = ? AND author = ? OR price < ?", "romance", "Example Author", 9.90]]);
+
+echo "I have " . count($my_books) . " book in my library that you may enjoy reading!";
+```
+
+Do you want to ignore first 5 results? No problem:
+
+```PHP
+class Book extends \Activerecord\Model { }
+
+//retrive 10 books (matching criteria), ignoring 5
+$my_books = Book::all([offset => 5, 'limit' => 10 , 'conditions' => ["genre = ? AND author = ? OR price < ?", "romance", "Example Author", 9.90]]);
+
+echo "I have " . count($my_books) . " book in my library that you may enjoy reading!";
+```
+
+This is everything *should* know about model fetching.
+
+### Ordering results
+Order is important, even when fetching models from your database! To order your 
+models you can set an 'order' rule alongside your 'conditions':
+
+```PHP
+class Book extends \Activerecord\Model { }
+
+//retrive 10 books ignoring 5, ordering them by title
+$my_books = Book::all(['order' => 'title desc, price asc', offset => 5, 'limit' => 10 , 'conditions' => ["genre = ? AND author = ? OR price < ?", "romance", "Example Author", 9.90]]);
+
+foreach ($my_books as &$my_book) {
+    echo $my_books->title . ", ";
+}
+```
+
+Enjoy your ordered results!

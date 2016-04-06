@@ -105,14 +105,9 @@ class Config extends Singleton
 	 *
 	 * @param array $connections Array of connections
 	 * @param string $default_connection Optionally specify the default_connection
-	 * @return void
-	 * @throws ActiveRecord\ConfigException
 	 */
 	public function set_connections($connections, $default_connection=null)
 	{
-		if (!is_array($connections))
-			throw new ConfigException("Connections must be an array");
-
 		if ($default_connection)
 			$this->set_default_connection($default_connection);
 
@@ -190,31 +185,9 @@ class Config extends Singleton
 	 * Returns the model directory.
 	 *
 	 * @return string
-	 * @throws ConfigException if specified directory was not found
 	 */
 	public function get_model_directory()
 	{
-		if ($this->model_directory && !file_exists($this->model_directory))
-			throw new ConfigException('Invalid or non-existent directory: '.$this->model_directory);
-
 		return $this->model_directory;
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public function get_date_format()
-	{
-		trigger_error('Use ActiveRecord\Serialization::$DATETIME_FORMAT. Config::get_date_format() has been deprecated.', E_USER_DEPRECATED);
-		return Serialization::$DATETIME_FORMAT;
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public function set_date_format($format)
-	{
-		trigger_error('Use ActiveRecord\Serialization::$DATETIME_FORMAT. Config::set_date_format() has been deprecated.', E_USER_DEPRECATED);
-		Serialization::$DATETIME_FORMAT = $format;
 	}
 }

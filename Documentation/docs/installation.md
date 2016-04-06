@@ -80,7 +80,6 @@ server {
 		fastcgi_split_path_info ^(.+\.php)(/.+)$;
 		# NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
 
-		# With php5-fpm:
 		fastcgi_pass unix:/var/run/php5-fpm.sock;
 		fastcgi_index index.php;
 		include fastcgi.conf;
@@ -90,7 +89,6 @@ server {
 ```
 
 Your server configuration file should be located at /etc/nginx/nginx.conf
-
 
 ## PHP v7 / nginx
 This framework is fully compatible with PHP 7, and you are encouraged to use it.
@@ -106,10 +104,46 @@ sudo add-apt-repository ppa:ondrej/php
 sudo apt-get update
 sudo apt-get install -y language-pack-en-base
 sudo LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
-sudo apt-get install nginx php7.0 php7.0-fpm php7.0-mysql php7.0-sqlite php7.0-pgsql php7.0-curl
+sudo apt-get install nginx php7.0 php7.0-xml php7.0-fpm php7.0-mysql php7.0-sqlite php7.0-pgsql php7.0-curl
 ```
 
 You don't need to install php7.0-fpm if you are __NOT__ using nginx.
+
+When you are done with the configuration file (/etc/nginx/sites-enabled/default), 
+that should be basically:
+
+```nginx
+server {
+	listen 80;
+	server_name site.com;
+	root /var/www/html/Gishiki;
+
+	index index.php;
+
+	location / {
+		try_files $uri $uri/ /index.php?$query_string;
+	}
+
+	location ~ \.php$ {
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
+		# NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+
+		fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+		fastcgi_index index.php;
+		include fastcgi.conf;
+		fastcgi_intercept_errors on;
+	}
+}
+```
+
+you restart the server and the php service:
+
+```shell
+sudo service nginx restart
+sudo service php7.0-fpm restart
+```
+
+And the server should just work!
 
 
 ## HHVM
@@ -185,12 +219,12 @@ Just explore it! The framework has given you a fresh start:
    - settings file is named setting.json
    - a model descriptor in an XML file (named bookstore.xml)
    - an SQLite database with the table to use the bookstore example
-   - a routing + controller example named router.php
+   - a routing + controller example named routes.php
    - obscure encryption stuff (discussed in another chapter)
 
 Why don't directing your browser to the [book insertion example](site.com/book/new/1485254039/Example%20Book/Example%20Author/19.99/2010-01-02%2003:04:05)?
 
-This should help you understanding routing and model creation (just look at router.php).
+This should help you understanding routing and model creation (just look at routes.php).
 
 If you check your sqlite database you will notice that.....
 

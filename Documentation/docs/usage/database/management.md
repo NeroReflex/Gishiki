@@ -67,7 +67,7 @@ it is a fantastic RDBMS with a great usage license!
 Everyone should think about PostgreSQL as its first choice as RDBMS, because it is easy to use, mature, 
 well supported and really performs well!
 
-To enstabilish a connection with a Postgre server you  have to use pgsql as the server protocol:
+To enstabilish a connection with a Postgres server you  have to use pgsql as the server protocol:
 
 ```
 pgsql://root:admin@host:port/site_db

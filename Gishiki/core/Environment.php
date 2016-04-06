@@ -120,7 +120,7 @@ namespace Gishiki\Core {
                 \Gishiki\Core\MVC\WebController::Initialize();
                 
                 //include the list of routes (and user controllers)
-                include(APPLICATION_DIR."router.php");
+                include(APPLICATION_DIR."routes.php");
                 
                 //finish the routing
                 \Gishiki\Core\Routing::Deinitialize();

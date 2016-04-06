@@ -38,7 +38,7 @@ You can also trigger an immediate model save when creating a new one:
 ```PHP
 class Book extends \Activerecord\Model { }
 
-$my_book = Book::create(['isbn' => '...', 'title' => '...' /* , .... */ ]);
+$my_book = Book::Create(['isbn' => '...', 'title' => '...' /* , .... */ ]);
 ```
 
 

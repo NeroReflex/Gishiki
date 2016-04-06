@@ -61,22 +61,10 @@ include(ROOT."Gishiki".DS."core".DS."Environment.php");
 //include the application manager
 include(ROOT."Gishiki".DS."core".DS."Application.php");
 
-//include the runtime (JIT) component of the ORM
-include(ROOT."Gishiki".DS."ORM".DS."Runtime".DS."ActiveRecord.php");
-
-//include database structure descriptiors entities
-include(ROOT."Gishiki".DS."ORM".DS."Common".DS."DataType.php");
-include(ROOT."Gishiki".DS."ORM".DS."Common".DS."Field.php");
-include(ROOT."Gishiki".DS."ORM".DS."Common".DS."Table.php");
-include(ROOT."Gishiki".DS."ORM".DS."Common".DS."Database.php");
-
-//include models code generator (AOT)
-include(ROOT."Gishiki".DS."ORM".DS."ModelBuilding".DS."ModelBuildingException.php");
-include(ROOT."Gishiki".DS."ORM".DS."ModelBuilding".DS."ModelBuilder.php");
-include(ROOT."Gishiki".DS."ORM".DS."ModelBuilding".DS."StaticAnalyzerInterface.php");
-include(ROOT."Gishiki".DS."ORM".DS."ModelBuilding".DS."StaticAnalyzer.php");
-include(ROOT."Gishiki".DS."ORM".DS."ModelBuilding".DS."Adapters".DS."XML_StaticAnalyzer.php");
-include(ROOT."Gishiki".DS."ORM".DS."ModelBuilding".DS."Adapters".DS."JSON_StaticAnalyzer.php");
+include(ROOT."Gishiki".DS."ActiveRecord".DS."ActiveModel.php");
+include(ROOT."Gishiki".DS."ActiveRecord".DS."ConnectionsProvider.php");
+include(ROOT."Gishiki".DS."ActiveRecord".DS."DatabaseAdapter.php");
+include(ROOT."Gishiki".DS."ActiveRecord".DS."DatabaseException.php");
 
 //this is the environment used to fulfill the incoming request
 $executionEnvironment = NULL;

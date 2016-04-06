@@ -19,9 +19,6 @@ limitations under the License.
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
-//change the character encoding
-//mb_internal_encoding("UTF-8");
-
 /* The first operations to execute is figuring out directory separator character and the root path (the path Gishiki is installed) */
 
 //get directory separator
@@ -37,7 +34,11 @@ if ((!defined('ROOT')) || (ROOT == "") || (ROOT == NULL))
 {    define('ROOT', realpath(__DIR__).DS);   }
 
 //include the base application and perform basic operations
-include(ROOT."Gishiki".DS."Gishiki.inc");
+if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
+    include(ROOT."Gishiki".DS."Gishiki.inc");
+} else {
+    require __DIR__ . '/vendor/autoload.php';
+}
 
 //start the framework
 Gishiki::Initialize();

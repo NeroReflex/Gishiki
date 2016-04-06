@@ -32,8 +32,8 @@ Let's see how to create a custom route:
 ```php
 use \Gishiki\Core\Route;
 
-Route::get("/Home", function() {
-    //this is what will be executed when the client asks for "https://site.com/Home"
+Route::get("/", function() {
+    //this is what will be executed when the client asks for "https://site.com/" (the homepage)
     
     //let's just forget about MVC pattern this time :)
     echo "Hello, World!";
@@ -41,7 +41,7 @@ Route::get("/Home", function() {
 ```
 
 To try this rule out you have to open rules.php and paste the provided code into 
-it and direct your browser to: https://site.com/Home .
+it and direct your browser to: https://site.com/ .
 
 
 ## Custom dynamic rules
@@ -53,11 +53,18 @@ Let's just consider this simple example:
 ```php
 use \Gishiki\Core\Route;
 
+Route::get("/Hello/{name surname}", function($params) {
+    //this is what will be executed when the client asks for "https://site.com/User/urName urSurname"
+    
+    //nice to meet you!
+    echo "Hello, ".$params->{"name surname"}."!";
+});
+
 Route::get("/Home/{name}", function($params) {
     //this is what will be executed when the client asks for "https://site.com/Home/some_name"
     
     //nice to meet you!
-    echo "Hello, ".$params->get("name")."!";
+    echo "Hello, ".$params->name."!";
 });
 ```
 
@@ -68,13 +75,13 @@ https://site.com/Home/your_name and you will see "Hello, your_name!" nothing com
 
 ## All request methods
 Sometimes you may need to register a route that responds to all HTTP verbs, you 
-are alowed to do that by using 'any':
+are allowed to do that by using 'any':
 
 ```php
 use \Gishiki\Core\Route;
 
-Route::any("/Home", function() {
-    //do something here
+Route::any("/", function() {
+    //do something general with your homepage!
 });
 ```
 
@@ -89,8 +96,8 @@ request methods:
 ```php
 use \Gishiki\Core\Route;
 
-Route::match([Route::GET, Route::POST], "/Home", function() {
-    //do something here
+Route::match([Route::GET, Route::POST], "/", function() {
+    //you want your homepage to be reached only with get and post
 });
 ```
 

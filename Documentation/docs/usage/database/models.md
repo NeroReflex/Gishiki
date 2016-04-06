@@ -13,7 +13,9 @@ A model looks like a PHP file (inside the Models directory) containing a class
 that inherits from the \Activerecord\Model class:
 
 ```PHP
-class BookSeller extends \Activerecord\Model { }
+use \Gishiki\ActiveRecord\ActiveModel;
+
+class BookSeller extends ActiveModel { }
 ```
 
 ActiveRecord uses Ruby's ActiveRecord naming conventions, this means the declared 
@@ -24,7 +26,9 @@ You can change both: the database you connect to and the name that the table has
 inside the database pointed by the database connection:
 
 ```PHP
-class BookSeller extends \Activerecord\Model {
+use \Gishiki\ActiveRecord\ActiveModel;
+
+class BookSeller extends ActiveModel {
     # explicit the connection name since the default one is not going to be used
     static $connection = 'development';
 
@@ -38,7 +42,9 @@ Each table __MUST__ contain a primary key, and if the
 name of the primary key is __NOT__ 'id' you will have to specify it in the model:
 
 ```PHP
-class BookSeller extends \Activerecord\Model {
+use \Gishiki\ActiveRecord\ActiveModel;
+
+class BookSeller extends ActiveModel {
     # the primary key of the table isn't named 'id'
     static $primary_key = 'b_seller_ID';
 }
@@ -66,22 +72,15 @@ Let's consider a table named 'books' that has a primary key named 'id', a (TEXT)
 a (TEXT) field 'author', a (REAL) field 'price' and a (DATETIME) field 'publication_date':
 
 ```PHP
-class Book extends \Activerecord\Model { }
+use \Gishiki\ActiveRecord\ActiveModel;
+
+class Book extends ActiveModel { }
 
 $my_book = new Book();
 $my_book->title = 'Example Book';
 $my_book->author = 'Example Author';
 $my_book->price = 29.99;
 $my_book->publication_date = new ActiveRecord\DateTime('2016-04-04 17:56:30');
-```
-
-What? Ugly to look at? Ok...
-
-```PHP
-$my_book = new Book(['title' => 'Example Book', 
-                        'author' => 'Example Author',
-                        'price' => 29.99,
-                        'publication_date' => new ActiveRecord\DateTime('2016-04-04 17:56:30')]);
 ```
 
 Oh? What was that!? Was my database filled!?!? How?!?!? Where?!?!?
@@ -96,7 +95,9 @@ a lot of flexibility: think about a password: You want to encrypt a password bef
 storing it into the database... You would need to do something like this:
 
 ```PHP
-class User extends \Activerecord\Model { }
+use \Gishiki\ActiveRecord\ActiveModel;
+
+class User extends ActiveModel { }
 
 $my_user = new User();
 //$my_user->....
@@ -109,18 +110,19 @@ $my_user->password = $enc_pwd;
 It is ugly to read, you will mostly likely forget to encrypt() your password somewere
 and you will need to call unencrypt() each time you want to read the password.
 
-In this situation you *should* use custom getters and setters, allowing you to 
+In this situation you *should* use custom filtering, allowing you to 
 abstract away from your controllers the encryption stuff, embedding it into the model:
 
 ```PHP
-class User extends \Activerecord\Model {
-    public function set_password($plain_password) {
-        $this->assign_attribute('password', encrypt($plain_password));
+use \Gishiki\ActiveRecord\ActiveModel;
+
+class User extends ActiveModel {
+    public function __filter_set_password($unfiltered_password) {
+        return encrypt($unfiltered_password);
     }
 
-    public function get_password() {
-        $encrypted = read_attribute('password');
-        return unencrypt($encrypted);
+    public function __filter_get_password($filtered_password) {
+        return unencrypt($unfiltered_password);
     }
 }
 
@@ -130,18 +132,7 @@ $my_user->password = $plain_password;
 echo $my_user->password; //print out $plain_password
 ```
 
-Note: you *can* call setters and getter you created, if you want:
-
-```PHP
-$my_user = new User();
-$my_user->set_password($plain_password);
-
-echo $my_user->get_password(); //print out $plain_password
-```
-
-If you call a custom getter/setter you haven't created it will result in a standard value
-read/write, without custom behaviour, so... just use the syntax you like the most when
-dealing with your models.
+Note: you only define __HOW__ ransformations are performed: everything else is abstracted away from you.
 
 
 ## Date and Time

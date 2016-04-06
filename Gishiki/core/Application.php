@@ -37,55 +37,6 @@ namespace Gishiki\Core {
             //return the application configuration
             return $appConfiguration;
         }
-
-        /**
-         * Analyze a resource and build a model out of that resource
-         * 
-         * @param string $resource the resource to be analyzed
-         */
-        static function GenerateORMData($resource, $on_the_fly = FALSE) {
-            //get the file path of the model
-            $model_filepath = APPLICATION_DIR."Models".DS.pathinfo($resource, PATHINFO_FILENAME).".php";
-            
-            if (($on_the_fly) || (!file_exists($model_filepath))) {
-                try {
-                    //set the file containing the database structure
-                    $analyzer = new \Gishiki\ORM\ModelBuilding\StaticAnalyzer($resource);
-
-                    //analyze that file
-                    $analyzer->Analyze();
-
-                    //was that file correctly analyzed?
-                    if ($analyzer->Analyzed()) {
-
-                        //get the analysis result
-                        $database_structure = $analyzer->Result();
-
-                        //initialize the code generator
-                        $code_generator = new \Gishiki\ORM\ModelBuilding\ModelBuilder($database_structure);
-
-                        //check for errors
-                        $code_generator->ErrorsCheck();
-
-                        //perform the code generation
-                        $compilation_result = $code_generator->Compile();
-
-                        //include the compilation result
-                        eval($compilation_result);
-
-                        if (!\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_AUTOCACHE"))
-                        {   file_put_contents($model_filepath, "<?php".PHP_EOL.$compilation_result, LOCK_EX);  }
-                    } else {
-                        die("in resource '".$resource."': unknown error!");
-                    }
-
-                } catch (\Gishiki\ORM\ModelBuilding\ModelBuildingException $error) {
-                    die("Error number (".$error->getCode()."): ".$error->getMessage());
-                }
-            } else if (!$on_the_fly) {
-                include($model_filepath);
-            }
-        }
         
         /**
          * Start the Object-relational mapping bundled with Gishiki:
@@ -93,17 +44,9 @@ namespace Gishiki\Core {
          *      -   Include the generated php code
          *      -   Perform any additional setup operations
          */
-        static function StartORM($resources) {
-            //start up PHP ActiveRecord
-            \ActiveRecord\Config::initialize(function($cfg)
-            {
-                $cfg->set_model_directory(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("MODEL_DIR"));
-                $cfg->set_connections(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_CONNECTIONS"));
-            });
-            
-            //iterate over each database descriptor
-            foreach ($resources as &$resource) //compile the current database descriptor 
-            {   Application::GenerateORMData(APPLICATION_DIR.$resource, \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_AUTOCACHE"));    }
+        static function StartORM() {
+            //load every database connection
+            \Gishiki\ActiveRecord\ConnectionsProvider::RegisterGroup(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_CONNECTIONS"));
         }
         
         /**
@@ -170,23 +113,7 @@ namespace Gishiki\Core {
                     "//import the namespace for Routing".PHP_EOL.
                     "use \\Gishiki\\Core\\Route;".PHP_EOL.PHP_EOL.
                     "Route::get(\"/\", function() {".PHP_EOL.
-                    "   //this is the homepage, just render a small list of books...".PHP_EOL.
-                    "});".PHP_EOL.PHP_EOL.
-                    "Route::get(\"/book/{isbn}\", function(\$params) {".PHP_EOL.
-                    "   //parameter \"isbn\" contains the isbn of the searched book, you just search the book in your database and return it".PHP_EOL.
-                    "   \$my_book = book::last(['conditions' => \"isbn = '\".\$params->get(\"isbn\").\"'\"]);".PHP_EOL.
-                    "   var_dump(\$my_book);".PHP_EOL.
-                    "});".PHP_EOL.PHP_EOL.
-                    "Route::get(\"/book/new/{isbn}/{name}/{author}/{cost}/{date}\", function(\$params) {".PHP_EOL.
-                    "   //look at bookstore.xml to review the used data model".PHP_EOL.
-                    "   \$book = new book();".PHP_EOL.
-                    "   \$book->isbn = \$params->get(\"isbn\");".PHP_EOL.
-                    "   \$book->author = \$params->get(\"author\");".PHP_EOL.
-                    "   \$book->title = \$params->get(\"name\");".PHP_EOL.
-                    "   \$book->price = \$params->get(\"cost\");".PHP_EOL.
-                    "   \$book->publication_date = new ActiveRecord\\DateTime(\$params->get(\"date\"));".PHP_EOL.
-                    "   //the model is automatically saved into the database. Enjoy!".PHP_EOL.
-                    "   echo \"Book stored into the default database!\";".PHP_EOL.
+                    "   //this is the homepage".PHP_EOL.
                     "});".PHP_EOL.PHP_EOL.
                     "Route::error(Route::NotFound, function() {".PHP_EOL.
                     "   //this is what is executed if the router is unable to find a suitable route for a request".PHP_EOL.

@@ -183,7 +183,7 @@ namespace Gishiki\Core {
                             $real_URI = str_replace_once($param_real_value, "", $real_URI);
                             
                             //I am doing all this just for this line of code:
-                            $resolved_regex->set(substr($param, 1, strlen($param) - 2), $param_real_value);
+                            $resolved_regex->__set(substr($param, 1, strlen($param) - 2), $param_real_value);
                         }
                         
                         //finally trigger the function execution

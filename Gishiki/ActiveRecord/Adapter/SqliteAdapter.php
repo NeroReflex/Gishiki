@@ -1,0 +1,64 @@
+<?php
+/**************************************************************************
+Copyright 2015 Benato Denis
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*****************************************************************************/
+
+namespace Gishiki\ActiveRecord\Adapter;
+
+/**
+ * This is the sqlite database adapter
+ *
+ * @author Benato Denis <benato.denis96@gmail.com>
+ */
+class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
+    //this is the native PDO driver
+    private $native_connection = null;
+    
+    public function __construct($connection_query) {
+        try {
+            $this->native_connection = new \PDO("sqlite:" . $connection_query,
+                                                                null,
+                                                                null,
+                                                                [ \PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION ]);
+        } catch (\PDOException $ex) {
+            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a connection to the sqlite db, PDO reports: " . $ex->getMessage(), 2);
+        }
+    }
+    
+    public function Insert($collection_name, $collection_values) {
+        //create a an array of values placeholders
+        $collection_values_placeholders = array();
+        foreach ($collection_values as $value_placeholder => $value_literal) {
+            $collection_values_placeholders[] = ":".$value_placeholder;
+        }
+        
+        try {
+            $statement = $this->native_connection->prepare("INSERT INTO " . $collection_name . " ( " . implode(', ', array_keys($collection_values)) . " ) VALUES ( " . implode(', ', $collection_values_placeholders) . ")");
+
+            foreach ($collection_values as $value_placeholder => $value_literal) {
+                $statement->bindValue(":".$value_placeholder, $value_literal);
+            }
+            
+            //execute the statement
+            $statement->execute();
+        
+            //give the result back
+            return $this->native_connection->lastInsertId();
+        } catch (\PDOException $ex) {
+            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with insertion cannot, PDO reports: " . $ex->getCode());
+        }
+        
+    }
+}

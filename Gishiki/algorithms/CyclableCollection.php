@@ -45,14 +45,14 @@ class CyclableCollection implements \Iterator {
     }
     
     /**
-     * Start up a new iteration cycle: reset the currently active array element
+     * Start up a new iteration cycle: reset the currently active collection element
      */
     public function rewind() {
         reset($this->array);
     }
         
     /**
-     * Get the currently active array element in an iteration cycle
+     * Get the currently active collection element in an iteration cycle
      * 
      * Return FALSE if the array is empty
      * 
@@ -63,7 +63,7 @@ class CyclableCollection implements \Iterator {
     }
         
     /**
-     * Get the index of the currently active array element
+     * Get the index of the currently active collection element
      * 
      * @return integer the index of the currently active array element
      */
@@ -72,8 +72,8 @@ class CyclableCollection implements \Iterator {
     }
         
     /**
-     * Get the next array element after the currently active one and switch
-     * the currently active array element with the following one
+     * Get the next collection element after the currently active one and switch
+     * the currently active collection element with the following one
      * 
      * Return FALSE if the array is empty
      * 
@@ -84,33 +84,31 @@ class CyclableCollection implements \Iterator {
     }
         
     /**
-     * Access the array element at the given key and return the contained value
+     * Get an element of the collection as it would be an object property
      * 
      * Return NULL if the array doesn't contain the given key
      * 
      * @param integer|string $key the index of the array element to be accessed
      * @return mixed the requested array element or NULL
      */
-    public function get($key) {
+    public function &__get($key) {
         //return the chosen field
         if ($this->exists_key($key)) {     return $this->array[$key];  }
         else {                      return NULL;                }
     }
     
     /**
-     * Access the array element at the given index and insert the given value
+     * Set an element of the collection as it would be an object property
      * 
-     * @param integer|string $key the index of the array element to be accessed
-     * @param mixed $value the value to insert
-     * @return mixed the inserted array element
+     * @param string $key the of the property to be modified
+     * @param mixed $value the value to be assigned to the property
      */
-    public function set($key, $value) {
-        //return the chosen field
-        return $this->array[$key] = $value;
+    public function __set($key, $value) {
+        $this->array[$key] = $value;
     }
         
     /**
-     * Check if the currently active array element is a valid and existing one
+     * Check if the currently active collection element is a valid and existing one
      * 
      * @return boolean TRUE if the currently accessed field is a valid one
      */
@@ -145,7 +143,7 @@ class CyclableCollection implements \Iterator {
     }
     
     /**
-     * Perform a search withing the current array to find the given value.
+     * Perform a search withing the current collection to find the given value.
      * 
      * Return FALSE if the array doesn't contains the searched value
      * 
@@ -157,7 +155,7 @@ class CyclableCollection implements \Iterator {
     }
     
     /**
-     * Check if the given key is part of the current array
+     * Check if the given key is part of the current collection
      * 
      * @param integer|string $key the key to be checked
      * @return boolean TRUE if the given key exists
@@ -167,12 +165,21 @@ class CyclableCollection implements \Iterator {
     }
     
     /**
-     * Insert the given element into the array
+     * Insert the given element into the collection
      * 
      * @param mixed $value the value to insert
      */
     public function emplace($value) {
         $this->array[] = $value;
+    }
+    
+    /**
+     * Return a dump of all elements inside the current collection
+     * 
+     * @return array the dumped collection
+     */
+    public function __invoke() {
+        return $this->array;
     }
 }
 

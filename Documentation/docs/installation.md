@@ -92,12 +92,24 @@ server {
 Your server configuration file should be located at /etc/nginx/nginx.conf
 
 
-## PHP v7
+## PHP v7 / nginx
 This framework is fully compatible with PHP 7, and you are encouraged to use it.
 
 PHP v7 is the PHP version I am using while developing Gishiki.
 
 Installation depends on your system, so read the PHP manual (or google for instructions....).
+
+You will be provided with ubuntu instructions:
+
+```shell
+sudo add-apt-repository ppa:ondrej/php
+sudo apt-get update
+sudo apt-get install -y language-pack-en-base
+sudo LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
+sudo apt-get install nginx php7.0 php7.0-fpm php7.0-mysql php7.0-sqlite php7.0-pgsql php7.0-curl
+```
+
+You don't need to install php7.0-fpm if you are __NOT__ using nginx.
 
 
 ## HHVM

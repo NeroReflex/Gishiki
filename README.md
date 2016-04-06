@@ -4,21 +4,21 @@ _*Gishiki*_: a modern and elegant MVC framework for PHP >= 5.6 and HHVM.
 Gishiki means 'ritual' in japanese, this name was chosen because this framework will help you to perform the
 ritual of creation and deployment of web digital contents.
 
-Due to its design this framework won't force you to use its features: you are completely free of using it as you wish,
+Due to its design this framework won't force you to use its features: you are completely free to use it as you wish to,
 even if that breaks up MVC principles and/or uses a custom ORM.
 
 Gishiki is so fast to deploy that you don't even need to configure it to get started!
 
-What are you waiting for? 
+What are you waiting for?
 Installing is as simple as cloning the repository and in 2 minutes you are up in experimenting its features!
 
 
 ## Documentation
-A simple tutorial and a hand-written documentation will be available in the near future.
+A simple tutorial is inside the Documentation folder. That tutorial is meant to be compiled using mkdocs.
 
-While waiting you can browse the API documentation for the current version on the master branch that can be found [here](http://neroreflex.github.io/Gishiki).
+You can browse [here](http://neroreflex.github.io/Gishiki) the online updated version.
 
-If you are looking for the next cutting-edge documentation you can build the documentation for the development branch by yourself using PHP ApiGen!
+The online version matches the development branch.
 
 
 ## Services
@@ -33,7 +33,7 @@ an Android/iOS application, another service, a Desktop program or another websit
 
 
 ## Websites
-Gishiki deploy a minimal but classic MVC pattern to help you building any website you want.
+Gishiki deploy an MVC pattern that is a bit special to help you building any digital servie you want with just one framework.
 
 In order to help you achieving your goals Gishiki provides helpers to help you with most common operations,
 but let you free of doing things the way you want.

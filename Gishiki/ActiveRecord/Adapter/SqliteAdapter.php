@@ -27,6 +27,9 @@ class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
     private $native_connection = null;
     
     public function __construct($connection_query) {
+        if (!in_array("sqlite", \PDO::getAvailableDrivers()))
+        {   throw new \Gishiki\ActiveRecord\DatabaseException("No sqlite driver available: install sqlite PDO driver", 5);  }
+        
         try {
             $this->native_connection = new \PDO("sqlite:" . $connection_query);
             $this->native_connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -46,7 +49,7 @@ class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             }
             
             $sql = "INSERT INTO " . $collection_name . " ( " . implode(', ', array_keys($collection_values)) . " ) VALUES ( " . implode(', ', $placeholders) . ")";
-            var_dump($sql);
+            
             //create the statement for execution
             $statement = $this->native_connection->prepare($sql);
             

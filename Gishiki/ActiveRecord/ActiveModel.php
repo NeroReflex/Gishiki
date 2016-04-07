@@ -142,7 +142,7 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
     /**
      * Save the current model into the database
      */
-    public function save() { var_dump($this->__dirty);
+    public function save() {
         if (!$this->__ghost) {
             //get the database connection
             $db_connection = ConnectionsProvider::FetchConnection(self::$connection);

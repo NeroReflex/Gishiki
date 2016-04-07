@@ -33,12 +33,69 @@ class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         try {
             $this->native_connection = new \PDO("sqlite:" . $connection_query);
             $this->native_connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            $this->native_connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+            $this->native_connection->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, false);
         } catch (\PDOException $ex) {
             throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a connection to the sqlite db, PDO reports: " . $ex->getMessage(), 2);
         }
     }
     
-    public function Insert($collection_name, $collection_values) {
+    private function where_compile(\Gishiki\ActiveRecord\RecordsSelector $where, &$sobstitution_table) {
+        //setup the sobtitution table
+        $sobstitution_table = array();
+        
+        //start compiling
+        $where_clauses = " WHERE ";
+        
+        //get the list of selectors
+        $selectors_property = new \ReflectionProperty($where, "selectors");
+        $selectors_property->setAccessible(TRUE);
+        $fields_selectors = $selectors_property->getValue($where);
+        
+        //place selectors
+        $i = 0;
+        $fields = array_keys($fields_selectors);
+        foreach ($fields as $field) {
+            $relationship = \get_string_between($field, '[', ']');
+            $fieldname = str_replace('['.$relationship.']', "", $field);
+            
+            //HERE you should change relationship if the rdbms you are using doesn't support:
+            // = != < <= >= > 
+            
+            $where_clauses .= $fieldname . " " . $relationship . " ?";
+            
+            //place comme if needed
+            if ($i < count($fields) - 2)
+            {   $where_clauses .= ' AND ';     }
+            $sobstitution_table[] = $fields_selectors[$field];
+            
+            $i++;
+        }
+        
+        //get the limit
+        $limit_property = new \ReflectionProperty($where, "limit");
+        $limit_property->setAccessible(TRUE);
+        
+        $limit = $limit_property->getValue($where);
+        if ($limit) {
+            $sobstitution_table[] = $limit;
+            $where_clauses .= " LIMIT ? ";
+        }
+        
+        //get the offset
+        $offset_property = new \ReflectionProperty($where, "offset");
+        $offset_property->setAccessible(TRUE);
+        
+        $offset = $offset_property->getValue($where);
+        if ($offset) {
+            $where_clauses .= " OFFSET ? ";
+            $sobstitution_table[] = $offset;
+        }
+        
+        return $where_clauses;
+    }
+    
+    public function Create($collection_name, $collection_values) {
         try {
             //generate values collection and placeholders
             $values = array();
@@ -48,7 +105,7 @@ class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
                 $values[] = $current;
             }
             
-            $sql = "INSERT INTO " . $collection_name . " ( " . implode(', ', array_keys($collection_values)) . " ) VALUES ( " . implode(', ', $placeholders) . ")";
+            $sql = "INSERT INTO " . $collection_name . " ( " . implode(', ', array_keys($collection_values)) . " ) VALUES ( " . implode(', ', $placeholders) . ") ";
             
             //create the statement for execution
             $statement = $this->native_connection->prepare($sql);
@@ -59,23 +116,134 @@ class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             //give the result back
             return $this->native_connection->lastInsertId();
         } catch (\PDOException $ex) {
-            var_dump($ex->getMessage());
-            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with insertion, PDO reports: " . $ex->getCode());
+            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with insertion, PDO reports: " . $ex->getCode(), 6);
         }
     }
     
-    public function Update($collection_name, $collection_values, $id, $id_table_name) {
+    public function Update($collection_name, $collection_values, \Gishiki\ActiveRecord\RecordsSelector $where) {
         try {
-            $statement = $this->native_connection->prepare("UPDATE");
-
-            foreach ($collection_values as $value_placeholder => $value_literal) {
-                $statement->bindValue(":".$value_placeholder, $value_literal);
+            //generate values collection and placeholders
+            $values = array();
+            
+            //start building the query
+            $sql = "UPDATE " . $collection_name . " SET ";
+            
+            //insert value that are going to be updated
+            $value_count = count($collection_values);
+            $i = 0;
+            foreach ($collection_values as $key => $current) {
+                $sql .= " $key = ?";
+                $values[] = $current;
+                
+                //place the separator if another field is going to be updated
+                if ($i < ($value_count - 1))
+                {    $sql .= ", ";    }
+                    
+                $i++;
             }
             
+            //add where clauses
+            $where_subs = null;
+            $sql .= $this->where_compile($where, $where_subs);
+            
+            //build the values and where array
+            $values_and_where = array();
+            foreach ($values as &$value)
+            {   $values_and_where[] = $value;   }
+            foreach ($where_subs as &$value)
+            {   $values_and_where[] = $value;   }
+            
+            //create the statement for execution
+            $statement = $this->native_connection->prepare($sql);
+            
             //execute the statement
-            $statement->execute();
+            $statement->execute($values_and_where);
+            
+            //return the number of affected rows
+            return $statement->rowCount();
         } catch (\PDOException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with insertion cannot, PDO reports: " . $ex->getCode());
+            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue database update, PDO reports: " . $ex->getCode(), 11);
+        }
+    }
+    
+    public function Delete($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where) {
+        try {
+            //start building the query
+            $sql = "DELETE FROM " . $collection_name . " ";
+            
+            //add where clauses
+            $where_subs = null;
+            $sql .= $this->where_compile($where, $where_subs);
+            
+            //create the statement for execution
+            $statement = $this->native_connection->prepare($sql);
+            
+            //execute the statement
+            $statement->execute($where_subs);
+            
+            //return the number of affected rows
+            return $statement->rowCount();
+        } catch (\PDOException $ex) {
+            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with deletion, PDO reports: " . $ex->getCode(), 9);
+        }
+    }
+    
+    public function Read($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where) {
+        try {
+            //start building the query
+            $sql = "SELECT * FROM " . $collection_name . " ";
+            
+            //add where clauses
+            $where_subs = null;
+            $sql .= $this->where_compile($where, $where_subs);
+            
+            //create the statement for execution
+            $statement = $this->native_connection->prepare($sql);
+            
+            //execute the statement
+            $statement->execute($where_subs);
+            
+            //build columns metadata:
+            $metadata = array();
+            foreach(range(0, $statement->columnCount() - 1) as $column_index)
+            {
+              $metadata[$column_index] = $statement->getColumnMeta($column_index);
+            }
+            
+            //return the number of affected rows
+            $raw_fetch = $statement->fetchAll(\PDO::FETCH_NUM);
+            
+            //build the native record collection
+            $native_records = array();
+            foreach ($raw_fetch as $current_record) {
+                $current_record_native = array();
+                foreach ($current_record as $record_key => $record_value) {
+                    $native_value = $record_value;
+                    switch (strtolower($metadata[$record_key]["native_type"])) {
+                        case 'integer':
+                            $native_value = intval($record_value);
+                            break;
+                        case 'boolean':
+                            $native_value = boolval($record_value);
+                            break;
+                        case 'float':
+                        case 'double':
+                            $native_value = floatval($record_value);
+                            break;
+                        default:
+                            //leave it as is
+                            break;
+                    }
+                    
+                    //build the current record (in native format)
+                    $current_record_native[$metadata[$record_key]['name']] = $native_value;
+                }
+                $native_records[] = $current_record_native;
+            }
+            
+            return $native_records;
+        } catch (\PDOException $ex) {
+            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with read, PDO reports: " . $ex->getCode(), 10);
         }
     }
 }

@@ -65,6 +65,7 @@ include(ROOT."Gishiki".DS."ActiveRecord".DS."ActiveModel.php");
 include(ROOT."Gishiki".DS."ActiveRecord".DS."ConnectionsProvider.php");
 include(ROOT."Gishiki".DS."ActiveRecord".DS."DatabaseAdapter.php");
 include(ROOT."Gishiki".DS."ActiveRecord".DS."DatabaseException.php");
+include(ROOT."Gishiki".DS."ActiveRecord".DS."RecordsSelector.php");
 
 //this is the environment used to fulfill the incoming request
 $executionEnvironment = NULL;

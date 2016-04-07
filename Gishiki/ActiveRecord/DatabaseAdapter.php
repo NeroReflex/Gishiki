@@ -41,5 +41,33 @@ interface DatabaseAdapter {
      * @throws DatabaseException the error preventing the collection to be filled
      * @return mixed the unique ID of the newly created collection
      */
-    public function Insert($collection_name, $collection_values);
+    public function Create($collection_name, $collection_values);
+    
+    /**
+     * Update a set of records into the database at the given table/collection
+     * 
+     * @param string $collection_name the table/collection that will be affected
+     * @param array $collection_values the array of name => value pairs
+     * @param \Gishiki\ActiveRecord\RecordsSelector $where the records selector
+     * @return integer the number of affected records
+     */
+    public function Update($collection_name, $collection_values, \Gishiki\ActiveRecord\RecordsSelector $where);
+    
+    /**
+     * Delete a set of records into the database at the given table/collection
+     * 
+     * @param string $collection_name the table/collection that will be affected
+     * @param \Gishiki\ActiveRecord\RecordsSelector $where the records selector
+     * @return integer the number of affected records
+     */
+    public function Delete($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where);
+    
+    /**
+     * Delete a set of records into the database at the given table/collection
+     * 
+     * @param string $collection_name the table/collection that will be affected
+     * @param \Gishiki\ActiveRecord\RecordsSelector $where the records selector
+     * @return integer the number of affected records
+     */
+    public function Read($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where);
 }

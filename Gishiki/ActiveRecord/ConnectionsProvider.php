@@ -83,7 +83,8 @@ abstract class ConnectionsProvider {
      * one is used
      * 
      * @param string $connection_name the connection name
-     * @return a connection that implements the DatabaseAdapter insterface or NULL
+     * @return mixed a connection that implements the DatabaseAdapter interface
+     * @throws \Gishiki\ActiveRecord\DatabaseException the connection cannot be found
      */
     static function FetchConnection($connection_name = null) {
         //get the connection name

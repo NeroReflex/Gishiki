@@ -172,14 +172,5 @@ class CyclableCollection implements \Iterator {
     public function emplace($value) {
         $this->array[] = $value;
     }
-    
-    /**
-     * Return a dump of all elements inside the current collection
-     * 
-     * @return array the dumped collection
-     */
-    public function __invoke() {
-        return $this->array;
-    }
 }
 

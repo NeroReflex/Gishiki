@@ -29,20 +29,41 @@ class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
     public function __construct($connection_query) {
         try {
             $this->native_connection = new \PDO("sqlite:" . $connection_query);
+            $this->native_connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch (\PDOException $ex) {
             throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a connection to the sqlite db, PDO reports: " . $ex->getMessage(), 2);
         }
     }
     
     public function Insert($collection_name, $collection_values) {
-        //create a an array of values placeholders
-        $collection_values_placeholders = array();
-        foreach ($collection_values as $value_placeholder => $value_literal) {
-            $collection_values_placeholders[] = ":".$value_placeholder;
-        }
-        
         try {
-            $statement = $this->native_connection->prepare("INSERT INTO " . $collection_name . " ( " . implode(', ', array_keys($collection_values)) . " ) VALUES ( " . implode(', ', $collection_values_placeholders) . ")");
+            //generate values collection and placeholders
+            $values = array();
+            $placeholders = array();
+            foreach ($collection_values as &$current) {
+                $placeholders[] = '?';
+                $values[] = $current;
+            }
+            
+            $sql = "INSERT INTO " . $collection_name . " ( " . implode(', ', array_keys($collection_values)) . " ) VALUES ( " . implode(', ', $placeholders) . ")";
+            var_dump($sql);
+            //create the statement for execution
+            $statement = $this->native_connection->prepare($sql);
+            
+            //execute the statement
+            $statement->execute($values);
+        
+            //give the result back
+            return $this->native_connection->lastInsertId();
+        } catch (\PDOException $ex) {
+            var_dump($ex->getMessage());
+            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with insertion, PDO reports: " . $ex->getCode());
+        }
+    }
+    
+    public function Update($collection_name, $collection_values, $id, $id_table_name) {
+        try {
+            $statement = $this->native_connection->prepare("UPDATE");
 
             foreach ($collection_values as $value_placeholder => $value_literal) {
                 $statement->bindValue(":".$value_placeholder, $value_literal);
@@ -50,12 +71,8 @@ class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             
             //execute the statement
             $statement->execute();
-        
-            //give the result back
-            return $this->native_connection->lastInsertId();
         } catch (\PDOException $ex) {
             throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with insertion cannot, PDO reports: " . $ex->getCode());
         }
-        
     }
 }

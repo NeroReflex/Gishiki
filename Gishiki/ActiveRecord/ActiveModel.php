@@ -77,7 +77,7 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
      */
     public function __destruct() {
         if (count($this->__dirty) > 0)
-        {   $this->Save();  }
+        {   $this->save();  }
     }
     
     public function __set($key, $value) {
@@ -133,7 +133,7 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
      * Lock or unlock the model in ghost mode.
      + A ghost model cannot be modified or saved into the database.
      * 
-     * @param boolean $readonly if TRUE the object will be readonly
+     * @param boolean $readonly if TRUE the model will become a ghost
      */
     public function Ghost($readonly = true) {
         $this->__ghost = ($readonly == true);
@@ -142,22 +142,23 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
     /**
      * Save the current model into the database
      */
-    public function Save() {
+    public function save() { var_dump($this->__dirty);
         if (!$this->__ghost) {
-            
             //get the database connection
             $db_connection = ConnectionsProvider::FetchConnection(self::$connection);
             
-            if (!static::$table_name)
-            {   static::$table_name = strtolower(get_called_class()) . "s";   }
-            
-            if ($this->array[static::$primary_key] !== null) {
-                //store the id of the newly saved model
-                $this->array[static::$primary_key] = $db_connection->Insert(self::$connection, $this->array);
-            } else {
-                //update the model
-                
+            if (count($this->__dirty) > 0) {
+                if ($this->array[static::$primary_key] === null) {
+                    //store the id of the newly saved model
+                    $this->array[static::$primary_key] = $db_connection->Insert(self::getTableName(), $this->array);
+                } else {
+                    //update the model
+
+                }
             }
+            
+            //no dirty attributes now!
+            $this->__dirty = array();
         }
     }
     
@@ -165,7 +166,7 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
      * Delete the current model from the database
      * and lock it into readonly mode to avoid the autosave
      */
-    public function Delete() {
+    public function delete() {
         //delete the model if it is not null
         if ($this->array[static::$primary_key] !== null) {
             
@@ -178,4 +179,19 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
         $this->Ghost(true);
     }
     
+    /**
+     * 
+     * @return string the real name of the tabse
+     */
+    protected static function getTableName() {
+        //get the name of the table
+        if (!static::$table_name) {
+            static::$table_name = strtolower(get_called_class()) . "s";
+            
+            static::$table_name = str_replace("/", "_", static::$table_name);
+            static::$table_name = str_replace("\\", "_", static::$table_name);
+        }
+        
+        return static::$table_name;
+    }
 }

@@ -36,6 +36,26 @@ if (!function_exists("str_replace_once")) {
     }
 }
 
+if (!function_exists("str_replace_list")) {
+    
+    /**
+     * Convenient function that behave exactly like str_replace for the first occurrence only
+     * 
+     * @param array $str_patterns the list of pattern to be replaced
+     * @param string $str_replacement the string to replace the first matched pattern
+     * @param string $string the string to search the pattern into
+     * @return string the new string with the first matched pattern replaced
+     */
+    function str_replace_list($str_patterns, $str_replacement, $string)
+    {
+        foreach ($str_patterns as $pattern) {
+            $string = str_replace($pattern, $str_replacement, $string);
+        }
+        
+        return $string;
+    }
+}
+
 if (!function_exists("get_string_between")) {
     
     /**

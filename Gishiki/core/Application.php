@@ -167,7 +167,7 @@ XML;
                                 ."          \"MySQL\":  \"mysql://username:password@localhost/development?charset=utf8\", ".PHP_EOL
                                 ."          \"PostgreSQL\":  \"pgsql://username:password@localhost/development\", ".PHP_EOL
                                 ."          \"SQLite\":  \"sqlite://development_database.db\", ".PHP_EOL
-                                ."          \"SQLite_file\":  \"sqlite://unix(/var/www/html/database.sqlite)\", ".PHP_EOL
+                                ."          \"development\":  \"sqlite:///var/www/html/database.sqlite\", ".PHP_EOL
                                 ."          \"oci\":  \"oci://username:passsword@localhost/xe\" ".PHP_EOL
                                 ."      }".PHP_EOL
                                 ."  },".PHP_EOL

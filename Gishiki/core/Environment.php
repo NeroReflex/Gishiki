@@ -232,6 +232,9 @@ namespace Gishiki\Core {
                 $config = Application::GetSettings();
                 //General Configuration
                 $this->configuration = [
+                    //get general environment configuration
+                    "DEVELOPMENT_ENVIRONMENT" => $config["general"]["development"],
+                    
                     //Security Settings
                     "SECURITY" => [
                         "MASTER_SYMMETRIC_KEY" => $config["security"]["serverPassword"],
@@ -261,17 +264,15 @@ namespace Gishiki\Core {
                 ];
             }
             
-            if (count($config) > 2) {
-                //get general environment configuration
-                $this->configuration["DEVELOPMENT_ENVIRONMENT"] = $config["general"]["development"];
-            }
-            
             //check for the environment configuration
             if (isset($this->configuration["DEVELOPMENT_ENVIRONMENT"])) {
                 if ($this->configuration["DEVELOPMENT_ENVIRONMENT"])
                 {
                     ini_set('display_errors', 1);
                     error_reporting(E_ALL);
+                    
+                    //switch to the development database avoid breaking important things!
+                    \Gishiki\ActiveRecord\ConnectionsProvider::ChangeDefaultConnection('development');
                 } else {
                     ini_set('display_errors', 0);
                     error_reporting(0);

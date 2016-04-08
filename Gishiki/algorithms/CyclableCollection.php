@@ -94,7 +94,7 @@ class CyclableCollection implements \Iterator {
     public function &__get($key) {
         //return the chosen field
         if ($this->exists_key($key)) {     return $this->array[$key];  }
-        else {                      return NULL;                }
+        else {                      return NULL;                };
     }
     
     /**
@@ -171,6 +171,15 @@ class CyclableCollection implements \Iterator {
      */
     public function emplace($value) {
         $this->array[] = $value;
+    }
+    
+    /**
+     * Get the currently managed collectionin form as a native array
+     * 
+     * @return array the current collection
+     */
+    public function __invoke() {
+        return $this->array;
     }
 }
 

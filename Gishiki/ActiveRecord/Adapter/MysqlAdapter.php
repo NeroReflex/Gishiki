@@ -22,19 +22,30 @@ namespace Gishiki\ActiveRecord\Adapter;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
+class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
     //this is the native PDO driver
     private $native_connection = null;
     
     public function __construct($connection_query) {
-        if (!in_array("sqlite", \PDO::getAvailableDrivers()))
-        {   throw new \Gishiki\ActiveRecord\DatabaseException("No SQLite driver available: install the sqlite PDO driver", 5);  }
+        if (!in_array("mysql", \PDO::getAvailableDrivers()))
+        {   throw new \Gishiki\ActiveRecord\DatabaseException("No MySQL driver available: install the mysql PDO driver", 5);  }
+        
+        //extract connection info from the connection query
+        $db_conn = explode('@', $connection_query, 2);
+        $user_and_password = explode(':', $db_conn[0], 2);
+        $host_and_port = explode(':', explode('/', $db_conn[1], 2)[0], 2);
+        $db_name = explode('/', $db_conn[1], 2)[1];
+        
+        //use the default port is nother one was not specified
+        if (!isset($host_and_port[1] ))
+        {   $host_and_port[1] = '3306';   }
         
         try {
-            $this->native_connection = new \PDO("sqlite:" . $connection_query);
+            $this->native_connection = new \PDO("mysql:host=" . $host_and_port[0] . ";port=" . $host_and_port[1] . ";dbname=" . $db_name,$user_and_password[0], $user_and_password[1]);
             $this->native_connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $this->native_connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
             $this->native_connection->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, false);
+            //$this->native_connection->setAttribute(\PDO::ATTR_PERSISTENT, true);
         } catch (\PDOException $ex) {
             throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a connection to the sqlite db, PDO reports: " . $ex->getMessage(), 2);
         }
@@ -314,6 +325,7 @@ class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             
             return $native_records;
         } catch (\PDOException $ex) {
+            
             throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with read, PDO reports: " . $ex->getCode(), 10);
         }
     }

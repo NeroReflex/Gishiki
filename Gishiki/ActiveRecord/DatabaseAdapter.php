@@ -38,10 +38,11 @@ interface DatabaseAdapter {
      * 
      * @param string $collection_name the name of the collection to be filled
      * @param array $collection_values the array of name => value pairs
+     * @param string $id_column_name the name of the primary key (used for some drivers like pgsql)
      * @throws DatabaseException the error preventing the collection to be filled
      * @return mixed the unique ID of the newly created collection
      */
-    public function Create($collection_name, $collection_values);
+    public function Create($collection_name, $collection_values, $id_column_name = null);
     
     /**
      * Update a set of records into the database at the given table/collection

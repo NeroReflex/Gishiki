@@ -26,7 +26,8 @@ abstract class ConnectionsProvider {
     private static $connections = array();
     
     //define the name of the default database connection
-    private static $name_of_default = 'default';
+    //private static $name_of_default = 'default';
+    private static $name_of_default = 'development';
     
     /**
      * Create a connection using the given connection query and register the 
@@ -98,5 +99,17 @@ abstract class ConnectionsProvider {
         }
         
         return $connection;
+    }
+    
+    /**
+     * Change the default database connection, affecting each model using the default connection.
+     * 
+     * This function MUST NOT be called after the usage of a connection
+     * 
+     * @param string $connection_name the name of the connection that will be used as the default one
+     */
+    static function ChangeDefaultConnection($connection_name = null) {
+        if (($connection_name !== null) && (strlen($connection_name) > 0))
+        {   self::$name_of_default = $connection_name;  }
     }
 }

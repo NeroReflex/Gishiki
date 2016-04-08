@@ -200,13 +200,13 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
             $db_connection = ConnectionsProvider::FetchConnection(self::$connection);
             
             if (count($this->__dirty) > 0) {
-                if ($this->array[static::$primary_key] === null) {
+                if (($this->array[static::$primary_key] === null) || (0 === count(static::Dispense(RecordsSelector::filters()->{'where_' . static::$primary_key . '_is'}($this->array[static::$primary_key])->limit(1))))) {
                     //build the insertion array (the model without id)
                     $insertion_array = $this->array;
                     unset($insertion_array[static::$primary_key]);
                     
                     //store the id of the newly saved model
-                    $this->array[static::$primary_key] = $db_connection->Create(self::getTableName(), $insertion_array);
+                    $this->array[static::$primary_key] = $db_connection->Create(self::getTableName(), $insertion_array, static::$primary_key);
                 } else {
                     //build the update array
                     $new_value = array();

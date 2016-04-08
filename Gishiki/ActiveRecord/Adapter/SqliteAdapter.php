@@ -40,6 +40,45 @@ class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         }
     }
     
+    private function getColumnInfo($collection_name) {
+        try {
+            //start building the query
+            $sql = "SELECT * FROM " . $collection_name . " WHERE 1 = 1 LIMIT 1";
+            
+            //create the statement for execution
+            $statement = $this->native_connection->prepare($sql);
+            
+            //execute the statement
+            $statement->execute();
+            
+            //build columns metadata:
+            $metadata = array();
+            foreach(range(0, $statement->columnCount() - 1) as $column_index)
+            {
+                $metadata[$column_index] = $statement->getColumnMeta($column_index);
+                if ($metadata[$column_index] === false)
+                {   throw new \Gishiki\ActiveRecord\DatabaseException("Unable to detect table structure", 15);}
+            }
+            
+            //return the column metadata
+            return $metadata;
+        } catch (\PDOException $ex) {
+            var_dump($ex->getMessage());
+            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with table introspection, PDO reports: " . $ex->getCode(), 16);
+        }
+    }
+    
+    private function native_types($collection_name, $array) {
+        //get table info
+        $table_descriptors =$this->getColumnInfo($collection_name);
+        
+        foreach ($array as $key => $value) {
+            if (gettype($key)) {
+                
+            }
+        }
+    }
+    
     private function where_compile(\Gishiki\ActiveRecord\RecordsSelector $where, &$sobstitution_table) {
         //setup the sobtitution table
         $sobstitution_table = array();
@@ -190,6 +229,9 @@ class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
     
     public function Read($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where) {
         try {
+            //build columns metadata:
+            $metadata = $this->getColumnInfo($collection_name);
+            
             //start building the query
             $sql = "SELECT * FROM " . $collection_name . " ";
             
@@ -202,13 +244,6 @@ class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             
             //execute the statement
             $statement->execute($where_subs);
-            
-            //build columns metadata:
-            $metadata = array();
-            foreach(range(0, $statement->columnCount() - 1) as $column_index)
-            {
-              $metadata[$column_index] = $statement->getColumnMeta($column_index);
-            }
             
             //return the number of affected rows
             $raw_fetch = $statement->fetchAll(\PDO::FETCH_NUM);

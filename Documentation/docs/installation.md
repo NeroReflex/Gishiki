@@ -104,7 +104,7 @@ sudo add-apt-repository ppa:ondrej/php
 sudo apt-get update
 sudo apt-get install -y language-pack-en-base
 sudo LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
-sudo apt-get install nginx php7.0 php7.0-xml php7.0-fpm php7.0-mysql php7.0-sqlite php7.0-pgsql php7.0-curl
+sudo apt-get install nginx php7.0 php7.0-dev php7.0-xml php7.0-fpm php7.0-mysql php7.0-sqlite php7.0-pgsql php7.0-curl
 ```
 
 You don't need to install php7.0-fpm if you are __NOT__ using nginx.
@@ -229,5 +229,30 @@ This should help you understanding routing and model creation (just look at rout
 If you check your sqlite database you will notice that.....
 
 
+## Composer
+As promised Gishiki is not meant to replace your favourite tools: you can still use all of them!
+
+Doctrine? Propel? Zend framework components? Symfony components? No problem!
+
+You have to install them and you do that using composer! If you don't have composer run:
+
+```shell
+php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
+php -r "if (hash('SHA384', file_get_contents('composer-setup.php')) === '7228c001f88bee97506740ef0888240bd8a760b046ee16db8f4095c0d8d525f2367663f22a46b48d072c816e7fe19959') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+```
+
+If everything went fine you cd into Gishiki directory and, using nano, you add to "require" your components.
+
+When you are done adding components you have to install all of them (alongside Gishiki) at once:
+
+```shell
+composer install 
+```
+
+Your components are automatically loaded and you can use them exactly as if you weren't using any framework at all!
+
+
 ## What's next?
-To start learning how to accomplish things you have to learn what the framework does when a request arrives from a client.
+To start learning how to accomplish things you *have to* learn lifecycle of a resource starting from when a request arrives from the client to the server.

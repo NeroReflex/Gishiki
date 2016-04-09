@@ -8,9 +8,6 @@
 //import the router (Route class)
 use \Gishiki\Core\Route;
 
-
-class Book extends \Gishiki\ActiveRecord\ActiveModel  {   };
-
 Route::get("/", function() {
    //this is the homepage, just render a small list of books...
 });

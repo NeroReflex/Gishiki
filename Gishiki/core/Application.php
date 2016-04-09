@@ -48,10 +48,9 @@ namespace Gishiki\Core {
             //load every database connection
             \Gishiki\ActiveRecord\ConnectionsProvider::RegisterGroup(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_CONNECTIONS"));
             
-            foreach (glob(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("MODEL_DIR") . DS . "*.php") as $filename)
-            {
-                include $filename;
-            }
+            //load every model in the models directory
+            foreach (glob(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("MODEL_DIR") . "/*.php") as $filename)
+            {   include($filename);     }
         }
         
         /**
@@ -97,7 +96,10 @@ namespace Gishiki\Core {
             if ((!file_exists(APPLICATION_DIR."Models".DS)) && ($errors == 0)) {
                 if (!@mkdir(APPLICATION_DIR."Models".DS)) {
                     $errors++;
-                }
+                } else if (file_put_contents(APPLICATION_DIR."Models".DS."Book.php", file_get_contents(ROOT."Gishiki".DS."core".DS."example_app".DS."book_model.php"), LOCK_EX) === FALSE)
+                {   $errors++;      }
+            } else {
+                
             }
             
             if ((!file_exists(APPLICATION_DIR."Keyring".DS)) && ($errors == 0)) {
@@ -114,8 +116,7 @@ namespace Gishiki\Core {
                 }
             }
             
-            $routing_example = file_get_contents(ROOT."Gishiki".DS."core".DS."example_app".DS."routes.php");
-            if (file_put_contents(APPLICATION_DIR."routes.php", $routing_example, LOCK_EX) === FALSE) {
+            if (file_put_contents(APPLICATION_DIR."routes.php", file_get_contents(ROOT."Gishiki".DS."core".DS."example_app".DS."routes.php"), LOCK_EX) === FALSE) {
                 $errors++;
             }
             

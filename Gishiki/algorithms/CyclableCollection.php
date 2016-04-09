@@ -174,6 +174,24 @@ class CyclableCollection implements \Iterator {
     }
     
     /**
+     * Get the number of entries in the current data collection
+     * 
+     * @return integer the number of elements inside the current collection
+     */
+    public function count() {
+        return count($this->array);
+    }
+    
+    /**
+     * Check weather the current collection is empty (has no elements)
+     * 
+     * @return boolean TRUE only if the current collection is empty
+     */
+    public function is_empty() {
+        return ($this->count() <= 0);
+    }
+    
+    /**
      * Get the currently managed collectionin form as a native array
      * 
      * @return array the current collection

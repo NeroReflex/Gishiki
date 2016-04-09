@@ -41,11 +41,12 @@ class PgsqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         {   $host_and_port[1] = '5432';   }
         
         try {
-            $this->native_connection = new \PDO("pgsql:host=" . $host_and_port[0] . ";port=" . $host_and_port[1] . ";dbname=" . $db_name,$user_and_password[0], $user_and_password[1]);
-            $this->native_connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-            $this->native_connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
-            $this->native_connection->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, false);
-            //$this->native_connection->setAttribute(\PDO::ATTR_PERSISTENT, true);
+            $this->native_connection = new \PDO("pgsql:host=" . $host_and_port[0] . ";port=" . $host_and_port[1] . ";dbname=" . $db_name,$user_and_password[0], $user_and_password[1], [
+                \PDO::ATTR_PERSISTENT => false,
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                \PDO::ATTR_EMULATE_PREPARES => false,
+                \PDO::ATTR_STRINGIFY_FETCHES => false
+            ]);
         } catch (\PDOException $ex) {
             throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a connection to the sqlite db, PDO reports: " . $ex->getMessage(), 2);
         }

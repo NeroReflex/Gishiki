@@ -34,14 +34,13 @@ abstract class ConnectionsProvider {
      * connection for future usage by an ActiveModel
      * 
      * @param string $connection_name the connection string
-     * @param string $connection_string the connection query
+     * @param array $connection the connection query
      */
-    static function Register($connection_name, $connection_string = "sqlite://:memory:") {
-        $protocol_connection = explode("://", $connection_string, 2);
+    static function Register($connection_name, $connection) {
         
-        if (count($protocol_connection) > 1 ) {
+        if ((isset($connection['driver'])) && (isset($connection['query']))) {
             //get the name of the adapter
-            $adapter_name = ucwords(strtolower($protocol_connection[0]));
+            $adapter_name = ucwords(strtolower($connection['driver']));
             $adapter_class_name = "Gishiki\\ActiveRecord\\Adapter\\" . $adapter_name . "Adapter";
             if (!class_exists($adapter_class_name)) {
                 //what is the file of the database adapter?
@@ -55,7 +54,7 @@ abstract class ConnectionsProvider {
                 
                 //reflect the database adapter class
                 $reflected_adapter = new \ReflectionClass($adapter_class_name);
-                self::$connections[$connection_name] = $reflected_adapter->newInstance($protocol_connection[1]);
+                self::$connections[$connection_name] = $reflected_adapter->newInstance($connection['query']);
             }
         } else {
             throw new DatabaseException("Empty connection query are not allowed", 1);
@@ -67,15 +66,15 @@ abstract class ConnectionsProvider {
      * Register a connection for each element of the connections group.
      * 
      * <code>
-     * ConnectionsProvider::RegisterGroup(['default' => "mysql://root:mypass@localhost/db", 
-     *                                      'development' => "sqlite://database.php"]);
+     * ConnectionsProvider::RegisterGroup(['default' => ['driver' => 'mysql', 'query' =>"root:mypass@localhost/db"]], 
+     *                                      'development' => ['driver' => 'sqlite', 'query' =>"/var/www/database.db"]]);
      * </code>
      * 
      * @param array $connections_group the array of connection
      */
     static function RegisterGroup($connections_group) {
-        foreach ($connections_group as $connection_name => $connection_string) {
-            self::Register($connection_name, $connection_string);
+        foreach ($connections_group as $connection_name => $connection) {
+            self::Register($connection_name, $connection);
         }
     }
     

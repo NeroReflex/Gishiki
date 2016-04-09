@@ -63,6 +63,21 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
      */
     static $connection = null;
     
+    /**
+     * Creates an empty model from a data collection.
+     * 
+     * The data collection is expressed as an associative array:
+     * <code>
+     * class Book extends ActiveModel { }
+     * 
+     * $mybook = new Book(['author' => 'Example Author', 'title' => 'Example Book', 'price' => 5.50]);
+     * 
+     * //nah, kidding :')
+     * $mybook->price += 10.50;
+     * </code>
+     * 
+     * @param array $setup_values the collection used to build the current model
+     */
     public function __construct($setup_values = []) {
         parent::__construct($setup_values);
         
@@ -150,7 +165,12 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
         return $db_connection->Delete(self::getTableName(), $selector);
     }
     
-    
+    /**
+     * Retrive, from the currently used database, all the records matching the given criteria
+     * 
+     * @param \Gishiki\ActiveRecord\RecordsSelector $selector the filter to be applied to select records
+     * @return \Gishiki\ActiveRecord\ActiveResult the collection of fetched records
+     */
     static function Dispense(RecordsSelector $selector) {
         //get the database connection
         $db_connection = ConnectionsProvider::FetchConnection(self::$connection);
@@ -178,7 +198,7 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
         }
         
         //return the new models array
-        return $models;
+        return new ActiveResult($models);
     }
     
     /**

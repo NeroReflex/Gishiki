@@ -20,10 +20,10 @@ class BookSeller extends ActiveModel { }
 
 ActiveRecord uses Ruby's ActiveRecord naming conventions, this means the declared 
 model class is a direct representation of the table named 'book_sellers' residing 
-inside the default database.
+inside the database pointed by the default database connection.
 
-You can change both: the database you connect to and the name that the table has
-inside the database pointed by the database connection:
+You can change both: the connection used and the name of the table inside the
+database pointed by the database connection:
 
 ```PHP
 use \Gishiki\ActiveRecord\ActiveModel;
@@ -50,12 +50,12 @@ class BookSeller extends ActiveModel {
 }
 ```
 
-As you can see it is really simple to map a database table inside a PHP class. 
+As you can see it is really simple to map a database table inside a PHP class.
 This brings you many advantages, many of them are:
 
    - No hand-writte SQL
    - Data storage engine abstraction
-   - Easy RDBMS migration
+   - Easy DBMS migration
    - Rapid development
    - Better logical organization of your data
    - Easy data management
@@ -80,7 +80,6 @@ $my_book = new Book();
 $my_book->title = 'Example Book';
 $my_book->author = 'Example Author';
 $my_book->price = 29.99;
-$my_book->publication_date = new ActiveRecord\DateTime('2016-04-04 17:56:30');
 ```
 
 Oh? What was that!? Was my database filled!?!? How?!?!? Where?!?!?
@@ -132,14 +131,8 @@ $my_user->password = $plain_password;
 echo $my_user->password; //print out $plain_password
 ```
 
-Note: you only define __HOW__ ransformations are performed: everything else is abstracted away from you.
-
-
-## Date and Time
-As you can see from above examples you need to use ActiveRecord\DateTime object when
-dealing with a model property that represents time.
-
-DateTime usage is not explained here, it is so simple you can understand everything just by reading the [API](/API/class-ActiveRecord.DateTime.html).
+__Note__: you *only* define __HOW__ ransformations are performed: everything else
+is abstracted away from you.
 
 
 ## Conclusions
@@ -147,6 +140,6 @@ __Store 'n' Load__: what this chapter describes is how to deal whit your data wh
 it is in-memory, however not your entire data can reside into volatile memory: 
 this is why you are using a database, right?
 
-This means it must be a way to easily manage your data on the database...
+This means there *must* be a way to easily manage your data on the database...
 
-Actually, it is really simple, you can find everything in the [CRUD](CRUD.md) section.
+Actually, it is really simple, you can find almost everything in the [CRUD](CRUD.md) section.

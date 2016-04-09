@@ -1,38 +1,51 @@
 # Database support
-If you are reading this it means that you are tired of using *SQL*, aren't you? :D
+If you are reading this it means that you are tired of using *SQL* or any other native database extension, aren't you? :D
 
 I know: using SQL is tedious, error-prone and stucks you on a RDBMS, because changing it would force you 
 changing every SQL query you created.
 
-In order to abstract SQL away from your project you need an ORM (Object-relational mapping).
+Gishiki uses an OHM that is similar to ruby's one and implements the ActiveRecord pattern. 
 
-Gishiki uses an ORM that is similar to ruby's one: PHP ActiveRecord. This ORM has been modified to better integrate 
-with Gishiki.
+Yes, that is not a misspell: Gishiki uses an OHM, not an ORM! OHM stands for "Object-hybrid mapper"!
+This OHM has been designed and written from scratch to be perfectly integrated within Gishiki!
 
+The ActiveRecord implementation is meant to support any database you want:
+
+   - SQLite
+   - MySQL and derivates
+   - Oracle
+   - PostgreSQL
+   - Microsoft SQL Server / Azure
+   - Sybase
+   - firebase
+   - MongoDB
+   - Cassandra
+
+This abstract the database away from you, wichever database you may be using! Even non-relation ones!
 
 ## Connection
 Before discussing about how you manage your database you have to provide a valid connection to your database.
 
-You do this by editing the config.json file. A connection to a database is a JSON property inside the __connections__
+You do this by editing the config.json file. A connection to a database is a JSON object inside the __database_connections__
 class.
 
 The default database connection is named 'default' and you *shouldn't* delete it, however you are free to change it.
 
-Adding a database connection is as simple as adding a JSON property like: "&lt;connection_name&gt;": "&lt;connection_str&gt;".
+Keep in mind that there is a connection named 'development' and, like the 'default' one shouldn't be deleted, because that connection
+is the default connection when the framework is in developer mode
 
-The connection string is something like:
-```
-server://username:password@host:port/db_name
-```
+Adding a database connection is as simple as adding a JSON object to the database_connections object:
 
-You can specify a charset that a database will use:
 ```
-server://username:password@host:port/db_name?charset=utf8
+"connection_name": {
+    "driver": "mysql",
+    "query": "root:admin@localhost/site_db"
+}
 ```
 
 You can find some examples of database connections on the settings file, but I am going to give a better explaination here.
 
-Before testing out a connection remember to install the required PDO driver for your database server!
+Before testing out a connection remember to install the required *PDO driver*/*native extension* for your database server!
 
 
 ## MySQL Connection
@@ -43,18 +56,35 @@ With a MySQL connection you can connect to [MySQL](http://www.oracle.com/us/prod
 When connecting to a MySQL server you have to use "mysql" as the server protocol:
 
 ```
-mysql://root:admin@localhost/site_db
+"connection_name": {
+    "driver": "mysql",
+    "query": "user:password@localhost/site_db"
+}
 ```
 
 As you can see if you don't specify a server port the dafault one will be used (in MySQL it is 3306).
 
-
-## Oracle Connection
-If you are using Oracle as your RDBMS you can connect to your database exactly like you would connect to a MySQL database,
-you only need to use oci as server protocol (change mysql with oci):
+To specify a port you have to append it after the hostname:
 
 ```
-oci://root:admin@host:port/site_db
+"connection_name": {
+    "driver": "mysql",
+    "query": "user:password@hostname:port/site_db"
+}
+```
+
+and the specified port will be used when connecting to the database.
+
+
+## Oracle Connection
+If you are using Oracle as your RDBMS you can connect to your database exactly like
+you would connect to a MySQL database: you only need to use oci as server protocol!
+
+```
+"connection_name": {
+    "driver": "oci",
+    "query": "user:password@hostname:port/site_db"
+}
 ```
 
 and et voila' Oracle database connection performed!
@@ -70,7 +100,10 @@ well supported and really performs well!
 To enstabilish a connection with a Postgres server you  have to use pgsql as the server protocol:
 
 ```
-pgsql://root:admin@host:port/site_db
+"connection_name": {
+    "driver": "pgsql",
+    "query": "user:password@hostname:port/site_db"
+}
 ```
 
 If you don't provide a port to your connection the ORM will use the default PostgreSQL port, which is the 5432 port.
@@ -80,19 +113,19 @@ If you don't provide a port to your connection the ORM will use the default Post
 Connecting to a sqlite database is super simple: you just provide the file name:
 
 ```
-sqlite://../relative/path/database_file.db
+"connection_name": {
+    "driver": "sqlite",
+    "query": "site_db.db"
+}
 ```
 
-On a Unix system you can provide the full path to a database this way:
+You can also provide the real path to the file:
 
 ```
-sqlite://unix(/var/database_file.db)
-```
-
-On a windows system you can do the exact same thing:
-
-```
-sqlite://unix(C:\absolute\path\database_file.db)
+"connection_name": {
+    "driver": "sqlite",
+    "query": "/var/site_db.db"
+}
 ```
 
 If you adopt this solution you can keep the database file outside the web-server directory.
@@ -103,8 +136,8 @@ accesses sqlite can handle.
 
 
 ## Conclusions
-Connecting a database is simple, using it even more: the connection string is 
-the only thing you have to change when changing RDBMS and/or host!
+Connecting a database is simple, using it even more: the connection object is 
+the only thing you have to change/add when changing RDBMS and/or host!
 
-As you may have noticed you settings file now contains your database password! 
+As you may have noticed your settings file now contains your database password! 
 You __MUST__ ensure no one will ever be able to reach that file!

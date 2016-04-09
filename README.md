@@ -46,8 +46,7 @@ The HTTP router is written from scratch to be as fast as possible!
 
 
 ## Security
-As you know the security is never enough, especially when dealing with people's data
-in a digital environment.
+The security is never enough, especially when dealing with people's data in a digital environment!
 
 To help you obtaining a secure working environment Gishiki deploy a set of cryptographic utilities
 based on the OpenSSL ones and abstract away most common cryptographic operations.
@@ -57,39 +56,45 @@ based on the OpenSSL ones and abstract away most common cryptographic operations
 This framework was written with speed, security and simplicity in mind!
 Gishiki helps you creating in a very short amount of time web services and web applications which are both: maintainable and expandable.
 
-With Gishiki you can create any digital service that your new business activity may need, without permanently binding yourself to a single technology, program or 3rd party service.
+With Gishiki you can create any digital service that your new business activity may need,
+without permanently binding yourself to a single technology, program or 3rd party service.
 This is achieved by giving you the option of changing a service just by editing a configuration file.
-
-Using apache as webserver it is easy to deploy an application with user-friendly URLs, 
-thanks to the routing engine included bundled with Gishiki, that supports both: regex routing and passive routing!
 
 
 ## Database
-Gishiki uses an ORM (Object-relational mapping) to help you interacting with your own databases.
+Gishiki uses an OHM to help you interacting with your own databases.
 
-The provided ORM is built around the PHP ActiveRecord ORM, because it is designed 
-to be extremely fast on query generation and execution.
+Yes, that is not a misspell: Gishiki uses an OHM, not an ORM! OHM stands for "Object-hybrid mapper"!
+This OHM has been designed and written from scratch to be perfectly integrated within Gishiki!
 
-With the Gishiki ORM you are free to decide whether to use the ActiveRecord component writing your own PHP classes or let
-Gishiki creating your documented PHP code for the table you describe.
+The OHM is designed to be as fast as possible, and maintain compatibility over differents
+database managers!
 
-Gishiki can generate models out of a simple XML file, but it is planned to extend the code generation with the JSON and yaml formats.
+Gishiki is designed to provide an invisible abstraction layer over these database managers:
+
+   - SQLite
+   - MySQL and derivates
+   - Oracle
+   - PostgreSQL
+   - Microsoft SQL Server / Azure
+   - firebase
+   - MongoDB
+   - Cassandra
 
 
 ## Caching
-Gishiki gives you the ability of saving computational results into caching, saving time if the same computation, 
-
-with the same input is required once again in the future.
-
-Cache is managed automatically by Gishiki for most common operations.
+Gishiki achieve better performance using its own cache engine where possible in order
+to increase your application performance!
 
 
 ## Logging
 Gishiki gives you the ability of logging what happens on your server.
 
-Gishiki automatically logs exceptions, but delivers you full-control over your logs, exposing a simple logging API.
+Gishiki automatically logs exceptions, but delivers you full-control over your logs,
+exposing a simple logging API.
 
-Gishiki uses UNIX syslog for all of its logging management, allowing you to do whatever you want with your log entries.
+Gishiki uses UNIX syslog for all of its logging management, allowing you to do
+whatever you want with your log entries.
 
 
 ## Requirements
@@ -101,15 +106,16 @@ If you plan to install Gishiki without composer you will have to manually instal
    -    HHVM or PHP >= 5.6
    -    OpenSSL extension (usually included in the standard PHP release)
    -    libxml2 extension (usually included in the standard PHP release)
-   -    PDO extension and the PDO driver for your database
+   -    PDO extension and the PDO driver for your database __AND/OR__ database native drivers
    -    cURL extension
 
 
 ## Installation
-You just checkout (or decompress a snapshot) from the github repository in your apache root directory and it just run out of the box.
+You just checkout (or decompress a snapshot) from the github repository in your
+apache/nginx root directory and it just runs out of the box.
 
-To have a step-by-step mini tutorial read the Documentation/docs/installation.md file on this repository or the 
-documentation section of the documentation!
+To have a step-by-step mini tutorial read the Documentation/docs/installation.md
+file on this repository or the 'Installation' section of the documentation!
 
 
 ## License

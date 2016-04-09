@@ -1,0 +1,31 @@
+{
+    "general": {
+        "development": true
+    },
+
+    "database_connections": {
+            "development":  {
+                "driver": "sqlite",
+                "query": "default_db.sqlite"
+            },
+            "default": {
+                "driver": "pgsql",
+                "query": "root:example@localhost/Gishiki"
+            }, 
+            "secure": {
+                "driver": "mysql",
+                "query": "root:example@localhost/Gishiki",
+                "ssl_key": "/path/to/client-key.pem",
+                "ssl_cert": "/path/to/client-cert.pem",
+                "ssl_ca": "/path/to/ca-cert.pem"
+            }
+    },
+
+    "cache": {
+        "enabled": false,
+        "server": "memcached://localhost:11211"
+    },
+    
+    "SECURITY":"SETTINGS_HERE!"
+    
+}

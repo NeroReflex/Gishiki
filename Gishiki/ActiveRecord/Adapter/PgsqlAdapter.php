@@ -279,10 +279,15 @@ class PgsqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
     }
     
     public function Read($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where) {
+        $metadata = false;
         try {
             //build columns metadata:
             $metadata = $this->getColumnInfo($collection_name);
+        } catch (\Gishiki\ActiveRecord\DatabaseException $ex) {
             
+        }
+        
+        try {
             //start building the query
             $sql = "SELECT * FROM " . $collection_name . " ";
             
@@ -301,32 +306,36 @@ class PgsqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             
             //build the native record collection
             $native_records = array();
-            foreach ($raw_fetch as $current_record) {
-                $current_record_native = array();
-                foreach ($current_record as $record_key => $record_value) {
-                    $native_value = $record_value;
-                    
-                    switch (strtolower(str_replace_list(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], '', $metadata[$record_key]["native_type"]))) {
-                        case 'integer':
-                        case 'int':
-                            $native_value = intval($record_value);
-                            break;
-                        case 'boolean':
-                            $native_value = boolval($record_value);
-                            break;
-                        case 'float':
-                        case 'double':
-                            $native_value = floatval($record_value);
-                            break;
-                        default:
-                            //leave it as is
-                            break;
+            if ($metadata !== false) {
+                foreach ($raw_fetch as $current_record) {
+                    $current_record_native = array();
+                    foreach ($current_record as $record_key => $record_value) {
+                        $native_value = $record_value;
+
+                        switch (strtolower(str_replace_list(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], '', $metadata[$record_key]["native_type"]))) {
+                            case 'integer':
+                            case 'int':
+                                $native_value = intval($record_value);
+                                break;
+                            case 'boolean':
+                                $native_value = boolval($record_value);
+                                break;
+                            case 'float':
+                            case 'double':
+                                $native_value = floatval($record_value);
+                                break;
+                            default:
+                                //leave it as is
+                                break;
+                        }
+
+                        //build the current record (in native format)
+                        $current_record_native[$metadata[$record_key]['name']] = $native_value;
                     }
-                    
-                    //build the current record (in native format)
-                    $current_record_native[$metadata[$record_key]['name']] = $native_value;
+                    $native_records[] = $current_record_native;
                 }
-                $native_records[] = $current_record_native;
+            } else {
+                return $raw_fetch;
             }
             
             return $native_records;

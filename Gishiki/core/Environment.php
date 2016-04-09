@@ -219,13 +219,6 @@ namespace Gishiki\Core {
          * format kwnown to the framework
          */
         private function LoadConfiguration() {
-            //setup a bare minimum configuration
-            $this->configuration = [
-                "FILESYSTEM" => [
-                    "APPLICATION_DIRECTORY" => APPLICATION_DIR,
-                ],
-            ];
-
             //get the security configuration of the current application
             $config = [];
             if (Application::Exists()) {
@@ -241,11 +234,7 @@ namespace Gishiki\Core {
                         "MASTER_ASYMMETRIC_KEY_REFERENCE" => $config["security"]["serverKey"],
                     ],
                     
-                    "DATABASE" => [
-                        "CACHING" => $config["database"]["on-the-fly"],
-                        "MAPPERS" => $config["database"]["mappers"],
-                        "CONNECTIONS" => $config["database"]["connections"]
-                    ],
+                    "DATABASE_CONNECTIONS" => $config["database_connections"],
 
                     //Cookies Configuration
                     "COOKIES" => [
@@ -265,18 +254,19 @@ namespace Gishiki\Core {
             }
             
             //check for the environment configuration
-            if (isset($this->configuration["DEVELOPMENT_ENVIRONMENT"])) {
-                if ($this->configuration["DEVELOPMENT_ENVIRONMENT"])
-                {
-                    ini_set('display_errors', 1);
-                    error_reporting(E_ALL);
-                    
-                    //switch to the development database avoid breaking important things!
-                    \Gishiki\ActiveRecord\ConnectionsProvider::ChangeDefaultConnection('development');
-                } else {
-                    ini_set('display_errors', 0);
-                    error_reporting(0);
-                }
+            if ($this->configuration["DEVELOPMENT_ENVIRONMENT"])
+            {
+                ini_set('display_errors', 1);
+                error_reporting(E_ALL);
+                
+                //switch to the development database avoid breaking important things!
+                \Gishiki\ActiveRecord\ConnectionsProvider::ChangeDefaultConnection('development');
+            } else {
+                ini_set('display_errors', 0);
+                error_reporting(0);
+                
+                //switch to production database automatically
+                \Gishiki\ActiveRecord\ConnectionsProvider::ChangeDefaultConnection('default');
             }
         }
         
@@ -290,15 +280,9 @@ namespace Gishiki\Core {
             switch(strtoupper($property)) {
                 case "MODEL_DIR":
                     return APPLICATION_DIR."Models";
-                
-                case "DATA_AUTOCACHE":
-                    return $this->configuration["DATABASE"]["CACHING"];
-                
+                    
                 case "DATA_CONNECTIONS":
-                    return $this->configuration["DATABASE"]["CONNECTIONS"];
-                
-                case "DATA_SOURCES":
-                    return $this->configuration["DATABASE"]["MAPPERS"];
+                    return $this->configuration["DATABASE_CONNECTIONS"];
                 
                 case "LOGGING_ENABLED":
                     return $this->configuration["LOG"]["ENABLED"];

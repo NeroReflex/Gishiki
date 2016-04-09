@@ -47,6 +47,11 @@ namespace Gishiki\Core {
         static function StartORM() {
             //load every database connection
             \Gishiki\ActiveRecord\ConnectionsProvider::RegisterGroup(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_CONNECTIONS"));
+            
+            foreach (glob(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("MODEL_DIR") . DS . "*.php") as $filename)
+            {
+                include $filename;
+            }
         }
         
         /**
@@ -109,36 +114,10 @@ namespace Gishiki\Core {
                 }
             }
             
-            $routing_example = 
-                    "//import the namespace for Routing".PHP_EOL.
-                    "use \\Gishiki\\Core\\Route;".PHP_EOL.PHP_EOL.
-                    "Route::get(\"/\", function() {".PHP_EOL.
-                    "   //this is the homepage".PHP_EOL.
-                    "});".PHP_EOL.PHP_EOL.
-                    "Route::error(Route::NotFound, function() {".PHP_EOL.
-                    "   //this is what is executed if the router is unable to find a suitable route for a request".PHP_EOL.
-                    "   die(\"Sorry man.... 404 Page Not Found!\");".PHP_EOL.
-                    "});".PHP_EOL;
-            if (file_put_contents(APPLICATION_DIR."routes.php", "<?php ".PHP_EOL.$routing_example, LOCK_EX) === FALSE) {
+            $routing_example = file_get_contents(ROOT."Gishiki".DS."core".DS."example_app".DS."routes.php");
+            if (file_put_contents(APPLICATION_DIR."routes.php", $routing_example, LOCK_EX) === FALSE) {
                 $errors++;
             }
-            
-            $bookstore_example = <<<XML
-<?xml version='1.0' standalone='yes'?>
-<!-- the connection named "default" is added by the application initializer -->
-<database name="bookstore" connection="default">
-    <table name="books"><!-- table names always ends with a trailing 's' -->
-        <column type="integer" name="id" primaryKey="true"></column>
-        <column type="string" name="isbn"></column>
-        <column type="string" name="title"></column>
-        <column type="float" name="price"></column>
-        <column type="string" name="author"></column>
-        <column type="datetime" name="publication_date"></column>
-    </table>
-</database>
-XML;
-            $bookstore_example_xml = new \SimpleXMLElement($bookstore_example);
-            $bookstore_example_xml->asXML(APPLICATION_DIR."bookstore.xml");
             
             if (in_array("sqlite", \PDO::getAvailableDrivers())) {
                 try {
@@ -153,40 +132,20 @@ XML;
             }
             
             if ((!file_exists(Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR')."settings.json")) && ($errors == 0)) {
-                $configuration = "{".PHP_EOL 
-                                ."  \"general\": {".PHP_EOL
-                                ."      \"development\": true".PHP_EOL
-                                ."  },".PHP_EOL
-                        .PHP_EOL."  \"database\": {".PHP_EOL
-                                ."      \"on-the-fly\": false,".PHP_EOL
-                                ."      \"mappers\": [".PHP_EOL
-                                ."          \"bookstore.xml\"".PHP_EOL
-                                ."      ],".PHP_EOL
-                                ."      \"connections\": {".PHP_EOL
-                                ."          \"default\":  \"sqlite://default_db.sqlite\", ".PHP_EOL
-                                ."          \"MySQL\":  \"mysql://username:password@localhost/development?charset=utf8\", ".PHP_EOL
-                                ."          \"PostgreSQL\":  \"pgsql://username:password@localhost/development\", ".PHP_EOL
-                                ."          \"SQLite\":  \"sqlite://development_database.db\", ".PHP_EOL
-                                ."          \"development\":  \"sqlite:///var/www/html/database.sqlite\", ".PHP_EOL
-                                ."          \"oci\":  \"oci://username:passsword@localhost/xe\" ".PHP_EOL
-                                ."      }".PHP_EOL
-                                ."  },".PHP_EOL
-                        .PHP_EOL."  \"security\": {".PHP_EOL
-                                ."      \"serverPassword\": \"".$new_password."\",".PHP_EOL
-                                ."      \"serverKey\": \"ServerKey\"".PHP_EOL
-                                ."  },".PHP_EOL
-                        .PHP_EOL."  \"cookies\": {".PHP_EOL
-                                ."      \"cookiesPrefix\": \"GishikiCookie_\",".PHP_EOL
-                                ."      \"cookiesEncryptedPrefix\": \",".base64_encode(openssl_random_pseudo_bytes(16))."\",".PHP_EOL
-                                ."      \"cookiesKey\": \"".base64_encode(openssl_random_pseudo_bytes(256))."\",".PHP_EOL
-                                ."      \"cookiesExpiration\": 5184000,".PHP_EOL
-                                ."      \"cookiesPath\": \"/\"".PHP_EOL
-                                ."  },".PHP_EOL
-                        .PHP_EOL."  \"cache\": {".PHP_EOL
-                                ."      \"enabled\": false,".PHP_EOL
-                                ."      \"server\": \"memcached://localhost:11211\"".PHP_EOL
-                                ."  }".PHP_EOL
-                                ."}";
+                $configuration = file_get_contents(ROOT."Gishiki".DS."core".DS."example_app".DS."settings.json");
+                $configuration = str_replace("\"SECURITY\":\"SETTINGS_HERE!\"", 
+                                 "\"security\": {".PHP_EOL
+                                ."        \"serverPassword\": \"".$new_password."\",".PHP_EOL
+                                ."        \"serverKey\": \"ServerKey\"".PHP_EOL
+                                ."    },".PHP_EOL
+                        .PHP_EOL."    \"cookies\": {".PHP_EOL
+                                ."        \"cookiesPrefix\": \"GishikiCookie_\",".PHP_EOL
+                                ."        \"cookiesEncryptedPrefix\": \",".base64_encode(openssl_random_pseudo_bytes(16))."\",".PHP_EOL
+                                ."        \"cookiesKey\": \"".base64_encode(openssl_random_pseudo_bytes(256))."\",".PHP_EOL
+                                ."        \"cookiesExpiration\": 5184000,".PHP_EOL
+                                ."        \"cookiesPath\": \"/\"".PHP_EOL
+                                ."    }".PHP_EOL, $configuration) ;
+                        
                 if (file_put_contents(APPLICATION_DIR."settings.json", $configuration, LOCK_EX) === FALSE) {
                     $errors++;
                 }

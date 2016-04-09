@@ -61,6 +61,7 @@ include(ROOT."Gishiki".DS."core".DS."Environment.php");
 //include the application manager
 include(ROOT."Gishiki".DS."core".DS."Application.php");
 
+include(ROOT."Gishiki".DS."ActiveRecord".DS."ActiveResult.php");
 include(ROOT."Gishiki".DS."ActiveRecord".DS."ActiveModel.php");
 include(ROOT."Gishiki".DS."ActiveRecord".DS."ConnectionsProvider.php");
 include(ROOT."Gishiki".DS."ActiveRecord".DS."DatabaseAdapter.php");

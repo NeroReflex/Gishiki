@@ -159,7 +159,7 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
      */
     static function Destroy(RecordsSelector $selector) {
         //get the database connection
-        $db_connection = ConnectionsProvider::FetchConnection(self::$connection);
+        $db_connection = ConnectionsProvider::FetchConnection(static::$connection);
         
         //delete records from the current table using the given selector
         return $db_connection->Delete(self::getTableName(), $selector);
@@ -173,7 +173,7 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
      */
     static function Dispense(RecordsSelector $selector) {
         //get the database connection
-        $db_connection = ConnectionsProvider::FetchConnection(self::$connection);
+        $db_connection = ConnectionsProvider::FetchConnection(static::$connection);
         
         //fetch records from the current table using the given selector
         $records = $db_connection->Read(self::getTableName(), $selector);
@@ -217,7 +217,7 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
     public function save() {
         if (!$this->__ghost) {
             //get the database connection
-            $db_connection = ConnectionsProvider::FetchConnection(self::$connection);
+            $db_connection = ConnectionsProvider::FetchConnection(static::$connection);
             
             if (count($this->__dirty) > 0) {
                 if (($this->array[static::$primary_key] === null) || (0 === count(static::Dispense(RecordsSelector::filters()->{'where_' . static::$primary_key . '_is'}($this->array[static::$primary_key])->limit(1))))) {
@@ -251,7 +251,7 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
         //delete the model if it is not null
         if ($this->array[static::$primary_key] !== null) {
             //get the database connection
-            $db_connection = ConnectionsProvider::FetchConnection(self::$connection);
+            $db_connection = ConnectionsProvider::FetchConnection(static::$connection);
             
             //update the model
             $db_connection->Delete(self::getTableName(), RecordsSelector::filters(["where_" . static::$primary_key . "_equal" => $this->array[static::$primary_key], ]));

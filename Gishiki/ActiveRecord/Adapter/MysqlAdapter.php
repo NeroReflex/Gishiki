@@ -26,7 +26,7 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
     //this is the native PDO driver
     private $native_connection = null;
     
-    public function __construct($connection_query) {
+    public function __construct($connection_query, $ssl_key = null, $ssl_certificate = null, $ssl_ca = null) {
         if (!in_array("mysql", \PDO::getAvailableDrivers()))
         {   throw new \Gishiki\ActiveRecord\DatabaseException("No MySQL driver available: install the mysql PDO driver", 5);  }
         
@@ -40,14 +40,24 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         if (!isset($host_and_port[1] ))
         {   $host_and_port[1] = '3306';   }
         
+        $pdo_connection = array(
+            \PDO::ATTR_PERSISTENT => false,
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+            \PDO::ATTR_EMULATE_PREPARES => false,
+            \PDO::ATTR_STRINGIFY_FETCHES => false,
+        );
+        if (($ssl_key != null) && ($ssl_certificate != null) && ($ssl_ca != null)) {
+            if ((file_exists($ssl_key)) && (file_exists($ssl_certificate)) && (file_exists($ssl_ca))) {
+                $pdo_connection[\PDO::MYSQL_ATTR_SSL_KEY] = $ssl_key;
+                $pdo_connection[\PDO::MYSQL_ATTR_SSL_CERT] = $ssl_certificate;
+                $pdo_connection[\PDO::MYSQL_ATTR_SSL_CA] = $ssl_ca;
+            } else {
+                throw new \Gishiki\ActiveRecord\DatabaseException("Unable to find SSL key and/or certs: make sure php has read access to those files", 200);
+            }
+        }
+        
         try {
-            $this->native_connection = new \PDO("mysql:host=" . $host_and_port[0] . ";port=" . $host_and_port[1] . ";dbname=" . $db_name,$user_and_password[0], $user_and_password[1], [
-                \PDO::ATTR_PERSISTENT => false,
-                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-                \PDO::ATTR_EMULATE_PREPARES => false,
-                \PDO::ATTR_STRINGIFY_FETCHES => false
-            ]);
-            //$this->native_connection->setAttribute(\PDO::ATTR_PERSISTENT, true);
+            $this->native_connection = new \PDO("mysql:host=" . $host_and_port[0] . ";port=" . $host_and_port[1] . ";dbname=" . $db_name,$user_and_password[0], $user_and_password[1], $pdo_connection);
         } catch (\PDOException $ex) {
             throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a connection to the sqlite db, PDO reports: " . $ex->getMessage(), 2);
         }
@@ -337,7 +347,6 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             
             return $native_records;
         } catch (\PDOException $ex) {
-            
             throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with read, PDO reports: " . $ex->getCode(), 10);
         }
     }

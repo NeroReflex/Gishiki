@@ -26,7 +26,7 @@ class PgsqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
     //this is the native PDO driver
     private $native_connection = null;
     
-    public function __construct($connection_query) {
+    public function __construct($connection_query, $ssl_key = null, $ssl_certificate = null, $ssl_ca = null) {
         if (!in_array("pgsql", \PDO::getAvailableDrivers()))
         {   throw new \Gishiki\ActiveRecord\DatabaseException("No PostgreSQL driver available: install the pgsql PDO driver", 5);  }
         

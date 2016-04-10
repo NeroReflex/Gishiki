@@ -15,9 +15,9 @@
             "secure": {
                 "driver": "mysql",
                 "query": "root:example@localhost/Gishiki",
-                "ssl_key": "/path/to/client-key.pem",
-                "ssl_cert": "/path/to/client-cert.pem",
-                "ssl_ca": "/path/to/ca-cert.pem"
+                "ssl_key": "/var/www/client-key.pem",
+                "ssl_cert": "/var/www/client-cert.pem",
+                "ssl_ca": "/var/www/ca-cert.pem"
             }
     },
 

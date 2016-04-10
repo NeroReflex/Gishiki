@@ -54,10 +54,15 @@ abstract class ConnectionsProvider {
                 
                 //reflect the database adapter class
                 $reflected_adapter = new \ReflectionClass($adapter_class_name);
-                self::$connections[$connection_name] = $reflected_adapter->newInstance($connection['query']);
+                self::$connections[$connection_name] = $reflected_adapter->newInstanceArgs([
+                        0 => $connection['query'],
+                        1 => (isset($connection['ssl_key'])) ? $connection['ssl_key']: null,
+                        2 => (isset($connection['ssl_cert'])) ? $connection['ssl_cert']: null,
+                        3 => (isset($connection['ssl_ca'])) ? $connection['ssl_ca']: null,
+                    ]);
             }
         } else {
-            throw new DatabaseException("Empty connection query are not allowed", 1);
+            throw new DatabaseException("Empty connection queries are not allowed", 1);
         }
         
     }

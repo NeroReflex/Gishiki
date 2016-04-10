@@ -31,7 +31,7 @@ interface DatabaseAdapter {
      * @param string $connection_query the connection query
      * @throws ConnectionException the error occurred while creating the connection
      */
-    public function __construct($connection_query);
+    public function __construct($connection_query, $ssl_key = null, $ssl_certificate = null, $ssl_ca = null);
 
     /**
      * Create a record into the database to insert the given data collection

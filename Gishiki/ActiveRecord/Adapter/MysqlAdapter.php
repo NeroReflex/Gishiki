@@ -18,7 +18,7 @@ limitations under the License.
 namespace Gishiki\ActiveRecord\Adapter;
 
 /**
- * This is the sqlite database adapter
+ * This is the MySQL database adapter
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */

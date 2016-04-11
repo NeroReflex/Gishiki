@@ -193,7 +193,7 @@ class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         }
     }
     
-    public function Update($collection_name, $collection_values, \Gishiki\ActiveRecord\RecordsSelector $where) {
+    public function Update($collection_name, $collection_values, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null) {
         $collection_values = $this->filter_input_types($collection_name, $collection_values);
         
         try {
@@ -241,7 +241,7 @@ class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         }
     }
     
-    public function Delete($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where) {
+    public function Delete($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null) {
         try {
             //start building the query
             $sql = "DELETE FROM " . $collection_name . " ";
@@ -263,7 +263,7 @@ class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         }
     }
     
-    public function Read($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where) {
+    public function Read($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null) {
         $metadata = false;
         try {
             //build columns metadata:

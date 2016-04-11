@@ -162,7 +162,7 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
         $db_connection = ConnectionsProvider::FetchConnection(static::$connection);
         
         //delete records from the current table using the given selector
-        return $db_connection->Delete(self::getTableName(), $selector);
+        return $db_connection->Delete(self::getTableName(), $selector, static::$primary_key);
     }
     
     /**
@@ -176,7 +176,7 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
         $db_connection = ConnectionsProvider::FetchConnection(static::$connection);
         
         //fetch records from the current table using the given selector
-        $records = $db_connection->Read(self::getTableName(), $selector);
+        $records = $db_connection->Read(self::getTableName(), $selector, static::$primary_key);
         
         //foreach record build a model an insert into the models array
         $models = array(); $i = 0;
@@ -234,7 +234,7 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
                     {   $new_value[$dirty_key] = $this->array[$dirty_key];    }
                         
                     //update the model
-                    $db_connection->Update(self::getTableName(), $new_value, RecordsSelector::filters(["where_" . static::$primary_key . "_equal" => $this->array[static::$primary_key], ]));
+                    $db_connection->Update(self::getTableName(), $new_value, RecordsSelector::filters(["where_" . static::$primary_key . "_equal" => $this->array[static::$primary_key], ]), static::$primary_key);
                 }
             }
             
@@ -254,7 +254,7 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
             $db_connection = ConnectionsProvider::FetchConnection(static::$connection);
             
             //update the model
-            $db_connection->Delete(self::getTableName(), RecordsSelector::filters(["where_" . static::$primary_key . "_equal" => $this->array[static::$primary_key], ]));
+            $db_connection->Delete(self::getTableName(), RecordsSelector::filters(["where_" . static::$primary_key . "_equal" => $this->array[static::$primary_key], ]), static::$primary_key);
         }
         
         //this model is not mapped on the database

@@ -59,7 +59,7 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         try {
             $this->native_connection = new \PDO("mysql:host=" . $host_and_port[0] . ";port=" . $host_and_port[1] . ";dbname=" . $db_name,$user_and_password[0], $user_and_password[1], $pdo_connection);
         } catch (\PDOException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a connection to the sqlite db, PDO reports: " . $ex->getMessage(), 2);
+            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a connection to the sqlite db, PDO reports: " . $ex->getCode(), 2);
         }
     }
     
@@ -216,7 +216,7 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         }
     }
     
-    public function Update($collection_name, $collection_values, \Gishiki\ActiveRecord\RecordsSelector $where) {
+    public function Update($collection_name, $collection_values, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null) {
         $collection_values = $this->filter_input_types($collection_name, $collection_values);
         
         try {
@@ -264,7 +264,7 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         }
     }
     
-    public function Delete($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where) {
+    public function Delete($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null) {
         try {
             //start building the query
             $sql = "DELETE FROM " . $collection_name . " ";
@@ -286,7 +286,7 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         }
     }
     
-    public function Read($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where) {
+    public function Read($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null) {
         $metadata = false;
         try {
             //build columns metadata:

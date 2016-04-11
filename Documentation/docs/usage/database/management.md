@@ -11,14 +11,14 @@ This OHM has been designed and written from scratch to be perfectly integrated w
 
 The ActiveRecord implementation is meant to support any database you want:
 
-   - SQLite
+   - SQLite (~3)
    - MySQL and derivates
    - Oracle
    - PostgreSQL
    - Microsoft SQL Server / Azure
    - Sybase
    - firebase
-   - MongoDB
+   - MongoDB (>= 3.0)
    - Cassandra
 
 This abstract the database away from you, wichever database you may be using! Even non-relation ones!
@@ -46,6 +46,25 @@ Adding a database connection is as simple as adding a JSON object to the databas
 You can find some examples of database connections on the settings file, but I am going to give a better explaination here.
 
 Before testing out a connection remember to install the required *PDO driver*/*native extension* for your database server!
+
+
+## MongoDB
+MongoDB is for sure a great database and using it will avoid a lot of troubles.
+
+The support for MongoDB is native and to have the better experience possible
+Gishiki uses the latest driver available (currenctly the PECL mongodb package).
+
+After installing the required extension you connect to the database using the
+[mongodb-style URI](http://php.net/manual/en/mongodb-driver-manager.construct.php):
+
+```
+"connection_name": {
+    "driver": "mongodb",
+    "query": "[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]"
+}
+```
+
+Notice that 'mongodb://' is excluded from the connection query.
 
 
 ## MySQL Connection

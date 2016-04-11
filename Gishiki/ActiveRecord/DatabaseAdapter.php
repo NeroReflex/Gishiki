@@ -29,7 +29,7 @@ interface DatabaseAdapter {
      * given connection query
      * 
      * @param string $connection_query the connection query
-     * @throws ConnectionException the error occurred while creating the connection
+     * @throws DatabaseException the error occurred while creating the connection
      */
     public function __construct($connection_query, $ssl_key = null, $ssl_certificate = null, $ssl_ca = null);
 
@@ -50,25 +50,28 @@ interface DatabaseAdapter {
      * @param string $collection_name the table/collection that will be affected
      * @param array $collection_values the array of name => value pairs
      * @param \Gishiki\ActiveRecord\RecordsSelector $where the records selector
+     * @throws DatabaseException the error occurred while updating the database
      * @return integer the number of affected records
      */
-    public function Update($collection_name, $collection_values, \Gishiki\ActiveRecord\RecordsSelector $where);
+    public function Update($collection_name, $collection_values, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null);
     
     /**
      * Delete a set of records into the database at the given table/collection
      * 
      * @param string $collection_name the table/collection that will be affected
      * @param \Gishiki\ActiveRecord\RecordsSelector $where the records selector
+     * @throws DatabaseException the error occurred while removing database entries
      * @return integer the number of affected records
      */
-    public function Delete($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where);
+    public function Delete($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null);
     
     /**
      * Delete a set of records into the database at the given table/collection
      * 
      * @param string $collection_name the table/collection that will be affected
      * @param \Gishiki\ActiveRecord\RecordsSelector $where the records selector
+     * @throws DatabaseException the error occurred while reading the database
      * @return integer the number of affected records
      */
-    public function Read($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where);
+    public function Read($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null);
 }

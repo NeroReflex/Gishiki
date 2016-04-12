@@ -22,7 +22,8 @@ namespace Gishiki\Logging {
      *
      * Benato Denis <benato.denis96@gmail.com>
      */
-    class Log {
+    class Log
+    {
         private $unix_timestamp;
         private $level;
         private $stackTrace;
@@ -34,9 +35,10 @@ namespace Gishiki\Logging {
          *
          * @param string $shortMessage
          * @param string $longMessage
-         * @param integer $priority
+         * @param int    $priority
          */
-        public function __construct($shortMessage = "", $longMessage = "", $priority = Priority::WARNING) {
+        public function __construct($shortMessage = "", $longMessage = "", $priority = Priority::WARNING)
+        {
             //setup the log
             $this->unix_timestamp = time();
             $this->stackTrace = debug_backtrace();
@@ -50,9 +52,10 @@ namespace Gishiki\Logging {
         /**
          * Change the priority of the current log
          *
-         * @param integer $priorityLevel one of the Gishiki\Logging\Priority priority code
-        */
-        public function SetPriority($priorityLevel) {
+         * @param int $priorityLevel one of the Gishiki\Logging\Priority priority code
+         */
+        public function SetPriority($priorityLevel)
+        {
             //change the priority level
             $this->level = $priorityLevel;
         }
@@ -62,7 +65,8 @@ namespace Gishiki\Logging {
          *
          * @param string the short message
          */
-        public function SetShortMessage($message) {
+        public function SetShortMessage($message)
+        {
             //change the short message
             $this->shortMessage = "".$message;
         }
@@ -72,7 +76,8 @@ namespace Gishiki\Logging {
          *
          * @param string the long message
          */
-        public function SetLongMessage($message) {
+        public function SetLongMessage($message)
+        {
             //change the long message
             $this->longMessage = "".$message;
         }
@@ -82,7 +87,8 @@ namespace Gishiki\Logging {
          *
          * @return string the short message
          */
-        public function GetShortMessage() {
+        public function GetShortMessage()
+        {
             //return the short message
             return $this->shortMessage;
         }
@@ -92,7 +98,8 @@ namespace Gishiki\Logging {
          *
          * @return string the long message
          */
-        public function GetLongMessage() {
+        public function GetLongMessage()
+        {
             //return the long message
             return $this->longMessage;
         }
@@ -100,9 +107,10 @@ namespace Gishiki\Logging {
         /**
          * Get the timestamp of the log entry
          *
-         * @return integer the timestamp
+         * @return int the timestamp
          */
-        public function GetTimestamp() {
+        public function GetTimestamp()
+        {
             //return the timestamp
             return $this->unix_timestamp;
         }
@@ -112,7 +120,8 @@ namespace Gishiki\Logging {
          *
          * @return string the timestamp
          */
-        public function GetStacktrace() {
+        public function GetStacktrace()
+        {
             //return the stacktrace serialized
             return json_encode($this->stackTrace);
         }
@@ -122,7 +131,8 @@ namespace Gishiki\Logging {
          *
          * @return string the level
          */
-        public function GetLevel() {
+        public function GetLevel()
+        {
             //return the log level
             return $this->level;
         }
@@ -132,9 +142,10 @@ namespace Gishiki\Logging {
          * 
          * The log entry is saved automatically
          */
-        public function __destruct() {
-           //use syslog to store the log entry on the current machine
-            if (openlog("Gishiki" , LOG_NDELAY | LOG_PID, LOG_USER)) {
+        public function __destruct()
+        {
+            //use syslog to store the log entry on the current machine
+            if (openlog("Gishiki", LOG_NDELAY | LOG_PID, LOG_USER)) {
                 //save the log using the UNIX standard logging ultility
                 syslog($this->GetLevel(), "[".$this->GetTimestamp()."] (".$this->GetShortMessage().") ".$this->GetLongMessage()."");
                 

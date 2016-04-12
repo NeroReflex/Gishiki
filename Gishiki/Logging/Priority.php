@@ -22,7 +22,8 @@ namespace Gishiki\Logging {
      *
      * Benato Denis <benato.denis96@gmail.com>
      */
-    abstract class Priority {
+    abstract class Priority
+    {
         const EMERGENCY = LOG_EMERG;
         const ALERT = LOG_ALERT;
         const CRITICAL = LOG_CRIT;

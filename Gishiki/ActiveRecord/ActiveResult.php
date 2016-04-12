@@ -22,8 +22,6 @@ namespace Gishiki\ActiveRecord;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class ActiveResult extends \Gishiki\Algorithms\CyclableCollection {
-    
-    
-    
+class ActiveResult extends \Gishiki\Algorithms\CyclableCollection
+{
 }

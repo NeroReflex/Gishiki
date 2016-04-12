@@ -13,7 +13,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*****************************************************************************/    
+*****************************************************************************/
 
 namespace Gishiki\Core\MVC {
     
@@ -23,7 +23,8 @@ namespace Gishiki\Core\MVC {
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    abstract class WebController {
+    abstract class WebController
+    {
         
         /** this is the HTML that will be sent to the client */
         private static $rawContent;
@@ -31,7 +32,8 @@ namespace Gishiki\Core\MVC {
         /**
          * Initialize the web controller. Each web controller MUST call this constructor
          */
-        public static function Initialize() {
+        public static function Initialize()
+        {
             //load an empty response buffer
             static::$rawContent = "";
         }
@@ -39,10 +41,11 @@ namespace Gishiki\Core\MVC {
         /**
          * Load a template inside the HTML response buffer
          * 
-         * @param string $templateName the name of the page template
+         * @param  string     $templateName the name of the page template
          * @throws \Exception an exception is thrown if the template cannot be found
          */
-        public static function LoadTemplate($templateName) {
+        public static function LoadTemplate($templateName)
+        {
             //check for the partial view existence
             if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$templateName.".template")) {
                 
@@ -63,12 +66,13 @@ namespace Gishiki\Core\MVC {
          * Process a partial view and store the result to the output buffer 
          * (that will be given to the client at the end of the controller lifetime)
          * 
-         * @param string $viewName the name of the partial view WITHOUT '.html'
-         * @param array $dataSubset an array of sobstitution strings
-         * @param string $viewPlaceHolder this is used to complete the template previously loaded
+         * @param  string     $viewName        the name of the partial view WITHOUT '.html'
+         * @param  array      $dataSubset      an array of sobstitution strings
+         * @param  string     $viewPlaceHolder this is used to complete the template previously loaded
          * @throws \Exception an exception is thrown if the partial view cannot be found
          */
-        public static function LoadView($viewName, $dataSubset = NULL, $viewPlaceHolder = "") {
+        public static function LoadView($viewName, $dataSubset = null, $viewPlaceHolder = "")
+        {
             //check for the partial view existence
             if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('VIEW_DIR').$viewName.".html")) {
                 
@@ -83,8 +87,10 @@ namespace Gishiki\Core\MVC {
                     $content = str_replace("{{".$currentDataIndex."}}", htmlentities($currentData, ENT_HTML5), $content);
                 }
 
-                if (strlen($viewPlaceHolder) > 0) //complete the template if a valid placeholder is given
-                {   $this->rawContent = str_replace("{{{".$viewPlaceHolder."}}}", $content."{{{".$viewPlaceHolder."}}}", $this->rawContent);    }
+                if (strlen($viewPlaceHolder) > 0) {
+                    //complete the template if a valid placeholder is given
+   $this->rawContent = str_replace("{{{".$viewPlaceHolder."}}}", $content."{{{".$viewPlaceHolder."}}}", $this->rawContent);
+                }
             } else {
                 throw new \Exception("The partial view \'".$viewName."\' cannot be found");
             }
@@ -93,13 +99,15 @@ namespace Gishiki\Core\MVC {
         /**
          * Send the result of the controller execution to the browser
          */
-        public static function Deinitialize() {
+        public static function Deinitialize()
+        {
             //delete every content placeholder
             $matches = [];
             preg_match('/{{{(.*)\?}}}/', static::$rawContent, $matches);
-            while (count($matches) > 0) //remove any placeholder from the page content and from the array
-            {   str_replace(array_pop($matches), "", static::$rawContent);    }
+            while (count($matches) > 0) {
+                //remove any placeholder from the page content and from the array
+   str_replace(array_pop($matches), "", static::$rawContent);
+            }
         }
-        
     }
 }

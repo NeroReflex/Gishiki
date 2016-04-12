@@ -15,29 +15,28 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-//turn on all error reporting
-ini_set("display_errors", 1);
-error_reporting(E_ALL);
-
-/* The first operations to execute is figuring out directory separator character and the root path (the path Gishiki is installed) */
+/* The first operations to execute is figuring out directory separator character
+ * and the root path (the path Gishiki is installed) */
 
 //get directory separator
 if (!defined('DS')) {
-    if (defined('DIRECTORY_SEPARATOR'))
-    {   define('DS',DIRECTORY_SEPARATOR);   }
-    else
-    {   define('DS', "/");  }
+    if (defined('DIRECTORY_SEPARATOR')) {
+        define('DS', DIRECTORY_SEPARATOR);
+    } else {
+        define('DS', "/");
+    }
 }
 
 //get the root path
-if ((!defined('ROOT')) || (ROOT == "") || (ROOT == NULL))
-{    define('ROOT', realpath(__DIR__).DS);   }
+if ((!defined('ROOT')) || (ROOT == "") || (ROOT == null)) {
+    define('ROOT', realpath(__DIR__).DS);
+}
 
-$composer_autoloader = __DIR__ . '/vendor/autoload.php';
+$composer_autoloader = __DIR__.'/vendor/autoload.php';
 
 //include the base application and perform basic operations
 if (file_exists($composer_autoloader)) {
-    require __DIR__ . '/vendor/autoload.php';
+    require __DIR__.'/vendor/autoload.php';
 } else {
     die('Gishiki cannot run until is is installed using composer!');
 }

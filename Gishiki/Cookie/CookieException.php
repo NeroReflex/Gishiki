@@ -22,14 +22,16 @@ namespace Gishiki\Cookie;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class CookieException extends \Exception {
+class CookieException extends \Exception
+{
     
     /**
      * Create the exception
-     * @param string $message the error message
-     * @param integer $errorCode the database error code
+     * @param string $message   the error message
+     * @param int    $errorCode the database error code
      */
-    public function __construct($message, $errorCode) {
+    public function __construct($message, $errorCode)
+    {
         parent::__construct($message, $errorCode);
     }
 }

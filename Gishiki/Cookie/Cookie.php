@@ -13,7 +13,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*****************************************************************************/  
+*****************************************************************************/
 
 namespace Gishiki\Cookie;
 
@@ -23,7 +23,8 @@ namespace Gishiki\Cookie;
  * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class Cookie {
+class Cookie
+{
     
     //the cookie name
     protected $name;
@@ -34,10 +35,11 @@ class Cookie {
     /**
      * Creates a cookie with the given name and value, but doen't save it.
      * 
-     * @param string $cookieName 
-     * @param mixed $cookieValue
+     * @param string $cookieName
+     * @param mixed  $cookieValue
      */
-    public function __construct($cookieName, $cookieValue = NULL) {        
+    public function __construct($cookieName, $cookieValue = null)
+    {
         //store the cookie name
         $this->name = $cookieName;
         
@@ -50,7 +52,8 @@ class Cookie {
      * 
      * @param mixed $newValue the new cookie value
      */
-    public function setValue($newValue) {
+    public function setValue($newValue)
+    {
         //store the cookie value
         $this->value = serialize($newValue);
     }
@@ -60,7 +63,8 @@ class Cookie {
      * 
      * @return mixed the cookie value as it was given to Cookie::setValue()
      */
-    public function getValue() {
+    public function getValue()
+    {
         //get the cookie value
         return unserialize($this->value);
     }
@@ -70,7 +74,8 @@ class Cookie {
      * 
      * @return string the cookie value as it is stored
      */
-    protected function inspectSerializedValue() {
+    protected function inspectSerializedValue()
+    {
         //get the serialized value
         return $this->value;
     }
@@ -80,7 +85,8 @@ class Cookie {
      * 
      * @return string the cookie name
      */
-    public function getName() {
+    public function getName()
+    {
         //get the serialized value
         return $this->name;
     }

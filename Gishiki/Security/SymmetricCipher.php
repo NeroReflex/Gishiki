@@ -22,7 +22,8 @@ namespace Gishiki\Security {
      *
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class SymmetricCipher {
+    class SymmetricCipher
+    {
         //crypting algorythms
         const AES128 = 16;
         const AES192 = 24;
@@ -40,10 +41,11 @@ namespace Gishiki\Security {
         /**
          * Create a ciper that uses the given algorithm/key length
          * 
-         * @param int $encAlg the key length for AES (default: ::AES128)
+         * @param  int             $encAlg the key length for AES (default: ::AES128)
          * @throws CipherException the error occurred
          */
-        public function __construct($encAlg = SymmetricCipher::AES128) {
+        public function __construct($encAlg = SymmetricCipher::AES128)
+        {
             //store the encryption algorith
             $this->algorithm = $encAlg;
 
@@ -70,7 +72,8 @@ namespace Gishiki\Security {
          * Set a new key for encryptions and decryptions
          * @param string $key the new key
          */
-        public function SetKey($key) {
+        public function SetKey($key)
+        {
             //generate and store the key
             $this->key = substr($key.sha1($key).md5($key), 0, $this->algorithm);
 
@@ -80,10 +83,11 @@ namespace Gishiki\Security {
         /**
          * Encrypt a message
          * 
-         * @param string $plainData the original string/data to be encrypted
+         * @param  string $plainData the original string/data to be encrypted
          * @return string the encrypted data
          */
-        public function Encrypt($plainData) {
+        public function Encrypt($plainData)
+        {
             //generate and store a random IV
             $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($this->algorithmName));
 
@@ -99,11 +103,12 @@ namespace Gishiki\Security {
 
         /**
          * Decrypt a message encrypted by the Encrypt function
-         * @param string $cipedData the result of the encryption
-         * @return string the original data
+         * @param  string          $cipedData the result of the encryption
+         * @return string          the original data
          * @throws CipherException the error occurred
          */
-        public function Decrypt($cipedData) {
+        public function Decrypt($cipedData)
+        {
             //get IV and encrypted text in an array
             $dataToEncrypt = explode(":>=|=<:", $cipedData, 2);
 

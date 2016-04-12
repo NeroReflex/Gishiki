@@ -22,7 +22,8 @@ namespace Gishiki\Security {
      *
      * Benato Denis <benato.denis96@gmail.com>
      */
-    abstract class AsymmetricCipherAlgorithms {
+    abstract class AsymmetricCipherAlgorithms
+    {
         //rsa keys length
         const RSA512        = 512;
         const RSA1024       = 1024;

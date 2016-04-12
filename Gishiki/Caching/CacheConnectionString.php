@@ -22,7 +22,8 @@ namespace Gishiki\Caching {
      *
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    abstract class CacheConnectionString {
+    abstract class CacheConnectionString
+    {
 
         /**
          * Parse the cache server connection string
@@ -30,7 +31,8 @@ namespace Gishiki\Caching {
          * @param $connectionString string the cache server connection string
          * @return array the parsing results
          */
-        static function Parse($connectionString)/* : array*/ {
+        public static function Parse($connectionString)/* : array*/
+        {
             //create some empty connection details
             $conectionDetails = [
                 "server_type" => "",
@@ -43,7 +45,7 @@ namespace Gishiki\Caching {
                 if ($strings[0] == "memcached") {
                     //update what is going to be returned
                     $conectionDetails = self::ParseMemcached($strings[1]);
-                } else if (($strings[0] == "directory") || ($strings[0] == "filesystem")) {
+                } elseif (($strings[0] == "directory") || ($strings[0] == "filesystem")) {
                     //update what is going to be returned
                     $conectionDetails = self::ParseFilesystem($strings[1]);
                 }
@@ -57,16 +59,21 @@ namespace Gishiki\Caching {
          * Get the address and the port of the given memcached server connection string.
          * The string is given in form of "address:port" without "memcached://" prepended
          *
-         * @param string $memcachedConnectionString the connection string
-         * @return array the connection details
+         * @param  string $memcachedConnectionString the connection string
+         * @return array  the connection details
          */
-        static function ParseMemcached($memcachedConnectionString = "")/* : array*/ {
+        public static function ParseMemcached($memcachedConnectionString = "")/* : array*/
+        {
             //split the server into address and port
             $explosion = explode(":", $memcachedConnectionString, 2);
 
             //provide a default connection if no port or no address were furnished
-            if ((!isset($explosion[0])) || ($explosion[0] == "")) $explosion[0] = "localhost";
-            if ((!isset($explosion[1])) || ($explosion[1] == "")) $explosion[1] = "11211";
+            if ((!isset($explosion[0])) || ($explosion[0] == "")) {
+                $explosion[0] = "localhost";
+            }
+            if ((!isset($explosion[1])) || ($explosion[1] == "")) {
+                $explosion[1] = "11211";
+            }
 
             //return the split result
             return [
@@ -80,10 +87,11 @@ namespace Gishiki\Caching {
          * Get the directory to be used as the caching entry.
          * The string is given in form of "directory/" without "filesystem://" prepended
          *
-         * @param string $directory the connection string
-         * @return array the connection details
+         * @param  string $directory the connection string
+         * @return array  the connection details
          */
-        static function ParseFilesystem($directory = "")/* : array*/ {
+        public static function ParseFilesystem($directory = "")/* : array*/
+        {
             $directoryPath = "".$directory;
             if ($directoryPath[strlen($directoryPath) - 1] != DS) {
                 $directoryPath .= DS;

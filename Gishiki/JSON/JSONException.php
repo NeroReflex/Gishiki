@@ -22,14 +22,16 @@ namespace Gishiki\JSON {
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class JSONException extends \Gishiki\Core\Exception {
+    class JSONException extends \Gishiki\Core\Exception
+    {
         
         /**
          * Create the JSON-related exception
-         * @param string $message the error message
-         * @param integer $errorCode the json error code
+         * @param string $message   the error message
+         * @param int    $errorCode the json error code
          */
-        public function __construct($message, $errorCode) {
+        public function __construct($message, $errorCode)
+        {
             parent::__construct($message, $errorCode);
         }
     }

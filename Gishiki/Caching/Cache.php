@@ -25,7 +25,7 @@ namespace Gishiki\Caching {
     abstract class Cache
     {
         private static $persistence_ID = "lf4e2d";
-        private static $connected = FALSE;
+        private static $connected = false;
 
         /**
          * The connection to the cache server specified in the application configuration file.
@@ -35,9 +35,10 @@ namespace Gishiki\Caching {
         /**
          * Check for the availability of a cache server/container
          * 
-         * @return boolean TRUE if a cache container is actually connected
+         * @return bool TRUE if a cache container is actually connected
          */
-        public static function Connected() {
+        public static function Connected()
+        {
             return (self::$connected);
         }
         
@@ -46,7 +47,8 @@ namespace Gishiki\Caching {
          * This function is automatically called by the framework.
          * Another call to this function won't produce any effects.
          */
-        public static function Initialize() {
+        public static function Initialize()
+        {
             if (!self::$connected) {
                 //initialize the caching engine only if it is needed
                 if (\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('CACHING_ENABLED')) {
@@ -91,10 +93,11 @@ namespace Gishiki\Caching {
          * Store data on the cache server. Complex elaboration results should be stored into the cache,
          * This way a lot of computational time can be saved!
          *
-         * @param string $cacheName the name of the cache fragment
-         * @param mixed $cacheValue the value of the cache fragment
+         * @param string $cacheName  the name of the cache fragment
+         * @param mixed  $cacheValue the value of the cache fragment
          */
-        static function Store($cacheName, $cacheValue) {
+        public static function Store($cacheName, $cacheValue)
+        {
             //if a caching server is connected, and the cache fragment has a valid name
             if ((self::$connected) && (gettype($cacheName) == "string") && ($cacheName != "")) {
 
@@ -115,12 +118,13 @@ namespace Gishiki\Caching {
         /**
          * Check if a cache fragment with the given name exists in the cache server
          *
-         * @param string $cacheName the name of the cache fragment
-         * @return boolean TRUE if the cache fragment exists, FALSE otherwise
+         * @param  string $cacheName the name of the cache fragment
+         * @return bool   TRUE if the cache fragment exists, FALSE otherwise
          */
-        public static function Exists($cacheName) {
+        public static function Exists($cacheName)
+        {
             //is the cache fragment existent?
-            $exists = FALSE;
+            $exists = false;
 
             //if a caching server is connected, and the cache fragment has a valid name
             if ((self::$connected) && (gettype($cacheName) == "string") && ($cacheName != "")) {
@@ -128,10 +132,11 @@ namespace Gishiki\Caching {
                 //chose the proper way of checking the cache fragment
                 switch (self::$cacheServer["details"]["server_type"]) {
                     case "memcached":
-                        if (self::$cacheServer["connection"]->append($cacheName, "") != TRUE)
+                        if (self::$cacheServer["connection"]->append($cacheName, "") != true) {
                             return self::$cacheServer["connection"]->getResultCode() !== \Memcached::RES_NOTSTORED;
-                        else
-                            return TRUE;
+                        } else {
+                            return true;
+                        }
                         break;
 
                     case "filesystem":
@@ -145,10 +150,11 @@ namespace Gishiki\Caching {
         /**
          * Fetch the value of the cache fragment with the given name
          *
-         * @param string $cacheName the name of the cache fragment
-         * @return mixed the value of the cache fragment can be (string, boolean, integer and float), NULL on error
+         * @param  string $cacheName the name of the cache fragment
+         * @return mixed  the value of the cache fragment can be (string, boolean, integer and float), NULL on error
          */
-        public static function Fetch($cacheName) {
+        public static function Fetch($cacheName)
+        {
             //if a caching server is connected, and the cache fragment has a valid name
             if ((self::$connected) && (gettype($cacheName) == "string") && ($cacheName != "")) {
 
@@ -158,11 +164,11 @@ namespace Gishiki\Caching {
                         return unserialize(self::$cacheServer["connection"]->get($cacheName));
 
                     case "filesystem":
-                        return unserialize(file_get_contents(self::$cacheServer["details"]["directory"].self::$persistence_ID.md5($cacheName).".cachefragment", FALSE));
+                        return unserialize(file_get_contents(self::$cacheServer["details"]["directory"].self::$persistence_ID.md5($cacheName).".cachefragment", false));
                 }
             }
 
-            return NULL;
+            return null;
         }
 
         /**
@@ -170,7 +176,8 @@ namespace Gishiki\Caching {
          *
          * @param string $cacheName the name of the cache fragment
          */
-        public static function Delete($cacheName) {
+        public static function Delete($cacheName)
+        {
             //if a caching server is connected, and the cache fragment has a valid name
             if ((self::$connected) && (gettype($cacheName) == "string") && ($cacheName != "")) {
 
@@ -181,8 +188,9 @@ namespace Gishiki\Caching {
                         break;
 
                     case "filesystem":
-                        if (self::Exists($cacheName))
-                        {   unlink(self::$cacheServer["details"]["directory"].self::$persistence_ID.md5($cacheName).".cachefragment");  }
+                        if (self::Exists($cacheName)) {
+                            unlink(self::$cacheServer["details"]["directory"].self::$persistence_ID.md5($cacheName).".cachefragment");
+                        }
                         break;
                 }
             }
@@ -191,7 +199,8 @@ namespace Gishiki\Caching {
         /**
          * Invalidate all items in the cache
          */
-        public static function Flush() {
+        public static function Flush()
+        {
             //if a caching server is connected, and the cache fragment has a valid name
             if ((self::$connected) && (gettype($cacheName) == "string") && ($cacheName != "")) {
 
@@ -210,6 +219,5 @@ namespace Gishiki\Caching {
                 }
             }
         }
-        
     }
 }

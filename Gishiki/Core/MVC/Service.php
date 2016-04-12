@@ -13,7 +13,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*****************************************************************************/    
+*****************************************************************************/
 
 namespace Gishiki\Core\MVC {
     
@@ -26,20 +26,24 @@ namespace Gishiki\Core\MVC {
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class Service {
+    class Service
+    {
 
         /**
          * Perform a call to the specified Service over the HTTP or HTTPS protocol.
          * 
-         * @param string $service_URL the URL used to reach the needed service
-         * @param array  $service_details additionals details that are required and used by the given subroutine
-         * @param function $error_callback this is the function called if the API call encoutered an error
+         * @param string   $service_URL     the URL used to reach the needed service
+         * @param array    $service_details additionals details that are required and used by the given subroutine
+         * @param function $error_callback  this is the function called if the API call encoutered an error
          * 
          * @return array the result of the Service execution
          */
-        static function API_Call($service_URL, $service_details, $error_callback) /*: array */ {
-            if (!array_key_exists("TIMESTAMP", $service_details)) //add the timestamp to the request
-            {   $service_details["TIMESTAMP"] = time(); }
+        public static function API_Call($service_URL, $service_details, $error_callback) /*: array */
+        {
+            if (!array_key_exists("TIMESTAMP", $service_details)) {
+                //add the timestamp to the request
+   $service_details["TIMESTAMP"] = time();
+            }
 
             //pass request details as a json
             $request_details = json_encode($service_details);
@@ -48,14 +52,14 @@ namespace Gishiki\Core\MVC {
             $api_call = curl_init();
 
             //build the cURL request to be performed
-            curl_setopt_array($api_call, [ 
-                CURLOPT_POST => true, 
-                CURLOPT_HEADER => false, 
+            curl_setopt_array($api_call, [
+                CURLOPT_POST => true,
+                CURLOPT_HEADER => false,
                 CURLOPT_URL => $service_URL,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_CONNECTTIMEOUT => 5,
                 CURLOPT_TIMEOUT => 30,
-                CURLOPT_POSTFIELDS => http_build_query(array("data" => $request_details)) 
+                CURLOPT_POSTFIELDS => http_build_query(array("data" => $request_details))
             ]);
             
             // grab URL and pass it to the browser

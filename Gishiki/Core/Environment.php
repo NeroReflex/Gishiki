@@ -13,7 +13,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*****************************************************************************/  
+*****************************************************************************/
 
 namespace Gishiki\Core {
     
@@ -22,7 +22,8 @@ namespace Gishiki\Core {
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class Environment {
+    class Environment
+    {
         /** each environment has its configuration */
         private $configuration;
 
@@ -39,9 +40,10 @@ namespace Gishiki\Core {
         /**
          * Setup a new environment instance used to fulfill the client request
          * 
-         * @param boolean $selfRegister TRUE if the environment must be assigned as the currently valid one
+         * @param bool $selfRegister TRUE if the environment must be assigned as the currently valid one
          */
-        public function __construct($selfRegister = FALSE) {
+        public function __construct($selfRegister = false)
+        {
             //register the current environment
             if ($selfRegister) {
                 Environment::RegisterEnvironment($this);
@@ -60,9 +62,10 @@ namespace Gishiki\Core {
         /**
          * Test if the current connection uses HTTP over SSL
          * 
-         * @return boolean TRUE if SSL is enabled, false otherwise
+         * @return bool TRUE if SSL is enabled, false otherwise
          */
-        public function SecureConnectionEnabled() {
+        public function SecureConnectionEnabled()
+        {
             //filter $_SERVER (accessing superglobals directly is a bad idea)
             $_server_filtered = filter_input_array(INPUT_SERVER);
             
@@ -74,7 +77,8 @@ namespace Gishiki\Core {
          * 
          * @param Environment $env the currently active environment
          */
-        public function RegisterEnvironment(Environment &$env) {
+        public function RegisterEnvironment(Environment &$env)
+        {
             //register the currently active environment
             Environment::$currentEnvironment = $env;
         }
@@ -82,7 +86,8 @@ namespace Gishiki\Core {
         /**
          * Fullfill the request made by the client
          */
-        public function FulfillRequest() {
+        public function FulfillRequest()
+        {
             //start the ORM
             Application::StartORM(Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_SOURCES"));
 
@@ -92,13 +97,13 @@ namespace Gishiki\Core {
 
             if ((strtoupper($decoded[0]) == "SERVICE") || (strtoupper($decoded[0]) == "API")) {
                 //the resource that must be invoked
-                $resource = NULL;
+                $resource = null;
 
                 //get the controller name and the action to be performed
                 $argn = count($decoded);
                 if ($argn >= 3) {
                     $resource = [ "controllerClass" => $decoded[1], "controllerAction" => $decoded[2] ];
-                } else if ($argn == 2) {
+                } elseif ($argn == 2) {
                     $resource = [ "controllerClass" => $decoded[1], "controllerAction" => "Index" ];
                 } else {
                     $resource = [ "controllerClass" => "Default", "controllerAction" => "Index" ];
@@ -133,10 +138,11 @@ namespace Gishiki\Core {
         /**
          * Execute the requested interface controller
          * 
-         * @param array $resource the array filled by Environment::FulfillRequest()
+         * @param array  $resource    the array filled by Environment::FulfillRequest()
          * @param string $jsonRequest the request encoded as a valid json string
          */
-        private function ExecuteService($resource, $jsonRequest) {
+        private function ExecuteService($resource, $jsonRequest)
+        {
             //the response will be in json format
             header('Content-Type: application/json');
             
@@ -152,11 +158,12 @@ namespace Gishiki\Core {
                 
                 //deserialize the request
                 $request = \Gishiki\JSON\JSON::DeSerialize($jsonRequest);
-                if (!array_key_exists("TIMESTAMP", $request)) //add the timestamp of the request
-                {   $request["TIMESTAMP"] = filter_input(INPUT_SERVER, 'REQUEST_TIME'); }
+                if (!array_key_exists("TIMESTAMP", $request)) {
+                    //add the timestamp of the request
+   $request["TIMESTAMP"] = filter_input(INPUT_SERVER, 'REQUEST_TIME');
+                }
                 
-                if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('CONTROLLER_DIR').$resource["controllerClass"].".php"))
-                {
+                if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('CONTROLLER_DIR').$resource["controllerClass"].".php")) {
                     //require the controller file
                     include(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('CONTROLLER_DIR').$resource["controllerClass"].".php");
 
@@ -173,7 +180,7 @@ namespace Gishiki\Core {
                             //call the method inside the controller instantiated object
                             //binding the additional request details to the current controller
                             $action = new \ReflectionMethod($ctrl, $resource["controllerAction"]);
-                            $action->setAccessible(TRUE);
+                            $action->setAccessible(true);
                             $response = $action->invoke($ctrl, [$request]);
                         } else {
                             $error = true;
@@ -186,7 +193,7 @@ namespace Gishiki\Core {
                 }
                 
                 if ($error) {
-                     //add "error": 2 to the JSON response
+                    //add "error": 2 to the JSON response
                     $response["error"] = 2;
 
                     //add the error message
@@ -209,7 +216,8 @@ namespace Gishiki\Core {
          * 
          * @return Environment the current environment
          */
-        static function GetCurrentEnvironment() {
+        public static function GetCurrentEnvironment()
+        {
             //return the currently active environment
             return self::$currentEnvironment;
         }
@@ -218,7 +226,8 @@ namespace Gishiki\Core {
          * Load the framework configuration from the config file and return it in an
          * format kwnown to the framework
          */
-        private function LoadConfiguration() {
+        private function LoadConfiguration()
+        {
             //get the security configuration of the current application
             $config = [];
             if (Application::Exists()) {
@@ -254,8 +263,7 @@ namespace Gishiki\Core {
             }
             
             //check for the environment configuration
-            if ($this->configuration["DEVELOPMENT_ENVIRONMENT"])
-            {
+            if ($this->configuration["DEVELOPMENT_ENVIRONMENT"]) {
                 ini_set('display_errors', 1);
                 error_reporting(E_ALL);
                 
@@ -273,11 +281,12 @@ namespace Gishiki\Core {
         /**
          * Return the configuration property
          * 
-         * @param string $property the requested configuration property
-         * @return the requested configuration property or NULL
+         * @param  string $property the requested configuration property
+         * @return the    requested configuration property or NULL
          */
-        public function GetConfigurationProperty($property) {
-            switch(strtoupper($property)) {
+        public function GetConfigurationProperty($property)
+        {
+            switch (strtoupper($property)) {
                 case "MODEL_DIR":
                     return APPLICATION_DIR."Models";
                     
@@ -291,9 +300,11 @@ namespace Gishiki\Core {
                     return $this->configuration["LOG"]["SOURCES"];
 
                 case "CACHING_ENABLED":
-                    if (isset($this->configuration["CACHE"]["ENABLED"]))
-                    {   return $this->configuration["CACHE"]["ENABLED"];    }
-                    else {  return false;    }
+                    if (isset($this->configuration["CACHE"]["ENABLED"])) {
+                        return $this->configuration["CACHE"]["ENABLED"];
+                    } else {
+                        return false;
+                    }
 
                 case "CACHE_CONNECTION_STRING":
                     return $this->configuration["CACHE"]["SERVER"];
@@ -341,17 +352,18 @@ namespace Gishiki\Core {
                     return APPLICATION_DIR;
                     
                 default:
-                    return NULL;
+                    return null;
             }
         }
 
         /**
          * Detect the disponibility of a php extension or feature
          * 
-         * @param string $extensionAlias the extension alias (NOT THE EXTENSION NAME)
-         * @return boolean true if the extension is enabled, false otherwise
+         * @param  string $extensionAlias the extension alias (NOT THE EXTENSION NAME)
+         * @return bool   true if the extension is enabled, false otherwise
          */
-        static function ExtensionSupport($extensionAlias) {
+        public static function ExtensionSupport($extensionAlias)
+        {
             switch (strtoupper($extensionAlias)) {
                 case 'MEMCACHED':
                     return class_exists("Memcached");
@@ -372,16 +384,17 @@ namespace Gishiki\Core {
                     return extension_loaded('PDO');
                     
                 default:
-                    return FALSE;
+                    return false;
             }
         }
 
         /**
          * Detect if the http request was done using AJAX. Note that this function may fail at detecting ajax calls.
          * 
-         * @return boolean TRUE if this is for sure an ajax request, FALSE otherwise
+         * @return bool TRUE if this is for sure an ajax request, FALSE otherwise
          */
-        public function IsRequestAJAX() {
+        public function IsRequestAJAX()
+        {
             //filter $_SERVER (accessing superglobals directly is a bad idea)
             $_server_filtered = filter_input_array(INPUT_SERVER);
             

@@ -22,13 +22,14 @@ namespace Gishiki\ActiveRecord;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-interface DatabaseAdapter {
+interface DatabaseAdapter
+{
     
     /**
      * Create a database connection to the native database using the 
      * given connection query
      * 
-     * @param string $connection_query the connection query
+     * @param  string            $connection_query the connection query
      * @throws DatabaseException the error occurred while creating the connection
      */
     public function __construct($connection_query, $ssl_key = null, $ssl_certificate = null, $ssl_ca = null);
@@ -36,42 +37,42 @@ interface DatabaseAdapter {
     /**
      * Create a record into the database to insert the given data collection
      * 
-     * @param string $collection_name the name of the collection to be filled
-     * @param array $collection_values the array of name => value pairs
-     * @param string $id_column_name the name of the primary key (used for some drivers like pgsql)
+     * @param  string            $collection_name   the name of the collection to be filled
+     * @param  array             $collection_values the array of name => value pairs
+     * @param  string            $id_column_name    the name of the primary key (used for some drivers like pgsql)
      * @throws DatabaseException the error preventing the collection to be filled
-     * @return mixed the unique ID of the newly created collection
+     * @return mixed             the unique ID of the newly created collection
      */
     public function Create($collection_name, $collection_values, $id_column_name = null);
     
     /**
      * Update a set of records into the database at the given table/collection
      * 
-     * @param string $collection_name the table/collection that will be affected
-     * @param array $collection_values the array of name => value pairs
-     * @param \Gishiki\ActiveRecord\RecordsSelector $where the records selector
-     * @throws DatabaseException the error occurred while updating the database
-     * @return integer the number of affected records
+     * @param  string                                $collection_name   the table/collection that will be affected
+     * @param  array                                 $collection_values the array of name => value pairs
+     * @param  \Gishiki\ActiveRecord\RecordsSelector $where             the records selector
+     * @throws DatabaseException                     the error occurred while updating the database
+     * @return int                                   the number of affected records
      */
     public function Update($collection_name, $collection_values, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null);
     
     /**
      * Delete a set of records into the database at the given table/collection
      * 
-     * @param string $collection_name the table/collection that will be affected
-     * @param \Gishiki\ActiveRecord\RecordsSelector $where the records selector
-     * @throws DatabaseException the error occurred while removing database entries
-     * @return integer the number of affected records
+     * @param  string                                $collection_name the table/collection that will be affected
+     * @param  \Gishiki\ActiveRecord\RecordsSelector $where           the records selector
+     * @throws DatabaseException                     the error occurred while removing database entries
+     * @return int                                   the number of affected records
      */
     public function Delete($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null);
     
     /**
      * Delete a set of records into the database at the given table/collection
      * 
-     * @param string $collection_name the table/collection that will be affected
-     * @param \Gishiki\ActiveRecord\RecordsSelector $where the records selector
-     * @throws DatabaseException the error occurred while reading the database
-     * @return integer the number of affected records
+     * @param  string                                $collection_name the table/collection that will be affected
+     * @param  \Gishiki\ActiveRecord\RecordsSelector $where           the records selector
+     * @throws DatabaseException                     the error occurred while reading the database
+     * @return int                                   the number of affected records
      */
     public function Read($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null);
 }

@@ -18,21 +18,23 @@
 namespace Gishiki\Core {
 
     /**
-    * The base class of an exception related with the framework
-    *
-    * Benato Denis <benato.denis96@gmail.com>
-    */
-    class Exception extends \Exception {
+     * The base class of an exception related with the framework
+     *
+     * Benato Denis <benato.denis96@gmail.com>
+     */
+    class Exception extends \Exception
+    {
         
         /**
          * Create a base exception and save the log of what's happening
          *
-         * @param string $message the error message
-         * @param integer $errorCode the error code
+         * @param string $message   the error message
+         * @param int    $errorCode the error code
          */
-        public function __construct($message, $errorCode) {
+        public function __construct($message, $errorCode)
+        {
             //perform a basic Exception constructor call
-            parent::__construct($message, $errorCode, NULL);
+            parent::__construct($message, $errorCode, null);
             
             //build the new log entry
             new \Gishiki\Logging\Log(get_class($this)." exception thrown", $message, \Gishiki\Logging\Priority::CRITICAL);

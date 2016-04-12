@@ -22,7 +22,8 @@ namespace Gishiki\ActiveRecord;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-abstract class ConnectionsProvider {
+abstract class ConnectionsProvider
+{
     private static $connections = array();
     
     //define the name of the default database connection
@@ -33,13 +34,14 @@ abstract class ConnectionsProvider {
      * connection for future usage by an ActiveModel
      * 
      * @param string $connection_name the connection string
-     * @param array $connection the connection query
+     * @param array  $connection      the connection query
      */
-    static function Register($connection_name, $connection) {
+    public static function Register($connection_name, $connection)
+    {
         if ((isset($connection['driver'])) && (isset($connection['query']))) {
             //get the name of the adapter
             $adapter_name = ucwords(strtolower($connection['driver']));
-            $adapter_class_name = "Gishiki\\ActiveRecord\\Adapter\\" . $adapter_name . "Adapter";
+            $adapter_class_name = "Gishiki\\ActiveRecord\\Adapter\\".$adapter_name."Adapter";
             if (!class_exists($adapter_class_name)) {
                 throw new DatabaseException("Unable to find a suitable database adapter", 0);
             }
@@ -67,7 +69,8 @@ abstract class ConnectionsProvider {
      * 
      * @param array $connections_group the array of connection
      */
-    static function RegisterGroup($connections_group) {
+    public static function RegisterGroup($connections_group)
+    {
         foreach ($connections_group as $connection_name => $connection) {
             self::Register($connection_name, $connection);
         }
@@ -77,11 +80,12 @@ abstract class ConnectionsProvider {
      * Get the conenction with the given name, if the name is not give the default
      * one is used
      * 
-     * @param string $connection_name the connection name
-     * @return mixed a connection that implements the DatabaseAdapter interface
+     * @param  string                                  $connection_name the connection name
+     * @return mixed                                   a connection that implements the DatabaseAdapter interface
      * @throws \Gishiki\ActiveRecord\DatabaseException the connection cannot be found
      */
-    static function FetchConnection($connection_name = null) {
+    public static function FetchConnection($connection_name = null)
+    {
         //get the connection name
         $connection_name = ($connection_name === null) ? self::$name_of_default : $connection_name;
         
@@ -89,7 +93,7 @@ abstract class ConnectionsProvider {
         $connection = (in_array($connection_name, array_keys(self::$connections))) ? self::$connections[$connection_name] : null;
         
         if (!$connection) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("Unknown database connection: " . $connection_name, 3);
+            throw new \Gishiki\ActiveRecord\DatabaseException("Unknown database connection: ".$connection_name, 3);
         }
         
         return $connection;
@@ -102,8 +106,10 @@ abstract class ConnectionsProvider {
      * 
      * @param string $connection_name the name of the connection that will be used as the default one
      */
-    static function ChangeDefaultConnection($connection_name = null) {
-        if (($connection_name !== null) && (strlen($connection_name) > 0))
-        {   self::$name_of_default = $connection_name;  }
+    public static function ChangeDefaultConnection($connection_name = null)
+    {
+        if (($connection_name !== null) && (strlen($connection_name) > 0)) {
+            self::$name_of_default = $connection_name;
+        }
     }
 }

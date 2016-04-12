@@ -22,14 +22,16 @@ namespace Gishiki\Security {
      *
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class CipherException extends \Gishiki\Core\Exception {
+    class CipherException extends \Gishiki\Core\Exception
+    {
 
         /**
          * Create the exception
-         * @param string $message the error message
-         * @param integer $errorCode the cipher error code
+         * @param string $message   the error message
+         * @param int    $errorCode the cipher error code
          */
-        public function __construct($message, $errorCode) {
+        public function __construct($message, $errorCode)
+        {
             parent::__construct($message, $errorCode);
         }
     }

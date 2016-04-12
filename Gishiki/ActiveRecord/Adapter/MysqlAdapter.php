@@ -22,13 +22,16 @@ namespace Gishiki\ActiveRecord\Adapter;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
+class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter
+{
     //this is the native PDO driver
     private $native_connection = null;
     
-    public function __construct($connection_query, $ssl_key = null, $ssl_certificate = null, $ssl_ca = null) {
-        if (!in_array("mysql", \PDO::getAvailableDrivers()))
-        {   throw new \Gishiki\ActiveRecord\DatabaseException("No MySQL driver available: install the mysql PDO driver", 5);  }
+    public function __construct($connection_query, $ssl_key = null, $ssl_certificate = null, $ssl_ca = null)
+    {
+        if (!in_array("mysql", \PDO::getAvailableDrivers())) {
+            throw new \Gishiki\ActiveRecord\DatabaseException("No MySQL driver available: install the mysql PDO driver", 5);
+        }
         
         //extract connection info from the connection query
         $db_conn = explode('@', $connection_query, 2);
@@ -37,8 +40,9 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         $db_name = explode('/', $db_conn[1], 2)[1];
         
         //use the default port is nother one was not specified
-        if (!isset($host_and_port[1] ))
-        {   $host_and_port[1] = '3306';   }
+        if (!isset($host_and_port[1])) {
+            $host_and_port[1] = '3306';
+        }
         
         $pdo_connection = array(
             \PDO::ATTR_PERSISTENT => false,
@@ -57,16 +61,17 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         }
         
         try {
-            $this->native_connection = new \PDO("mysql:host=" . $host_and_port[0] . ";port=" . $host_and_port[1] . ";dbname=" . $db_name,$user_and_password[0], $user_and_password[1], $pdo_connection);
+            $this->native_connection = new \PDO("mysql:host=".$host_and_port[0].";port=".$host_and_port[1].";dbname=".$db_name, $user_and_password[0], $user_and_password[1], $pdo_connection);
         } catch (\PDOException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a connection to the sqlite db, PDO reports: " . $ex->getCode(), 2);
+            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a connection to the sqlite db, PDO reports: ".$ex->getCode(), 2);
         }
     }
     
-    private function getColumnInfo($collection_name) {
+    private function getColumnInfo($collection_name)
+    {
         try {
             //start building the query
-            $sql = "SELECT * FROM " . $collection_name . " LIMIT 1";
+            $sql = "SELECT * FROM ".$collection_name." LIMIT 1";
             
             //create the statement for execution
             $statement = $this->native_connection->prepare($sql);
@@ -76,21 +81,22 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             
             //build columns metadata:
             $metadata = array();
-            foreach(range(0, $statement->columnCount() - 1) as $column_index)
-            {
+            foreach (range(0, $statement->columnCount() - 1) as $column_index) {
                 $metadata[$column_index] = $statement->getColumnMeta($column_index);
-                if ($metadata[$column_index] === false)
-                {   throw new \Gishiki\ActiveRecord\DatabaseException("Unable to detect table structure", 15);}
+                if ($metadata[$column_index] === false) {
+                    throw new \Gishiki\ActiveRecord\DatabaseException("Unable to detect table structure", 15);
+                }
             }
             
             //return the column metadata
             return $metadata;
         } catch (\PDOException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with table introspection, PDO reports: " . $ex->getCode(), 16);
+            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with table introspection, PDO reports: ".$ex->getCode(), 16);
         }
     }
     
-    private function filter_input_types($collection_name, $array) {
+    private function filter_input_types($collection_name, $array)
+    {
         try {
             //get table info
             $table_descriptors = $this->getColumnInfo($collection_name);
@@ -133,7 +139,8 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         }
     }
     
-    private function where_compile(\Gishiki\ActiveRecord\RecordsSelector $where, &$sobstitution_table) {
+    private function where_compile(\Gishiki\ActiveRecord\RecordsSelector $where, &$sobstitution_table)
+    {
         //setup the sobtitution table
         $sobstitution_table = array();
         
@@ -142,7 +149,7 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         
         //get the list of selectors
         $selectors_property = new \ReflectionProperty($where, "selectors");
-        $selectors_property->setAccessible(TRUE);
+        $selectors_property->setAccessible(true);
         $fields_selectors = $selectors_property->getValue($where);
         
         //place selectors
@@ -154,12 +161,13 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             
             //HERE you should change relationship if the rdbms you are using doesn't support:
             // = != < <= >= > 
-            
-            $where_clauses .= $fieldname . " " . $relationship . " ?";
+
+            $where_clauses .= $fieldname." ".$relationship." ?";
             
             //place comme if needed
-            if ($i < count($fields) - 2)
-            {   $where_clauses .= ' AND ';     }
+            if ($i < count($fields) - 2) {
+                $where_clauses .= ' AND ';
+            }
             $sobstitution_table[] = $fields_selectors[$field];
             
             $i++;
@@ -167,7 +175,7 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         
         //get the limit
         $limit_property = new \ReflectionProperty($where, "limit");
-        $limit_property->setAccessible(TRUE);
+        $limit_property->setAccessible(true);
         
         $limit = $limit_property->getValue($where);
         if ($limit) {
@@ -177,7 +185,7 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         
         //get the offset
         $offset_property = new \ReflectionProperty($where, "offset");
-        $offset_property->setAccessible(TRUE);
+        $offset_property->setAccessible(true);
         
         $offset = $offset_property->getValue($where);
         if ($offset) {
@@ -188,7 +196,8 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         return $where_clauses;
     }
     
-    public function Create($collection_name, $collection_values, $id_column_name = null) {
+    public function Create($collection_name, $collection_values, $id_column_name = null)
+    {
         //cast data to correct types
         $collection_values = $this->filter_input_types($collection_name, $collection_values);
         
@@ -201,7 +210,7 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
                 $values[] = $current;
             }
             
-            $sql = "INSERT INTO " . $collection_name . " ( " . implode(', ', array_keys($collection_values)) . " ) VALUES ( " . implode(', ', $placeholders) . ") ";
+            $sql = "INSERT INTO ".$collection_name." ( ".implode(', ', array_keys($collection_values))." ) VALUES ( ".implode(', ', $placeholders).") ";
             
             //create the statement for execution
             $statement = $this->native_connection->prepare($sql);
@@ -212,11 +221,12 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             //give the result back
             return $this->native_connection->lastInsertId();
         } catch (\PDOException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with insertion, PDO reports: " . $ex->getCode(), 6);
+            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with insertion, PDO reports: ".$ex->getCode(), 6);
         }
     }
     
-    public function Update($collection_name, $collection_values, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null) {
+    public function Update($collection_name, $collection_values, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null)
+    {
         $collection_values = $this->filter_input_types($collection_name, $collection_values);
         
         try {
@@ -224,7 +234,7 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             $values = array();
             
             //start building the query
-            $sql = "UPDATE " . $collection_name . " SET ";
+            $sql = "UPDATE ".$collection_name." SET ";
             
             //insert value that are going to be updated
             $value_count = count($collection_values);
@@ -234,8 +244,9 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
                 $values[] = $current;
                 
                 //place the separator if another field is going to be updated
-                if ($i < ($value_count - 1))
-                {    $sql .= ", ";    }
+                if ($i < ($value_count - 1)) {
+                    $sql .= ", ";
+                }
                     
                 $i++;
             }
@@ -246,10 +257,12 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             
             //build the values and where array
             $values_and_where = array();
-            foreach ($values as &$value)
-            {   $values_and_where[] = $value;   }
-            foreach ($where_subs as &$value)
-            {   $values_and_where[] = $value;   }
+            foreach ($values as &$value) {
+                $values_and_where[] = $value;
+            }
+            foreach ($where_subs as &$value) {
+                $values_and_where[] = $value;
+            }
             
             //create the statement for execution
             $statement = $this->native_connection->prepare($sql);
@@ -260,14 +273,15 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             //return the number of affected rows
             return $statement->rowCount();
         } catch (\PDOException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue database update, PDO reports: " . $ex->getCode(), 11);
+            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue database update, PDO reports: ".$ex->getCode(), 11);
         }
     }
     
-    public function Delete($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null) {
+    public function Delete($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null)
+    {
         try {
             //start building the query
-            $sql = "DELETE FROM " . $collection_name . " ";
+            $sql = "DELETE FROM ".$collection_name." ";
             
             //add where clauses
             $where_subs = null;
@@ -282,23 +296,23 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             //return the number of affected rows
             return $statement->rowCount();
         } catch (\PDOException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with deletion, PDO reports: " . $ex->getCode(), 9);
+            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with deletion, PDO reports: ".$ex->getCode(), 9);
         }
     }
     
-    public function Read($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null) {
+    public function Read($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null)
+    {
         $metadata = false;
         try {
             //build columns metadata:
             $metadata = $this->getColumnInfo($collection_name);
         } catch (\Gishiki\ActiveRecord\DatabaseException $ex) {
-            
         }
         
         try {
             
             //start building the query
-            $sql = "SELECT * FROM " . $collection_name . " ";
+            $sql = "SELECT * FROM ".$collection_name." ";
             
             //add where clauses
             $where_subs = null;
@@ -347,7 +361,7 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             
             return $native_records;
         } catch (\PDOException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with read, PDO reports: " . $ex->getCode(), 10);
+            throw new \Gishiki\ActiveRecord\DatabaseException("unable to continue with read, PDO reports: ".$ex->getCode(), 10);
         }
     }
 }

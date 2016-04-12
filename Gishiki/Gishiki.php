@@ -13,7 +13,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*****************************************************************************/    
+*****************************************************************************/
 
 namespace Gishiki;
 
@@ -22,16 +22,17 @@ namespace Gishiki;
  * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-abstract class Gishiki {
+abstract class Gishiki
+{
     
     //this is the environment used to fulfill the incoming request
-    static $executionEnvironment = NULL;
+    public static $executionEnvironment = null;
     
     /**
      * Initialize the Gishiki engine and prepare for
      * the execution of a framework instance
      */
-    static function Initialize()
+    public static function Initialize()
     {
         //the name of the directory that contains model, view and controller (must be placed in the root)
         if (!defined('APPLICATION_DIR')) {
@@ -39,20 +40,18 @@ abstract class Gishiki {
         }
         
         //each Gishiki instance is binded with a new created Environment
-        self::$executionEnvironment = new \Gishiki\Core\Environment(TRUE);
+        self::$executionEnvironment = new \Gishiki\Core\Environment(true);
     }
     
     /**
      * Execute the requested operation.
      */
-    static function Run()
-    {   
+    public static function Run()
+    {
         //if the framework needs to be installed.....
-        if (!\Gishiki\Core\Application::Exists())
-        {
+        if (!\Gishiki\Core\Application::Exists()) {
             //setup the new application
             if (\Gishiki\Core\Application::CreateNew()) {
-
             } else {
                 exit("<div><br /><b>Check for the environment, delete the created application directory and retry the installation</b></div>");
             }

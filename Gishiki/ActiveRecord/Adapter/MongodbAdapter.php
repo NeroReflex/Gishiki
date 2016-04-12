@@ -22,37 +22,41 @@ namespace Gishiki\ActiveRecord\Adapter;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class MongodbAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
-    private $conection = null;
+class MongodbAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter
+{
+    private $connection = null;
     private $dbname;
     
-    public function __construct($connection_query, $ssl_key = null, $ssl_certificate = null, $ssl_ca = null) {
+    public function __construct($connection_query, $ssl_key = null, $ssl_certificate = null, $ssl_ca = null)
+    {
         if (!class_exists("MongoDB\\Driver\\Manager")) {
             throw new \Gishiki\ActiveRecord\DatabaseException("No MongoDB driver available: install the mongodb pecl extension", 5);
         }
         
         //get the database name
         $dbpath = explode('/', $connection_query, 2);
-        if (count($dbpath) > 1)
-        {   $dbpath = $dbpath[1];   }
+        if (count($dbpath) > 1) {
+            $dbpath = $dbpath[1];
+        }
         $lim = strpos($dbpath, '?');
-        if ($lim !== false)
-        {   $dbpath = substr($dbpath, 0, $lim + 1);     }
+        if ($lim !== false) {
+            $dbpath = substr($dbpath, 0, $lim + 1);
+        }
         $this->dbname = $dbpath;
         
         try {
-            $this->connection = new \MongoDB\Driver\Manager("mongodb://" . $connection_query);
-            $this->connection;
+            $this->connection = new \MongoDB\Driver\Manager("mongodb://".$connection_query);
         } catch (\MongoDB\Driver\Exception\InvalidArgumentException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a valid MongoDB connection (" . $ex->getCode() . ")", 2);
+            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a valid MongoDB connection (".$ex->getCode().")", 2);
         } catch (\MongoDB\Driver\Exception\RuntimeException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a valid MongoDB connection (" . $ex->getCode() . ") invalid connection string", 3);
+            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a valid MongoDB connection (".$ex->getCode().") invalid connection string", 3);
         }
     }
     
-    public function Create($collection_name, $collection_values, $id_column_name = null) {
+    public function Create($collection_name, $collection_values, $id_column_name = null)
+    {
         //get the fully qualified namespace (e.g. "databaseName.collectionName")
-        $namespace = $this->dbname . "." . $collection_name;
+        $namespace = $this->dbname.".".$collection_name;
         
         try {
             $statement = new \MongoDB\Driver\BulkWrite(/*['ordered' => true]*/);
@@ -66,29 +70,30 @@ class MongodbAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             //and return the object id
             return (string)$ObjectID;
         } catch (\MongoDB\Driver\Exception\BulkWriteException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to perform the creation operation (" . $ex->getCode() . ")", 4);
+            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to perform the creation operation (".$ex->getCode().")", 4);
         } catch (\MongoDB\Driver\Exception\InvalidArgumentException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to perform the creation operation (" . $ex->getCode() . ")", 5);
-        }  catch (\MongoDB\Driver\Exception\ConnectionException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to connect to the given database (" . $ex->getCode() . ")", 6);
-        }  catch (\MongoDB\Driver\Exception\AuthenticationException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to authenticate on the given database (" . $ex->getCode() . ")", 7);
-        }   catch (\MongoDB\Driver\Exception\RuntimeException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to perform the creation operation (" . $ex->getCode() . ")", 8);
+            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to perform the creation operation (".$ex->getCode().")", 5);
+        } catch (\MongoDB\Driver\Exception\ConnectionException $ex) {
+            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to connect to the given database (".$ex->getCode().")", 6);
+        } catch (\MongoDB\Driver\Exception\AuthenticationException $ex) {
+            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to authenticate on the given database (".$ex->getCode().")", 7);
+        } catch (\MongoDB\Driver\Exception\RuntimeException $ex) {
+            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to perform the creation operation (".$ex->getCode().")", 8);
         }
     }
     
-    public function Update($collection_name, $collection_values, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null) {
-        
+    public function Update($collection_name, $collection_values, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null)
+    {
     }
     
-    public function Delete($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null) {
-        
+    public function Delete($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null)
+    {
     }
     
-    public function Read($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null) {
+    public function Read($collection_name, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null)
+    {
         //get the fully qualified namespace (e.g. "databaseName.collectionName")
-        $namespace = $this->dbname . "." . $collection_name;
+        $namespace = $this->dbname.".".$collection_name;
         
         try {
             $options = null;
@@ -102,32 +107,35 @@ class MongodbAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             
             $result = [];
             foreach ($cursor as $current_data) {
-                if (!is_array($current_data))
-                {   $result[] = get_object_vars($current_data);     }
-                else {  $result[] = $current_data;  }
+                if (!is_array($current_data)) {
+                    $result[] = get_object_vars($current_data);
+                } else {
+                    $result[] = $current_data;
+                }
             }
             
             return $result;
         } catch (\MongoDB\Driver\Exception\InvalidArgumentException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to perform the read operation (" . $ex->getCode() . ")", 5);
-        }  catch (\MongoDB\Driver\Exception\ConnectionException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to connect to the given database (" . $ex->getCode() . ")", 6);
-        }  catch (\MongoDB\Driver\Exception\AuthenticationException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to authenticate on the given database (" . $ex->getCode() . ")", 7);
-        }   catch (\MongoDB\Driver\Exception\RuntimeException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to perform the read operation (" . $ex->getCode() . ")", 8);
+            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to perform the read operation (".$ex->getCode().")", 5);
+        } catch (\MongoDB\Driver\Exception\ConnectionException $ex) {
+            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to connect to the given database (".$ex->getCode().")", 6);
+        } catch (\MongoDB\Driver\Exception\AuthenticationException $ex) {
+            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to authenticate on the given database (".$ex->getCode().")", 7);
+        } catch (\MongoDB\Driver\Exception\RuntimeException $ex) {
+            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to perform the read operation (".$ex->getCode().")", 8);
         }
     }
 
 
     
-    private static function where_compile(\Gishiki\ActiveRecord\RecordsSelector $where, &$filter, &$options) {
+    private static function where_compile(\Gishiki\ActiveRecord\RecordsSelector $where, &$filter, &$options)
+    {
         $filter = array();
         $options = array();
         
         //get the list of selectors
         $selectors_property = new \ReflectionProperty($where, "selectors");
-        $selectors_property->setAccessible(TRUE);
+        $selectors_property->setAccessible(true);
         $fields_selectors = $selectors_property->getValue($where);
         
         //place selectors
@@ -140,19 +148,19 @@ class MongodbAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
             
             //HERE you should change relationship if the rdbms you are using doesn't support:
             // = != < <= >= > 
-            
+
             $filter[$fieldname] = array();
             if ($relationship == "=") {
                 $filter[$fieldname]['$eq'] = $fieldvalue;
-            } else if ($relationship == ">=") {
+            } elseif ($relationship == ">=") {
                 $filter[$fieldname]['$gte'] = $fieldvalue;
-            } else if ($relationship == "<=") {
+            } elseif ($relationship == "<=") {
                 $filter[$fieldname]['$lte'] = $fieldvalue;
-            } else if ($relationship == ">") {
+            } elseif ($relationship == ">") {
                 $filter[$fieldname]['$gt'] = $fieldvalue;
-            } else if ($relationship == "<") {
+            } elseif ($relationship == "<") {
                 $filter[$fieldname]['$lt'] = $fieldvalue;
-            } else if ($relationship == "!=") {
+            } elseif ($relationship == "!=") {
                 $filter[$fieldname]['$ne'] = $fieldvalue;
             }
             
@@ -161,18 +169,20 @@ class MongodbAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         
         //get the limit
         $limit_property = new \ReflectionProperty($where, "limit");
-        $limit_property->setAccessible(TRUE);
+        $limit_property->setAccessible(true);
         
         $limit = $limit_property->getValue($where);
-        if ($limit != 0)
-        {   $options['limit'] = $limit;   }
+        if ($limit != 0) {
+            $options['limit'] = $limit;
+        }
         
         //get the offset
         $offset_property = new \ReflectionProperty($where, "offset");
-        $offset_property->setAccessible(TRUE);
+        $offset_property->setAccessible(true);
         
         $offset = $offset_property->getValue($where);
-        if ($offset != 0)
-        {   $options['skip'] = $offset;   }
+        if ($offset != 0) {
+            $options['skip'] = $offset;
+        }
     }
 }

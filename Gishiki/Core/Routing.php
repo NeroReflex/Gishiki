@@ -22,7 +22,8 @@ namespace Gishiki\Core {
      *
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    abstract class Routing {
+    abstract class Routing
+    {
         //methods collection
         const GET       = 0;
         const POST      = 1;
@@ -31,7 +32,7 @@ namespace Gishiki\Core {
         const PUT       = 4;
         
         const UNKNOWN   = 5; //should never happend
-        
+
         //events collections
         const NotFoudCallback   = 10;
         
@@ -43,13 +44,14 @@ namespace Gishiki\Core {
         protected static $notFound = null;
         
         //was a routing function being executed?
-        protected static $executed = FALSE;
+        protected static $executed = false;
         
         /**
          * Automatically called by the framework: perform a reset 
          * to the router of the framework 
          */
-        public static function Initialize() {
+        public static function Initialize()
+        {
             //setup stubs on routing events
             static::$notFound = function () {    die("404 Not Found");  };
         }
@@ -58,23 +60,27 @@ namespace Gishiki\Core {
          * Automatically called by the framework:
          * end the execution of the router 
          */
-        public static function Deinitialize() {
-            if (!static::$executed)
-            {   call_user_func(static::$notFound);  }
-        } 
+        public static function Deinitialize()
+        {
+            if (!static::$executed) {
+                call_user_func(static::$notFound);
+            }
+        }
         
         /**
          * Get the URI requested by the client.
          * 
          * @return string the request from the client
          */
-        public static function getRequestURI() {
+        public static function getRequestURI()
+        {
             if (static::$current_URI === null) {
-                $basepath = implode('/', array_slice(explode('/', filter_input(INPUT_SERVER, 'SCRIPT_NAME')), 0, -1)) . '/';
+                $basepath = implode('/', array_slice(explode('/', filter_input(INPUT_SERVER, 'SCRIPT_NAME')), 0, -1)).'/';
                 $uri = substr(filter_input(INPUT_SERVER, 'REQUEST_URI'), strlen($basepath));
-                if (strstr($uri, '?'))
-                {   $uri = substr($uri, 0, strpos($uri, '?'));  }
-                $uri = '/' . trim($uri, '/');
+                if (strstr($uri, '?')) {
+                    $uri = substr($uri, 0, strpos($uri, '?'));
+                }
+                $uri = '/'.trim($uri, '/');
                 static::$current_URI = urldecode($uri);
             }
             
@@ -84,9 +90,10 @@ namespace Gishiki\Core {
         /**
          * Return the method used by the client to reach the framework execution
          * 
-         * @return integer one of GET, POST, HEAD, DELTE or put contants
+         * @return int one of GET, POST, HEAD, DELTE or put contants
          */
-        public static function getRequestMethod() {
+        public static function getRequestMethod()
+        {
             if (static::$current_Request === null) {
                 //get the non-string representation of the used method
                 switch (strtoupper(filter_input(INPUT_SERVER, 'REQUEST_METHOD'))) {
@@ -133,11 +140,12 @@ namespace Gishiki\Core {
          * \Gishiki\Algorithms\CyclableCollection if regex routing is used, 
          * otherwise it is NULL
          * 
-         * @param integer $Method one request method chosen from GET, POST, HEAD ecc.... 
-         * @param string $URI the URI that will bring to the function execution
+         * @param int      $Method   one request method chosen from GET, POST, HEAD ecc.... 
+         * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        public static function setRoute($Method, $URI, $function) {
+        public static function setRoute($Method, $URI, $function)
+        {
             //fix the URI
             $URI = '/'.trim($URI, '/');
             
@@ -188,13 +196,13 @@ namespace Gishiki\Core {
                         
                         //finally trigger the function execution
                         $function($resolved_regex);
-                        static::$executed = TRUE;
+                        static::$executed = true;
                     }
                 //no regex routing: just check if the current request is done to the given routing
-                } else if ($real_URI == $URI) {
+                } elseif ($real_URI == $URI) {
                     //trigger the function execution
                     $function(null);
-                    static::$executed = TRUE;
+                    static::$executed = true;
                 }
             }
         }
@@ -205,14 +213,14 @@ namespace Gishiki\Core {
          * Errors are methods-free, but you can query the used 
          * method inside the function, if you really need to...
          * 
-         * @param integer $error one of the error identifiers
+         * @param int      $error    one of the error identifiers
          * @param function $function this is the function automatically called when that error type occurs
          */
-        public static function setErrorCallback($error, $function) {
+        public static function setErrorCallback($error, $function)
+        {
             if ($error == static::NotFoudCallback) {
                 static::$notFound = $function;
             }
         }
     }
 }
-

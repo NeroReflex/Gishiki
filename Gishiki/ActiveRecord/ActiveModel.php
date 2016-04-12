@@ -22,7 +22,8 @@ namespace Gishiki\ActiveRecord;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
+class ActiveModel extends \Gishiki\Algorithms\CyclableCollection
+{
     
     /**
      * Keep track of modified attributes.
@@ -35,7 +36,7 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
     /**
      * Do not touch! Internal use ONLY!
      * 
-     * @var boolean can this model be saved to the database?
+     * @var bool can this model be saved to the database?
      */
     protected $__ghost = false;
     
@@ -45,7 +46,7 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
      * 
      * @var string the name of the primary key
      */
-    static $table_name = "";
+    public static $table_name = "";
     
     /**
      * This is the name of the primary key for all models
@@ -53,7 +54,7 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
      * 
      * @var string the name of the primary key
      */
-    static $primary_key = "id";
+    public static $primary_key = "id";
             
     /**
      * This is the name of the connection that all models
@@ -61,7 +62,7 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
      * 
      * @var string the name of the primary key
      */
-    static $connection = null;
+    public static $connection = null;
     
     /**
      * Creates an empty model from a data collection.
@@ -78,7 +79,8 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
      * 
      * @param array $setup_values the collection used to build the current model
      */
-    public function __construct($setup_values = []) {
+    public function __construct($setup_values = [])
+    {
         parent::__construct($setup_values);
         
         //you have blown all properties!
@@ -90,33 +92,41 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
     /**
      * Automatically save your model if needed
      */
-    public function __destruct() {
-        if (count($this->__dirty) > 0)
-        {   $this->save();  }
+    public function __destruct()
+    {
+        if (count($this->__dirty) > 0) {
+            $this->save();
+        }
     }
     
-    public function __set($key, $value) {
-        if (!in_array($key, $this->__dirty))
-        {   $this->__dirty[] = $key;    }
+    public function __set($key, $value)
+    {
+        if (!in_array($key, $this->__dirty)) {
+            $this->__dirty[] = $key;
+        }
         
         //use a set filter
-        $filter_setter_name = "__filter_set_" . $key;
+        $filter_setter_name = "__filter_set_".$key;
         
         //use a filter if it exists
-        if (method_exists($this, $filter_setter_name))
-        {   $value = $this->$filter_setter_name($value);     }
+        if (method_exists($this, $filter_setter_name)) {
+            $value = $this->$filter_setter_name($value);
+        }
         
         parent::__set($key, $value);
     }
     
-    public function &__get($key) {
+    public function &__get($key)
+    {
         //use a set filter
-        $filter_getter_name = "__filter_get_" . $key;
+        $filter_getter_name = "__filter_get_".$key;
         
         //use a filter if it exists
-        if (method_exists($this, $filter_getter_name))
-        {   return $this->$filter_getter_name(parent::__get($key));     }
-        else {  return parent::__get($key); }
+        if (method_exists($this, $filter_getter_name)) {
+            return $this->$filter_getter_name(parent::__get($key));
+        } else {
+            return parent::__get($key);
+        }
     }
     
     /**
@@ -129,10 +139,11 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
      * $my_new_book = Book::Create(['title' => 'My book', 'author' => 'me',  ... ]);
      * </code>
      * 
-     * @param array $attributes the array of attributes
+     * @param  array $attributes the array of attributes
      * @return mixed a new instance of your model
      */
-    static function Create($attributes = []) {
+    public static function Create($attributes = [])
+    {
         //create a new instance of the model
         $model_reflecter = new \ReflectionClass(get_called_class());
         $new_model_instance = $model_reflecter->newInstance($attributes);
@@ -154,10 +165,11 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
      *                              ->where_title_is('Example Book'));
      * </code>
      * 
-     * @param RecordsSelector $selector the array of attributes
-     * @return integer the number of removed records
+     * @param  RecordsSelector $selector the array of attributes
+     * @return int             the number of removed records
      */
-    static function Destroy(RecordsSelector $selector) {
+    public static function Destroy(RecordsSelector $selector)
+    {
         //get the database connection
         $db_connection = ConnectionsProvider::FetchConnection(static::$connection);
         
@@ -168,10 +180,11 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
     /**
      * Retrive, from the currently used database, all the records matching the given criteria
      * 
-     * @param \Gishiki\ActiveRecord\RecordsSelector $selector the filter to be applied to select records
-     * @return \Gishiki\ActiveRecord\ActiveResult the collection of fetched records
+     * @param  \Gishiki\ActiveRecord\RecordsSelector $selector the filter to be applied to select records
+     * @return \Gishiki\ActiveRecord\ActiveResult    the collection of fetched records
      */
-    static function Dispense(RecordsSelector $selector) {
+    public static function Dispense(RecordsSelector $selector)
+    {
         //get the database connection
         $db_connection = ConnectionsProvider::FetchConnection(static::$connection);
         
@@ -179,19 +192,20 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
         $records = $db_connection->Read(self::getTableName(), $selector, static::$primary_key);
         
         //foreach record build a model an insert into the models array
-        $models = array(); $i = 0;
-        foreach($records as &$record) {
+        $models = array();
+        $i = 0;
+        foreach ($records as &$record) {
             //create the new model instance
             $model_reflected = new \ReflectionClass(get_called_class());
             $models[$i] = $model_reflected->newInstance();
             
             //and fill it
             $model_data = new \ReflectionProperty($models[$i], 'array');
-            $model_data->setAccessible(TRUE);
+            $model_data->setAccessible(true);
             $model_data->setValue($models[$i], $record);
             
             $model_dirty_data = new \ReflectionProperty($models[$i], '__dirty');
-            $model_dirty_data->setAccessible(TRUE);
+            $model_dirty_data->setAccessible(true);
             $model_dirty_data->setValue($models[$i], array());
             
             $i++;
@@ -205,22 +219,24 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
      * Lock or unlock the model in ghost mode.
      + A ghost model cannot be modified or saved into the database.
      * 
-     * @param boolean $readonly if TRUE the model will become a ghost
+     * @param bool $readonly if TRUE the model will become a ghost
      */
-    public function Ghost($readonly = true) {
+    public function Ghost($readonly = true)
+    {
         $this->__ghost = ($readonly == true);
     }
     
     /**
      * Save the current model into the database
      */
-    public function save() {
+    public function save()
+    {
         if (!$this->__ghost) {
             //get the database connection
             $db_connection = ConnectionsProvider::FetchConnection(static::$connection);
             
             if (count($this->__dirty) > 0) {
-                if (($this->array[static::$primary_key] === null) || (0 === count(static::Dispense(RecordsSelector::filters()->{'where_' . static::$primary_key . '_is'}($this->array[static::$primary_key])->limit(1))))) {
+                if (($this->array[static::$primary_key] === null) || (0 === count(static::Dispense(RecordsSelector::filters()->{'where_'.static::$primary_key.'_is'}($this->array[static::$primary_key])->limit(1))))) {
                     //build the insertion array (the model without id)
                     $insertion_array = $this->array;
                     unset($insertion_array[static::$primary_key]);
@@ -230,11 +246,12 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
                 } else {
                     //build the update array
                     $new_value = array();
-                    foreach ($this->__dirty as &$dirty_key)
-                    {   $new_value[$dirty_key] = $this->array[$dirty_key];    }
+                    foreach ($this->__dirty as &$dirty_key) {
+                        $new_value[$dirty_key] = $this->array[$dirty_key];
+                    }
                         
                     //update the model
-                    $db_connection->Update(self::getTableName(), $new_value, RecordsSelector::filters(["where_" . static::$primary_key . "_equal" => $this->array[static::$primary_key], ]), static::$primary_key);
+                    $db_connection->Update(self::getTableName(), $new_value, RecordsSelector::filters(["where_".static::$primary_key."_equal" => $this->array[static::$primary_key], ]), static::$primary_key);
                 }
             }
             
@@ -247,14 +264,15 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
      * Delete the current model from the database
      * and lock it into readonly mode to avoid the autosave
      */
-    public function remove() {
+    public function remove()
+    {
         //delete the model if it is not null
         if ($this->array[static::$primary_key] !== null) {
             //get the database connection
             $db_connection = ConnectionsProvider::FetchConnection(static::$connection);
             
             //update the model
-            $db_connection->Delete(self::getTableName(), RecordsSelector::filters(["where_" . static::$primary_key . "_equal" => $this->array[static::$primary_key], ]), static::$primary_key);
+            $db_connection->Delete(self::getTableName(), RecordsSelector::filters(["where_".static::$primary_key."_equal" => $this->array[static::$primary_key], ]), static::$primary_key);
         }
         
         //this model is not mapped on the database
@@ -269,10 +287,11 @@ class ActiveModel extends \Gishiki\Algorithms\CyclableCollection {
      * 
      * @return string the real name of the tabse
      */
-    protected static function getTableName() {
+    protected static function getTableName()
+    {
         //get the name of the table
         if (!static::$table_name) {
-            static::$table_name = strtolower(get_called_class()) . "s";
+            static::$table_name = strtolower(get_called_class())."s";
             
             static::$table_name = str_replace("/", "_", static::$table_name);
             static::$table_name = str_replace("\\", "_", static::$table_name);

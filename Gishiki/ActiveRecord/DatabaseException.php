@@ -16,20 +16,22 @@ limitations under the License.
 *****************************************************************************/
 
 namespace Gishiki\ActiveRecord;
-    
+
 /**
  * An exception thrown by a failed connection
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class DatabaseException extends \Gishiki\Core\Exception {
+class DatabaseException extends \Gishiki\Core\Exception
+{
     
     /**
      * Create the connection exception
-     * @param string $message the error message
-     * @param integer $errorCode the connection error code
+     * @param string $message   the error message
+     * @param int    $errorCode the connection error code
      */
-    public function __construct($message, $errorCode) {
+    public function __construct($message, $errorCode)
+    {
         parent::__construct($message, $errorCode);
     }
 }

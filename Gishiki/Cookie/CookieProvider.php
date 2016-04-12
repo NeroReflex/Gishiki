@@ -13,7 +13,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*****************************************************************************/  
+*****************************************************************************/
 
 namespace Gishiki\Cookie;
 
@@ -22,12 +22,14 @@ namespace Gishiki\Cookie;
  * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class CookieProvider {
+class CookieProvider
+{
     
     /**
      * Retrive the list of all cookies stored by the client 
      */
-    public function RestoreCookies() {
+    public function RestoreCookies()
+    {
         $cookies = [];
         
         //cache the cookie prefix in order to avoid calling GetConfigurationProperty for each propery
@@ -43,8 +45,10 @@ class CookieProvider {
             $count = 0;
             $cookieName = str_replace($cookiePrefix, "", $cookieCompleteName, $count);
             
-            if ($count == 1) //fetch the cookie and store the managed cookie object into the list
-            {   $cookies[] = $this->getCookie($cookieName);     }
+            if ($count == 1) {
+                //fetch the cookie and store the managed cookie object into the list
+   $cookies[] = $this->getCookie($cookieName);
+            }
         }
         
         //return the list of fetched cookies
@@ -54,10 +58,11 @@ class CookieProvider {
     /**
      * Retrive a cookie managed object from the client request
      * 
-     * @param string $cookieName the name of the cookie to be retrived from the client request
-     * @return mixed return the cookie if the cookie is on the client, NULL otherwise
+     * @param  string $cookieName the name of the cookie to be retrived from the client request
+     * @return mixed  return the cookie if the cookie is on the client, NULL otherwise
      */
-    public function RestoreCookie($cookieName) {
+    public function RestoreCookie($cookieName)
+    {
         //filter the cookie array as it is an external input
         $filtered_cookies = filter_input_array(INPUT_COOKIE);
         
@@ -98,7 +103,7 @@ class CookieProvider {
             
             //get the reflected cookie value
             $reflectedCookieValue = new \ReflectionProperty($cookie, 'value');
-            $reflectedCookieValue->setAccessible(TRUE);
+            $reflectedCookieValue->setAccessible(true);
             
             //and assign the cookie value
             $reflectedCookieValue->setValue($cookie, $cookieValue);
@@ -106,27 +111,28 @@ class CookieProvider {
             //return the newly created cookie
             return $cookie;
         } else {
-            return NULL;
+            return null;
         }
     }
     
     /**
      * Delete a cookie on the client and the cookie managed object on the server 
      * 
-     * @param Cookie $cookie the cookie to be deleted
-     * @return boolean TRUE if success, FALSE otherwise
+     * @param  Cookie $cookie the cookie to be deleted
+     * @return bool   TRUE if success, FALSE otherwise
      */
-    public function DeleteCookie(Cookie &$cookie) {
+    public function DeleteCookie(Cookie &$cookie)
+    {
         //get the cookie complete name
         $name = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_PREFIX').$cookie->getName();
         
         //delete the cookie from the client
-        $success = setcookie($name, NULL, time() - 3600);
+        $success = setcookie($name, null, time() - 3600);
         
         //if the cookie deletion was a success.....
         if ($success) {
             //......delete the cookie instance
-            $cookie = NULL;
+            $cookie = null;
         }
         
         //and return the operation result
@@ -137,19 +143,20 @@ class CookieProvider {
      * Send a cookie to the client, the cookie can also be encrypted to get
      * higher security
      * 
-     * @param Cookie $cookie the cookie to be sent
-     * @param integer $expireIn the life time (in second) of the cookie on the client
-     * @param boolean $encrypted encrypt the cookie?
-     * @param boolean $secure a cookie that can be usen only with HTTP connections
-     * @return boolean the 
+     * @param  Cookie $cookie    the cookie to be sent
+     * @param  int    $expireIn  the life time (in second) of the cookie on the client
+     * @param  bool   $encrypted encrypt the cookie?
+     * @param  bool   $secure    a cookie that can be usen only with HTTP connections
+     * @return bool   the 
      */
-    public function StoreCookie(Cookie &$cookie, $expireIn = NULL, $encrypted = FALSE, $secure = FALSE) {
+    public function StoreCookie(Cookie &$cookie, $expireIn = null, $encrypted = false, $secure = false)
+    {
         //get the cookie complete name
         $name = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('COOKIE_PREFIX').$cookie->getName();
         
         //get the cookie serialized value
         $reflectedCookieValueInspection = new \ReflectionMethod($cookie, "inspectSerializedValue");
-        $reflectedCookieValueInspection->setAccessible(TRUE);
+        $reflectedCookieValueInspection->setAccessible(true);
         $value = $reflectedCookieValueInspection->invoke($cookie);
         if ($encrypted) {
             /*          encrypt the cookie value            */
@@ -184,7 +191,7 @@ class CookieProvider {
             if (\Gishiki\Core\Environment::GetCurrentEnvironment()->SecureConnectionEnabled()) {
                 return setcookie($name, $value, $expireIn, $path, $secure, $secure);
             } else {
-                return FALSE;
+                return false;
             }
         } else {
             return setcookie($name, $value, $expireIn, $path, $secure, $secure);

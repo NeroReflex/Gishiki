@@ -23,7 +23,8 @@ namespace Gishiki\Core {
      *
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    abstract class Route extends Routing {
+    abstract class Route extends Routing
+    {
         
         const NotFound = parent::NotFoudCallback;
         
@@ -50,10 +51,11 @@ namespace Gishiki\Core {
          * 
          * @see \Gishiki\Core\Routing\setRoute
          * 
-         * @param string $URI the URI that will bring to the function execution
+         * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        static function any($URI, $function) {
+        public static function any($URI, $function)
+        {
             parent::setRoute(parent::GET, $URI, $function);
             parent::setRoute(parent::POST, $URI, $function);
             parent::setRoute(parent::DELETE, $URI, $function);
@@ -75,10 +77,11 @@ namespace Gishiki\Core {
          * 
          * @see \Gishiki\Core\Routing\setRoute
          * 
-         * @param string $URI the URI that will bring to the function execution
+         * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        static function match($methods, $URI, $function) {
+        public static function match($methods, $URI, $function)
+        {
             if (count($methods) >= 1) {
                 foreach ($methods as $method) {
                     parent::setRoute($method, $URI, $function);
@@ -99,10 +102,11 @@ namespace Gishiki\Core {
          * 
          * @see \Gishiki\Core\Routing\setRoute
          * 
-         * @param string $URI the URI that will bring to the function execution
+         * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        static function get($URI, $function) {
+        public static function get($URI, $function)
+        {
             parent::setRoute(parent::GET, $URI, $function);
         }
         
@@ -119,10 +123,11 @@ namespace Gishiki\Core {
          * 
          * @see \Gishiki\Core\Routing\setRoute
          * 
-         * @param string $URI the URI that will bring to the function execution
+         * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        static function post($URI, $function) {
+        public static function post($URI, $function)
+        {
             parent::setRoute(parent::POST, $URI, $function);
         }
         
@@ -139,10 +144,11 @@ namespace Gishiki\Core {
          * 
          * @see \Gishiki\Core\Routing\setRoute
          * 
-         * @param string $URI the URI that will bring to the function execution
+         * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        static function put($URI, $function) {
+        public static function put($URI, $function)
+        {
             parent::setRoute(parent::PUT, $URI, $function);
         }
         
@@ -159,10 +165,11 @@ namespace Gishiki\Core {
          * 
          * @see \Gishiki\Core\Routing\setRoute
          * 
-         * @param string $URI the URI that will bring to the function execution
+         * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        static function delete($URI, $function) {
+        public static function delete($URI, $function)
+        {
             parent::setRoute(parent::DELETE, $URI, $function);
         }
         
@@ -179,10 +186,11 @@ namespace Gishiki\Core {
          * 
          * @see \Gishiki\Core\Routing\setRoute
          * 
-         * @param string $URI the URI that will bring to the function execution
+         * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        static function head($URI, $function) {
+        public static function head($URI, $function)
+        {
             parent::setRoute(parent::HEAD, $URI, $function);
         }
         
@@ -197,10 +205,11 @@ namespace Gishiki\Core {
          * });
          * </code>
          * 
-         * @param integer $error_type the error that brings the callback function to be executed
-         * @param function $callback this is the function automatically called when the error type occurs
+         * @param int      $error_type the error that brings the callback function to be executed
+         * @param function $callback   this is the function automatically called when the error type occurs
          */
-        static function error($error_type, $callback) {
+        public static function error($error_type, $callback)
+        {
             parent::setErrorCallback($error_type, $callback);
         }
     }

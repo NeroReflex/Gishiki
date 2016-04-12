@@ -24,7 +24,8 @@ namespace Gishiki\Algorithms;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class CyclableCollection implements \Iterator {
+class CyclableCollection implements \Iterator
+{
     
     /**
      * All functions of this base class point to this array
@@ -38,16 +39,19 @@ class CyclableCollection implements \Iterator {
      * 
      * @param array $setup_values the array containing properties and values
      */
-    public function __construct($setup_values = []) {
-        if (gettype($setup_values) == "array")
-        //type is very important here!
-        {   $this->array = $setup_values;   }
+    public function __construct($setup_values = [])
+    {
+        if (gettype($setup_values) == "array") {
+            //type is very important here!
+   $this->array = $setup_values;
+        }
     }
     
     /**
      * Start up a new iteration cycle: reset the currently active collection element
      */
-    public function rewind() {
+    public function rewind()
+    {
         reset($this->array);
     }
         
@@ -58,16 +62,18 @@ class CyclableCollection implements \Iterator {
      * 
      * @return mixed the currently active array element
      */
-    public function current() {
+    public function current()
+    {
         return current($this->array);
     }
         
     /**
      * Get the index of the currently active collection element
      * 
-     * @return integer the index of the currently active array element
+     * @return int the index of the currently active array element
      */
-    public function key() {
+    public function key()
+    {
         return key($this->array);
     }
         
@@ -79,7 +85,8 @@ class CyclableCollection implements \Iterator {
      * 
      * @return mixed the next array element
      */
-    public function next() {
+    public function next()
+    {
         return next($this->array);
     }
         
@@ -88,34 +95,39 @@ class CyclableCollection implements \Iterator {
      * 
      * Return NULL if the array doesn't contain the given key
      * 
-     * @param integer|string $key the index of the array element to be accessed
-     * @return mixed the requested array element or NULL
+     * @param  int|string $key the index of the array element to be accessed
+     * @return mixed      the requested array element or NULL
      */
-    public function &__get($key) {
+    public function &__get($key)
+    {
         //return the chosen field
-        if ($this->exists_key($key)) {     return $this->array[$key];  }
-        else {                      return NULL;                };
+        if ($this->exists_key($key)) {
+            return $this->array[$key];
+        } else {
+            return null;
+        };
     }
     
     /**
      * Set an element of the collection as it would be an object property
      * 
-     * @param string $key the of the property to be modified
-     * @param mixed $value the value to be assigned to the property
+     * @param string $key   the of the property to be modified
+     * @param mixed  $value the value to be assigned to the property
      */
-    public function __set($key, $value) {
+    public function __set($key, $value)
+    {
         $this->array[$key] = $value;
     }
         
     /**
      * Check if the currently active collection element is a valid and existing one
      * 
-     * @return boolean TRUE if the currently accessed field is a valid one
+     * @return bool TRUE if the currently accessed field is a valid one
      */
     public function valid()
     {
         $key = key($this->array);
-        return ((array_key_exists($key, $this->array)) && ($key !== NULL && $key !== FALSE));
+        return ((array_key_exists($key, $this->array)) && ($key !== null && $key !== false));
     }
     
     /**
@@ -126,7 +138,8 @@ class CyclableCollection implements \Iterator {
      * 
      * @return mixed the previous field
      */
-    public function previous() {
+    public function previous()
+    {
         return prev($this->array);
     }
     
@@ -138,7 +151,8 @@ class CyclableCollection implements \Iterator {
      * 
      * @return mixed the last element of the array
      */
-    public function end() {
+    public function end()
+    {
         return end($this->array);
     }
     
@@ -147,20 +161,22 @@ class CyclableCollection implements \Iterator {
      * 
      * Return FALSE if the array doesn't contains the searched value
      * 
-     * @param mixed $value the value to be searched
-     * @return integer|string|boolean the index of the searched value, or FALSE
+     * @param  mixed           $value the value to be searched
+     * @return int|string|bool the index of the searched value, or FALSE
      */
-    public function search($value) {
+    public function search($value)
+    {
         return array_search($value, $this->array);
     }
     
     /**
      * Check if the given key is part of the current collection
      * 
-     * @param integer|string $key the key to be checked
-     * @return boolean TRUE if the given key exists
+     * @param  int|string $key the key to be checked
+     * @return bool       TRUE if the given key exists
      */
-    public function exists_key($key) {
+    public function exists_key($key)
+    {
         return array_key_exists($key, $this->array);
     }
     
@@ -169,25 +185,28 @@ class CyclableCollection implements \Iterator {
      * 
      * @param mixed $value the value to insert
      */
-    public function emplace($value) {
+    public function emplace($value)
+    {
         $this->array[] = $value;
     }
     
     /**
      * Get the number of entries in the current data collection
      * 
-     * @return integer the number of elements inside the current collection
+     * @return int the number of elements inside the current collection
      */
-    public function count() {
+    public function count()
+    {
         return count($this->array);
     }
     
     /**
      * Check weather the current collection is empty (has no elements)
      * 
-     * @return boolean TRUE only if the current collection is empty
+     * @return bool TRUE only if the current collection is empty
      */
-    public function is_empty() {
+    public function is_empty()
+    {
         return ($this->count() <= 0);
     }
     
@@ -196,8 +215,8 @@ class CyclableCollection implements \Iterator {
      * 
      * @return array the current collection
      */
-    public function __invoke() {
+    public function __invoke()
+    {
         return $this->array;
     }
 }
-

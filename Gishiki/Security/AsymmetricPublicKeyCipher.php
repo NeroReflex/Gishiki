@@ -22,7 +22,8 @@ namespace Gishiki\Security {
      *
      * Benato Denis <benato.denis96@gmail.com>
      */
-    class AsymmetricPublicKeyCipher {
+    class AsymmetricPublicKeyCipher
+    {
 
         //the public key
         private $publicKey;
@@ -30,29 +31,32 @@ namespace Gishiki\Security {
         /**
          * Create an asymmetric cipher
          */
-        public function __construct() {
+        public function __construct()
+        {
             //initialize an empty public key
-            $this->publicKey = NULL;
+            $this->publicKey = null;
         }
 
         /**
          * Check if a valid RSA public key has been loaded
          * 
-         * @return boolean TRUE if the public key has been loaded, FASE otherwise
+         * @return bool TRUE if the public key has been loaded, FASE otherwise
          */
-        public function IsLoaded() {
+        public function IsLoaded()
+        {
             return ((gettype($this->publicKey) != "NULL") && (gettype($this->publicKey) == "resource"));
         }
 
         /**
          * Load the public key from a string
          * 
-         * @param string $keyAsString the key encoded as a string
+         * @param  string          $keyAsString the key encoded as a string
          * @throws CipherException the exception occurred while importing the key
          */
-        public function ImportPublicKey($keyAsString) {
+        public function ImportPublicKey($keyAsString)
+        {
             //check if the given string is a loadable key
-            if ((strpos($keyAsString, "-----BEGIN PUBLIC KEY-----") !== FALSE) && (strpos($keyAsString, "-----END PUBLIC KEY-----") !== FALSE)) {
+            if ((strpos($keyAsString, "-----BEGIN PUBLIC KEY-----") !== false) && (strpos($keyAsString, "-----END PUBLIC KEY-----") !== false)) {
                 //if the key seems to be valid load it
                 $this->publicKey = openssl_pkey_get_public($keyAsString);
             } else {
@@ -63,12 +67,13 @@ namespace Gishiki\Security {
         /**
          * Check if a message was altered using its digital signature (which is provate-key dependant)
          * 
-         * @param string $message the messae to be checked
-         * @param string $signature the digital signature of the message
-         * @return boolean verify if the message is correct using its digital signature
+         * @param  string          $message   the messae to be checked
+         * @param  string          $signature the digital signature of the message
+         * @return bool            verify if the message is correct using its digital signature
          * @throws CipherException the error occurred
          */
-        public function VerifyDigitalSignature($message, $signature) {
+        public function VerifyDigitalSignature($message, $signature)
+        {
             if (gettype($this->publicKey) != "NULL") {
                 $bynary_non_safe_signature = base64_decode($signature);
 
@@ -77,9 +82,9 @@ namespace Gishiki\Security {
                 //select what must be returned
                 switch ($verificationResult) {
                     case 0:
-                        return FALSE;
+                        return false;
                     case 1:
-                        return TRUE;
+                        return true;
                     default:
                         throw new CipherException("An unknown error has occurred while verifying the digital signature", 1);
                 }
@@ -91,18 +96,18 @@ namespace Gishiki\Security {
         /**
          * Encrypt a message using the loaded public key
          * 
-         * @param string $message the message to encrypt
-         * @return string the encrypted message in a binary safe format 
+         * @param  string          $message the message to encrypt
+         * @return string          the encrypted message in a binary safe format 
          * @throws CipherException the error occurred
          */
-        public function Encrypt($message) {
+        public function Encrypt($message)
+        {
             if (gettype($this->publicKey) != "NULL") {
                 //the encrypted message
-                $encrypted = NULL;
+                $encrypted = null;
 
                 //encrypt the message and check for failure
-                if (!openssl_public_encrypt($message, $encrypted, $this->publicKey, OPENSSL_PKCS1_PADDING))
-                {
+                if (!openssl_public_encrypt($message, $encrypted, $this->publicKey, OPENSSL_PKCS1_PADDING)) {
                     throw new CipherException("OpenSSL couldn't encrypt the given message", 3);
                 }
 
@@ -116,18 +121,18 @@ namespace Gishiki\Security {
         /**
          * Decrypt a message encrypted with the private key using the loaded public key
          * 
-         * @param string $encMessage the encrypted message (private key)
-         * @return string the plain message before the encrypted
+         * @param  string          $encMessage the encrypted message (private key)
+         * @return string          the plain message before the encrypted
          * @throws CipherException the error occurred
          */
-        public function Decrypt($encMessage) {
+        public function Decrypt($encMessage)
+        {
             if (gettype($this->publicKey) != "NULL") {
                 //the encrypted message
-                $plainMessage = NULL;
+                $plainMessage = null;
 
                 //encrypt the message and check for failure
-                if (!openssl_public_decrypt(base64_decode($encMessage), $plainMessage, $this->publicKey, OPENSSL_PKCS1_PADDING))
-                {
+                if (!openssl_public_decrypt(base64_decode($encMessage), $plainMessage, $this->publicKey, OPENSSL_PKCS1_PADDING)) {
                     throw new CipherException("OpenSSL couldn't decrypt the given message", 5);
                 }
 
@@ -141,7 +146,8 @@ namespace Gishiki\Security {
         /**
          * Free the memory used by OpenSSL to hold the public key
          */
-        public function __destruct() {
+        public function __destruct()
+        {
             //free the public key (if any)
             if (gettype($this->publicKey) == "resource") {
                 openssl_free_key($this->publicKey);

@@ -76,7 +76,6 @@ class MongodbAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter {
         }   catch (\MongoDB\Driver\Exception\RuntimeException $ex) {
             throw new \Gishiki\ActiveRecord\DatabaseException("Unable to perform the creation operation (" . $ex->getCode() . ")", 8);
         }
-        
     }
     
     public function Update($collection_name, $collection_values, \Gishiki\ActiveRecord\RecordsSelector $where, $id_column_name = null) {

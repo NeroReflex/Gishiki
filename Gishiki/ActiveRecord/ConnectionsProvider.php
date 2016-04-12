@@ -26,8 +26,7 @@ abstract class ConnectionsProvider {
     private static $connections = array();
     
     //define the name of the default database connection
-    //private static $name_of_default = 'default';
-    private static $name_of_default = 'development';
+    private static $name_of_default = 'default';
     
     /**
      * Create a connection using the given connection query and register the 
@@ -37,34 +36,25 @@ abstract class ConnectionsProvider {
      * @param array $connection the connection query
      */
     static function Register($connection_name, $connection) {
-        
         if ((isset($connection['driver'])) && (isset($connection['query']))) {
             //get the name of the adapter
             $adapter_name = ucwords(strtolower($connection['driver']));
             $adapter_class_name = "Gishiki\\ActiveRecord\\Adapter\\" . $adapter_name . "Adapter";
             if (!class_exists($adapter_class_name)) {
-                //what is the file of the database adapter?
-                $adapter_php_filepath = ROOT."Gishiki".DS."ActiveRecord".DS."Adapter".DS.$adapter_name."Adapter.php";
-                
-                if (file_exists($adapter_php_filepath)) {
-                    include($adapter_php_filepath);
-                } else {
-                    throw new DatabaseException("Unable to find a suitable database adapter", 0);
-                }
-                
-                //reflect the database adapter class
-                $reflected_adapter = new \ReflectionClass($adapter_class_name);
-                self::$connections[$connection_name] = $reflected_adapter->newInstanceArgs([
-                        0 => $connection['query'],
-                        1 => (isset($connection['ssl_key'])) ? $connection['ssl_key']: null,
-                        2 => (isset($connection['ssl_cert'])) ? $connection['ssl_cert']: null,
-                        3 => (isset($connection['ssl_ca'])) ? $connection['ssl_ca']: null,
-                    ]);
+                throw new DatabaseException("Unable to find a suitable database adapter", 0);
             }
+                
+            //reflect the database adapter class
+            $reflected_adapter = new \ReflectionClass($adapter_class_name);
+            self::$connections[$connection_name] = $reflected_adapter->newInstanceArgs([
+                    0 => $connection['query'],
+                    1 => (isset($connection['ssl_key'])) ? $connection['ssl_key']: null,
+                    2 => (isset($connection['ssl_cert'])) ? $connection['ssl_cert']: null,
+                    3 => (isset($connection['ssl_ca'])) ? $connection['ssl_ca']: null,
+                ]);
         } else {
             throw new DatabaseException("Empty connection queries are not allowed", 1);
         }
-        
     }
     
     /**

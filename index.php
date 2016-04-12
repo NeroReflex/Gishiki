@@ -33,26 +33,17 @@ if (!defined('DS')) {
 if ((!defined('ROOT')) || (ROOT == "") || (ROOT == NULL))
 {    define('ROOT', realpath(__DIR__).DS);   }
 
+$composer_autoloader = __DIR__ . '/vendor/autoload.php';
+
 //include the base application and perform basic operations
-if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
-    include(ROOT."Gishiki".DS."Gishiki.inc");
-} else {
+if (file_exists($composer_autoloader)) {
     require __DIR__ . '/vendor/autoload.php';
+} else {
+    die('Gishiki cannot run until is is installed using composer!');
 }
 
 //start the framework
-Gishiki::Initialize();
+\Gishiki\Gishiki::Initialize();
 
-//if the framework needs to be installed.....
-if (!\Gishiki\Core\Application::Exists())
-{
-    //setup the new application
-    if (\Gishiki\Core\Application::CreateNew()) {
-        
-    } else {
-        exit("<div><br /><b>Check for the environment, delete the created application directory and retry the installation</b></div>");
-    }
-} else {
-    //run an instance of the application
-    Gishiki::Run();
-}
+//run an instance of the application
+\Gishiki\Gishiki::Run();

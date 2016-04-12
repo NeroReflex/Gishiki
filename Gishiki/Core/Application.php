@@ -96,7 +96,7 @@ namespace Gishiki\Core {
             if ((!file_exists(APPLICATION_DIR."Models".DS)) && ($errors == 0)) {
                 if (!@mkdir(APPLICATION_DIR."Models".DS)) {
                     $errors++;
-                } else if (file_put_contents(APPLICATION_DIR."Models".DS."Book.php", file_get_contents(ROOT."Gishiki".DS."core".DS."example_app".DS."book_model.php"), LOCK_EX) === FALSE)
+                } else if (file_put_contents(APPLICATION_DIR."Models".DS."Book.php", file_get_contents(ROOT."Gishiki".DS."Core".DS."example_app".DS."book_model.php"), LOCK_EX) === FALSE)
                 {   $errors++;      }
             } else {
                 
@@ -116,7 +116,7 @@ namespace Gishiki\Core {
                 }
             }
             
-            if (file_put_contents(APPLICATION_DIR."routes.php", file_get_contents(ROOT."Gishiki".DS."core".DS."example_app".DS."routes.php"), LOCK_EX) === FALSE) {
+            if (file_put_contents(APPLICATION_DIR."routes.php", file_get_contents(ROOT."Gishiki".DS."Core".DS."example_app".DS."routes.php"), LOCK_EX) === FALSE) {
                 $errors++;
             }
             
@@ -133,7 +133,7 @@ namespace Gishiki\Core {
             }
             
             if ((!file_exists(Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR')."settings.json")) && ($errors == 0)) {
-                $configuration = file_get_contents(ROOT."Gishiki".DS."core".DS."example_app".DS."settings.json");
+                $configuration = file_get_contents(ROOT."Gishiki".DS."Core".DS."example_app".DS."settings.json");
                 $configuration = str_replace("\"SECURITY\":\"SETTINGS_HERE!\"", 
                                  "\"security\": {".PHP_EOL
                                 ."        \"serverPassword\": \"".$new_password."\",".PHP_EOL

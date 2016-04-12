@@ -22,7 +22,7 @@ namespace Gishiki\ActiveRecord;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class DatabaseException extends \Gishiki\Core\Gishiki_Exception {
+class DatabaseException extends \Gishiki\Core\Exception {
     
     /**
      * Create the connection exception

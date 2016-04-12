@@ -83,7 +83,7 @@ so configure it as you want (read your syslogd documentation).
 
 
 ## Exceptions autologging
-Every exception that inherits from Gishiki_Exception and call the parent constructor is automatically logged with 
+Every exception that inherits from the Gishiki base Exception and call the parent constructor is automatically logged with 
 the Priority::CRITICAL level of priority.
 
 

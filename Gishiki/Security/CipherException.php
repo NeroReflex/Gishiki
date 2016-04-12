@@ -22,7 +22,7 @@ namespace Gishiki\Security {
      *
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class CipherException extends \Gishiki\Core\Gishiki_Exception {
+    class CipherException extends \Gishiki\Core\Exception {
 
         /**
          * Create the exception

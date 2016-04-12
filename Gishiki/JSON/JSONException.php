@@ -22,7 +22,7 @@ namespace Gishiki\JSON {
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class JSONException extends \Gishiki\Core\Gishiki_Exception {
+    class JSONException extends \Gishiki\Core\Exception {
         
         /**
          * Create the JSON-related exception

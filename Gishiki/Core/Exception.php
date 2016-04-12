@@ -22,7 +22,7 @@ namespace Gishiki\Core {
     *
     * Benato Denis <benato.denis96@gmail.com>
     */
-    class Gishiki_Exception extends \Exception {
+    class Exception extends \Exception {
         
         /**
          * Create a base exception and save the log of what's happening

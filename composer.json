@@ -20,15 +20,19 @@
         "ext-curl": "*",
         "ext-pdo": "*"
     },
+    
+    "require-dev": {
+        "phpunit/phpunit": "5.3.*"
+    },
 
-  "suggest": {
-    "ext-pdo_mysql": "For MySQL or MariaDB databases",
-    "ext-pdo_sqlsrv": "For MSSQL databases on Windows platform",
-    "ext-pdo_dblib": "For MSSQL or Sybase databases on Linux/UNIX platform",
-    "ext-pdo_oci": "For Oracle databases",
-    "ext-pdo_pqsql": "For PostgreSQL databases",
-    "ext-pdo_sqlite": "For SQLite databases"
-  },
+    "suggest": {
+        "ext-pdo_mysql": "For MySQL or MariaDB databases",
+        "ext-pdo_sqlsrv": "For MSSQL databases on Windows platform",
+        "ext-pdo_dblib": "For MSSQL or Sybase databases on Linux/UNIX platform",
+        "ext-pdo_oci": "For Oracle databases",
+        "ext-pdo_pqsql": "For PostgreSQL databases",
+        "ext-pdo_sqlite": "For SQLite databases"
+    },
   
     "autoload": {
         "files": [

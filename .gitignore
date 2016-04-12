@@ -1,5 +1,6 @@
 application
-TODO.txt
 /nbproject/
 /Documentation/site
 /Documentation/docs/API
+vendor/
+.env

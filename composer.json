@@ -20,12 +20,14 @@
         "ext-curl": "*",
         "ext-pdo": "*"
     },
-    
     "require-dev": {
-        "phpunit/phpunit": "5.3.*"
+        "phpunit/phpunit": "5.3.*",
+        "ext-mongo": "*",
+        "ext-pdo_pqsql": "*",
+        "ext-pdo_sqlite": "*"
     },
-
     "suggest": {
+        "ext-redis": "Enable caching using redis",
         "ext-mongo": "For MongoDB databases",
         "ext-pdo_mysql": "For MySQL or MariaDB databases",
         "ext-pdo_sqlsrv": "For MSSQL databases on Windows platform",

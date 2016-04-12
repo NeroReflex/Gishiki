@@ -26,6 +26,7 @@
     },
 
     "suggest": {
+        "ext-mongo": "For MongoDB databases",
         "ext-pdo_mysql": "For MySQL or MariaDB databases",
         "ext-pdo_sqlsrv": "For MSSQL databases on Windows platform",
         "ext-pdo_dblib": "For MSSQL or Sybase databases on Linux/UNIX platform",

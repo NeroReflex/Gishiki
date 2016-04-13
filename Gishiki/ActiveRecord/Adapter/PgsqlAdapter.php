@@ -52,7 +52,7 @@ class PgsqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter
                 \PDO::ATTR_STRINGIFY_FETCHES => false
             ]);
         } catch (\PDOException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a connection to the sqlite db, PDO reports: ".$ex->getMessage(), 2);
+            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a connection to the PostgreSQL db, PDO reports: ".$ex->getMessage(), 2);
         }
     }
     

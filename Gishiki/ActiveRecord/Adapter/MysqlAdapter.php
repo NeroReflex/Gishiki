@@ -63,7 +63,7 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter
         try {
             $this->native_connection = new \PDO("mysql:host=".$host_and_port[0].";port=".$host_and_port[1].";dbname=".$db_name, $user_and_password[0], $user_and_password[1], $pdo_connection);
         } catch (\PDOException $ex) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a connection to the sqlite db, PDO reports: ".$ex->getCode(), 2);
+            throw new \Gishiki\ActiveRecord\DatabaseException("Unable to open a connection to the MySQL db, PDO reports: ".$ex->getCode(), 2);
         }
     }
     

@@ -31,7 +31,9 @@ abstract class ConnectionsProvider
     private static $name_of_default = 'default';
     
     private static $database_alias = [
-        "postgres"  => "pgsql",
+        "postgres"          => "pgsql",
+        "postgresql"        => "pgsql",
+        
     ];
     
     /**
@@ -53,13 +55,14 @@ abstract class ConnectionsProvider
         
         if ((isset($connection['driver'])) && (isset($connection['query']))) {
             //get the name of the adapter
-            $adapter_name = ucwords(strtolower($connection['driver']));
-            if (isset(self::$database_alias[$adapter_name])) {
-                $adapter_name = self::$database_alias[$adapter_name];
-            }
-            $adapter_class_name = "Gishiki\\ActiveRecord\\Adapter\\".$adapter_name."Adapter";
+            $adapter_name = strtolower($connection['driver']);
+            $adapter_name = (isset(self::$database_alias[$adapter_name])) ? 
+                    $adapter_name = self::$database_alias[$adapter_name] : $adapter_name;
+            
+            //use the name of the adapter to build the connector
+            $adapter_class_name = "Gishiki\\ActiveRecord\\Adapter\\".ucwords($adapter_name)."Adapter";
             if (!class_exists($adapter_class_name)) {
-                throw new DatabaseException("Unable to find a suitable database adapter", 0);
+                throw new DatabaseException("Unable to find a suitable database adapter (for ".$adapter_name.")", 0);
             }
                 
             //reflect the database adapter class

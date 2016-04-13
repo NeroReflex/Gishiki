@@ -49,15 +49,12 @@ abstract class Gishiki
     public static function Run()
     {
         //if the framework needs to be installed.....
-        if (!\Gishiki\Core\Application::Exists()) {
-            //setup the new application
-            if (\Gishiki\Core\Application::CreateNew()) {
-            } else {
-                exit("<div><br /><b>Check for the environment, delete the created application directory and retry the installation</b></div>");
-            }
-        } else {
+        if (\Gishiki\Core\Application::Exists()) {
             //fulfill the client request
             self::$executionEnvironment->FulfillRequest();
+        } else {
+            //show the no application page!
+            echo file_get_contents(ROOT."Gishiki".DS."no_application.html");
         }
     }
 }

@@ -54,7 +54,7 @@ abstract class Gishiki
             self::$executionEnvironment->FulfillRequest();
         } else {
             //show the no application page!
-            echo file_get_contents(ROOT."Gishiki".DS."no_application.html");
+            echo(file_get_contents(ROOT."Gishiki".DS."no_application.html"));
         }
     }
 }

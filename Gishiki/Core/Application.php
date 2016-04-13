@@ -46,8 +46,7 @@ namespace Gishiki\Core {
                 }
             }
             
-            //match every environment placeholder
-            $env_placeholder = array();
+            //update every environment placeholder
             while (true)
             {
                 $to_be_replaced = get_string_between($settings_configuration, '{{@', '}}');

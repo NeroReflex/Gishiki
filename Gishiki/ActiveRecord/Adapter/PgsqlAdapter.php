@@ -145,7 +145,7 @@ class PgsqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter
         $i = 0;
         $fields = array_keys($fields_selectors);
         foreach ($fields as $field) {
-            $relationship = \Gishiki\Algorithms\String_Management::get_string_between($field, '[', ']');
+            $relationship = \Gishiki\Algorithms\Manipulation::get_string_between($field, '[', ']');
             $fieldname = str_replace('['.$relationship.']', "", $field);
             
             //HERE you should change relationship if the rdbms you are using doesn't support:
@@ -327,7 +327,7 @@ class PgsqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter
                     foreach ($current_record as $record_key => $record_value) {
                         $native_value = $record_value;
 
-                        switch (strtolower(\Gishiki\Algorithms\String_Management::str_replace_list(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], '', $metadata[$record_key]["native_type"]))) {
+                        switch (strtolower(\Gishiki\Algorithms\Manipulation::str_replace_list(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], '', $metadata[$record_key]["native_type"]))) {
                             case 'integer':
                             case 'int':
                                 $native_value = intval($record_value);

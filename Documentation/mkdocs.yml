@@ -1,0 +1,18 @@
+site_name: Gishiki
+
+pages:
+- Home: index.md
+- Installation: installation.md
+- API: apidoc.md
+- Usage:
+    - Router: usage/routing.md
+    - Logger: usage/logging.md
+    - Database: 
+        - Management: usage/database/management.md
+        - Models: usage/database/models.md
+        - CRUD: usage/database/CRUD.md
+
+- About:
+    - License: license.md
+
+theme: readthedocs

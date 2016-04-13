@@ -1,27 +1,60 @@
 {
-    "name": "neroreflex/advanced-gishiki",
-    "description": "Advanced-Gishiki is a modern, fast and secure MVC framework perfect when creating a website or a web service.",
-    "license": "Apache License version 2.0",
+    "name": "neroreflex/gishiki",
+    "description": "Gishiki is a modern, fast and secure MVC framework perfect when creating a website or a web service.",
+    "support": {
+        "docs": "http://neroreflex.github.io/Gishiki",
+        "source": "https://github.com/NeroReflex/Gishiki"
+    },
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "Denis Benato",
-            "email": "benato.denis96@gmail.com"
+            "email": "benato.denis96@gmail.com",
+            "role": "Developer"
         }
     ],
     "require": {
-    "php": ">=5.6",
-    "ext-openssl": "*",
-    "ext-libxml": "*",
-    "ext-curl": "*",
-    "ext-pdo": "*"
-  },
-
-  "suggest": {
-    "ext-pdo_mysql": "For MySQL or MariaDB databases",
-    "ext-pdo_sqlsrv": "For MSSQL databases on Windows platform",
-    "ext-pdo_dblib": "For MSSQL or Sybase databases on Linux/UNIX platform",
-    "ext-pdo_oci": "For Oracle databases",
-    "ext-pdo_pqsql": "For PostgreSQL databases",
-    "ext-pdo_sqlite": "For SQLite databases"
-  }
+        "php": ">=5.6",
+        "ext-openssl": "*",
+        "ext-libxml": "*",
+        "ext-curl": "*",
+        "ext-pdo": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.3.*",
+        "ext-mongo": "*",
+        "ext-pdo_pqsql": "*",
+        "ext-pdo_sqlite": "*"
+    },
+    "suggest": {
+        "ext-redis": "Enable caching using redis",
+        "ext-mongo": "For MongoDB databases",
+        "ext-pdo_mysql": "For MySQL or MariaDB databases",
+        "ext-pdo_sqlsrv": "For MSSQL databases on Windows platform",
+        "ext-pdo_dblib": "For MSSQL or Sybase databases on Linux/UNIX platform",
+        "ext-pdo_oci": "For Oracle databases",
+        "ext-pdo_pqsql": "For PostgreSQL databases",
+        "ext-pdo_sqlite": "For SQLite databases"
+    },
+  
+    "autoload": {
+        "files": [
+            "Gishiki/Algorithms/string_functions.php"
+        ],
+        
+        "psr-4": {
+            "Gishiki\\": "Gishiki/",
+            "Gishiki\\JSON\\": "Gishiki/JSON/",
+            "Gishiki\\Algorithms\\": "Gishiki/Algorithms/",
+            "Gishiki\\Caching\\": "Gishiki/Caching/",
+            "Gishiki\\Cookie\\": "Gishiki/Cookie/",
+            "Gishiki\\Logging\\": "Gishiki/Logging/",
+            "Gishiki\\Security\\": "Gishiki/Security/",
+            "Gishiki\\Core\\": "Gishiki/Core/",
+            "Gishiki\\Core\\MVC\\": "Gishiki/Core/MVC/",
+            "Gishiki\\ActiveRecord\\": "Gishiki/ActiveRecord/",
+            "Gishiki\\ActiveRecord\\Adapter\\": "Gishiki/ActiveRecord/Adapter/"
+        }
+        
+    }
 }

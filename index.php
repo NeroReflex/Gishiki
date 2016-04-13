@@ -15,45 +15,34 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-//turn on all error reporting
-ini_set("display_errors", 1);
-error_reporting(E_ALL);
-
-//change the character encoding
-mb_internal_encoding("UTF-8");
-
-/* The first operations to execute is figuring out directory separator character and the root path (the path Gishiki is installed) */
+/* The first operations to execute is figuring out directory separator character
+ * and the root path (the path Gishiki is installed) */
 
 //get directory separator
 if (!defined('DS')) {
-    if (defined('DIRECTORY_SEPARATOR'))
-    {   define('DS',DIRECTORY_SEPARATOR);   }
-    else
-    {   define('DS', "/");  }
+    if (defined('DIRECTORY_SEPARATOR')) {
+        define('DS', DIRECTORY_SEPARATOR);
+    } else {
+        define('DS', "/");
+    }
 }
 
 //get the root path
-if ((!defined('ROOT')) || (ROOT == "") || (ROOT == NULL))
-{    define('ROOT', realpath(__DIR__).DS);   }
+if ((!defined('ROOT')) || (ROOT == "") || (ROOT == null)) {
+    define('ROOT', realpath(__DIR__).DS);
+}
+
+$composer_autoloader = __DIR__.'/vendor/autoload.php';
 
 //include the base application and perform basic operations
-include(ROOT."Gishiki".DS."Gishiki.inc");
-
-//\Gishiki\Core\Routing::getRequestURI();
+if (file_exists($composer_autoloader)) {
+    require __DIR__.'/vendor/autoload.php';
+} else {
+    die('Gishiki cannot run until is is installed using composer!');
+}
 
 //start the framework
-Gishiki::Initialize();
+\Gishiki\Gishiki::Initialize();
 
-//if the framework needs to be installed.....
-if (!\Gishiki\Core\Application::Exists())
-{
-    //setup the new application
-    if (\Gishiki\Core\Application::CreateNew()) {
-        
-    } else {
-        exit("<div><br /><b>Check for the environment, delete the created application directory and retry the installation</b></div>");
-    }
-} else {
-    //run an instance of the application
-    Gishiki::Run();
-}
+//run an instance of the application
+\Gishiki\Gishiki::Run();

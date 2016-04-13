@@ -49,11 +49,19 @@ namespace Gishiki\Core {
             //update every environment placeholder
             while (true)
             {
-                $to_be_replaced = \get_string_between($settings_configuration, '{{@', '}}');
+                $to_be_replaced = \Gishiki\Algorithms\String::get_string_between($settings_configuration, '{{@', '}}');
                 if ($to_be_replaced == '') {
                     break;
                 } else {
-                    $settings_configuration = str_replace('{{@'.$to_be_replaced.'}}', getenv($to_be_replaced), $settings_configuration);
+                    $value = getenv($to_be_replaced);
+                    if ($value !== false) {
+                        $settings_configuration = str_replace('{{@'.$to_be_replaced.'}}', $value, $settings_configuration);
+                    } elseif (defined($to_be_replaced)) {
+                        $settings_configuration = str_replace('{{@'.$to_be_replaced.'}}', constant($to_be_replaced), $settings_configuration);
+                    } else {
+                        die ("Unknown environment var: ".$to_be_replaced);
+                    }
+                    
                 }
             }
             

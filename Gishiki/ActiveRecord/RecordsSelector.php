@@ -144,7 +144,7 @@ class RecordsSelector
     public function __call($name, $arguments)
     {
         if (strpos($name, "where_") === 0) {
-            $fieldname = str_replace_once("where_", "", $name);
+            $fieldname = \Gishiki\Algorithms\String::str_replace_once("where_", "", $name);
             $fieldcondition = "";
             
             //get the value relationship

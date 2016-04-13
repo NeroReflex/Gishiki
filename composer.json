@@ -39,10 +39,6 @@
     },
   
     "autoload": {
-        "files": [
-            "Gishiki/Algorithms/string_functions.php"
-        ],
-        
         "psr-4": {
             "Gishiki\\": "Gishiki/",
             "Gishiki\\JSON\\": "Gishiki/JSON/",

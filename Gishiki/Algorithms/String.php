@@ -15,8 +15,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-if (!function_exists("str_replace_once")) {
-    
+namespace Gishiki\Algorithms;
+
+abstract class String {
     /**
      * Convenient function that behave exactly like str_replace for the first occurrence only
      * 
@@ -25,7 +26,7 @@ if (!function_exists("str_replace_once")) {
      * @param  string $string          the string to search the pattern into
      * @return string the new string with the first matched pattern replaced
      */
-    function str_replace_once($str_pattern, $str_replacement, $string)
+    static function str_replace_once($str_pattern, $str_replacement, $string)
     {
         if (strpos($string, $str_pattern) !== false) {
             $occurrence = strpos($string, $str_pattern);
@@ -34,10 +35,7 @@ if (!function_exists("str_replace_once")) {
 
         return $string;
     }
-}
 
-if (!function_exists("str_replace_list")) {
-    
     /**
      * Convenient function that behave exactly like str_replace for the first occurrence only
      * 
@@ -46,7 +44,7 @@ if (!function_exists("str_replace_list")) {
      * @param  string $string          the string to search the pattern into
      * @return string the new string with the first matched pattern replaced
      */
-    function str_replace_list($str_patterns, $str_replacement, $string)
+    static function str_replace_list($str_patterns, $str_replacement, $string)
     {
         foreach ($str_patterns as $pattern) {
             $string = str_replace($pattern, $str_replacement, $string);
@@ -54,10 +52,7 @@ if (!function_exists("str_replace_list")) {
         
         return $string;
     }
-}
 
-if (!function_exists("get_string_between")) {
-    
     /**
      * Get the string between two substrings
      * 
@@ -66,7 +61,7 @@ if (!function_exists("get_string_between")) {
      * @param  string $end    the second substring
      * @return string the string between the two substrings
      */
-    function get_string_between($string, $start, $end)
+    static function get_string_between($string, $start, $end)
     {
         $string = ' '.$string;
         $ini = strpos($string, $start);

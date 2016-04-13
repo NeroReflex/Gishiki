@@ -17,7 +17,7 @@ limitations under the License.
 
 namespace Gishiki\Algorithms;
 
-abstract class String {
+abstract class String_Management {
     /**
      * Convenient function that behave exactly like str_replace for the first occurrence only
      * 

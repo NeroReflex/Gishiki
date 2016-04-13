@@ -132,7 +132,7 @@ class SqliteAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter
         $i = 0;
         $fields = array_keys($fields_selectors);
         foreach ($fields as $field) {
-            $relationship = \Gishiki\Algorithms\String::get_string_between($field, '[', ']');
+            $relationship = \Gishiki\Algorithms\String_Management::get_string_between($field, '[', ']');
             $fieldname = str_replace('['.$relationship.']', "", $field);
             
             //HERE you should change relationship if the rdbms you are using doesn't support:

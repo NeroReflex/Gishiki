@@ -49,7 +49,7 @@ namespace Gishiki\Core {
             //update every environment placeholder
             while (true)
             {
-                $to_be_replaced = get_string_between($settings_configuration, '{{@', '}}');
+                $to_be_replaced = \get_string_between($settings_configuration, '{{@', '}}');
                 if ($to_be_replaced == '') {
                     break;
                 } else {

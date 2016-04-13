@@ -53,7 +53,7 @@ namespace Gishiki\Core {
                 if ($to_be_replaced == '') {
                     break;
                 } else {
-                    $settings_configuration = str_replace('{{@'.$to_be_replaced.'}}', constant($to_be_replaced), $settings_configuration);
+                    $settings_configuration = str_replace('{{@'.$to_be_replaced.'}}', getenv($to_be_replaced), $settings_configuration);
                 }
             }
             

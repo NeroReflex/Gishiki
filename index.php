@@ -15,11 +15,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-$composer_autoloader = __DIR__.'/vendor/autoload.php';
-
 //include the base application and perform basic operations
-if (file_exists($composer_autoloader)) {
-    require __DIR__.$composer_autoloader;
+if (file_exists(__DIR__.'/vendor/autoload.php')) {
+    require __DIR__.__DIR__.'/vendor/autoload.php';
 }
 
 use Gishiki\Gishiki;

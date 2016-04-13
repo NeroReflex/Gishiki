@@ -24,10 +24,15 @@ namespace Gishiki\ActiveRecord;
  */
 abstract class ConnectionsProvider
 {
+    //this is the list of currently active connections
     private static $connections = array();
     
     //define the name of the default database connection
     private static $name_of_default = 'default';
+    
+    private static $database_alias = [
+        "postgres"  => "pgsql",
+    ];
     
     /**
      * Create a connection using the given connection query and register the 
@@ -49,6 +54,9 @@ abstract class ConnectionsProvider
         if ((isset($connection['driver'])) && (isset($connection['query']))) {
             //get the name of the adapter
             $adapter_name = ucwords(strtolower($connection['driver']));
+            if (isset(self::$database_alias[$adapter_name])) {
+                $adapter_name = self::$database_alias[$adapter_name];
+            }
             $adapter_class_name = "Gishiki\\ActiveRecord\\Adapter\\".$adapter_name."Adapter";
             if (!class_exists($adapter_class_name)) {
                 throw new DatabaseException("Unable to find a suitable database adapter", 0);

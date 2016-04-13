@@ -43,9 +43,18 @@ Adding a database connection is as simple as adding a JSON object to the databas
 }
 ```
 
-You can find some examples of database connections on the settings file, but I am going to give a better explaination here.
-
 Before testing out a connection remember to install the required *PDO driver*/*native extension* for your database server!
+
+
+## Quick Syntax
+You can implode the driver and the connection query into a single string, like this
+one:
+
+```
+"connection_name": "mysql://root:admin@localhost/site_db"
+```
+
+This is also especially usefull to integrate Heroku database connection strings!
 
 
 ## MongoDB

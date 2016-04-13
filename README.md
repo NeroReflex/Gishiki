@@ -39,6 +39,11 @@ In order to help you achieving your goals Gishiki provides helpers to help you w
 but let you free of doing things the way you want.
 
 
+## Heroku Compatibility
+Gishiki aims for total Heroku compatibility because you can deploy you fantastic
+website or app in a few seconds forgetting about maintaining the server!
+
+
 ## RESTful services
 Thanks to the really fast router you can deploy a RESTful service in a minute or two...
 

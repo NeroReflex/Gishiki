@@ -33,11 +33,19 @@ abstract class ConnectionsProvider
      * Create a connection using the given connection query and register the 
      * connection for future usage by an ActiveModel
      * 
-     * @param string $connection_name the connection string
-     * @param array  $connection      the connection query
+     * @param string       $connection_name the connection string
+     * @param array|string $connection the connection query
      */
     public static function Register($connection_name, $connection)
     {
+        if (!(is_array($connection))) {
+            $exploded = explode('://', $connection, 2);
+            $connection = [
+                'driver'    => $exploded[0],
+                'query'     => $exploded[1]
+            ];
+        }
+        
         if ((isset($connection['driver'])) && (isset($connection['query']))) {
             //get the name of the adapter
             $adapter_name = ucwords(strtolower($connection['driver']));

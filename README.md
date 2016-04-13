@@ -98,24 +98,7 @@ whatever you want with your log entries.
 
 
 ## Requirements
-Gishiki has a few dependencies that you should install to have the framework fully-functional.
-
-If you plan to install Gishiki without composer you will have to manually install:
-
-   -    Apache with mod_rewrite or nginx
-   -    HHVM or PHP >= 5.6
-   -    OpenSSL extension (usually included in the standard PHP release)
-   -    libxml2 extension (usually included in the standard PHP release)
-   -    PDO extension and the PDO driver for your database __AND/OR__ database native drivers
-   -    cURL extension
-
-
-## Installation
-You just checkout (or decompress a snapshot) from the github repository in your
-apache/nginx root directory and it just runs out of the box.
-
-To have a step-by-step mini tutorial read the Documentation/docs/installation.md
-file on this repository or the 'Installation' section of the documentation!
+Everything you need is a running (apache or nginx) webserver, php >= 5.6 and composer!
 
 
 ## License

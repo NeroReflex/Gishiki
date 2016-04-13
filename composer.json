@@ -40,7 +40,7 @@
   
     "autoload": {
         "files": [
-            "Gishiki/Algorithms/string_functions.php"
+            "index.php", "Gishiki/Algorithms/string_functions.php"
         ],
         
         "psr-4": {

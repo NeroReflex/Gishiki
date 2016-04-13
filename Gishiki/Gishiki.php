@@ -34,6 +34,20 @@ abstract class Gishiki
      */
     public static function Initialize()
     {
+        //get directory separator
+        if (!defined('DS')) {
+            if (defined('DIRECTORY_SEPARATOR')) {
+                define('DS', DIRECTORY_SEPARATOR);
+            } else {
+                define('DS', "/");
+            }
+        }
+
+        //get the root path
+        if ((!defined('ROOT')) || (ROOT == "") || (ROOT == null)) {
+            define('ROOT', filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').DS);
+        }
+        
         //the name of the directory that contains model, view and controller (must be placed in the root)
         if (!defined('APPLICATION_DIR')) {
             define('APPLICATION_DIR', ROOT."application".DS);
@@ -54,7 +68,7 @@ abstract class Gishiki
             self::$executionEnvironment->FulfillRequest();
         } else {
             //show the no application page!
-            echo(file_get_contents(ROOT."Gishiki".DS."no_application.html"));
+            echo(file_get_contents(__DIR__.DS."no_application.html"));
         }
     }
 }

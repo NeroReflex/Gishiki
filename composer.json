@@ -5,7 +5,7 @@
         "docs": "http://neroreflex.github.io/Gishiki",
         "source": "https://github.com/NeroReflex/Gishiki"
     },
-    
+
     "license": "Apache-2.0",
     "authors": [
         {
@@ -14,19 +14,21 @@
             "role": "Developer"
         }
     ],
-    
+
     "require": {
         "php": ">=5.6",
         "ext-openssl": "*",
         "ext-libxml": "*",
         "ext-curl": "*",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "symfony/yaml": ">= 3.0.0",
+        "psr/log": "*"
     },
-    
+
     "require-dev": {
         "phpunit/phpunit": "5.3.*"
     },
-    
+
     "suggest": {
         "ext-redis": "Enable caching using redis",
         "ext-mongo": "For MongoDB databases",
@@ -37,7 +39,7 @@
         "ext-pdo_pqsql": "For PostgreSQL databases",
         "ext-pdo_sqlite": "For SQLite databases"
     },
-  
+
     "autoload": {
         "psr-4": {
             "Gishiki\\": "Gishiki/",
@@ -52,6 +54,6 @@
             "Gishiki\\ActiveRecord\\": "Gishiki/ActiveRecord/",
             "Gishiki\\ActiveRecord\\Adapter\\": "Gishiki/ActiveRecord/Adapter/"
         }
-        
+
     }
 }

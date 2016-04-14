@@ -34,9 +34,18 @@ class Logger extends \Psr\Log\AbstractLogger
    */
   public function __construct($connector)
   {
-    $connector = strtolower($connector);
-    if ((strlen($connector) == 0) || ($connector == 'null') || ($connector == 'void')) {
+    //create te logger from the correct adapter
+    $connector = ;
+    if ((strlen($connector) == 0) || (strtolower($connector) == 'null') || (strtolower($connector) == 'void')) {
       $this->adapter = \Psr\Log\NullLogger;
+    } else {
+        //separe adapter name from connection info
+	$conection_exploded = explode("://", $connector, 2);
+	$adapter = $conection_exploded[0];
+        $query = $conection_exploded[1];
+
+        //get the classname from the adapter name
+        $adapter_class = "Gishiki\\Logging\\".ucwords(strtolower($adapter))."Adapter";
     }
   }
 

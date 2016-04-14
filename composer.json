@@ -48,6 +48,7 @@
             "Gishiki\\Caching\\": "Gishiki/Caching/",
             "Gishiki\\Cookie\\": "Gishiki/Cookie/",
             "Gishiki\\Logging\\": "Gishiki/Logging/",
+            "Gishiki\\Logging\\Adapter\\": "Gishiki/Logging/Adapter/",
             "Gishiki\\Security\\": "Gishiki/Security/",
             "Gishiki\\Core\\": "Gishiki/Core/",
             "Gishiki\\Core\\MVC\\": "Gishiki/Core/MVC/",

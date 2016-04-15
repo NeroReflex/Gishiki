@@ -15,90 +15,77 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\Core {
+namespace Gishiki\Core;
+
+use Gishiki\Algorithms\Manipulation;
+use Gishiki\ActiveRecord\ConnectionsProvider;
+    
+/**
+ * The Application abstraction
+ * 
+ * @author Benato Denis <benato.denis96@gmail.com>
+ */
+abstract class Application
+{
     
     /**
-     * The Application abstraction
+     * Read the application configuration (settings.ini) and return the 
+     * parsing result
      * 
-     * @author Benato Denis <benato.denis96@gmail.com>
+     * @return array the application configuration
      */
-    abstract class Application
+    public static function GetSettings()
     {
+        //get the json encoded application settings
+        $settings_configuration = file_get_contents(APPLICATION_DIR."settings.json");
         
-        /**
-         * Read the application configuration (settings.ini) and return the 
-         * parsing result
-         * 
-         * @return array the application configuration
-         */
-        public static function GetSettings()
+        //update every environment placeholder
+        while (strpos($settings_configuration, '{{@'))
         {
-            //get the json encoded application settings
-            $settings_configuration = file_get_contents(APPLICATION_DIR."settings.json");
-            
-            //upload every environment constant
-            if (file_exists(APPLICATION_DIR."environment.ini")) {
-                $environmentConfiguration = parse_ini_file(APPLICATION_DIR."environment.ini");
-                foreach ($environmentConfiguration as $env_const_name => $env_const_value)
-                {
-                    define($env_const_name, $env_const_value);
-                    $settings_configuration = str_replace('{{@'.$env_const_name.'}}', $env_const_value, $settings_configuration);
-                }
-            }
-            
-            //update every environment placeholder
-            while (true)
-            {
-                $to_be_replaced = \Gishiki\Algorithms\Manipulation::get_string_between($settings_configuration, '{{@', '}}');
-                if ($to_be_replaced == '') {
-                    break;
+            if (($to_be_replaced = Manipulation::get_string_between($settings_configuration, '{{@', '}}')) != '') {
+                $value = getenv($to_be_replaced);
+                if ($value !== false) {
+                    $settings_configuration = str_replace('{{@'.$to_be_replaced.'}}', $value, $settings_configuration);
+                } elseif (defined($to_be_replaced)) {
+                    $settings_configuration = str_replace('{{@'.$to_be_replaced.'}}', constant($to_be_replaced), $settings_configuration);
                 } else {
-                    $value = getenv($to_be_replaced);
-                    if ($value !== false) {
-                        $settings_configuration = str_replace('{{@'.$to_be_replaced.'}}', $value, $settings_configuration);
-                    } elseif (defined($to_be_replaced)) {
-                        $settings_configuration = str_replace('{{@'.$to_be_replaced.'}}', constant($to_be_replaced), $settings_configuration);
-                    } else {
-                        die ("Unknown environment var: ".$to_be_replaced);
-                    }
-                    
+                    die ("Unknown environment var: ".$to_be_replaced);
                 }
             }
-            
-            //parse the settings file
-            $appConfiguration = \Gishiki\JSON\JSON::DeSerialize($settings_configuration);
-            
-            //return the application configuration
-            return $appConfiguration;
         }
         
-        /**
-         * Start the Object-relational mapping bundled with Gishiki:
-         *      -   Execute the AOT component to generate the PHP code (if needed)
-         *      -   Include the generated php code
-         *      -   Perform any additional setup operations
-         */
-        public static function StartORM()
-        {
-            //load every database connection
-            \Gishiki\ActiveRecord\ConnectionsProvider::RegisterGroup(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_CONNECTIONS"));
-            
-            //load every model in the models directory
-            foreach (glob(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("MODEL_DIR")."/*.php") as $filename) {
-                include($filename);
-            }
-        }
+        //parse the settings file
+        $appConfiguration = \Gishiki\JSON\JSON::DeSerialize($settings_configuration);
         
-        /**
-         * Check if the application to be executed exists, is valid and has the
-         * configuration file
-         * 
-         * @return bool the application existence
-         */
-        public static function Exists()
-        {
-            //return the existence of an application directory and a configuratio file
-            return ((file_exists(APPLICATION_DIR)) && (file_exists(APPLICATION_DIR."settings.json")));
+        //return the application configuration
+        return $appConfiguration;
+    }
+        
+    /**
+     * Start the database engine and include each provided model inside
+     * the model directory
+     */
+    public static function StartDatabase()
+    {
+        //load every database connection
+        ConnectionsProvider::RegisterGroup(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_CONNECTIONS"));
+            
+        //load every model in the models directory
+        foreach (glob(Environment::GetCurrentEnvironment()->GetConfigurationProperty("MODEL_DIR")."/*.php") as $filename) {
+            include($filename);
         }
     }
+        
+    /**
+     * Check if the application to be executed exists, is valid and has the
+     * configuration file
+     * 
+     * @return bool the application existence
+     */
+    public static function Exists()
+    {
+        //return the existence of an application directory and a configuratio file
+        return ((file_exists(APPLICATION_DIR)) && (file_exists(APPLICATION_DIR."settings.json")));
+    }
 }
+

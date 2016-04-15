@@ -17,6 +17,8 @@ limitations under the License.
 
 namespace Gishiki\ActiveRecord\Adapter;
 
+use Gishiki\Core\Environment;
+
 /**
  * This is the MySQL database adapter
  *
@@ -29,8 +31,12 @@ class MysqlAdapter implements \Gishiki\ActiveRecord\DatabaseAdapter
     
     public function __construct($connection_query, $ssl_key = null, $ssl_certificate = null, $ssl_ca = null)
     {
-        if (!in_array("mysql", \PDO::getAvailableDrivers())) {
-            throw new \Gishiki\ActiveRecord\DatabaseException("No MySQL driver available: install the mysql PDO driver", 5);
+        if (Environment::ExtensionSupport('SQL')) {
+            if (!in_array("mysql", \PDO::getAvailableDrivers())) {
+                throw new \Gishiki\ActiveRecord\DatabaseException("No MySQL driver available: install the mysql PDO driver", 5);
+            }
+        } else {
+            throw new \Gishiki\ActiveRecord\DatabaseException("No PDO extension available: install the PDO extension along any PDO driver you'll need", 100);
         }
         
         //extract connection info from the connection query

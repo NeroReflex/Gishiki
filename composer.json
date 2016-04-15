@@ -20,7 +20,6 @@
         "ext-openssl": "*",
         "ext-libxml": "*",
         "ext-curl": "*",
-        "ext-pdo": "*",
         "symfony/yaml": ">=3.0.0",
         "psr/log": "^1.0.0"
     },
@@ -32,6 +31,7 @@
     "suggest": {
         "ext-redis": "Enable caching using redis",
         "ext-mongo": "For MongoDB databases",
+        "ext-pdo": "For using any SQL database",
         "ext-pdo_mysql": "For MySQL or MariaDB databases",
         "ext-pdo_sqlsrv": "For MSSQL databases on Windows platform",
         "ext-pdo_dblib": "For MSSQL or Sybase databases on Linux/UNIX platform",

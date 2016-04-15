@@ -15,30 +15,62 @@
   limitations under the License.
 ********************************************************************************/
 
-namespace Gishiki\Core {
+namespace Gishiki\Core;
 
+use Gishiki\Logging\Logger;
+use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
+
+/**
+ * The base class of an exception related with the framework
+ *
+ * Benato Denis <benato.denis96@gmail.com>
+ */
+class Exception extends \Exception implements LoggerAwareTrait
+{
     /**
-     * The base class of an exception related with the framework
+     * Create a base exception and save the log of what's happening
      *
-     * Benato Denis <benato.denis96@gmail.com>
+     * @param string $message   the error message
+     * @param int    $errorCode the error code
      */
-    class Exception extends \Exception
+    public function __construct($message, $errorCode)
     {
+        //perform a basic Exception constructor call
+        parent::__construct($message, $errorCode, null);
         
-        /**
-         * Create a base exception and save the log of what's happening
-         *
-         * @param string $message   the error message
-         * @param int    $errorCode the error code
-         */
-        public function __construct($message, $errorCode)
-        {
-            //perform a basic Exception constructor call
-            parent::__construct($message, $errorCode, null);
-            
-            //build the new log entry
-            new \Gishiki\Logging\Log(get_class($this)." exception thrown", $message, \Gishiki\Logging\Priority::CRITICAL);
-            //the log entry is automatically saved
+        //setup an empty logger
+        $this->logger = null;
+        
+        //build the new log entry
+        $this->setLogger(new Logger());
+        
+        //and use it to transmit the log entry
+        $this->writeLog();
+    }
+    
+    /**
+     * Bind to the current exception a logger that can be used to register the 
+     * exception
+     *
+     * @param LoggerInterface $logger the logger the is used to register the exception
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+    
+    public function writeLog()
+    {
+        if ($this->logger != null) {
+            //log the exception
+            $this->logger->error("{{exception_type}} thrown at: {{file}}: {{line}} with message({{code}}): {{message}}", [
+                'exception_type' => get_called_class(),
+                'file'           => $this->getFile(),
+                'line'           => $this->getLine(),
+                'code'           => $this->getCode(),
+                'message'        => $this->getMessage()
+            ]);
         }
     }
 }

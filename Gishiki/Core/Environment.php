@@ -60,19 +60,6 @@ namespace Gishiki\Core {
         }
 
         /**
-         * Test if the current connection uses HTTP over SSL
-         * 
-         * @return bool TRUE if SSL is enabled, false otherwise
-         */
-        public function SecureConnectionEnabled()
-        {
-            //filter $_SERVER (accessing superglobals directly is a bad idea)
-            $_server_filtered = filter_input_array(INPUT_SERVER);
-            
-            return (!empty($_server_filtered['HTTPS']) && $_server_filtered['HTTPS'] != 'off');
-        }
-
-        /**
          * Register the currently active environment
          * 
          * @param Environment $env the currently active environment
@@ -89,7 +76,7 @@ namespace Gishiki\Core {
         public function FulfillRequest()
         {
             //start the ORM
-            Application::StartORM(Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_SOURCES"));
+            Application::StartDatabase(Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_SOURCES"));
 
             //split the requested resource string to
             $decoded = explode("/", trim(\Gishiki\Core\Routing::getRequestURI(), '/'));
@@ -378,11 +365,8 @@ namespace Gishiki\Core {
                 case 'ZLIB':
                     return function_exists("zlib_encode");
 
-                case 'FILEINFO':
-                    return function_exists("finfo_file");
-
                 case 'SIMPLEXML':
-                    return class_exists("SimpleXMLElement");
+                    return in_array('simplexml', get_loaded_extensions());
 
                 case 'SQL':
                     return extension_loaded('PDO');

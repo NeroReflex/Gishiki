@@ -17,7 +17,13 @@ limitations under the License.
 
 namespace Gishiki\Algorithms;
 
+/**
+ * An helper class for string manipulation
+ *
+ * Benato Denis <benato.denis96@gmail.com>
+ */
 abstract class Manipulation {
+    
     /**
      * Convenient function that behave exactly like str_replace for the first occurrence only
      * 
@@ -71,5 +77,27 @@ abstract class Manipulation {
         $ini += strlen($start);
         $len = strpos($string, $end, $ini) - $ini;
         return substr($string, $ini, $len);
+    }
+    
+    /**
+     * Interpolate a PHP string:
+     * perform a sobstitution of {{name}} with the value of the $params['name'].
+     * 
+     * Note: $params['name'] can be an object that implements __toString()
+     * 
+     * @param  string $string
+     * @param  array  $params
+     * @return string the interpolated string
+     */
+    static function str_interpolate($string, array $params)
+    {
+        //perform the interpolation
+        foreach (array_keys($params) as $current_interpolation) {
+            $str_current_interpolation = (string)$current_interpolation;
+            $string = str_replace('{{'.$str_current_interpolation.'}}', (string)$params[$current_interpolation], $string);
+        }
+        
+        //return the interpolated string
+        return $string;
     }
 }

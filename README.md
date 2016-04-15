@@ -1,4 +1,7 @@
 # Gishiki
+
+[![Build Status](https://travis-ci.org/NeroReflex/Gishiki.svg?branch=master)](https://travis-ci.org/NeroReflex/Gishiki)
+
 _*Gishiki*_: a modern and elegant MVC framework for PHP >= 5.6 and HHVM.
 
 Gishiki means 'ritual' in japanese, this name was chosen because this framework will help you to perform the

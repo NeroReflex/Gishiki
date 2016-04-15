@@ -17,6 +17,8 @@ limitations under the License.
 
 namespace Gishiki\ActiveRecord\Adapter;
 
+use Gishiki\Core\Environment;
+
 /**
  * This is the sqlite database adapter
  *

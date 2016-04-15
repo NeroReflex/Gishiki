@@ -31,7 +31,11 @@ class Stream extends \Psr\Log\AbstractLogger
     private $stream = "stderr";
     
     /**
-     * Setup a logger that works on streams
+     * Setup a logger that works on streams.
+     * 
+     * Allowed streams are: 'stderr' and 'stdout'.
+     * 
+     * Default on stderr
      * 
      * @param string $stream the name of the application
      */

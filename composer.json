@@ -21,8 +21,8 @@
         "ext-libxml": "*",
         "ext-curl": "*",
         "ext-pdo": "*",
-        "symfony/yaml": ">= 3.0.0",
-        "psr/log": "*"
+        "symfony/yaml": ">=3.0.0",
+        "psr/log": "^1.0.0"
     },
 
     "require-dev": {

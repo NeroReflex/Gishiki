@@ -23,7 +23,8 @@ It has a fixed structure:
 ```
 {
     "general": {
-        "development": true
+        "development": true,
+        "autolog": null
     },
 
     "database_connections": {

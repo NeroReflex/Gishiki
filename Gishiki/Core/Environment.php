@@ -236,6 +236,7 @@ namespace Gishiki\Core {
                 $this->configuration = [
                     //get general environment configuration
                     "DEVELOPMENT_ENVIRONMENT" => $config["general"]["development"],
+                    "AUTOLOG_URL" => (isset($config["general"]["autolog"])) ? $config["general"]["autolog"] : 'null',
                     
                     //Security Settings
                     "SECURITY" => [
@@ -287,6 +288,9 @@ namespace Gishiki\Core {
         public function GetConfigurationProperty($property)
         {
             switch (strtoupper($property)) {
+                case "LOG_CONNECTION_STRING":
+                    return $this->configuration["AUTOLOG_URL"];
+                    
                 case "MODEL_DIR":
                     return APPLICATION_DIR."Models";
                     

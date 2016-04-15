@@ -1,9 +1,8 @@
 ## Webserver (Apache 2)
-If you are using a debian or ubuntu based distro you just:
+If you are using a debian or ubuntu based distro you have to remember that you
+need to enable mod_rewrite on apache:
 
 ```shell
-sudo apt-get update
-sudo apt-get install apache2 php5 php5-curl php5-sqlite php5-pgsql php5-mysql libapache2-mod-php5 nano git
 sudo a2enmod rewrite
 sudo nano /etc/apache2/sites-available/000-default.conf
 sudo service apache2 restart

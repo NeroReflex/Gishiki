@@ -17,27 +17,38 @@
 
 namespace Gishiki\Logging;
 
+use Gishiki\Core\Environment;
+use Psr\Log\AbstractLogger;
+
 /**
  * An helper class for storing logs of what happens on the server
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
-class Logger extends \Psr\Log\AbstractLogger
+class Logger extends AbstractLogger
 {
   private $adapter;
+  private $connection_string;
 
   /**
    * Setup the logger instance using the proper
-   * adapter for the given connector
+   * adapter for the given connector OR the default
+   * one if 'default' is given
    *
    * @param string $connector
    */
-  public function __construct($connector)
+  public function __construct($connector = 'default')
   {
+    $this->connection_string = $connector;
+
     //create te logger from the correct adapter
-    if ((strlen($connector) == 0) || (strtolower($connector) == 'null') || (strtolower($connector) == 'void')) {
+    if (($connector === null) || (strlen($connector) == 0) || (strtolower($connector) == 'null') || (strtolower($connector) == 'void')) {
       $this->adapter = \Psr\Log\NullLogger;
     } else {
+        if ($connector == 'default') {
+            $connector = Environment::GetCurrentEnvironment()->GetConfigurationProperty("LOG_CONNECTION_STRING");
+        }
+
         //separe adapter name from connection info
 	$conection_exploded = explode("://", $connector, 2);
 	$adapter = $conection_exploded[0];
@@ -62,7 +73,18 @@ class Logger extends \Psr\Log\AbstractLogger
   public function log($level, $message, array $context = array())
   {
     if ($this->adapter != null) {
-        
+        //proxy the log call to the given adapter
+        $this->adapter->log($level, $message, $context);
     }
+  }
+
+  /**
+   * Get the connection string passed to the constructor
+   * 
+   * @return string the connection string passed to the constructor
+   */
+  public function __toString()
+  {
+    return $this->connection_string;
   }
 }

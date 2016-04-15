@@ -17,7 +17,9 @@ limitations under the License.
 
 //include the base application and perform basic operations
 if (file_exists(__DIR__.'/vendor/autoload.php')) {
-    require __DIR__.__DIR__.'/vendor/autoload.php';
+    require __DIR__.'/vendor/autoload.php';
+} else {
+    die("You have to run 'php composer.phar install' to complete the installation!");
 }
 
 use Gishiki\Gishiki;

@@ -18,17 +18,24 @@
 		<div id="groups">
 				<h3>Namespaces</h3>
 			<ul>
-				<li>
-					<a href="namespace-ActiveRecord.html">
-						ActiveRecord					</a>
-
-						</li>
 				<li class="active">
 					<a href="namespace-Gishiki.html">
 						Gishiki<span></span>
 					</a>
 
 						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.html">
+						ActiveRecord<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.Adapter.html">
+						Adapter					</a>
+
+						</li>
+							</ul></li>
 				<li>
 					<a href="namespace-Gishiki.Algorithms.html">
 						Algorithms					</a>
@@ -63,43 +70,22 @@
 						</li>
 				<li>
 					<a href="namespace-Gishiki.Logging.html">
-						Logging					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.html">
-						ORM<span></span>
+						Logging<span></span>
 					</a>
 
 						<ul>
 				<li>
-					<a href="namespace-Gishiki.ORM.Common.html">
-						Common					</a>
+					<a href="namespace-Gishiki.Logging.Adapter.html">
+						Adapter					</a>
 
 						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.html">
-						ModelBuilding<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.Adapters.html">
-						Adapters					</a>
-
-						</li>
-							</ul></li></ul></li>
+							</ul></li>
 				<li>
 					<a href="namespace-Gishiki.Security.html">
 						Security					</a>
 
 						</li>
 							</ul></li>
-				<li>
-					<a href="namespace-None.html">
-						None					</a>
-
-						</li>
 				<li>
 					<a href="namespace-PHP.html">
 						PHP					</a>
@@ -124,7 +110,7 @@
 
 			<h3>Exceptions</h3>
 			<ul>
-				<li><a href="class-Gishiki.Core.Gishiki_Exception.html">Gishiki_Exception</a></li>
+				<li><a href="class-Gishiki.Core.Exception.html">Exception</a></li>
 			</ul>
 
 
@@ -201,7 +187,7 @@ and ease of routing usage</p>
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Core.Route.html#20-164" title="Go to source code">Gishiki/core/Route.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Core.Route.html#20-215" title="Go to source code">Gishiki/Core/Route.php</a>
 		<br>
 	</div>
 
@@ -221,7 +207,7 @@ and ease of routing usage</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_any">#</a>
-		<code><a href="source-class-Gishiki.Core.Route.html#28-60" title="Go to source code">any</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
+		<code><a href="source-class-Gishiki.Core.Route.html#31-64" title="Go to source code">any</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
 
 		<div class="description short">
 			<p>Convinient proxy function to call:</p>
@@ -243,7 +229,7 @@ and ease of routing usage</p>
 
 <pre><span class="php-keyword1">use</span> \Gishiki\Core\Route;
 
-Routing::get(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+Route::any(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
      <span class="php-comment">//perform your amazing magic here</span>
 });</pre>
 
@@ -254,6 +240,57 @@ Routing::get(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class=
 					<dd>the URI that will bring to the function execution</dd>
 					<dt><var>$function</var></dt>
 					<dd>the function executed when the URL is called</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						\Gishiki\Core\Routing\setRoute<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="match" id="_match">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_match">#</a>
+		<code><a href="source-class-Gishiki.Core.Route.html#66-90" title="Go to source code">match</a>( <span>string <var>$methods</var></span>, <span>function <var>$URI</var></span>, <span> <var>$function</var></span> )</code>
+
+		<div class="description short">
+			<p>Convinient proxy function to call Routing::setRoute multiple time with
+multiple request methods.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Convinient proxy function to call Routing::setRoute multiple time with
+multiple request methods.</p>
+
+<pre><span class="php-keyword1">use</span> \Gishiki\Core\Route;
+
+Route::match([Route::GET, Route::POST], <span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+     <span class="php-comment">//perform your amazing magic here</span>
+});</pre>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$methods</var></dt>
+					<dd>$URI      the URI that will bring to the function execution</dd>
+					<dt><var>$URI</var></dt>
+					<dd>$function the function executed when the URL is called</dd>
+					<dt><var>$function</var></dt>
+					<dd></dd>
 				</dl></div>
 
 
@@ -279,7 +316,7 @@ Routing::get(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class=
 
 		<td class="name"><div>
 		<a class="anchor" href="#_get">#</a>
-		<code><a href="source-class-Gishiki.Core.Route.html#63-81" title="Go to source code">get</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
+		<code><a href="source-class-Gishiki.Core.Route.html#92-111" title="Go to source code">get</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
 
 		<div class="description short">
 			<p>Convinient proxy function to call Routing::setRoute(Routing::GET, ..., ...)</p>
@@ -290,7 +327,7 @@ Routing::get(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class=
 
 <pre><span class="php-keyword1">use</span> \Gishiki\Core\Route;
 
-Routing::get(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+Route::get(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
      <span class="php-comment">//perform your amazing magic here</span>
 });</pre>
 
@@ -326,7 +363,7 @@ Routing::get(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class=
 
 		<td class="name"><div>
 		<a class="anchor" href="#_post">#</a>
-		<code><a href="source-class-Gishiki.Core.Route.html#83-101" title="Go to source code">post</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
+		<code><a href="source-class-Gishiki.Core.Route.html#113-132" title="Go to source code">post</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
 
 		<div class="description short">
 			<p>Convinient proxy function to call Routing::setRoute(Routing::POST, ..., ...)</p>
@@ -337,7 +374,7 @@ Routing::get(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class=
 
 <pre><span class="php-keyword1">use</span> \Gishiki\Core\Route;
 
-Routing::post(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+Route::post(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
      <span class="php-comment">//perform your amazing magic here</span>
 });</pre>
 
@@ -373,7 +410,7 @@ Routing::post(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class
 
 		<td class="name"><div>
 		<a class="anchor" href="#_put">#</a>
-		<code><a href="source-class-Gishiki.Core.Route.html#103-121" title="Go to source code">put</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
+		<code><a href="source-class-Gishiki.Core.Route.html#134-153" title="Go to source code">put</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
 
 		<div class="description short">
 			<p>Convinient proxy function to call Routing::setRoute(Routing::PUT, ..., ...)</p>
@@ -384,7 +421,7 @@ Routing::post(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class
 
 <pre><span class="php-keyword1">use</span> \Gishiki\Core\Route;
 
-Routing::put(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+Route::put(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
      <span class="php-comment">//perform your amazing magic here</span>
 });</pre>
 
@@ -420,7 +457,7 @@ Routing::put(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class=
 
 		<td class="name"><div>
 		<a class="anchor" href="#_delete">#</a>
-		<code><a href="source-class-Gishiki.Core.Route.html#123-141" title="Go to source code">delete</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
+		<code><a href="source-class-Gishiki.Core.Route.html#155-174" title="Go to source code">delete</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
 
 		<div class="description short">
 			<p>Convinient proxy function to call Routing::setRoute(Routing::DELETE, ..., ...)</p>
@@ -431,7 +468,7 @@ Routing::put(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class=
 
 <pre><span class="php-keyword1">use</span> \Gishiki\Core\Route;
 
-Routing::<span class="php-keyword2">delete</span>(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+Route::<span class="php-keyword2">delete</span>(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
      <span class="php-comment">//perform your amazing magic here</span>
 });</pre>
 
@@ -467,7 +504,7 @@ Routing::<span class="php-keyword2">delete</span>(<span class="php-quote">&quot;
 
 		<td class="name"><div>
 		<a class="anchor" href="#_head">#</a>
-		<code><a href="source-class-Gishiki.Core.Route.html#143-161" title="Go to source code">head</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
+		<code><a href="source-class-Gishiki.Core.Route.html#176-195" title="Go to source code">head</a>( <span>string <var>$URI</var></span>, <span>function <var>$function</var></span> )</code>
 
 		<div class="description short">
 			<p>Convinient proxy function to call Routing::setRoute(Routing::HEAD, ..., ...)</p>
@@ -478,7 +515,7 @@ Routing::<span class="php-keyword2">delete</span>(<span class="php-quote">&quot;
 
 <pre><span class="php-keyword1">use</span> \Gishiki\Core\Route;
 
-Routing::head(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+Route::head(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
      <span class="php-comment">//perform your amazing magic here</span>
 });</pre>
 
@@ -497,6 +534,49 @@ Routing::head(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class
 				<div class="list">
 						\Gishiki\Core\Routing\setRoute<br>
 				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="error" id="_error">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_error">#</a>
+		<code><a href="source-class-Gishiki.Core.Route.html#197-214" title="Go to source code">error</a>( <span>integer <var>$error_type</var></span>, <span>function <var>$callback</var></span> )</code>
+
+		<div class="description short">
+			<p>Registers a callback function to be executed when a certain error occurs.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Registers a callback function to be executed when a certain error occurs.</p>
+
+<pre><span class="php-keyword1">use</span> \Gishiki\Core\Route;
+
+Route::error(Route::NotFound, <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+     <span class="php-comment">//perform your failback amazing magic here!</span>
+});</pre>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$error_type</var></dt>
+					<dd>the error that brings the callback function to be executed</dd>
+					<dt><var>$callback</var></dt>
+					<dd>this is the function automatically called when the error type occurs</dd>
+				</dl></div>
+
+
+
 
 
 		</div>
@@ -524,6 +604,33 @@ Routing::head(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class
 
 
 
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="NotFound" id="NotFound">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Gishiki.Core.Route.html#29" title="Go to source code"><b>NotFound</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#NotFound" class="anchor">#</a>
+				<code><code><a href="class-Gishiki.Core.Routing.html#NotFoudCallback">Gishiki\Core\Routing::<b>NotFoudCallback</b></a></code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 	<table class="summary inherited">
 	<caption>Constants inherited from <a href="class-Gishiki.Core.Routing.html#constants">Gishiki\Core\Routing</a></caption>
@@ -543,6 +650,17 @@ Routing::head(<span class="php-quote">&quot;/user/{id}&quot;</span>, <span class
 
 
 
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-Gishiki.Core.Routing.html#properties">Gishiki\Core\Routing</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Gishiki.Core.Routing.html#$current_Request"><var>$current_Request</var></a>, 
+			<a href="class-Gishiki.Core.Routing.html#$current_URI"><var>$current_URI</var></a>, 
+			<a href="class-Gishiki.Core.Routing.html#$executed"><var>$executed</var></a>, 
+			<a href="class-Gishiki.Core.Routing.html#$notFound"><var>$notFound</var></a>
+		</code></td>
+	</tr>
+	</table>
 
 
 

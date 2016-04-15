@@ -19,16 +19,23 @@
 				<h3>Namespaces</h3>
 			<ul>
 				<li>
-					<a href="namespace-ActiveRecord.html">
-						ActiveRecord					</a>
-
-						</li>
-				<li>
 					<a href="namespace-Gishiki.html">
 						Gishiki<span></span>
 					</a>
 
 						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.html">
+						ActiveRecord<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.Adapter.html">
+						Adapter					</a>
+
+						</li>
+							</ul></li>
 				<li>
 					<a href="namespace-Gishiki.Algorithms.html">
 						Algorithms					</a>
@@ -63,43 +70,22 @@
 						</li>
 				<li>
 					<a href="namespace-Gishiki.Logging.html">
-						Logging					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.html">
-						ORM<span></span>
+						Logging<span></span>
 					</a>
 
 						<ul>
 				<li>
-					<a href="namespace-Gishiki.ORM.Common.html">
-						Common					</a>
+					<a href="namespace-Gishiki.Logging.Adapter.html">
+						Adapter					</a>
 
 						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.html">
-						ModelBuilding<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.Adapters.html">
-						Adapters					</a>
-
-						</li>
-							</ul></li></ul></li>
+							</ul></li>
 				<li>
 					<a href="namespace-Gishiki.Security.html">
 						Security					</a>
 
 						</li>
 							</ul></li>
-				<li>
-					<a href="namespace-None.html">
-						None					</a>
-
-						</li>
 				<li class="active">
 					<a href="namespace-PHP.html">
 						PHP					</a>
@@ -112,23 +98,11 @@
 
 
 		<div id="elements">
-			<h3>Classes</h3>
-			<ul>
-				<li><a href="class-ArrayIterator.html">ArrayIterator</a></li>
-				<li><a href="class-Closure.html">Closure</a></li>
-				<li><a href="class-DateTime.html">DateTime</a></li>
-				<li><a href="class-PDOStatement.html">PDOStatement</a></li>
-			</ul>
 
 			<h3>Interfaces</h3>
 			<ul>
-				<li><a href="class-ArrayAccess.html">ArrayAccess</a></li>
-				<li><a href="class-Countable.html">Countable</a></li>
-				<li><a href="class-DateTimeInterface.html">DateTimeInterface</a></li>
 				<li><a href="class-Iterator.html">Iterator</a></li>
-				<li><a href="class-IteratorAggregate.html">IteratorAggregate</a></li>
-				<li><a href="class-SeekableIterator.html">SeekableIterator</a></li>
-				<li><a href="class-Serializable.html">Serializable</a></li>
+				<li><a href="class-Throwable.html">Throwable</a></li>
 				<li><a href="class-Traversable.html">Traversable</a></li>
 			</ul>
 
@@ -178,30 +152,28 @@
 
 
 
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>Exception</span></b>			
+			 implements 
+				<a href="class-Throwable.html"><span>Throwable</span></a>
+			
+			
+		</dd>
+	</dl>
 
 
 	<div>
 		<h4>Direct known subclasses</h4>
-			<a href="class-ActiveRecord.ActiveRecordException.html">ActiveRecord\ActiveRecordException</a>, 
 			<a href="class-Gishiki.Cookie.CookieException.html">Gishiki\Cookie\CookieException</a>, 
-			<a href="class-Gishiki.Core.Gishiki_Exception.html">Gishiki\Core\Gishiki_Exception</a>
+			<a href="class-Gishiki.Core.Exception.html">Gishiki\Core\Exception</a>
 	</div>
 
 	<div>
 		<h4>Indirect known subclasses</h4>
-			<a href="class-ActiveRecord.ConfigException.html">ActiveRecord\ConfigException</a>, 
-			<a href="class-ActiveRecord.DatabaseException.html">ActiveRecord\DatabaseException</a>, 
+			<a href="class-Gishiki.ActiveRecord.DatabaseException.html">Gishiki\ActiveRecord\DatabaseException</a>, 
 			<a href="class-Gishiki.JSON.JSONException.html">Gishiki\JSON\JSONException</a>, 
-			<a href="class-Gishiki.ORM.ModelBuilding.ModelBuildingException.html">Gishiki\ORM\ModelBuilding\ModelBuildingException</a>, 
-			<a href="class-Gishiki.Security.CipherException.html">Gishiki\Security\CipherException</a>, 
-			<a href="class-ActiveRecord.ExpressionsException.html">ActiveRecord\ExpressionsException</a>, 
-			<a href="class-ActiveRecord.HasManyThroughAssociationException.html">ActiveRecord\HasManyThroughAssociationException</a>, 
-			<a href="class-ActiveRecord.ModelException.html">ActiveRecord\ModelException</a>, 
-			<a href="class-ActiveRecord.ReadOnlyException.html">ActiveRecord\ReadOnlyException</a>, 
-			<a href="class-ActiveRecord.RecordNotFound.html">ActiveRecord\RecordNotFound</a>, 
-			<a href="class-ActiveRecord.RelationshipException.html">ActiveRecord\RelationshipException</a>, 
-			<a href="class-ActiveRecord.UndefinedPropertyException.html">ActiveRecord\UndefinedPropertyException</a>, 
-			<a href="class-ActiveRecord.ValidationsArgumentError.html">ActiveRecord\ValidationsArgumentError</a>
+			<a href="class-Gishiki.Security.CipherException.html">Gishiki\Security\CipherException</a>
 	</div>
 
 
@@ -309,6 +281,8 @@
 
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Throwable.html#_getMessage">Throwable::getMessage()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -339,6 +313,8 @@
 
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Throwable.html#_getCode">Throwable::getCode()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -369,6 +345,8 @@
 
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Throwable.html#_getFile">Throwable::getFile()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -399,6 +377,8 @@
 
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Throwable.html#_getLine">Throwable::getLine()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -429,6 +409,8 @@
 
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Throwable.html#_getTrace">Throwable::getTrace()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -459,6 +441,8 @@
 
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Throwable.html#_getPrevious">Throwable::getPrevious()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -489,6 +473,8 @@
 
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Throwable.html#_getTraceAsString">Throwable::getTraceAsString()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -519,6 +505,8 @@
 
 
 
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Throwable.html#___toString">Throwable::__toString()</a></code></div>
 		</div>
 		</div></td>
 	</tr>

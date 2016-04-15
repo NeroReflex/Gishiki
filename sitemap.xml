@@ -4,23 +4,49 @@
     
     <url>
      <loc>None/</loc>
-     <lastmod>2016-04-05</lastmod>
+     <lastmod>2016-04-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
 
     
+        
     <url>
-     <loc>None/installation/</loc>
-     <lastmod>2016-04-05</lastmod>
+     <loc>None/installation/environment/</loc>
+     <lastmod>2016-04-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
+        
+    <url>
+     <loc>None/installation/php_7_nginx/</loc>
+     <lastmod>2016-04-16</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>None/installation/basic_nginx/</loc>
+     <lastmod>2016-04-16</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>None/installation/basic_apache/</loc>
+     <lastmod>2016-04-16</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>None/installation/composer/</loc>
+     <lastmod>2016-04-16</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
     
 
     
     <url>
      <loc>None/apidoc/</loc>
-     <lastmod>2016-04-05</lastmod>
+     <lastmod>2016-04-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -28,14 +54,20 @@
     
         
     <url>
+     <loc>None/configuration/</loc>
+     <lastmod>2016-04-16</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
      <loc>None/usage/routing/</loc>
-     <lastmod>2016-04-05</lastmod>
+     <lastmod>2016-04-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/usage/logging/</loc>
-     <lastmod>2016-04-05</lastmod>
+     <lastmod>2016-04-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -51,7 +83,7 @@
         
     <url>
      <loc>None/license/</loc>
-     <lastmod>2016-04-05</lastmod>
+     <lastmod>2016-04-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         

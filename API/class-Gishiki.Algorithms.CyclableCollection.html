@@ -18,17 +18,24 @@
 		<div id="groups">
 				<h3>Namespaces</h3>
 			<ul>
-				<li>
-					<a href="namespace-ActiveRecord.html">
-						ActiveRecord					</a>
-
-						</li>
 				<li class="active">
 					<a href="namespace-Gishiki.html">
 						Gishiki<span></span>
 					</a>
 
 						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.html">
+						ActiveRecord<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.Adapter.html">
+						Adapter					</a>
+
+						</li>
+							</ul></li>
 				<li class="active">
 					<a href="namespace-Gishiki.Algorithms.html">
 						Algorithms					</a>
@@ -63,43 +70,22 @@
 						</li>
 				<li>
 					<a href="namespace-Gishiki.Logging.html">
-						Logging					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.html">
-						ORM<span></span>
+						Logging<span></span>
 					</a>
 
 						<ul>
 				<li>
-					<a href="namespace-Gishiki.ORM.Common.html">
-						Common					</a>
+					<a href="namespace-Gishiki.Logging.Adapter.html">
+						Adapter					</a>
 
 						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.html">
-						ModelBuilding<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.Adapters.html">
-						Adapters					</a>
-
-						</li>
-							</ul></li></ul></li>
+							</ul></li>
 				<li>
 					<a href="namespace-Gishiki.Security.html">
 						Security					</a>
 
 						</li>
 							</ul></li>
-				<li>
-					<a href="namespace-None.html">
-						None					</a>
-
-						</li>
 				<li>
 					<a href="namespace-PHP.html">
 						PHP					</a>
@@ -115,6 +101,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li class="active"><a href="class-Gishiki.Algorithms.CyclableCollection.html">CyclableCollection</a></li>
+				<li><a href="class-Gishiki.Algorithms.Manipulation.html">Manipulation</a></li>
 			</ul>
 
 
@@ -178,8 +165,8 @@ a foreach cycle</p>
 
 	<div>
 		<h4>Direct known subclasses</h4>
-			<a href="class-Gishiki.ORM.Common.Database.html">Gishiki\ORM\Common\Database</a>, 
-			<a href="class-Gishiki.ORM.Common.Table.html">Gishiki\ORM\Common\Table</a>
+			<a href="class-Gishiki.ActiveRecord.ActiveModel.html">Gishiki\ActiveRecord\ActiveModel</a>, 
+			<a href="class-Gishiki.ActiveRecord.ActiveResult.html">Gishiki\ActiveRecord\ActiveResult</a>
 	</div>
 
 
@@ -195,7 +182,7 @@ a foreach cycle</p>
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Algorithms.CyclableCollection.html#20-177" title="Go to source code">Gishiki/algorithms/CyclableCollection.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Algorithms.CyclableCollection.html#20-222" title="Go to source code">Gishiki/Algorithms/CyclableCollection.php</a>
 		<br>
 	</div>
 
@@ -215,7 +202,7 @@ a foreach cycle</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#36-45" title="Go to source code">__construct</a>( <span>array <var>$setup_values</var> = []</span> )</code>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#37-48" title="Go to source code">__construct</a>( <span>array <var>$setup_values</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Setup the new collection with provided key=>value pairs</p>
@@ -250,14 +237,14 @@ a foreach cycle</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_rewind">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#47-52" title="Go to source code">rewind</a>( )</code>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#50-56" title="Go to source code">rewind</a>( )</code>
 
 		<div class="description short">
-			<p>Start up a new iteration cycle: reset the currently active array element</p>
+			<p>Start up a new iteration cycle: reset the currently active collection element</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Start up a new iteration cycle: reset the currently active array element</p>
+			<p>Start up a new iteration cycle: reset the currently active collection element</p>
 
 
 
@@ -282,14 +269,14 @@ a foreach cycle</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_current">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#54-63" title="Go to source code">current</a>( )</code>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#58-68" title="Go to source code">current</a>( )</code>
 
 		<div class="description short">
-			<p>Get the currently active array element in an iteration cycle</p>
+			<p>Get the currently active collection element in an iteration cycle</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Get the currently active array element in an iteration cycle</p>
+			<p>Get the currently active collection element in an iteration cycle</p>
 
 <p>Return FALSE if the array is empty</p>
 
@@ -320,14 +307,14 @@ a foreach cycle</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_key">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#65-72" title="Go to source code">key</a>( )</code>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#70-78" title="Go to source code">key</a>( )</code>
 
 		<div class="description short">
-			<p>Get the index of the currently active array element</p>
+			<p>Get the index of the currently active collection element</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Get the index of the currently active array element</p>
+			<p>Get the index of the currently active collection element</p>
 
 
 
@@ -356,16 +343,16 @@ a foreach cycle</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_next">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#74-84" title="Go to source code">next</a>( )</code>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#80-91" title="Go to source code">next</a>( )</code>
 
 		<div class="description short">
-			<p>Get the next array element after the currently active one and switch
-the currently active array element with the following one</p>
+			<p>Get the next collection element after the currently active one and switch
+the currently active collection element with the following one</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Get the next array element after the currently active one and switch
-the currently active array element with the following one</p>
+			<p>Get the next collection element after the currently active one and switch
+the currently active collection element with the following one</p>
 
 <p>Return FALSE if the array is empty</p>
 
@@ -384,26 +371,26 @@ the currently active array element with the following one</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="get" id="_get">
+	<tr data-order="__get" id="___get">
 
 		<td class="attributes"><code>
 			 public 
 
 			mixed
-			
+			&amp;
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_get">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#86-98" title="Go to source code">get</a>( <span>integer|string <var>$key</var></span> )</code>
+		<a class="anchor" href="#___get">#</a>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#93-109" title="Go to source code">__get</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
-			<p>Access the array element at the given key and return the contained value</p>
+			<p>Get an element of the collection as it would be an object property</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Access the array element at the given key and return the contained value</p>
+			<p>Get an element of the collection as it would be an object property</p>
 
 <p>Return NULL if the array doesn't contain the given key</p>
 
@@ -425,40 +412,36 @@ the currently active array element with the following one</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="set" id="_set">
+	<tr data-order="__set" id="___set">
 
 		<td class="attributes"><code>
 			 public 
 
-			mixed
+			
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_set">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#100-110" title="Go to source code">set</a>( <span>integer|string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
+		<a class="anchor" href="#___set">#</a>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#111-120" title="Go to source code">__set</a>( <span>string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
-			<p>Access the array element at the given index and insert the given value</p>
+			<p>Set an element of the collection as it would be an object property</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Access the array element at the given index and insert the given value</p>
+			<p>Set an element of the collection as it would be an object property</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$key</var></dt>
-					<dd>the index of the array element to be accessed</dd>
+					<dd>the of the property to be modified</dd>
 					<dt><var>$value</var></dt>
-					<dd>the value to insert</dd>
+					<dd>the value to be assigned to the property</dd>
 				</dl></div>
 
-				<h4>Returns</h4>
-				<div class="list">
-					mixed<br>the inserted array element
-				</div>
 
 
 
@@ -478,14 +461,14 @@ the currently active array element with the following one</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_valid">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#112-121" title="Go to source code">valid</a>( )</code>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#122-131" title="Go to source code">valid</a>( )</code>
 
 		<div class="description short">
-			<p>Check if the currently active array element is a valid and existing one</p>
+			<p>Check if the currently active collection element is a valid and existing one</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Check if the currently active array element is a valid and existing one</p>
+			<p>Check if the currently active collection element is a valid and existing one</p>
 
 
 
@@ -514,7 +497,7 @@ the currently active array element with the following one</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_previous">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#123-133" title="Go to source code">previous</a>( )</code>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#133-144" title="Go to source code">previous</a>( )</code>
 
 		<div class="description short">
 			<p>Get the previous field preceding the currently active one and switch
@@ -552,7 +535,7 @@ the currently active field with the preceding one</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_end">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#135-145" title="Go to source code">end</a>( )</code>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#146-157" title="Go to source code">end</a>( )</code>
 
 		<div class="description short">
 			<p>Get the last element of the array and change the currently active array
@@ -590,14 +573,14 @@ element with the last one.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_search">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#147-157" title="Go to source code">search</a>( <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#159-170" title="Go to source code">search</a>( <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
-			<p>Perform a search withing the current array to find the given value.</p>
+			<p>Perform a search withing the current collection to find the given value.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Perform a search withing the current array to find the given value.</p>
+			<p>Perform a search withing the current collection to find the given value.</p>
 
 <p>Return FALSE if the array doesn't contains the searched value</p>
 
@@ -631,14 +614,14 @@ element with the last one.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_exists_key">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#159-167" title="Go to source code">exists_key</a>( <span>integer|string <var>$key</var></span> )</code>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#172-181" title="Go to source code">exists_key</a>( <span>integer|string <var>$key</var></span> )</code>
 
 		<div class="description short">
-			<p>Check if the given key is part of the current array</p>
+			<p>Check if the given key is part of the current collection</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Check if the given key is part of the current array</p>
+			<p>Check if the given key is part of the current collection</p>
 
 
 				<h4>Parameters</h4>
@@ -670,14 +653,14 @@ element with the last one.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_emplace">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#169-176" title="Go to source code">emplace</a>( <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#183-191" title="Go to source code">emplace</a>( <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
-			<p>Insert the given element into the array</p>
+			<p>Insert the given element into the collection</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Insert the given element into the array</p>
+			<p>Insert the given element into the collection</p>
 
 
 				<h4>Parameters</h4>
@@ -686,6 +669,108 @@ element with the last one.</p>
 					<dd>the value to insert</dd>
 				</dl></div>
 
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="count" id="_count">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_count">#</a>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#193-201" title="Go to source code">count</a>( )</code>
+
+		<div class="description short">
+			<p>Get the number of entries in the current data collection</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the number of entries in the current data collection</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer<br>the number of elements inside the current collection
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="is_empty" id="_is_empty">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_is_empty">#</a>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#203-211" title="Go to source code">is_empty</a>( )</code>
+
+		<div class="description short">
+			<p>Check weather the current collection is empty (has no elements)</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Check weather the current collection is empty (has no elements)</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>TRUE only if the current collection is empty
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__invoke" id="___invoke">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___invoke">#</a>
+		<code><a href="source-class-Gishiki.Algorithms.CyclableCollection.html#213-221" title="Go to source code">__invoke</a>( )</code>
+
+		<div class="description short">
+			<p>Get the currently managed collectionin form as a native array</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the currently managed collectionin form as a native array</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>the current collection
+				</div>
 
 
 
@@ -715,7 +800,7 @@ element with the last one.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.Algorithms.CyclableCollection.html#29-34" title="Go to source code"><var>$array</var></a>
+				<a href="source-class-Gishiki.Algorithms.CyclableCollection.html#30-35" title="Go to source code"><var>$array</var></a>
 
 			<div class="description short">
 				<p>All functions of this base class point to this array</p>

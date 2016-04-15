@@ -18,17 +18,24 @@
 		<div id="groups">
 				<h3>Namespaces</h3>
 			<ul>
-				<li>
-					<a href="namespace-ActiveRecord.html">
-						ActiveRecord					</a>
-
-						</li>
 				<li class="active">
 					<a href="namespace-Gishiki.html">
 						Gishiki<span></span>
 					</a>
 
 						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.html">
+						ActiveRecord<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.Adapter.html">
+						Adapter					</a>
+
+						</li>
+							</ul></li>
 				<li>
 					<a href="namespace-Gishiki.Algorithms.html">
 						Algorithms					</a>
@@ -63,43 +70,22 @@
 						</li>
 				<li>
 					<a href="namespace-Gishiki.Logging.html">
-						Logging					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.html">
-						ORM<span></span>
+						Logging<span></span>
 					</a>
 
 						<ul>
 				<li>
-					<a href="namespace-Gishiki.ORM.Common.html">
-						Common					</a>
+					<a href="namespace-Gishiki.Logging.Adapter.html">
+						Adapter					</a>
 
 						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.html">
-						ModelBuilding<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.Adapters.html">
-						Adapters					</a>
-
-						</li>
-							</ul></li></ul></li>
+							</ul></li>
 				<li class="active">
 					<a href="namespace-Gishiki.Security.html">
 						Security					</a>
 
 						</li>
 							</ul></li>
-				<li>
-					<a href="namespace-None.html">
-						None					</a>
-
-						</li>
 				<li>
 					<a href="namespace-PHP.html">
 						PHP					</a>
@@ -187,7 +173,7 @@
 		<b>Namespace:</b> <a href="namespace-Gishiki.html">Gishiki</a>\<a href="namespace-Gishiki.Security.html">Security</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Gishiki.Security.AsymmetricPublicKeyCipher.html#20-150" title="Go to source code">Gishiki/security/AsymmetricPublicKeyCipher.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Security.AsymmetricPublicKeyCipher.html#20-156" title="Go to source code">Gishiki/Security/AsymmetricPublicKeyCipher.php</a>
 		<br>
 	</div>
 
@@ -207,7 +193,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.Security.AsymmetricPublicKeyCipher.html#30-36" title="Go to source code">__construct</a>( )</code>
+		<code><a href="source-class-Gishiki.Security.AsymmetricPublicKeyCipher.html#31-38" title="Go to source code">__construct</a>( )</code>
 
 		<div class="description short">
 			<p>Create an asymmetric cipher</p>
@@ -237,7 +223,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_IsLoaded">#</a>
-		<code><a href="source-class-Gishiki.Security.AsymmetricPublicKeyCipher.html#38-45" title="Go to source code">IsLoaded</a>( )</code>
+		<code><a href="source-class-Gishiki.Security.AsymmetricPublicKeyCipher.html#40-48" title="Go to source code">IsLoaded</a>( )</code>
 
 		<div class="description short">
 			<p>Check if a valid RSA public key has been loaded</p>
@@ -271,7 +257,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_ImportPublicKey">#</a>
-		<code><a href="source-class-Gishiki.Security.AsymmetricPublicKeyCipher.html#47-61" title="Go to source code">ImportPublicKey</a>( <span>string <var>$keyAsString</var></span> )</code>
+		<code><a href="source-class-Gishiki.Security.AsymmetricPublicKeyCipher.html#50-65" title="Go to source code">ImportPublicKey</a>( <span>string <var>$keyAsString</var></span> )</code>
 
 		<div class="description short">
 			<p>Load the public key from a string</p>
@@ -310,7 +296,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_VerifyDigitalSignature">#</a>
-		<code><a href="source-class-Gishiki.Security.AsymmetricPublicKeyCipher.html#63-89" title="Go to source code">VerifyDigitalSignature</a>( <span>string <var>$message</var></span>, <span>string <var>$signature</var></span> )</code>
+		<code><a href="source-class-Gishiki.Security.AsymmetricPublicKeyCipher.html#67-94" title="Go to source code">VerifyDigitalSignature</a>( <span>string <var>$message</var></span>, <span>string <var>$signature</var></span> )</code>
 
 		<div class="description short">
 			<p>Check if a message was altered using its digital signature (which is provate-key dependant)</p>
@@ -355,7 +341,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Encrypt">#</a>
-		<code><a href="source-class-Gishiki.Security.AsymmetricPublicKeyCipher.html#91-114" title="Go to source code">Encrypt</a>( <span>string <var>$message</var></span> )</code>
+		<code><a href="source-class-Gishiki.Security.AsymmetricPublicKeyCipher.html#96-119" title="Go to source code">Encrypt</a>( <span>string <var>$message</var></span> )</code>
 
 		<div class="description short">
 			<p>Encrypt a message using the loaded public key</p>
@@ -398,7 +384,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Decrypt">#</a>
-		<code><a href="source-class-Gishiki.Security.AsymmetricPublicKeyCipher.html#116-139" title="Go to source code">Decrypt</a>( <span>string <var>$encMessage</var></span> )</code>
+		<code><a href="source-class-Gishiki.Security.AsymmetricPublicKeyCipher.html#121-144" title="Go to source code">Decrypt</a>( <span>string <var>$encMessage</var></span> )</code>
 
 		<div class="description short">
 			<p>Decrypt a message encrypted with the private key using the loaded public key</p>
@@ -441,7 +427,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___destruct">#</a>
-		<code><a href="source-class-Gishiki.Security.AsymmetricPublicKeyCipher.html#141-149" title="Go to source code">__destruct</a>( )</code>
+		<code><a href="source-class-Gishiki.Security.AsymmetricPublicKeyCipher.html#146-155" title="Go to source code">__destruct</a>( )</code>
 
 		<div class="description short">
 			<p>Free the memory used by OpenSSL to hold the public key</p>

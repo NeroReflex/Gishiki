@@ -65,10 +65,46 @@
 <li>
           
             <li>
+    <ul class="subnav">
+    <li><span>Installation</span></li>
+
+        
+            
     <li class="toctree-l1 ">
-        <a class="" href="../../installation/">Installation</a>
+        <a class="" href="../../installation/environment/">Environment</a>
         
     </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/php_7_nginx/">PHP 7.0 & nginx</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_nginx/">Basic nginx</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_apache/">Basic apache</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/composer/">Composer</a>
+        
+    </li>
+
+        
+    </ul>
 <li>
           
             <li>
@@ -85,6 +121,13 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../../configuration/">Configuration</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../routing/">Router</a>
         
     </li>
@@ -97,18 +140,6 @@
             <ul>
             
                 <li class="toctree-l3"><a href="#logging">Logging</a></li>
-                
-                    <li><a class="toctree-l4" href="#create-save">Create &amp; Save</a></li>
-                
-                    <li><a class="toctree-l4" href="#priority">Priority</a></li>
-                
-                    <li><a class="toctree-l4" href="#find-out-more">Find out more</a></li>
-                
-                    <li><a class="toctree-l4" href="#configure-syslogd">Configure syslogd</a></li>
-                
-                    <li><a class="toctree-l4" href="#exceptions-autologging">Exceptions autologging</a></li>
-                
-                    <li><a class="toctree-l4" href="#conclusions">Conclusions</a></li>
                 
             
             </ul>
@@ -200,78 +231,9 @@
             <div class="section">
               
                 <h1 id="logging">Logging</h1>
-<p>Gishiki comes with a simple and small logging library that uses the UNIX logging daemon (and its emulation on Windows).</p>
-<p>The behaviour of the logger depends on the syslogd configuration: the standard behaviour is to save each log entry 
-into a log file, together with any other software message.</p>
-<h2 id="create-save">Create &amp; Save</h2>
-<p>Each log entry instance you create from the Log class is automatically saved using syslogd.</p>
-<p>Creating a log entry is pretty simple:</p>
-<pre><code class="php">use \Gishiki\Core\Routing;
-use \Gishiki\Logging\Log;
-
-Routing::setErrorCallback(Routing::NotFoudCallback, function() {
-    //this is what will be executed when the client asks for an unrouted URI
-    new Log(&quot;404 Not Foud&quot;, &quot;A user has tried to access the resource located at URI: &quot;.Routing::getRequestURI());
-
-    //error message!
-    echo &quot;Sorry man, you are asking for something I can't give you :(&quot;;
-});
-</code></pre>
-
-<p>Since the syslogd is something that is not (and MUST be not) accessible by the client you can log everything you want, 
-the user will never notice the creation of a log entry.</p>
-<h2 id="priority">Priority</h2>
-<p>Priorities are important as in software development as in real life.</p>
-<p>To help you better organizing your priorities you can change the default priority of a log entry:</p>
-<pre><code class="php">use \Gishiki\Core\Routing;
-use \Gishiki\Logging\Log;
-use \Gishiki\Logging\Priority;
-
-Routing::setErrorCallback(Routing::NotFoudCallback, function() {
-    //this is what will be executed when the client asks for an unrouted URI
-    new Log(&quot;404 Not Foud&quot;, &quot;A user has tried to access the resource located at URI: &quot;.Routing::getRequestURI(), Priority::INFO);
-
-    //error message!
-    echo &quot;Sorry man, you are asking for something I can't give you :(&quot;;
-});
-</code></pre>
-
-<p>You have these log priorities available:</p>
-<ul>
-<li>Priority::EMERGENCY</li>
-<li>Priority::ALERT</li>
-<li>Priority::CRITICAL</li>
-<li>Priority::ERROR</li>
-<li>Priority::WARNING</li>
-<li>Priority::NOTICE</li>
-<li>Priority::INFO</li>
-<li>Priority::DEBUG</li>
-</ul>
-<p>When create a log choose the best priority for that log entry (default is Priority::WARNING).</p>
-<h2 id="find-out-more">Find out more</h2>
-<p>This is everything you should know to use the logger, but if you want something more advanced you will have to read the
-API documentation.</p>
-<h2 id="configure-syslogd">Configure syslogd</h2>
-<p>Configuring syslog is pretty easy, but I can give you an example of file redirection for syslog-ng:</p>
-<pre><code>destination df_userapp { file(&quot;/var/www/html/application/logs/current.log&quot;); };
-
-filter f_userapp { program(&quot;Gishiki&quot;); };
-
-log {
-    source(s_all);
-    filter(f_userapp);
-    destination(df_userapp);
-};
-</code></pre>
-
-<p>What i gave you is just a simple example to get you started... There is no limit of what you can do with the logging daemon,
-so configure it as you want (read your syslogd documentation).</p>
-<h2 id="exceptions-autologging">Exceptions autologging</h2>
-<p>Every exception that inherits from Gishiki_Exception and call the parent constructor is automatically logged with 
-the Priority::CRITICAL level of priority.</p>
-<h2 id="conclusions">Conclusions</h2>
-<p>The logger is (just like the router is) designed to be fast and super-easy to use, but that is achieved without 
-losing the usage flexibility.</p>
+<p>Gishiki comes with a simple and small logging library that may use different logging
+technologies like the UNIX logging daemon (and its emulation on Windows).</p>
+<p>The logger included in Gishiki is PSR-3 compilant and is super-simple to setup and use!</p>
               
             </div>
           </div>

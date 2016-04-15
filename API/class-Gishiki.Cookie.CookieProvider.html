@@ -18,17 +18,24 @@
 		<div id="groups">
 				<h3>Namespaces</h3>
 			<ul>
-				<li>
-					<a href="namespace-ActiveRecord.html">
-						ActiveRecord					</a>
-
-						</li>
 				<li class="active">
 					<a href="namespace-Gishiki.html">
 						Gishiki<span></span>
 					</a>
 
 						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.html">
+						ActiveRecord<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.Adapter.html">
+						Adapter					</a>
+
+						</li>
+							</ul></li>
 				<li>
 					<a href="namespace-Gishiki.Algorithms.html">
 						Algorithms					</a>
@@ -63,43 +70,22 @@
 						</li>
 				<li>
 					<a href="namespace-Gishiki.Logging.html">
-						Logging					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.html">
-						ORM<span></span>
+						Logging<span></span>
 					</a>
 
 						<ul>
 				<li>
-					<a href="namespace-Gishiki.ORM.Common.html">
-						Common					</a>
+					<a href="namespace-Gishiki.Logging.Adapter.html">
+						Adapter					</a>
 
 						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.html">
-						ModelBuilding<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.Adapters.html">
-						Adapters					</a>
-
-						</li>
-							</ul></li></ul></li>
+							</ul></li>
 				<li>
 					<a href="namespace-Gishiki.Security.html">
 						Security					</a>
 
 						</li>
 							</ul></li>
-				<li>
-					<a href="namespace-None.html">
-						None					</a>
-
-						</li>
 				<li>
 					<a href="namespace-PHP.html">
 						PHP					</a>
@@ -184,7 +170,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Cookie.CookieProvider.html#20-193" title="Go to source code">Gishiki/cookie/CookieProvider.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Cookie.CookieProvider.html#20-200" title="Go to source code">Gishiki/Cookie/CookieProvider.php</a>
 		<br>
 	</div>
 
@@ -204,7 +190,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_RestoreCookies">#</a>
-		<code><a href="source-class-Gishiki.Cookie.CookieProvider.html#27-52" title="Go to source code">RestoreCookies</a>( )</code>
+		<code><a href="source-class-Gishiki.Cookie.CookieProvider.html#28-56" title="Go to source code">RestoreCookies</a>( )</code>
 
 		<div class="description short">
 			<p>Retrive the list of all cookies stored by the client</p>
@@ -234,7 +220,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_RestoreCookie">#</a>
-		<code><a href="source-class-Gishiki.Cookie.CookieProvider.html#54-111" title="Go to source code">RestoreCookie</a>( <span>string <var>$cookieName</var></span> )</code>
+		<code><a href="source-class-Gishiki.Cookie.CookieProvider.html#58-116" title="Go to source code">RestoreCookie</a>( <span>string <var>$cookieName</var></span> )</code>
 
 		<div class="description short">
 			<p>Retrive a cookie managed object from the client request</p>
@@ -273,7 +259,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_DeleteCookie">#</a>
-		<code><a href="source-class-Gishiki.Cookie.CookieProvider.html#113-134" title="Go to source code">DeleteCookie</a>( <span><code><a href="class-Gishiki.Cookie.Cookie.html">Gishiki\Cookie\Cookie</a></code> <var>&amp; $cookie</var></span> )</code>
+		<code><a href="source-class-Gishiki.Cookie.CookieProvider.html#118-140" title="Go to source code">DeleteCookie</a>( <span><code><a href="class-Gishiki.Cookie.Cookie.html">Gishiki\Cookie\Cookie</a></code> <var>&amp; $cookie</var></span> )</code>
 
 		<div class="description short">
 			<p>Delete a cookie on the client and the cookie managed object on the server</p>
@@ -312,7 +298,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_StoreCookie">#</a>
-		<code><a href="source-class-Gishiki.Cookie.CookieProvider.html#136-192" title="Go to source code">StoreCookie</a>( <span><code><a href="class-Gishiki.Cookie.Cookie.html">Gishiki\Cookie\Cookie</a></code> <var>&amp; $cookie</var></span>, <span>integer <var>$expireIn</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$encrypted</var> = <span class="php-keyword1">FALSE</span></span>, <span>boolean <var>$secure</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+		<code><a href="source-class-Gishiki.Cookie.CookieProvider.html#142-199" title="Go to source code">StoreCookie</a>( <span><code><a href="class-Gishiki.Cookie.Cookie.html">Gishiki\Cookie\Cookie</a></code> <var>&amp; $cookie</var></span>, <span>integer <var>$expireIn</var> = <span class="php-keyword1">null</span></span>, <span>boolean <var>$encrypted</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$secure</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			<p>Send a cookie to the client, the cookie can also be encrypted to get

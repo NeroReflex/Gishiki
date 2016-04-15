@@ -65,10 +65,46 @@
 <li>
           
             <li>
+    <ul class="subnav">
+    <li><span>Installation</span></li>
+
+        
+            
     <li class="toctree-l1 ">
-        <a class="" href="../../installation/">Installation</a>
+        <a class="" href="../../installation/environment/">Environment</a>
         
     </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/php_7_nginx/">PHP 7.0 & nginx</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_nginx/">Basic nginx</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_apache/">Basic apache</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/composer/">Composer</a>
+        
+    </li>
+
+        
+    </ul>
 <li>
           
             <li>
@@ -81,6 +117,13 @@
             <li>
     <ul class="subnav">
     <li><span>Usage</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../configuration/">Configuration</a>
+        
+    </li>
 
         
             
@@ -226,8 +269,8 @@ verb that you want to be served in that route.</p>
 <p>Let's see how to create a custom route:</p>
 <pre><code class="php">use \Gishiki\Core\Route;
 
-Route::get(&quot;/Home&quot;, function() {
-    //this is what will be executed when the client asks for &quot;https://site.com/Home&quot;
+Route::get(&quot;/&quot;, function() {
+    //this is what will be executed when the client asks for &quot;https://site.com/&quot; (the homepage)
 
     //let's just forget about MVC pattern this time :)
     echo &quot;Hello, World!&quot;;
@@ -235,7 +278,7 @@ Route::get(&quot;/Home&quot;, function() {
 </code></pre>
 
 <p>To try this rule out you have to open rules.php and paste the provided code into 
-it and direct your browser to: https://site.com/Home .</p>
+it and direct your browser to: https://site.com/ .</p>
 <h2 id="custom-dynamic-rules">Custom dynamic rules</h2>
 <p>This route is really simple: just an URI check... but you are creating a dynamic application, 
 and URIs cannot be static URIs every time, in fact sooner or later you will need to capture a parameter passed 
@@ -243,11 +286,18 @@ as a parameter with the URL.</p>
 <p>Let's just consider this simple example:</p>
 <pre><code class="php">use \Gishiki\Core\Route;
 
+Route::get(&quot;/Hello/{name surname}&quot;, function($params) {
+    //this is what will be executed when the client asks for &quot;https://site.com/User/urName urSurname&quot;
+
+    //nice to meet you!
+    echo &quot;Hello, &quot;.$params-&gt;{&quot;name surname&quot;}.&quot;!&quot;;
+});
+
 Route::get(&quot;/Home/{name}&quot;, function($params) {
     //this is what will be executed when the client asks for &quot;https://site.com/Home/some_name&quot;
 
     //nice to meet you!
-    echo &quot;Hello, &quot;.$params-&gt;get(&quot;name&quot;).&quot;!&quot;;
+    echo &quot;Hello, &quot;.$params-&gt;name.&quot;!&quot;;
 });
 </code></pre>
 
@@ -255,11 +305,11 @@ Route::get(&quot;/Home/{name}&quot;, function($params) {
 <p>https://site.com/Home/your_name and you will see "Hello, your_name!" nothing complex here, right?</p>
 <h2 id="all-request-methods">All request methods</h2>
 <p>Sometimes you may need to register a route that responds to all HTTP verbs, you 
-are alowed to do that by using 'any':</p>
+are allowed to do that by using 'any':</p>
 <pre><code class="php">use \Gishiki\Core\Route;
 
-Route::any(&quot;/Home&quot;, function() {
-    //do something here
+Route::any(&quot;/&quot;, function() {
+    //do something general with your homepage!
 });
 </code></pre>
 
@@ -270,8 +320,8 @@ to perform the request.</p>
 request methods:</p>
 <pre><code class="php">use \Gishiki\Core\Route;
 
-Route::match([Route::GET, Route::POST], &quot;/Home&quot;, function() {
-    //do something here
+Route::match([Route::GET, Route::POST], &quot;/&quot;, function() {
+    //you want your homepage to be reached only with get and post
 });
 </code></pre>
 
@@ -311,7 +361,7 @@ because it is the first component that is used and the only one you <strong>REAL
         <a href="../logging/" class="btn btn-neutral float-right" title="Logger">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../../apidoc/" class="btn btn-neutral" title="API"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../configuration/" class="btn btn-neutral" title="Configuration"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -337,7 +387,7 @@ because it is the first component that is used and the only one you <strong>REAL
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../../apidoc/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../../configuration/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
         <span style="margin-left: 15px"><a href="../logging/" style="color: #fcfcfc">Next &raquo;</a></span>

@@ -18,17 +18,24 @@
 		<div id="groups">
 				<h3>Namespaces</h3>
 			<ul>
-				<li>
-					<a href="namespace-ActiveRecord.html">
-						ActiveRecord					</a>
-
-						</li>
 				<li class="active">
 					<a href="namespace-Gishiki.html">
 						Gishiki<span></span>
 					</a>
 
 						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.html">
+						ActiveRecord<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.Adapter.html">
+						Adapter					</a>
+
+						</li>
+							</ul></li>
 				<li>
 					<a href="namespace-Gishiki.Algorithms.html">
 						Algorithms					</a>
@@ -63,43 +70,22 @@
 						</li>
 				<li>
 					<a href="namespace-Gishiki.Logging.html">
-						Logging					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.html">
-						ORM<span></span>
+						Logging<span></span>
 					</a>
 
 						<ul>
 				<li>
-					<a href="namespace-Gishiki.ORM.Common.html">
-						Common					</a>
+					<a href="namespace-Gishiki.Logging.Adapter.html">
+						Adapter					</a>
 
 						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.html">
-						ModelBuilding<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.Adapters.html">
-						Adapters					</a>
-
-						</li>
-							</ul></li></ul></li>
+							</ul></li>
 				<li>
 					<a href="namespace-Gishiki.Security.html">
 						Security					</a>
 
 						</li>
 							</ul></li>
-				<li>
-					<a href="namespace-None.html">
-						None					</a>
-
-						</li>
 				<li>
 					<a href="namespace-PHP.html">
 						PHP					</a>
@@ -181,7 +167,7 @@ generate an application for the prowser) inherit from this class</p>
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Core.MVC.WebController.html#20-104" title="Go to source code">Gishiki/core/MVC/WebController.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Core.MVC.WebController.html#20-112" title="Go to source code">Gishiki/Core/MVC/WebController.php</a>
 		<br>
 	</div>
 
@@ -201,7 +187,7 @@ generate an application for the prowser) inherit from this class</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Initialize">#</a>
-		<code><a href="source-class-Gishiki.Core.MVC.WebController.html#31-37" title="Go to source code">Initialize</a>( )</code>
+		<code><a href="source-class-Gishiki.Core.MVC.WebController.html#32-39" title="Go to source code">Initialize</a>( )</code>
 
 		<div class="description short">
 			<p>Initialize the web controller. Each web controller MUST call this constructor</p>
@@ -231,7 +217,7 @@ generate an application for the prowser) inherit from this class</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_LoadTemplate">#</a>
-		<code><a href="source-class-Gishiki.Core.MVC.WebController.html#39-60" title="Go to source code">LoadTemplate</a>( <span>string <var>$templateName</var></span> )</code>
+		<code><a href="source-class-Gishiki.Core.MVC.WebController.html#41-63" title="Go to source code">LoadTemplate</a>( <span>string <var>$templateName</var></span> )</code>
 
 		<div class="description short">
 			<p>Load a template inside the HTML response buffer</p>
@@ -270,7 +256,7 @@ generate an application for the prowser) inherit from this class</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_LoadView">#</a>
-		<code><a href="source-class-Gishiki.Core.MVC.WebController.html#62-91" title="Go to source code">LoadView</a>( <span>string <var>$viewName</var></span>, <span>array <var>$dataSubset</var> = <span class="php-keyword1">NULL</span></span>, <span>string <var>$viewPlaceHolder</var> = <span class="php-quote">&quot;&quot;</span></span> )</code>
+		<code><a href="source-class-Gishiki.Core.MVC.WebController.html#65-97" title="Go to source code">LoadView</a>( <span>string <var>$viewName</var></span>, <span>array <var>$dataSubset</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$viewPlaceHolder</var> = <span class="php-quote">&quot;&quot;</span></span> )</code>
 
 		<div class="description short">
 			<p>Process a partial view and store the result to the output buffer
@@ -315,7 +301,7 @@ generate an application for the prowser) inherit from this class</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Deinitialize">#</a>
-		<code><a href="source-class-Gishiki.Core.MVC.WebController.html#93-102" title="Go to source code">Deinitialize</a>( )</code>
+		<code><a href="source-class-Gishiki.Core.MVC.WebController.html#99-111" title="Go to source code">Deinitialize</a>( )</code>
 
 		<div class="description short">
 			<p>Send the result of the controller execution to the browser</p>

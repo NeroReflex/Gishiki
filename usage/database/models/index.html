@@ -65,10 +65,46 @@
 <li>
           
             <li>
+    <ul class="subnav">
+    <li><span>Installation</span></li>
+
+        
+            
     <li class="toctree-l1 ">
-        <a class="" href="../../../installation/">Installation</a>
+        <a class="" href="../../../installation/environment/">Environment</a>
         
     </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../../installation/php_7_nginx/">PHP 7.0 & nginx</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../../installation/basic_nginx/">Basic nginx</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../../installation/basic_apache/">Basic apache</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../../installation/composer/">Composer</a>
+        
+    </li>
+
+        
+    </ul>
 <li>
           
             <li>
@@ -81,6 +117,13 @@
             <li>
     <ul class="subnav">
     <li><span>Usage</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../../configuration/">Configuration</a>
+        
+    </li>
 
         
             
@@ -122,8 +165,6 @@
                     <li><a class="toctree-l4" href="#basic-model-operations">Basic model operations</a></li>
                 
                     <li><a class="toctree-l4" href="#advanced-model-operations">Advanced model operations</a></li>
-                
-                    <li><a class="toctree-l4" href="#date-and-time">Date and Time</a></li>
                 
                     <li><a class="toctree-l4" href="#conclusions">Conclusions</a></li>
                 
@@ -210,15 +251,19 @@ your data within your application.</p>
 <h2 id="defining-a-model">Defining a model</h2>
 <p>A model looks like a PHP file (inside the Models directory) containing a class 
 that inherits from the \Activerecord\Model class:</p>
-<pre><code class="PHP">class BookSeller extends \Activerecord\Model { }
+<pre><code class="PHP">use \Gishiki\ActiveRecord\ActiveModel;
+
+class BookSeller extends ActiveModel { }
 </code></pre>
 
 <p>ActiveRecord uses Ruby's ActiveRecord naming conventions, this means the declared 
 model class is a direct representation of the table named 'book_sellers' residing 
-inside the default database.</p>
-<p>You can change both: the database you connect to and the name that the table has
-inside the database pointed by the database connection:</p>
-<pre><code class="PHP">class BookSeller extends \Activerecord\Model {
+inside the database pointed by the default database connection.</p>
+<p>You can change both: the connection used and the name of the table inside the
+database pointed by the database connection:</p>
+<pre><code class="PHP">use \Gishiki\ActiveRecord\ActiveModel;
+
+class BookSeller extends ActiveModel {
     # explicit the connection name since the default one is not going to be used
     static $connection = 'development';
 
@@ -230,18 +275,20 @@ inside the database pointed by the database connection:</p>
 
 <p>Each table <strong>MUST</strong> contain a primary key, and if the 
 name of the primary key is <strong>NOT</strong> 'id' you will have to specify it in the model:</p>
-<pre><code class="PHP">class BookSeller extends \Activerecord\Model {
+<pre><code class="PHP">use \Gishiki\ActiveRecord\ActiveModel;
+
+class BookSeller extends ActiveModel {
     # the primary key of the table isn't named 'id'
     static $primary_key = 'b_seller_ID';
 }
 </code></pre>
 
-<p>As you can see it is really simple to map a database table inside a PHP class. 
+<p>As you can see it is really simple to map a database table inside a PHP class.
 This brings you many advantages, many of them are:</p>
 <ul>
 <li>No hand-writte SQL</li>
 <li>Data storage engine abstraction</li>
-<li>Easy RDBMS migration</li>
+<li>Easy DBMS migration</li>
 <li>Rapid development</li>
 <li>Better logical organization of your data</li>
 <li>Easy data management</li>
@@ -254,20 +301,14 @@ the table fields; now you need to create an instance of that model and perform r
 on properties of that object!</p>
 <p>Let's consider a table named 'books' that has a primary key named 'id', a (TEXT) field 'title', 
 a (TEXT) field 'author', a (REAL) field 'price' and a (DATETIME) field 'publication_date':</p>
-<pre><code class="PHP">class Book extends \Activerecord\Model { }
+<pre><code class="PHP">use \Gishiki\ActiveRecord\ActiveModel;
+
+class Book extends ActiveModel { }
 
 $my_book = new Book();
 $my_book-&gt;title = 'Example Book';
 $my_book-&gt;author = 'Example Author';
 $my_book-&gt;price = 29.99;
-$my_book-&gt;publication_date = new ActiveRecord\DateTime('2016-04-04 17:56:30');
-</code></pre>
-
-<p>What? Ugly to look at? Ok...</p>
-<pre><code class="PHP">$my_book = new Book(['title' =&gt; 'Example Book', 
-                        'author' =&gt; 'Example Author',
-                        'price' =&gt; 29.99,
-                        'publication_date' =&gt; new ActiveRecord\DateTime('2016-04-04 17:56:30')]);
 </code></pre>
 
 <p>Oh? What was that!? Was my database filled!?!? How?!?!? Where?!?!?</p>
@@ -277,7 +318,9 @@ database interaction, you have your models being saved automatically!</p>
 <p>Accessiong your model data as a class property can be easy, but it doesn't give you 
 a lot of flexibility: think about a password: You want to encrypt a password before 
 storing it into the database... You would need to do something like this:</p>
-<pre><code class="PHP">class User extends \Activerecord\Model { }
+<pre><code class="PHP">use \Gishiki\ActiveRecord\ActiveModel;
+
+class User extends ActiveModel { }
 
 $my_user = new User();
 //$my_user-&gt;....
@@ -289,16 +332,17 @@ $my_user-&gt;password = $enc_pwd;
 
 <p>It is ugly to read, you will mostly likely forget to encrypt() your password somewere
 and you will need to call unencrypt() each time you want to read the password.</p>
-<p>In this situation you <em>should</em> use custom getters and setters, allowing you to 
+<p>In this situation you <em>should</em> use custom filtering, allowing you to 
 abstract away from your controllers the encryption stuff, embedding it into the model:</p>
-<pre><code class="PHP">class User extends \Activerecord\Model {
-    public function set_password($plain_password) {
-        $this-&gt;assign_attribute('password', encrypt($plain_password));
+<pre><code class="PHP">use \Gishiki\ActiveRecord\ActiveModel;
+
+class User extends ActiveModel {
+    public function __filter_set_password($unfiltered_password) {
+        return encrypt($unfiltered_password);
     }
 
-    public function get_password() {
-        $encrypted = read_attribute('password');
-        return unencrypt($encrypted);
+    public function __filter_get_password($filtered_password) {
+        return unencrypt($unfiltered_password);
     }
 }
 
@@ -308,26 +352,14 @@ $my_user-&gt;password = $plain_password;
 echo $my_user-&gt;password; //print out $plain_password
 </code></pre>
 
-<p>Note: you <em>can</em> call setters and getter you created, if you want:</p>
-<pre><code class="PHP">$my_user = new User();
-$my_user-&gt;set_password($plain_password);
-
-echo $my_user-&gt;get_password(); //print out $plain_password
-</code></pre>
-
-<p>If you call a custom getter/setter you haven't created it will result in a standard value
-read/write, without custom behaviour, so... just use the syntax you like the most when
-dealing with your models.</p>
-<h2 id="date-and-time">Date and Time</h2>
-<p>As you can see from above examples you need to use ActiveRecord\DateTime object when
-dealing with a model property that represents time.</p>
-<p>DateTime usage is not explained here, it is so simple you can understand everything just by reading the <a href="../../../API/class-ActiveRecord.DateTime.html">API</a>.</p>
+<p><strong>Note</strong>: you <em>only</em> define <strong>HOW</strong> ransformations are performed: everything else
+is abstracted away from you.</p>
 <h2 id="conclusions">Conclusions</h2>
 <p><strong>Store 'n' Load</strong>: what this chapter describes is how to deal whit your data when 
 it is in-memory, however not your entire data can reside into volatile memory: 
 this is why you are using a database, right?</p>
-<p>This means it must be a way to easily manage your data on the database...</p>
-<p>Actually, it is really simple, you can find everything in the <a href="../CRUD/">CRUD</a> section.</p>
+<p>This means there <em>must</em> be a way to easily manage your data on the database...</p>
+<p>Actually, it is really simple, you can find almost everything in the <a href="../CRUD/">CRUD</a> section.</p>
               
             </div>
           </div>

@@ -18,17 +18,24 @@
 		<div id="groups">
 				<h3>Namespaces</h3>
 			<ul>
-				<li>
-					<a href="namespace-ActiveRecord.html">
-						ActiveRecord					</a>
-
-						</li>
 				<li class="active">
 					<a href="namespace-Gishiki.html">
 						Gishiki<span></span>
 					</a>
 
 						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.html">
+						ActiveRecord<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.Adapter.html">
+						Adapter					</a>
+
+						</li>
+							</ul></li>
 				<li>
 					<a href="namespace-Gishiki.Algorithms.html">
 						Algorithms					</a>
@@ -63,43 +70,22 @@
 						</li>
 				<li>
 					<a href="namespace-Gishiki.Logging.html">
-						Logging					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.html">
-						ORM<span></span>
+						Logging<span></span>
 					</a>
 
 						<ul>
 				<li>
-					<a href="namespace-Gishiki.ORM.Common.html">
-						Common					</a>
+					<a href="namespace-Gishiki.Logging.Adapter.html">
+						Adapter					</a>
 
 						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.html">
-						ModelBuilding<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.Adapters.html">
-						Adapters					</a>
-
-						</li>
-							</ul></li></ul></li>
+							</ul></li>
 				<li>
 					<a href="namespace-Gishiki.Security.html">
 						Security					</a>
 
 						</li>
 							</ul></li>
-				<li>
-					<a href="namespace-None.html">
-						None					</a>
-
-						</li>
 				<li>
 					<a href="namespace-PHP.html">
 						PHP					</a>
@@ -180,7 +166,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Caching.Cache.html#20-214" title="Go to source code">Gishiki/cache/Cache.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Caching.Cache.html#20-222" title="Go to source code">Gishiki/Caching/Cache.php</a>
 		<br>
 	</div>
 
@@ -200,7 +186,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Connected">#</a>
-		<code><a href="source-class-Gishiki.Caching.Cache.html#35-42" title="Go to source code">Connected</a>( )</code>
+		<code><a href="source-class-Gishiki.Caching.Cache.html#35-43" title="Go to source code">Connected</a>( )</code>
 
 		<div class="description short">
 			<p>Check for the availability of a cache server/container</p>
@@ -234,7 +220,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Initialize">#</a>
-		<code><a href="source-class-Gishiki.Caching.Cache.html#44-88" title="Go to source code">Initialize</a>( )</code>
+		<code><a href="source-class-Gishiki.Caching.Cache.html#45-90" title="Go to source code">Initialize</a>( )</code>
 
 		<div class="description short">
 			<p>Initialize the caching engine for the current request.
@@ -268,7 +254,7 @@ Another call to this function won't produce any effects.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Store">#</a>
-		<code><a href="source-class-Gishiki.Caching.Cache.html#90-113" title="Go to source code">Store</a>( <span>string <var>$cacheName</var></span>, <span>mixed <var>$cacheValue</var></span> )</code>
+		<code><a href="source-class-Gishiki.Caching.Cache.html#92-116" title="Go to source code">Store</a>( <span>string <var>$cacheName</var></span>, <span>mixed <var>$cacheValue</var></span> )</code>
 
 		<div class="description short">
 			<p>Store data on the cache server. Complex elaboration results should be stored into the cache,
@@ -307,7 +293,7 @@ This way a lot of computational time can be saved!</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Exists">#</a>
-		<code><a href="source-class-Gishiki.Caching.Cache.html#115-143" title="Go to source code">Exists</a>( <span>string <var>$cacheName</var></span> )</code>
+		<code><a href="source-class-Gishiki.Caching.Cache.html#118-148" title="Go to source code">Exists</a>( <span>string <var>$cacheName</var></span> )</code>
 
 		<div class="description short">
 			<p>Check if a cache fragment with the given name exists in the cache server</p>
@@ -346,7 +332,7 @@ This way a lot of computational time can be saved!</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Fetch">#</a>
-		<code><a href="source-class-Gishiki.Caching.Cache.html#145-166" title="Go to source code">Fetch</a>( <span>string <var>$cacheName</var></span> )</code>
+		<code><a href="source-class-Gishiki.Caching.Cache.html#150-172" title="Go to source code">Fetch</a>( <span>string <var>$cacheName</var></span> )</code>
 
 		<div class="description short">
 			<p>Fetch the value of the cache fragment with the given name</p>
@@ -385,7 +371,7 @@ This way a lot of computational time can be saved!</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Delete">#</a>
-		<code><a href="source-class-Gishiki.Caching.Cache.html#168-189" title="Go to source code">Delete</a>( <span>string <var>$cacheName</var></span> )</code>
+		<code><a href="source-class-Gishiki.Caching.Cache.html#174-197" title="Go to source code">Delete</a>( <span>string <var>$cacheName</var></span> )</code>
 
 		<div class="description short">
 			<p>Delete the cache fragment with the given name</p>
@@ -420,7 +406,7 @@ This way a lot of computational time can be saved!</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Flush">#</a>
-		<code><a href="source-class-Gishiki.Caching.Cache.html#191-212" title="Go to source code">Flush</a>( )</code>
+		<code><a href="source-class-Gishiki.Caching.Cache.html#199-221" title="Go to source code">Flush</a>( )</code>
 
 		<div class="description short">
 			<p>Invalidate all items in the cache</p>

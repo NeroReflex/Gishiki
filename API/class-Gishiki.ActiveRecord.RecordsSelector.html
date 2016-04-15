@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Gishiki\ActiveRecord\RecordsSelector | Gishiki</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Gishiki.html">
+						Gishiki<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Gishiki.ActiveRecord.html">
+						ActiveRecord<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.Adapter.html">
+						Adapter					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.Algorithms.html">
+						Algorithms					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Caching.html">
+						Caching					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Cookie.html">
+						Cookie					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Core.html">
+						Core<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Core.MVC.html">
+						MVC					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.JSON.html">
+						JSON					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Logging.html">
+						Logging<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Logging.Adapter.html">
+						Adapter					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.Security.html">
+						Security					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Gishiki.ActiveRecord.ActiveModel.html">ActiveModel</a></li>
+				<li><a href="class-Gishiki.ActiveRecord.ActiveResult.html">ActiveResult</a></li>
+				<li><a href="class-Gishiki.ActiveRecord.ConnectionsProvider.html">ConnectionsProvider</a></li>
+				<li class="active"><a href="class-Gishiki.ActiveRecord.RecordsSelector.html">RecordsSelector</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Gishiki.ActiveRecord.DatabaseAdapter.html">DatabaseAdapter</a></li>
+			</ul>
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-Gishiki.ActiveRecord.DatabaseException.html">DatabaseException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Gishiki.ActiveRecord.html" title="Summary of Gishiki\ActiveRecord"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class RecordsSelector</h1>
+
+
+	<div class="description">
+	<p>This is the records selector: a component shared between the developer
+and the database adapter.</p>
+
+<p>A record selector is used to select records to be affected by a database transaction</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Gishiki.html">Gishiki</a>\<a href="namespace-Gishiki.ActiveRecord.html">ActiveRecord</a><br>
+		
+
+				<b>Author:</b>
+				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
+			<b>Located at</b> <a href="source-class-Gishiki.ActiveRecord.RecordsSelector.html#20-203" title="Go to source code">Gishiki/ActiveRecord/RecordsSelector.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="set_limit" id="_set_limit">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_set_limit">#</a>
+		<code><a href="source-class-Gishiki.ActiveRecord.RecordsSelector.html#53-61" title="Go to source code">set_limit</a>( <span>integer <var>$limit</var></span> )</code>
+
+		<div class="description short">
+			<p>Set the maximum number of affected records</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set the maximum number of affected records</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$limit</var></dt>
+					<dd>the maximum value of affected records</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="set_offset" id="_set_offset">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_set_offset">#</a>
+		<code><a href="source-class-Gishiki.ActiveRecord.RecordsSelector.html#63-72" title="Go to source code">set_offset</a>( <span>integer <var>$offset</var></span> )</code>
+
+		<div class="description short">
+			<p>Set the offset of affected rows: avoid affecting the specified
+number of records</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set the offset of affected rows: avoid affecting the specified
+number of records</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$offset</var></dt>
+					<dd>the starting offset of rows to be affected</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="add_selector" id="_add_selector">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_add_selector">#</a>
+		<code><a href="source-class-Gishiki.ActiveRecord.RecordsSelector.html#74-126" title="Go to source code">add_selector</a>( <span>string <var>$fieldname</var></span>, <span>string <var>$fieldcondition</var></span>, <span>mixed <var>$fieldvalue</var></span> )</code>
+
+		<div class="description short">
+			<p>Add a selector for a database transaction affecting two or more records</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Add a selector for a database transaction affecting two or more records</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldname</var></dt>
+					<dd>the name of the field</dd>
+					<dt><var>$fieldcondition</var></dt>
+					<dd>the condition relationship between the field name and field value</dd>
+					<dt><var>$fieldvalue</var></dt>
+					<dd>the value to be placed in relationship between the field name</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.ActiveRecord.DatabaseException.html">Gishiki\ActiveRecord\DatabaseException</a></code><br>the error while adding the record selector
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__call" id="___call">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Gishiki.ActiveRecord.RecordsSelector.html">Gishiki\ActiveRecord\RecordsSelector</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___call">#</a>
+		<code><a href="source-class-Gishiki.ActiveRecord.RecordsSelector.html#128-169" title="Go to source code">__call</a>( <span>string <var>$name</var></span>, <span>array <var>$arguments</var></span> )</code>
+
+		<div class="description short">
+			<p>Add a filter to the current selector.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Add a filter to the current selector.</p>
+
+<p>You call this function by calling a function like:</p>
+
+<pre><span class="php-var">$records_selection</span> = RecordsSelector::filters()
+                         -&gt;where_title_equal(<span class="php-quote">'Example Book'</span>)
+                         -&gt;where_price_greatherthan(<span class="php-num">9.50</span>)
+                         -&gt;limit(<span class="php-num">20</span>)
+                         -&gt;offset(<span class="php-num">7</span>);</pre>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd>the function called name</dd>
+					<dt><var>$arguments</var></dt>
+					<dd>arguments passed to the called function</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.ActiveRecord.RecordsSelector.html">Gishiki\ActiveRecord\RecordsSelector</a></code><br>the selector with the new filter
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="filters" id="_filters">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-Gishiki.ActiveRecord.RecordsSelector.html">Gishiki\ActiveRecord\RecordsSelector</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_filters">#</a>
+		<code><a href="source-class-Gishiki.ActiveRecord.RecordsSelector.html#171-202" title="Go to source code">filters</a>( <span>array <var>$filters</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			<p>Create a new record selector and add filter.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Create a new record selector and add filter.</p>
+
+<p>consider:</p>
+
+<pre><span class="php-var">$records_selection</span> = RecordsSelector::filters()
+                         -&gt;where_title_equal(<span class="php-quote">'Example Book'</span>)
+                         -&gt;where_price_greatherthan(<span class="php-num">9.50</span>)
+                         -&gt;limit(<span class="php-num">20</span>)
+                         -&gt;offset(<span class="php-num">7</span>);</pre>
+
+<p>is the same as:</p>
+
+<pre><span class="php-var">$records_selection</span> = RecordsSelector::filters([<span class="php-quote">'where_title_equal'</span> =&gt; <span class="php-quote">'Example Book'</span>, <span class="php-quote">'where_price_greatherthan'</span> =&gt; <span class="php-num">9.50</span>, <span class="php-quote">'limit'</span> =&gt; <span class="php-num">20</span>, <span class="php-quote">'offset'</span> =&gt; <span class="php-num">7</span>]);</pre>
+
+<p>just pick the better syntax.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$filters</var></dt>
+					<dd>filters to be applied</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.ActiveRecord.RecordsSelector.html">Gishiki\ActiveRecord\RecordsSelector</a></code><br>the newly created records selector
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="limit" id="$limit">
+		<td class="attributes"><code>
+			protected  
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.ActiveRecord.RecordsSelector.html#31-36" title="Go to source code"><var>$limit</var></a>
+
+			<div class="description short">
+				<p>This is the maximum number of records that can get affected by the operation</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>This is the maximum number of records that can get affected by the operation</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$limit" class="anchor">#</a>
+				<code><span class="php-num">0</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="offset" id="$offset">
+		<td class="attributes"><code>
+			protected  
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.ActiveRecord.RecordsSelector.html#38-43" title="Go to source code"><var>$offset</var></a>
+
+			<div class="description short">
+				<p>This is the starting offset of records to be affected by the operation</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>This is the starting offset of records to be affected by the operation</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$offset" class="anchor">#</a>
+				<code><span class="php-num">0</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="selectors" id="$selectors">
+		<td class="attributes"><code>
+			protected  
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.ActiveRecord.RecordsSelector.html#45-51" title="Go to source code"><var>$selectors</var></a>
+
+			<div class="description short">
+				<p>This is the list of records selectors a record, to be affected must be
+selected using these criteria</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>This is the list of records selectors a record, to be affected must be
+selected using these criteria</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$selectors" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>()</code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

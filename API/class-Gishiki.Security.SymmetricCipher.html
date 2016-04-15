@@ -18,17 +18,24 @@
 		<div id="groups">
 				<h3>Namespaces</h3>
 			<ul>
-				<li>
-					<a href="namespace-ActiveRecord.html">
-						ActiveRecord					</a>
-
-						</li>
 				<li class="active">
 					<a href="namespace-Gishiki.html">
 						Gishiki<span></span>
 					</a>
 
 						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.html">
+						ActiveRecord<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.Adapter.html">
+						Adapter					</a>
+
+						</li>
+							</ul></li>
 				<li>
 					<a href="namespace-Gishiki.Algorithms.html">
 						Algorithms					</a>
@@ -63,43 +70,22 @@
 						</li>
 				<li>
 					<a href="namespace-Gishiki.Logging.html">
-						Logging					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.html">
-						ORM<span></span>
+						Logging<span></span>
 					</a>
 
 						<ul>
 				<li>
-					<a href="namespace-Gishiki.ORM.Common.html">
-						Common					</a>
+					<a href="namespace-Gishiki.Logging.Adapter.html">
+						Adapter					</a>
 
 						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.html">
-						ModelBuilding<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.Adapters.html">
-						Adapters					</a>
-
-						</li>
-							</ul></li></ul></li>
+							</ul></li>
 				<li class="active">
 					<a href="namespace-Gishiki.Security.html">
 						Security					</a>
 
 						</li>
 							</ul></li>
-				<li>
-					<a href="namespace-None.html">
-						None					</a>
-
-						</li>
 				<li>
 					<a href="namespace-PHP.html">
 						PHP					</a>
@@ -187,7 +173,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Security.SymmetricCipher.html#20-124" title="Go to source code">Gishiki/security/SymmetricCipher.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Security.SymmetricCipher.html#20-129" title="Go to source code">Gishiki/Security/SymmetricCipher.php</a>
 		<br>
 	</div>
 
@@ -207,7 +193,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.Security.SymmetricCipher.html#40-67" title="Go to source code">__construct</a>( <span>integer <var>$encAlg</var> = <code><a href="class-Gishiki.Security.SymmetricCipher.html#AES128">Gishiki\Security\SymmetricCipher::<b>AES128</b></a></code></span> )</code>
+		<code><a href="source-class-Gishiki.Security.SymmetricCipher.html#41-69" title="Go to source code">__construct</a>( <span>integer <var>$encAlg</var> = <code><a href="class-Gishiki.Security.SymmetricCipher.html#AES128">Gishiki\Security\SymmetricCipher::<b>AES128</b></a></code></span> )</code>
 
 		<div class="description short">
 			<p>Create a ciper that uses the given algorithm/key length</p>
@@ -246,7 +232,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_SetKey">#</a>
-		<code><a href="source-class-Gishiki.Security.SymmetricCipher.html#69-78" title="Go to source code">SetKey</a>( <span>string <var>$key</var></span> )</code>
+		<code><a href="source-class-Gishiki.Security.SymmetricCipher.html#71-81" title="Go to source code">SetKey</a>( <span>string <var>$key</var></span> )</code>
 
 		<div class="description short">
 			<p>Set a new key for encryptions and decryptions</p>
@@ -281,7 +267,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Encrypt">#</a>
-		<code><a href="source-class-Gishiki.Security.SymmetricCipher.html#80-98" title="Go to source code">Encrypt</a>( <span>string <var>$plainData</var></span> )</code>
+		<code><a href="source-class-Gishiki.Security.SymmetricCipher.html#83-102" title="Go to source code">Encrypt</a>( <span>string <var>$plainData</var></span> )</code>
 
 		<div class="description short">
 			<p>Encrypt a message</p>
@@ -320,7 +306,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Decrypt">#</a>
-		<code><a href="source-class-Gishiki.Security.SymmetricCipher.html#100-123" title="Go to source code">Decrypt</a>( <span>string <var>$cipedData</var></span> )</code>
+		<code><a href="source-class-Gishiki.Security.SymmetricCipher.html#104-128" title="Go to source code">Decrypt</a>( <span>string <var>$cipedData</var></span> )</code>
 
 		<div class="description short">
 			<p>Decrypt a message encrypted by the Encrypt function</p>
@@ -367,7 +353,7 @@
 		<td class="attributes"><code>integer</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-Gishiki.Security.SymmetricCipher.html#27" title="Go to source code"><b>AES128</b></a>
+				<a href="source-class-Gishiki.Security.SymmetricCipher.html#28" title="Go to source code"><b>AES128</b></a>
 			</code>
 
 			<div class="description short">
@@ -391,7 +377,7 @@
 		<td class="attributes"><code>integer</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-Gishiki.Security.SymmetricCipher.html#28" title="Go to source code"><b>AES192</b></a>
+				<a href="source-class-Gishiki.Security.SymmetricCipher.html#29" title="Go to source code"><b>AES192</b></a>
 			</code>
 
 			<div class="description short">
@@ -415,7 +401,7 @@
 		<td class="attributes"><code>integer</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-Gishiki.Security.SymmetricCipher.html#29" title="Go to source code"><b>AES256</b></a>
+				<a href="source-class-Gishiki.Security.SymmetricCipher.html#30" title="Go to source code"><b>AES256</b></a>
 			</code>
 
 			<div class="description short">

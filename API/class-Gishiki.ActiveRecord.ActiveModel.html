@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Gishiki\ActiveRecord\ActiveModel | Gishiki</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Gishiki.html">
+						Gishiki<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Gishiki.ActiveRecord.html">
+						ActiveRecord<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.Adapter.html">
+						Adapter					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.Algorithms.html">
+						Algorithms					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Caching.html">
+						Caching					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Cookie.html">
+						Cookie					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Core.html">
+						Core<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Core.MVC.html">
+						MVC					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.JSON.html">
+						JSON					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Logging.html">
+						Logging<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Logging.Adapter.html">
+						Adapter					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.Security.html">
+						Security					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Gishiki.ActiveRecord.ActiveModel.html">ActiveModel</a></li>
+				<li><a href="class-Gishiki.ActiveRecord.ActiveResult.html">ActiveResult</a></li>
+				<li><a href="class-Gishiki.ActiveRecord.ConnectionsProvider.html">ConnectionsProvider</a></li>
+				<li><a href="class-Gishiki.ActiveRecord.RecordsSelector.html">RecordsSelector</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Gishiki.ActiveRecord.DatabaseAdapter.html">DatabaseAdapter</a></li>
+			</ul>
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-Gishiki.ActiveRecord.DatabaseException.html">DatabaseException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Gishiki.ActiveRecord.html" title="Summary of Gishiki\ActiveRecord"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class ActiveModel</h1>
+
+
+	<div class="description">
+	<p>This is the representation of a model for the ActiveRecord engine</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-Gishiki.Algorithms.CyclableCollection.html"><span>Gishiki\Algorithms\CyclableCollection</span></a>
+			
+			 implements 
+				<a href="class-Iterator.html"><span>Iterator</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>Gishiki\ActiveRecord\ActiveModel</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Gishiki.html">Gishiki</a>\<a href="namespace-Gishiki.ActiveRecord.html">ActiveRecord</a><br>
+		
+
+				<b>Author:</b>
+				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
+			<b>Located at</b> <a href="source-class-Gishiki.ActiveRecord.ActiveModel.html#20-302" title="Go to source code">Gishiki/ActiveRecord/ActiveModel.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Gishiki.ActiveRecord.ActiveModel.html#67-90" title="Go to source code">__construct</a>( <span>array <var>$setup_values</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Creates an empty model from a data collection.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Creates an empty model from a data collection.</p>
+
+<p>The data collection is expressed as an associative array:</p>
+
+<pre><span class="php-keyword1">class</span> Book <span class="php-keyword1">extends</span> ActiveModel { }
+
+<span class="php-var">$mybook</span> = <span class="php-keyword1">new</span> Book([<span class="php-quote">'author'</span> =&gt; <span class="php-quote">'Example Author'</span>, <span class="php-quote">'title'</span> =&gt; <span class="php-quote">'Example Book'</span>, <span class="php-quote">'price'</span> =&gt; <span class="php-num">5.50</span>]);
+
+<span class="php-comment">//nah, kidding :')</span>
+<span class="php-var">$mybook</span>-&gt;price += <span class="php-num">10.50</span>;</pre>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$setup_values</var></dt>
+					<dd>the collection used to build the current model</dd>
+				</dl></div>
+
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Gishiki.Algorithms.CyclableCollection.html#___construct">Gishiki\Algorithms\CyclableCollection::__construct()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__destruct" id="___destruct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___destruct">#</a>
+		<code><a href="source-class-Gishiki.ActiveRecord.ActiveModel.html#92-100" title="Go to source code">__destruct</a>( )</code>
+
+		<div class="description short">
+			<p>Automatically save your model if needed</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Automatically save your model if needed</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__set" id="___set">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___set">#</a>
+		<code><a href="source-class-Gishiki.ActiveRecord.ActiveModel.html#102-117" title="Go to source code">__set</a>( <span>string <var>$key</var></span>, <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Set an element of the collection as it would be an object property</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set an element of the collection as it would be an object property</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>the of the property to be modified</dd>
+					<dt><var>$value</var></dt>
+					<dd>the value to be assigned to the property</dd>
+				</dl></div>
+
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Gishiki.Algorithms.CyclableCollection.html#___set">Gishiki\Algorithms\CyclableCollection::__set()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__get" id="___get">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			&amp;
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___get">#</a>
+		<code><a href="source-class-Gishiki.ActiveRecord.ActiveModel.html#119-130" title="Go to source code">__get</a>( <span>integer|string <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Get an element of the collection as it would be an object property</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get an element of the collection as it would be an object property</p>
+
+<p>Return NULL if the array doesn't contain the given key</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd>the index of the array element to be accessed</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>the requested array element or NULL
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Gishiki.Algorithms.CyclableCollection.html#___get">Gishiki\Algorithms\CyclableCollection::__get()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Create" id="_Create">
+
+		<td class="attributes"><code>
+			 public static
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Create">#</a>
+		<code><a href="source-class-Gishiki.ActiveRecord.ActiveModel.html#132-156" title="Go to source code">Create</a>( <span>array <var>$attributes</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Create a new model with the given attributes and immediatly save it into
+the storing engine</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Create a new model with the given attributes and immediatly save it into
+the storing engine</p>
+
+<pre><span class="php-keyword1">class</span> Book <span class="php-keyword1">extends</span> ActiveModel {  };
+
+<span class="php-var">$my_new_book</span> = Book::Create([<span class="php-quote">'title'</span> =&gt; <span class="php-quote">'My book'</span>, <span class="php-quote">'author'</span> =&gt; <span class="php-quote">'me'</span>,  ... ]);</pre>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$attributes</var></dt>
+					<dd>the array of attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>a new instance of your model
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Destroy" id="_Destroy">
+
+		<td class="attributes"><code>
+			 public static
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Destroy">#</a>
+		<code><a href="source-class-Gishiki.ActiveRecord.ActiveModel.html#158-178" title="Go to source code">Destroy</a>( <span><code><a href="class-Gishiki.ActiveRecord.RecordsSelector.html">Gishiki\ActiveRecord\RecordsSelector</a></code> <var>$selector</var></span> )</code>
+
+		<div class="description short">
+			<p>Destroy all models that are selected by the given record selector</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Destroy all models that are selected by the given record selector</p>
+
+<pre><span class="php-keyword1">class</span> Book <span class="php-keyword1">extends</span> ActiveModel {  };
+
+<span class="php-var">$my_new_book</span> = Book::Destroy(RecordsSelector::filters()
+                             -&gt;where_title_is(<span class="php-quote">'Example Book'</span>));</pre>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$selector</var></dt>
+					<dd>the array of attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer<br>the number of removed records
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Dispense" id="_Dispense">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-Gishiki.ActiveRecord.ActiveResult.html">Gishiki\ActiveRecord\ActiveResult</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Dispense">#</a>
+		<code><a href="source-class-Gishiki.ActiveRecord.ActiveModel.html#180-216" title="Go to source code">Dispense</a>( <span><code><a href="class-Gishiki.ActiveRecord.RecordsSelector.html">Gishiki\ActiveRecord\RecordsSelector</a></code> <var>$selector</var></span> )</code>
+
+		<div class="description short">
+			<p>Retrive, from the currently used database, all the records matching the given criteria</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Retrive, from the currently used database, all the records matching the given criteria</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$selector</var></dt>
+					<dd>the filter to be applied to select records</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.ActiveRecord.ActiveResult.html">Gishiki\ActiveRecord\ActiveResult</a></code><br>the collection of fetched records
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Ghost" id="_Ghost">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Ghost">#</a>
+		<code><a href="source-class-Gishiki.ActiveRecord.ActiveModel.html#218-227" title="Go to source code">Ghost</a>( <span>boolean <var>$readonly</var> = <span class="php-keyword1">true</span></span> )</code>
+
+		<div class="description short">
+			<p>Lock or unlock the model in ghost mode.
++ A ghost model cannot be modified or saved into the database.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Lock or unlock the model in ghost mode.
++ A ghost model cannot be modified or saved into the database.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$readonly</var></dt>
+					<dd>if TRUE the model will become a ghost</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="save" id="_save">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_save">#</a>
+		<code><a href="source-class-Gishiki.ActiveRecord.ActiveModel.html#229-261" title="Go to source code">save</a>( )</code>
+
+		<div class="description short">
+			<p>Save the current model into the database</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Save the current model into the database</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="remove" id="_remove">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_remove">#</a>
+		<code><a href="source-class-Gishiki.ActiveRecord.ActiveModel.html#263-283" title="Go to source code">remove</a>( )</code>
+
+		<div class="description short">
+			<p>Delete the current model from the database
+and lock it into readonly mode to avoid the autosave</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Delete the current model from the database
+and lock it into readonly mode to avoid the autosave</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getTableName" id="_getTableName">
+
+		<td class="attributes"><code>
+			 protected static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getTableName">#</a>
+		<code><a href="source-class-Gishiki.ActiveRecord.ActiveModel.html#285-301" title="Go to source code">getTableName</a>( )</code>
+
+		<div class="description short">
+			<p>Return the name of the reflected database table or collection</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return the name of the reflected database table or collection</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the real name of the tabse
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-Gishiki.Algorithms.CyclableCollection.html#methods">Gishiki\Algorithms\CyclableCollection</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Gishiki.Algorithms.CyclableCollection.html#___invoke">__invoke()</a>, 
+			<a href="class-Gishiki.Algorithms.CyclableCollection.html#_count">count()</a>, 
+			<a href="class-Gishiki.Algorithms.CyclableCollection.html#_current">current()</a>, 
+			<a href="class-Gishiki.Algorithms.CyclableCollection.html#_emplace">emplace()</a>, 
+			<a href="class-Gishiki.Algorithms.CyclableCollection.html#_end">end()</a>, 
+			<a href="class-Gishiki.Algorithms.CyclableCollection.html#_exists_key">exists_key()</a>, 
+			<a href="class-Gishiki.Algorithms.CyclableCollection.html#_is_empty">is_empty()</a>, 
+			<a href="class-Gishiki.Algorithms.CyclableCollection.html#_key">key()</a>, 
+			<a href="class-Gishiki.Algorithms.CyclableCollection.html#_next">next()</a>, 
+			<a href="class-Gishiki.Algorithms.CyclableCollection.html#_previous">previous()</a>, 
+			<a href="class-Gishiki.Algorithms.CyclableCollection.html#_rewind">rewind()</a>, 
+			<a href="class-Gishiki.Algorithms.CyclableCollection.html#_search">search()</a>, 
+			<a href="class-Gishiki.Algorithms.CyclableCollection.html#_valid">valid()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="__dirty" id="$__dirty">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.ActiveRecord.ActiveModel.html#28-34" title="Go to source code"><var>$__dirty</var></a>
+
+			<div class="description short">
+				<p>Keep track of modified attributes.
+Do not touch! Internal use ONLY!</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Keep track of modified attributes.
+Do not touch! Internal use ONLY!</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$__dirty" class="anchor">#</a>
+				<code><code><a href="class-Gishiki.Algorithms.CyclableCollection.html#$array">Gishiki\Algorithms\CyclableCollection::<var>$array</var></a></code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="__ghost" id="$__ghost">
+		<td class="attributes"><code>
+			protected  
+			boolean
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.ActiveRecord.ActiveModel.html#36-41" title="Go to source code"><var>$__ghost</var></a>
+
+			<div class="description short">
+				<p>Do not touch! Internal use ONLY!</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Do not touch! Internal use ONLY!</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$__ghost" class="anchor">#</a>
+				<code><span class="php-keyword1">false</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="table_name" id="$table_name">
+		<td class="attributes"><code>
+			public static 
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.ActiveRecord.ActiveModel.html#43-49" title="Go to source code"><var>$table_name</var></a>
+
+			<div class="description short">
+				<p>This is the name of the table/collection for all models
+of the same type</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>This is the name of the table/collection for all models
+of the same type</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$table_name" class="anchor">#</a>
+				<code><span class="php-quote">&quot;&quot;</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="primary_key" id="$primary_key">
+		<td class="attributes"><code>
+			public static 
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.ActiveRecord.ActiveModel.html#51-57" title="Go to source code"><var>$primary_key</var></a>
+
+			<div class="description short">
+				<p>This is the name of the primary key for all models
+of the same type</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>This is the name of the primary key for all models
+of the same type</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$primary_key" class="anchor">#</a>
+				<code><span class="php-quote">&quot;id&quot;</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="connection" id="$connection">
+		<td class="attributes"><code>
+			public static 
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.ActiveRecord.ActiveModel.html#59-65" title="Go to source code"><var>$connection</var></a>
+
+			<div class="description short">
+				<p>This is the name of the connection that all models
+of the same type are sharing</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>This is the name of the connection that all models
+of the same type are sharing</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$connection" class="anchor">#</a>
+				<code><span class="php-keyword1">null</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-Gishiki.Algorithms.CyclableCollection.html#properties">Gishiki\Algorithms\CyclableCollection</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Gishiki.Algorithms.CyclableCollection.html#$array"><var>$array</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

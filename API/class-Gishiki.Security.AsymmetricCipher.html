@@ -18,17 +18,24 @@
 		<div id="groups">
 				<h3>Namespaces</h3>
 			<ul>
-				<li>
-					<a href="namespace-ActiveRecord.html">
-						ActiveRecord					</a>
-
-						</li>
 				<li class="active">
 					<a href="namespace-Gishiki.html">
 						Gishiki<span></span>
 					</a>
 
 						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.html">
+						ActiveRecord<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.ActiveRecord.Adapter.html">
+						Adapter					</a>
+
+						</li>
+							</ul></li>
 				<li>
 					<a href="namespace-Gishiki.Algorithms.html">
 						Algorithms					</a>
@@ -63,43 +70,22 @@
 						</li>
 				<li>
 					<a href="namespace-Gishiki.Logging.html">
-						Logging					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.html">
-						ORM<span></span>
+						Logging<span></span>
 					</a>
 
 						<ul>
 				<li>
-					<a href="namespace-Gishiki.ORM.Common.html">
-						Common					</a>
+					<a href="namespace-Gishiki.Logging.Adapter.html">
+						Adapter					</a>
 
 						</li>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.html">
-						ModelBuilding<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.ORM.ModelBuilding.Adapters.html">
-						Adapters					</a>
-
-						</li>
-							</ul></li></ul></li>
+							</ul></li>
 				<li class="active">
 					<a href="namespace-Gishiki.Security.html">
 						Security					</a>
 
 						</li>
 							</ul></li>
-				<li>
-					<a href="namespace-None.html">
-						None					</a>
-
-						</li>
 				<li>
 					<a href="namespace-PHP.html">
 						PHP					</a>
@@ -187,7 +173,7 @@
 		<b>Namespace:</b> <a href="namespace-Gishiki.html">Gishiki</a>\<a href="namespace-Gishiki.Security.html">Security</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Gishiki.Security.AsymmetricCipher.html#21-193" title="Go to source code">Gishiki/security/AsymmetricCipher.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Security.AsymmetricCipher.html#21-217" title="Go to source code">Gishiki/Security/AsymmetricCipher.php</a>
 		<br>
 	</div>
 
@@ -330,7 +316,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_LoadPrivateKey">#</a>
-		<code><a href="source-class-Gishiki.Security.AsymmetricCipher.html#91-114" title="Go to source code">LoadPrivateKey</a>( <span>string <var>$name</var></span>, <span>string <var>$password</var> = <span class="php-quote">&quot;&quot;</span></span> )</code>
+		<code><a href="source-class-Gishiki.Security.AsymmetricCipher.html#91-126" title="Go to source code">LoadPrivateKey</a>( <span>string <var>$name</var></span>, <span>string <var>$password</var> = <span class="php-quote">&quot;&quot;</span></span> )</code>
 
 		<div class="description short">
 			<p>Load a private key previously stored by AsymmetricCipher::StorePrivateKey().</p>
@@ -371,7 +357,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_LoadPublicKey">#</a>
-		<code><a href="source-class-Gishiki.Security.AsymmetricCipher.html#116-138" title="Go to source code">LoadPublicKey</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-Gishiki.Security.AsymmetricCipher.html#128-162" title="Go to source code">LoadPublicKey</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			<p>Load a public key previously stored by AsymmetricCipher::StorePublicKey().</p>
@@ -410,7 +396,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_GenerateNewKey">#</a>
-		<code><a href="source-class-Gishiki.Security.AsymmetricCipher.html#140-192" title="Go to source code">GenerateNewKey</a>( <span>integer <var>$keyLength</var> = <code><a href="class-Gishiki.Security.AsymmetricCipherAlgorithms.html#RSA2048">Gishiki\Security\AsymmetricCipherAlgorithms::<b>RSA2048</b></a></code></span> )</code>
+		<code><a href="source-class-Gishiki.Security.AsymmetricCipher.html#164-216" title="Go to source code">GenerateNewKey</a>( <span>integer <var>$keyLength</var> = <code><a href="class-Gishiki.Security.AsymmetricCipherAlgorithms.html#RSA2048">Gishiki\Security\AsymmetricCipherAlgorithms::<b>RSA2048</b></a></code></span> )</code>
 
 		<div class="description short">
 			<p>Generate a new private key and return it encoded as a string, ready to be

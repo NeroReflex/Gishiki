@@ -65,10 +65,46 @@
 <li>
           
             <li>
+    <ul class="subnav">
+    <li><span>Installation</span></li>
+
+        
+            
     <li class="toctree-l1 ">
-        <a class="" href="../../../installation/">Installation</a>
+        <a class="" href="../../../installation/environment/">Environment</a>
         
     </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../../installation/php_7_nginx/">PHP 7.0 & nginx</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../../installation/basic_nginx/">Basic nginx</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../../installation/basic_apache/">Basic apache</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../../installation/composer/">Composer</a>
+        
+    </li>
+
+        
+    </ul>
 <li>
           
             <li>
@@ -81,6 +117,13 @@
             <li>
     <ul class="subnav">
     <li><span>Usage</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../../configuration/">Configuration</a>
+        
+    </li>
 
         
             
@@ -111,6 +154,10 @@
                 <li class="toctree-l3"><a href="#database-support">Database support</a></li>
                 
                     <li><a class="toctree-l4" href="#connection">Connection</a></li>
+                
+                    <li><a class="toctree-l4" href="#quick-syntax">Quick Syntax</a></li>
+                
+                    <li><a class="toctree-l4" href="#mongodb">MongoDB</a></li>
                 
                     <li><a class="toctree-l4" href="#mysql-connection">MySQL Connection</a></li>
                 
@@ -204,40 +251,86 @@
             <div class="section">
               
                 <h1 id="database-support">Database support</h1>
-<p>If you are reading this it means that you are tired of using <em>SQL</em>, aren't you? :D</p>
+<p>If you are reading this it means that you are tired of using <em>SQL</em> or any other native database extension, aren't you? :D</p>
 <p>I know: using SQL is tedious, error-prone and stucks you on a RDBMS, because changing it would force you 
 changing every SQL query you created.</p>
-<p>In order to abstract SQL away from your project you need an ORM (Object-relational mapping).</p>
-<p>Gishiki uses an ORM that is similar to ruby's one: PHP ActiveRecord. This ORM has been modified to better integrate 
-with Gishiki.</p>
+<p>Gishiki uses an OHM that is similar to ruby's one and implements the ActiveRecord pattern. </p>
+<p>Yes, that is not a misspell: Gishiki uses an OHM, not an ORM! OHM stands for "Object-hybrid mapper"!
+This OHM has been designed and written from scratch to be perfectly integrated within Gishiki!</p>
+<p>The ActiveRecord implementation is meant to support any database you want:</p>
+<ul>
+<li>SQLite (~3)</li>
+<li>MySQL and derivates</li>
+<li>Oracle</li>
+<li>PostgreSQL</li>
+<li>Microsoft SQL Server / Azure</li>
+<li>Sybase</li>
+<li>firebase</li>
+<li>MongoDB (&gt;= 3.0)</li>
+<li>Cassandra</li>
+</ul>
+<p>This abstract the database away from you, wichever database you may be using! Even non-relation ones!</p>
 <h2 id="connection">Connection</h2>
 <p>Before discussing about how you manage your database you have to provide a valid connection to your database.</p>
-<p>You do this by editing the config.json file. A connection to a database is a JSON property inside the <strong>connections</strong>
+<p>You do this by editing the config.json file. A connection to a database is a JSON object inside the <strong>database_connections</strong>
 class.</p>
 <p>The default database connection is named 'default' and you <em>shouldn't</em> delete it, however you are free to change it.</p>
-<p>Adding a database connection is as simple as adding a JSON property like: "&lt;connection_name&gt;": "&lt;connection_str&gt;".</p>
-<p>The connection string is something like:</p>
-<pre><code>server://username:password@host:port/db_name
+<p>Keep in mind that there is a connection named 'development' and, like the 'default' one shouldn't be deleted, because that connection
+is the default connection when the framework is in developer mode</p>
+<p>Adding a database connection is as simple as adding a JSON object to the database_connections object:</p>
+<pre><code>&quot;connection_name&quot;: {
+    &quot;driver&quot;: &quot;mysql&quot;,
+    &quot;query&quot;: &quot;root:admin@localhost/site_db&quot;
+}
 </code></pre>
 
-<p>You can specify a charset that a database will use:</p>
-<pre><code>server://username:password@host:port/db_name?charset=utf8
+<p>Before testing out a connection remember to install the required <em>PDO driver</em>/<em>native extension</em> for your database server!</p>
+<h2 id="quick-syntax">Quick Syntax</h2>
+<p>You can implode the driver and the connection query into a single string, like this
+one:</p>
+<pre><code>&quot;connection_name&quot;: &quot;mysql://root:admin@localhost/site_db&quot;
 </code></pre>
 
-<p>You can find some examples of database connections on the settings file, but I am going to give a better explaination here.</p>
-<p>Before testing out a connection remember to install the required PDO driver for your database server!</p>
+<p>This is also especially usefull to integrate Heroku database connection strings!</p>
+<h2 id="mongodb">MongoDB</h2>
+<p>MongoDB is for sure a great database and using it will avoid a lot of troubles.</p>
+<p>The support for MongoDB is native and to have the better experience possible
+Gishiki uses the latest driver available (currenctly the PECL mongodb package).</p>
+<p>After installing the required extension you connect to the database using the
+<a href="http://php.net/manual/en/mongodb-driver-manager.construct.php">mongodb-style URI</a>:</p>
+<pre><code>&quot;connection_name&quot;: {
+    &quot;driver&quot;: &quot;mongodb&quot;,
+    &quot;query&quot;: &quot;[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]&quot;
+}
+</code></pre>
+
+<p>Notice that 'mongodb://' is excluded from the connection query.</p>
 <h2 id="mysql-connection">MySQL Connection</h2>
 <p>MySQL is the second most widely used RDBMS in the world (as of April 2016), and one of the RDBMS with more project forks!</p>
 <p>With a MySQL connection you can connect to <a href="http://www.oracle.com/us/products/mysql/overview/index.html">MySQL</a>, <a href="https://www.percona.com/software/mysql-database/percona-server">Percona Server</a>, <a href="https://mariadb.org/">MariaDB</a> and many more!</p>
 <p>When connecting to a MySQL server you have to use "mysql" as the server protocol:</p>
-<pre><code>mysql://root:admin@localhost/site_db
+<pre><code>&quot;connection_name&quot;: {
+    &quot;driver&quot;: &quot;mysql&quot;,
+    &quot;query&quot;: &quot;user:password@localhost/site_db&quot;
+}
 </code></pre>
 
 <p>As you can see if you don't specify a server port the dafault one will be used (in MySQL it is 3306).</p>
+<p>To specify a port you have to append it after the hostname:</p>
+<pre><code>&quot;connection_name&quot;: {
+    &quot;driver&quot;: &quot;mysql&quot;,
+    &quot;query&quot;: &quot;user:password@hostname:port/site_db&quot;
+}
+</code></pre>
+
+<p>and the specified port will be used when connecting to the database.</p>
 <h2 id="oracle-connection">Oracle Connection</h2>
-<p>If you are using Oracle as your RDBMS you can connect to your database exactly like you would connect to a MySQL database,
-you only need to use oci as server protocol (change mysql with oci):</p>
-<pre><code>oci://root:admin@host:port/site_db
+<p>If you are using Oracle as your RDBMS you can connect to your database exactly like
+you would connect to a MySQL database: you only need to use oci as server protocol!</p>
+<pre><code>&quot;connection_name&quot;: {
+    &quot;driver&quot;: &quot;oci&quot;,
+    &quot;query&quot;: &quot;user:password@hostname:port/site_db&quot;
+}
 </code></pre>
 
 <p>and et voila' Oracle database connection performed!</p>
@@ -246,22 +339,27 @@ you only need to use oci as server protocol (change mysql with oci):</p>
 it is a fantastic RDBMS with a great usage license!</p>
 <p>Everyone should think about PostgreSQL as its first choice as RDBMS, because it is easy to use, mature, 
 well supported and really performs well!</p>
-<p>To enstabilish a connection with a Postgre server you  have to use pgsql as the server protocol:</p>
-<pre><code>pgsql://root:admin@host:port/site_db
+<p>To enstabilish a connection with a Postgres server you  have to use pgsql as the server protocol:</p>
+<pre><code>&quot;connection_name&quot;: {
+    &quot;driver&quot;: &quot;pgsql&quot;,
+    &quot;query&quot;: &quot;user:password@hostname:port/site_db&quot;
+}
 </code></pre>
 
 <p>If you don't provide a port to your connection the ORM will use the default PostgreSQL port, which is the 5432 port.</p>
 <h2 id="sqlite-connection">SQLite Connection</h2>
 <p>Connecting to a sqlite database is super simple: you just provide the file name:</p>
-<pre><code>sqlite://../relative/path/database_file.db
+<pre><code>&quot;connection_name&quot;: {
+    &quot;driver&quot;: &quot;sqlite&quot;,
+    &quot;query&quot;: &quot;site_db.db&quot;
+}
 </code></pre>
 
-<p>On a Unix system you can provide the full path to a database this way:</p>
-<pre><code>sqlite://unix(/var/database_file.db)
-</code></pre>
-
-<p>On a windows system you can do the exact same thing:</p>
-<pre><code>sqlite://unix(C:\absolute\path\database_file.db)
+<p>You can also provide the real path to the file:</p>
+<pre><code>&quot;connection_name&quot;: {
+    &quot;driver&quot;: &quot;sqlite&quot;,
+    &quot;query&quot;: &quot;/var/site_db.db&quot;
+}
 </code></pre>
 
 <p>If you adopt this solution you can keep the database file outside the web-server directory.</p>
@@ -269,9 +367,9 @@ well supported and really performs well!</p>
 your database in a production environment due to the limited number of concurrent 
 accesses sqlite can handle.</p>
 <h2 id="conclusions">Conclusions</h2>
-<p>Connecting a database is simple, using it even more: the connection string is 
-the only thing you have to change when changing RDBMS and/or host!</p>
-<p>As you may have noticed you settings file now contains your database password! 
+<p>Connecting a database is simple, using it even more: the connection object is 
+the only thing you have to change/add when changing RDBMS and/or host!</p>
+<p>As you may have noticed your settings file now contains your database password! 
 You <strong>MUST</strong> ensure no one will ever be able to reach that file!</p>
               
             </div>

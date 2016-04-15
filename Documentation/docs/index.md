@@ -12,7 +12,7 @@ Gishiki is so fast to deploy that you don't even need to configure it to get sta
 ## Give it a shot!
 You want to try it, just to see if it really works, don't you?
 
-Well, to test it you need to [install](installation.md) it!
+Well, to test it you need to [install](installation/environment.md) it!
 
 
 ## License

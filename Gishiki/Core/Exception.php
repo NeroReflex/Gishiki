@@ -26,8 +26,10 @@ use Psr\Log\LoggerInterface;
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
-class Exception extends \Exception implements LoggerAwareTrait
+class Exception extends \Exception
 {
+    use LoggerAwareTrait;
+    
     /**
      * Create a base exception and save the log of what's happening
      *
@@ -50,19 +52,11 @@ class Exception extends \Exception implements LoggerAwareTrait
     }
     
     /**
-     * Bind to the current exception a logger that can be used to register the 
-     * exception
-     *
-     * @param LoggerInterface $logger the logger the is used to register the exception
+     * Write the log message using the attached logger
      */
-    public function setLogger(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-    }
-    
     public function writeLog()
     {
-        if ($this->logger != null) {
+        if ($this->logger) {
             //log the exception
             $this->logger->error("{{exception_type}} thrown at: {{file}}: {{line}} with message({{code}}): {{message}}", [
                 'exception_type' => get_called_class(),

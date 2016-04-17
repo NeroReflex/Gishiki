@@ -17,37 +17,39 @@
 
 namespace Gishiki\Logging\Adapter;
 
+use Gishiki\Core\Environment;
 use Gishiki\Algorithms\Manipulation;
 use Psr\Log\LogLevel;
 
 /**
  * An helper class for storing logs of what happens on the server.
  * 
- * This is the Stream version of the logger 
+ * This is the File version of the logger 
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
-class StreamAdapter extends \Psr\Log\AbstractLogger
+class FileAdapter extends \Psr\Log\AbstractLogger
 {
-    //this is the program that is generating the log:
-    private $stream;
+    //this is the path of the log file
+    private $path = null;
+    
+    //this is the file stream
+    private $handler = null;
     
     /**
-     * Setup a logger that works on streams.
+     * Setup a logger that works on files.
      * 
-     * Allowed streams are: 'stderr' and 'stdout'.
+     * Default is error.log on the application root
      * 
-     * Default on stderr
-     * 
-     * @param string $stream the name of the application
+     * @param string $file_path the path of the file
      */
-    public function __construct($stream = '')
+    public function __construct($file_path = '')
     {
-        if (($stream == 'stderr') || ($stream == 'err') || ($stream == 'error') || ($stream == '')) {
-            $this->stream = fopen('php://stderr', 'w');
-        } elseif (($stream == 'stdout') || ($stream == 'out') || ($stream == 'output')) {
-            $this->stream = fopen('php://stdout', 'w');
-        }
+        //get the file path
+        $this->path = ($file_path != '') ? $file_path : Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR')."error.log";
+        
+        //open the file
+        $this->handler = fopen($file_path, 'a');
     }
     
     /**
@@ -62,7 +64,6 @@ class StreamAdapter extends \Psr\Log\AbstractLogger
         $interpolated_message = Manipulation::str_interpolate($message, $context);
         $interpolated_message = trim($interpolated_message);
         
-        //return value isn't documentated because it MUST NOT be used/trusted
-        return ($this->stream)? fwrite($this->stream, "[".$level."] ".$interpolated_message."\n") : null;
+        return ($this->handler)? fwrite($this->handler, "[".$level."] ".$interpolated_message."\n") : null;
     }
 }

@@ -28,16 +28,18 @@ use Psr\Log\LogLevel;
 class SyslogAdapter extends \Psr\Log\AbstractLogger
 {
     //this is the program that is generating the log:
-    private $identity = "Gishiki";
+    private $identity = null;
     
     /**
-     * Setup a logger for an application or a component
+     * Setup a logger for an application or a component.
+     * 
+     * This is the syslog version of the logger 
      * 
      * @param string $identity the name of the application
      */
     public function __construct($identity = '')
     {
-        (strlen($identity) > 0)? $this->identity = $identity : $this->identity;
+        (strlen($identity) > 0)? $this->identity = $identity : "Gishiki";
     }
     
     /**

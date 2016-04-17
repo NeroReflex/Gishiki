@@ -54,14 +54,18 @@ class Logger extends AbstractLogger
 
             //separe adapter name from connection info
             $conection_exploded = explode("://", $connector, 2);
-            $adapter = $conection_exploded[0];
-            $query = $conection_exploded[1];
+            
+            //open a log if it is really possible:
+            if (count($conection_exploded) == 2) {
+                $adapter = $conection_exploded[0];
+                $query = $conection_exploded[1];
 
-            //get the classname from the adapter name
-            $adapter_class = "Gishiki\\Logging\\Adapter\\".ucwords(strtolower($adapter));
-            if (class_exists(ucwords(strtolower($adapter)))) {
-                $reflected_logger = new \ReflectionClass($adapter_class);
-                $this->adapter = $reflected_logger->newInstanceArgs($query);
+                //get the classname from the adapter name
+                $adapter_class = "Gishiki\\Logging\\Adapter\\".ucwords(strtolower($adapter))."Adapter";
+                if (class_exists($adapter_class)) {
+                    $reflected_logger = new \ReflectionClass($adapter_class);
+                    $this->adapter = $reflected_logger->newInstance($query);
+                }
             }
         }
   }
@@ -75,10 +79,8 @@ class Logger extends AbstractLogger
      */
     public function log($level, $message, array $context = array())
     {
-        if ($this->adapter != null) {
-            //proxy the log call to the given adapter
-            $this->adapter->log($level, $message, $context);
-        }
+        //proxy the log call to the given adapter
+        ($this->adapter) ? $this->adapter->log($level, $message, $context) : null;
     }
 
     /**

@@ -112,7 +112,7 @@ which is nothing more than a bit special routing rule:
 ```php
 use \Gishiki\Core\Route;
 
-Route::error(Route::NotFound, function() {
+Route::error(Route::NOT_FOUND, function() {
     //this is what will be executed when the client asks for an unrouted URI
     
     //error message!

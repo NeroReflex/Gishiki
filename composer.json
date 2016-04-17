@@ -47,7 +47,6 @@
             "Gishiki\\JSON\\": "Gishiki/JSON/",
             "Gishiki\\Algorithms\\": "Gishiki/Algorithms/",
             "Gishiki\\Caching\\": "Gishiki/Caching/",
-            "Gishiki\\Cookie\\": "Gishiki/Cookie/",
             "Gishiki\\Logging\\": "Gishiki/Logging/",
             "Gishiki\\Logging\\Adapter\\": "Gishiki/Logging/Adapter/",
             "Gishiki\\Security\\": "Gishiki/Security/",

@@ -29,13 +29,6 @@ namespace Gishiki\Core {
 
         /** this is the currently active environment */
         private static $currentEnvironment;
-
-        /** 
-         * Provide cookie management ability
-         * 
-         * @var \Gishiki\Cookie\CookieProvider the cookie functions provider
-         */
-        public $Cookies;
         
         /**
          * Setup a new environment instance used to fulfill the client request
@@ -54,9 +47,6 @@ namespace Gishiki\Core {
 
             //initialize the caching engine
             \Gishiki\Caching\Cache::Initialize();
-
-            //prepare the cookie manager
-            $this->Cookies = new \Gishiki\Cookie\CookieProvider();
         }
 
         /**
@@ -232,15 +222,6 @@ namespace Gishiki\Core {
                     ],
                     
                     "DATABASE_CONNECTIONS" => $config["database_connections"],
-
-                    //Cookies Configuration
-                    "COOKIES" => [
-                        "PREFIX" => $config["cookies"]["cookiesPrefix"],
-                        "ENCRYPTION_MARK" => $config["cookies"]["cookiesEncryptedPrefix"],
-                        "ENCRYPTION_KEY" => $config["cookies"]["cookiesKey"],
-                        "DEFAULT_LIFETIME" => $config["cookies"]["cookiesExpiration"],
-                        "VALIDITY_PATH" => $config["cookies"]["cookiesPath"],
-                    ],
                     
                     //Caching Configuration
                     "CACHE" => [
@@ -305,21 +286,6 @@ namespace Gishiki\Core {
 
                 case "SECURITY_MASTER_SYMMETRIC_KEY":
                     return $this->configuration["SECURITY"]["MASTER_SYMMETRIC_KEY"];
-
-                case "COOKIE_VALIDITY_PATH":
-                    return $this->configuration["COOKIES"]["VALIDITY_PATH"];
-
-                case "COOKIE_PREFIX":
-                    return $this->configuration["COOKIES"]["PREFIX"];
-
-                case "COOKIE_ENCRYPTION_MARK":
-                    return $this->configuration["COOKIES"]["ENCRYPTION_MARK"];
-
-                case "COOKIE_ENCRYPTION_KEY":
-                    return $this->configuration["COOKIES"]["ENCRYPTION_KEY"];
-
-                case "COOKIE_DEFAULT_LIFETIME":
-                    return $this->configuration["COOKIES"]["DEFAULT_LIFETIME"];
 
                 case "RESOURCE_DIR":
                 case "RESOURCE_DIRECTORY":

@@ -26,7 +26,7 @@ namespace Gishiki\Core {
     abstract class Route extends Routing
     {
         
-        const NotFound = parent::NotFoudCallback;
+        const NOT_FOUND = parent::NotFoudCallback;
         
         /**
          * Convinient proxy function to call:
@@ -200,7 +200,7 @@ namespace Gishiki\Core {
          * <code>
          * use \Gishiki\Core\Route;
          * 
-         * Route::error(Route::NotFound, function ($params) {
+         * Route::error(Route::NOT_FOUND, function ($params) {
          *      //perform your failback amazing magic here!
          * });
          * </code>

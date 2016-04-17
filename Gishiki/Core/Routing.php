@@ -44,7 +44,7 @@ namespace Gishiki\Core {
         protected static $notFound = null;
         
         //was a routing function being executed?
-        protected static $executed = false;
+        protected static $found = false;
         
         /**
          * Automatically called by the framework: perform a reset 
@@ -62,7 +62,7 @@ namespace Gishiki\Core {
          */
         public static function Deinitialize()
         {
-            if (!static::$executed) {
+            if (!static::$found) {
                 call_user_func(static::$notFound);
             }
         }
@@ -152,7 +152,7 @@ namespace Gishiki\Core {
             //get the requested URI
             $real_URI = static::getRequestURI();
             
-            if ((!static::$executed) && (static::getRequestMethod() == $Method)) {
+            if ((!static::$found) && (static::getRequestMethod() == $Method)) {
                 //this will contain the matched expressions placeholders
                 $params = array();
                 //detect if regex are involved in the furnished URI
@@ -196,13 +196,13 @@ namespace Gishiki\Core {
                         
                         //finally trigger the function execution
                         $function($resolved_regex);
-                        static::$executed = true;
+                        static::$found = true;
                     }
                 //no regex routing: just check if the current request is done to the given routing
                 } elseif ($real_URI == $URI) {
                     //trigger the function execution
                     $function(null);
-                    static::$executed = true;
+                    static::$found = true;
                 }
             }
         }

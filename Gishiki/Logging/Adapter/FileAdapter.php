@@ -52,13 +52,6 @@ class FileAdapter extends \Psr\Log\AbstractLogger
         $this->handler = fopen($file_path, 'a');
     }
     
-    /**
-     * Logs with an arbitrary level.
-     *
-     * @param mixed $level
-     * @param string $message
-     * @param array $context
-     */
     public function log($level, $message, array $context = array())
     {
         $interpolated_message = Manipulation::str_interpolate($message, $context);

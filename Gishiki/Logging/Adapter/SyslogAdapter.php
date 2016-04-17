@@ -42,13 +42,6 @@ class SyslogAdapter extends \Psr\Log\AbstractLogger
         (strlen($identity) > 0)? $this->identity = $identity : "Gishiki";
     }
     
-    /**
-     * Logs with an arbitrary level.
-     *
-     * @param mixed $level
-     * @param string $message
-     * @param array $context
-     */
     public function log($level, $message, array $context = array())
     {
         $interpolated_message = Manipulation::str_interpolate($message, $context);

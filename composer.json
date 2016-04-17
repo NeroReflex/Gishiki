@@ -21,6 +21,7 @@
         "ext-libxml": "*",
         "ext-curl": "*",
         "symfony/yaml": ">=3.0.0",
+        "graylog2/gelf-php": "~1.2",
         "psr/log": "^1.0.0"
     },
 

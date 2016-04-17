@@ -50,13 +50,6 @@ class StreamAdapter extends \Psr\Log\AbstractLogger
         }
     }
     
-    /**
-     * Logs with an arbitrary level.
-     *
-     * @param mixed $level
-     * @param string $message
-     * @param array $context
-     */
     public function log($level, $message, array $context = array())
     {
         $interpolated_message = Manipulation::str_interpolate($message, $context);

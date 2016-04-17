@@ -31,4 +31,4 @@ follow the tutorial on that virtual machine!
 If you are a newcomer that doesn't like Heroku (or don't wanto to use it) 
 I suggest you to follow the PHP 7.0 & nginx tutorial I have written for you.
 
-If you want something that works in a few seconds Heroku is the right manual page!
+If you want something that works in a few seconds [Heroku](installation/Heroku.md) is the right manual page!

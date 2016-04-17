@@ -13,11 +13,12 @@ Setting up a perfectly working Heroku is super-easy:
    - Setup auto-deploy
    - Clone your new GitHub application to your local drive
 
-Edit locally your application, commit and when a push is performet to GitHub your
+Edit locally your application, commit and when a *git push* is performed to GitHub your
 Heroku application is automatically updated! Have fun <3.
 
+
 ## Database
-Heroku provide database support as add-ons.
+Heroku provides database support as add-ons.
 
 For example you can pick the "Heroku Postgres" add-on to have for free a PostgreSQL
 database binded with your application!

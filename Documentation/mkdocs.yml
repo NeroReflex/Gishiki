@@ -3,20 +3,21 @@ site_name: Gishiki
 pages:
 - Home: index.md
 - Installation: 
-    - Environment:          installation/environment.md
+    - Environment:          installation/index.md
+    - Heroku:               installation/Heroku.md
     - PHP 7.0 & nginx:      installation/php_7_nginx.md
     - Basic nginx:          installation/basic_nginx.md
     - Basic apache:         installation/basic_apache.md
     - Composer:             installation/composer.md
 - API: apidoc.md
 - Usage:
-    - Configuration:   configuration.md
-    - Router:   usage/routing.md
-    - Logger:   usage/logging.md
+    - Configuration:    usage/configuration.md
+    - Router:           usage/routing.md
+    - Logger:           usage/logging.md
     - Database: 
-        - Management: usage/database/management.md
-        - Models: usage/database/models.md
-        - CRUD: usage/database/CRUD.md
+        - Support:      usage/database/index.md
+        - Models:       usage/database/models.md
+        - CRUD:         usage/database/CRUD.md
 
 - About:
     - License: license.md

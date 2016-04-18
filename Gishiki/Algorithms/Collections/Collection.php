@@ -1,23 +1,29 @@
 <?php
-/**
- * Slim Framework (http://slimframework.com)
- *
- * @link      https://github.com/slimphp/Slim
- * @copyright Copyright (c) 2011-2015 Josh Lockhart
- * @license   https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
- */
-namespace Gishiki\HttpKernel;
+/**************************************************************************
+Copyright 2015 Benato Denis
 
-use ArrayIterator;
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*****************************************************************************/
+
+namespace Gishiki\Algorithms\Collections;
+
 
 /**
- * Collection
- *
- * This class provides a common interface used by many other
- * classes in a Slim application that manage "collections"
- * of data that must be inspected and/or manipulated
+ * This is a Generic Collection Implementation modificed from the Slim's one
+ * 
+ * Benato Denis <benato.denis96@gmail.com>
  */
-class Collection implements CollectionInterface
+class GenericCollection implements CollectionInterface, \IteratorAggregate
 {
     /**
      * The source data
@@ -38,9 +44,9 @@ class Collection implements CollectionInterface
         }
     }
 
-    /********************************************************************************
+    /***************************************************************************
      * Collection interface
-     *******************************************************************************/
+     **************************************************************************/
 
     /**
      * Set collection item
@@ -128,9 +134,9 @@ class Collection implements CollectionInterface
         $this->data = [];
     }
 
-    /********************************************************************************
+    /***************************************************************************
      * ArrayAccess interface
-     *******************************************************************************/
+     **************************************************************************/
 
     /**
      * Does this collection have a given key?
@@ -187,9 +193,9 @@ class Collection implements CollectionInterface
         return count($this->data);
     }
 
-    /********************************************************************************
+    /***************************************************************************
      * IteratorAggregate interface
-     *******************************************************************************/
+     **************************************************************************/
 
     /**
      * Get collection iterator
@@ -198,6 +204,6 @@ class Collection implements CollectionInterface
      */
     public function getIterator()
     {
-        return new ArrayIterator($this->data);
+        return new \ArrayIterator($this->data);
     }
 }

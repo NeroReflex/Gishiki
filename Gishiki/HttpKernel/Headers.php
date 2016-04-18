@@ -8,6 +8,8 @@
  */
 namespace Gishiki\HttpKernel;
 
+use Gishiki\Algorithms\Collections\GenericCollection;
+
 /**
  * Headers
  *
@@ -21,7 +23,7 @@ namespace Gishiki\HttpKernel;
  * you request a header value, you receive an array of values
  * for that header.
  */
-class Headers extends Collection implements HeadersInterface
+class Headers extends GenericCollection implements HeadersInterface
 {
     /**
      * Special HTTP headers that do not have the "HTTP_" prefix

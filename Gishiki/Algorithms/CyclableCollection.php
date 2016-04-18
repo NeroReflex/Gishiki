@@ -39,12 +39,9 @@ class CyclableCollection implements \Iterator
      * 
      * @param array $setup_values the array containing properties and values
      */
-    public function __construct($setup_values = [])
+    public function __construct(array $setup_values = [])
     {
-        if (gettype($setup_values) == "array") {
-            //type is very important here!
-   $this->array = $setup_values;
-        }
+        $this->array = $setup_values;
     }
     
     /**

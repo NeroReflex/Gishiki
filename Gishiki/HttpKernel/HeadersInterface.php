@@ -8,6 +8,8 @@
  */
 namespace Gishiki\HttpKernel;
 
+use Gishiki\Algorithms\Collections\CollectionInterface;
+
 /**
  * Headers Interface
  *

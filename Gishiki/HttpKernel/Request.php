@@ -15,6 +15,7 @@ use RuntimeException;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\StreamInterface;
+use Gishiki\Algorithms\Collections\GenericCollection;
 
 /**
  * Request
@@ -81,7 +82,7 @@ class Request extends Message implements ServerRequestInterface
     /**
      * The request attributes (route segment names and values)
      *
-     * @var Collection
+     * @var Gishiki\Algorithms\Collections\GenericCollection
      */
     protected $attributes;
 
@@ -172,7 +173,7 @@ class Request extends Message implements ServerRequestInterface
         $this->headers = $headers;
         $this->cookies = $cookies;
         $this->serverParams = $serverParams;
-        $this->attributes = new Collection();
+        $this->attributes = new GenericCollection();
         $this->body = $body;
         $this->uploadedFiles = $uploadedFiles;
 
@@ -900,7 +901,7 @@ class Request extends Message implements ServerRequestInterface
     public function withAttributes(array $attributes)
     {
         $clone = clone $this;
-        $clone->attributes = new Collection($attributes);
+        $clone->attributes = new GenericCollection($attributes);
 
         return $clone;
     }

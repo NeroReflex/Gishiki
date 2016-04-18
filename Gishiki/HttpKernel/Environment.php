@@ -8,6 +8,8 @@
  */
 namespace Gishiki\HttpKernel;
 
+use Gishiki\Algorithms\Collections\GenericCollection;
+
 /**
  * Environment
  *
@@ -15,7 +17,7 @@ namespace Gishiki\HttpKernel;
  * This is particularly useful for unit testing, but it also lets us create
  * custom sub-requests.
  */
-class Environment extends Collection implements EnvironmentInterface
+class Environment extends GenericCollection implements EnvironmentInterface
 {
     /**
      * Create mock environment

@@ -10,7 +10,7 @@
 namespace Gishiki\Tests\Http;
 
 use ReflectionProperty;
-use Gishiki\HttpKernel\Collection;
+use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\HttpKernel\Environment;
 use Gishiki\HttpKernel\Headers;
 use Gishiki\HttpKernel\Request;
@@ -628,7 +628,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->requestFactory();
         $attrProp = new ReflectionProperty($request, 'attributes');
         $attrProp->setAccessible(true);
-        $attrProp->setValue($request, new Collection(['foo' => 'bar']));
+        $attrProp->setValue($request, new GenericCollection(['foo' => 'bar']));
 
         $this->assertEquals(['foo' => 'bar'], $request->getAttributes());
     }
@@ -638,7 +638,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->requestFactory();
         $attrProp = new ReflectionProperty($request, 'attributes');
         $attrProp->setAccessible(true);
-        $attrProp->setValue($request, new Collection(['foo' => 'bar']));
+        $attrProp->setValue($request, new GenericCollection(['foo' => 'bar']));
 
         $this->assertEquals('bar', $request->getAttribute('foo'));
         $this->assertNull($request->getAttribute('bar'));
@@ -650,7 +650,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->requestFactory();
         $attrProp = new ReflectionProperty($request, 'attributes');
         $attrProp->setAccessible(true);
-        $attrProp->setValue($request, new Collection(['foo' => 'bar']));
+        $attrProp->setValue($request, new GenericCollection(['foo' => 'bar']));
         $clone = $request->withAttribute('test', '123');
 
         $this->assertEquals('123', $clone->getAttribute('test'));
@@ -661,7 +661,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->requestFactory();
         $attrProp = new ReflectionProperty($request, 'attributes');
         $attrProp->setAccessible(true);
-        $attrProp->setValue($request, new Collection(['foo' => 'bar']));
+        $attrProp->setValue($request, new GenericCollection(['foo' => 'bar']));
         $clone = $request->withAttributes(['test' => '123']);
 
         $this->assertNull($clone->getAttribute('foo'));
@@ -673,7 +673,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $request = $this->requestFactory();
         $attrProp = new ReflectionProperty($request, 'attributes');
         $attrProp->setAccessible(true);
-        $attrProp->setValue($request, new Collection(['foo' => 'bar']));
+        $attrProp->setValue($request, new GenericCollection(['foo' => 'bar']));
         $clone = $request->withoutAttribute('foo');
 
         $this->assertNull($clone->getAttribute('foo'));

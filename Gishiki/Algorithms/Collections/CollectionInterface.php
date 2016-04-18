@@ -15,13 +15,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\ActiveRecord;
+namespace Gishiki\Algorithms\Collections;
 
 /**
- * This is the representation of a model for the ActiveRecord engine
- *
- * @author Benato Denis <benato.denis96@gmail.com>
+ * Collection Interface extended from Slim's one to better fit Gishiki
+ * 
+ * Benato Denis <benato.denis96@gmail.com>
  */
-class ActiveResult extends \Gishiki\Algorithms\CyclableCollection
+interface CollectionInterface extends \ArrayAccess, \Countable
 {
+    public function set($key, $value);
+
+    public function get($key, $default = null);
+
+    public function replace(array $items);
+
+    public function all();
+
+    public function has($key);
+
+    public function remove($key);
+
+    public function clear();
 }

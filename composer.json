@@ -49,14 +49,13 @@
             "Gishiki\\": "Gishiki/",
             "Gishiki\\JSON\\": "Gishiki/JSON/",
             "Gishiki\\Algorithms\\": "Gishiki/Algorithms/",
+            "Gishiki\\Algorithms\\Collections\\": "Gishiki/Algorithms/Collections/",
             "Gishiki\\Caching\\": "Gishiki/Caching/",
             "Gishiki\\Logging\\": "Gishiki/Logging/",
             "Gishiki\\Logging\\Adapter\\": "Gishiki/Logging/Adapter/",
             "Gishiki\\Security\\": "Gishiki/Security/",
             "Gishiki\\Core\\": "Gishiki/Core/",
-            "Gishiki\\Core\\MVC\\": "Gishiki/Core/MVC/",
-            "Gishiki\\ActiveRecord\\": "Gishiki/ActiveRecord/",
-            "Gishiki\\ActiveRecord\\Adapter\\": "Gishiki/ActiveRecord/Adapter/"
+            "Gishiki\\Core\\MVC\\": "Gishiki/Core/MVC/"
         }
 
     }

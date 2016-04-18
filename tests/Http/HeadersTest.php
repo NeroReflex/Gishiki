@@ -9,7 +9,7 @@
 namespace Gishiki\Tests\Http;
 
 use ReflectionProperty;
-use Gishiki\HttpKernel\Environment;
+use Gishiki\Core\Environment;
 use Gishiki\HttpKernel\Headers;
 
 class HeadersTest extends \PHPUnit_Framework_TestCase

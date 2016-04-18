@@ -8,7 +8,7 @@
  */
 namespace Gishiki\Tests\Http;
 
-use Gishiki\HttpKernel\Environment;
+use Gishiki\Core\Environment;
 
 class EnvironmentTest extends \PHPUnit_Framework_TestCase
 {
@@ -50,7 +50,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
             'REQUEST_URI' => '/foo/bar?abc=123',
         ]);
 
-        $this->assertInstanceOf('\Gishiki\HttpKernel\Environment', $env);
+        $this->assertInstanceOf('\Gishiki\Core\Environment', $env);
         $this->assertEquals('/foo/bar/index.php', $env->get('SCRIPT_NAME'));
         $this->assertEquals('/foo/bar?abc=123', $env->get('REQUEST_URI'));
         $this->assertEquals('localhost', $env->get('HTTP_HOST'));

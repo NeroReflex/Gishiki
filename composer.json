@@ -50,7 +50,6 @@
             "Gishiki\\JSON\\": "Gishiki/JSON/",
             "Gishiki\\Algorithms\\": "Gishiki/Algorithms/",
             "Gishiki\\Algorithms\\Collections\\": "Gishiki/Algorithms/Collections/",
-            "Gishiki\\Caching\\": "Gishiki/Caching/",
             "Gishiki\\Logging\\": "Gishiki/Logging/",
             "Gishiki\\Logging\\Adapter\\": "Gishiki/Logging/Adapter/",
             "Gishiki\\Security\\": "Gishiki/Security/",

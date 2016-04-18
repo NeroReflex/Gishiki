@@ -9,7 +9,7 @@
 namespace Gishiki\Tests\Http;
 
 use InvalidArgumentException;
-use Gishiki\HttpKernel\Environment;
+use Gishiki\Core\Environment;
 use Gishiki\HttpKernel\Uri;
 
 class UriTest extends \PHPUnit_Framework_TestCase
@@ -606,7 +606,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function testWithPathWhenBaseRootIsEmpty()
     {
-        $environment = \Gishiki\HttpKernel\Environment::mock([
+        $environment = \Gishiki\Core\Environment::mock([
             'SCRIPT_NAME' => '/index.php',
             'REQUEST_URI' => '/bar',
         ]);

@@ -17,13 +17,46 @@ limitations under the License.
 
 namespace Gishiki\Core {
     
+    use Gishiki\Algorithms\Collections\GenericCollection;
+    
     /**
      * Represent the environment used to run controllers.
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class Environment
+    final class Environment extends GenericCollection
     {
+        /**
+         * Create a mock / fake environment from the given data.
+         * 
+         * The given data is organized as the $_SERVER variable is
+         *
+         * @param  array $userData Array of custom environment keys and values
+         * @return Environment
+         */
+        public static function mock(array $userData = [], $selfRegisterOfNewInstance = false, $loadApplication = false)
+        {
+            $data = array_merge([
+                'SERVER_PROTOCOL'      => 'HTTP/1.1',
+                'REQUEST_METHOD'       => 'GET',
+                'SCRIPT_NAME'          => '',
+                'REQUEST_URI'          => '',
+                'QUERY_STRING'         => '',
+                'SERVER_NAME'          => 'localhost',
+                'SERVER_PORT'          => 80,
+                'HTTP_HOST'            => 'localhost',
+                'HTTP_ACCEPT'          => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8',
+                'HTTP_ACCEPT_CHARSET'  => 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+                'HTTP_USER_AGENT'      => 'Unknown',
+                'REMOTE_ADDR'          => '127.0.0.1',
+                'REQUEST_TIME'         => time(),
+                'REQUEST_TIME_FLOAT'   => microtime(true),
+            ], $userData);
+                
+            return new Environment($data, $selfRegisterOfNewInstance, $loadApplication);
+        }
+        
         /** each environment has its configuration */
         private $configuration;
 
@@ -35,20 +68,67 @@ namespace Gishiki\Core {
          * 
          * @param bool $selfRegister TRUE if the environment must be assigned as the currently valid one
          */
-        public function __construct($selfRegister = false)
+        public function __construct(array $userData = [], $selfRegister = false, $loadApplication = false)
         {
+            //call the collection constructor of this own class
+            parent::__construct($userData);
+            
             //register the current environment
             if ($selfRegister) {
                 Environment::RegisterEnvironment($this);
             }
 
-            //load the server configuration
-            $this->LoadConfiguration();
+            if ($loadApplication) {
+                //load the server configuration
+                $this->LoadConfiguration();
+            }
+        }
+        
+        /**
+         * Read the application configuration (settings.ini) and return the 
+         * parsing result
+         * 
+         * @return array the application configuration
+         */
+        public static function GetApplicationSettings()
+        {
+            //get the json encoded application settings
+            $settings_configuration = file_get_contents(APPLICATION_DIR."settings.json");
 
-            //initialize the caching engine
-            \Gishiki\Caching\Cache::Initialize();
+            //update every environment placeholder
+            while (strpos($settings_configuration, '{{@'))
+            {
+                 if (($to_be_replaced = Manipulation::get_between($settings_configuration, '{{@', '}}')) != '') {
+                    $value = getenv($to_be_replaced);
+                    if ($value !== false) {
+                        $settings_configuration = str_replace('{{@'.$to_be_replaced.'}}', $value, $settings_configuration);
+                    } elseif (defined($to_be_replaced)) {
+                        $settings_configuration = str_replace('{{@'.$to_be_replaced.'}}', constant($to_be_replaced), $settings_configuration);
+                    } else {
+                        die ("Unknown environment var: ".$to_be_replaced);
+                    }
+                }
+            }
+
+            //parse the settings file
+            $appConfiguration = \Gishiki\JSON\JSON::DeSerialize($settings_configuration);
+
+            //return the application configuration
+            return $appConfiguration;
         }
 
+        /**
+         * Check if the application to be executed exists, is valid and has the
+         * configuration file
+         * 
+         * @return bool the application existence
+         */
+        public static function ApplicationExists()
+        {
+            //return the existence of an application directory and a configuratio file
+            return ((file_exists(APPLICATION_DIR)) && (file_exists(APPLICATION_DIR."settings.json")));
+        }
+        
         /**
          * Register the currently active environment
          * 
@@ -65,35 +145,12 @@ namespace Gishiki\Core {
          */
         public function FulfillRequest()
         {
-            //start the ORM
-            Application::StartDatabase(Environment::GetCurrentEnvironment()->GetConfigurationProperty("DATA_SOURCES"));
-
             //split the requested resource string to
             $decoded = explode("/", trim(\Gishiki\Core\Routing::getRequestURI(), '/'));
             //analyze it
 
             if ((strtoupper($decoded[0]) == "SERVICE") || (strtoupper($decoded[0]) == "API")) {
-                //the resource that must be invoked
-                $resource = null;
-
-                //get the controller name and the action to be performed
-                $argn = count($decoded);
-                if ($argn >= 3) {
-                    $resource = [ "controllerClass" => $decoded[1], "controllerAction" => $decoded[2] ];
-                } elseif ($argn == 2) {
-                    $resource = [ "controllerClass" => $decoded[1], "controllerAction" => "Index" ];
-                } else {
-                    $resource = [ "controllerClass" => "Default", "controllerAction" => "Index" ];
-                }
-
-                $serializedRequest = "{ }";
-                $received_json_data = filter_input(INPUT_POST, 'data');
-                if ((isset($received_json_data)) && ($received_json_data != "")) {
-                    $serializedRequest = $received_json_data;
-                }
-
-                //initialize and execute the controller
-                $this->ExecuteService($resource, $serializedRequest);
+                die("Unimplemented (yet)");
             } else {
                 //start up the routing
                 \Gishiki\Core\Routing::Initialize();
@@ -113,82 +170,6 @@ namespace Gishiki\Core {
         }
         
         /**
-         * Execute the requested interface controller
-         * 
-         * @param array  $resource    the array filled by Environment::FulfillRequest()
-         * @param string $jsonRequest the request encoded as a valid json string
-         */
-        private function ExecuteService($resource, $jsonRequest)
-        {
-            //the response will be in json format
-            header('Content-Type: application/json');
-            
-            //setup the json response
-            $response = array(
-                //append the timestamp to the response
-                "TIMESTAMP" => time()
-            );
-
-            try {
-                //has an error occurred?
-                $error = false;
-                
-                //deserialize the request
-                $request = \Gishiki\JSON\JSON::DeSerialize($jsonRequest);
-                if (!array_key_exists("TIMESTAMP", $request)) {
-                    //add the timestamp of the request
-   $request["TIMESTAMP"] = filter_input(INPUT_SERVER, 'REQUEST_TIME');
-                }
-                
-                if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('CONTROLLER_DIR').$resource["controllerClass"].".php")) {
-                    //require the controller file
-                    include(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('CONTROLLER_DIR').$resource["controllerClass"].".php");
-
-                    //check for the class existence
-                    if (class_exists($resource["controllerClass"]."_Controller")) {
-                        //prepare the name of the class and reflect the class with the given name
-                        $reflectedControllerClass = new \ReflectionClass($resource["controllerClass"]."_Controller");
-
-                        //instantiate a new object from the reflected controller class
-                        $ctrl = $reflectedControllerClass->newInstance();
-
-                        //check for action existence
-                        if (method_exists($ctrl, $resource["controllerAction"])) {
-                            //call the method inside the controller instantiated object
-                            //binding the additional request details to the current controller
-                            $action = new \ReflectionMethod($ctrl, $resource["controllerAction"]);
-                            $action->setAccessible(true);
-                            $response = $action->invoke($ctrl, [$request]);
-                        } else {
-                            $error = true;
-                        }
-                    } else {
-                        $error = true;
-                    }
-                } else {
-                    $error = true;
-                }
-                
-                if ($error) {
-                    //add "error": 2 to the JSON response
-                    $response["error"] = 2;
-
-                    //add the error message
-                    $response["error_details"] = "The resource you have requested cannot be fulfilled";
-                }
-            } catch (\Gishiki\JSON\JSONException $ex) {
-                //add "error": 1 to the JSON response
-                $response["error"] = 1;
-                
-                //add the error message
-                $response["error_details"] = $ex->getMessage();
-            }
-            
-            //give the result to the client in a JSON format
-            echo(\Gishiki\JSON\JSON::Serialize($response));
-        }
-
-        /**
          * Return the currenlty active environment used to run the controller
          * 
          * @return Environment the current environment
@@ -207,8 +188,8 @@ namespace Gishiki\Core {
         {
             //get the security configuration of the current application
             $config = [];
-            if (Application::Exists()) {
-                $config = Application::GetSettings();
+            if (self::ApplicationExistsExists()) {
+                $config = self::GetApplicationSettings();
                 //General Configuration
                 $this->configuration = [
                     //get general environment configuration
@@ -235,15 +216,9 @@ namespace Gishiki\Core {
             if ($this->configuration["DEVELOPMENT_ENVIRONMENT"]) {
                 ini_set('display_errors', 1);
                 error_reporting(E_ALL);
-                
-                //switch to the development database avoid breaking important things!
-                \Gishiki\ActiveRecord\ConnectionsProvider::ChangeDefaultConnection('development');
             } else {
                 ini_set('display_errors', 0);
                 error_reporting(0);
-                
-                //switch to production database automatically
-                \Gishiki\ActiveRecord\ConnectionsProvider::ChangeDefaultConnection('default');
             }
         }
         

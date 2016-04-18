@@ -9,6 +9,7 @@
 namespace Gishiki\HttpKernel;
 
 use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Core\Environment;
 
 /**
  * Headers

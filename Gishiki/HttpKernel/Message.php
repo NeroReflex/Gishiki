@@ -8,6 +8,7 @@
  */
 namespace Gishiki\HttpKernel;
 
+use Gishiki\Core\Environment;
 use InvalidArgumentException;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\StreamInterface;

@@ -15,9 +15,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-
-
 namespace Gishiki;
+
+use Gishiki\Core\Environment;
 
 /**
  * The Gishiki action starter and framework entry point
@@ -56,7 +56,10 @@ abstract class Gishiki
         }
         
         //each Gishiki instance is binded with a new created Environment
-        self::$executionEnvironment = new \Gishiki\Core\Environment(true);
+        self::$executionEnvironment = new Environment(
+                filter_input_array(INPUT_SERVER),
+                true,
+                true);
     }
     
     /**
@@ -65,9 +68,9 @@ abstract class Gishiki
     public static function Run()
     {
         //if the framework needs to be installed.....
-        if (\Gishiki\Core\Application::Exists()) {
+        if (Environment::ApplicationExists()) {
             //fulfill the client request
-            self::$executionEnvironment->FulfillRequest();
+            Environment::GetCurrentEnvironment()->FulfillRequest();
         } else {
             //show the no application page!
             echo(file_get_contents(__DIR__.DS."no_application.html"));

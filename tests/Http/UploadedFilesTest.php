@@ -8,7 +8,7 @@
  */
 namespace Gishiki\Tests\Http;
 
-use Gishiki\HttpKernel\Environment;
+use Gishiki\Core\Environment;
 use Gishiki\HttpKernel\Headers;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\RequestBody;

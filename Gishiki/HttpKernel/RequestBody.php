@@ -8,6 +8,8 @@
  */
 namespace Gishiki\HttpKernel;
 
+use Gishiki\Core\Environment;
+
 /**
  * Provides a PSR-7 implementation of a reusable raw request body
  */

@@ -1,7 +1,8 @@
-application
+/application/
 /nbproject/
 /Documentation/site
 /Documentation/.couscous
 /Documentation/docs/API
 vendor/
 .env
+composer.lock

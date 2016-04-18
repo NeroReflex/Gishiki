@@ -17,6 +17,8 @@ limitations under the License.
 
 namespace Gishiki\Core {
 
+    use Gishiki\Algorithms\CyclableCollection;
+    
     /**
      * The Gishiki Routing provider
      *
@@ -170,7 +172,7 @@ namespace Gishiki\Core {
                     //test the regex match of the current URI with the real URI
                     if (preg_match("@^".$RegexURI."*$@i", $real_URI)) {
                         //setup the result of the routing
-                        $resolved_regex = new \Gishiki\Algorithms\CyclableCollection();
+                        $resolved_regex = new CyclableCollection();
                         
                         //get matches (complex algorithm here!)
                         $to_be_splitted = $URI;

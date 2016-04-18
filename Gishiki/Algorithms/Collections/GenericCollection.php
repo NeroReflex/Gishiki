@@ -43,40 +43,56 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
             $this->set($key, $value);
         }
     }
+    
+    /**
+     * Get the currently managed collection as a native array
+     * 
+     * @return array the current collection
+     */
+    public function __invoke()
+    {
+        return $this->data;
+    }
 
+    /**
+     * Get an element of the collection as it would be an object property
+     * 
+     * Return null if the array doesn't contain the given key
+     * 
+     * @param  int|string $key the index of the array element to be accessed
+     * @return mixed      the requested array element or NULL
+     */
+    public function __get($key)
+    {
+        $this->get($key);
+    }
+    
+    /**
+     * Set an element of the collection as it would be an object property
+     * 
+     * @param string $key   the of the property to be modified
+     * @param mixed  $value the value to be assigned to the property
+     */
+    public function __set($key, $value)
+    {
+        $this->set($key, $value);
+    }
+    
+    
     /***************************************************************************
      * Collection interface
      **************************************************************************/
 
-    /**
-     * Set collection item
-     *
-     * @param string $key   The data key
-     * @param mixed  $value The data value
-     */
     public function set($key, $value)
     {
         $this->data[$key] = $value;
     }
 
-    /**
-     * Get collection item for key
-     *
-     * @param string $key     The data key
-     * @param mixed  $default The default value to return if data key does not exist
-     *
-     * @return mixed The key's value, or the default value
-     */
     public function get($key, $default = null)
     {
         return $this->has($key) ? $this->data[$key] : $default;
     }
 
-    /**
-     * Add item to collection
-     *
-     * @param array $items Key-value array of data to append to this collection
-     */
     public function replace(array $items)
     {
         foreach ($items as $key => $value) {
@@ -84,51 +100,26 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
         }
     }
 
-    /**
-     * Get all items in collection
-     *
-     * @return array The collection's source data
-     */
     public function all()
     {
         return $this->data;
     }
 
-    /**
-     * Get collection keys
-     *
-     * @return array The collection's source data keys
-     */
     public function keys()
     {
         return array_keys($this->data);
     }
 
-    /**
-     * Does this collection have a given key?
-     *
-     * @param string $key The data key
-     *
-     * @return bool
-     */
     public function has($key)
     {
         return array_key_exists($key, $this->data);
     }
 
-    /**
-     * Remove item from collection
-     *
-     * @param string $key The data key
-     */
     public function remove($key)
     {
         unset($this->data[$key]);
     }
 
-    /**
-     * Remove all items from collection
-     */
     public function clear()
     {
         $this->data = [];

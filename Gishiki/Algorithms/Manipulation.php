@@ -32,7 +32,7 @@ abstract class Manipulation {
      * @param  string $string          the string to search the pattern into
      * @return string the new string with the first matched pattern replaced
      */
-    static function str_replace_once($str_pattern, $str_replacement, $string)
+    static function replace_once($str_pattern, $str_replacement, $string)
     {
         if (strpos($string, $str_pattern) !== false) {
             $occurrence = strpos($string, $str_pattern);
@@ -50,7 +50,7 @@ abstract class Manipulation {
      * @param  string $string          the string to search the pattern into
      * @return string the new string with the first matched pattern replaced
      */
-    static function str_replace_list($str_patterns, $str_replacement, $string)
+    static function replace_list($str_patterns, $str_replacement, $string)
     {
         foreach ($str_patterns as $pattern) {
             $string = str_replace($pattern, $str_replacement, $string);
@@ -67,7 +67,7 @@ abstract class Manipulation {
      * @param  string $end    the second substring
      * @return string the string between the two substrings
      */
-    static function get_string_between($string, $start, $end)
+    static function get_between($string, $start, $end)
     {
         $string = ' '.$string;
         $ini = strpos($string, $start);
@@ -89,7 +89,7 @@ abstract class Manipulation {
      * @param  array  $params
      * @return string the interpolated string
      */
-    static function str_interpolate($string, array $params)
+    static function interpolate($string, array $params)
     {
         //perform the interpolation
         foreach (array_keys($params) as $current_interpolation) {

@@ -52,7 +52,7 @@ class StreamAdapter extends \Psr\Log\AbstractLogger
     
     public function log($level, $message, array $context = array())
     {
-        $interpolated_message = Manipulation::str_interpolate($message, $context);
+        $interpolated_message = Manipulation::interpolate($message, $context);
         $interpolated_message = trim($interpolated_message);
         
         //return value isn't documentated because it MUST NOT be used/trusted

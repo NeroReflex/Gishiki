@@ -42,7 +42,7 @@ abstract class Application
         //update every environment placeholder
         while (strpos($settings_configuration, '{{@'))
         {
-            if (($to_be_replaced = Manipulation::get_string_between($settings_configuration, '{{@', '}}')) != '') {
+            if (($to_be_replaced = Manipulation::get_between($settings_configuration, '{{@', '}}')) != '') {
                 $value = getenv($to_be_replaced);
                 if ($value !== false) {
                     $settings_configuration = str_replace('{{@'.$to_be_replaced.'}}', $value, $settings_configuration);

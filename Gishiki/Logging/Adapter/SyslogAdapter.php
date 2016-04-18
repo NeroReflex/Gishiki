@@ -44,7 +44,7 @@ class SyslogAdapter extends \Psr\Log\AbstractLogger
     
     public function log($level, $message, array $context = array())
     {
-        $interpolated_message = Manipulation::str_interpolate($message, $context);
+        $interpolated_message = Manipulation::interpolate($message, $context);
         
         //get the urgency level:
         $syslog_level = LOG_EMERG;

@@ -179,18 +179,18 @@ namespace Gishiki\Core {
                         foreach ($params as &$param) {
                             //from /book/{id}/page/{pg} I extract /book/ and, next cycle /page/
                             $before_after = explode($param, $to_be_splitted, 2);
-                            $to_be_splitted = \Gishiki\Algorithms\Manipulation::str_replace_once($before_after[0], "", $to_be_splitted);
-                            $to_be_splitted = \Gishiki\Algorithms\Manipulation::str_replace_once($param, "", $to_be_splitted);
+                            $to_be_splitted = \Gishiki\Algorithms\Manipulation::replace_once($before_after[0], "", $to_be_splitted);
+                            $to_be_splitted = \Gishiki\Algorithms\Manipulation::replace_once($param, "", $to_be_splitted);
                             
                             //than I remove /book/ from my real uri, and i look for what it is between the start of the string and the near / or end of string
-                            $real_URI = \Gishiki\Algorithms\Manipulation::str_replace_once($before_after[0], "", $real_URI);
+                            $real_URI = \Gishiki\Algorithms\Manipulation::replace_once($before_after[0], "", $real_URI);
                             for ($i = 0; ($i < strlen($real_URI) && ($real_URI[$i] != '/')); $i++) ;
                             
                             //what i have found is the real value of the param
                             $param_real_value = substr($real_URI, 0, $i);
                             
                             //i just remove it to avoid breaking the alogirth for the next execution of the cycle
-                            $real_URI = \Gishiki\Algorithms\Manipulation::str_replace_once($param_real_value, "", $real_URI);
+                            $real_URI = \Gishiki\Algorithms\Manipulation::replace_once($param_real_value, "", $real_URI);
                             
                             //I am doing all this just for this line of code:
                             $resolved_regex->{"".(substr($param, 1, strlen($param) - 2))} = $param_real_value;

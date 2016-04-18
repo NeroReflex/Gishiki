@@ -62,7 +62,7 @@ e di {{is}} è tornato.";
             'what sold' => 'materasso',
             'to_buy' => 'cotechino',
             'is' => 'polvere'];
-        $message_with_data = Manipulation::str_interpolate($message_without_data, $data);
+        $message_with_data = Manipulation::interpolate($message_without_data, $data);
         
         
         //test if the interpolation works

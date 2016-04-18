@@ -188,7 +188,7 @@ namespace Gishiki\Core {
         {
             //get the security configuration of the current application
             $config = [];
-            if (self::ApplicationExistsExists()) {
+            if (self::ApplicationExists()) {
                 $config = self::GetApplicationSettings();
                 //General Configuration
                 $this->configuration = [

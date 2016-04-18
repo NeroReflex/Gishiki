@@ -17,20 +17,46 @@ limitations under the License.
 
 namespace Gishiki\Core {
 
+    use Gishiki\HttpKernel\Request;
+    
     /**
      * This class is used to provide a small layer of Laravel-compatibility
      * and ease of routing usage
      *
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    abstract class Route extends Routing
+    final class Route
     {
+        /**
+         * This is the list of added routes
+         *
+         * @var array a collection of routes
+         */
+        private static $routes = [];
+        
+        /**
+         * Add a route to the route redirection list
+         * 
+         * @param \Gishiki\Core\Route $route the route to be added
+         */
+        public static function addRoute(Route $route)
+        {
+            //add the given route to the routes list
+            self::$routes[] = $route;
+        }
         
         /**
          * Used when the router were unable to route the request to a suitable
          * controller/action because the URI couldn't be matched.
          */
-        const NOT_FOUND = 0;
+        const NOT_FOUND     = 0;
+        
+        
+        const GET      = 'GET';
+        const POST     = 'POST';
+        const DELETE   = 'DELETE';
+        const HEAD     = 'HEAD';
+        const PUT      = 'PUT';
         
         /**
          * Convinient proxy function to call:
@@ -60,11 +86,13 @@ namespace Gishiki\Core {
          */
         public static function any($URI, $function)
         {
-            parent::setRoute(parent::GET, $URI, $function);
-            parent::setRoute(parent::POST, $URI, $function);
-            parent::setRoute(parent::DELETE, $URI, $function);
-            parent::setRoute(parent::HEAD, $URI, $function);
-            parent::setRoute(parent::PUT, $URI, $function);
+            self::addRoute(new Route($URI, $function, [
+                self::GET,
+                self::PUT,
+                self::POST,
+                self::DELETE,
+                self::HEAD,
+            ]));
         }
         
         /**
@@ -84,12 +112,10 @@ namespace Gishiki\Core {
          * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        public static function match($methods, $URI, $function)
+        public static function match(array $methods, $URI, $function)
         {
             if (count($methods) >= 1) {
-                foreach ($methods as $method) {
-                    parent::setRoute($method, $URI, $function);
-                }
+                self::addRoute(new Route($URI, $function, $methods));
             }
         }
         
@@ -111,7 +137,7 @@ namespace Gishiki\Core {
          */
         public static function get($URI, $function)
         {
-            parent::setRoute(parent::GET, $URI, $function);
+            self::addRoute(new Route($URI, $function, [self::GET]));
         }
         
         /**
@@ -132,7 +158,7 @@ namespace Gishiki\Core {
          */
         public static function post($URI, $function)
         {
-            parent::setRoute(parent::POST, $URI, $function);
+            self::addRoute(new Route($URI, $function, [self::POST]));
         }
         
         /**
@@ -153,7 +179,7 @@ namespace Gishiki\Core {
          */
         public static function put($URI, $function)
         {
-            parent::setRoute(parent::PUT, $URI, $function);
+            self::addRoute(new Route($URI, $function, [self::PUT]));
         }
         
         /**
@@ -174,7 +200,7 @@ namespace Gishiki\Core {
          */
         public static function delete($URI, $function)
         {
-            parent::setRoute(parent::DELETE, $URI, $function);
+            self::addRoute(new Route($URI, $function, [self::DELETE]));
         }
         
         /**
@@ -195,7 +221,7 @@ namespace Gishiki\Core {
          */
         public static function head($URI, $function)
         {
-            parent::setRoute(parent::HEAD, $URI, $function);
+            self::addRoute(new Route($URI, $function, [self::HEAD]));
         }
         
         /**
@@ -214,7 +240,67 @@ namespace Gishiki\Core {
          */
         public static function error($error_type, $callback)
         {
-            parent::setErrorCallback($error_type, $callback);
+            self::addRoute(new Route(intval($error_type), $callback));
+        }
+        
+        /**
+         * Run the router and serve the current request.
+         * 
+         * This function is __CALLED INTERNALLY__ and, therefore
+         * it __MUST NOT__ be called! 
+         * 
+         * @param Request $to_fulfill the request to be served/fulfilled
+         */
+        public static function run(Request &$to_fulfill)
+        {
+            //var_dump($to_fulfill->getUri()->getPath());
+            
+        }
+        
+        
+        /***********************************************************************
+         * 
+         *                    NON-Static class members
+         * 
+         **********************************************************************/
+        
+        /**
+         * @var string the URI for the current route
+         */
+        private $URI;
+        
+        /**
+         * @var mixed the anonymous function to be executed or the name of the action@controller
+         */
+        private $action;
+        
+        /**
+         * @var array the list of allowed methods to be routed using the route URI 
+         */
+        private $methods;
+        
+        /**
+         * Create route instance that should be registered to the valid routes
+         * list:
+         * 
+         * <code>
+         * $my_route = new Route("/user/{username}", function () {
+         *      //make good things here
+         * });
+         * 
+         * Route::addRoute($my_route);
+         * </code>
+         * 
+         * @param string  $URI        the URI to be matched in order to take the given action
+         * @param mixed   $action     the action to be performed on URI match
+         * @param array   $methods    the list of allowed method for the current route
+         */
+        public function __construct($URI, $action, array $methods = [self::GET, self::DELETE, self::POST, self::PUT, self::HEAD])
+        {
+            //build-up the current route
+            $this->URI = strval($URI);
+            $this->action = $action;
+            $this->methods = $methods;
         }
     }
 }

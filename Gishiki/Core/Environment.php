@@ -18,6 +18,7 @@ limitations under the License.
 namespace Gishiki\Core {
     
     use Gishiki\Algorithms\Collections\GenericCollection;
+    use Gishiki\HttpKernel\Request;
     
     /**
      * Represent the environment used to run controllers.
@@ -145,27 +146,20 @@ namespace Gishiki\Core {
          */
         public function FulfillRequest()
         {
-            //split the requested resource string to
-            $decoded = explode("/", trim(\Gishiki\Core\Routing::getRequestURI(), '/'));
-            //analyze it
+            $current_request = Request::createFromEnvironment(Environment::$currentEnvironment);
+            
+            //split the requested resource string to analyze it
+            $decoded = explode("/", $current_request->getUri()->getPath());
 
-            if ((strtoupper($decoded[0]) == "SERVICE") || (strtoupper($decoded[0]) == "API")) {
+            if ((count($decoded)) && ((strtoupper($decoded[0]) == "SERVICE") || (strtoupper($decoded[0]) == "API"))) {
                 die("Unimplemented (yet)");
             } else {
-                //start up the routing
-                \Gishiki\Core\Routing::Initialize();
-                
-                //initialize the web controller
-                \Gishiki\Core\MVC\WebController::Initialize();
-                
-                //include the list of routes (and user controllers)
+                //include the list of routes
                 include(APPLICATION_DIR."routes.php");
                 
-                //finish the routing
-                \Gishiki\Core\Routing::Deinitialize();
-                
-                //show content to the client
-                \Gishiki\Core\MVC\WebController::Deinitialize();
+                //current request
+                $current_request = Request::createFromEnvironment(Environment::$currentEnvironment);
+                Route::run($current_request);
             }
         }
         
@@ -200,15 +194,7 @@ namespace Gishiki\Core {
                     "SECURITY" => [
                         "MASTER_SYMMETRIC_KEY" => $config["security"]["serverPassword"],
                         "MASTER_ASYMMETRIC_KEY_REFERENCE" => $config["security"]["serverKey"],
-                    ],
-                    
-                    "DATABASE_CONNECTIONS" => $config["database_connections"],
-                    
-                    //Caching Configuration
-                    "CACHE" => [
-                        "ENABLED" => $config["cache"]["enabled"],
-                        "SERVER" => $config["cache"]["server"],
-                    ],
+                    ]
                 ];
             }
             
@@ -245,16 +231,6 @@ namespace Gishiki\Core {
 
                 case "LOGGING_COLLECTION_SOURCE":
                     return $this->configuration["LOG"]["SOURCES"];
-
-                case "CACHING_ENABLED":
-                    if (isset($this->configuration["CACHE"]["ENABLED"])) {
-                        return $this->configuration["CACHE"]["ENABLED"];
-                    } else {
-                        return false;
-                    }
-
-                case "CACHE_CONNECTION_STRING":
-                    return $this->configuration["CACHE"]["SERVER"];
 
                 case "MASTER_ASYMMETRIC_KEY_NAME":
                     return $this->configuration["SECURITY"]["MASTER_ASYMMETRIC_KEY_REFERENCE"];

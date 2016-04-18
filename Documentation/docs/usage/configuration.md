@@ -13,27 +13,9 @@ It has a fixed (minumum) structure:
         "autolog": null
     },
 
-    "database_connections": {
-            "development":  "{{@DATABASE_URL}}",
-            "default": "{{@DATABASE_URL}}",
-    },
-
-    "cache": {
-        "enabled": false,
-        "server": "memcached://localhost:11211"
-    },
-    
     "security": {
         "serverPassword": "{{@MASTER_KEY}}",
         "serverKey": "{{@SERVER_KEY}}"
-    },
-    
-    "cookies": {
-        "cookiesPrefix": "{{@COOKIES_PRE}}",
-        "cookiesEncryptedPrefix": "{{@COOKIES_ENC_PRE}}",
-        "cookiesKey": "{{@COOKIES_KEY}}",
-        "cookiesExpiration": 5184000,
-        "cookiesPath": "/"
     }
 }
 ```

@@ -8,8 +8,6 @@
  */
 namespace Gishiki\HttpKernel;
 
-use Gishiki\Core\Environment;
-
 /**
  * Cookies Interface
  *

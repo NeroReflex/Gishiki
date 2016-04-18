@@ -8,7 +8,6 @@
  */
 namespace Gishiki\HttpKernel;
 
-use Gishiki\Core\Environment;
 use InvalidArgumentException;
 
 /**

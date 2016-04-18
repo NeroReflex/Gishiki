@@ -16,16 +16,19 @@
     ],
 
     "require": {
-        "php": ">=5.6",
+        "php": ">=5.6.0",
         "ext-openssl": "*",
         "ext-libxml": "*",
         "ext-curl": "*",
         "symfony/yaml": ">=3.0.0",
         "graylog2/gelf-php": "~1.2",
+        
+        "psr/http-message": "^1.0",
         "psr/log": "^1.0.0"
     },
 
     "require-dev": {
+        "squizlabs/php_codesniffer": "~2.0",
         "phpunit/phpunit": "5.3.*"
     },
 

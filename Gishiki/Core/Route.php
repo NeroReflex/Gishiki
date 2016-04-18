@@ -26,7 +26,11 @@ namespace Gishiki\Core {
     abstract class Route extends Routing
     {
         
-        const NOT_FOUND = parent::NotFoudCallback;
+        /**
+         * Used when the router were unable to route the request to a suitable
+         * controller/action because the URI couldn't be matched.
+         */
+        const NOT_FOUND = 0;
         
         /**
          * Convinient proxy function to call:

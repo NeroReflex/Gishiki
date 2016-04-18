@@ -25,7 +25,7 @@ use Psr\Log\AbstractLogger;
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
-class Logger extends AbstractLogger
+final class Logger extends AbstractLogger
 {
     //the logger adapter is the real logger implementation
     private $adapter;

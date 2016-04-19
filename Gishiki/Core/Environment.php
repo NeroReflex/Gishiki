@@ -19,6 +19,7 @@ namespace Gishiki\Core {
     
     use Gishiki\Algorithms\Collections\GenericCollection;
     use Gishiki\HttpKernel\Request;
+    use Gishiki\Algorithms\Manipulation;
     
     /**
      * Represent the environment used to run controllers.

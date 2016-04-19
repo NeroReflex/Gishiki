@@ -18,6 +18,9 @@ limitations under the License.
 namespace Gishiki\Core {
 
     use Gishiki\HttpKernel\Request;
+    use Gishiki\HttpKernel\Response;
+    use Gishiki\Algorithms\Manipulation;
+    use Gishiki\Algorithms\Collections\GenericCollection;
     
     /**
      * This class is used to provide a small layer of Laravel-compatibility
@@ -45,13 +48,16 @@ namespace Gishiki\Core {
             self::$routes[] = $route;
         }
         
-        /**
+        /*
          * Used when the router were unable to route the request to a suitable
          * controller/action because the URI couldn't be matched.
          */
         const NOT_FOUND     = 0;
         
         
+        /*
+         * Commons requests methods (aka HTTP/HTTPS verbs)
+         */
         const GET      = 'GET';
         const POST     = 'POST';
         const DELETE   = 'DELETE';
@@ -59,17 +65,7 @@ namespace Gishiki\Core {
         const PUT      = 'PUT';
         
         /**
-         * Convinient proxy function to call:
-         * 
-         *  - Routing::setRoute(Routing::GET, ..., ...)
-         * 
-         *  - Routing::setRoute(Routing::POST, ..., ...)
-         * 
-         *  - Routing::setRoute(Routing::DELETE, ..., ...)
-         * 
-         *  - Routing::setRoute(Routing::HEAD, ..., ...)
-         * 
-         *  - Routing::setRoute(Routing::PUT, ..., ...)
+         * Convinient proxy function to call Route::addRoute( ... )
          * 
          * <code>
          * use \Gishiki\Core\Route;
@@ -77,9 +73,11 @@ namespace Gishiki\Core {
          * Route::any("/user/{id}", function ($params) {
          *      //perform your amazing magic here
          * });
+         * 
+         * 
          * </code>
          * 
-         * @see \Gishiki\Core\Routing\setRoute
+         *  @see \Gishiki\Core\Route\addRoute
          * 
          * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
@@ -96,8 +94,7 @@ namespace Gishiki\Core {
         }
         
         /**
-         * Convinient proxy function to call Routing::setRoute multiple time with 
-         * multiple request methods.
+         * Convinient proxy function to call Route::addRoute( ... )
          * 
          * <code>
          * use \Gishiki\Core\Route;
@@ -105,9 +102,14 @@ namespace Gishiki\Core {
          * Route::match([Route::GET, Route::POST], "/user/{id}", function ($params) {
          *      //perform your amazing magic here
          * });
+         * 
+         * //you can also route an error:
+         * Route::match([Route::GET, Route::POST], Route::NOT_FOUND, function ($params) {
+         *      //perform your failback amazing magic here!
+         * });
          * </code>
          * 
-         * @see \Gishiki\Core\Routing\setRoute
+         *  @see \Gishiki\Core\Route\addRoute
          * 
          * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
@@ -120,7 +122,7 @@ namespace Gishiki\Core {
         }
         
         /**
-         * Convinient proxy function to call Routing::setRoute(Routing::GET, ..., ...)
+         * Convinient proxy function to call Route::addRoute( ... )
          * 
          * <code>
          * use \Gishiki\Core\Route;
@@ -128,9 +130,14 @@ namespace Gishiki\Core {
          * Route::get("/user/{id}", function ($params) {
          *      //perform your amazing magic here
          * });
+         * 
+         * //you can also route an error:
+         * Route::get(Route::NOT_FOUND, function ($params) {
+         *      //perform your failback amazing magic here!
+         * });
          * </code>
          * 
-         * @see \Gishiki\Core\Routing\setRoute
+         *  @see \Gishiki\Core\Route\addRoute
          * 
          * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
@@ -141,7 +148,7 @@ namespace Gishiki\Core {
         }
         
         /**
-         * Convinient proxy function to call Routing::setRoute(Routing::POST, ..., ...)
+         * Convinient proxy function to call Route::addRoute( ... )
          * 
          * <code>
          * use \Gishiki\Core\Route;
@@ -149,9 +156,13 @@ namespace Gishiki\Core {
          * Route::post("/user/{id}", function ($params) {
          *      //perform your amazing magic here
          * });
+         * //you can also route an error:
+         * Route::post(Route::NOT_FOUND, function ($params) {
+         *      //perform your failback amazing magic here!
+         * });
          * </code>
          * 
-         * @see \Gishiki\Core\Routing\setRoute
+         *  @see \Gishiki\Core\Route\addRoute
          * 
          * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
@@ -162,7 +173,7 @@ namespace Gishiki\Core {
         }
         
         /**
-         * Convinient proxy function to call Routing::setRoute(Routing::PUT, ..., ...)
+         * Convinient proxy function to call Route::addRoute( ... )
          * 
          * <code>
          * use \Gishiki\Core\Route;
@@ -170,9 +181,13 @@ namespace Gishiki\Core {
          * Route::put("/user/{id}", function ($params) {
          *      //perform your amazing magic here
          * });
+         * //you can also route an error:
+         * Route::put(Route::NOT_FOUND, function ($params) {
+         *      //perform your failback amazing magic here!
+         * });
          * </code>
          * 
-         * @see \Gishiki\Core\Routing\setRoute
+         *  @see \Gishiki\Core\Route\addRoute
          * 
          * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
@@ -183,7 +198,7 @@ namespace Gishiki\Core {
         }
         
         /**
-         * Convinient proxy function to call Routing::setRoute(Routing::DELETE, ..., ...)
+         * Convinient proxy function to call Route::addRoute( ... )
          * 
          * <code>
          * use \Gishiki\Core\Route;
@@ -191,9 +206,14 @@ namespace Gishiki\Core {
          * Route::delete("/user/{id}", function ($params) {
          *      //perform your amazing magic here
          * });
+         * 
+         * //you can also route an error:
+         * Route::delete(Route::NOT_FOUND, function ($params) {
+         *      //perform your failback amazing magic here!
+         * });
          * </code>
          * 
-         * @see \Gishiki\Core\Routing\setRoute
+         *  @see \Gishiki\Core\Route\addRoute
          * 
          * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
@@ -204,7 +224,7 @@ namespace Gishiki\Core {
         }
         
         /**
-         * Convinient proxy function to call Routing::setRoute(Routing::HEAD, ..., ...)
+         * Convinient proxy function to call Route::addRoute( ... )
          * 
          * <code>
          * use \Gishiki\Core\Route;
@@ -214,7 +234,7 @@ namespace Gishiki\Core {
          * });
          * </code>
          * 
-         * @see \Gishiki\Core\Routing\setRoute
+         * @see \Gishiki\Core\Route\addRoute
          * 
          * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
@@ -225,36 +245,54 @@ namespace Gishiki\Core {
         }
         
         /**
-         * Registers a callback function to be executed when a certain error occurs.
-         * 
-         * <code>
-         * use \Gishiki\Core\Route;
-         * 
-         * Route::error(Route::NOT_FOUND, function ($params) {
-         *      //perform your failback amazing magic here!
-         * });
-         * </code>
-         * 
-         * @param int      $error_type the error that brings the callback function to be executed
-         * @param function $callback   this is the function automatically called when the error type occurs
-         */
-        public static function error($error_type, $callback)
-        {
-            self::addRoute(new Route(intval($error_type), $callback));
-        }
-        
-        /**
          * Run the router and serve the current request.
          * 
          * This function is __CALLED INTERNALLY__ and, therefore
          * it __MUST NOT__ be called! 
          * 
-         * @param Request $to_fulfill the request to be served/fulfilled
+         * @param  Request  $to_fulfill the request to be served/fulfilled
+         * @return Response $to_fulfill the request to be served/fulfilled
          */
         public static function run(Request &$to_fulfill)
         {
-            //var_dump($to_fulfill->getUri()->getPath());
+            $response = new Response();
+            $URI_decoded = urldecode($to_fulfill->getUri()->getPath());
+            $URI_found  = false; // was the URI being found?
             
+            foreach (self::$routes as $key_current_route => $current_route) {
+                //check for used HTTP verb:
+                if (in_array($to_fulfill->getMethod(), $current_route->getMethods())) {
+                    //get the regex and parameters placeholders
+                    $regex_and_info = $current_route->getRegex();
+
+                    //try matching the regex against the currently requested URI
+                    $matches = [];
+                    if (preg_match($regex_and_info["regex"], $URI_decoded, $matches)) {
+                        $reversed_URI = [];
+                        foreach ($regex_and_info["params"] as $current_match_key => $current_match_name) {
+                            $reversed_URI[$current_match_name] = $matches[$current_match_key + 1];
+                        }
+
+                        //build a collection from the current reverser URI
+                        $reversed_params = new GenericCollection($reversed_URI);
+
+                        //execute the requested action!
+                        $current_route->take_action(clone $to_fulfill, $response, $reversed_params);
+                        
+                        //stop searching for a suitable URI to be matched against the current one
+                        $URI_found = true;
+                        break;
+                    }
+                }
+            }
+            
+            //oh.... seems like we have a 404 Not Found....
+            if (!$URI_found) {
+                $response->withStatus(404);
+            }
+            
+            //this function have to return a response
+            return $response;
         }
         
         
@@ -298,9 +336,104 @@ namespace Gishiki\Core {
         public function __construct($URI, $action, array $methods = [self::GET, self::DELETE, self::POST, self::PUT, self::HEAD])
         {
             //build-up the current route
-            $this->URI = strval($URI);
+            $this->URI = '/'.trim(strval($URI), '/');
             $this->action = $action;
             $this->methods = $methods;
+        }
+        
+        /**
+         * Return the list of methods allowed to be routed with the given URI.
+         * 
+         * The return value is an array of allowed method (as strings):
+         * <code>
+         * //this is an example:
+         * array(
+         *     'GET',
+         *     'DELETE'
+         * );
+         * </code>
+         * 
+         * @return array the list of allowed methods
+         */
+        public function getMethods()
+        {
+            return $this->methods;
+        }
+        
+        /**
+         * build a regex out of the URI of the current Route and adds name of
+         * regex placeholders.
+         * 
+         * Example:
+         * <code>
+         * array(
+         *     "regex"  => "...",
+         *     "params" => array("name", "surname")
+         * )
+         * </code>
+         * 
+         * @return array the regex version of the URI and additional info
+         */
+        public function getRegex()
+        {
+            //fix the URI
+            $regexURI = $this->URI;
+            
+            //start building the regex
+            $regexURI = "/^".preg_quote($regexURI, "/")."$/";
+            $param_array = [];
+            
+            //this will contain the matched expressions placeholders
+            $params = array();
+            //detect if regex are involved in the furnished URI
+            if (preg_match_all('/\\\{([a-zA-Z]|\d|\_|\.|\:)+\\\}/', $regexURI, $params)) {
+                //substitute a regex for each matching group:
+                foreach ($params[0] as $mathing_group) {
+                    //extract the regex to be used 
+                    $current_regex = explode(':', $mathing_group, 2);
+                    $current_regex  = ((count($current_regex) == 2) && ($current_regex[1]))?
+                            $current_regex[1]   :   '[^\/]+';
+                    
+                    $regexURI = str_replace($mathing_group, "(".$current_regex.")", $regexURI);
+                    $param_array[] = Manipulation::get_between($mathing_group, '\{', '\}');
+                }
+                
+                array(
+                    "regex"  => $regexURI,
+                    "params" => $params[0]
+                );
+            }
+            
+            //return the built regex + additionals info
+            return array(
+                "regex"  => $regexURI,
+                "params" => $param_array
+            );
+        }
+        
+        /**
+         * Execute the router callback, may it be a string (for action@controller)
+         * or an anonymous function.
+         * 
+         * This function is called __AUTOMATICALLY__ by the framework when the
+         * route can be used to fulfill the given request.
+         * 
+         * This function is provided for logical organization of the program and
+         * testing only!
+         * 
+         * @param Request           $copy_of_request  a copy of the request made to the application
+         * @param Response          $response         the action must fille, and what will be returned to the client
+         * @param GenericCollection $arguments        a list of reversed URI parameters 
+         */
+        protected function take_action(Request $copy_of_request, Response &$response, GenericCollection &$arguments)
+        {
+            if (is_callable($this->action)) {
+                call_user_func_array($this->action, [$copy_of_request, &$response, &$arguments]);
+            } elseif (is_string($this->action)) {
+                //execute the controller
+            } else {
+                //what are you fucking doing?
+            }
         }
     }
 }

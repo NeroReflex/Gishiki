@@ -6,12 +6,14 @@ do your job, so just remember to enable PHP and the rewriting engine:
 server {
 	listen 80;
 	server_name site.com;
-	root /var/www/html/Gishiki;
+	root /var/www/html;
+        error_log /var/www/error.log;
+        access_log /var/www/access.log;
 
 	index index.php;
 
 	location / {
-		try_files $uri $uri/ /index.php?$query_string;
+		try_files $uri $uri/ /index.php$is_args$args;
 	}
 
 	location ~ \.php$ {

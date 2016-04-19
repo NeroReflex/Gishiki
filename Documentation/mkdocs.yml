@@ -4,11 +4,14 @@ pages:
 - Home: index.md
 - Installation: 
     - Environment:          installation/index.md
-    - Heroku:               installation/Heroku.md
+    - Basic PHP:            installation/basic_php.md
     - PHP 7.0 & nginx:      installation/php_7_nginx.md
     - Basic nginx:          installation/basic_nginx.md
     - Basic apache:         installation/basic_apache.md
+    - Basic lighttpd:       installation/basic_lighttpd.md
+    - Basic IIS:            installation/basic_iis.md
     - Composer:             installation/composer.md
+    - Heroku:               installation/Heroku.md
 - API: apidoc.md
 - Usage:
     - Configuration:    usage/configuration.md

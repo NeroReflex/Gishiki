@@ -1,4 +1,4 @@
-# PHP v7 / nginx
+# PHP v7 & nginx
 This framework is fully compatible with PHP 7, and you are encouraged to use it.
 
 PHP v7 is the PHP version I am using while developing Gishiki.
@@ -27,7 +27,7 @@ server {
 	index index.php;
 
 	location / {
-		try_files $uri $uri/ /index.php?$query_string;
+		try_files $uri $uri/ /index.php$is_args$args;
 	}
 
 	location ~ \.php$ {

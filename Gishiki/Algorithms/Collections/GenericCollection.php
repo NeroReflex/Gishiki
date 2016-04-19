@@ -64,7 +64,7 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
      */
     public function __get($key)
     {
-        $this->get($key);
+        return $this->get($key);
     }
     
     /**

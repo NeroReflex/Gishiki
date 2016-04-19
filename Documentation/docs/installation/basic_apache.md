@@ -1,4 +1,4 @@
-## Webserver (Apache 2)
+# Basic Apache 2.4
 If you are using a debian or ubuntu based distro you have to remember that you
 need to enable mod_rewrite on apache:
 
@@ -33,7 +33,33 @@ You can simply cut 'n' paste this configuration:
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 ```
 
-Remember that using .htaccess slows down your apache server, so if you have access
-to the configuration file of your production server you *should* embed the provided .htaccess.
+You can just copy the .htaccess file from the Gishiki main rapository to your
+application root, here I am reporting it:
+
+```apache
+<IfModule mod_rewrite.c>
+    Options +FollowSymLinks
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+```
+
+You can even be more aggressive here:
+
+```apache
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+```
+
+That shorted version will call the framework even if the client is asking for a
+resource that is a file inside you webroot!
+
+Remember that using .htaccess slows down your apache server,
+so if you have access to the configuration file of your production server you
+*should* embed the provided ".htaccess".
 
 

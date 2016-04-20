@@ -434,12 +434,12 @@ namespace Gishiki\Core {
                 //this will contain the matched expressions placeholders
                 $params = array();
                 //detect if regex are involved in the furnished URI
-                if (preg_match_all('/\\\{([a-zA-Z]|\d|\_|\.|\:)+\\\}/', $regexURI, $params)) {
+                if (preg_match_all('/\\\{([a-zA-Z]|\d|\_|\.|\:|\\)+\\\}/', $regexURI, $params)) {
                     //substitute a regex for each matching group:
                     foreach ($params[0] as $mathing_group) {
                         //extract the regex to be used
                         $param = Manipulation::get_between($mathing_group, '\{', '\}');
-                        $current_regex_id = explode('\:', $param, 2);
+                        $current_regex_id = explode("\\:", $param, 2);
                         
                         $current_regex = '';
                         if ((count($current_regex_id) == 2) && ($current_regex_id[1])) {

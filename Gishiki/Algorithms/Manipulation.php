@@ -71,7 +71,7 @@ abstract class Manipulation {
     {
         $starting_pos = strpos($string, $start);
         $ending_pos = strpos($string, $end);
-        return (($starting_pos !== false) && ($ending_pos !== false))? substr($string, $start, $end) : false;
+        return (($starting_pos !== false) && ($ending_pos !== false))? substr($string, $starting_pos, $ending_pos) : false;
     }
     
     /**

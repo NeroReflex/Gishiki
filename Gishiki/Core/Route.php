@@ -443,25 +443,24 @@ namespace Gishiki\Core {
                         
                         $current_regex = '';
                         if (count($current_regex_id) == 2) {
-                            $current_regex = strval($current_regex[1]);
-                            $param = $current_regex[0];
+                            $current_regex = strval($current_regex_id[1]);
                         }
                         
-                        $param = $param[0];
+                        $param = $current_regex_id[0];
 
                         switch ($current_regex) {
                             case 'mail':
                             case 'email':
-                                $current_regex = "([a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+)";
+                                $current_regex = "[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+";
                                 break;
                             
                             case 'number':
                             case 'integer':
-                                $current_regex = "((\+|-)?(\d)+)";
+                                $current_regex = "(\+|-)?(\d)+";
                                 break;
 
                             default:
-                                $current_regex = '([^\/]+)';
+                                $current_regex = '[^\/]+';
                         }
 
                         $regexURI = str_replace($mathing_group, "(".$current_regex.")", $regexURI);

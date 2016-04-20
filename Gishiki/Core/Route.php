@@ -439,19 +439,22 @@ namespace Gishiki\Core {
                     foreach ($params[0] as $mathing_group) {
                         //extract the regex to be used
                         $param = Manipulation::get_between($mathing_group, '\{', '\}');
-                        $current_regex = explode('\:', $param, 2);
-                        if ((count($current_regex) == 2) && ($current_regex[1])) {
+                        $current_regex_id = explode('\:', $param, 2);
+                        
+                        $current_regex = '';
+                        if ((count($current_regex_id) == 2) && ($current_regex_id[1])) {
                             $current_regex = $current_regex[1];
                             $param = $current_regex[0];
-                        } else {
-                            $current_regex = '';
                         }
+                        
+                        $param = $param[0];
 
                         switch ($current_regex) {
                             case 'mail':
                             case 'email':
                                 $current_regex = "[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+";
                                 break;
+                            
                             case 'number':
                             case 'integer':
                                 $current_regex = "(\+|-)?(\d)+";

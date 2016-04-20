@@ -36,7 +36,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
         });
         
         //check the generated regex
-        $this->assertEquals($test_partregex_route->getRegex()['regex'], "/^\/user\/new\/(([a-zA-Z0-9_\\-.+]+)\\@([a-zA-Z0-9-]+)\\.([a-zA-Z]+)(\\.([a-zA-Z]+)?))$/");
+        $this->assertEquals($test_partregex_route->getRegex()['regex'], "/^\/user\/new\/(([a-zA-Z0-9_\\-.+]+)\\@([a-zA-Z0-9-]+)\\.(.|[a-zA-Z]+))$/");
         
         //and additional info
         $this->assertEquals($test_partregex_route->getRegex()['params'], ['address']);

@@ -73,12 +73,12 @@ e di {{is}} è tornato.";
         $string = "@ >this is a test # T0 ch3ck 1h3 ''get_between'# function";
         
         //test if the get_between works using strings as delimiters works
-        $this->assertEquals(Manipulation::get_between($string, "''", "'#"), "get_between");
+        $this->assertEquals("get_between", Manipulation::get_between($string, "''", "'#"));
         
         //test if the get_between works using characters as delimiters works
-        $this->assertEquals(Manipulation::get_between($string, ">", "#"), "this is a test ");
+        $this->assertEquals("this is a test ", Manipulation::get_between($string, ">", "#"));
         
         //test for strange failures
-        $this->assertEquals(Manipulation::get_between($string, "@", "##"), FALSE);
+        $this->assertEquals(FALSE, Manipulation::get_between($string, "@", "##"));
     }
 }

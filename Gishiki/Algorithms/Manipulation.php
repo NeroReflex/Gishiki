@@ -63,15 +63,19 @@ abstract class Manipulation {
      * Get the string between two substrings
      * 
      * @param  string $string the string to be analyzed
-     * @param  string $start  the fisrt substring
+     * @param  string $start  the first substring
      * @param  string $end    the second substring
      * @return string|bool the string between the two substrings, or FALSE
      */
     static function get_between($string, $start, $end)
     {
-        $starting_pos = strpos($string, $start);
-        $ending_pos = strpos($string, $end);
-        return (($starting_pos !== false) && ($ending_pos !== false))? substr($string, $starting_pos, $ending_pos) : false;
+        $string = ' ' . $string;
+        $ini = strpos($string, $start);
+        $ini += strlen($start);
+        $eni = strpos($string, $end, $ini);
+        $len = $eni - $ini;
+        return (($eni !== false) && ($ini !== false)) ? 
+            substr($string, $ini, $len) : false;
     }
     
     /**

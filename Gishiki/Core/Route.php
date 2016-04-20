@@ -442,8 +442,8 @@ namespace Gishiki\Core {
                         $current_regex_id = explode("\\:", $param, 2);
                         
                         $current_regex = '';
-                        if ((count($current_regex_id) == 2) && ($current_regex_id[1])) {
-                            $current_regex = $current_regex[1];
+                        if (count($current_regex_id) == 2) {
+                            $current_regex = strval($current_regex[1]);
                             $param = $current_regex[0];
                         }
                         

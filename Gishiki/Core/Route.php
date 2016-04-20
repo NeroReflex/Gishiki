@@ -268,12 +268,12 @@ namespace Gishiki\Core {
         {
             $response = new Response();
             $URI_decoded = urldecode($to_fulfill->getUri()->getPath());
-            $URI_found  = false; // was the URI being found?
+            $reversed_params = new GenericCollection();
             
             //this is the route that reference the action to be taken
             $action_ruote = null;
             
-            foreach (self::$routes as $key_current_route => $current_route) {
+            foreach (self::$routes as $current_route) {
                 //check for used HTTP verb:
                 if (in_array($to_fulfill->getMethod(), $current_route->getMethods())) {
                     //get the regex and parameters placeholders
@@ -294,29 +294,30 @@ namespace Gishiki\Core {
                         $action_ruote = $current_route;
                         
                         //stop searching for a suitable URI to be matched against the current one
-                        $URI_found = true;
+                        break;
                     }
                 }
             }
             
             //oh.... seems like we have a 404 Not Found....
-            if (!$URI_found) {
+            if (!$action_ruote) {
                 $response->withStatus(404);
                 
                 foreach (self::$callbacks as $current_route) {
-                    //get the regex
-                    $regex_and_info = $current_route->getRegex();
-                    
+                    //check for a valid callback
                     if (($current_route->isSpecialCallback() === self::NOT_FOUND) &&
                             (in_array($to_fulfill->getMethod(), $current_route->getMethods())))
                     {
-                        //execute the failback action!
+                        //flag the execution of this failback action!
                         $action_ruote = $current_route;
+                        
+                        //found what I was llokng for, break the foreach
+                        break;
                     }
                 }
             }
             
-            if ($action_ruote !== null) {
+            if ($action_ruote) {
                 $action_ruote->take_action(clone $to_fulfill, $response, $reversed_params);
             }
             

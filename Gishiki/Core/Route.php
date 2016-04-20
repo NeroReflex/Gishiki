@@ -38,6 +38,13 @@ namespace Gishiki\Core {
         private static $routes = [];
         
         /**
+         * This is the list of added callback routes
+         * 
+         * @var array a collection of callback routes
+         */
+        private static $callbacks = [];
+        
+        /**
          * Add a route to the route redirection list
          * 
          * @param \Gishiki\Core\Route $route the route to be added
@@ -45,7 +52,11 @@ namespace Gishiki\Core {
         public static function addRoute(Route $route)
         {
             //add the given route to the routes list
-            self::$routes[] = $route;
+            if ($route->isSpecialCallback() === false) {
+                self::$routes[] = $route;
+            } else {
+                self::$callbacks[] = $route;
+            }
         }
         
         /*
@@ -259,6 +270,9 @@ namespace Gishiki\Core {
             $URI_decoded = urldecode($to_fulfill->getUri()->getPath());
             $URI_found  = false; // was the URI being found?
             
+            //this is the route that reference the action to be taken
+            $action_ruote = null;
+            
             foreach (self::$routes as $key_current_route => $current_route) {
                 //check for used HTTP verb:
                 if (in_array($to_fulfill->getMethod(), $current_route->getMethods())) {
@@ -267,7 +281,7 @@ namespace Gishiki\Core {
 
                     //try matching the regex against the currently requested URI
                     $matches = [];
-                    if ((is_string($regex_and_info["regex"])) && (preg_match($regex_and_info["regex"], $URI_decoded, $matches))) {
+                    if (preg_match($regex_and_info["regex"], $URI_decoded, $matches)) {
                         $reversed_URI = [];
                         foreach ($regex_and_info["params"] as $current_match_key => $current_match_name) {
                             $reversed_URI[$current_match_name] = $matches[$current_match_key + 1];
@@ -277,11 +291,10 @@ namespace Gishiki\Core {
                         $reversed_params = new GenericCollection($reversed_URI);
 
                         //execute the requested action!
-                        $current_route->take_action(clone $to_fulfill, $response, $reversed_params);
+                        $action_ruote = $current_route;
                         
                         //stop searching for a suitable URI to be matched against the current one
                         $URI_found = true;
-                        break;
                     }
                 }
             }
@@ -290,17 +303,21 @@ namespace Gishiki\Core {
             if (!$URI_found) {
                 $response->withStatus(404);
                 
-                foreach (self::$routes as $current_route) {
+                foreach (self::$callbacks as $current_route) {
                     //get the regex
                     $regex_and_info = $current_route->getRegex();
                     
-                    if ((($regex_and_info["regex"] === self::NOT_FOUND)) &&
+                    if (($current_route->isSpecialCallback() === self::NOT_FOUND) &&
                             (in_array($to_fulfill->getMethod(), $current_route->getMethods())))
                     {
                         //execute the failback action!
-                        $current_route->take_action(clone $to_fulfill, $response, $reversed_params);
+                        $action_ruote = $current_route;
                     }
                 }
+            }
+            
+            if ($action_ruote !== null) {
+                $action_ruote->take_action(clone $to_fulfill, $response, $reversed_params);
             }
             
             //this function have to return a response
@@ -373,6 +390,20 @@ namespace Gishiki\Core {
         }
         
         /**
+         * Get the type of the current route.
+         * 
+         * The route type can be an integer for special callbacks
+         * (for example NOT_FOUND) or a boolean false for a valid string URI
+         * 
+         * 
+         * @return integer|bool the callback type or false if it is a valid URI
+         */
+        public function isSpecialCallback()
+        {
+            return (is_numeric($this->URI))? $this->URI : false;
+        }
+        
+        /**
          * build a regex out of the URI of the current Route and adds name of
          * regex placeholders.
          * 
@@ -384,61 +415,70 @@ namespace Gishiki\Core {
          * )
          * </code>
          * 
-         * __Note:__ if the regex field of the returned array is an integer, then
-         * the router is a special callback
+         * __Note:__ if the regex field of the returned array is an empty array,
+         * then the router is a special callback
          * 
          * @return array the regex version of the URI and additional info
          */
-        public function getRegex()
+        public function getRegex() /* : array */
         {
             //fix the URI
             $regexURI = $this->URI;
             
-            //start building the regex
-            $regexURI = "/^".preg_quote($regexURI, "/")."$/";
             $param_array = [];
             
-            //this will contain the matched expressions placeholders
-            $params = array();
-            //detect if regex are involved in the furnished URI
-            if (preg_match_all('/\\\{([a-zA-Z]|\d|\_|\.|\:)+\\\}/', $regexURI, $params)) {
-                //substitute a regex for each matching group:
-                foreach ($params[0] as $mathing_group) {
-                    //extract the regex to be used
-                    $param = Manipulation::get_between($mathing_group, '\{', '\}');
-                    $current_regex = explode(':', $param, 2);
-                    if ((count($current_regex) == 2) && ($current_regex[1])) {
-                        $current_regex = $current_regex[1];
-                        $param = $current_regex[0];
-                    } else {
-                        $current_regex = '';
-                    }
-                    
-                    switch ($current_regex) {
-                        case 'mail':
-                        case 'email':
-                            $current_regex = "[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+";
-                            break;
-                        
-                        default:
-                            $current_regex = '[^\/]+';
-                    }
-                    
-                    $regexURI = str_replace($mathing_group, "(".$current_regex.")", $regexURI);
-                    $param_array[] = $param;
-                }
+            if ($this->isSpecialCallback() !== false) {
+                //start building the regex
+                $regexURI = "/^".preg_quote($regexURI, "/")."$/";
                 
+                //this will contain the matched expressions placeholders
+                $params = array();
+                //detect if regex are involved in the furnished URI
+                if (preg_match_all('/\\\{([a-zA-Z]|\d|\_|\.|\:)+\\\}/', $regexURI, $params)) {
+                    //substitute a regex for each matching group:
+                    foreach ($params[0] as $mathing_group) {
+                        //extract the regex to be used
+                        $param = Manipulation::get_between($mathing_group, '\{', '\}');
+                        $current_regex = explode(':', $param, 2);
+                        if ((count($current_regex) == 2) && ($current_regex[1])) {
+                            $current_regex = $current_regex[1];
+                            $param = $current_regex[0];
+                        } else {
+                            $current_regex = '';
+                        }
+
+                        switch ($current_regex) {
+                            case 'mail':
+                            case 'email':
+                                $current_regex = "[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+";
+                                break;
+                            case 'number':
+                            case 'integer':
+                                $current_regex = "(\+|-)?(\d)+";
+                                break;
+
+                            default:
+                                $current_regex = '[^\/]+';
+                        }
+
+                        $regexURI = str_replace($mathing_group, "(".$current_regex.")", $regexURI);
+                        $param_array[] = $param;
+                    }
+                }
+                        
                 array(
                     "regex"  => $regexURI,
                     "params" => $params[0]
                 );
+            } else {
+                $regexURI = null;
             }
             
             //return the built regex + additionals info
-            return array(
+            return ($regexURI !== null)? [
                 "regex"  => $regexURI,
                 "params" => $param_array
-            );
+            ] : [];
         }
         
         /**

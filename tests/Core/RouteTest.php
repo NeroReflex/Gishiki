@@ -19,14 +19,17 @@ namespace Gishiki\Tests\Core;
 
 use Gishiki\Core\Route;
 
-class ManipulationTest extends \PHPUnit_Framework_TestCase {
-    public function testRegex() {
-        $test_route = new Route("/user/{username}/post/{postnumber}", function() {
+class RouteTest extends \PHPUnit_Framework_TestCase {
+    public function testRegexRouter() {
+        $test_route = new Route("/user/{username}/post/{post:number}", function() {
             throw new \Exception("Bad Test!");
         });
         
         //check the generated regex
-        $this->assertEquals($test_route->getRegex()['regex'], "/^\/user\/([^\/]+)\/post\/([^\/]+)$/");
+        $this->assertEquals("/^\/user\/([^\/]+)\/post\/((\+|-)?(\d)+)$/", $test_route->getRegex()['regex']);
+        
+        //and additional info
+        $this->assertEquals(['username', 'post'], $test_route->getRegex()['params']);
         
         $test_partregex_route = new Route("/user/new/{address:email}", function() {
             throw new \Exception("Bad Test!");
@@ -34,7 +37,20 @@ class ManipulationTest extends \PHPUnit_Framework_TestCase {
         
         //check the generated regex
         $this->assertEquals($test_partregex_route->getRegex()['regex'], "/^\/user\/new\/([a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+)$/");
+        
+        //and additional info
         $this->assertEquals($test_partregex_route->getRegex()['params'], ['address']);
+    }
+    
+    public function testFailbackRouter() {
+        $not_found = new Route(Route::NOT_FOUND, function() {
+            throw new \Exception("Bad Test!");
+        });
+        
+        //check the generated regex
+        $this->assertEquals([], $not_found->getRegex()['regex']);
+        $this->assertEquals(0, count($not_found->getRegex()['regex']));
+        $this->assertEquals(Route::NOT_FOUND, $not_found->isSpecialCallback());
     }
     
 }

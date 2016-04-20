@@ -427,7 +427,7 @@ namespace Gishiki\Core {
             
             $param_array = [];
             
-            if ($this->isSpecialCallback() !== false) {
+            if ($this->isSpecialCallback() === false) {
                 //start building the regex
                 $regexURI = "/^".preg_quote($regexURI, "/")."$/";
                 

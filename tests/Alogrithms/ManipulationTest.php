@@ -79,6 +79,6 @@ e di {{is}} è tornato.";
         $this->assertEquals(Manipulation::get_between($string, ">", "#"), "this is a test ");
         
         //test for strange failures
-        $this->assertEquals(Manipulation::get_between($string, "@", "##"), FALSE);
+        $this->assertEquals(Manipulation::get_between($string, "@", "##"), '');
     }
 }

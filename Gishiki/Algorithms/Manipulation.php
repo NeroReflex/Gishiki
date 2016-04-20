@@ -65,7 +65,7 @@ abstract class Manipulation {
      * @param  string $string the string to be analyzed
      * @param  string $start  the fisrt substring
      * @param  string $end    the second substring
-     * @return string the string between the two substrings
+     * @return string the string between the two substrings, or empty string
      */
     static function get_between($string, $start, $end)
     {

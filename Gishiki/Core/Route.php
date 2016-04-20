@@ -267,7 +267,7 @@ namespace Gishiki\Core {
 
                     //try matching the regex against the currently requested URI
                     $matches = [];
-                    if (preg_match($regex_and_info["regex"], $URI_decoded, $matches)) {
+                    if ((is_string($regex_and_info["regex"])) && (preg_match($regex_and_info["regex"], $URI_decoded, $matches))) {
                         $reversed_URI = [];
                         foreach ($regex_and_info["params"] as $current_match_key => $current_match_name) {
                             $reversed_URI[$current_match_name] = $matches[$current_match_key + 1];
@@ -289,6 +289,18 @@ namespace Gishiki\Core {
             //oh.... seems like we have a 404 Not Found....
             if (!$URI_found) {
                 $response->withStatus(404);
+                
+                foreach (self::$routes as $current_route) {
+                    //get the regex
+                    $regex_and_info = $current_route->getRegex();
+                    
+                    if ((($regex_and_info["regex"] === self::NOT_FOUND)) &&
+                            (in_array($to_fulfill->getMethod(), $current_route->getMethods())))
+                    {
+                        //execute the failback action!
+                        $current_route->take_action(clone $to_fulfill, $response, $reversed_params);
+                    }
+                }
             }
             
             //this function have to return a response
@@ -336,7 +348,7 @@ namespace Gishiki\Core {
         public function __construct($URI, $action, array $methods = [self::GET, self::DELETE, self::POST, self::PUT, self::HEAD])
         {
             //build-up the current route
-            $this->URI = '/'.trim(strval($URI), '/');
+            $this->URI = (is_string($URI))? '/'.trim($URI, '/') : $URI;
             $this->action = $action;
             $this->methods = $methods;
         }
@@ -372,6 +384,9 @@ namespace Gishiki\Core {
          * )
          * </code>
          * 
+         * __Note:__ if the regex field of the returned array is an integer, then
+         * the router is a special callback
+         * 
          * @return array the regex version of the URI and additional info
          */
         public function getRegex()
@@ -389,13 +404,28 @@ namespace Gishiki\Core {
             if (preg_match_all('/\\\{([a-zA-Z]|\d|\_|\.|\:)+\\\}/', $regexURI, $params)) {
                 //substitute a regex for each matching group:
                 foreach ($params[0] as $mathing_group) {
-                    //extract the regex to be used 
-                    $current_regex = explode(':', $mathing_group, 2);
-                    $current_regex  = ((count($current_regex) == 2) && ($current_regex[1]))?
-                            $current_regex[1]   :   '[^\/]+';
+                    //extract the regex to be used
+                    $param = Manipulation::get_between($mathing_group, '\{', '\}');
+                    $current_regex = explode(':', $param, 2);
+                    if ((count($current_regex) == 2) && ($current_regex[1])) {
+                        $current_regex = $current_regex[1];
+                        $param = $current_regex[0];
+                    } else {
+                        $current_regex = '';
+                    }
+                    
+                    switch ($current_regex) {
+                        case 'mail':
+                        case 'email':
+                            $current_regex = "[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+";
+                            break;
+                        
+                        default:
+                            $current_regex = '[^\/]+';
+                    }
                     
                     $regexURI = str_replace($mathing_group, "(".$current_regex.")", $regexURI);
-                    $param_array[] = Manipulation::get_between($mathing_group, '\{', '\}');
+                    $param_array[] = $param;
                 }
                 
                 array(

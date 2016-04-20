@@ -36,7 +36,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
         });
         
         //check the generated regex
-        $this->assertEquals($test_partregex_route->getRegex()['regex'], "/^\/user\/new\/([a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+)$/");
+        $this->assertEquals($test_partregex_route->getRegex()['regex'], "/^\/user\/new\/(([a-zA-Z0-9_\\-.+]+)\\@([a-zA-Z0-9-]+)\\.([a-zA-Z]+))$/");
         
         //and additional info
         $this->assertEquals($test_partregex_route->getRegex()['params'], ['address']);
@@ -51,6 +51,18 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('', $not_found->getRegex()['regex']);
         $this->assertEquals(2, count($not_found->getRegex()));
         $this->assertEquals(Route::NOT_FOUND, $not_found->isSpecialCallback());
+    }
+    
+    public function testMatchingRouter() {
+        $email_route = new Route("/send/{address:email}", function () {
+            throw new \Exception("Bad Test!");
+        });
+        
+        $email_match = $email_route->matchURI("/send/test3m4il@sp4c3.com", 'GET');
+        
+        $this->assertEquals(
+                new \Gishiki\Algorithms\Collections\GenericCollection(["address" => "test3m4il@sp4c3.com"]),
+                $email_match);
     }
     
 }

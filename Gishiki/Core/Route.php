@@ -268,36 +268,26 @@ namespace Gishiki\Core {
         {
             $response = new Response();
             $URI_decoded = urldecode($to_fulfill->getUri()->getPath());
-            $reversed_params = new GenericCollection();
+            $reversed_params = null;
             
             //this is the route that reference the action to be taken
             $action_ruote = null;
             
+            //test/try matching every route
             foreach (self::$routes as $current_route) {
-                //check for used HTTP verb:
-                if (in_array($to_fulfill->getMethod(), $current_route->getMethods())) {
-                    //get the regex and parameters placeholders
-                    $regex_and_info = $current_route->getRegex();
-
-                    //try matching the regex against the currently requested URI
-                    $matches = [];
-                    if (preg_match($regex_and_info["regex"], $URI_decoded, $matches)) {
-                        $reversed_URI = [];
-                        foreach ($regex_and_info["params"] as $current_match_key => $current_match_name) {
-                            $reversed_URI[$current_match_name] = $matches[$current_match_key + 1];
-                        }
-
-                        //build a collection from the current reverser URI
-                        $reversed_params = new GenericCollection($reversed_URI);
-
-                        //execute the requested action!
-                        $action_ruote = $current_route;
+                //build a collection from the current reverser URI (of detect the match failure)
+                $reversed_params = $current_route->matchURI($URI_decoded, $to_fulfill->getMethod());
+                if ($reversed_params) {
+                    //execute the requested action!
+                    $action_ruote = $current_route;
                         
-                        //stop searching for a suitable URI to be matched against the current one
-                        break;
-                    }
+                    //stop searching for a suitable URI to be matched against the current one
+                    break;
                 }
             }
+            
+            //make sure we are not using null
+            $reversed_params = ($reversed_params === null)? new GenericCollection() : $reversed_params;
             
             //oh.... seems like we have a 404 Not Found....
             if (!$action_ruote) {
@@ -405,6 +395,34 @@ namespace Gishiki\Core {
         }
         
         /**
+         * Attempt to match the given URI and mathod combination
+         * with the current route
+         * 
+         * @param  string                  $uri      the URI to be mtched
+         * @param  string                  $method   the used method
+         * @return GenericCollection|null            the match result
+         */
+        public function matchURI($uri, $method) {
+            $reversed_params = null;
+            
+            $regex_and_info = $this->getRegex();
+            
+            //try matching the regex against the currently requested URI
+            $matches = [];
+            if ((in_array($method, $this->methods)) && (preg_match($regex_and_info["regex"], $uri, $matches))) {
+                $reversed_URI = [];
+                foreach ($regex_and_info["params"] as $current_match_key => $current_match_name) {
+                    $reversed_URI[$current_match_name] = $matches[$current_match_key + 1];
+                }
+
+                //build a collection from the current reverser URI
+                $reversed_params = new GenericCollection($reversed_URI);
+            }
+            
+            return $reversed_params;
+        }
+        
+        /**
          * build a regex out of the URI of the current Route and adds name of
          * regex placeholders.
          * 
@@ -452,7 +470,7 @@ namespace Gishiki\Core {
                         switch ($current_regex) {
                             case 'mail':
                             case 'email':
-                                $current_regex = "[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+";
+                                $current_regex = "([a-zA-Z0-9_\\-.+]+)\\@([a-zA-Z0-9-]+)\\.([a-zA-Z]+)";
                                 break;
                             
                             case 'number':

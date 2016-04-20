@@ -415,7 +415,7 @@ namespace Gishiki\Core {
          * )
          * </code>
          * 
-         * __Note:__ if the regex field of the returned array is an empty array,
+         * __Note:__ if the regex field of the returned array is an empty string,
          * then the router is a special callback
          * 
          * @return array the regex version of the URI and additional info
@@ -439,7 +439,7 @@ namespace Gishiki\Core {
                     foreach ($params[0] as $mathing_group) {
                         //extract the regex to be used
                         $param = Manipulation::get_between($mathing_group, '\{', '\}');
-                        $current_regex = explode(':', $param, 2);
+                        $current_regex = explode('\:', $param, 2);
                         if ((count($current_regex) == 2) && ($current_regex[1])) {
                             $current_regex = $current_regex[1];
                             $param = $current_regex[0];
@@ -471,14 +471,14 @@ namespace Gishiki\Core {
                     "params" => $params[0]
                 );
             } else {
-                $regexURI = null;
+                $regexURI = '';
             }
             
             //return the built regex + additionals info
-            return ($regexURI !== null)? [
+            return [
                 "regex"  => $regexURI,
                 "params" => $param_array
-            ] : [];
+            ];
         }
         
         /**

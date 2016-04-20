@@ -434,7 +434,7 @@ namespace Gishiki\Core {
                 //this will contain the matched expressions placeholders
                 $params = array();
                 //detect if regex are involved in the furnished URI
-                if (preg_match_all("/\\\{([a-zA-Z]|\d|\_|\.|\:|\\)+\\\}/", $regexURI, $params)) {
+                if (preg_match_all("/\\\{([a-zA-Z]|\d|\_|\.|\:|\\\\)+\\\}/", $regexURI, $params)) {
                     //substitute a regex for each matching group:
                     foreach ($params[0] as $mathing_group) {
                         //extract the regex to be used
@@ -452,16 +452,16 @@ namespace Gishiki\Core {
                         switch ($current_regex) {
                             case 'mail':
                             case 'email':
-                                $current_regex = "[a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+";
+                                $current_regex = "([a-zA-Z0-9_-.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+)";
                                 break;
                             
                             case 'number':
                             case 'integer':
-                                $current_regex = "(\+|-)?(\d)+";
+                                $current_regex = "((\+|-)?(\d)+)";
                                 break;
 
                             default:
-                                $current_regex = '[^\/]+';
+                                $current_regex = '([^\/]+)';
                         }
 
                         $regexURI = str_replace($mathing_group, "(".$current_regex.")", $regexURI);

@@ -36,7 +36,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
         });
         
         //check the generated regex
-        $this->assertEquals($test_partregex_route->getRegex()['regex'], "/^\/user\/new\/(([a-zA-Z0-9_\\-.+]+)\\@([a-zA-Z0-9-]+)\\.([a-zA-Z]+))$/");
+        $this->assertEquals($test_partregex_route->getRegex()['regex'], "/^\/user\/new\/(([a-zA-Z0-9_\\-.+]+)\\@([a-zA-Z0-9-]+)\\.([a-zA-Z]+)(\\.([a-zA-Z]+))?))$/");
         
         //and additional info
         $this->assertEquals($test_partregex_route->getRegex()['params'], ['address']);
@@ -54,15 +54,29 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
     }
     
     public function testMatchingRouter() {
+        //test an email
         $email_route = new Route("/send/{address:email}", function () {
             throw new \Exception("Bad Test!");
         });
         
-        $email_match = $email_route->matchURI("/send/test3m4il@sp4c3.com", 'GET');
+        $email_match = $email_route->matchURI("/send/test3m4il@sp4c3.co.uk", 'GET');
         
         $this->assertEquals(
-                new \Gishiki\Algorithms\Collections\GenericCollection(["address" => "test3m4il@sp4c3.com"]),
+                new \Gishiki\Algorithms\Collections\GenericCollection(["address" => "test3m4il@sp4c3.co.uk"]),
                 $email_match);
+        
+        //test using a number
+        $number_route = new Route("MyNumber/{random:number}", function () {
+            throw new \Exception("Bad Test!");
+        });
+        
+        $random_number = '-'.strval(rand());
+        
+        $number_match = $number_route->matchURI("MyNumber/".$random_number, 'GET');
+        
+        $this->assertEquals(
+                new \Gishiki\Algorithms\Collections\GenericCollection(["random" => $random_number]),
+                $number_match);
     }
     
 }

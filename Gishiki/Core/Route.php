@@ -470,7 +470,7 @@ namespace Gishiki\Core {
                         switch ($current_regex) {
                             case 'mail':
                             case 'email':
-                                $current_regex = "([a-zA-Z0-9_\\-.+]+)\\@([a-zA-Z0-9-]+)\\.([a-zA-Z]+)";
+                                $current_regex = "([a-zA-Z0-9_\\-.+]+)\\@([a-zA-Z0-9-]+)\\.([a-zA-Z]+)(\\.([a-zA-Z]+))?)";
                                 break;
                             
                             case 'number':

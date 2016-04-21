@@ -136,34 +136,31 @@ class Response extends Message implements ResponseInterface
         }
         
         //send the response HTTP message
-        if (!$this->isEmptyResponse($response)) {
-            $body = $response->getBody();
-            if ($body->isSeekable()) {
-                $body->rewind();
-            }
+        $body = $response->getBody();
+        if ($body->isSeekable()) {
+            $body->rewind();
+        }
 
-            //get the content length
-            $contentLength  = $response->getHeaderLine('Content-Length');
-            $contentLength = (!$contentLength)? $body->getSize() : $contentLength;
+        //get the content length
+        $contentLength  = $response->getHeaderLine('Content-Length');
+        $contentLength = (!$contentLength)? $body->getSize() : $contentLength;
 
-            if (isset($contentLength)) {
-                $amountToRead = $contentLength;
-                while ($amountToRead > 0 && !$body->eof()) {
-                    $data = $body->read(min($chunkSize, $amountToRead));
-                    echo $data;
-
-                    $amountToRead -= strlen($data);
-
-                    if (connection_status() != CONNECTION_NORMAL) {
-                        break;
-                    }
+        if (isset($contentLength)) {
+            $amountToRead = $contentLength;
+            while ($amountToRead > 0 && !$body->eof()) {
+               $data = $body->read(min($chunkSize, $amountToRead));
+                echo $data;
+ 
+                $amountToRead -= strlen($data);
+                if (connection_status() != CONNECTION_NORMAL) {
+                    break;
                 }
-            } else {
-                while (!$body->eof()) {
-                    echo $body->read($chunkSize);
-                    if (connection_status() != CONNECTION_NORMAL) {
-                        break;
-                    }
+            }
+        } else {
+            while (!$body->eof()) {
+                echo $body->read($chunkSize);
+                if (connection_status() != CONNECTION_NORMAL) {
+                    break;
                 }
             }
         }

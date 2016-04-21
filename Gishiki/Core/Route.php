@@ -284,7 +284,7 @@ namespace Gishiki\Core {
                     //stop searching for a suitable URI to be matched against the current one
                     break;
                 } else {
-                    $reversed_params = new GenericCollection([]);
+                    $reversed_params = new GenericCollection();
                 }
             }
             
@@ -305,11 +305,8 @@ namespace Gishiki\Core {
                 }
             }
             
-            //final check to avoid breaking the router
-            $reversed_params = (!is_object($reversed_params))? new GenericCollection([]) : $reversed_params;
-            
-            if ($action_ruote) {
-                $action_ruote->take_action(clone $to_fulfill, $response, $reversed_params);
+            if (is_object($action_ruote)) {
+                $action_ruote(clone $to_fulfill, $response, $reversed_params);
             }
             
             //this function have to return a response
@@ -517,6 +514,13 @@ namespace Gishiki\Core {
                 "params" => $param_array,
                 "skipping_params" => $skip_params
             ];
+        }
+        
+        /**
+         * Proxy call for take_action
+         */
+        public function __invoke(Request $copy_of_request, Response &$response, GenericCollection &$arguments) {
+            return $this->take_action($copy_of_request, $response, $arguments);
         }
         
         /**

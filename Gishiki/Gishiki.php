@@ -56,10 +56,10 @@ abstract class Gishiki
         }
         
         //each Gishiki instance is binded with a new created Environment
-        self::$executionEnvironment = new Environment(
-                filter_input_array(INPUT_SERVER),
-                true,
-                true);
+        if (!is_object(self::$executionEnvironment)) {
+            self::$executionEnvironment = new Environment(
+                filter_input_array(INPUT_SERVER), true, true);
+        }
     }
     
     /**
@@ -67,6 +67,9 @@ abstract class Gishiki
      */
     public static function Run()
     {
+        //initialize the framework
+        self::Initialize();
+        
         //if the framework needs to be installed.....
         if (Environment::ApplicationExists()) {
             //fulfill the client request

@@ -19,6 +19,7 @@ namespace Gishiki\Core {
     
     use Gishiki\Algorithms\Collections\GenericCollection;
     use Gishiki\HttpKernel\Request;
+    use Gishiki\HttpKernel\Response;
     use Gishiki\Algorithms\Manipulation;
     
     /**
@@ -155,12 +156,19 @@ namespace Gishiki\Core {
             if ((count($decoded)) && ((strtoupper($decoded[0]) == "SERVICE") || (strtoupper($decoded[0]) == "API"))) {
                 die("Unimplemented (yet)");
             } else {
-                //include the list of routes
-                include(APPLICATION_DIR."routes.php");
+                //include the list of routes (if it exists)
+                if (file_exists(APPLICATION_DIR."routes.php")) {
+                    include(APPLICATION_DIR."routes.php");
+                }
                 
-                //current request
+                //get current request...
                 $current_request = Request::createFromEnvironment(Environment::$currentEnvironment);
-                Route::run($current_request);
+                
+                //...and serve it
+                $response = Route::run($current_request);
+                
+                //send response to the client
+                Response::send($response);
             }
         }
         

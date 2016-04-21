@@ -24,8 +24,5 @@ if (file_exists(__DIR__.'/vendor/autoload.php')) {
 
 use Gishiki\Gishiki;
 
-//start the framework
-Gishiki::Initialize();
-
 //run an instance of the application
 Gishiki::Run();

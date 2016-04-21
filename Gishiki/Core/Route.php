@@ -428,6 +428,17 @@ namespace Gishiki\Core {
         }
         
         /**
+         * Keeps a substitution table for regex and the relative groups
+         *
+         * @var array the table of regex and regex groups
+         */
+        private static $regex_table = [
+            'default' => ['[^\/]+' ,0],
+            'email' => ['([a-zA-Z0-9_\-.+]+)\@([a-zA-Z0-9-]+)\.([a-zA-Z]+)((\.([a-zA-Z]+))?)', 6],
+            'signed_integer' => ['(\+|\-)?(\d)+', 2],
+        ];
+        
+        /**
          * build a regex out of the URI of the current Route and adds name of
          * regex placeholders.
          * 
@@ -472,27 +483,26 @@ namespace Gishiki\Core {
                         }
                         
                         $param = $current_regex_id[0];
-                        $groups = 0;
+                        $regex_table_index = 'default';
                         switch (strtolower($current_regex)) {
                             case 'mail':
                             case 'email':
-                                $current_regex = '([a-zA-Z0-9_\-.+]+)\@([a-zA-Z0-9-]+)\.([a-zA-Z]+)((\.([a-zA-Z]+))?)';
-                                $groups = 6;
+                                $regex_table_index = 'email';
                                 break;
                             
                             case 'number':
                             case 'integer':
-                                $current_regex = '(\+|\-)?(\d)+';
-                                $groups = 2;
+                            case 'signed_integer':
+                                $regex_table_index = 'signed_integer';
                                 break;
 
                             default:
-                                $current_regex = '[^\/]+';
+                                $regex_table_index = 'default';
                         }
 
-                        $regexURI = str_replace($mathing_group, "(".$current_regex.")", $regexURI);
+                        $regexURI = str_replace($mathing_group, "(".self::$regex_table[$regex_table_index][0].")", $regexURI);
                         $param_array[] = $param;
-                        $skip_params[] = $groups;
+                        $skip_params[] = self::$regex_table[$regex_table_index][1];
                     }
                 }
             } else {

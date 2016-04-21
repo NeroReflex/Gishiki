@@ -120,23 +120,22 @@ class Response extends Message implements ResponseInterface
      * @param int               $chunkSize the size of each chunk of the response message
      */
     public static function send(ResponseInterface $response, $chunkSize = 512) {
-        // Send response
+        //send the response HTTP header
         if (!headers_sent()) {
             // Status
-            header(sprintf(
-                'HTTP/%s %s %s',
-                $response->getProtocolVersion(),
-                $response->getStatusCode(),
-                $response->getReasonPhrase()
-            ));
+            header("HTTP/".$response->getProtocolVersion()." ".
+                    $response->getStatusCode()." ".
+                    $response->getReasonPhrase()
+            );
             // Headers
             foreach ($response->getHeaders() as $name => $values) {
                 foreach ($values as $value) {
-                    header(sprintf('%s: %s', $name, $value), false);
+                    header($name.": ".$value);
                 }
             }
         }
-        // Body
+        
+        //send the response HTTP message
         if (!$this->isEmptyResponse($response)) {
             $body = $response->getBody();
             if ($body->isSeekable()) {

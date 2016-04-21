@@ -290,7 +290,7 @@ namespace Gishiki\Core {
             
             //oh.... seems like we have a 404 Not Found....
             if (!is_object($action_ruote)) {
-                $response->withStatus(404);
+                $response = $response->withStatus(404);
                 
                 foreach (self::$callbacks as $current_route) {
                     //check for a valid callback
@@ -305,9 +305,9 @@ namespace Gishiki\Core {
                 }
             }
             
-            if (is_object($action_ruote)) {
-                $action_ruote(clone $to_fulfill, $response, $reversed_params);
-            }
+            //execute the router call
+            (is_object($action_ruote))? 
+                $action_ruote(clone $to_fulfill, $response, $reversed_params) : null;
             
             //this function have to return a response
             return $response;

@@ -416,7 +416,7 @@ namespace Gishiki\Core {
 
                 //build a collection from the current reverser URI
                 $reversed_params = new GenericCollection($reversed_URI);
-            } elseif ((in_array($method, $this->methods)) && ($uri == $this->isSpecialCallback()) {
+            } elseif ((in_array($method, $this->methods)) && ($uri == $this->isSpecialCallback())) {
                 $reversed_params = new GenericCollection();
             }
             

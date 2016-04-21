@@ -287,7 +287,7 @@ namespace Gishiki\Core {
             }
             
             //make sure we are not using null
-            $reversed_params = ($reversed_params === null)? new GenericCollection() : $reversed_params;
+            $reversed_params = (!$reversed_params)? new GenericCollection() : $reversed_params;
             
             //oh.... seems like we have a 404 Not Found....
             if (!$action_ruote) {
@@ -295,13 +295,12 @@ namespace Gishiki\Core {
                 
                 foreach (self::$callbacks as $current_route) {
                     //check for a valid callback
-                    if (($current_route->isSpecialCallback() === self::NOT_FOUND) &&
-                            (in_array($to_fulfill->getMethod(), $current_route->getMethods())))
+                    if ($current_route->matchURI(self::NOT_FOUND, $to_fulfill->getMethod()))
                     {
                         //flag the execution of this failback action!
                         $action_ruote = $current_route;
                         
-                        //found what I was llokng for, break the foreach
+                        //found what I was looking for, break the foreach
                         break;
                     }
                 }
@@ -417,6 +416,8 @@ namespace Gishiki\Core {
 
                 //build a collection from the current reverser URI
                 $reversed_params = new GenericCollection($reversed_URI);
+            } elseif ((in_array($method, $this->methods)) && ($uri == $this->isSpecialCallback()) {
+                $reversed_params = new GenericCollection();
             }
             
             return $reversed_params;
@@ -470,7 +471,7 @@ namespace Gishiki\Core {
                         switch ($current_regex) {
                             case 'mail':
                             case 'email':
-                                $current_regex = "([a-zA-Z0-9_\\-.+]+)\\@([a-zA-Z0-9-]+)\\.((\\.|[a-zA-Z])+)";
+                                $current_regex = '([a-zA-Z0-9_\-.+]+)\@([a-zA-Z0-9-]+)\.([a-zA-Z]+)((\.([a-zA-Z]+))?)';
                                 break;
                             
                             case 'number':

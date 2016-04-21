@@ -120,32 +120,51 @@ class Response extends Message implements ResponseInterface
      * @param int               $chunkSize the size of each chunk of the response message
      */
     public static function send(ResponseInterface $response, $chunkSize = 512) {
-        $body = $response->getBody();
-        if ($body->isSeekable()) {
-            $body->rewind();
-        }
-        
-        //get the content length
-        $contentLength  = $response->getHeaderLine('Content-Length');
-        $contentLength = (!$contentLength)? $body->getSize() : $contentLength;
-        
-        if (isset($contentLength)) {
-            $amountToRead = $contentLength;
-            while ($amountToRead > 0 && !$body->eof()) {
-                $data = $body->read(min($chunkSize, $amountToRead));
-                echo $data;
-                   
-                $amountToRead -= strlen($data);
-                                   
-                if (connection_status() != CONNECTION_NORMAL) {
-                    break;
+        // Send response
+        if (!headers_sent()) {
+            // Status
+            header(sprintf(
+                'HTTP/%s %s %s',
+                $response->getProtocolVersion(),
+                $response->getStatusCode(),
+                $response->getReasonPhrase()
+            ));
+            // Headers
+            foreach ($response->getHeaders() as $name => $values) {
+                foreach ($values as $value) {
+                    header(sprintf('%s: %s', $name, $value), false);
                 }
             }
-        } else {
-            while (!$body->eof()) {
-                echo $body->read($chunkSize);
-                if (connection_status() != CONNECTION_NORMAL) {
-                    break;
+        }
+        // Body
+        if (!$this->isEmptyResponse($response)) {
+            $body = $response->getBody();
+            if ($body->isSeekable()) {
+                $body->rewind();
+            }
+
+            //get the content length
+            $contentLength  = $response->getHeaderLine('Content-Length');
+            $contentLength = (!$contentLength)? $body->getSize() : $contentLength;
+
+            if (isset($contentLength)) {
+                $amountToRead = $contentLength;
+                while ($amountToRead > 0 && !$body->eof()) {
+                    $data = $body->read(min($chunkSize, $amountToRead));
+                    echo $data;
+
+                    $amountToRead -= strlen($data);
+
+                    if (connection_status() != CONNECTION_NORMAL) {
+                        break;
+                    }
+                }
+            } else {
+                while (!$body->eof()) {
+                    echo $body->read($chunkSize);
+                    if (connection_status() != CONNECTION_NORMAL) {
+                        break;
+                    }
                 }
             }
         }

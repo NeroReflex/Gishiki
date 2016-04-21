@@ -69,7 +69,7 @@ Route::get("/Hello/{name_surname}",
     //this is what will be executed when the client asks for "https://site.com/User/urName+urSurname"
     
     //nice to meet you!
-    echo "Hello, ".$params->{"name_surname"}."!";
+    $response->write("Hello, ".$params->{"name_surname"}."!");
 });
 
 Route::get("/Home/{name}",
@@ -78,7 +78,7 @@ Route::get("/Home/{name}",
     //this is what will be executed when the client asks for "https://site.com/Home/some_name"
     
     //nice to meet you!
-    echo "Hello, ".$params->name."!";
+    $response->write("Hello, ".$params->name."!");
 });
 ```
 
@@ -112,8 +112,10 @@ Route::get("/Hello/{user_email:email}",
 
 That's great isn't it? Actually what you can catch is:
     
+   -  'default' a generic string
    -  'email' an email address
    -  'integer' an integer number
+
 
 ## All request methods
 Sometimes you may need to register a route that responds to all HTTP verbs, you 
@@ -176,11 +178,37 @@ Route::any(Route::NOT_FOUND,
     //this is what will be executed when the client asks for an unrouted URI
     
     //error message!
-    echo "Sorry man, you are asking for something I can't give you :(";
+    $response->write("Sorry man, you are asking for something I can't give you :(");
 });
 ```
 
-As you can see an error routing rule (or error callback) is unique for all request methods.
+As you can see an error routing rule (or error callback) is exactly any other URI
+and follows the same exact rules, however for known errors the HTTP status code is
+automatically changed (for example if a Route::NOT_FOUND URI is catched 404 Not Found
+is added automatically to the response).
+
+You cannot change this behaviour, but you can change the status code:
+
+```php
+use Gishiki\Core\Route;
+use Gishiki\Logging\Logger;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\GenericCollection;
+
+Route::any(Route::NOT_FOUND,
+    function (Request $request, Response &$response, GenericCollection &$arguments)
+{
+    //this is what will be executed when the client asks for an unrouted URI
+    $response->withStatus(500);
+
+    //error message!
+    $response->write("Sorry man, you are asking for something I can't give you :(");
+});
+```
+
+A bit stange to send to the client a 500 Internal Server Error for a missing
+resource, but nothing stops you from doing that.
 
 
 ## Limitation

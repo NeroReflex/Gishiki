@@ -11,7 +11,7 @@ pages:
     - Basic lighttpd:       installation/basic_lighttpd.md
     - Basic IIS:            installation/basic_iis.md
     - Composer:             installation/composer.md
-    - Heroku:               installation/Heroku.md
+    - PaaS:                 installation/paas.md
 - API: apidoc.md
 - Usage:
     - Configuration:    usage/configuration.md

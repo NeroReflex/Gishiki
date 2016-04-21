@@ -406,20 +406,22 @@ namespace Gishiki\Core {
         public function matchURI($uri, $method) {
             $reversed_params = null;
             
-            $regex_and_info = $this->getRegex();
-            
-            //try matching the regex against the currently requested URI
-            $matches = [];
-            if ((in_array($method, $this->methods)) && (preg_match($regex_and_info["regex"], $uri, $matches))) {
-                $reversed_URI = [];
-                $to_skip = 1;
-                foreach ($regex_and_info["params"] as $current_match_key => $current_match_name) {
-                    $reversed_URI[$current_match_name] = $matches[$current_match_key + $to_skip];
-                    $to_skip += $regex_and_info["skipping_params"][$current_match_key];
-                }
+            if ($this->isSpecialCallback() === false) {
+                $regex_and_info = $this->getRegex();
 
-                //build a collection from the current reverser URI
-                $reversed_params = new GenericCollection($reversed_URI);
+                //try matching the regex against the currently requested URI
+                $matches = [];
+                if ((in_array($method, $this->methods)) && (preg_match($regex_and_info["regex"], $uri, $matches))) {
+                    $reversed_URI = [];
+                    $to_skip = 1;
+                    foreach ($regex_and_info["params"] as $current_match_key => $current_match_name) {
+                        $reversed_URI[$current_match_name] = $matches[$current_match_key + $to_skip];
+                        $to_skip += $regex_and_info["skipping_params"][$current_match_key];
+                    }
+
+                    //build a collection from the current reverser URI
+                    $reversed_params = new GenericCollection($reversed_URI);
+                }
             } elseif ((in_array($method, $this->methods)) && ($uri == $this->isSpecialCallback())) {
                 $reversed_params = new GenericCollection();
             }

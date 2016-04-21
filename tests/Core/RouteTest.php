@@ -50,7 +50,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
         
         //check the generated regex
         $this->assertEquals('', $not_found->getRegex()['regex']);
-        $this->assertEquals(2, count($not_found->getRegex()));
+        $this->assertEquals(3, count($not_found->getRegex()));
         $this->assertEquals(Route::NOT_FOUND, $not_found->isSpecialCallback());
     }
     

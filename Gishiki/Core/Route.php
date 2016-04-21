@@ -412,9 +412,10 @@ namespace Gishiki\Core {
             $matches = [];
             if ((in_array($method, $this->methods)) && (preg_match($regex_and_info["regex"], $uri, $matches))) {
                 $reversed_URI = [];
+                $to_skip = 1;
                 foreach ($regex_and_info["params"] as $current_match_key => $current_match_name) {
-                    $reversed_URI[$current_match_name] =  (!in_array($current_match_name, array_keys($reversed_URI)))?
-                    $matches[$current_match_key + 1] : $reversed_URI[$current_match_name];
+                    $reversed_URI[$current_match_name] = $matches[$current_match_key + $to_skip];
+                    $to_skip += $regex_and_info["skipping_params"][$current_match_key];
                 }
 
                 //build a collection from the current reverser URI
@@ -449,13 +450,14 @@ namespace Gishiki\Core {
             $regexURI = $this->URI;
             
             $param_array = [];
+            $skip_params = [];
             
             if ($this->isSpecialCallback() === false) {
                 //start building the regex
                 $regexURI = "/^".preg_quote($regexURI, "/")."$/";
                 
                 //this will contain the matched expressions placeholders
-                $params = array();
+                $params = [];
                 //detect if regex are involved in the furnished URI
                 if (preg_match_all("/\\\{([a-zA-Z]|\d|\_|\.|\:|\\\\)+\\\}/", $regexURI, $params)) {
                     //substitute a regex for each matching group:
@@ -470,16 +472,18 @@ namespace Gishiki\Core {
                         }
                         
                         $param = $current_regex_id[0];
-
+                        $groups = 0;
                         switch (strtolower($current_regex)) {
                             case 'mail':
                             case 'email':
                                 $current_regex = '([a-zA-Z0-9_\-.+]+)\@([a-zA-Z0-9-]+)\.([a-zA-Z]+)((\.([a-zA-Z]+))?)';
+                                $groups = 6;
                                 break;
                             
                             case 'number':
                             case 'integer':
                                 $current_regex = '(\+|\-)?(\d)+';
+                                $groups = 2;
                                 break;
 
                             default:
@@ -488,13 +492,9 @@ namespace Gishiki\Core {
 
                         $regexURI = str_replace($mathing_group, "(".$current_regex.")", $regexURI);
                         $param_array[] = $param;
+                        $skip_params[] = $groups;
                     }
                 }
-                        
-                array(
-                    "regex"  => $regexURI,
-                    "params" => $params[0]
-                );
             } else {
                 $regexURI = '';
             }
@@ -502,7 +502,8 @@ namespace Gishiki\Core {
             //return the built regex + additionals info
             return [
                 "regex"  => $regexURI,
-                "params" => $param_array
+                "params" => $param_array,
+                "skipping_params" => $skip_params
             ];
         }
         

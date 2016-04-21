@@ -3,6 +3,7 @@
 /Documentation/site
 /Documentation/.couscous
 /Documentation/docs/API
-vendor/
+/vendor/
 .env
 composer.lock
+composer.phar

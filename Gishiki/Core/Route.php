@@ -277,25 +277,24 @@ namespace Gishiki\Core {
             foreach (self::$routes as $current_route) {
                 //build a collection from the current reverser URI (of detect the match failure)
                 $reversed_params = $current_route->matchURI($URI_decoded, $to_fulfill->getMethod());
-                if ($reversed_params) {
+                if (is_object($reversed_params)) {
                     //execute the requested action!
                     $action_ruote = $current_route;
                         
                     //stop searching for a suitable URI to be matched against the current one
                     break;
+                } else {
+                    $reversed_params = new GenericCollection([]);
                 }
             }
             
-            //make sure we are not using null
-            $reversed_params = (!$reversed_params)? new GenericCollection() : $reversed_params;
-            
             //oh.... seems like we have a 404 Not Found....
-            if (!$action_ruote) {
+            if (!is_object($action_ruote)) {
                 $response->withStatus(404);
                 
                 foreach (self::$callbacks as $current_route) {
                     //check for a valid callback
-                    if ($current_route->matchURI(self::NOT_FOUND, $to_fulfill->getMethod()))
+                    if (is_object($current_route->matchURI(self::NOT_FOUND, $to_fulfill->getMethod())))
                     {
                         //flag the execution of this failback action!
                         $action_ruote = $current_route;
@@ -305,6 +304,9 @@ namespace Gishiki\Core {
                     }
                 }
             }
+            
+            //final check to avoid breaking the router
+            $reversed_params = (!is_object($reversed_params))? new GenericCollection([]) : $reversed_params;
             
             if ($action_ruote) {
                 $action_ruote->take_action(clone $to_fulfill, $response, $reversed_params);
@@ -411,7 +413,8 @@ namespace Gishiki\Core {
             if ((in_array($method, $this->methods)) && (preg_match($regex_and_info["regex"], $uri, $matches))) {
                 $reversed_URI = [];
                 foreach ($regex_and_info["params"] as $current_match_key => $current_match_name) {
-                    $reversed_URI[$current_match_name] = $matches[$current_match_key + 1];
+                    $reversed_URI[$current_match_name] =  (!in_array($current_match_name, array_keys($reversed_URI)))?
+                    $matches[$current_match_key + 1] : $reversed_URI[$current_match_name];
                 }
 
                 //build a collection from the current reverser URI
@@ -468,7 +471,7 @@ namespace Gishiki\Core {
                         
                         $param = $current_regex_id[0];
 
-                        switch ($current_regex) {
+                        switch (strtolower($current_regex)) {
                             case 'mail':
                             case 'email':
                                 $current_regex = '([a-zA-Z0-9_\-.+]+)\@([a-zA-Z0-9-]+)\.([a-zA-Z]+)((\.([a-zA-Z]+))?)';
@@ -476,7 +479,7 @@ namespace Gishiki\Core {
                             
                             case 'number':
                             case 'integer':
-                                $current_regex = "(\+|-)?(\d)+";
+                                $current_regex = '(\+|\-)?(\d)+';
                                 break;
 
                             default:

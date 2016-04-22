@@ -21,6 +21,7 @@ namespace Gishiki\Core {
     use Gishiki\HttpKernel\Response;
     use Gishiki\Algorithms\Manipulation;
     use Gishiki\Algorithms\Collections\GenericCollection;
+    use Gishiki\Core\MVC\Controller;
     
     /**
      * This class is used to provide a small layer of Laravel-compatibility
@@ -557,9 +558,11 @@ namespace Gishiki\Core {
         protected function take_action(Request $copy_of_request, Response &$response, GenericCollection &$arguments)
         {
             if (is_callable($this->action)) {
+                //execute the given action
                 call_user_func_array($this->action, [$copy_of_request, &$response, &$arguments]);
             } elseif (is_string($this->action)) {
                 //execute the controller
+                Controller::Execute($this->action, $copy_of_request, $response, $arguments);
             } else {
                 //what are you fucking doing?
             }

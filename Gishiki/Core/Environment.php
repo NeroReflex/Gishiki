@@ -257,7 +257,7 @@ namespace Gishiki\Core {
 
                 case "CONTROLLER_DIR":
                 case "CONTROLLER_DIRECTORY":
-                    return APPLICATION_DIR."Services".DS;
+                    return APPLICATION_DIR."Controllers".DS;
 
                 case "KEYS_DIR":
                 case "KEYS_DIRECTORY":

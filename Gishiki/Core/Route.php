@@ -68,13 +68,16 @@ namespace Gishiki\Core {
         
         
         /*
-         * Commons requests methods (aka HTTP/HTTPS verbs)
+         * Commonly used requests methods (aka HTTP/HTTPS verbs)
          */
+        const ANY      = 'any'; //not an http verb, used internally
         const GET      = 'GET';
         const POST     = 'POST';
         const DELETE   = 'DELETE';
         const HEAD     = 'HEAD';
         const PUT      = 'PUT';
+        const PATCH    = 'PATCH';
+        const OPTIONS  = 'OPTIONS';
         
         /**
          * Convinient proxy function to call Route::addRoute( ... )
@@ -97,11 +100,7 @@ namespace Gishiki\Core {
         public static function any($URI, $function)
         {
             self::addRoute(new Route($URI, $function, [
-                self::GET,
-                self::PUT,
-                self::POST,
-                self::DELETE,
-                self::HEAD,
+                self::ANY
             ]));
         }
         
@@ -409,7 +408,7 @@ namespace Gishiki\Core {
 
                 //try matching the regex against the currently requested URI
                 $matches = [];
-                if ((in_array($method, $this->methods)) && (preg_match($regex_and_info["regex"], $uri, $matches))) {
+                if (((in_array($method, $this->methods)) || (in_array(Route::ANY, $this->methods))) && (preg_match($regex_and_info["regex"], $uri, $matches))) {
                     $reversed_URI = [];
                     $to_skip = 1;
                     foreach ($regex_and_info["params"] as $current_match_key => $current_match_name) {

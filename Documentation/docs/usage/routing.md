@@ -19,6 +19,8 @@ As for HTTP standards a client can perform a resource request using these verbs:
    -  DELETE identified as Route::DELETE
    -  PUT identified as Route::PUT
    -  HEAD identified as Route::HEAD
+   -  PATCH identified as Route::PATCH
+   -  OPTIONS identified as Route::OPTIONS
    
 When you set a routing rule (either static or dynamic) you have to select the 
 verb that you want to be served in that route.
@@ -218,12 +220,10 @@ You cannot match something that has a slash '/' character using a dynamic placeh
 
 
 ## Conclusions
-You can consider your anonymous functions passed to the routing as your controllers: they will be the glue between
-your models and your views! 
-
 The router is the fastest and easiest component within Gishiki, 
 because it is the first component that is used and the only one you __REALLY HAVE TO__ use.
 
 This means that you are now good to go... Everything you *MUST* know in order to use Gishiki ends here.
 
-Everything else is a plus you may need to accelerate the development of your projects!
+Everything else is a plus you may need to accelerate the development of your projects,
+although you should really learn how to deal with the [Request](request.md) and the [Response](response.md) objects passed to you.

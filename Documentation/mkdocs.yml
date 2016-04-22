@@ -16,6 +16,7 @@ pages:
 - Usage:
     - Configuration:    usage/configuration.md
     - Router:           usage/routing.md
+    - Request:          usage/request.md
     - Logger:           usage/logging.md
     - Database: 
         - Support:      usage/database/index.md

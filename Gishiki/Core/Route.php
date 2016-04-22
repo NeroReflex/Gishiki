@@ -412,7 +412,21 @@ namespace Gishiki\Core {
                     $reversed_URI = [];
                     $to_skip = 1;
                     foreach ($regex_and_info["params"] as $current_match_key => $current_match_name) {
-                        $reversed_URI[$current_match_name] = $matches[$current_match_key + $to_skip];
+                        //get the value of the matched URI param
+                        $value = $matches[$current_match_key + $to_skip];
+                        
+                        //filter the value of the matched URI param
+                        switch($regex_and_info["param_types"][$current_match_key]) {
+                            case 'signed_integer':
+                                $value = intval($value);
+                                break;
+                            
+                            default: //should be used for 'email', 'default', etc.
+                                $value = strval($value);
+                        }
+                        
+                        //store the value of the matched URI param
+                        $reversed_URI[$current_match_name] = $value;
                         $to_skip += $regex_and_info["skipping_params"][$current_match_key];
                     }
 
@@ -461,6 +475,7 @@ namespace Gishiki\Core {
             
             $param_array = [];
             $skip_params = [];
+            $param_types = [];
             
             if ($this->isSpecialCallback() === false) {
                 //start building the regex
@@ -501,6 +516,7 @@ namespace Gishiki\Core {
 
                         $regexURI = str_replace($mathing_group, "(".self::$regex_table[$regex_table_index][0].")", $regexURI);
                         $param_array[] = $param;
+                        $param_types[] = $regex_table_index;
                         $skip_params[] = self::$regex_table[$regex_table_index][1];
                     }
                 }
@@ -512,6 +528,7 @@ namespace Gishiki\Core {
             return [
                 "regex"  => $regexURI,
                 "params" => $param_array,
+                "param_types" => $param_types,
                 "skipping_params" => $skip_params
             ];
         }

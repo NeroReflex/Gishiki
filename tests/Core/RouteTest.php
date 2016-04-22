@@ -18,6 +18,9 @@ limitations under the License.
 namespace Gishiki\Tests\Core;
 
 use Gishiki\Core\Route;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Core\Environment;
 use Gishiki\Algorithms\Collections\GenericCollection;
 
 class RouteTest extends \PHPUnit_Framework_TestCase {
@@ -50,7 +53,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
         
         //check the generated regex
         $this->assertEquals('', $not_found->getRegex()['regex']);
-        $this->assertEquals(3, count($not_found->getRegex()));
+        $this->assertEquals(4, count($not_found->getRegex()));
         $this->assertEquals(Route::NOT_FOUND, $not_found->isSpecialCallback());
     }
     
@@ -84,7 +87,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
     }
     
     public function testBrokenRoute() {
-        //test using a number
         $number_route = new Route("/MyNumber/{random:number}", function () {
             throw new \Exception("Bad Test!");
         });
@@ -97,7 +99,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
     }
     
     public function testMultipleMatching() {
-        //test an email
         $email_route = new Route("/send/{address:email}/{test}/{test_num:inteGer}", function () {
             throw new \Exception("Bad Test!");
         });
@@ -110,8 +111,62 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(
                 new GenericCollection([
                     "address" => "test_ing+s3m4il@sp4c3.com",
-                    "test" => "uuuuh... likeit!",
-                    "test_num" => "+32"]),
-                $email_route->matchURI("/send/test_ing+s3m4il@sp4c3.com/uuuuh... likeit!/+32", 'GET'));
+                    "test" => "uuuuh... likeit! :)",
+                    "test_num" => 32]),
+                $email_route->matchURI("/send/test_ing+s3m4il@sp4c3.com/uuuuh... likeit! :)/+32", 'GET'));
+    }
+    
+    public function testTypeHandler() {
+        $email_route = new Route("/send/{address:email}/{test}/{test_num:inteGer}/{another_mail:mail}", function () {
+            throw new \Exception("Bad Test!");
+        });
+        
+        //test the multiple rules matcher
+        $this->assertEquals(
+            4,
+            count($email_route->getRegex()['param_types']));
+        $this->assertEquals(
+            ["email", "default", "signed_integer", "email"],
+            $email_route->getRegex()['param_types']);
+        
+    }
+    
+    public function testRouteExecution() {
+        $this->setUp();
+        
+        $test_route = new Route("/add/{num_1:integer}/{num_2:integer}", function (Request $request, Response &$response, GenericCollection &$params) {
+            $result = $params->num_1 + $params->num_2;
+            
+            $response->write(strval($result));
+            $response = $response->withStatus(500);
+            
+        });
+        
+        $match_result = $test_route->matchURI("/add/+59/-9", Route::GET);
+    
+        $this->assertEquals(
+            new GenericCollection([
+                    "num_1" => +59,
+                    "num_2" => -9]),
+            $match_result
+        );
+        
+        $env = Environment::mock([
+            'SCRIPT_NAME' => '/foo/bar/index.php',
+            'REQUEST_URI' => '/foo/bar?abc=123',
+        ]);
+        $response = new Response();
+        $test_route(Request::createFromEnvironment($env), $response, $match_result);
+        
+        $body = $response->getBody();
+        $body->rewind();
+        $data = "";
+        while (!$body->eof()) {
+            $data .= $body->read(1);
+        }
+        
+        $this->assertEquals(500, $response->getStatusCode());
+        
+        $this->assertEquals(50, intval($data));
     }
 }

@@ -18,25 +18,26 @@ limitations under the License.
 namespace Gishiki\Algorithms;
 
 /**
- * An helper class for string manipulation
+ * An helper class for string manipulation.
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
 abstract class Manipulation
 {
-    
     /**
-     * Convenient function that behave exactly like str_replace for the first occurrence only
+     * Convenient function that behave exactly like str_replace for the first occurrence only.
      * 
-     * @param  string $str_pattern     the pattern to be replaced
-     * @param  string $str_replacement the string to replace the first matched pattern
-     * @param  string $string          the string to search the pattern into
+     * @param string $str_pattern     the pattern to be replaced
+     * @param string $str_replacement the string to replace the first matched pattern
+     * @param string $string          the string to search the pattern into
+     *
      * @return string the new string with the first matched pattern replaced
      */
     public static function replace_once($str_pattern, $str_replacement, $string)
     {
         if (strpos($string, $str_pattern) !== false) {
             $occurrence = strpos($string, $str_pattern);
+
             return substr_replace($string, $str_replacement, strpos($string, $str_pattern), strlen($str_pattern));
         }
 
@@ -44,11 +45,12 @@ abstract class Manipulation
     }
 
     /**
-     * Convenient function that behave exactly like str_replace for the first occurrence only
+     * Convenient function that behave exactly like str_replace for the first occurrence only.
      * 
-     * @param  array  $str_patterns    the list of pattern to be replaced
-     * @param  string $str_replacement the string to replace the first matched pattern
-     * @param  string $string          the string to search the pattern into
+     * @param array  $str_patterns    the list of pattern to be replaced
+     * @param string $str_replacement the string to replace the first matched pattern
+     * @param string $string          the string to search the pattern into
+     *
      * @return string the new string with the first matched pattern replaced
      */
     public static function replace_list($str_patterns, $str_replacement, $string)
@@ -56,47 +58,50 @@ abstract class Manipulation
         foreach ($str_patterns as $pattern) {
             $string = str_replace($pattern, $str_replacement, $string);
         }
-        
+
         return $string;
     }
 
     /**
-     * Get the string between two substrings
+     * Get the string between two substrings.
      * 
-     * @param  string $string the string to be analyzed
-     * @param  string $start  the first substring
-     * @param  string $end    the second substring
+     * @param string $string the string to be analyzed
+     * @param string $start  the first substring
+     * @param string $end    the second substring
+     *
      * @return string|bool the string between the two substrings, or FALSE
      */
     public static function get_between($string, $start, $end)
     {
-        $string = ' ' . $string;
+        $string = ' '.$string;
         $ini = strpos($string, $start);
         $ini += strlen($start);
         $eni = strpos($string, $end, $ini);
         $len = $eni - $ini;
+
         return (($eni !== false) && ($ini !== false)) ?
             substr($string, $ini, $len) : false;
     }
-    
+
     /**
      * Interpolate a PHP string:
      * perform a sobstitution of {{name}} with the value of the $params['name'].
      * 
      * Note: $params['name'] can be an object that implements __toString()
      * 
-     * @param  string $string
-     * @param  array  $params
+     * @param string $string
+     * @param array  $params
+     *
      * @return string the interpolated string
      */
     public static function interpolate($string, array $params)
     {
         //perform the interpolation
         foreach (array_keys($params) as $current_interpolation) {
-            $str_current_interpolation = (string)$current_interpolation;
-            $string = str_replace('{{'.$str_current_interpolation.'}}', (string)$params[$current_interpolation], $string);
+            $str_current_interpolation = (string) $current_interpolation;
+            $string = str_replace('{{'.$str_current_interpolation.'}}', (string) $params[$current_interpolation], $string);
         }
-        
+
         //return the interpolated string
         return $string;
     }

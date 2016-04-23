@@ -16,20 +16,19 @@ limitations under the License.
 *****************************************************************************/
 
 namespace Gishiki\Security {
-    
+
     /**
-     * The asymmetric cipher algorithm implementation on a private-key point of view
+     * The asymmetric cipher algorithm implementation on a private-key point of view.
      *
      * Benato Denis <benato.denis96@gmail.com>
      */
     class AsymmetricPrivateKeyCipher
     {
-
         //the private key used for encryption and decyption
         private $privateKey;
 
         /**
-         * Setup an empty private key
+         * Setup an empty private key.
          */
         public function __construct()
         {
@@ -38,78 +37,81 @@ namespace Gishiki\Security {
         }
 
         /**
-         * Check if a valid RSA private key has been loaded
+         * Check if a valid RSA private key has been loaded.
          * 
          * @return bool TRUE if the private key has been loaded, FASE otherwise
          */
         public function IsLoaded()
         {
-            return ((gettype($this->privateKey) != "NULL") && (gettype($this->privateKey) == "resource"));
+            return (gettype($this->privateKey) != 'NULL') && (gettype($this->privateKey) == 'resource');
         }
 
         /**
-         * Import the private key from a string
+         * Import the private key from a string.
          * 
-         * @param  string          $keyAsString the RSA unencrypted or encrypted key
-         * @param  string          $password    the password used to decrypt the RSA private key
+         * @param string $keyAsString the RSA unencrypted or encrypted key
+         * @param string $password    the password used to decrypt the RSA private key
+         *
          * @throws CipherException the exception occurred while importing the key
          */
-        public function ImportPrivateKey($keyAsString, $password = "")
+        public function ImportPrivateKey($keyAsString, $password = '')
         {
-            $isEncrypted = (gettype($password) == "string") && (strlen($password) > 0);
-            
+            $isEncrypted = (gettype($password) == 'string') && (strlen($password) > 0);
+
             if (!$isEncrypted) {
                 //check if the given string is a loadable key
-                if ((strpos($keyAsString, "-----BEGIN PRIVATE KEY-----") !== false) && (strpos($keyAsString, "-----END PRIVATE KEY-----") !== false)) {
+                if ((strpos($keyAsString, '-----BEGIN PRIVATE KEY-----') !== false) && (strpos($keyAsString, '-----END PRIVATE KEY-----') !== false)) {
                     //load the private key
                     $this->privateKey = openssl_pkey_get_private($keyAsString);
                 } else {
-                    throw new CipherException("The RSA exported private key cannot be loaded, because the given data is not a private key", 6);
+                    throw new CipherException('The RSA exported private key cannot be loaded, because the given data is not a private key', 6);
                 }
             } else {
                 //check if the given string is a loadable key
-                if ((strpos($keyAsString, "-----BEGIN ENCRYPTED PRIVATE KEY-----") !== false) && (strpos($keyAsString, "-----END ENCRYPTED PRIVATE KEY-----") !== false)) {
+                if ((strpos($keyAsString, '-----BEGIN ENCRYPTED PRIVATE KEY-----') !== false) && (strpos($keyAsString, '-----END ENCRYPTED PRIVATE KEY-----') !== false)) {
                     if (strlen($password) <= 0) {
-                        throw new CipherException("The given password is not valid, and cannot be used to decrypt the encrypted key", 8);
+                        throw new CipherException('The given password is not valid, and cannot be used to decrypt the encrypted key', 8);
                     }
 
                     //load the encrypted private key
                     $this->privateKey = openssl_pkey_get_private($keyAsString, $password);
                 } else {
-                    throw new CipherException("The RSA exported private key cannot be loaded, because the given data is not a private encrypted key", 7);
+                    throw new CipherException('The RSA exported private key cannot be loaded, because the given data is not a private encrypted key', 7);
                 }
             }
         }
 
         /**
          * Export the private key in a way it can be imported by AsymmetricPrivateKeyCipher::ImportPrivateKey()
-         * or used by OpenSSL
+         * or used by OpenSSL.
          * 
-         * @param  type            $password the passphrase used to encrypt the key (increase security)
-         * @return string          the private key in a serialized format
+         * @param type $password the passphrase used to encrypt the key (increase security)
+         *
+         * @return string the private key in a serialized format
+         *
          * @throws CipherException the exception occurred while exporting the key
          */
-        public function ExportPrivateKey($password = "")
+        public function ExportPrivateKey($password = '')
         {
-            if (gettype($password) != "string") {
-                throw new CipherException("The private key cannot be exported, because the password was given as a ".gettype($password)." value, and not as a string", 11);
+            if (gettype($password) != 'string') {
+                throw new CipherException('The private key cannot be exported, because the password was given as a '.gettype($password).' value, and not as a string', 11);
             }
 
             //start building the configuration array
             $config = [
-                "digest_alg" => "sha512",
+                'digest_alg' => 'sha512',
                 /*"private_key_bits" => $keyLength,*/
-                "private_key_type" => OPENSSL_KEYTYPE_RSA,
+                'private_key_type' => OPENSSL_KEYTYPE_RSA,
             ];
 
             //if a custom openssl configuration is found
-            if (file_exists(ROOT."Gishiki".DS."openssl.cnf")) {
+            if (file_exists(ROOT.'Gishiki'.DS.'openssl.cnf')) {
                 //use it
-                $config["config"] = ROOT."Gishiki".DS."openssl.cnf";
+                $config['config'] = ROOT.'Gishiki'.DS.'openssl.cnf';
             }
 
-            if (gettype($this->privateKey) != "NULL") {
-                $serializedKey = "";
+            if (gettype($this->privateKey) != 'NULL') {
+                $serializedKey = '';
 
                 //serialize the key and encrypt it if requested
                 if (strlen($password) > 0) {
@@ -127,9 +129,10 @@ namespace Gishiki\Security {
 
         /**
          * Export the public key as a string that can be imported by 
-         * AsymmetricPublicKeyCipher::ImportPublicKey()
+         * AsymmetricPublicKeyCipher::ImportPublicKey().
          * 
-         * @return string          the public key exported as a string
+         * @return string the public key exported as a string
+         *
          * @throws CipherException the exception occurred while serializing the key
          */
         public function ExportPublicKey()
@@ -139,17 +142,19 @@ namespace Gishiki\Security {
                 $privateKeyDetails = openssl_pkey_get_details($this->privateKey);
 
                 //return the public key
-                return $privateKeyDetails["key"];
+                return $privateKeyDetails['key'];
             } else {
                 throw new CipherException("The public key cannot be exported, because the private key wasn't loaded", 9);
             }
         }
 
         /**
-         * Generate the digital signature of the given *plain* message
+         * Generate the digital signature of the given *plain* message.
          * 
-         * @param  string          $message the message to sign
-         * @return string          the signature in a binary-safe format
+         * @param string $message the message to sign
+         *
+         * @return string the signature in a binary-safe format
+         *
          * @throws CipherException the error occurred
          */
         public function GenerateDigitalSignature($message)
@@ -158,8 +163,8 @@ namespace Gishiki\Security {
                 //the digital signature
                 $digitalSignature = null;
 
-                if (!openssl_sign($message, $digitalSignature, $this->privateKey, "sha256WithRSAEncryption")) {
-                    throw new CipherException("OpenSSL was unable to create the digital signature", 1);
+                if (!openssl_sign($message, $digitalSignature, $this->privateKey, 'sha256WithRSAEncryption')) {
+                    throw new CipherException('OpenSSL was unable to create the digital signature', 1);
                 }
 
                 //return the signature in a binary-safe format
@@ -170,10 +175,12 @@ namespace Gishiki\Security {
         }
 
         /**
-         * Encrypt a message using the loaded private key
+         * Encrypt a message using the loaded private key.
          * 
-         * @param  string          $message the message to encrypt
-         * @return string          the encrypted message in a binary safe format 
+         * @param string $message the message to encrypt
+         *
+         * @return string the encrypted message in a binary safe format 
+         *
          * @throws CipherException the error occurred
          */
         public function Encrypt($message)
@@ -195,10 +202,12 @@ namespace Gishiki\Security {
         }
 
         /**
-         * Decrypt a message encrypted with the public key using the loaded private key
+         * Decrypt a message encrypted with the public key using the loaded private key.
          * 
-         * @param  string          $encMessage the encrypted message (using the public key)
-         * @return string          the plain message before the encrypted
+         * @param string $encMessage the encrypted message (using the public key)
+         *
+         * @return string the plain message before the encrypted
+         *
          * @throws CipherException the error occurred
          */
         public function Decrypt($encMessage)
@@ -220,7 +229,7 @@ namespace Gishiki\Security {
         }
 
         /**
-         * Free the memory used by OpenSSL to hold the private key
+         * Free the memory used by OpenSSL to hold the private key.
          */
         public function __destruct()
         {

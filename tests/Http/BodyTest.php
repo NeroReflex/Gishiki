@@ -1,11 +1,13 @@
 <?php
 /**
- * Slim Framework (http://slimframework.com)
+ * Slim Framework (http://slimframework.com).
  *
  * @link      https://github.com/slimphp/Slim
+ *
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\tests\Http;
 
 use ReflectionProperty;
@@ -125,7 +127,7 @@ class BodyTest extends \PHPUnit_Framework_TestCase
         $this->stream = $this->resourceFactory();
         $body = new Body($this->stream);
 
-        $this->assertEquals($this->text, (string)$body);
+        $this->assertEquals($this->text, (string) $body);
     }
 
     public function testToStringAttachedRewindsFirst()
@@ -133,9 +135,9 @@ class BodyTest extends \PHPUnit_Framework_TestCase
         $this->stream = $this->resourceFactory();
         $body = new Body($this->stream);
 
-        $this->assertEquals($this->text, (string)$body);
-        $this->assertEquals($this->text, (string)$body);
-        $this->assertEquals($this->text, (string)$body);
+        $this->assertEquals($this->text, (string) $body);
+        $this->assertEquals($this->text, (string) $body);
+        $this->assertEquals($this->text, (string) $body);
     }
 
     public function testToStringDetached()
@@ -146,7 +148,7 @@ class BodyTest extends \PHPUnit_Framework_TestCase
         $bodyStream->setAccessible(true);
         $bodyStream->setValue($body, null);
 
-        $this->assertEquals('', (string)$body);
+        $this->assertEquals('', (string) $body);
     }
 
     public function testClose()
@@ -367,7 +369,7 @@ class BodyTest extends \PHPUnit_Framework_TestCase
         }
         $body->write('foo');
 
-        $this->assertEquals($this->text . 'foo', (string)$body);
+        $this->assertEquals($this->text.'foo', (string) $body);
     }
 
     public function testWriteDetachedThrowsRuntimeException()

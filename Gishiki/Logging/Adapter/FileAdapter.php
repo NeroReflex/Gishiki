@@ -19,7 +19,6 @@ namespace Gishiki\Logging\Adapter;
 
 use Gishiki\Core\Environment;
 use Gishiki\Algorithms\Manipulation;
-use Psr\Log\LogLevel;
 
 /**
  * An helper class for storing logs of what happens on the server.
@@ -32,10 +31,10 @@ class FileAdapter extends \Psr\Log\AbstractLogger
 {
     //this is the path of the log file
     private $path = null;
-    
+
     //this is the file stream
     private $handler = null;
-    
+
     /**
      * Setup a logger that works on files.
      * 
@@ -46,17 +45,17 @@ class FileAdapter extends \Psr\Log\AbstractLogger
     public function __construct($file_path = '')
     {
         //get the file path
-        $this->path = ($file_path != '') ? $file_path : Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR')."error.log";
-        
+        $this->path = ($file_path != '') ? $file_path : Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').'error.log';
+
         //open the file
         $this->handler = fopen($file_path, 'a');
     }
-    
+
     public function log($level, $message, array $context = array())
     {
         $interpolated_message = Manipulation::interpolate($message, $context);
         $interpolated_message = trim($interpolated_message);
-        
-        return ($this->handler)? fwrite($this->handler, "[".$level."] ".$interpolated_message."\n") : null;
+
+        return ($this->handler) ? fwrite($this->handler, '['.$level.'] '.$interpolated_message."\n") : null;
     }
 }

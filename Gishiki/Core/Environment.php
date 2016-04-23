@@ -16,7 +16,7 @@ limitations under the License.
 *****************************************************************************/
 
 namespace Gishiki\Core {
-    
+
     use Gishiki\Algorithms\Collections\GenericCollection;
     use Gishiki\HttpKernel\Request;
     use Gishiki\HttpKernel\Response;
@@ -34,40 +34,41 @@ namespace Gishiki\Core {
          * 
          * The given data is organized as the $_SERVER variable is
          *
-         * @param  array $userData Array of custom environment keys and values
+         * @param array $userData Array of custom environment keys and values
+         *
          * @return Environment
          */
         public static function mock(array $userData = [], $selfRegisterOfNewInstance = false, $loadApplication = false)
         {
             $data = array_merge([
-                'SERVER_PROTOCOL'      => 'HTTP/1.1',
-                'REQUEST_METHOD'       => 'GET',
-                'SCRIPT_NAME'          => '',
-                'REQUEST_URI'          => '',
-                'QUERY_STRING'         => '',
-                'SERVER_NAME'          => 'localhost',
-                'SERVER_PORT'          => 80,
-                'HTTP_HOST'            => 'localhost',
-                'HTTP_ACCEPT'          => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'SERVER_PROTOCOL' => 'HTTP/1.1',
+                'REQUEST_METHOD' => 'GET',
+                'SCRIPT_NAME' => '',
+                'REQUEST_URI' => '',
+                'QUERY_STRING' => '',
+                'SERVER_NAME' => 'localhost',
+                'SERVER_PORT' => 80,
+                'HTTP_HOST' => 'localhost',
+                'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                 'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8',
-                'HTTP_ACCEPT_CHARSET'  => 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-                'HTTP_USER_AGENT'      => 'Unknown',
-                'REMOTE_ADDR'          => '127.0.0.1',
-                'REQUEST_TIME'         => time(),
-                'REQUEST_TIME_FLOAT'   => microtime(true),
+                'HTTP_ACCEPT_CHARSET' => 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+                'HTTP_USER_AGENT' => 'Unknown',
+                'REMOTE_ADDR' => '127.0.0.1',
+                'REQUEST_TIME' => time(),
+                'REQUEST_TIME_FLOAT' => microtime(true),
             ], $userData);
-                
-            return new Environment($data, $selfRegisterOfNewInstance, $loadApplication);
+
+            return new self($data, $selfRegisterOfNewInstance, $loadApplication);
         }
-        
+
         /** each environment has its configuration */
         private $configuration;
 
         /** this is the currently active environment */
         private static $currentEnvironment;
-        
+
         /**
-         * Setup a new environment instance used to fulfill the client request
+         * Setup a new environment instance used to fulfill the client request.
          * 
          * @param bool $selfRegister TRUE if the environment must be assigned as the currently valid one
          */
@@ -75,10 +76,10 @@ namespace Gishiki\Core {
         {
             //call the collection constructor of this own class
             parent::__construct($userData);
-            
+
             //register the current environment
             if ($selfRegister) {
-                Environment::RegisterEnvironment($this);
+                self::RegisterEnvironment($this);
             }
 
             if ($loadApplication) {
@@ -86,17 +87,17 @@ namespace Gishiki\Core {
                 $this->LoadConfiguration();
             }
         }
-        
+
         /**
          * Read the application configuration (settings.ini) and return the 
-         * parsing result
+         * parsing result.
          * 
          * @return array the application configuration
          */
         public static function GetApplicationSettings()
         {
             //get the json encoded application settings
-            $settings_configuration = file_get_contents(APPLICATION_DIR."settings.json");
+            $settings_configuration = file_get_contents(APPLICATION_DIR.'settings.json');
 
             //update every environment placeholder
             while (strpos($settings_configuration, '{{@')) {
@@ -107,7 +108,7 @@ namespace Gishiki\Core {
                     } elseif (defined($to_be_replaced)) {
                         $settings_configuration = str_replace('{{@'.$to_be_replaced.'}}', constant($to_be_replaced), $settings_configuration);
                     } else {
-                        die("Unknown environment var: ".$to_be_replaced);
+                        die('Unknown environment var: '.$to_be_replaced);
                     }
                 }
             }
@@ -121,58 +122,58 @@ namespace Gishiki\Core {
 
         /**
          * Check if the application to be executed exists, is valid and has the
-         * configuration file
+         * configuration file.
          * 
          * @return bool the application existence
          */
         public static function ApplicationExists()
         {
             //return the existence of an application directory and a configuratio file
-            return ((file_exists(APPLICATION_DIR)) && (file_exists(APPLICATION_DIR."settings.json")));
+            return (file_exists(APPLICATION_DIR)) && (file_exists(APPLICATION_DIR.'settings.json'));
         }
-        
+
         /**
-         * Register the currently active environment
+         * Register the currently active environment.
          * 
          * @param Environment $env the currently active environment
          */
         public function RegisterEnvironment(Environment &$env)
         {
             //register the currently active environment
-            Environment::$currentEnvironment = $env;
+            self::$currentEnvironment = $env;
         }
 
         /**
-         * Fullfill the request made by the client
+         * Fullfill the request made by the client.
          */
         public function FulfillRequest()
         {
-            $current_request = Request::createFromEnvironment(Environment::$currentEnvironment);
-            
-            //split the requested resource string to analyze it
-            $decoded = explode("/", $current_request->getUri()->getPath());
+            $current_request = Request::createFromEnvironment(self::$currentEnvironment);
 
-            if ((count($decoded)) && ((strtoupper($decoded[0]) == "SERVICE") || (strtoupper($decoded[0]) == "API"))) {
-                die("Unimplemented (yet)");
+            //split the requested resource string to analyze it
+            $decoded = explode('/', $current_request->getUri()->getPath());
+
+            if ((count($decoded)) && ((strtoupper($decoded[0]) == 'SERVICE') || (strtoupper($decoded[0]) == 'API'))) {
+                die('Unimplemented (yet)');
             } else {
                 //include the list of routes (if it exists)
-                if (file_exists(APPLICATION_DIR."routes.php")) {
-                    include(APPLICATION_DIR."routes.php");
+                if (file_exists(APPLICATION_DIR.'routes.php')) {
+                    include APPLICATION_DIR.'routes.php';
                 }
-                
+
                 //get current request...
-                $current_request = Request::createFromEnvironment(Environment::$currentEnvironment);
-                
+                $current_request = Request::createFromEnvironment(self::$currentEnvironment);
+
                 //...and serve it
                 $response = Route::run($current_request);
-                
+
                 //send response to the client
                 Response::send($response);
             }
         }
-        
+
         /**
-         * Return the currenlty active environment used to run the controller
+         * Return the currenlty active environment used to run the controller.
          * 
          * @return Environment the current environment
          */
@@ -184,7 +185,7 @@ namespace Gishiki\Core {
 
         /**
          * Load the framework configuration from the config file and return it in an
-         * format kwnown to the framework
+         * format kwnown to the framework.
          */
         private function LoadConfiguration()
         {
@@ -195,19 +196,19 @@ namespace Gishiki\Core {
                 //General Configuration
                 $this->configuration = [
                     //get general environment configuration
-                    "DEVELOPMENT_ENVIRONMENT" => $config["general"]["development"],
-                    "AUTOLOG_URL" => (isset($config["general"]["autolog"])) ? $config["general"]["autolog"] : 'null',
-                    
+                    'DEVELOPMENT_ENVIRONMENT' => $config['general']['development'],
+                    'AUTOLOG_URL' => (isset($config['general']['autolog'])) ? $config['general']['autolog'] : 'null',
+
                     //Security Settings
-                    "SECURITY" => [
-                        "MASTER_SYMMETRIC_KEY" => $config["security"]["serverPassword"],
-                        "MASTER_ASYMMETRIC_KEY" => $config["security"]["serverKey"],
-                    ]
+                    'SECURITY' => [
+                        'MASTER_SYMMETRIC_KEY' => $config['security']['serverPassword'],
+                        'MASTER_ASYMMETRIC_KEY' => $config['security']['serverKey'],
+                    ],
                 ];
             }
-            
+
             //check for the environment configuration
-            if ($this->configuration["DEVELOPMENT_ENVIRONMENT"]) {
+            if ($this->configuration['DEVELOPMENT_ENVIRONMENT']) {
                 ini_set('display_errors', 1);
                 error_reporting(E_ALL);
             } else {
@@ -215,74 +216,76 @@ namespace Gishiki\Core {
                 error_reporting(0);
             }
         }
-        
+
         /**
-         * Return the configuration property
+         * Return the configuration property.
          * 
-         * @param  string $property the requested configuration property
-         * @return the    requested configuration property or NULL
+         * @param string $property the requested configuration property
+         *
+         * @return the requested configuration property or NULL
          */
         public function GetConfigurationProperty($property)
         {
             switch (strtoupper($property)) {
-                case "LOG_CONNECTION_STRING":
-                    return $this->configuration["AUTOLOG_URL"];
-                    
-                case "MODEL_DIR":
-                    return APPLICATION_DIR."Models";
-                    
-                case "DATA_CONNECTIONS":
-                    return $this->configuration["DATABASE_CONNECTIONS"];
-                
-                case "LOGGING_ENABLED":
-                    return $this->configuration["LOG"]["ENABLED"];
+                case 'LOG_CONNECTION_STRING':
+                    return $this->configuration['AUTOLOG_URL'];
 
-                case "LOGGING_COLLECTION_SOURCE":
-                    return $this->configuration["LOG"]["SOURCES"];
+                case 'MODEL_DIR':
+                    return APPLICATION_DIR.'Models';
 
-                case "MASTER_ASYMMETRIC_KEY":
-                    return $this->configuration["SECURITY"]["MASTER_ASYMMETRIC_KEY"];
+                case 'DATA_CONNECTIONS':
+                    return $this->configuration['DATABASE_CONNECTIONS'];
 
-                case "MASTER_SYMMETRIC_KEY":
-                    return $this->configuration["SECURITY"]["MASTER_SYMMETRIC_KEY"];
+                case 'LOGGING_ENABLED':
+                    return $this->configuration['LOG']['ENABLED'];
 
-                case "RESOURCE_DIR":
-                case "RESOURCE_DIRECTORY":
-                    return APPLICATION_DIR."Resources".DS;
+                case 'LOGGING_COLLECTION_SOURCE':
+                    return $this->configuration['LOG']['SOURCES'];
 
-                case "VIEW_DIR":
-                case "VIEW_DIRECTORY":
-                    return APPLICATION_DIR."Views".DS;
+                case 'MASTER_ASYMMETRIC_KEY':
+                    return $this->configuration['SECURITY']['MASTER_ASYMMETRIC_KEY'];
 
-                case "CONTROLLER_DIR":
-                case "CONTROLLER_DIRECTORY":
-                    return APPLICATION_DIR."Controllers".DS;
+                case 'MASTER_SYMMETRIC_KEY':
+                    return $this->configuration['SECURITY']['MASTER_SYMMETRIC_KEY'];
 
-                case "KEYS_DIR":
-                case "KEYS_DIRECTORY":
-                case "ASYMMETRIC_KEYS":
-                    return APPLICATION_DIR."Keyring".DS;
+                case 'RESOURCE_DIR':
+                case 'RESOURCE_DIRECTORY':
+                    return APPLICATION_DIR.'Resources'.DS;
 
-                case "APPLICATION_DIR":
-                case "APPLICATION_DIRECTORY":
+                case 'VIEW_DIR':
+                case 'VIEW_DIRECTORY':
+                    return APPLICATION_DIR.'Views'.DS;
+
+                case 'CONTROLLER_DIR':
+                case 'CONTROLLER_DIRECTORY':
+                    return APPLICATION_DIR.'Controllers'.DS;
+
+                case 'KEYS_DIR':
+                case 'KEYS_DIRECTORY':
+                case 'ASYMMETRIC_KEYS':
+                    return APPLICATION_DIR.'Keyring'.DS;
+
+                case 'APPLICATION_DIR':
+                case 'APPLICATION_DIRECTORY':
                     return APPLICATION_DIR;
-                    
+
                 default:
-                    return null;
+                    return;
             }
         }
 
         /**
-         * Detect the disponibility of a php extension or feature
+         * Detect the disponibility of a php extension or feature.
          * 
-         * @param  string $extensionAlias the extension alias (NOT THE EXTENSION NAME)
-         * @return bool   true if the extension is enabled, false otherwise
+         * @param string $extensionAlias the extension alias (NOT THE EXTENSION NAME)
+         *
+         * @return bool true if the extension is enabled, false otherwise
          */
         public static function ExtensionSupport($extensionAlias)
         {
             switch (strtoupper($extensionAlias)) {
                 case 'MEMCACHED':
-                    return class_exists("Memcached");
+                    return class_exists('Memcached');
 
                 case 'OPENSSL':
                     return extension_loaded('openssl');
@@ -291,11 +294,11 @@ namespace Gishiki\Core {
                     return extension_loaded('');
 
                 case 'SIMPLEXML':
-                    return ((extension_loaded('xml')) && (in_array('simplexml', get_loaded_extensions())));
+                    return (extension_loaded('xml')) && (in_array('simplexml', get_loaded_extensions()));
 
                 case 'SQL':
                     return extension_loaded('PDO');
-                    
+
                 default:
                     return false;
             }

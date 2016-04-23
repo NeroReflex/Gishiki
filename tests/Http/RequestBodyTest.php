@@ -1,11 +1,13 @@
 <?php
 /**
- * Slim Framework (http://slimframework.com)
+ * Slim Framework (http://slimframework.com).
  *
  * @link      https://github.com/slimphp/Slim
+ *
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\tests\Http;
 
 use ReflectionProperty;
@@ -117,14 +119,14 @@ class RequestBodyTest extends \PHPUnit_Framework_TestCase
 
     public function testToStringAttached()
     {
-        $this->assertEquals($this->text, (string)$this->body);
+        $this->assertEquals($this->text, (string) $this->body);
     }
 
     public function testToStringAttachedRewindsFirst()
     {
-        $this->assertEquals($this->text, (string)$this->body);
-        $this->assertEquals($this->text, (string)$this->body);
-        $this->assertEquals($this->text, (string)$this->body);
+        $this->assertEquals($this->text, (string) $this->body);
+        $this->assertEquals($this->text, (string) $this->body);
+        $this->assertEquals($this->text, (string) $this->body);
     }
 
     public function testToStringDetached()
@@ -133,7 +135,7 @@ class RequestBodyTest extends \PHPUnit_Framework_TestCase
         $bodyStream->setAccessible(true);
         $bodyStream->setValue($this->body, null);
 
-        $this->assertEquals('', (string)$this->body);
+        $this->assertEquals('', (string) $this->body);
     }
 
     public function testClose()
@@ -143,7 +145,7 @@ class RequestBodyTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEquals(null, 'stream', $this->body);
         $this->assertFalse($this->body->isReadable());
         $this->assertFalse($this->body->isWritable());
-        $this->assertEquals('', (string)$this->body);
+        $this->assertEquals('', (string) $this->body);
 
         $this->setExpectedException('RuntimeException');
         $this->body->tell();
@@ -294,7 +296,7 @@ class RequestBodyTest extends \PHPUnit_Framework_TestCase
         }
         $this->body->write('foo');
 
-        $this->assertEquals($this->text . 'foo', (string)$this->body);
+        $this->assertEquals($this->text.'foo', (string) $this->body);
     }
 
     public function testWriteDetachedThrowsRuntimeException()

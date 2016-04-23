@@ -21,11 +21,9 @@ use Gishiki\Algorithms\Manipulation;
 
 class ManipulationTest extends \PHPUnit_Framework_TestCase
 {
-    
-    
     public function testInterpolation()
     {
-        $correct_message = "Carnevale vecchio e pazzo
+        $correct_message = 'Carnevale vecchio e pazzo
 s’è venduto il materasso
 per comprare pane, vino,
 tarallucci e cotechino.
@@ -40,9 +38,9 @@ mentre ancora mangia, mangia.
 Così muore il Carnevale
 e gli fanno il funerale:
 dalla polvere era nato
-e di polvere è tornato.";
-        
-        $message_without_data = "Carnevale {{age}} e {{how}}
+e di polvere è tornato.';
+
+        $message_without_data = 'Carnevale {{age}} e {{how}}
 s’è venduto il {{what sold}}
 per comprare pane, vino,
 tarallucci e {{to_buy}}.
@@ -57,31 +55,30 @@ mentre ancora mangia, mangia.
 Così muore il Carnevale
 e gli fanno il funerale:
 dalla {{is}} era nato
-e di {{is}} è tornato.";
+e di {{is}} è tornato.';
         $data = [
             'age' => 'vecchio',
             'how' => 'pazzo',
             'what sold' => 'materasso',
             'to_buy' => 'cotechino',
-            'is' => 'polvere'];
+            'is' => 'polvere', ];
         $message_with_data = Manipulation::interpolate($message_without_data, $data);
-        
-        
+
         //test if the interpolation works
         $this->assertEquals($message_with_data, $correct_message);
     }
-    
+
     public function testBetween()
     {
         $string = "@ >this is a test # T0 ch3ck 1h3 ''get_between'# function";
-        
+
         //test if the get_between works using strings as delimiters works
-        $this->assertEquals("get_between", Manipulation::get_between($string, "''", "'#"));
-        
+        $this->assertEquals('get_between', Manipulation::get_between($string, "''", "'#"));
+
         //test if the get_between works using characters as delimiters works
-        $this->assertEquals("this is a test ", Manipulation::get_between($string, ">", "#"));
-        
+        $this->assertEquals('this is a test ', Manipulation::get_between($string, '>', '#'));
+
         //test for strange failures
-        $this->assertEquals(false, Manipulation::get_between($string, "@", "##"));
+        $this->assertEquals(false, Manipulation::get_between($string, '@', '##'));
     }
 }

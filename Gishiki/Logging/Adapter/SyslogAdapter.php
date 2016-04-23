@@ -21,7 +21,7 @@ use Gishiki\Algorithms\Manipulation;
 use Psr\Log\LogLevel;
 
 /**
- * An helper class for storing logs of what happens on the server
+ * An helper class for storing logs of what happens on the server.
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
@@ -29,7 +29,7 @@ class SyslogAdapter extends \Psr\Log\AbstractLogger
 {
     //this is the program that is generating the log:
     private $identity = null;
-    
+
     /**
      * Setup a logger for an application or a component.
      * 
@@ -39,52 +39,52 @@ class SyslogAdapter extends \Psr\Log\AbstractLogger
      */
     public function __construct($identity = '')
     {
-        (strlen($identity) > 0)? $this->identity = $identity : "Gishiki";
+        (strlen($identity) > 0) ? $this->identity = $identity : 'Gishiki';
     }
-    
+
     public function log($level, $message, array $context = array())
     {
         $interpolated_message = Manipulation::interpolate($message, $context);
-        
+
         //get the urgency level:
         $syslog_level = LOG_EMERG;
         switch ($level) {
-            case LogLevel::EMERGENCY:
+            case LogLevel::EMERGENCY :
                 $syslog_level = LOG_EMERG;
                 break;
-            
+
             case LogLevel::ALERT:
                 $syslog_level = LOG_ALERT;
                 break;
-            
+
             case LogLevel::CRITICAL:
                 $syslog_level = LOG_CRIT;
                 break;
-            
+
             case LogLevel::ERROR:
                 $syslog_level = LOG_ERR;
                 break;
-            
+
             case LogLevel::WARNING:
                 $syslog_level = LOG_WARNING;
                 break;
-            
+
             case LogLevel::NOTICE:
                 $syslog_level = LOG_NOTICE;
                 break;
-            
+
             case LogLevel::INFO:
                 $syslog_level = LOG_INFO;
                 break;
-            
+
             default:
                 $syslog_level = LOG_DEBUG;
         }
-        
+
         if (openlog($this->identity, LOG_NDELAY | LOG_PID, LOG_USER)) {
             //save the log using the UNIX standard logging ultility
             syslog($this->GetLevel(), $interpolated_message);
-                
+
             //virtually close the connection to syslogd
             closelog();
         }

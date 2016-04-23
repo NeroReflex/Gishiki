@@ -1,11 +1,13 @@
 <?php
 /**
- * Slim Framework (http://slimframework.com)
+ * Slim Framework (http://slimframework.com).
  *
  * @link      https://github.com/slimphp/Slim
+ *
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\tests\Http;
 
 use Gishiki\Core\Environment;
@@ -31,7 +33,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test environment from globals
+     * Test environment from globals.
      */
     public function testEnvironmentFromGlobals()
     {
@@ -41,7 +43,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test environment from mock data
+     * Test environment from mock data.
      */
     public function testMock()
     {

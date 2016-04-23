@@ -17,9 +17,6 @@
 
 namespace Gishiki\Logging\Adapter;
 
-use Gishiki\Core\Environment;
-use Psr\Log\LogLevel;
-
 /**
  * An helper class for storing logs of what happens on the server.
  * 
@@ -33,7 +30,7 @@ class GelfAdapter
 {
     //this is the managed gelf resource
     private $gelf_resource = null;
-    
+
     /**
      * Setup a logger that works on gelf.
      * 
@@ -45,35 +42,35 @@ class GelfAdapter
      */
     public function __construct($server = 'null')
     {
-        $native_server = ($server == 'null')? null : $server;
-        
+        $native_server = ($server == 'null') ? null : $server;
+
         if ($native_server) {
             $conn_info = explode(':', $native_server);
-            
+
             $transport = null;
             switch ($conn_info[0]) {
-                case 'tcp':
+                case 'tcp' :
                     $transport = new \Gelf\Transport\TcpTransport($conn_info[1], intval($conn_info[2]));
                     break;
-                
+
                 case 'udp':
                     $transport = new \Gelf\Transport\UdpTransport($conn_info[1], intval($conn_info[2]));
                     break;
-                
+
                 default:
                     $transport = null;
             }
-            
+
             //create the new logger with the build transport
             $this->gelf_resource = new \Gelf\Logger($transport);
         } else {
             $this->gelf_resource = new \Gelf\Logger();
         }
     }
-    
+
     public function log($level, $message, array $context = array())
     {
         //return value isn't documentated because it MUST NOT be used/trusted
-        return ($this->gelf_resource)? $this->gelf_resource->log($level, $message, $context) : null;
+        return ($this->gelf_resource) ? $this->gelf_resource->log($level, $message, $context) : null;
     }
 }

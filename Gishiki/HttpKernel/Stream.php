@@ -1,14 +1,15 @@
 <?php
 /**
- * Slim Framework (http://slimframework.com)
+ * Slim Framework (http://slimframework.com).
  *
  * @link      https://github.com/slimphp/Slim
+ *
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\HttpKernel;
 
-use Gishiki\Core\Environment;
 use InvalidArgumentException;
 use Psr\Http\Message\StreamInterface;
 use RuntimeException;
@@ -21,9 +22,10 @@ use RuntimeException;
 class Stream implements StreamInterface
 {
     /**
-     * Resource modes
+     * Resource modes.
      *
-     * @var  array
+     * @var array
+     *
      * @link http://php.net/manual/function.fopen.php
      */
     protected static $modes = [
@@ -32,14 +34,14 @@ class Stream implements StreamInterface
     ];
 
     /**
-     * The underlying stream resource
+     * The underlying stream resource.
      *
      * @var resource
      */
     protected $stream;
 
     /**
-     * Stream metadata
+     * Stream metadata.
      *
      * @var array
      */
@@ -67,7 +69,7 @@ class Stream implements StreamInterface
     protected $seekable;
 
     /**
-     * The size of the stream if known
+     * The size of the stream if known.
      *
      * @var null|int
      */
@@ -76,7 +78,7 @@ class Stream implements StreamInterface
     /**
      * Create a new Stream.
      *
-     * @param  resource $stream A PHP resource handle.
+     * @param resource $stream A PHP resource handle.
      *
      * @throws InvalidArgumentException If argument is not a resource.
      */
@@ -96,8 +98,8 @@ class Stream implements StreamInterface
      * @param string $key Specific metadata to retrieve.
      *
      * @return array|mixed|null Returns an associative array if no key is
-     *     provided. Returns a specific key value if a key is provided and the
-     *     value is found, or null if the key is not found.
+     *                          provided. Returns a specific key value if a key is provided and the
+     *                          value is found, or null if the key is not found.
      */
     public function getMetadata($key = null)
     {
@@ -133,7 +135,7 @@ class Stream implements StreamInterface
     protected function attach($newStream)
     {
         if (is_resource($newStream) === false) {
-            throw new InvalidArgumentException(__METHOD__ . ' argument must be a valid PHP resource');
+            throw new InvalidArgumentException(__METHOD__.' argument must be a valid PHP resource');
         }
 
         if ($this->isAttached() === true) {
@@ -175,6 +177,7 @@ class Stream implements StreamInterface
      * string casting operations.
      *
      * @see http://php.net/manual/en/language.oop5.magic.php#object.tostring
+     *
      * @return string
      */
     public function __toString()
@@ -185,6 +188,7 @@ class Stream implements StreamInterface
 
         try {
             $this->rewind();
+
             return $this->getContents();
         } catch (RuntimeException $e) {
             return '';
@@ -219,7 +223,7 @@ class Stream implements StreamInterface
     }
 
     /**
-     * Returns the current position of the file read/write pointer
+     * Returns the current position of the file read/write pointer.
      *
      * @return int Position of the file pointer
      *
@@ -315,10 +319,10 @@ class Stream implements StreamInterface
      *
      * @param int $offset Stream offset
      * @param int $whence Specifies how the cursor position will be calculated
-     *     based on the seek offset. Valid values are identical to the built-in
-     *     PHP $whence values for `fseek()`.  SEEK_SET: Set position equal to
-     *     offset bytes SEEK_CUR: Set position to current location plus offset
-     *     SEEK_END: Set position to end-of-stream plus offset.
+     *                    based on the seek offset. Valid values are identical to the built-in
+     *                    PHP $whence values for `fseek()`.  SEEK_SET: Set position equal to
+     *                    offset bytes SEEK_CUR: Set position to current location plus offset
+     *                    SEEK_END: Set position to end-of-stream plus offset.
      *
      * @throws RuntimeException on failure.
      */
@@ -337,7 +341,6 @@ class Stream implements StreamInterface
      * otherwise, it will perform a seek(0).
      *
      * @see seek()
-     *
      * @link http://www.php.net/manual/en/function.fseek.php
      *
      * @throws RuntimeException on failure.
@@ -353,11 +356,11 @@ class Stream implements StreamInterface
      * Read data from the stream.
      *
      * @param int $length Read up to $length bytes from the object and return
-     *     them. Fewer than $length bytes may be returned if underlying stream
-     *     call returns fewer bytes.
+     *                    them. Fewer than $length bytes may be returned if underlying stream
+     *                    call returns fewer bytes.
      *
      * @return string Returns the data read from the stream, or an empty string
-     *     if no bytes are available.
+     *                if no bytes are available.
      *
      * @throws RuntimeException if an error occurs.
      */
@@ -392,12 +395,12 @@ class Stream implements StreamInterface
     }
 
     /**
-     * Returns the remaining contents in a string
+     * Returns the remaining contents in a string.
      *
      * @return string
      *
      * @throws RuntimeException if unable to read or an error occurs while
-     *     reading.
+     *                          reading.
      */
     public function getContents()
     {

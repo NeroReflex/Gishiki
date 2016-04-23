@@ -19,19 +19,18 @@ namespace Gishiki\Core;
 
 use Gishiki\Logging\Logger;
 use Psr\Log\LoggerAwareTrait;
-use Psr\Log\LoggerInterface;
 
 /**
- * The base class of an exception related with the framework
+ * The base class of an exception related with the framework.
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
 class Exception extends \Exception
 {
     use LoggerAwareTrait;
-    
+
     /**
-     * Create a base exception and save the log of what's happening
+     * Create a base exception and save the log of what's happening.
      *
      * @param string $message   the error message
      * @param int    $errorCode the error code
@@ -40,30 +39,30 @@ class Exception extends \Exception
     {
         //perform a basic Exception constructor call
         parent::__construct($message, $errorCode, null);
-        
+
         //setup an empty logger
         $this->logger = null;
-        
+
         //build the new log entry
         $this->setLogger(new Logger());
-        
+
         //and use it to transmit the log entry
         $this->writeLog();
     }
-    
+
     /**
-     * Write the log message using the attached logger
+     * Write the log message using the attached logger.
      */
     public function writeLog()
     {
         if ($this->logger) {
             //log the exception
-            $this->logger->error("{{exception_type}} thrown at: {{file}}: {{line}} with message({{code}}): {{message}}", [
+            $this->logger->error('{{exception_type}} thrown at: {{file}}: {{line}} with message({{code}}): {{message}}', [
                 'exception_type' => get_called_class(),
-                'file'           => $this->getFile(),
-                'line'           => $this->getLine(),
-                'code'           => $this->getCode(),
-                'message'        => $this->getMessage()
+                'file' => $this->getFile(),
+                'line' => $this->getLine(),
+                'code' => $this->getCode(),
+                'message' => $this->getMessage(),
             ]);
         }
     }

@@ -1,8 +1,9 @@
 <?php
 /**
- * Slim Framework (http://slimframework.com)
+ * Slim Framework (http://slimframework.com).
  *
  * @link      https://github.com/slimphp/Slim
+ *
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
@@ -116,7 +117,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
             'SCRIPT_NAME' => '/index.php',
             'REQUEST_URI' => '/foo',
             'REQUEST_METHOD' => 'POST',
-            'HTTP_CONTENT_TYPE' => 'multipart/form-data; boundary=---foo'
+            'HTTP_CONTENT_TYPE' => 'multipart/form-data; boundary=---foo',
         ]);
 
         $request = Request::createFromEnvironment($env);
@@ -136,7 +137,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
             'SCRIPT_NAME' => '/index.php',
             'REQUEST_URI' => '/foo',
             'REQUEST_METHOD' => 'POST',
-            'HTTP_CONTENT_TYPE' => 'multipart/form-data; boundary=---foo'
+            'HTTP_CONTENT_TYPE' => 'multipart/form-data; boundary=---foo',
         ]);
 
         $request = Request::createFromEnvironment($env);
@@ -192,6 +193,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $request = new Request('POST', $uri, $headers, $cookies, $serverParams, $body);
         $request->registerMediaTypeParser('application/x-www-form-urlencoded', function ($input) {
             parse_str($input, $body);
+
             return $body; // <-- Array
         });
 
@@ -603,13 +605,13 @@ class RequestTest extends \PHPUnit_Framework_TestCase
                 $this->assertGreaterThanOrEqual(
                     $mockEnv[$key],
                     $value,
-                    sprintf("%s value of %s was less than expected value of %s", $key, $value, $mockEnv[$key])
+                    sprintf('%s value of %s was less than expected value of %s', $key, $value, $mockEnv[$key])
                 );
             } else {
                 $this->assertEquals(
                     $mockEnv[$key],
                     $value,
-                    sprintf("%s value of %s did not equal expected value of %s", $key, $value, $mockEnv[$key])
+                    sprintf('%s value of %s did not equal expected value of %s', $key, $value, $mockEnv[$key])
                 );
             }
         }

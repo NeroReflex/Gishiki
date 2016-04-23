@@ -16,19 +16,19 @@ limitations under the License.
 *****************************************************************************/
 
 namespace Gishiki\Security {
-    
+
     /**
-     * A list of usable asymmetric cipher algorithms
+     * A list of usable asymmetric cipher algorithms.
      *
      * Benato Denis <benato.denis96@gmail.com>
      */
     abstract class AsymmetricCipherAlgorithms
     {
         //rsa keys length
-        const RSA512        = 512;
-        const RSA1024       = 1024;
-        const RSA2048       = 2048;
-        const RSA4096       = 4096;
-        const RSAEXTREME    = 16384;
+        const RSA512 = 512;
+        const RSA1024 = 1024;
+        const RSA2048 = 2048;
+        const RSA4096 = 4096;
+        const RSAEXTREME = 16384;
     }
 }

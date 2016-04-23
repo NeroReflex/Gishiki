@@ -1,11 +1,13 @@
 <?php
 /**
- * Slim Framework (http://slimframework.com)
+ * Slim Framework (http://slimframework.com).
  *
  * @link      https://github.com/slimphp/Slim
+ *
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\tests\Http;
 
 use InvalidArgumentException;
@@ -562,7 +564,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
             'REQUEST_URI' => '/foo/bar',
             'QUERY_STRING' => 'abc=123',
             'HTTP_HOST' => 'example.com:80',
-            'SERVER_PORT' => 80
+            'SERVER_PORT' => 80,
         ]);
         $uri = Uri::createFromEnvironment($environment);
 
@@ -576,7 +578,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
             'REQUEST_URI' => '/foo/bar',
             'QUERY_STRING' => 'abc=123',
             'HTTP_HOST' => 'example.com:80',
-            'SERVER_PORT' => 80
+            'SERVER_PORT' => 80,
         ]);
         $uri = Uri::createFromEnvironment($environment);
 
@@ -592,7 +594,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
             'PHP_AUTH_PW' => 'sekrit',
             'QUERY_STRING' => 'abc=123',
             'HTTP_HOST' => 'example.com:8080',
-            'SERVER_PORT' => 8080
+            'SERVER_PORT' => 8080,
         ]);
         $uri = Uri::createFromEnvironment($environment);
 

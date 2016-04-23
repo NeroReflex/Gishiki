@@ -15,11 +15,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-
 namespace Gishiki\Security {
-    
+
     /**
-     * An helper class for asymmetric cipher algorithms
+     * An helper class for asymmetric cipher algorithms.
      *
      * Benato Denis <benato.denis96@gmail.com>
      */
@@ -29,6 +28,7 @@ namespace Gishiki\Security {
          * Remove a key pair previously stored by the GenerateNewKey function.
          * 
          * @param string $name the name used to store the key
+         *
          * @throws CipherException the error occurred
          */
         public static function RemoveKey($name)
@@ -38,8 +38,8 @@ namespace Gishiki\Security {
                 throw new Exception('The application master key cannot be removed', 6);
             } else {
                 //delete the key if possible
-                $privateKeyPath = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('KEYS_DIR').$name.".private.pem";
-                $publicKeyPath = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('KEYS_DIR').$name.".public.pem";
+                $privateKeyPath = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('KEYS_DIR').$name.'.private.pem';
+                $publicKeyPath = \Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('KEYS_DIR').$name.'.public.pem';
 
                 if (file_exists($publicKeyPath)) {
                     unlink($publicKeyPath);
@@ -52,58 +52,61 @@ namespace Gishiki\Security {
         }
 
         /**
-         * Serialize and store an already loaded private key from a AsymmetricPrivateKeyCipher instance
+         * Serialize and store an already loaded private key from a AsymmetricPrivateKeyCipher instance.
          * 
-         * @param AsymmetricPrivateKeyCipher $key the key to be serialized and stored
-         * @param string $name the name that will be used to restore the key
-         * @param string $password the password used to encrypt the key file
+         * @param AsymmetricPrivateKeyCipher $key      the key to be serialized and stored
+         * @param string                     $name     the name that will be used to restore the key
+         * @param string                     $password the password used to encrypt the key file
+         *
          * @throws CipherException the error occurred while storing the private key
          */
-        public static function StorePrivateKey(AsymmetricPrivateKeyCipher &$key, $name, $password = "")
+        public static function StorePrivateKey(AsymmetricPrivateKeyCipher &$key, $name, $password = '')
         {
-            if (gettype($name) != "string") {
-                throw new CipherException("The private key cannot be exported, because the key name was given as a ".gettype($name)." value, and not as a string", 11);
+            if (gettype($name) != 'string') {
+                throw new CipherException('The private key cannot be exported, because the key name was given as a '.gettype($name).' value, and not as a string', 11);
             }
 
             //get the private key serialized and encrypte, if requested
             $keyAsExported = $key->ExportPrivateKey($password);
 
             //store the key in a file
-            file_put_contents(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('KEYS_DIR').$name.".private.pem", $keyAsExported, FILE_APPEND | LOCK_EX);
+            file_put_contents(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('KEYS_DIR').$name.'.private.pem', $keyAsExported, FILE_APPEND | LOCK_EX);
         }
 
         /**
-         * Serialize and store an already loaded public key from a AsymmetricPrivateKeyCipher instance
+         * Serialize and store an already loaded public key from a AsymmetricPrivateKeyCipher instance.
          * 
-         * @param AsymmetricPrivateKeyCipher $key the key to be serialized and stored
-         * @param string $name the name that will be used to restore the key
+         * @param AsymmetricPrivateKeyCipher $key  the key to be serialized and stored
+         * @param string                     $name the name that will be used to restore the key
+         *
          * @throws CipherException the error occurred while storing the public key
          */
         public static function StorePublicKey(AsymmetricPrivateKeyCipher &$key, $name)
         {
-            if (gettype($name) != "string") {
-                throw new CipherException("The public key cannot be exported, because the key name was given as a ".gettype($name)." value, and not as a string", 11);
+            if (gettype($name) != 'string') {
+                throw new CipherException('The public key cannot be exported, because the key name was given as a '.gettype($name).' value, and not as a string', 11);
             }
 
             //get the private key serialized and encrypte, if requested
             $keyAsExported = $key->ExportPublicKey();
 
             //store the key in a file
-            file_put_contents(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('KEYS_DIR').$name.".public.pem", $keyAsExported, FILE_APPEND | LOCK_EX);
+            file_put_contents(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('KEYS_DIR').$name.'.public.pem', $keyAsExported, FILE_APPEND | LOCK_EX);
         }
 
         /**
          * Load a private key previously stored by AsymmetricCipher::StorePrivateKey().
          * 
-         * @param string $name the name used to store the key
+         * @param string $name     the name used to store the key
          * @param string $password the password used to decrypt the RSA private key
+         *
          * @throws CipherException the error occurred while loading the private key
          */
-        public static function LoadPrivateKey($name, $password = "")
+        public static function LoadPrivateKey($name, $password = '')
         {
-            if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('KEYS_DIR').$name.".private.pem")) {
+            if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('KEYS_DIR').$name.'.private.pem')) {
                 //retrive the serialized private key
-                $privateKeyAsExported = file_get_contents(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('KEYS_DIR').$name.".private.pem");
+                $privateKeyAsExported = file_get_contents(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('KEYS_DIR').$name.'.private.pem');
 
                 //build a new empty public key
                 $privateKey = new AsymmetricPrivateKeyCipher();
@@ -113,9 +116,9 @@ namespace Gishiki\Security {
 
                 //return the loaded key
                 return $privateKey;
-            } elseif (defined($name . "_PRIVATE_PEM")) {
+            } elseif (defined($name.'_PRIVATE_PEM')) {
                 //retrive the serialized private key
-                $privateKeyAsExported = constant($name."_PRIVATE_PEM");
+                $privateKeyAsExported = constant($name.'_PRIVATE_PEM');
 
                 //build a new empty public key
                 $privateKey = new AsymmetricPrivateKeyCipher();
@@ -134,13 +137,14 @@ namespace Gishiki\Security {
          * Load a public key previously stored by AsymmetricCipher::StorePublicKey().
          * 
          * @param string $name the name used to store the key
+         *
          * @throws CipherException the error occurred while loading the public key
          */
         public static function LoadPublicKey($name)
         {
-            if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('KEYS_DIR').$name.".public.pem")) {
+            if (file_exists(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('KEYS_DIR').$name.'.public.pem')) {
                 //retrive the serialized public key
-                $publicKeyAsExported = file_get_contents(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('KEYS_DIR').$name.".public.pem");
+                $publicKeyAsExported = file_get_contents(\Gishiki\Core\Environment::GetCurrentEnvironment()->GetConfigurationProperty('KEYS_DIR').$name.'.public.pem');
 
                 //build a new empty public key
                 $publicKey = new AsymmetricPublicKeyCipher();
@@ -150,9 +154,9 @@ namespace Gishiki\Security {
 
                 //return the loaded key
                 return $publicKey;
-            } elseif (defined($name . "_PUBLIC_PEM")) {
+            } elseif (defined($name.'_PUBLIC_PEM')) {
                 //retrive the serialized private key
-                $privateKeyAsExported = constant($name."_PUBLIC_PEM");
+                $privateKeyAsExported = constant($name.'_PUBLIC_PEM');
 
                 //build a new empty public key
                 $privateKey = new AsymmetricPrivateKeyCipher();
@@ -169,16 +173,17 @@ namespace Gishiki\Security {
 
         /**
          * Generate a new private key and return it encoded as a string, ready to be
-         * imported by AsymmetricPrivateKeyCipher::ImportPrivateKey() 
+         * imported by AsymmetricPrivateKeyCipher::ImportPrivateKey().
          * 
-         * @param integer $keyLength a valid key length (look at AsymmetricCipherAlgorithms)
+         * @param int $keyLength a valid key length (look at AsymmetricCipherAlgorithms)
+         *
          * @throws CipherException the error occurred
          */
         public static function GenerateNewKey($keyLength = AsymmetricCipherAlgorithms::RSA2048)
         {
             //check for the key length validity
             if (($keyLength != AsymmetricCipherAlgorithms::RSA512) && ($keyLength != AsymmetricCipherAlgorithms::RSA1024) && ($keyLength != AsymmetricCipherAlgorithms::RSA2048) && ($keyLength != AsymmetricCipherAlgorithms::RSA4096) && ($keyLength != AsymmetricCipherAlgorithms::RSAEXTREME)) {
-                throw new CipherException("The given key length is not valid", 0);
+                throw new CipherException('The given key length is not valid', 0);
             }
 
             //if the key length is extremely long, a very long time will be needed to generate the key, and it is necessary ti set no time limits to generate it
@@ -188,15 +193,15 @@ namespace Gishiki\Security {
 
             //start building the configuration array
             $config = [
-                "digest_alg" => "sha512",
-                "private_key_bits" => $keyLength,
-                "private_key_type" => OPENSSL_KEYTYPE_RSA,
+                'digest_alg' => 'sha512',
+                'private_key_bits' => $keyLength,
+                'private_key_type' => OPENSSL_KEYTYPE_RSA,
             ];
 
             //if a custom openssl configuration is found
-            if (file_exists(ROOT."Gishiki".DS."openssl.cnf")) {
+            if (file_exists(ROOT.'Gishiki'.DS.'openssl.cnf')) {
                 //use it
-                $config["config"] = ROOT."Gishiki".DS."openssl.cnf";
+                $config['config'] = ROOT.'Gishiki'.DS.'openssl.cnf';
             }
 
             //setup an invalid private key
@@ -212,7 +217,7 @@ namespace Gishiki\Security {
             }
 
             //extract the private key string-encoded from the generated private key
-            $pKeyEncoded = "";
+            $pKeyEncoded = '';
             openssl_pkey_export($privateKey, $pKeyEncoded, null, $config);
 
             //free the memory space used to hold the newly generated key

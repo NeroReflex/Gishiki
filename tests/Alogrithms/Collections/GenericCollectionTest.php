@@ -21,7 +21,6 @@ use Gishiki\Algorithms\Collections\GenericCollection;
 
 class GenericCollectionTest extends \PHPUnit_Framework_TestCase
 {
-    
     public function testGenericCollectionIteration()
     {
         //this is the native collection
@@ -33,25 +32,25 @@ class GenericCollectionTest extends \PHPUnit_Framework_TestCase
             'test3' => json_encode(
                     array(
                         'author' => 'Benato Denis',
-                        'title'  => 'Example Book',
-                        'tags'   => array(
-                            'development', 'PHP', 'framework', 'Gishiki'
-                        )
-                )));
-        
+                        'title' => 'Example Book',
+                        'tags' => array(
+                            'development', 'PHP', 'framework', 'Gishiki',
+                        ),
+                )), );
+
         //build a managed collection from the native one
         $collection_to_test = new GenericCollection($native_collection);
-        
+
         //try rebuilding the collection iterating over each element
         $rebuilt_collection = array();
         foreach ($collection_to_test->getIterator() as $key => $value) {
             $rebuilt_collection[$key] = $value;
         }
-        
+
         //test if the collection rebuild process has given the right result
         $this->assertEquals($rebuilt_collection, $native_collection);
     }
-    
+
     public function testGenericCollectionNativeAsClasscall()
     {
         //this is the native collection
@@ -61,20 +60,20 @@ class GenericCollectionTest extends \PHPUnit_Framework_TestCase
             'test3' => json_encode(
                     array(
                         'author' => 'Benato Denis',
-                        'title'  => 'Example Book',
-                        'tags'   => array(
-                            'development', 'PHP', 'framework', 'Gishiki'
-                        )
+                        'title' => 'Example Book',
+                        'tags' => array(
+                            'development', 'PHP', 'framework', 'Gishiki',
+                        ),
                 )),
             20 => 'testkey',
             );
-        
+
         //build a managed collection from the native one
         $collection_to_test = new GenericCollection($native_collection);
-        
+
         //try rebuilding the collection iterating over each element
         $rebuilt_collection = $collection_to_test();
-        
+
         //test if the collection rebuild process has given the right result
         $this->assertEquals($rebuilt_collection, $native_collection);
     }

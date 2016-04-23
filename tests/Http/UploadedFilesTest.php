@@ -1,11 +1,13 @@
 <?php
 /**
- * Slim Framework (http://slimframework.com)
+ * Slim Framework (http://slimframework.com).
  *
  * @link      https://github.com/slimphp/Slim
+ *
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\tests\Http;
 
 use Gishiki\Core\Environment;
@@ -24,8 +26,8 @@ class UploadedFilesTest extends \PHPUnit_Framework_TestCase
      */
     public static function setUpBeforeClass()
     {
-        $fh = fopen(self::$filename, "w");
-        fwrite($fh, "12345678");
+        $fh = fopen(self::$filename, 'w');
+        fwrite($fh, '12345678');
         fclose($fh);
     }
 
@@ -40,7 +42,7 @@ class UploadedFilesTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param array $input The input array to parse.
+     * @param array $input    The input array to parse.
      * @param array $expected The expected normalized output.
      *
      * @dataProvider providerCreateFromEnvironment
@@ -60,14 +62,13 @@ class UploadedFilesTest extends \PHPUnit_Framework_TestCase
     {
         $attr = [
             'tmp_name' => self::$filename,
-            'name'     => 'my-avatar.txt',
-            'size'     => 8,
-            'type'     => 'text/plain',
-            'error'    => 0,
+            'name' => 'my-avatar.txt',
+            'size' => 8,
+            'type' => 'text/plain',
+            'error' => 0,
         ];
 
         $uploadedFile = new UploadedFile($attr['tmp_name'], $attr['name'], $attr['type'], $attr['size'], $attr['error'], false);
-
 
         $this->assertEquals($attr['name'], $uploadedFile->getClientFilename());
         $this->assertEquals($attr['type'], $uploadedFile->getClientMediaType());
@@ -79,7 +80,9 @@ class UploadedFilesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testConstructor
+     *
      * @param UploadedFile $uploadedFile
+     *
      * @return UploadedFile
      */
     public function testGetStream(UploadedFile $uploadedFile)
@@ -93,13 +96,15 @@ class UploadedFilesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testConstructor
+     *
      * @param UploadedFile $uploadedFile
+     *
      * @return UploadedFile
      */
     public function testMoveTo(UploadedFile $uploadedFile)
     {
         $tempName = uniqid('file-');
-        $path = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $tempName;
+        $path = sys_get_temp_dir().DIRECTORY_SEPARATOR.$tempName;
         $uploadedFile->moveTo($path);
 
         $this->assertFileExists($path);
@@ -116,27 +121,27 @@ class UploadedFilesTest extends \PHPUnit_Framework_TestCase
                 [
                     'files' => [
                         'tmp_name' => [
-                            0 => __DIR__ . DIRECTORY_SEPARATOR . 'file0.txt',
-                            1 => __DIR__ . DIRECTORY_SEPARATOR . 'file1.html',
+                            0 => __DIR__.DIRECTORY_SEPARATOR.'file0.txt',
+                            1 => __DIR__.DIRECTORY_SEPARATOR.'file1.html',
                         ],
-                        'name'     => [
+                        'name' => [
                             0 => 'file0.txt',
                             1 => 'file1.html',
                         ],
-                        'type'     => [
+                        'type' => [
                             0 => 'text/plain',
                             1 => 'text/html',
                         ],
-                        'error'    => [
+                        'error' => [
                             0 => 0,
-                            1 => 0
-                        ]
+                            1 => 0,
+                        ],
                     ],
                 ],
                 [
                     'files' => [
                         0 => new UploadedFile(
-                            __DIR__ . DIRECTORY_SEPARATOR . 'file0.txt',
+                            __DIR__.DIRECTORY_SEPARATOR.'file0.txt',
                             'file0.txt',
                             'text/plain',
                             null,
@@ -144,7 +149,7 @@ class UploadedFilesTest extends \PHPUnit_Framework_TestCase
                             true
                         ),
                         1 => new UploadedFile(
-                            __DIR__ . DIRECTORY_SEPARATOR . 'file1.html',
+                            __DIR__.DIRECTORY_SEPARATOR.'file1.html',
                             'file1.html',
                             'text/html',
                             null,
@@ -152,22 +157,22 @@ class UploadedFilesTest extends \PHPUnit_Framework_TestCase
                             true
                         ),
                     ],
-                ]
+                ],
             ],
             [
                 [
                     'avatar' => [
                         'tmp_name' => 'phpUxcOty',
-                        'name'     => 'my-avatar.png',
-                        'size'     => 90996,
-                        'type'     => 'image/png',
-                        'error'    => 0,
+                        'name' => 'my-avatar.png',
+                        'size' => 90996,
+                        'type' => 'image/png',
+                        'error' => 0,
                     ],
                 ],
                 [
-                    'avatar' => new UploadedFile('phpUxcOty', 'my-avatar.png', 'image/png', 90996, UPLOAD_ERR_OK, true)
-                ]
-            ]
+                    'avatar' => new UploadedFile('phpUxcOty', 'my-avatar.png', 'image/png', 90996, UPLOAD_ERR_OK, true),
+                ],
+            ],
         ];
     }
 

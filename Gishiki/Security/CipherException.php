@@ -16,17 +16,17 @@ limitations under the License.
 *****************************************************************************/
 
 namespace Gishiki\Security {
-    
+
     /**
-     * An exception thrown by a cipher
+     * An exception thrown by a cipher.
      *
      * @author Benato Denis <benato.denis96@gmail.com>
      */
     class CipherException extends \Gishiki\Core\Exception
     {
-
         /**
-         * Create the exception
+         * Create the exception.
+         *
          * @param string $message   the error message
          * @param int    $errorCode the cipher error code
          */

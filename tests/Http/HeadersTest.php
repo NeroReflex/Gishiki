@@ -1,11 +1,13 @@
 <?php
 /**
- * Slim Framework (http://slimframework.com)
+ * Slim Framework (http://slimframework.com).
  *
  * @link      https://github.com/slimphp/Slim
+ *
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\tests\Http;
 
 use ReflectionProperty;
@@ -95,8 +97,8 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
         $prop->setValue($h, [
             'allow' => [
                 'value' => ['GET', 'POST'],
-                'originalKey' => 'Allow'
-            ]
+                'originalKey' => 'Allow',
+            ],
         ]);
 
         $this->assertEquals(['GET', 'POST'], $h->get('Allow'));
@@ -152,8 +154,8 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
         $prop->setValue($h, [
             'allow' => [
                 'value' => ['GET', 'POST'],
-                'originalKey' => 'Allow'
-            ]
+                'originalKey' => 'Allow',
+            ],
         ]);
         $this->assertTrue($h->has('allow'));
         $this->assertFalse($h->has('foo'));
@@ -167,8 +169,8 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
         $prop->setValue($h, [
             'Allow' => [
                 'value' => ['GET', 'POST'],
-                'originalKey' => 'Allow'
-            ]
+                'originalKey' => 'Allow',
+            ],
         ]);
         $h->remove('Allow');
 
@@ -183,8 +185,8 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
         $prop->setValue($h, [
             'Allow' => [
                 'value' => ['GET', 'POST'],
-                'originalKey' => 'ALLOW'
-            ]
+                'originalKey' => 'ALLOW',
+            ],
         ]);
         $all = $h->all();
 

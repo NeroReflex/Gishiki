@@ -18,21 +18,21 @@ limitations under the License.
 namespace Gishiki\Algorithms\Collections;
 
 /**
- * This is a Generic Collection Implementation modificed from the Slim's one
+ * This is a Generic Collection Implementation modificed from the Slim's one.
  * 
  * Benato Denis <benato.denis96@gmail.com>
  */
 class GenericCollection implements CollectionInterface, \IteratorAggregate
 {
     /**
-     * The source data
+     * The source data.
      *
      * @var array
      */
     protected $data = [];
 
     /**
-     * Create new collection
+     * Create new collection.
      *
      * @param array $items Pre-populate collection with this key-value array
      */
@@ -42,9 +42,9 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
             $this->set($key, $value);
         }
     }
-    
+
     /**
-     * Get the currently managed collection as a native array
+     * Get the currently managed collection as a native array.
      * 
      * @return array the current collection
      */
@@ -54,20 +54,21 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
     }
 
     /**
-     * Get an element of the collection as it would be an object property
+     * Get an element of the collection as it would be an object property.
      * 
      * Return null if the array doesn't contain the given key
      * 
-     * @param  int|string $key the index of the array element to be accessed
-     * @return mixed      the requested array element or NULL
+     * @param int|string $key the index of the array element to be accessed
+     *
+     * @return mixed the requested array element or NULL
      */
     public function __get($key)
     {
         return $this->get($key);
     }
-    
+
     /**
-     * Set an element of the collection as it would be an object property
+     * Set an element of the collection as it would be an object property.
      * 
      * @param string $key   the of the property to be modified
      * @param mixed  $value the value to be assigned to the property
@@ -76,8 +77,7 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
     {
         $this->set($key, $value);
     }
-    
-    
+
     /***************************************************************************
      * Collection interface
      **************************************************************************/
@@ -131,7 +131,7 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
     /**
      * Does this collection have a given key?
      *
-     * @param  string $key The data key
+     * @param string $key The data key
      *
      * @return bool
      */
@@ -141,7 +141,7 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
     }
 
     /**
-     * Get collection item for key
+     * Get collection item for key.
      *
      * @param string $key The data key
      *
@@ -153,7 +153,7 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
     }
 
     /**
-     * Set collection item
+     * Set collection item.
      *
      * @param string $key   The data key
      * @param mixed  $value The data value
@@ -164,7 +164,7 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
     }
 
     /**
-     * Remove item from collection
+     * Remove item from collection.
      *
      * @param string $key The data key
      */
@@ -174,7 +174,7 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
     }
 
     /**
-     * Get number of items in collection
+     * Get number of items in collection.
      *
      * @return int
      */
@@ -188,7 +188,7 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
      **************************************************************************/
 
     /**
-     * Get collection iterator
+     * Get collection iterator.
      *
      * @return \ArrayIterator
      */

@@ -18,14 +18,14 @@ limitations under the License.
 namespace Gishiki\Algorithms\Collections;
 
 /**
- * Collection Interface extended from Slim's one to better fit Gishiki
+ * Collection Interface extended from Slim's one to better fit Gishiki.
  * 
  * Benato Denis <benato.denis96@gmail.com>
  */
 interface CollectionInterface extends \ArrayAccess, \Countable
 {
     /**
-     * Set collection item
+     * Set collection item.
      *
      * @param string $key   The data key
      * @param mixed  $value The data value
@@ -33,7 +33,7 @@ interface CollectionInterface extends \ArrayAccess, \Countable
     public function set($key, $value);
 
     /**
-     * Get collection item for key
+     * Get collection item for key.
      *
      * @param string $key     The data key
      * @param mixed  $default The default value to return if data key does not exist
@@ -43,14 +43,14 @@ interface CollectionInterface extends \ArrayAccess, \Countable
     public function get($key, $default = null);
 
     /**
-     * Add item to collection
+     * Add item to collection.
      *
      * @param array $items Key-value array of data to append to this collection
      */
     public function replace(array $items);
 
     /**
-     * Get all items in collection
+     * Get all items in collection.
      *
      * @return array The collection's source data
      */
@@ -66,19 +66,19 @@ interface CollectionInterface extends \ArrayAccess, \Countable
     public function has($key);
 
     /**
-     * Remove item from collection
+     * Remove item from collection.
      *
      * @param string $key The data key
      */
     public function remove($key);
-    
+
     /**
-     * Remove all items from collection
+     * Remove all items from collection.
      */
     public function clear();
-    
+
     /**
-     * Get collection keys
+     * Get collection keys.
      *
      * @return array The collection's source data keys
      */

@@ -1,20 +1,21 @@
 <?php
 /**
- * Slim Framework (http://slimframework.com)
+ * Slim Framework (http://slimframework.com).
  *
  * @link      https://github.com/slimphp/Slim
+ *
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\HttpKernel;
 
-use Gishiki\Core\Environment;
 use InvalidArgumentException;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\StreamInterface;
 
 /**
- * Abstract message (base class for Request and Response)
+ * Abstract message (base class for Request and Response).
  *
  * This class represents a general HTTP message. It provides common properties and methods for
  * the HTTP request and response, as defined in the PSR-7 MessageInterface.
@@ -26,29 +27,28 @@ use Psr\Http\Message\StreamInterface;
 abstract class Message
 {
     /**
-     * Protocol version
+     * Protocol version.
      *
      * @var string
      */
     protected $protocolVersion = '1.1';
 
     /**
-     * Headers
+     * Headers.
      *
      * @var HeadersInterface
      */
     protected $headers;
 
     /**
-     * Body object
+     * Body object.
      *
      * @var \Psr\Http\Message\StreamInterface
      */
     protected $body;
 
-
     /**
-     * Disable magic setter to ensure immutability
+     * Disable magic setter to ensure immutability.
      */
     public function __set($name, $value)
     {
@@ -82,7 +82,9 @@ abstract class Message
      * new protocol version.
      *
      * @param string $version HTTP protocol version
+     *
      * @return static
+     *
      * @throws InvalidArgumentException if the http version is an invalid number
      */
     public function withProtocolVersion($version)
@@ -127,8 +129,8 @@ abstract class Message
      * exact case in which headers were originally specified.
      *
      * @return array Returns an associative array of the message's headers. Each
-     *     key MUST be a header name, and each value MUST be an array of strings
-     *     for that header.
+     *               key MUST be a header name, and each value MUST be an array of strings
+     *               for that header.
      */
     public function getHeaders()
     {
@@ -139,9 +141,10 @@ abstract class Message
      * Checks if a header exists by the given case-insensitive name.
      *
      * @param string $name Case-insensitive header field name.
+     *
      * @return bool Returns true if any header names match the given header
-     *     name using a case-insensitive string comparison. Returns false if
-     *     no matching header name is found in the message.
+     *              name using a case-insensitive string comparison. Returns false if
+     *              no matching header name is found in the message.
      */
     public function hasHeader($name)
     {
@@ -158,9 +161,10 @@ abstract class Message
      * empty array.
      *
      * @param string $name Case-insensitive header field name.
+     *
      * @return string[] An array of string values as provided for the given
-     *    header. If the header does not appear in the message, this method MUST
-     *    return an empty array.
+     *                  header. If the header does not appear in the message, this method MUST
+     *                  return an empty array.
      */
     public function getHeader($name)
     {
@@ -182,9 +186,10 @@ abstract class Message
      * an empty string.
      *
      * @param string $name Case-insensitive header field name.
+     *
      * @return string A string of values as provided for the given header
-     *    concatenated together using a comma. If the header does not appear in
-     *    the message, this method MUST return an empty string.
+     *                concatenated together using a comma. If the header does not appear in
+     *                the message, this method MUST return an empty string.
      */
     public function getHeaderLine($name)
     {
@@ -201,9 +206,11 @@ abstract class Message
      * immutability of the message, and MUST return an instance that has the
      * new and/or updated header and value.
      *
-     * @param string $name Case-insensitive header field name.
+     * @param string          $name  Case-insensitive header field name.
      * @param string|string[] $value Header value(s).
+     *
      * @return static
+     *
      * @throws \InvalidArgumentException for invalid header names or values.
      */
     public function withHeader($name, $value)
@@ -225,9 +232,11 @@ abstract class Message
      * immutability of the message, and MUST return an instance that has the
      * new header and/or value.
      *
-     * @param string $name Case-insensitive header field name to add.
+     * @param string          $name  Case-insensitive header field name to add.
      * @param string|string[] $value Header value(s).
+     *
      * @return static
+     *
      * @throws \InvalidArgumentException for invalid header names or values.
      */
     public function withAddedHeader($name, $value)
@@ -248,6 +257,7 @@ abstract class Message
      * the named header.
      *
      * @param string $name Case-insensitive header field name to remove.
+     *
      * @return static
      */
     public function withoutHeader($name)
@@ -282,7 +292,9 @@ abstract class Message
      * new body stream.
      *
      * @param StreamInterface $body Body.
+     *
      * @return static
+     *
      * @throws \InvalidArgumentException When the body is not valid.
      */
     public function withBody(StreamInterface $body)

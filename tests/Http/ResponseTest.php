@@ -1,11 +1,13 @@
 <?php
 /**
- * Slim Framework (http://slimframework.com)
+ * Slim Framework (http://slimframework.com).
  *
  * @link      https://github.com/slimphp/Slim
+ *
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\tests\Http;
 
 use ReflectionProperty;
@@ -269,8 +271,8 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
     public function testToString()
     {
-        $output = 'HTTP/1.1 404 Not Found' . PHP_EOL .
-                  'X-Foo: Bar' . PHP_EOL . PHP_EOL .
+        $output = 'HTTP/1.1 404 Not Found'.PHP_EOL.
+                  'X-Foo: Bar'.PHP_EOL.PHP_EOL.
                   'Where am I?';
         $this->expectOutputString($output);
         $response = new Response();

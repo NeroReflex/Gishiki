@@ -1,36 +1,38 @@
 <?php
 /**
- * Slim Framework (http://slimframework.com)
+ * Slim Framework (http://slimframework.com).
  *
  * @link      https://github.com/slimphp/Slim
+ *
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\HttpKernel;
 
 use InvalidArgumentException;
 
 /**
- * Cookie helper
+ * Cookie helper.
  */
 class Cookies implements CookiesInterface
 {
     /**
-     * Cookies from HTTP request
+     * Cookies from HTTP request.
      *
      * @var array
      */
     protected $requestCookies = [];
 
     /**
-     * Cookies for HTTP response
+     * Cookies for HTTP response.
      *
      * @var array
      */
     protected $responseCookies = [];
 
     /**
-     * Default cookie properties
+     * Default cookie properties.
      *
      * @var array
      */
@@ -40,11 +42,11 @@ class Cookies implements CookiesInterface
         'path' => null,
         'expires' => null,
         'secure' => false,
-        'httponly' => false
+        'httponly' => false,
     ];
 
     /**
-     * Create new cookies helper
+     * Create new cookies helper.
      *
      * @param array $cookies
      */
@@ -54,7 +56,7 @@ class Cookies implements CookiesInterface
     }
 
     /**
-     * Set default cookie properties
+     * Set default cookie properties.
      *
      * @param array $settings
      */
@@ -64,10 +66,10 @@ class Cookies implements CookiesInterface
     }
 
     /**
-     * Get request cookie
+     * Get request cookie.
      *
-     * @param  string $name    Cookie name
-     * @param  mixed  $default Cookie default value
+     * @param string $name    Cookie name
+     * @param mixed  $default Cookie default value
      *
      * @return mixed Cookie value if present, else default
      */
@@ -77,7 +79,7 @@ class Cookies implements CookiesInterface
     }
 
     /**
-     * Set response cookie
+     * Set response cookie.
      *
      * @param string       $name  Cookie name
      * @param string|array $value Cookie value, or cookie properties
@@ -85,13 +87,13 @@ class Cookies implements CookiesInterface
     public function set($name, $value)
     {
         if (!is_array($value)) {
-            $value = ['value' => (string)$value];
+            $value = ['value' => (string) $value];
         }
         $this->responseCookies[$name] = array_replace($this->defaults, $value);
     }
 
     /**
-     * Convert to `Set-Cookie` headers
+     * Convert to `Set-Cookie` headers.
      *
      * @return string[]
      */
@@ -106,33 +108,33 @@ class Cookies implements CookiesInterface
     }
 
     /**
-     * Convert to `Set-Cookie` header
+     * Convert to `Set-Cookie` header.
      *
-     * @param  string $name       Cookie name
-     * @param  array  $properties Cookie properties
+     * @param string $name       Cookie name
+     * @param array  $properties Cookie properties
      *
      * @return string
      */
     protected function toHeader($name, array $properties)
     {
-        $result = urlencode($name) . '=' . urlencode($properties['value']);
+        $result = urlencode($name).'='.urlencode($properties['value']);
 
         if (isset($properties['domain'])) {
-            $result .= '; domain=' . $properties['domain'];
+            $result .= '; domain='.$properties['domain'];
         }
 
         if (isset($properties['path'])) {
-            $result .= '; path=' . $properties['path'];
+            $result .= '; path='.$properties['path'];
         }
 
         if (isset($properties['expires'])) {
             if (is_string($properties['expires'])) {
                 $timestamp = strtotime($properties['expires']);
             } else {
-                $timestamp = (int)$properties['expires'];
+                $timestamp = (int) $properties['expires'];
             }
             if ($timestamp !== 0) {
-                $result .= '; expires=' . gmdate('D, d-M-Y H:i:s e', $timestamp);
+                $result .= '; expires='.gmdate('D, d-M-Y H:i:s e', $timestamp);
             }
         }
 
@@ -151,7 +153,7 @@ class Cookies implements CookiesInterface
      * Parse HTTP request `Cookie:` header and extract
      * into a PHP associative array.
      *
-     * @param  string $header The raw HTTP request `Cookie:` header
+     * @param string $header The raw HTTP request `Cookie:` header
      *
      * @return array Associative array of cookie names and values
      *

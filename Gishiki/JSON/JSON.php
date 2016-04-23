@@ -19,7 +19,7 @@ namespace Gishiki\JSON {
 
     /**
      * This class provides helpers subroutines used when it is necessary to
-     * serialize and deserialize JSON data
+     * serialize and deserialize JSON data.
      *
      * @author Benato Denis <benato.denis96@gmail.com>
      */
@@ -27,36 +27,40 @@ namespace Gishiki\JSON {
     {
         /**
          * Deserialize a string that represents a valid JSON content into a 
-         * standard PHP-array
+         * standard PHP-array.
          * 
-         * @param  string                      $jsonAsString the json encoded as a string
-         * @return array                       the PHP-compatible JSON format
+         * @param string $jsonAsString the json encoded as a string
+         *
+         * @return array the PHP-compatible JSON format
+         *
          * @throws \Gishiki\JSON\JSONException the error that prevents this JSON to be deserialized
          */
         public static function DeSerialize($jsonAsString)
         {
             //try decoding the string
             $nativeSerialization = json_decode($jsonAsString, true);
-            
+
             //and check for the result
             if (json_last_error() != JSON_ERROR_NONE) {
-                throw new JSONException("The given string is not a valid JSON content", 1);
+                throw new JSONException('The given string is not a valid JSON content', 1);
             }
-            
+
             //the deserialization result MUST be an array
-            if (gettype($nativeSerialization) != "array") {
+            if (gettype($nativeSerialization) != 'array') {
                 $nativeSerialization = [];
             }
 
             //return the deserialization result if everything went right
             return $nativeSerialization;
         }
-        
+
         /**
          * Serialize a standard PHP-array into a valid JSON string.
          * 
-         * @param  array                       $jsonAsObject the PHP-array to be serialized
-         * @return string                      the serialized JSON
+         * @param array $jsonAsObject the PHP-array to be serialized
+         *
+         * @return string the serialized JSON
+         *
          * @throws \Gishiki\JSON\JSONException the error that prevents this JSON object to be serialized
          */
         public static function Serialize($jsonAsObject)
@@ -66,7 +70,7 @@ namespace Gishiki\JSON {
 
             //and check for the result
             if (json_last_error() != JSON_ERROR_NONE) {
-                throw new JSONException("The given data cannot be serialized in JSON content", 2);
+                throw new JSONException('The given data cannot be serialized in JSON content', 2);
             }
 
             //and return the result

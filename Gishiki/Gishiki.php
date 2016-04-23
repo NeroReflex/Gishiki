@@ -20,19 +20,18 @@ namespace Gishiki;
 use Gishiki\Core\Environment;
 
 /**
- * The Gishiki action starter and framework entry point
+ * The Gishiki action starter and framework entry point.
  * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 abstract class Gishiki
 {
-    
     //this is the environment used to fulfill the incoming request
     public static $executionEnvironment = null;
-    
+
     /**
      * Initialize the Gishiki engine and prepare for
-     * the execution of a framework instance
+     * the execution of a framework instance.
      */
     public static function Initialize()
     {
@@ -41,27 +40,27 @@ abstract class Gishiki
             if (defined('DIRECTORY_SEPARATOR')) {
                 define('DS', DIRECTORY_SEPARATOR);
             } else {
-                define('DS', "/");
+                define('DS', '/');
             }
         }
 
         //get the root path
-        if ((!defined('ROOT')) || (ROOT == "") || (ROOT == null)) {
+        if ((!defined('ROOT')) || (ROOT == '') || (ROOT == null)) {
             define('ROOT', filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').DS);
         }
-        
+
         //the name of the directory that contains model, view and controller (must be placed in the root)
         if (!defined('APPLICATION_DIR')) {
-            define('APPLICATION_DIR', ROOT."application".DS);
+            define('APPLICATION_DIR', ROOT.'application'.DS);
         }
-        
+
         //each Gishiki instance is binded with a new created Environment
         if (!is_object(self::$executionEnvironment)) {
             self::$executionEnvironment = new Environment(
                 filter_input_array(INPUT_SERVER), true, true);
         }
     }
-    
+
     /**
      * Execute the requested operation.
      */
@@ -69,14 +68,14 @@ abstract class Gishiki
     {
         //initialize the framework
         self::Initialize();
-        
+
         //if the framework needs to be installed.....
         if (Environment::ApplicationExists()) {
             //fulfill the client request
             Environment::GetCurrentEnvironment()->FulfillRequest();
         } else {
             //show the no application page!
-            echo(file_get_contents(__DIR__.DS."no_application.html"));
+            echo file_get_contents(__DIR__.DS.'no_application.html');
         }
     }
 }

@@ -1,21 +1,22 @@
 <?php
 /**
- * Slim Framework (http://slimframework.com)
+ * Slim Framework (http://slimframework.com).
  *
  * @link      https://github.com/slimphp/Slim
+ *
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\HttpKernel;
 
-use Gishiki\Core\Environment;
 use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
- * Response
+ * Response.
  *
  * This class represents an HTTP response. It manages
  * the response status, headers, and body
@@ -27,21 +28,21 @@ use Psr\Http\Message\UriInterface;
 class Response extends Message implements ResponseInterface
 {
     /**
-     * Status code
+     * Status code.
      *
      * @var int
      */
     protected $status = 200;
 
     /**
-     * Reason phrase
+     * Reason phrase.
      *
      * @var string
      */
     protected $reasonPhrase = '';
 
     /**
-     * Status codes and reason phrases
+     * Status codes and reason phrases.
      *
      * @var array
      */
@@ -114,9 +115,9 @@ class Response extends Message implements ResponseInterface
     ];
 
     /**
-     * Sends the given HTTP response to the client
+     * Sends the given HTTP response to the client.
      * 
-     * @param ResponseInterface $response the response to be sent
+     * @param ResponseInterface $response  the response to be sent
      * @param int               $chunkSize the size of each chunk of the response message
      */
     public static function send(ResponseInterface $response, $chunkSize = 512)
@@ -124,18 +125,18 @@ class Response extends Message implements ResponseInterface
         //send the response HTTP header
         if (!headers_sent()) {
             // Status
-            header("HTTP/".$response->getProtocolVersion()." ".
-                    $response->getStatusCode()." ".
+            header('HTTP/'.$response->getProtocolVersion().' '.
+                    $response->getStatusCode().' '.
                     $response->getReasonPhrase()
             );
             // Headers
             foreach ($response->getHeaders() as $name => $values) {
                 foreach ($values as $value) {
-                    header($name.": ".$value);
+                    header($name.': '.$value);
                 }
             }
         }
-        
+
         //send the response HTTP message
         $body = $response->getBody();
         if ($body->isSeekable()) {
@@ -143,15 +144,15 @@ class Response extends Message implements ResponseInterface
         }
 
         //get the content length
-        $contentLength  = $response->getHeaderLine('Content-Length');
-        $contentLength = (!$contentLength)? $body->getSize() : $contentLength;
+        $contentLength = $response->getHeaderLine('Content-Length');
+        $contentLength = (!$contentLength) ? $body->getSize() : $contentLength;
 
         if (isset($contentLength)) {
             $amountToRead = $contentLength;
             while ($amountToRead > 0 && !$body->eof()) {
                 $data = $body->read(min($chunkSize, $amountToRead));
                 echo $data;
- 
+
                 $amountToRead -= strlen($data);
                 if (connection_status() != CONNECTION_NORMAL) {
                     break;
@@ -166,7 +167,7 @@ class Response extends Message implements ResponseInterface
             }
         }
     }
-    
+
     /**
      * Create new HTTP response.
      *
@@ -223,11 +224,14 @@ class Response extends Message implements ResponseInterface
      *
      * @link http://tools.ietf.org/html/rfc7231#section-6
      * @link http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
-     * @param int $code The 3-digit integer result code to set.
+     *
+     * @param int    $code         The 3-digit integer result code to set.
      * @param string $reasonPhrase The reason phrase to use with the
-     *     provided status code; if none is provided, implementations MAY
-     *     use the defaults as suggested in the HTTP specification.
+     *                             provided status code; if none is provided, implementations MAY
+     *                             use the defaults as suggested in the HTTP specification.
+     *
      * @return self
+     *
      * @throws \InvalidArgumentException For invalid status code arguments.
      */
     public function withStatus($code, $reasonPhrase = '')
@@ -256,13 +260,15 @@ class Response extends Message implements ResponseInterface
     /**
      * Filter HTTP status code.
      *
-     * @param  int $status HTTP status code.
+     * @param int $status HTTP status code.
+     *
      * @return int
+     *
      * @throws \InvalidArgumentException If an invalid HTTP status code is provided.
      */
     protected function filterStatus($status)
     {
-        if (!is_integer($status) || $status<100 || $status>599) {
+        if (!is_integer($status) || $status < 100 || $status > 599) {
             throw new InvalidArgumentException('Invalid HTTP status code');
         }
 
@@ -280,6 +286,7 @@ class Response extends Message implements ResponseInterface
      *
      * @link http://tools.ietf.org/html/rfc7231#section-6
      * @link http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
+     *
      * @return string Reason phrase; must return an empty string if none present.
      */
     public function getReasonPhrase()
@@ -290,6 +297,7 @@ class Response extends Message implements ResponseInterface
         if (isset(static::$messages[$this->status])) {
             return static::$messages[$this->status];
         }
+
         return '';
     }
 
@@ -305,6 +313,7 @@ class Response extends Message implements ResponseInterface
      * Proxies to the underlying stream and writes the provided data to it.
      *
      * @param string $data
+     *
      * @return self
      */
     public function write($data)
@@ -326,13 +335,14 @@ class Response extends Message implements ResponseInterface
      * This method prepares the response object to return an HTTP Redirect
      * response to the client.
      *
-     * @param  string|UriInterface $url    The redirect destination.
-     * @param  int                 $status The redirect HTTP status code.
+     * @param string|UriInterface $url    The redirect destination.
+     * @param int                 $status The redirect HTTP status code.
+     *
      * @return self
      */
     public function withRedirect($url, $status = 302)
     {
-        return $this->withStatus($status)->withHeader('Location', (string)$url);
+        return $this->withStatus($status)->withHeader('Location', (string) $url);
     }
 
     /**
@@ -343,9 +353,10 @@ class Response extends Message implements ResponseInterface
      * This method prepares the response object to return an HTTP Json
      * response to the client.
      *
-     * @param  mixed  $data   The data
-     * @param  int    $status The HTTP status code.
-     * @param  int    $encodingOptions Json encoding options
+     * @param mixed $data            The data
+     * @param int   $status          The HTTP status code.
+     * @param int   $encodingOptions Json encoding options
+     *
      * @return self
      */
     public function withJson($data, $status = 200, $encodingOptions = 0)
@@ -435,6 +446,7 @@ class Response extends Message implements ResponseInterface
      * Note: This method is not part of the PSR-7 standard.
      *
      * @return bool
+     *
      * @api
      */
     public function isForbidden()
@@ -495,10 +507,10 @@ class Response extends Message implements ResponseInterface
         );
         $output .= PHP_EOL;
         foreach ($this->getHeaders() as $name => $values) {
-            $output .= sprintf('%s: %s', $name, $this->getHeaderLine($name)) . PHP_EOL;
+            $output .= sprintf('%s: %s', $name, $this->getHeaderLine($name)).PHP_EOL;
         }
         $output .= PHP_EOL;
-        $output .= (string)$this->getBody();
+        $output .= (string) $this->getBody();
 
         return $output;
     }

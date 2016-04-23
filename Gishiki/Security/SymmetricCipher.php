@@ -16,9 +16,9 @@ limitations under the License.
 *****************************************************************************/
 
 namespace Gishiki\Security {
-    
+
     /**
-     * An helper class for symmetric cipher algorithms
+     * An helper class for symmetric cipher algorithms.
      *
      * @author Benato Denis <benato.denis96@gmail.com>
      */
@@ -39,12 +39,13 @@ namespace Gishiki\Security {
         private $algorithmName; /*used to speedup the source*/
 
         /**
-         * Create a ciper that uses the given algorithm/key length
+         * Create a ciper that uses the given algorithm/key length.
          * 
-         * @param  int             $encAlg the key length for AES (default: ::AES128)
+         * @param int $encAlg the key length for AES (default: ::AES128)
+         *
          * @throws CipherException the error occurred
          */
-        public function __construct($encAlg = SymmetricCipher::AES128)
+        public function __construct($encAlg = self::AES128)
         {
             //store the encryption algorith
             $this->algorithm = $encAlg;
@@ -64,12 +65,13 @@ namespace Gishiki\Security {
                     $this->algorithmName = 'aes-256-cbc';
                     break;
                 default:
-                    throw new CipherException("The given algoryth/key length is not valid", 8);
+                    throw new CipherException('The given algoryth/key length is not valid', 8);
             }
         }
 
         /**
-         * Set a new key for encryptions and decryptions
+         * Set a new key for encryptions and decryptions.
+         *
          * @param string $key the new key
          */
         public function SetKey($key)
@@ -81,9 +83,10 @@ namespace Gishiki\Security {
         }
 
         /**
-         * Encrypt a message
+         * Encrypt a message.
          * 
-         * @param  string $plainData the original string/data to be encrypted
+         * @param string $plainData the original string/data to be encrypted
+         *
          * @return string the encrypted data
          */
         public function Encrypt($plainData)
@@ -95,26 +98,29 @@ namespace Gishiki\Security {
             $encrypted = openssl_encrypt($plainData, $this->algorithmName, $this->key, 0, $iv);
 
             //encode encrypted data and the random IV with Base64 and add it to the encryption result
-            $encrypted = base64_encode($iv).":>=|=<:".base64_encode($encrypted);
+            $encrypted = base64_encode($iv).':>=|=<:'.base64_encode($encrypted);
 
             //return the encoded string
             return $encrypted;
         }
 
         /**
-         * Decrypt a message encrypted by the Encrypt function
-         * @param  string          $cipedData the result of the encryption
-         * @return string          the original data
+         * Decrypt a message encrypted by the Encrypt function.
+         *
+         * @param string $cipedData the result of the encryption
+         *
+         * @return string the original data
+         *
          * @throws CipherException the error occurred
          */
         public function Decrypt($cipedData)
         {
             //get IV and encrypted text in an array
-            $dataToEncrypt = explode(":>=|=<:", $cipedData, 2);
+            $dataToEncrypt = explode(':>=|=<:', $cipedData, 2);
 
             //check for the data to be valid
             if (count($dataToEncrypt) != 2) {
-                throw new CipherException("The content is not a valid encrypted content", 9);
+                throw new CipherException('The content is not a valid encrypted content', 9);
             }
 
             //rebuild the random IV used to encrypt the string

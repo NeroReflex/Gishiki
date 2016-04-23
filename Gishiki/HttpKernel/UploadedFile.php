@@ -1,11 +1,13 @@
 <?php
 /**
- * Slim Framework (http://slimframework.com)
+ * Slim Framework (http://slimframework.com).
  *
  * @link      https://github.com/slimphp/Slim
+ *
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\HttpKernel;
 
 use Gishiki\Core\Environment;
@@ -132,12 +134,12 @@ class UploadedFile implements UploadedFileInterface
     /**
      * Construct a new UploadedFile instance.
      *
-     * @param string      $file The full path to the uploaded file provided by the client.
-     * @param string|null $name The file name.
-     * @param string|null $type The file media type.
-     * @param int|null    $size The file size in bytes.
+     * @param string      $file  The full path to the uploaded file provided by the client.
+     * @param string|null $name  The file name.
+     * @param string|null $type  The file media type.
+     * @param int|null    $size  The file size in bytes.
      * @param int         $error The UPLOAD_ERR_XXX code representing the status of the upload.
-     * @param bool        $sapi Indicates if the upload is in a SAPI environment.
+     * @param bool        $sapi  Indicates if the upload is in a SAPI environment.
      */
     public function __construct($file, $name = null, $type = null, $size = null, $error = UPLOAD_ERR_OK, $sapi = false)
     {
@@ -162,8 +164,9 @@ class UploadedFile implements UploadedFileInterface
      * an exception.
      *
      * @return StreamInterface Stream representation of the uploaded file.
+     *
      * @throws \RuntimeException in cases when no stream is available or can be
-     *     created.
+     *                           created.
      */
     public function getStream()
     {
@@ -208,8 +211,8 @@ class UploadedFile implements UploadedFileInterface
      * @param string $targetPath Path to which to move the uploaded file.
      *
      * @throws InvalidArgumentException if the $path specified is invalid.
-     * @throws RuntimeException on any error during the move operation, or on
-     *     the second or subsequent call to the method.
+     * @throws RuntimeException         on any error during the move operation, or on
+     *                                  the second or subsequent call to the method.
      */
     public function moveTo($targetPath)
     {
@@ -277,7 +280,7 @@ class UploadedFile implements UploadedFileInterface
      * the file in the $_FILES array.
      *
      * @return string|null The filename sent by the client or null if none
-     *     was provided.
+     *                     was provided.
      */
     public function getClientFilename()
     {
@@ -295,7 +298,7 @@ class UploadedFile implements UploadedFileInterface
      * the file in the $_FILES array.
      *
      * @return string|null The media type sent by the client or null if none
-     *     was provided.
+     *                     was provided.
      */
     public function getClientMediaType()
     {

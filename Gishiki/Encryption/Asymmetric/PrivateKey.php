@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-namespace Encryption\Asymmetric;
+namespace Gishiki\Encryption\Asymmetric;
 
 use Gishiki\Core\Environment;
 
@@ -26,14 +26,6 @@ use Gishiki\Core\Environment;
  */
 final class PrivateKey
 {
-    /*
-     * This is a list of OpenSSL key delimiters
-     */
-    const BEGIN_PRIVATE_KEY = '-----BEGIN PRIVATE KEY-----';
-    const END_PRIVATE_KEY = '-----END PRIVATE KEY-----';
-    const BEGIN_ENCRYPTED_KEY = '-----BEGIN ENCRYPTED PRIVATE KEY-----';
-    const END_ENCRYPTED_KEY = '-----END ENCRYPTED PRIVATE KEY-----';
-
     /**
      * @var resource the private key ready to be used by OpenSSL
      */
@@ -48,7 +40,7 @@ final class PrivateKey
      * @param string|null $custom_key          the private key serialized as a string
      * @param string      $custom_key_password the password to decrypt the serialized private key (if necessary)
      *
-     * @throws \InvalidArgumentException the given key and/or password isn't valid
+     * @throws \InvalidArgumentException|AsymmetricException the given key and/or password isn't valid
      */
     public function __construct($custom_key = null, $custom_key_password = '')
     {
@@ -57,55 +49,51 @@ final class PrivateKey
         }
 
         //get a string containing a serialized asymmetric key
-        $serialized_key = (is_string($custom_key)) ?
-                $custom_key
-                : Environment::GetCurrentEnvironment()->GetConfigurationProperty('MASTER_ASYMMETRIC_KEY');
-
-        //get the beginning and ending of a private key (to stip out additional shit and check for key validity)
-        $begin_private_unencrypted = strpos($serialized_key, self::BEGIN_PRIVATE_KEY);
-        $end_private_unencrypted = strpos($serialized_key, self::END_PRIVATE_KEY);
-        $begin_private_encrypted = strpos($serialized_key, self::BEGIN_ENCRYPTED_KEY);
-        $end_private_encrypted = strpos($serialized_key, self::END_ENCRYPTED_KEY);
-
-        //get the password of the serialized key
-        $serialized_key_password = '';
-        $valid_key = '';
-        if (($begin_private_unencrypted !== false) && ($end_private_unencrypted !== false)) {
-            //extract the serialized key
-            $valid_key = substr($serialized_key, $begin_private_unencrypted, $end_private_unencrypted + strlen(self::END_PRIVATE_KEY));
-
-            //a password is not needed
-            $serialized_key_password = '';
-        } elseif (($begin_private_encrypted !== false) && ($end_private_encrypted !== false)) {
-            //extract the serialized key
-            $valid_key = substr($serialized_key, $begin_private_encrypted, $end_private_encrypted + strlen(self::END_ENCRYPTED_KEY));
-
-            //a password is not needed
-            $serialized_key_password = $custom_key_password;
-            if (strlen($valid_key) <= 0) {
-                throw new \InvalidArgumentException('The given password cannot be used to decrypt the given key');
-            }
+        if (is_string($custom_key)) {
+            $serialized_key = $custom_key;
+        } elseif (is_null($custom_key)) {
+            $serialized_key = Environment::GetCurrentEnvironment()->GetConfigurationProperty('MASTER_ASYMMETRIC_KEY');
         } else {
-            //bad key, sorry
-            throw new \InvalidArgumentException("The given string doesn't represents a valid key");
+            throw new \InvalidArgumentException('The serialized private key must be a string');
         }
 
+        //get the beginning and ending of a private key (to stip out additional shit and check for key validity)
+        $is_encrypted = strpos($serialized_key, 'ENCRYPTED') !== false;
+
+        //get the password of the serialized key
+        $serialized_key_password = ($is_encrypted) ? $custom_key_password : '';
+
         //load the private key
-        $this->key = openssl_pkey_get_private($valid_key, $serialized_key_password);
+        $this->key = openssl_pkey_get_private($serialized_key, $serialized_key_password);
 
         //check for errors
         if (!$this->isLoaded()) {
-            throw new AsymmetricException('The private key could not be constructed', 0);
+            throw new AsymmetricException('The private key could not be loaded', 0);
         }
     }
-    
+
     /**
-     * Free resources used to hold this private key
+     * Free resources used to hold this private key.
      */
-    public function __destruct() {
+    public function __destruct()
+    {
         if ($this->isLoaded()) {
             openssl_free_key($this->key);
         }
+    }
+
+    /**
+     * Export the public key corresponding to this private key.
+     * 
+     * @return string the public key exported from this private key
+     */
+    public function exportPublicKey()
+    {
+        //get details of the current private key
+        $privateKeyDetails = openssl_pkey_get_details($this->key);
+
+        //return the public key
+        return $privateKeyDetails['key'];
     }
 
     /**
@@ -160,9 +148,14 @@ final class PrivateKey
         return $serialized_key;
     }
 
+    /**
+     * Check if the key has been loaded.
+     * 
+     * @return bool true if the key has been loaded
+     */
     public function isLoaded()
     {
-        return !is_null($this->key);
+        return is_resource($this->key);
     }
 
     /**

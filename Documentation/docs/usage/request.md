@@ -115,7 +115,7 @@ Route::any("/method_test",
 });
 ```
 
-Operation allowed on that URI are:
+Operation allowed on an URI are:
 
    - getScheme()
    - getAuthority()

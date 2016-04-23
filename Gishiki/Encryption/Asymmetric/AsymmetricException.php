@@ -15,7 +15,7 @@
   limitations under the License.
 *****************************************************************************/
 
-namespace Encryption\Asymmetric;
+namespace Gishiki\Encryption\Asymmetric;
 
 /**
  * The asymmetric encrypter exception thrown by Gishiki 

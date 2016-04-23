@@ -230,17 +230,8 @@ namespace Gishiki\Core {
                 case 'LOG_CONNECTION_STRING':
                     return $this->configuration['AUTOLOG_URL'];
 
-                case 'MODEL_DIR':
-                    return APPLICATION_DIR.'Models';
-
                 case 'DATA_CONNECTIONS':
                     return $this->configuration['DATABASE_CONNECTIONS'];
-
-                case 'LOGGING_ENABLED':
-                    return $this->configuration['LOG']['ENABLED'];
-
-                case 'LOGGING_COLLECTION_SOURCE':
-                    return $this->configuration['LOG']['SOURCES'];
 
                 case 'MASTER_ASYMMETRIC_KEY':
                     return $this->configuration['SECURITY']['MASTER_ASYMMETRIC_KEY'];
@@ -251,6 +242,9 @@ namespace Gishiki\Core {
                 case 'RESOURCE_DIR':
                 case 'RESOURCE_DIRECTORY':
                     return APPLICATION_DIR.'Resources'.DS;
+
+                case 'MODEL_DIR':
+                    return APPLICATION_DIR.'Models';
 
                 case 'VIEW_DIR':
                 case 'VIEW_DIRECTORY':
@@ -271,36 +265,6 @@ namespace Gishiki\Core {
 
                 default:
                     return;
-            }
-        }
-
-        /**
-         * Detect the disponibility of a php extension or feature.
-         * 
-         * @param string $extensionAlias the extension alias (NOT THE EXTENSION NAME)
-         *
-         * @return bool true if the extension is enabled, false otherwise
-         */
-        public static function ExtensionSupport($extensionAlias)
-        {
-            switch (strtoupper($extensionAlias)) {
-                case 'MEMCACHED':
-                    return class_exists('Memcached');
-
-                case 'OPENSSL':
-                    return extension_loaded('openssl');
-
-                case 'ZLIB':
-                    return extension_loaded('');
-
-                case 'SIMPLEXML':
-                    return (extension_loaded('xml')) && (in_array('simplexml', get_loaded_extensions()));
-
-                case 'SQL':
-                    return extension_loaded('PDO');
-
-                default:
-                    return false;
             }
         }
     }

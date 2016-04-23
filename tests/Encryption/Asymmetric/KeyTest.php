@@ -16,7 +16,7 @@ use Gishiki\Encryption\Asymmetric\PublicKey;
  *
  * @author denis
  */
-class PrivateKeyTest extends \PHPUnit_Framework_TestCase
+class KeyTest extends \PHPUnit_Framework_TestCase
 {
     private function getTestRSAPublicKey()
     {

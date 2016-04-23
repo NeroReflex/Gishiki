@@ -210,6 +210,8 @@ class Request extends Message implements ServerRequestInterface
         });
 
         $this->registerMediaTypeParser('application/x-www-form-urlencoded', function ($input) {
+            $data = null;
+
             parse_str($input, $data);
 
             return $data;

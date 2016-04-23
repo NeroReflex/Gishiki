@@ -7,7 +7,7 @@
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
 
-namespace Gishiki\Tests\Http;
+namespace Gishiki\tests\Http;
 
 use ReflectionProperty;
 use Gishiki\Algorithms\Collections\GenericCollection;

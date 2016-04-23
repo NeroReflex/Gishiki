@@ -87,3 +87,44 @@ If you try overriding the HTTP method you will see the you will be found cheatin
 
 
 ## Request URI
+Every HTTP request has a URI that identifies the requested application resource.
+The HTTP request URI is composite of several parts:
+
+  - Scheme (e.g. http or https)
+  - Host (e.g. example.com)
+  - Port (e.g. 80 or 443)
+  - Path (e.g. /users/1)
+  - Query string (e.g. sort=created&dir=asc)
+
+You can fetch the Request object’s URI using its getUri() method:
+
+```php
+use Gishiki\Core\Route;
+use Gishiki\Logging\Logger;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\GenericCollection;
+
+Route::any("/method_test",
+    function (Request $request, Response &$response, GenericCollection &$arguments)
+{
+    //get the URI of the current request
+    $uri = $request->getUri();
+    
+    //do something with this URI
+});
+```
+
+Operation allowed on that URI are:
+
+   - getScheme()
+   - getAuthority()
+   - getUserInfo()
+   - getHost()
+   - getPort()
+   - getPath()
+   - getBasePath()
+   - getQuery() (returns the full query string, e.g. a=1&b=2)
+   - getFragment()
+   - getBaseUrl()
+

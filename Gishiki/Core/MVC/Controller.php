@@ -81,7 +81,7 @@ class Controller
         //reflect the requested action
         $reflected_action = new \ReflectionMethod($action_controller[1], $action_controller[0]);
         $reflected_action->setAccessible(true); //can invoke private methods :)
-        
+
         //and execute it
         $reflected_action->invoke($controller);
     }
@@ -132,6 +132,4 @@ class Controller
         //save the arguments collection
         $this->Arguments = $arguments;
     }
-    
-    
 }

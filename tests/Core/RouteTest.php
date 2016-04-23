@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\Tests\Core;
+namespace Gishiki\tests\Core;
 
 use Gishiki\Core\Route;
 use Gishiki\HttpKernel\Request;
@@ -23,9 +23,11 @@ use Gishiki\HttpKernel\Response;
 use Gishiki\Core\Environment;
 use Gishiki\Algorithms\Collections\GenericCollection;
 
-class RouteTest extends \PHPUnit_Framework_TestCase {
-    public function testRegexRouter() {
-        $test_route = new Route("/user/{username}/post/{post:number}", function() {
+class RouteTest extends \PHPUnit_Framework_TestCase
+{
+    public function testRegexRouter()
+    {
+        $test_route = new Route("/user/{username}/post/{post:number}", function () {
             throw new \Exception("Bad Test!");
         });
         
@@ -35,7 +37,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
         //and additional info
         $this->assertEquals(['username', 'post'], $test_route->getRegex()['params']);
         
-        $test_partregex_route = new Route("/user/new/{address:email}", function() {
+        $test_partregex_route = new Route("/user/new/{address:email}", function () {
             throw new \Exception("Bad Test!");
         });
         
@@ -46,8 +48,9 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($test_partregex_route->getRegex()['params'], ['address']);
     }
     
-    public function testFailbackRouter() {
-        $not_found = new Route(Route::NOT_FOUND, function() {
+    public function testFailbackRouter()
+    {
+        $not_found = new Route(Route::NOT_FOUND, function () {
             throw new \Exception("Bad Test!");
         });
         
@@ -57,7 +60,8 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(Route::NOT_FOUND, $not_found->isSpecialCallback());
     }
     
-    public function testMatchingRouter() {
+    public function testMatchingRouter()
+    {
         //test an email
         $email_route = new Route("/send/{address:email}", function () {
             throw new \Exception("Bad Test!");
@@ -86,7 +90,8 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
                 $number_route->matchURI("/MyNumber/".$random_number, 'GET'));
     }
     
-    public function testBrokenRoute() {
+    public function testBrokenRoute()
+    {
         $number_route = new Route("/MyNumber/{random:number}", function () {
             throw new \Exception("Bad Test!");
         });
@@ -98,7 +103,8 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
                 $number_route->matchURI("/MyNum/problem/ber/".$random_number, 'GET'));
     }
     
-    public function testMultipleMatching() {
+    public function testMultipleMatching()
+    {
         $email_route = new Route("/send/{address:email}/{test}/{test_num:inteGer}", function () {
             throw new \Exception("Bad Test!");
         });
@@ -116,7 +122,8 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
                 $email_route->matchURI("/send/test_ing+s3m4il@sp4c3.com/uuuuh... likeit! :)/+32", 'GET'));
     }
     
-    public function testTypeHandler() {
+    public function testTypeHandler()
+    {
         $email_route = new Route("/send/{address:email}/{test}/{test_num:inteGer}/{another_mail:mail}", function () {
             throw new \Exception("Bad Test!");
         });
@@ -128,10 +135,10 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(
             ["email", "default", "signed_integer", "email"],
             $email_route->getRegex()['param_types']);
-        
     }
     
-    public function testRouteExecution() {
+    public function testRouteExecution()
+    {
         $this->setUp();
         
         $test_route = new Route("/add/{num_1:integer}/{num_2:integer}", function (Request $request, Response &$response, GenericCollection &$params) {

@@ -119,7 +119,8 @@ class Response extends Message implements ResponseInterface
      * @param ResponseInterface $response the response to be sent
      * @param int               $chunkSize the size of each chunk of the response message
      */
-    public static function send(ResponseInterface $response, $chunkSize = 512) {
+    public static function send(ResponseInterface $response, $chunkSize = 512)
+    {
         //send the response HTTP header
         if (!headers_sent()) {
             // Status
@@ -148,7 +149,7 @@ class Response extends Message implements ResponseInterface
         if (isset($contentLength)) {
             $amountToRead = $contentLength;
             while ($amountToRead > 0 && !$body->eof()) {
-               $data = $body->read(min($chunkSize, $amountToRead));
+                $data = $body->read(min($chunkSize, $amountToRead));
                 echo $data;
  
                 $amountToRead -= strlen($data);

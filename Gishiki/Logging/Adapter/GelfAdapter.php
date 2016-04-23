@@ -29,7 +29,8 @@ use Psr\Log\LogLevel;
  * 
  * Benato Denis <benato.denis96@gmail.com>
  */
-class GelfAdapter {
+class GelfAdapter
+{
     //this is the managed gelf resource
     private $gelf_resource = null;
     
@@ -44,7 +45,7 @@ class GelfAdapter {
      */
     public function __construct($server = 'null')
     {
-        $native_server = ($server == 'null')? null : $server; 
+        $native_server = ($server == 'null')? null : $server;
         
         if ($native_server) {
             $conn_info = explode(':', $native_server);

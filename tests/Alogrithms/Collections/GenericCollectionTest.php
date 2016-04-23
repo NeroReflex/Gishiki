@@ -19,9 +19,11 @@ namespace Gishiki\Tests\Algorithms\Collections;
 
 use Gishiki\Algorithms\Collections\GenericCollection;
 
-class GenericCollectionTest extends \PHPUnit_Framework_TestCase {
+class GenericCollectionTest extends \PHPUnit_Framework_TestCase
+{
     
-    public function testGenericCollectionIteration() {
+    public function testGenericCollectionIteration()
+    {
         //this is the native collection
         $native_collection = array(
             'test1' => 7,
@@ -42,8 +44,7 @@ class GenericCollectionTest extends \PHPUnit_Framework_TestCase {
         
         //try rebuilding the collection iterating over each element
         $rebuilt_collection = array();
-        foreach($collection_to_test->getIterator() as $key => $value)
-        {
+        foreach ($collection_to_test->getIterator() as $key => $value) {
             $rebuilt_collection[$key] = $value;
         }
         
@@ -51,7 +52,8 @@ class GenericCollectionTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($rebuilt_collection, $native_collection);
     }
     
-    public function testGenericCollectionNativeAsClasscall() {
+    public function testGenericCollectionNativeAsClasscall()
+    {
         //this is the native collection
         $native_collection = array(
             'test1' => 7,

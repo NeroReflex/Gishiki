@@ -22,7 +22,7 @@ namespace Gishiki\Core {
     use Gishiki\Algorithms\Manipulation;
     use Gishiki\Algorithms\Collections\GenericCollection;
     use Gishiki\Core\MVC\Controller;
-    
+
     /**
      * This class is used to provide a small layer of Laravel-compatibility
      * and ease of routing usage
@@ -294,8 +294,7 @@ namespace Gishiki\Core {
                 
                 foreach (self::$callbacks as $current_route) {
                     //check for a valid callback
-                    if (is_object($current_route->matchURI(self::NOT_FOUND, $to_fulfill->getMethod())))
-                    {
+                    if (is_object($current_route->matchURI(self::NOT_FOUND, $to_fulfill->getMethod()))) {
                         //flag the execution of this failback action!
                         $action_ruote = $current_route;
                         
@@ -306,7 +305,7 @@ namespace Gishiki\Core {
             }
             
             //execute the router call
-            (is_object($action_ruote))? 
+            (is_object($action_ruote))?
                 $action_ruote(clone $to_fulfill, $response, $reversed_params) : null;
             
             //this function have to return a response
@@ -347,9 +346,9 @@ namespace Gishiki\Core {
          * Route::addRoute($my_route);
          * </code>
          * 
-         * @param string  $URI        the URI to be matched in order to take the given action
-         * @param mixed   $action     the action to be performed on URI match
-         * @param array   $methods    the list of allowed method for the current route
+         * @param string              $URI        the URI to be matched in order to take the given action
+         * @param Closure|string      $action     the action to be performed on URI match
+         * @param array               $methods    the list of allowed method for the current route
          */
         public function __construct($URI, $action, array $methods = [self::GET, self::DELETE, self::POST, self::PUT, self::HEAD])
         {
@@ -400,7 +399,8 @@ namespace Gishiki\Core {
          * @param  string                  $method   the used method
          * @return GenericCollection|null            the match result
          */
-        public function matchURI($uri, $method) {
+        public function matchURI($uri, $method)
+        {
             $reversed_params = null;
             
             if ($this->isSpecialCallback() === false) {
@@ -416,7 +416,7 @@ namespace Gishiki\Core {
                         $value = $matches[$current_match_key + $to_skip];
                         
                         //filter the value of the matched URI param
-                        switch($regex_and_info["param_types"][$current_match_key]) {
+                        switch ($regex_and_info["param_types"][$current_match_key]) {
                             case 'signed_integer':
                                 $value = intval($value);
                                 break;
@@ -536,7 +536,8 @@ namespace Gishiki\Core {
         /**
          * Proxy call for take_action
          */
-        public function __invoke(Request $copy_of_request, Response &$response, GenericCollection &$arguments) {
+        public function __invoke(Request $copy_of_request, Response &$response, GenericCollection &$arguments)
+        {
             return $this->take_action($copy_of_request, $response, $arguments);
         }
         
@@ -564,6 +565,8 @@ namespace Gishiki\Core {
                 Controller::Execute($this->action, $copy_of_request, $response, $arguments);
             } else {
                 //what are you fucking doing?
+                $response = $response->withStatus(500);
+                $response->write("Undefined route behaviour");
             }
         }
     }

@@ -22,7 +22,8 @@ namespace Gishiki\Algorithms;
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
-abstract class Manipulation {
+abstract class Manipulation
+{
     
     /**
      * Convenient function that behave exactly like str_replace for the first occurrence only
@@ -32,7 +33,7 @@ abstract class Manipulation {
      * @param  string $string          the string to search the pattern into
      * @return string the new string with the first matched pattern replaced
      */
-    static function replace_once($str_pattern, $str_replacement, $string)
+    public static function replace_once($str_pattern, $str_replacement, $string)
     {
         if (strpos($string, $str_pattern) !== false) {
             $occurrence = strpos($string, $str_pattern);
@@ -50,7 +51,7 @@ abstract class Manipulation {
      * @param  string $string          the string to search the pattern into
      * @return string the new string with the first matched pattern replaced
      */
-    static function replace_list($str_patterns, $str_replacement, $string)
+    public static function replace_list($str_patterns, $str_replacement, $string)
     {
         foreach ($str_patterns as $pattern) {
             $string = str_replace($pattern, $str_replacement, $string);
@@ -67,14 +68,14 @@ abstract class Manipulation {
      * @param  string $end    the second substring
      * @return string|bool the string between the two substrings, or FALSE
      */
-    static function get_between($string, $start, $end)
+    public static function get_between($string, $start, $end)
     {
         $string = ' ' . $string;
         $ini = strpos($string, $start);
         $ini += strlen($start);
         $eni = strpos($string, $end, $ini);
         $len = $eni - $ini;
-        return (($eni !== false) && ($ini !== false)) ? 
+        return (($eni !== false) && ($ini !== false)) ?
             substr($string, $ini, $len) : false;
     }
     
@@ -88,7 +89,7 @@ abstract class Manipulation {
      * @param  array  $params
      * @return string the interpolated string
      */
-    static function interpolate($string, array $params)
+    public static function interpolate($string, array $params)
     {
         //perform the interpolation
         foreach (array_keys($params) as $current_interpolation) {

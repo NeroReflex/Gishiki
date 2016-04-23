@@ -4,6 +4,8 @@
 /Documentation/.couscous
 /Documentation/docs/API
 /vendor/
+/.idea/
 .env
 composer.lock
 composer.phar
+vagrant.xml

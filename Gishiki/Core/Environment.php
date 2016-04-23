@@ -21,7 +21,7 @@ namespace Gishiki\Core {
     use Gishiki\HttpKernel\Request;
     use Gishiki\HttpKernel\Response;
     use Gishiki\Algorithms\Manipulation;
-    
+
     /**
      * Represent the environment used to run controllers.
      * 
@@ -99,16 +99,15 @@ namespace Gishiki\Core {
             $settings_configuration = file_get_contents(APPLICATION_DIR."settings.json");
 
             //update every environment placeholder
-            while (strpos($settings_configuration, '{{@'))
-            {
-                 if (($to_be_replaced = Manipulation::get_between($settings_configuration, '{{@', '}}')) != '') {
+            while (strpos($settings_configuration, '{{@')) {
+                if (($to_be_replaced = Manipulation::get_between($settings_configuration, '{{@', '}}')) != '') {
                     $value = getenv($to_be_replaced);
                     if ($value !== false) {
                         $settings_configuration = str_replace('{{@'.$to_be_replaced.'}}', $value, $settings_configuration);
                     } elseif (defined($to_be_replaced)) {
                         $settings_configuration = str_replace('{{@'.$to_be_replaced.'}}', constant($to_be_replaced), $settings_configuration);
                     } else {
-                        die ("Unknown environment var: ".$to_be_replaced);
+                        die("Unknown environment var: ".$to_be_replaced);
                     }
                 }
             }
@@ -202,7 +201,7 @@ namespace Gishiki\Core {
                     //Security Settings
                     "SECURITY" => [
                         "MASTER_SYMMETRIC_KEY" => $config["security"]["serverPassword"],
-                        "MASTER_ASYMMETRIC_KEY_REFERENCE" => $config["security"]["serverKey"],
+                        "MASTER_ASYMMETRIC_KEY" => $config["security"]["serverKey"],
                     ]
                 ];
             }
@@ -241,10 +240,10 @@ namespace Gishiki\Core {
                 case "LOGGING_COLLECTION_SOURCE":
                     return $this->configuration["LOG"]["SOURCES"];
 
-                case "MASTER_ASYMMETRIC_KEY_NAME":
-                    return $this->configuration["SECURITY"]["MASTER_ASYMMETRIC_KEY_REFERENCE"];
+                case "MASTER_ASYMMETRIC_KEY":
+                    return $this->configuration["SECURITY"]["MASTER_ASYMMETRIC_KEY"];
 
-                case "SECURITY_MASTER_SYMMETRIC_KEY":
+                case "MASTER_SYMMETRIC_KEY":
                     return $this->configuration["SECURITY"]["MASTER_SYMMETRIC_KEY"];
 
                 case "RESOURCE_DIR":
@@ -286,13 +285,13 @@ namespace Gishiki\Core {
                     return class_exists("Memcached");
 
                 case 'OPENSSL':
-                    return ((function_exists("openssl_pkey_get_private")) && (function_exists("openssl_verify")));
+                    return extension_loaded('openssl');
 
                 case 'ZLIB':
-                    return function_exists("zlib_encode");
+                    return extension_loaded('');
 
                 case 'SIMPLEXML':
-                    return in_array('simplexml', get_loaded_extensions());
+                    return ((extension_loaded('xml')) && (in_array('simplexml', get_loaded_extensions())));
 
                 case 'SQL':
                     return extension_loaded('PDO');
@@ -300,19 +299,6 @@ namespace Gishiki\Core {
                 default:
                     return false;
             }
-        }
-
-        /**
-         * Detect if the http request was done using AJAX. Note that this function may fail at detecting ajax calls.
-         * 
-         * @return bool TRUE if this is for sure an ajax request, FALSE otherwise
-         */
-        public function IsRequestAJAX()
-        {
-            //filter $_SERVER (accessing superglobals directly is a bad idea)
-            $_server_filtered = filter_input_array(INPUT_SERVER);
-            
-            return (!empty($_server_filtered['HTTP_X_REQUESTED_WITH']) && strtolower($_server_filtered['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
         }
     }
 }

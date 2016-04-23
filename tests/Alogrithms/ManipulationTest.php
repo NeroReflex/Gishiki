@@ -19,10 +19,12 @@ namespace Gishiki\Tests\Algorithms;
 
 use Gishiki\Algorithms\Manipulation;
 
-class ManipulationTest extends \PHPUnit_Framework_TestCase {
+class ManipulationTest extends \PHPUnit_Framework_TestCase
+{
     
     
-    public function testInterpolation() {
+    public function testInterpolation()
+    {
         $correct_message = "Carnevale vecchio e pazzo
 s’è venduto il materasso
 per comprare pane, vino,
@@ -57,7 +59,7 @@ e gli fanno il funerale:
 dalla {{is}} era nato
 e di {{is}} è tornato.";
         $data = [
-            'age' => 'vecchio', 
+            'age' => 'vecchio',
             'how' => 'pazzo',
             'what sold' => 'materasso',
             'to_buy' => 'cotechino',
@@ -69,7 +71,8 @@ e di {{is}} è tornato.";
         $this->assertEquals($message_with_data, $correct_message);
     }
     
-    public function testBetween() {
+    public function testBetween()
+    {
         $string = "@ >this is a test # T0 ch3ck 1h3 ''get_between'# function";
         
         //test if the get_between works using strings as delimiters works
@@ -79,6 +82,6 @@ e di {{is}} è tornato.";
         $this->assertEquals("this is a test ", Manipulation::get_between($string, ">", "#"));
         
         //test for strange failures
-        $this->assertEquals(FALSE, Manipulation::get_between($string, "@", "##"));
+        $this->assertEquals(false, Manipulation::get_between($string, "@", "##"));
     }
 }

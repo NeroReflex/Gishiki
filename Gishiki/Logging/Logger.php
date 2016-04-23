@@ -68,7 +68,7 @@ final class Logger extends AbstractLogger
                 }
             }
         }
-  }
+    }
 
     /**
      * Logs with an arbitrary level.

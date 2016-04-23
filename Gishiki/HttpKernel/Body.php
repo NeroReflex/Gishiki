@@ -20,5 +20,4 @@ use Gishiki\Core\Environment;
  */
 class Body extends Stream
 {
-
 }

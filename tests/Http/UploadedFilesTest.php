@@ -6,7 +6,7 @@
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
-namespace Gishiki\Tests\Http;
+namespace Gishiki\tests\Http;
 
 use Gishiki\Core\Environment;
 use Gishiki\HttpKernel\Headers;
@@ -18,7 +18,7 @@ use Gishiki\HttpKernel\Uri;
 
 class UploadedFilesTest extends \PHPUnit_Framework_TestCase
 {
-    static private $filename = './phpUxcOty';
+    private static $filename = './phpUxcOty';
     /**
      * @beforeClass
      */

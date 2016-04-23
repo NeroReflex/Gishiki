@@ -17,7 +17,6 @@ limitations under the License.
 
 namespace Gishiki\Algorithms\Collections;
 
-
 /**
  * This is a Generic Collection Implementation modificed from the Slim's one
  * 

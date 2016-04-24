@@ -1,24 +1,33 @@
 <?php
+/**************************************************************************
+Copyright 2015 Benato Denis
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-namespace Gishiki\tests\Encryption\Asymmetric;
+http://www.apache.org/licenses/LICENSE-2.0
 
-use Gishiki\Encryption\Asymmetric\PrivateKey;
-use Gishiki\Encryption\Asymmetric\PublicKey;
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+ *****************************************************************************/
+
+namespace Gishiki\tests\Security\Encryption\Asymmetric;
+
+use Gishiki\Security\Encryption\Asymmetric\PrivateKey;
+use Gishiki\Security\Encryption\Asymmetric\PublicKey;
 
 /**
- * Description of testPrivateKey.
+ * Tests for the private and public key loader.
  *
- * @author denis
+ * @author Benato Denis <benato.denis96@gmail.com>
  */
 class KeyTest extends \PHPUnit_Framework_TestCase
 {
-    private function getTestRSAPublicKey()
+    public static function getTestRSAPublicKey()
     {
         return '-----BEGIN PUBLIC KEY-----
 MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwUHsaL7kLg0CWpUlnQkT
@@ -33,11 +42,10 @@ lh3mnDuAB4egzLS2UUVmmaOgGVkfnzoPLxg+m1tF7nRqSNtCQOBAQVcDP3189//w
 DPj/pt5btnKsH9bC720+AmuM7XKuX3uiIjDo8UTENdQpoEUG0A/gKXmdCagOeLZ+
 tdaf03LPdaT7yoYCcmdLezqtMRywLkyxqDNhLfqJvQD+tct02fASZKjxLP2+F48L
 LDdopnAc51efTUT3s+DN+J0CAwEAAQ==
------END PUBLIC KEY-----
-';
+-----END PUBLIC KEY-----';
     }
 
-    private function getTestRSAPrivateKey()
+    public static function getTestRSAPrivateKey()
     {
         return '-----BEGIN RSA PRIVATE KEY-----
 MIIJKAIBAAKCAgEAma9gYrocyBwqcKrhjsg29ySYSoKC+ovzGSg83P7aelrKrRKP
@@ -89,13 +97,12 @@ Maq675p9R2U4mi2AvNQYJvbCrqQCUZA60F3UpB68xNh/2srbLIL3Eq1b7BT0kUAS
 T8CkMEtV5GSB1rH8a39LzRjWCyHJ7k/sWaq2dVF76b9/MorCTvq9rBInGeRD8GaP
 GoNddW/jHLbdWsOGtnzSIXYqxYyXWRGXkiD5aOzQX2rE9ml4qVpT5ytX9uUSQJjq
 cf1zSJX0I5GEo9EIBb2r7cFNdOLa02qTL/IO4a3c5NbHqmDBqyfh9lpU6Do=
------END RSA PRIVATE KEY-----
-';
+-----END RSA PRIVATE KEY-----';
     }
 
     public function testPrivateKeyload()
     {
-        $loadedKey = new PrivateKey($this->getTestRSAPrivateKey());
+        $loadedKey = new PrivateKey(self::getTestRSAPrivateKey());
 
         //check if the private key has been loaded correctly
         $this->assertEquals(true, $loadedKey->isLoaded());
@@ -103,9 +110,21 @@ cf1zSJX0I5GEo9EIBb2r7cFNdOLa02qTL/IO4a3c5NbHqmDBqyfh9lpU6Do=
 
     public function testPublicKeyload()
     {
-        $loadedKey = new PublicKey($this->getTestRSAPublicKey());
+        $loadedKey = new PublicKey(self::getTestRSAPublicKey());
 
         //check if the private key has been loaded correctly
         $this->assertEquals(true, $loadedKey->isLoaded());
+    }
+
+    public function testFakePrivateKeyload()
+    {
+        //the load of a bad key results in an exception
+        $this->expectException('Gishiki\Security\Encryption\Asymmetric\AsymmetricException');
+
+        //try load an invalid key
+        $loadedKey = new PrivateKey('th1s is s0m3 Sh1t th4t, obviously, is NOT an RSA pr1v4t3 k3y!');
+
+        //the exception was thrown, the loaded key is null!
+        $this->assertEquals(null, $loadedKey);
     }
 }

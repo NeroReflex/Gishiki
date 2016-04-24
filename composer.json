@@ -44,16 +44,7 @@
 
     "autoload": {
         "psr-4": {
-            "Gishiki\\": "Gishiki/",
-            "Gishiki\\HttpKernel\\": "Gishiki/HttpKernel/",
-            "Gishiki\\Core\\": "Gishiki/Core/",
-            "Gishiki\\Core\\MVC\\": "Gishiki/Core/MVC/",
-            "Gishiki\\JSON\\": "Gishiki/JSON/",
-            "Gishiki\\Algorithms\\": "Gishiki/Algorithms/",
-            "Gishiki\\Algorithms\\Collections\\": "Gishiki/Algorithms/Collections/",
-            "Gishiki\\Logging\\": "Gishiki/Logging/",
-            "Gishiki\\Logging\\Adapter\\": "Gishiki/Logging/Adapter/",
-            "Gishiki\\Security\\": "Gishiki/Security/"
+            "Gishiki\\": "Gishiki/"
         }
 
     },

@@ -15,10 +15,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-namespace Gishiki\Encryption\Asymmetric;
+namespace Gishiki\Security\Encryption\Asymmetric;
 
 /**
- * This class represents a private key for the asymmetric encryption engine.
+ * This class represents a public key for the asymmetric encryption engine.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
@@ -37,7 +37,8 @@ final class PublicKey
      *
      * @param string|null $custom_key the public key serialized as a string
      *
-     * @throws \InvalidArgumentException|AsymmetricException the given key isn't valid
+     * @throws \InvalidArgumentException the given key isn't a valid serialized key
+     * @throws AsymmetricException       the given key is invalid
      */
     public function __construct($custom_key = null)
     {
@@ -65,6 +66,16 @@ final class PublicKey
     }
 
     /**
+     * Free resources used to hold this private key.
+     */
+    public function __destruct()
+    {
+        if ($this->isLoaded()) {
+            openssl_free_key($this->key);
+        }
+    }
+
+    /**
      * Check if the key has been loaded.
      * 
      * @return bool true if the key has been loaded
@@ -72,5 +83,27 @@ final class PublicKey
     public function isLoaded()
     {
         return is_resource($this->key);
+    }
+
+    /**
+     * Export a reference to the native private key and its length in bits.
+     * 
+     * @return array the array that contains the key and its legth (in bytes)
+     *
+     * @throws AsymmetricException the key cannot be exported
+     */
+    public function __invoke()
+    {
+        if (!$this->isLoaded()) {
+            throw new AsymmetricException('It is impossible to obtain an unloaded private key', 1);
+        }
+
+        //get private key details
+        $details = openssl_pkey_get_details($this->key);
+
+        return [
+            'key' => &$this->key,
+            'byteLength' => $details['bits'] / 8,
+        ];
     }
 }

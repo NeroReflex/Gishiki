@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-namespace Gishiki\Encryption\Asymmetric;
+namespace Gishiki\Security\Encryption\Asymmetric;
 
 use Gishiki\Core\Environment;
 
@@ -40,7 +40,8 @@ final class PrivateKey
      * @param string|null $custom_key          the private key serialized as a string
      * @param string      $custom_key_password the password to decrypt the serialized private key (if necessary)
      *
-     * @throws \InvalidArgumentException|AsymmetricException the given key and/or password isn't valid
+     * @throws \InvalidArgumentException the given key and/or password isn't a valid string
+     * @throws AsymmetricException       the given key is invalid
      */
     public function __construct($custom_key = null, $custom_key_password = '')
     {
@@ -102,7 +103,7 @@ final class PrivateKey
      * The resulting string can be used to construct another PrivateKey instance:
      * 
      * <code>
-     * use Gishiki\Encryption\Asymmetric\PrivateKey;
+     * use Gishiki\Security\Encryption\Asymmetric\PrivateKey;
      * 
      * //this is the exported private key
      * $exported_key = "...";
@@ -115,12 +116,15 @@ final class PrivateKey
      *
      * @return string the serialized private key
      *
-     * @throws \InvalidArgumentException|AsymmetricException the given key is not valid
+     * @throws \InvalidArgumentException the given password is not a string
+     * @throws AsymmetricException       the given key is invalid
      */
     public function export($key_password = '')
     {
         if (!is_string($key_password)) {
             throw new \InvalidArgumentException('The private key password cannot be something else than a string');
+        } elseif (!$this->isLoaded()) {
+            throw new AsymmetricException('It is impossible to serialize an unloaded private key', 1);
         }
 
         $serialized_key = '';
@@ -129,19 +133,20 @@ final class PrivateKey
         $config = [
             'digest_alg' => 'sha512',
             'private_key_type' => OPENSSL_KEYTYPE_RSA,
-            'config' => (file_exists(Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').'openssl.cnf')) ?
-                Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').'openssl.cnf' : null,
         ];
+
+        if (!is_null(Environment::GetCurrentEnvironment())) {
+            $config = array_merge(
+                    $config,
+                    ['config' => (file_exists(Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').'openssl.cnf')) ?
+                        Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').'openssl.cnf' : null, ]);
+        }
 
         //serialize the key and encrypt it if requested
         if (strlen($key_password) > 0) {
             openssl_pkey_export($this->key, $serialized_key, $key_password, $config);
         } else {
             openssl_pkey_export($this->key, $serialized_key, null, $config);
-        }
-
-        if (!$this->isLoaded()) {
-            throw new AsymmetricException('It is impossible to serialize an unloaded private key', 1);
         }
 
         //return the serialized key
@@ -165,6 +170,28 @@ final class PrivateKey
      */
     public function __toString()
     {
-        return $this->Export();
+        return $this->export();
+    }
+
+    /**
+     * Export a reference to the native private key and its length in bits.
+     * 
+     * @return array the array that contains the key and its legth (in bytes)
+     *
+     * @throws AsymmetricException the key cannot be exported
+     */
+    public function __invoke()
+    {
+        if (!$this->isLoaded()) {
+            throw new AsymmetricException('It is impossible to obtain an unloaded private key', 1);
+        }
+
+        //get private key details
+        $details = openssl_pkey_get_details($this->key);
+
+        return [
+            'key' => &$this->key,
+            'byteLength' => $details['bits'] / 8,
+        ];
     }
 }

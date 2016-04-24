@@ -43,11 +43,13 @@ class Exception extends \Exception
         //setup an empty logger
         $this->logger = null;
 
-        //build the new log entry
-        $this->setLogger(new Logger());
+        if (!is_null(Environment::GetCurrentEnvironment())) {
+            //build the new log entry
+            $this->setLogger(new Logger());
 
-        //and use it to transmit the log entry
-        $this->writeLog();
+            //and use it to transmit the log entry
+            $this->writeLog();
+        }
     }
 
     /**
@@ -55,7 +57,7 @@ class Exception extends \Exception
      */
     public function writeLog()
     {
-        if ($this->logger) {
+        if (!is_null($this->logger)) {
             //log the exception
             $this->logger->error('{{exception_type}} thrown at: {{file}}: {{line}} with message({{code}}): {{message}}', [
                 'exception_type' => get_called_class(),

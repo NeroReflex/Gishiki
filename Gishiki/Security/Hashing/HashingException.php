@@ -15,21 +15,21 @@
   limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\Security\Encryption\Asymmetric;
+namespace Gishiki\Security\Hashing;
 
 /**
- * The asymmetric encryption exception thrown by Gishiki 
- * when a cryptographic operation results is bad.
+ * The hashing exception thrown by Gishiki 
+ * when an hash operation results is bad.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class AsymmetricException extends \Gishiki\Core\Exception
+class HashingException extends \Gishiki\Core\Exception
 {
     /**
-     * Create the asymmetric-related exception.
+     * Create the hashing-related exception.
      *
      * @param string $message   the error message
-     * @param int    $errorCode the asymmetric encryption error code
+     * @param int    $errorCode the hashing error code
      */
     public function __construct($message, $errorCode)
     {

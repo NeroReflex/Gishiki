@@ -20,6 +20,8 @@ namespace Gishiki\Security\Encryption\Asymmetric;
 /**
  * This class represents a public key for the asymmetric encryption engine.
  *
+ * Note: This class uses OpenSSL for strong encryption
+ * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 final class PublicKey

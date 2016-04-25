@@ -21,6 +21,8 @@ namespace Gishiki\Security\Encryption\Asymmetric;
  * This class represents an algorithm collection for the asymmetric
  * encryption engine.
  *
+ * Note: This class uses OpenSSL for strong encryption
+ * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 abstract class Cryptography

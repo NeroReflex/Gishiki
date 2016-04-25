@@ -21,7 +21,7 @@ use Gishiki\Security\Encryption\Asymmetric\PrivateKey;
 use Gishiki\Security\Encryption\Asymmetric\PublicKey;
 
 /**
- * Tests for the private and public key loader.
+ * Tests for the private and public key loaders.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */

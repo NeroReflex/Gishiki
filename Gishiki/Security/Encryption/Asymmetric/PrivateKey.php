@@ -21,6 +21,8 @@ use Gishiki\Core\Environment;
 
 /**
  * This class represents a private key for the asymmetric encryption engine.
+ * 
+ * Note: This class uses OpenSSL for strong encryption
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */

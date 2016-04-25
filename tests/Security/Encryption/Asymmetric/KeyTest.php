@@ -116,15 +116,31 @@ cf1zSJX0I5GEo9EIBb2r7cFNdOLa02qTL/IO4a3c5NbHqmDBqyfh9lpU6Do=
         $this->assertEquals(true, $loadedKey->isLoaded());
     }
 
+    /**
+     * @expectedException Gishiki\Security\Encryption\Asymmetric\AsymmetricException
+     */
     public function testFakePrivateKeyload()
     {
         //the load of a bad key results in an exception
-        $this->expectException('Gishiki\Security\Encryption\Asymmetric\AsymmetricException');
+        //$this->expectException('Gishiki\Security\Encryption\Asymmetric\AsymmetricException');
 
         //try load an invalid key
         $loadedKey = new PrivateKey('th1s is s0m3 Sh1t th4t, obviously, is NOT an RSA pr1v4t3 k3y!');
 
         //the exception was thrown, the loaded key is null!
         $this->assertEquals(null, $loadedKey);
+    }
+
+    public function testKeyGeneration()
+    {
+        //generate a new serialized key
+        $serialized_private_key = PrivateKey::generate();
+
+        $this->assertEquals(true, strlen($serialized_private_key) > 1);
+
+        //load the newly generated key
+        $private_key = new PrivateKey($serialized_private_key);
+
+        $this->assertEquals(true, $private_key->isLoaded());
     }
 }

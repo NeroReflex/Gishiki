@@ -95,7 +95,7 @@ final class PublicKey
     public function __invoke()
     {
         if (!$this->isLoaded()) {
-            throw new AsymmetricException('It is impossible to obtain an unloaded private key', 1);
+            throw new AsymmetricException('It is impossible to obtain an unloaded public key', 1);
         }
 
         //get private key details

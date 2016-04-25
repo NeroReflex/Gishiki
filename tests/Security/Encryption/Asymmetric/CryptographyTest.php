@@ -30,7 +30,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
 {
     public function testEncryption()
     {
-        $privateKey = new PrivateKey(KeyTest::getTestRSAPrivateKey());
+        $privateKey = new PrivateKey(PrivateKey::generate());
 
         //check if the private key has been loaded correctly
         $this->assertEquals(true, $privateKey->isLoaded());
@@ -48,7 +48,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         $message = 'mL84hPpR+nmb2UuWDnhiXnpMDxzQT0NMPXT.dY.*?ImTrO86Dt';
 
         //generate two keys
-        $privateKey = new PrivateKey(KeyTest::getTestRSAPrivateKey());
+        $privateKey = new PrivateKey(PrivateKey::generate());
         $publicKey = new PublicKey($privateKey->exportPublicKey());
 
         //check if the private key has been loaded correctly
@@ -82,6 +82,9 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($message, $decryption_result);
     }
 
+    /**
+     * @expectedException Gishiki\Security\Encryption\Asymmetric\AsymmetricException
+     */
     public function testBadDecryption()
     {
         //generate two keys
@@ -99,13 +102,27 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         $malformed_encrytpion_result = str_shuffle(substr($encrytpion_result, 1));
 
         //an exception should be thrown....
-        $this->expectException('Gishiki\Security\Encryption\Asymmetric\AsymmetricException');
+        //$this->expectException('Gishiki\Security\Encryption\Asymmetric\AsymmetricException');
 
         //come on, decrypt a malformed message, if you can!
-        $decryption_result = null;
         $decryption_result = Cryptography::decrypt($publicKey, $malformed_encrytpion_result);
 
         //test the return value (should be null)
         $this->assertEquals(null, $decryption_result);
+    }
+
+    public function testDigitalSignature()
+    {
+        //generate a new private key and the associated public key
+        $privKey = new PrivateKey(PrivateKey::generate());
+        $pubKey = new PublicKey($privKey->exportPublicKey());
+
+        $message = 'who knows if this message will be modified.....';
+
+        //generate the signature
+        $signature = Cryptography::generateDigitalSignature($privKey, $message);
+
+        //check the result
+        $this->assertEquals(true, Cryptography::verifyDigitalSignature($pubKey, $message, $signature));
     }
 }

@@ -125,4 +125,18 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         //check the result
         $this->assertEquals(true, Cryptography::verifyDigitalSignature($pubKey, $message, $signature));
     }
+
+    public function testReverse()
+    {
+        //generate a new private key and the associated public key
+        $privKey = new PrivateKey(PrivateKey::generate());
+        $pubKey = new PublicKey($privKey->exportPublicKey());
+
+        //generate a very long example message
+        $message = openssl_random_pseudo_bytes(5 * $privKey()['byteLength']);
+
+        //encrypt and decrypt
+        $enc_message = Cryptography::encryptReverse($pubKey, $message);
+        $this->assertEquals($message, Cryptography::decryptReverse($privKey, $enc_message));
+    }
 }

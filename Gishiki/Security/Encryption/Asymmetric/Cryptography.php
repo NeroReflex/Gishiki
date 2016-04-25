@@ -67,7 +67,60 @@ abstract class Cryptography
 
             //encrypt the current message and check for failure
             if (!openssl_private_encrypt($message_chunk, $encrypted_chunk, $managedKey['key'], OPENSSL_PKCS1_PADDING)) {
-                throw new AsymmetricException("The message encryption can't be accomplished due to an unknown error:".openssl_error_string(), 4);
+                throw new AsymmetricException("The message encryption can't be accomplished due to an unknown error", 4);
+            }
+
+            //join the current encrypted chunk to the encrypted message
+            $complete_message .=  (string) $encrypted_chunk;
+        }
+
+        //return the encrypted message base64-encoded
+        return base64_encode($complete_message);
+    }
+
+    /**
+     * Encrypt the given message using the given public key.
+     * 
+     * You will need the private key to decrypt the encrypted content.
+     * 
+     * You can decrypt an encrypted content with the decryptReverse() function.
+     * 
+     * An example of usage can be:
+     * 
+     * <code>
+     * $default_pubkey = new PublicKey();
+     * $encrypted_message = Cryptography::encryptReverse($default_pubkey, "this is my important message from my beloved half");
+     * 
+     * echo "Take good care of this and give it to my GF: " . $encrypted_message;
+     * </code>
+     * 
+     * @param PublicKey $key     the public key to be used to encrypt the plain message
+     * @param string    $message the message to be encrypted
+     *
+     * @return string the encrypted message
+     *
+     * @throws \InvalidArgumentException the plain message is not a string
+     * @throws AsymmetricException       an error occurred while encrypting the given message
+     */
+    public static function encryptReverse(PublicKey &$key, $message)
+    {
+        //check the plain message type
+        if ((!is_string($message)) || (strlen($message) <= 0)) {
+            throw new \InvalidArgumentException('The plain message to be encrypted must be given as a non-empty string');
+        }
+
+        //get the key in native format and its length
+        $managedKey = $key();
+
+        //encrypt the complete message
+        $complete_message = '';
+        foreach (str_split($message, $managedKey['byteLength'] / 2) as $message_chunk) {
+            //the encrypted message
+            $encrypted_chunk = null;
+
+            //encrypt the current message and check for failure
+            if (!openssl_public_encrypt($message_chunk, $encrypted_chunk, $managedKey['key'], OPENSSL_PKCS1_PADDING)) {
+                throw new AsymmetricException("The message encryption can't be accomplished due to an unknown error", 15);
             }
 
             //join the current encrypted chunk to the encrypted message
@@ -133,6 +186,71 @@ abstract class Cryptography
             //decrypt the current chunk of encrypted message
             if (!openssl_public_decrypt($encrypted_chunk, $message_chunk, $managedKey['key'], OPENSSL_PKCS1_PADDING)) {
                 throw new AsymmetricException("The message decryption can't be accomplished due to an unknown error", 5);
+            }
+
+            //join the current unencrypted chunk to the complete message
+            $complete_unencrypted_message .= (string) $message_chunk;
+        }
+
+        //return the decrypted message
+        return $complete_unencrypted_message;
+    }
+
+    /**
+     * Decrypt an encrypted message created using the encryptReverse() function.
+     * 
+     * The used private key must be must be the corresponding public key used to generate the message.
+     * 
+     * En example usage can be:
+     * 
+     * <code>
+     * //load the default private key
+     * $default_pubkey = new PrivateKey();
+     * 
+     * //this is a message encrypted with the application's default key
+     * $encrypted_message = "...";
+     * 
+     * //decrypt the message
+     * $plain_message = Cryptography::decryptReverse($default_privkey, $encrypted_message);
+     * 
+     * echo $encrypted_message;
+     * </code>
+     * 
+     * 
+     * @param PrivateKey $key         the public key to be used to decrypt the encrypted message
+     * @param string     $enc_message the message to be decrypted
+     *
+     * @return string the encrypted message
+     *
+     * @throws \InvalidArgumentException the encrypted message is not a string
+     * @throws AsymmetricException       an error occurred while decrypting the given message
+     */
+    public static function decryptReverse(PrivateKey &$key, $enc_message)
+    {
+        //check the encrypted message type
+        if ((!is_string($enc_message)) || (strlen($enc_message) <= 0)) {
+            throw new \InvalidArgumentException('The encrypted message to be decrypted must be given as a non-empty string');
+        }
+
+        //base64-decode of the encrypted message
+        $complete_message = base64_decode($enc_message);
+
+        //get the key in native format and its length
+        $managedKey = $key();
+
+        //check if the message can be decrypted
+        /*if (($complete_message % $managedKey['byteLength']) != 0) {
+            throw new AsymmetricException('The message decryption cannot take place because the given message is malformed', 6);
+        }*/
+
+        //encrypt the complete message
+        $complete_unencrypted_message = '';
+        foreach (str_split($complete_message, $managedKey['byteLength']) as $encrypted_chunk) {
+            $message_chunk = null;
+
+            //decrypt the current chunk of encrypted message
+            if (!openssl_private_decrypt($encrypted_chunk, $message_chunk, $managedKey['key'], OPENSSL_PKCS1_PADDING)) {
+                throw new AsymmetricException("The message decryption can't be accomplished due to an unknown error", 20);
             }
 
             //join the current unencrypted chunk to the complete message

@@ -121,9 +121,9 @@ abstract class Cryptography
         $managedKey = $key();
 
         //check if the message can be decrypted
-        if (($complete_message % $managedKey['byteLength']) != 0) {
+        /*if (($complete_message % $managedKey['byteLength']) != 0) {
             throw new AsymmetricException('The message decryption cannot take place because the given message is malformed', 6);
-        }
+        }*/
 
         //encrypt the complete message
         $complete_unencrypted_message = '';
@@ -255,6 +255,6 @@ abstract class Cryptography
         }
 
         //return the result
-        return boolval($verificationResult);
+        return $verificationResult != 0;
     }
 }

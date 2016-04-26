@@ -17,6 +17,8 @@ limitations under the License.
 
 namespace Gishiki\Security\Encryption\Asymmetric;
 
+use Gishiki\Security\Hashing\Algorithms;
+
 /**
  * This class represents a secret key for the symmetric encryption engine.
  *
@@ -26,5 +28,105 @@ namespace Gishiki\Security\Encryption\Asymmetric;
  */
 final class SecretKey
 {
-    //put your code here
+    /**
+     * Generate the hexadecimal representation of a secure key
+     * using the pbkdf2 algorithm in order to derive it from the
+     * given password.
+     * 
+     * @param string $password the password to be derived
+     * @param int $key_length the final length of the key (in bytes)
+     * @return string an hex representation of the generated key
+     */
+    public static function generate($password, $key_length = 16)
+    {
+        //generate some random characters
+        $salt = openssl_random_pseudo_bytes(2 * $key_length);
+        
+        //generate the pbkdf2 key
+        return Algorithms::pbkdf2($password, $salt, $key_length, 20000, Algorithms::SHA256);
+    }
+    
+    /**************************************************************************
+     *                                                                        *
+     *                          NON-static properties                         *
+     *                                                                        *
+     **************************************************************************/
+    
+    /**
+     * @var string the key in the native format
+     */
+    private $key;
+    
+    /**
+     * @var int the key length (in bytes)
+     */
+    private $keyLength;
+    
+    /**
+     * Create an encryption key using the given serialized key.
+     * 
+     * A serialized key is the hexadecimal representation of key.
+     * 
+     * You can use the generate() function to retrive a really
+     * secure key from the password (the same key derivation
+     * algorithm that openssl internally uses).
+     * 
+     * Usage example:
+     * 
+     * <code>
+     * //generate a secure pbkdf2-derived key and use it as the encryption key
+     * $my_key = new SecretKey(SecretKey::generate("mypassword"));
+     * 
+     * //you MUST save the generated key, because it won't be possible to
+     * //generate the same key once again (even using the same password)!
+     * $precious_key = (string) $my_key;
+     * </code>
+     * 
+     * @param string $key the password to be used
+     */
+    public function __construct($key)
+    {
+        //check for the input
+        if ((!is_string($key)) || (strlen($key) <= 2)) {
+            throw new \InvalidArgumentException("The secure key must be given as a non-empty string that is the hex representation of the real key");
+        }
+        
+        //get the real encryption key
+        $this->keyLength = strlen($key) / 2;
+        $this->key = hex2bin($key);
+    }
+    
+    /**
+     * Export the currently loaded key
+     * 
+     * @return string the hex representation of the loaded key
+     */
+    public function export()
+    {
+        return bin2hex($this->key);
+    }
+    
+    /**
+     * Proxy call to the export() function.
+     * 
+     * @return string the serialized key
+     */
+    public function __toString()
+    {
+        return $this->export();
+    }
+    
+    /**
+     * Export a reference to the native private key and its length in bits.
+     * 
+     * @return array the array that contains the key and its legth (in bytes)
+     */
+    public function __invoke()
+    {
+        //get & return secure key details
+        return [
+            'key' => $this->key,
+            'byteLength' => $this->keyLength,
+        ];
+    }
 }

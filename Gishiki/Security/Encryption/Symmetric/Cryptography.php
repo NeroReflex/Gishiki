@@ -27,4 +27,7 @@ namespace Gishiki\Security\Encryption\Asymmetric;
  */
 abstract class Cryptography
 {
+    public static function encrypt(SecretKey &$key, $message) {
+        
+    }
 }

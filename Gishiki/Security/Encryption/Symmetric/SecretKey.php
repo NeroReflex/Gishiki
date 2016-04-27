@@ -15,9 +15,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-namespace Gishiki\Security\Encryption\Asymmetric;
+namespace Gishiki\Security\Encryption\Symmetric;
 
 use Gishiki\Security\Hashing\Algorithms;
+use Gishiki\Core\Environment;
 
 /**
  * This class represents a secret key for the symmetric encryption engine.
@@ -32,6 +33,9 @@ final class SecretKey
      * Generate the hexadecimal representation of a secure key
      * using the pbkdf2 algorithm in order to derive it from the
      * given password.
+     * 
+     * Note: this function MAY throw exceptions
+     * (the same exceptions Algorithms::pbkdf2() can throw)
      * 
      * @param string $password the password to be derived
      * @param int $key_length the final length of the key (in bytes)
@@ -84,12 +88,15 @@ final class SecretKey
      * 
      * @param string $key the password to be used
      */
-    public function __construct($key)
+    public function __construct($key = null)
     {
         //check for the input
-        if ((!is_string($key)) || (strlen($key) <= 2)) {
+        if (((!is_string($key)) || (strlen($key) <= 2)) && (!is_null($key))) {
             throw new \InvalidArgumentException("The secure key must be given as a non-empty string that is the hex representation of the real key");
         }
+        
+        //get the symmetric key to be used
+        $key = (!is_null($key))? $key : Environment::GetCurrentEnvironment()->GetConfigurationProperty('MASTER_SYMMETRIC_KEY');
         
         //get the real encryption key
         $this->keyLength = strlen($key) / 2;

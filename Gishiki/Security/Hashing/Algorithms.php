@@ -29,11 +29,13 @@ abstract class Algorithms
     /**************************************************************************
      *                     Common hashing algorithms                          *
      **************************************************************************/
-    const MD5 = 'MD5';
-    const SHA1 = 'sha1';
-    const SHA256 = 'sha256';
-    const SHA328 = 'sha384';
-    const SHA512 = 'sha512';
+    const CRC32     = 'crc32';
+    const MD4       = 'md4';
+    const MD5       = 'md5';
+    const SHA1      = 'sha1';
+    const SHA256    = 'sha256';
+    const SHA328    = 'sha384';
+    const SHA512    = 'sha512';
 
     /**
      * Generate the message digest for the given message.
@@ -51,16 +53,22 @@ abstract class Algorithms
      * }
      * </code>
      * 
-     * @param string $message   the string to be hashed
-     * @param string $algorithm the name of the hashing algorithm
+     * @param string $message    the string to be hashed
+     * @param string $algorithm  the name of the hashing algorithm
+     * @param bool   $raw_output if false the result is binhex
      *
      * @return string the result of the hash algorithm
      *
      * @throws \InvalidArgumentException the message or the algorithm is given as a non-string or an empty string
      * @throws HashingException          the error occurred while generating the hash for the given message
      */
-    public static function hash($message, $algorithm = self::MD5)
+    public static function hash($message, $algorithm = self::MD5, $raw_output = false)
     {
+        //check for the parameter
+        if (!is_bool($raw_output)) {
+            throw new \InvalidArgumentException('The binary safeness must be given as a boolean value');
+        }
+        
         //check for the message
         if ((!is_string($message)) || (strlen($message) <= 0)) {
             throw new \InvalidArgumentException('The message to be hashed must be given as a valid non-empty string');
@@ -72,12 +80,12 @@ abstract class Algorithms
         }
 
         //check if the hashing algorithm is supported
-        if (!in_array($algorithm, openssl_get_md_methods())) {
+        if ((!in_array($algorithm, openssl_get_md_methods())) && (!in_array($algorithm, hash_algos()))) {
             throw new HashingException('An error occurred while generating the hash, because an unsupported hashing algorithm has been selected', 0);
         }
 
         //calculate the hash for the given message
-        $hash = openssl_digest($message, $algorithm);
+        $hash = ((in_array($algorithm, openssl_get_md_methods())))? openssl_digest($message, $algorithm, $raw_output) : hash($algorithm, $algorithm, $raw_output);
 
         //check for errors
         if ($hash === false) {
@@ -129,7 +137,7 @@ abstract class Algorithms
             /*          execute the native openssl_pbkdf2                   */
             
             //check if the algorithm is valid
-            if(!in_array($algorithm, openssl_get_md_methods(true), true)) {
+            if (!in_array($algorithm, openssl_get_md_methods(true), true)) {
                 throw new HashingException("Invalid algorithm: the choosen algorithm is not valid for the PBKDF2 function", 2);
             }
             

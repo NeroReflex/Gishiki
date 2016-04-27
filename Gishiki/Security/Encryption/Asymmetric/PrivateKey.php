@@ -116,6 +116,12 @@ final class PrivateKey
         return $pKeyEncoded;
     }
 
+    /**************************************************************************
+     *                                                                        *
+     *                          NON-static properties                         *
+     *                                                                        *
+     **************************************************************************/
+
     /**
      * @var resource the private key ready to be used by OpenSSL
      */

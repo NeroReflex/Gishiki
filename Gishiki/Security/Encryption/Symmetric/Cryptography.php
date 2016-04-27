@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-namespace Gishiki\Security\Encryption\Asymmetric;
+namespace Gishiki\Security\Encryption\Symmetric;
 
 /**
  * This class represents an algorithm collection for the asymmetric
@@ -27,7 +27,27 @@ namespace Gishiki\Security\Encryption\Asymmetric;
  */
 abstract class Cryptography
 {
-    public static function encrypt(SecretKey &$key, $message) {
+    /******************************************************
+     *              List of known algorithms              *
+     ******************************************************/
+    const AES_CBC_128           =  'aes-128-cbc';
+    const AES_CBC_192           =  'aes-192-cbc';
+    const AES_CBC_256           =  'aes-256-cbc';
+    
+    public static function encrypt(SecretKey &$key, $message, $algorithm = self::AES_CBC_128) {
+        //check the plain message type
+        if ((!is_string($message)) || (strlen($message) <= 0)) {
+            throw new \InvalidArgumentException('The plain message to be encrypted must be given as a non-empty string');
+        }
+        
+        //get the managed kersion of the key
+        $managedKey = $key();
+        
+        //check for the key length
+        if (($algorithm == self::AES_CBC_128) && ($managedKey["byteLength"] != 16) ) {
+            throw new SymmetricException("You must be using a key with the correct length for the choosen algorithm", 0); 
+        }
+        
         
     }
 }

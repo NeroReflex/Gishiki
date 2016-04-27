@@ -37,35 +37,36 @@ final class SecretKey
      * Note: this function MAY throw exceptions
      * (the same exceptions Algorithms::pbkdf2() can throw)
      * 
-     * @param string $password the password to be derived
-     * @param int $key_length the final length of the key (in bytes)
+     * @param string $password   the password to be derived
+     * @param int    $key_length the final length of the key (in bytes)
+     *
      * @return string an hex representation of the generated key
      */
     public static function generate($password, $key_length = 16)
     {
         //generate some random characters
         $salt = openssl_random_pseudo_bytes(2 * $key_length);
-        
+
         //generate the pbkdf2 key
         return Algorithms::pbkdf2($password, $salt, $key_length, 20000, Algorithms::SHA256);
     }
-    
+
     /**************************************************************************
      *                                                                        *
      *                          NON-static properties                         *
      *                                                                        *
      **************************************************************************/
-    
+
     /**
      * @var string the key in the native format
      */
     private $key;
-    
+
     /**
      * @var int the key length (in bytes)
      */
     private $keyLength;
-    
+
     /**
      * Create an encryption key using the given serialized key.
      * 
@@ -92,19 +93,19 @@ final class SecretKey
     {
         //check for the input
         if (((!is_string($key)) || (strlen($key) <= 2)) && (!is_null($key))) {
-            throw new \InvalidArgumentException("The secure key must be given as a non-empty string that is the hex representation of the real key");
+            throw new \InvalidArgumentException('The secure key must be given as a non-empty string that is the hex representation of the real key');
         }
-        
+
         //get the symmetric key to be used
-        $key = (!is_null($key))? $key : Environment::GetCurrentEnvironment()->GetConfigurationProperty('MASTER_SYMMETRIC_KEY');
-        
+        $key = (!is_null($key)) ? $key : Environment::GetCurrentEnvironment()->GetConfigurationProperty('MASTER_SYMMETRIC_KEY');
+
         //get the real encryption key
         $this->keyLength = strlen($key) / 2;
         $this->key = hex2bin($key);
     }
-    
+
     /**
-     * Export the currently loaded key
+     * Export the currently loaded key.
      * 
      * @return string the hex representation of the loaded key
      */
@@ -112,7 +113,7 @@ final class SecretKey
     {
         return bin2hex($this->key);
     }
-    
+
     /**
      * Proxy call to the export() function.
      * 
@@ -122,7 +123,7 @@ final class SecretKey
     {
         return $this->export();
     }
-    
+
     /**
      * Export a reference to the native private key and its length in bits.
      * 

@@ -29,13 +29,14 @@ abstract class Algorithms
     /**************************************************************************
      *                     Common hashing algorithms                          *
      **************************************************************************/
-    const CRC32 = 'crc32';
-    const MD4 = 'md4';
-    const MD5 = 'md5';
-    const SHA1 = 'sha1';
-    const SHA256 = 'sha256';
-    const SHA328 = 'sha384';
-    const SHA512 = 'sha512';
+    const CRC32     = 'crc32';
+    const MD4       = 'md4';
+    const MD5       = 'md5';
+    const SHA1      = 'sha1';
+    const SHA256    = 'sha256';
+    const SHA328    = 'sha384';
+    const SHA512    = 'sha512';
+    const ROT13     = 'rot13';
 
     /**
      * Generate the message digest for the given message.
@@ -77,6 +78,10 @@ abstract class Algorithms
         //check for the algorithm name
         if ((!is_string($algorithm)) || (strlen($algorithm) <= 0)) {
             throw new \InvalidArgumentException('The name of the hashing algorithm must be given as a valid non-empty string');
+        }
+        
+        if ($algorithm == self::ROT13) {
+            return str_rot13($message);
         }
 
         //check if the hashing algorithm is supported

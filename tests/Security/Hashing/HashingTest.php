@@ -26,6 +26,16 @@ use Gishiki\Security\Hashing\Algorithms;
  */
 class HashingTest  extends \PHPUnit_Framework_TestCase
 {
+    public function testROT13() {
+        $message = "this is a small>example<to/test rot-13";
+        $message_rot13 = "guvf vf n fznyy>rknzcyr<gb/grfg ebg-13";
+        
+        //test hash compatibility
+        $rot_ed = Algorithms::hash($message, Algorithms::ROT13);
+        $this->assertEquals($message_rot13, $rot_ed);
+        $this->assertEquals($message, Algorithms::hash($rot_ed, Algorithms::ROT13));
+    }
+    
     public function testHashCompatibility()
     {
         $message = openssl_random_pseudo_bytes(128);

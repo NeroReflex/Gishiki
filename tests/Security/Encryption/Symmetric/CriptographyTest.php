@@ -27,7 +27,7 @@ use Gishiki\Security\Encryption\Symmetric\Cryptography;
  */
 class CriptographyTest extends \PHPUnit_Framework_TestCase
 {
-    public function testEncryption()
+    public function testAES128Encryption()
     {
         //generate the key
         $key = new SecretKey(SecretKey::generate('testing/key'));
@@ -44,7 +44,7 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($message, $result);
     }
 
-    public function testLongEncryption()
+    public function testAES128LongEncryption()
     {
         //generate the key
         $key = new SecretKey(SecretKey::generate('testing/key'));
@@ -56,6 +56,40 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
 
         //decrypt the message
         $result = Cryptography::decrypt($key, $enc_message['Encryption'], $enc_message['IV_base64']);
+
+        //test the result
+        $this->assertEquals($message, $result);
+    }
+    
+    public function testAES192Encryption()
+    {
+        //generate the key
+        $key = new SecretKey(SecretKey::generate('T3st1n9/k3y <3', 24));
+
+        $message = base64_encode(openssl_random_pseudo_bytes(512));
+
+        //encrypt the message
+        $enc_message = Cryptography::encrypt($key, $message, null, Cryptography::AES_CBC_192);
+
+        //decrypt the message
+        $result = Cryptography::decrypt($key, $enc_message['Encryption'], $enc_message['IV_base64'], Cryptography::AES_CBC_192);
+
+        //test the result
+        $this->assertEquals($message, $result);
+    }
+    
+    public function testAES256Encryption()
+    {
+        //generate the key
+        $key = new SecretKey(SecretKey::generate('T3st1n9/k3y <3', 32));
+
+        $message = base64_encode(openssl_random_pseudo_bytes(512));
+
+        //encrypt the message
+        $enc_message = Cryptography::encrypt($key, $message, null, Cryptography::AES_CBC_256);
+
+        //decrypt the message
+        $result = Cryptography::decrypt($key, $enc_message['Encryption'], $enc_message['IV_base64'], Cryptography::AES_CBC_256);
 
         //test the result
         $this->assertEquals($message, $result);

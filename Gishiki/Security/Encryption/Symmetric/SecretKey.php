@@ -45,7 +45,7 @@ final class SecretKey
     public static function generate($password, $key_length = 16)
     {
         //generate some random characters
-        $salt = openssl_random_pseudo_bytes(2 * $key_length);
+        $salt = openssl_random_pseudo_bytes($key_length);
 
         //generate the pbkdf2 key
         return Algorithms::pbkdf2($password, $salt, $key_length, 20000, Algorithms::SHA256);

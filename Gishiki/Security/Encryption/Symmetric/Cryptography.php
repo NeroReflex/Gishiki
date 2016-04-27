@@ -56,10 +56,10 @@ abstract class Cryptography
      * //if you used a cistom IV you don't need to pass the IV
      * </code>
      * 
-     * @param SecretKey      $key       the key to be used to encrypt the given message
-     * @param string         $message   the message to be encrypted
-     * @param string|null    $iv        the base64 representation of the IV to be used (pick a random one if null)
-     * @param string         $algorithm the name of the algorithm to be used
+     * @param SecretKey $key       the key to be used to encrypt the given message
+     * @param string    $message   the message to be encrypted
+     * @param string    $iv        the base64 representation of the IV to be used
+     * @param string    $algorithm the name of the algorithm to be used
      *
      * @return array the base64 of the raw encryption result and the used IV
      *
@@ -78,11 +78,11 @@ abstract class Cryptography
 
         //check for the key length
         if (($algorithm == self::AES_CBC_128) && ($managedKey['byteLength'] != 16)) {
-            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm ('.$managedKey['byteLength'].'/16)', 0);
+            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm', 0);
         } elseif (($algorithm == self::AES_CBC_192) && ($managedKey['byteLength'] != 24)) {
-            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm ('.$managedKey['byteLength'].'/24)', 1);
+            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm', 0);
         } elseif (($algorithm == self::AES_CBC_256) && ($managedKey['byteLength'] != 32)) {
-            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm ('.$managedKey['byteLength'].'/32)', 2);
+            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm', 0);
         }
 
         //generate and store a random IV
@@ -141,11 +141,11 @@ abstract class Cryptography
 
         //check for the key length
         if (($algorithm == self::AES_CBC_128) && ($managedKey['byteLength'] != 16)) {
-            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm ('.$managedKey['byteLength'].'/16)', 3);
+            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm', 0);
         } elseif (($algorithm == self::AES_CBC_192) && ($managedKey['byteLength'] != 24)) {
-            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm ('.$managedKey['byteLength'].'/24)', 4);
+            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm', 0);
         } elseif (($algorithm == self::AES_CBC_256) && ($managedKey['byteLength'] != 32)) {
-            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm ('.$managedKey['byteLength'].'/32)', 5);
+            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm', 0);
         }
 
         //get the IV

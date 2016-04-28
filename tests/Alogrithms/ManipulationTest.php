@@ -70,15 +70,51 @@ e di {{is}} è tornato.';
 
     public function testBetween()
     {
-        $string = "@ >this is a test # T0 ch3ck 1h3 ''get_between'# function";
+        $string = "@ >this is a test # T0 ch3ck 1h3 ''getBetween'# function";
 
-        //test if the get_between works using strings as delimiters works
-        $this->assertEquals('get_between', Manipulation::get_between($string, "''", "'#"));
+        //test if the getBetween works using strings as delimiters works
+        $this->assertEquals('getBetween', Manipulation::getBetween($string, "''", "'#"));
 
-        //test if the get_between works using characters as delimiters works
-        $this->assertEquals('this is a test ', Manipulation::get_between($string, '>', '#'));
+        //test if the getBetween works using characters as delimiters works
+        $this->assertEquals('this is a test ', Manipulation::getBetween($string, '>', '#'));
 
         //test for strange failures
-        $this->assertEquals(false, Manipulation::get_between($string, '@', '##'));
+        $this->assertEquals(false, Manipulation::getBetween($string, '@', '##'));
+    }
+
+    public function testReplaceOnce()
+    {
+        $string = '* * * * * - *';
+        $replace_with = '-';
+
+        //perform & test the first sobstitution
+        $this->assertEquals('- * * * * - *', Manipulation::replaceOnce('*', $replace_with, $string));
+    }
+
+    public function testReplaceOnceNoMatches()
+    {
+        $string = '* * * * * - *';
+        $replace_with = '-';
+
+        //perform & test the null sobstitution
+        $this->assertEquals('* * * * * - *', Manipulation::replaceOnce('/', $replace_with, $string));
+    }
+
+    public function testReplaceList()
+    {
+        $string = '* * * @ * - *';
+        $replace_with = '-';
+
+        //perform & test the first sobstitution
+        $this->assertEquals('- - - - - - -', Manipulation::replaceList(['*', '@'], $replace_with, $string));
+    }
+
+    public function testReplaceListNoMatches()
+    {
+        $string = '- - - - - - -';
+        $replace_with = '+';
+
+        //perform & test the first sobstitution
+        $this->assertEquals('- - - - - - -', Manipulation::replaceList(['*', '@'], $replace_with, $string));
     }
 }

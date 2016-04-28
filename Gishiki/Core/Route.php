@@ -49,15 +49,15 @@ namespace Gishiki\Core {
          * Add a route to the route redirection list.
          * 
          * @param Route $route the route to be added
+         *
+         * @return Route the added route
          */
-        public static function addRoute(Route &$route)
+        public static function &addRoute(Route &$route)
         {
             //add the given route to the routes list
-            if ($route->isSpecialCallback() === false) {
-                self::$routes[] = $route;
-            } else {
+            return ($route->isSpecialCallback() === false) ?
+                self::$routes[] = $route :
                 self::$callbacks[] = $route;
-            }
         }
 
         /*
@@ -93,15 +93,16 @@ namespace Gishiki\Core {
          * 
          *  @see \Gishiki\Core\Route\addRoute
          * 
-         * @param string   $URI      the URI that will bring to the function execution
+         * @param string   $uri      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        public static function &any($URI, $function)
+        public static function &any($uri, $function)
         {
-            $route = new self($URI, $function, [
+            $route = new self($uri, $function, [
                 self::ANY,
             ]);
             self::addRoute($route);
+
             return $route;
         }
 
@@ -123,16 +124,17 @@ namespace Gishiki\Core {
          * 
          *  @see \Gishiki\Core\Route\addRoute
          * 
-         * @param string   $URI      the URI that will bring to the function execution
+         * @param string   $uri      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        public static function &match(array $methods, $URI, $function)
+        public static function &match(array $methods, $uri, $function)
         {
             $route = null;
             if (count($methods) >= 1) {
-                $route = new self($URI, $function, $methods);
+                $route = new self($uri, $function, $methods);
                 self::addRoute($route);
             }
+
             return $route;
         }
 
@@ -154,13 +156,14 @@ namespace Gishiki\Core {
          * 
          *  @see \Gishiki\Core\Route\addRoute
          * 
-         * @param string   $URI      the URI that will bring to the function execution
+         * @param string   $uri      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        public static function &get($URI, $function)
+        public static function &get($uri, $function)
         {
-            $route = new self($URI, $function, [self::GET]);
-            self::addRoute($route);            
+            $route = new self($uri, $function, [self::GET]);
+            self::addRoute($route);
+
             return $route;
         }
 
@@ -181,13 +184,14 @@ namespace Gishiki\Core {
          * 
          *  @see \Gishiki\Core\Route\addRoute
          * 
-         * @param string   $URI      the URI that will bring to the function execution
+         * @param string   $uri      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        public static function &post($URI, $function)
+        public static function &post($uri, $function)
         {
-            $route = new self($URI, $function, [self::POST]);
+            $route = new self($uri, $function, [self::POST]);
             self::addRoute($route);
+
             return $route;
         }
 
@@ -208,13 +212,14 @@ namespace Gishiki\Core {
          * 
          *  @see \Gishiki\Core\Route\addRoute
          * 
-         * @param string   $URI      the URI that will bring to the function execution
+         * @param string   $uri      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        public static function &put($URI, $function)
+        public static function &put($uri, $function)
         {
-            $route = new self($URI, $function, [self::PUT]);
-            self::addRoute($route);        
+            $route = new self($uri, $function, [self::PUT]);
+            self::addRoute($route);
+
             return $route;
         }
 
@@ -236,13 +241,14 @@ namespace Gishiki\Core {
          * 
          *  @see \Gishiki\Core\Route\addRoute
          * 
-         * @param string   $URI      the URI that will bring to the function execution
+         * @param string   $uri      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        public static function &delete($URI, $function)
+        public static function &delete($uri, $function)
         {
-            $route = new self($URI, $function, [self::DELETE]);
+            $route = new self($uri, $function, [self::DELETE]);
             self::addRoute($route);
+
             return $route;
         }
 
@@ -259,13 +265,14 @@ namespace Gishiki\Core {
          * 
          * @see \Gishiki\Core\Route\addRoute
          * 
-         * @param string   $URI      the URI that will bring to the function execution
+         * @param string   $uri      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        public static function &head($URI, $function)
+        public static function &head($uri, $function)
         {
-            $route = new self($URI, $function, [self::HEAD]);
+            $route = new self($uri, $function, [self::HEAD]);
             self::addRoute($route);
+
             return $route;
         }
 
@@ -275,26 +282,26 @@ namespace Gishiki\Core {
          * This function is __CALLED INTERNALLY__ and, therefore
          * it __MUST NOT__ be called! 
          * 
-         * @param Request $to_fulfill the request to be served/fulfilled
+         * @param Request $reqestToFulfill the request to be served/fulfilled
          *
-         * @return Response $to_fulfill the request to be served/fulfilled
+         * @return Response $reqestToFulfill the request to be served/fulfilled
          */
-        public static function run(Request &$to_fulfill)
+        public static function run(Request &$reqestToFulfill)
         {
             $response = new Response();
-            $URI_decoded = urldecode($to_fulfill->getUri()->getPath());
+            $uri_decoded = urldecode($reqestToFulfill->getUri()->getPath());
             $reversed_params = null;
 
             //this is the route that reference the action to be taken
-            $action_ruote = null;
+            $actionRuote = null;
 
             //test/try matching every route
-            foreach (self::$routes as $current_route) {
+            foreach (self::$routes as $currentRoute) {
                 //build a collection from the current reverser URI (of detect the match failure)
-                $reversed_params = $current_route->matchURI($URI_decoded, $to_fulfill->getMethod());
+                $reversed_params = $currentRoute->matchURI($uri_decoded, $reqestToFulfill->getMethod());
                 if (is_object($reversed_params)) {
                     //execute the requested action!
-                    $action_ruote = $current_route;
+                    $actionRuote = $currentRoute;
 
                     //stop searching for a suitable URI to be matched against the current one
                     break;
@@ -304,14 +311,14 @@ namespace Gishiki\Core {
             }
 
             //oh.... seems like we have a 404 Not Found....
-            if (!is_object($action_ruote)) {
+            if (!is_object($actionRuote)) {
                 $response = $response->withStatus(404);
 
-                foreach (self::$callbacks as $current_route) {
+                foreach (self::$callbacks as $currentRoute) {
                     //check for a valid callback
-                    if (is_object($current_route->matchURI(self::NOT_FOUND, $to_fulfill->getMethod()))) {
+                    if (is_object($currentRoute->matchURI(self::NOT_FOUND, $reqestToFulfill->getMethod()))) {
                         //flag the execution of this failback action!
-                        $action_ruote = $current_route;
+                        $actionRuote = $currentRoute;
 
                         //found what I was looking for, break the foreach
                         break;
@@ -320,8 +327,9 @@ namespace Gishiki\Core {
             }
 
             //execute the router call
-            (is_object($action_ruote)) ?
-                $action_ruote(clone $to_fulfill, $response, $reversed_params) : null;
+            $request = clone $reqestToFulfill;
+            (is_object($actionRuote)) ?
+                $actionRuote($request, $response, $reversed_params) : null;
 
             //this function have to return a response
             return $response;
@@ -336,7 +344,7 @@ namespace Gishiki\Core {
         /**
          * @var string the URI for the current route
          */
-        private $URI;
+        private $uri;
 
         /**
          * @var mixed the anonymous function to be executed or the name of the action@controller
@@ -360,14 +368,14 @@ namespace Gishiki\Core {
          * Route::addRoute($my_route);
          * </code>
          * 
-         * @param string         $URI     the URI to be matched in order to take the given action
+         * @param string         $uri     the URI to be matched in order to take the given action
          * @param Closure|string $action  the action to be performed on URI match
          * @param array          $methods the list of allowed method for the current route
          */
-        public function __construct($URI, $action, array $methods = [self::GET, self::DELETE, self::POST, self::PUT, self::HEAD])
+        public function __construct($uri, $action, array $methods = [self::GET, self::DELETE, self::POST, self::PUT, self::HEAD])
         {
             //build-up the current route
-            $this->URI = (is_string($URI)) ? '/'.trim($URI, '/') : $URI;
+            $this->URI = (is_string($uri)) ? '/'.trim($uri, '/') : $uri;
             $this->action = $action;
             $this->methods = $methods;
         }
@@ -419,19 +427,19 @@ namespace Gishiki\Core {
             $reversed_params = null;
 
             if ($this->isSpecialCallback() === false) {
-                $regex_and_info = $this->getRegex();
+                $regexData = $this->getRegex();
 
                 //try matching the regex against the currently requested URI
                 $matches = [];
-                if (((in_array($method, $this->methods)) || (in_array(self::ANY, $this->methods))) && (preg_match($regex_and_info['regex'], $uri, $matches))) {
+                if (((in_array($method, $this->methods)) || (in_array(self::ANY, $this->methods))) && (preg_match($regexData['regex'], $uri, $matches))) {
                     $reversed_URI = [];
-                    $to_skip = 1;
-                    foreach ($regex_and_info['params'] as $current_match_key => $current_match_name) {
+                    $skipNum = 1;
+                    foreach ($regexData['params'] as $currentKey => $current_match_name) {
                         //get the value of the matched URI param
-                        $value = $matches[$current_match_key + $to_skip];
+                        $value = $matches[$currentKey + $skipNum];
 
                         //filter the value of the matched URI param
-                        switch ($regex_and_info['param_types'][$current_match_key]) {
+                        switch ($regexData['param_types'][$currentKey]) {
                             case 'signed_integer' :
                                 $value = intval($value);
                                 break;
@@ -442,7 +450,7 @@ namespace Gishiki\Core {
 
                         //store the value of the matched URI param
                         $reversed_URI[$current_match_name] = $value;
-                        $to_skip += $regex_and_info['skipping_params'][$current_match_key];
+                        $skipNum += $regexData['skipping_params'][$currentKey];
                     }
 
                     //build a collection from the current reverser URI
@@ -483,77 +491,67 @@ namespace Gishiki\Core {
          * 
          * @return array the regex version of the URI and additional info
          */
-        public function getRegex() /* : array */
+        public function getRegex()
         {
             //fix the URI
-            $regexURI = $this->URI;
+            $regexURI = null;
 
-            $param_array = [];
-            $skip_params = [];
-            $param_types = [];
+            $paramArray = [];
+            $paramSkip = [];
+            $paramTypes = [];
 
             if ($this->isSpecialCallback() === false) {
                 //start building the regex
-                $regexURI = '/^'.preg_quote($regexURI, '/').'$/';
+                $regexURI = '/^'.preg_quote($this->URI, '/').'$/';
 
                 //this will contain the matched expressions placeholders
                 $params = [];
                 //detect if regex are involved in the furnished URI
                 if (preg_match_all("/\\\{([a-zA-Z]|\d|\_|\.|\:|\\\\)+\\\}/", $regexURI, $params)) {
                     //substitute a regex for each matching group:
-                    foreach ($params[0] as $mathing_group) {
+                    foreach ($params[0] as $mathingGroup) {
                         //extract the regex to be used
-                        $param = Manipulation::get_between($mathing_group, '\{', '\}');
-                        $current_regex_id = explode('\\:', $param, 2);
+                        $param = Manipulation::getBetween($mathingGroup, '\{', '\}');
+                        $regexId = explode('\\:', $param, 2);
 
-                        $current_regex = '';
-                        if (count($current_regex_id) == 2) {
-                            $current_regex = strval($current_regex_id[1]);
+                        $currentRegex = '';
+                        if (count($regexId) == 2) {
+                            $currentRegex = strval($regexId[1]);
                         }
 
-                        $param = $current_regex_id[0];
-                        $regex_table_index = 'default';
-                        switch (strtolower($current_regex)) {
+                        $param = $regexId[0];
+                        $regexTableId = 'default';
+                        switch (strtolower($currentRegex)) {
                             case 'mail':
                             case 'email':
-                                $regex_table_index = 'email';
+                                $regexTableId = 'email';
                                 break;
 
                             case 'number':
                             case 'integer':
                             case 'signed_integer':
-                                $regex_table_index = 'signed_integer';
+                                $regexTableId = 'signed_integer';
                                 break;
 
                             default:
-                                $regex_table_index = 'default';
+                                $regexTableId = 'default';
                         }
 
-                        $regexURI = str_replace($mathing_group, '('.self::$regex_table[$regex_table_index][0].')', $regexURI);
-                        $param_array[] = $param;
-                        $param_types[] = $regex_table_index;
-                        $skip_params[] = self::$regex_table[$regex_table_index][1];
+                        $regexURI = str_replace($mathingGroup, '('.self::$regex_table[$regexTableId][0].')', $regexURI);
+                        $paramArray[] = $param;
+                        $paramTypes[] = $regexTableId;
+                        $paramSkip[] = self::$regex_table[$regexTableId][1];
                     }
                 }
-            } else {
-                $regexURI = '';
             }
 
             //return the built regex + additionals info
             return [
-                'regex' => $regexURI,
-                'params' => $param_array,
-                'param_types' => $param_types,
-                'skipping_params' => $skip_params,
+                'regex' => (!is_null($regexURI)) ? $regexURI : '',
+                'params' => $paramArray,
+                'param_types' => $paramTypes,
+                'skipping_params' => $paramSkip,
             ];
-        }
-
-        /**
-         * Proxy call for take_action.
-         */
-        public function __invoke(Request $copy_of_request, Response &$response, GenericCollection &$arguments)
-        {
-            return $this->take_action($copy_of_request, $response, $arguments);
         }
 
         /**
@@ -566,18 +564,18 @@ namespace Gishiki\Core {
          * This function is provided for logical organization of the program and
          * testing only!
          * 
-         * @param Request           $copy_of_request a copy of the request made to the application
-         * @param Response          $response        the action must fille, and what will be returned to the client
-         * @param GenericCollection $arguments       a list of reversed URI parameters 
+         * @param Request           $request   a copy of the request made to the application
+         * @param Response          $response  the action must fille, and what will be returned to the client
+         * @param GenericCollection $arguments a list of reversed URI parameters 
          */
-        protected function take_action(Request $copy_of_request, Response &$response, GenericCollection &$arguments)
+        public function __invoke(Request &$request, Response &$response, GenericCollection &$arguments)
         {
             if (is_callable($this->action)) {
                 //execute the given action
-                call_user_func_array($this->action, [$copy_of_request, &$response, &$arguments]);
+                call_user_func_array($this->action, [&$request, &$response, &$arguments]);
             } elseif (is_string($this->action)) {
                 //execute the controller
-                Controller::Execute($this->action, $copy_of_request, $response, $arguments);
+                Controller::Execute($this->action, $request, $response, $arguments);
             } else {
                 //what are you fucking doing?
                 $response = $response->withStatus(500);

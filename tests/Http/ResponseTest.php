@@ -308,4 +308,37 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('{"foo":"bar1\u0026bar2"}', $dataJson);
         $this->assertEquals($data['foo'], json_decode($dataJson, true)['foo']);
     }
+
+    public function testSendResponse()
+    {
+        //setup a new response
+        $response = new Response();
+
+        //generate some binary-safe data
+        $message = base64_encode(openssl_random_pseudo_bytes(1024));
+
+        //write data to the stream
+        $response->write($message);
+
+        //test the output
+        $this->assertEquals(strlen($message), $response->send($response, 24, true));
+    }
+
+    public function testSendFixedLengthResponse()
+    {
+        //setup a new response
+        $response = new Response();
+
+        //generate some binary-safe data
+        $message = base64_encode(openssl_random_pseudo_bytes(1024));
+
+        //write data to the stream
+        $response->write($message);
+
+        //re-test data stream-write
+        $response = $response->withHeader('Content-Length', ''.strlen($message));
+
+        //test the output (fixed length)
+        $this->assertEquals(strlen($message), $response->send($response, 31, true));
+    }
 }

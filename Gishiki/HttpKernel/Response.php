@@ -119,20 +119,28 @@ class Response extends Message implements ResponseInterface
      * 
      * @param ResponseInterface $response  the response to be sent
      * @param int               $chunkSize the size of each chunk of the response message
+     * @param bool              $testing   is a test running?
+     *
+     * @return int the numer of characters sent to the client
      */
-    public static function send(ResponseInterface $response, $chunkSize = 512)
+    public static function send(ResponseInterface $response, $chunkSize = 512, $testing = false)
     {
         //send the response HTTP header
         if (!headers_sent()) {
             // Status
-            header('HTTP/'.$response->getProtocolVersion().' '.
+            if (!$testing) {
+                header('HTTP/'.$response->getProtocolVersion().' '.
                     $response->getStatusCode().' '.
                     $response->getReasonPhrase()
-            );
+                );
+            }
             // Headers
             foreach ($response->getHeaders() as $name => $values) {
                 foreach ($values as $value) {
-                    header($name.': '.$value);
+                    //send to output only if this is not a test
+                    if (!$testing) {
+                        header($name.': '.$value);
+                    }
                 }
             }
         }
@@ -147,25 +155,44 @@ class Response extends Message implements ResponseInterface
         $contentLength = $response->getHeaderLine('Content-Length');
         $contentLength = (!$contentLength) ? $body->getSize() : $contentLength;
 
+        //send the result and count sent bytes
+        $sent = 0;
         if (isset($contentLength)) {
             $amountToRead = $contentLength;
             while ($amountToRead > 0 && !$body->eof()) {
                 $data = $body->read(min($chunkSize, $amountToRead));
-                echo $data;
+
+                //send to output only if this is not a test
+                if (!$testing) {
+                    echo $data;
+                }
 
                 $amountToRead -= strlen($data);
                 if (connection_status() != CONNECTION_NORMAL) {
                     break;
+                } else {
+                    $sent += strlen($data);
                 }
             }
         } else {
             while (!$body->eof()) {
-                echo $body->read($chunkSize);
+                $chunk = $body->read($chunkSize);
+
+                //send to output only if this is not a test
+                if (!$testing) {
+                    echo $chunk;
+                }
+
                 if (connection_status() != CONNECTION_NORMAL) {
                     break;
+                } else {
+                    $sent += strlen($chunk);
                 }
             }
         }
+
+        //return the number of characters sent
+        return $sent;
     }
 
     /**
@@ -291,14 +318,17 @@ class Response extends Message implements ResponseInterface
      */
     public function getReasonPhrase()
     {
+        //this is the "default" reason phrase
+        $reasonPhrase = '';
+
+        //try fetching the reason phrase
         if ($this->reasonPhrase) {
             return $this->reasonPhrase;
-        }
-        if (isset(static::$messages[$this->status])) {
+        } elseif (isset(static::$messages[$this->status])) {
             return static::$messages[$this->status];
         }
 
-        return '';
+        return $reasonPhrase;
     }
 
     /*******************************************************************************
@@ -318,6 +348,7 @@ class Response extends Message implements ResponseInterface
      */
     public function write($data)
     {
+        //write data to the response body
         $this->getBody()->write($data);
 
         return $this;

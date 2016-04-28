@@ -6,8 +6,6 @@
 
 [![Run Status](https://api.shippable.com/projects/5721d2cd2a8192902e1e39a7/badge?branch=master)](https://app.shippable.com/projects/5721d2cd2a8192902e1e39a7)
 
-[![Coverage Badge](https://api.shippable.com/projects/5721d2cd2a8192902e1e39a7/coverageBadge?branch=master)](https://app.shippable.com/projects/5721d2cd2a8192902e1e39a7)
-
 [![Test Coverage](https://codeclimate.com/github/NeroReflex/Gishiki/badges/coverage.svg)](https://codeclimate.com/github/NeroReflex/Gishiki/coverage)
 
 [![Code Climate](https://codeclimate.com/github/NeroReflex/Gishiki/badges/gpa.svg)](https://codeclimate.com/github/NeroReflex/Gishiki)

@@ -37,7 +37,7 @@ class Controller
      * 
      * @param string $action the name of the controller & action to be used
      */
-    public static function Execute($action, Request $copy_of_request, Response &$response, GenericCollection &$arguments)
+    public static function Execute($action, Request $request, Response &$response, GenericCollection &$arguments)
     {
         //check for bad action
         if ((!is_string($action)) || (strpos($action, '@') === false)) {
@@ -75,7 +75,7 @@ class Controller
         $reflected_controller = new \ReflectionClass($action_controller[1]);
 
         //and create a new instance of it
-        $controller = $reflected_controller->newInstanceArgs([$copy_of_request, &$response, &$arguments]);
+        $controller = $reflected_controller->newInstanceArgs([$request, &$response, &$arguments]);
 
         //reflect the requested action
         $reflected_action = new \ReflectionMethod($action_controller[1], $action_controller[0]);
@@ -115,14 +115,14 @@ class Controller
     /**
      * Create a new controller that will fulfill the given request filling the given response.
      * 
-     * @param Request           $copy_of_request the request arrived from the client
-     * @param Response          $response        the response to be given to the client
-     * @param GenericCollection $arguments       the collection of catched URI params
+     * @param Request           $request   the request arrived from the client
+     * @param Response          $response  the response to be given to the client
+     * @param GenericCollection $arguments the collection of catched URI params
      */
-    public function __construct(Request $copy_of_request, Response &$response, GenericCollection &$arguments)
+    public function __construct(Request $request, Response &$response, GenericCollection &$arguments)
     {
         //save the request
-        $this->Request = $copy_of_request;
+        $this->Request = $request;
 
         //save the response
         $this->Response = $response;

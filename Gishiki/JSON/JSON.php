@@ -66,7 +66,7 @@ namespace Gishiki\JSON {
         public static function Serialize($jsonAsObject)
         {
             //try encoding the json in a string
-            $serializationResult = json_encode($jsonAsObject, JSON_PARTIAL_OUTPUT_ON_ERROR | JSON_PRETTY_PRINT);
+            $serializationResult = json_encode($jsonAsObject, JSON_PRETTY_PRINT);
 
             //and check for the result
             if (json_last_error() != JSON_ERROR_NONE) {

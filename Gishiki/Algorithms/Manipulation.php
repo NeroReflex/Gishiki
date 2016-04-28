@@ -33,12 +33,12 @@ abstract class Manipulation
      *
      * @return string the new string with the first matched pattern replaced
      */
-    public static function replace_once($str_pattern, $str_replacement, $string)
+    public static function replaceOnce($str_pattern, $str_replacement, $string)
     {
         if (strpos($string, $str_pattern) !== false) {
             $occurrence = strpos($string, $str_pattern);
 
-            return substr_replace($string, $str_replacement, strpos($string, $str_pattern), strlen($str_pattern));
+            return substr_replace($string, $str_replacement, $occurrence, strlen($str_pattern));
         }
 
         return $string;
@@ -47,16 +47,16 @@ abstract class Manipulation
     /**
      * Convenient function that behave exactly like str_replace for the first occurrence only.
      * 
-     * @param array  $str_patterns    the list of pattern to be replaced
-     * @param string $str_replacement the string to replace the first matched pattern
-     * @param string $string          the string to search the pattern into
+     * @param array  $patterns    the list of pattern to be replaced
+     * @param string $replacement the string to replace the first matched pattern
+     * @param string $string      the string to search the pattern into
      *
      * @return string the new string with the first matched pattern replaced
      */
-    public static function replace_list($str_patterns, $str_replacement, $string)
+    public static function replaceList($patterns, $replacement, $string)
     {
-        foreach ($str_patterns as $pattern) {
-            $string = str_replace($pattern, $str_replacement, $string);
+        foreach ($patterns as $pattern) {
+            $string = str_replace($pattern, $replacement, $string);
         }
 
         return $string;
@@ -71,7 +71,7 @@ abstract class Manipulation
      *
      * @return string|bool the string between the two substrings, or FALSE
      */
-    public static function get_between($string, $start, $end)
+    public static function getBetween($string, $start, $end)
     {
         $string = ' '.$string;
         $ini = strpos($string, $start);
@@ -97,9 +97,9 @@ abstract class Manipulation
     public static function interpolate($string, array $params)
     {
         //perform the interpolation
-        foreach (array_keys($params) as $current_interpolation) {
-            $str_current_interpolation = (string) $current_interpolation;
-            $string = str_replace('{{'.$str_current_interpolation.'}}', (string) $params[$current_interpolation], $string);
+        foreach (array_keys($params) as $interpolation) {
+            $str_current_interpolation = (string) $interpolation;
+            $string = str_replace('{{'.$str_current_interpolation.'}}', (string) $params[$interpolation], $string);
         }
 
         //return the interpolated string

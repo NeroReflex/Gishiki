@@ -70,7 +70,7 @@ abstract class Gishiki
         self::Initialize();
 
         //if the framework needs to be installed.....
-        if (Environment::ApplicationExists()) {
+        if (Environment::applicationExists()) {
             //fulfill the client request
             Environment::GetCurrentEnvironment()->FulfillRequest();
         } else {

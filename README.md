@@ -8,18 +8,38 @@
 
 [![Coverage Badge](https://api.shippable.com/projects/5721d2cd2a8192902e1e39a7/coverageBadge?branch=master)](https://app.shippable.com/projects/5721d2cd2a8192902e1e39a7)
 
+[![Test Coverage](https://codeclimate.com/github/NeroReflex/Gishiki/badges/coverage.svg)](https://codeclimate.com/github/NeroReflex/Gishiki/coverage)
+
+[![Code Climate](https://codeclimate.com/github/NeroReflex/Gishiki/badges/gpa.svg)](https://codeclimate.com/github/NeroReflex/Gishiki)
+
+
 _*Gishiki*_: a modern and elegant MVC framework for PHP >= 5.4 and HHVM.
 
-Gishiki means 'ritual' in japanese, this name was chosen because this framework will help you to perform the
-ritual of creation and deployment of web digital contents.
+Gishiki means 'ritual' in japanese, this name was chosen because this framework
+will help you to perform the ritual of creation and deployment of web digital contents.
 
-Due to its design this framework won't force you to use its features: you are completely free to use it as you wish to,
+Due to its design this framework won't force you to use its features:
+you are completely free to use it as you wish to,
 even if that breaks up MVC principles and/or uses a custom ORM.
 
 Gishiki is so fast to deploy that you don't even need to configure it to get started!
 
 What are you waiting for?
-Installing is as simple as cloning the repository and in 2 minutes you are up in experimenting its features!
+Installing is as simple as cloning the repository and in 2 minutes you are up in
+experimenting its features!
+
+
+## 2016 Compatibility
+Gishiki is automatically tested and its code reviewed thaks to many *CI*
+(Continuous Integration) service providers (like Travis-CI, Wecker and Shippable).
+
+A special thanks goes to Code Climate and everyboy who maintains a so special platform!
+
+Gishiki aims for total Heroku compatibility because you can deploy you fantastic
+website or app in a few seconds forgetting about maintaining the server!
+
+Alongside Heroku Gishiki aims for compatibility with any *PaaS* (Platform as a Service)
+and Docker.
 
 
 ## Documentation
@@ -46,11 +66,6 @@ Gishiki deploy an MVC pattern that is a bit special to help you building any dig
 
 In order to help you achieving your goals Gishiki provides helpers to help you with most common operations,
 but let you free of doing things the way you want.
-
-
-## Heroku Compatibility
-Gishiki aims for total Heroku compatibility because you can deploy you fantastic
-website or app in a few seconds forgetting about maintaining the server!
 
 
 ## RESTful services

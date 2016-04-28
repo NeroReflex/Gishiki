@@ -289,8 +289,8 @@ namespace Gishiki\Core {
         public static function run(Request &$reqestToFulfill)
         {
             $response = new Response();
-            $uri_decoded = urldecode($reqestToFulfill->getUri()->getPath());
-            $reversed_params = null;
+            $decodedUri = urldecode($reqestToFulfill->getUri()->getPath());
+            $reversedParams = null;
 
             //this is the route that reference the action to be taken
             $actionRuote = null;
@@ -298,15 +298,13 @@ namespace Gishiki\Core {
             //test/try matching every route
             foreach (self::$routes as $currentRoute) {
                 //build a collection from the current reverser URI (of detect the match failure)
-                $reversed_params = $currentRoute->matchURI($uri_decoded, $reqestToFulfill->getMethod());
-                if (is_object($reversed_params)) {
+                $reversedParams = $currentRoute->matchURI($decodedUri, $reqestToFulfill->getMethod());
+                if (is_object($reversedParams)) {
                     //execute the requested action!
                     $actionRuote = $currentRoute;
 
                     //stop searching for a suitable URI to be matched against the current one
                     break;
-                } else {
-                    $reversed_params = new GenericCollection();
                 }
             }
 
@@ -328,8 +326,9 @@ namespace Gishiki\Core {
 
             //execute the router call
             $request = clone $reqestToFulfill;
+            $deductedParams = (is_object($reversedParams)) ? $reversedParams : new GenericCollection();
             (is_object($actionRuote)) ?
-                $actionRuote($request, $response, $reversed_params) : null;
+                $actionRuote($request, $response, $deductedParams) : null;
 
             //this function have to return a response
             return $response;
@@ -344,7 +343,7 @@ namespace Gishiki\Core {
         /**
          * @var string the URI for the current route
          */
-        private $uri;
+        private $URI;
 
         /**
          * @var mixed the anonymous function to be executed or the name of the action@controller
@@ -424,7 +423,7 @@ namespace Gishiki\Core {
          */
         public function matchURI($uri, $method)
         {
-            $reversed_params = null;
+            $reversedParams = null;
 
             if ($this->isSpecialCallback() === false) {
                 $regexData = $this->getRegex();
@@ -432,9 +431,9 @@ namespace Gishiki\Core {
                 //try matching the regex against the currently requested URI
                 $matches = [];
                 if (((in_array($method, $this->methods)) || (in_array(self::ANY, $this->methods))) && (preg_match($regexData['regex'], $uri, $matches))) {
-                    $reversed_URI = [];
+                    $reversedUri = [];
                     $skipNum = 1;
-                    foreach ($regexData['params'] as $currentKey => $current_match_name) {
+                    foreach ($regexData['params'] as $currentKey => $currentMatchName) {
                         //get the value of the matched URI param
                         $value = $matches[$currentKey + $skipNum];
 
@@ -449,18 +448,18 @@ namespace Gishiki\Core {
                         }
 
                         //store the value of the matched URI param
-                        $reversed_URI[$current_match_name] = $value;
+                        $reversedUri[$currentMatchName] = $value;
                         $skipNum += $regexData['skipping_params'][$currentKey];
                     }
 
                     //build a collection from the current reverser URI
-                    $reversed_params = new GenericCollection($reversed_URI);
+                    $reversedParams = new GenericCollection($reversedUri);
                 }
             } elseif ((in_array($method, $this->methods)) && ($uri == $this->isSpecialCallback())) {
-                $reversed_params = new GenericCollection();
+                $reversedParams = new GenericCollection();
             }
 
-            return $reversed_params;
+            return $reversedParams;
         }
 
         /**
@@ -468,7 +467,7 @@ namespace Gishiki\Core {
          *
          * @var array the table of regex and regex groups
          */
-        private static $regex_table = [
+        private static $regexTable = [
             'default' => ['[^\/]+', 0],
             'email' => ['([a-zA-Z0-9_\-.+]+)\@([a-zA-Z0-9-]+)\.([a-zA-Z]+)((\.([a-zA-Z]+))?)', 6],
             'signed_integer' => ['(\+|\-)?(\d)+', 2],
@@ -537,10 +536,10 @@ namespace Gishiki\Core {
                                 $regexTableId = 'default';
                         }
 
-                        $regexURI = str_replace($mathingGroup, '('.self::$regex_table[$regexTableId][0].')', $regexURI);
+                        $regexURI = str_replace($mathingGroup, '('.self::$regexTable[$regexTableId][0].')', $regexURI);
                         $paramArray[] = $param;
                         $paramTypes[] = $regexTableId;
-                        $paramSkip[] = self::$regex_table[$regexTableId][1];
+                        $paramSkip[] = self::$regexTable[$regexTableId][1];
                     }
                 }
             }
@@ -576,11 +575,11 @@ namespace Gishiki\Core {
             } elseif (is_string($this->action)) {
                 //execute the controller
                 Controller::Execute($this->action, $request, $response, $arguments);
-            } else {
+            } /* else {
                 //what are you fucking doing?
                 $response = $response->withStatus(500);
                 $response->write('Undefined route behaviour');
-            }
+            } */
         }
     }
 }

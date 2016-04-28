@@ -27,18 +27,18 @@ abstract class Manipulation
     /**
      * Convenient function that behave exactly like str_replace for the first occurrence only.
      * 
-     * @param string $str_pattern     the pattern to be replaced
-     * @param string $str_replacement the string to replace the first matched pattern
-     * @param string $string          the string to search the pattern into
+     * @param string $pattern     the pattern to be replaced
+     * @param string $replacement the string to replace the first matched pattern
+     * @param string $string      the string to search the pattern into
      *
      * @return string the new string with the first matched pattern replaced
      */
-    public static function replaceOnce($str_pattern, $str_replacement, $string)
+    public static function replaceOnce($pattern, $replacement, $string)
     {
-        if (strpos($string, $str_pattern) !== false) {
-            $occurrence = strpos($string, $str_pattern);
+        if (strpos($string, $pattern) !== false) {
+            $occurrence = strpos($string, $pattern);
 
-            return substr_replace($string, $str_replacement, $occurrence, strlen($str_pattern));
+            return substr_replace($string, $replacement, $occurrence, strlen($pattern));
         }
 
         return $string;
@@ -98,8 +98,8 @@ abstract class Manipulation
     {
         //perform the interpolation
         foreach (array_keys($params) as $interpolation) {
-            $str_current_interpolation = (string) $interpolation;
-            $string = str_replace('{{'.$str_current_interpolation.'}}', (string) $params[$interpolation], $string);
+            $currentInterpolation = (string) $interpolation;
+            $string = str_replace('{{'.$currentInterpolation.'}}', (string) $params[$interpolation], $string);
         }
 
         //return the interpolated string

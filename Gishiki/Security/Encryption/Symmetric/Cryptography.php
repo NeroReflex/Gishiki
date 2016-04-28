@@ -56,17 +56,17 @@ abstract class Cryptography
      * //if you used a cistom IV you don't need to pass the IV
      * </code>
      * 
-     * @param SecretKey   $key       the key to be used to encrypt the given message
-     * @param string      $message   the message to be encrypted
-     * @param string|null $iv        the base64 representation of the IV to be used (pick a random one if null)
-     * @param string      $algorithm the name of the algorithm to be used
+     * @param SecretKey   $key        the key to be used to encrypt the given message
+     * @param string      $message    the message to be encrypted
+     * @param string|null $initVector the base64 representation of the IV to be used (pick a random one if null)
+     * @param string      $algorithm  the name of the algorithm to be used
      *
      * @return array the base64 of the raw encryption result and the used IV
      *
      * @throws \InvalidArgumentException one or more arguments are invalid
      * @throws SymmetricException        the error occurred while encrypting the content
      */
-    public static function encrypt(SecretKey &$key, $message, $iv = null, $algorithm = self::AES_CBC_128)
+    public static function encrypt(SecretKey &$key, $message, $initVector = null, $algorithm = self::AES_CBC_128)
     {
         //check the plain message type
         if ((!is_string($message)) || (strlen($message) <= 0)) {
@@ -86,16 +86,16 @@ abstract class Cryptography
         }
 
         //generate and store a random IV
-        $iv_decoded = (is_null($iv)) ? openssl_random_pseudo_bytes(openssl_cipher_iv_length($algorithm)) : base64_decode($iv);
+        $decodedIv = (is_null($initVector)) ? openssl_random_pseudo_bytes(openssl_cipher_iv_length($algorithm)) : base64_decode($initVector);
 
         //get the encrypted data
-        $encrypted = openssl_encrypt($message, $algorithm, $managedKey['key'], OPENSSL_RAW_DATA, $iv_decoded);
+        $encrypted = openssl_encrypt($message, $algorithm, $managedKey['key'], OPENSSL_RAW_DATA, $decodedIv);
 
         //return the encryption result and the randomly generated IV
         return [
             'Encryption' => base64_encode($encrypted),
-            'IV_base64' => base64_encode($iv_decoded),
-            'IV_hex' => bin2hex($iv_decoded),
+            'IV_base64' => base64_encode($decodedIv),
+            'IV_hex' => bin2hex($decodedIv),
         ];
     }
 
@@ -113,26 +113,26 @@ abstract class Cryptography
      * $key = new SecretKey($key_hex_encoded);
      * 
      * //this is the IV encoded in base64: it is returned by the encrypt() function
-     * $iv_base_encoded = " ... ";
+     * $initVector_base_encoded = " ... ";
      * 
      * //$message will hold the original plaintext message
-     * $message = Cryptography::decrypt($key, $enc_message, $iv_base_encoded);
+     * $message = Cryptography::decrypt($key, $encryptedMessage, $initVector_base_encoded);
      * </code>
      * 
-     * @param SecretKey $key         the key that has been used to encrypt the message
-     * @param string    $enc_message the encryption result (must be base64-encoded)
-     * @param string    $iv          the iv represented in base64
-     * @param string    $algorithm   the name of the algorithm to be used
+     * @param SecretKey $key              the key that has been used to encrypt the message
+     * @param string    $encryptedMessage the encryption result (must be base64-encoded)
+     * @param string    $initVector       the iv represented in base64
+     * @param string    $algorithm        the name of the algorithm to be used
      *
      * @return string the decrypted content
      *
      * @throws \InvalidArgumentException one or more arguments are invalid
      * @throws SymmetricException        the error occurred while decrypting the content
      */
-    public static function decrypt(SecretKey &$key, $enc_message, $iv, $algorithm = self::AES_CBC_128)
+    public static function decrypt(SecretKey &$key, $encryptedMessage, $initVector, $algorithm = self::AES_CBC_128)
     {
         //check the plain message type
-        if ((!is_string($enc_message)) || (strlen($enc_message) <= 0)) {
+        if ((!is_string($encryptedMessage)) || (strlen($encryptedMessage) <= 0)) {
             throw new \InvalidArgumentException('The encrypted message to be decrypted must be given as a non-empty string');
         }
 
@@ -149,12 +149,12 @@ abstract class Cryptography
         }
 
         //get the IV
-        $iv_decoded = base64_decode($iv);
+        $decodedIv = base64_decode($initVector);
 
         //get the data to decrypt
-        $encrypted = base64_decode($enc_message);
+        $encrypted = base64_decode($encryptedMessage);
 
         //decrypt and return the result
-        return openssl_decrypt($encrypted, $algorithm, $managedKey['key'], OPENSSL_RAW_DATA, $iv_decoded);
+        return openssl_decrypt($encrypted, $algorithm, $managedKey['key'], OPENSSL_RAW_DATA, $decodedIv);
     }
 }

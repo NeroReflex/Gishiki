@@ -636,8 +636,8 @@ class Request extends Message implements ServerRequestInterface
         $contentTypeParams = [];
         if ($contentType) {
             $contentTypeParts = preg_split('/\s*[;,]\s*/', $contentType);
-            $contentTypePartsLength = count($contentTypeParts);
-            for ($i = 1; $i < $contentTypePartsLength; ++$i) {
+            $contTypePartsLength = count($contentTypeParts);
+            for ($i = 1; $i < $contTypePartsLength; ++$i) {
                 $paramParts = explode('=', $contentTypeParts[$i]);
                 $contentTypeParams[strtolower($paramParts[0])] = $paramParts[1];
             }

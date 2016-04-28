@@ -246,7 +246,7 @@ abstract class Cryptography
         }*/
 
         //encrypt the complete message
-        $complete_unencrypted_message = '';
+        $message = '';
         foreach (str_split($completeMsg, $managedKey['byteLength']) as $encryptedChunk) {
             $msgChunk = null;
 
@@ -256,11 +256,11 @@ abstract class Cryptography
             }
 
             //join the current unencrypted chunk to the complete message
-            $complete_unencrypted_message .= (string) $msgChunk;
+            $message .= (string) $msgChunk;
         }
 
         //return the decrypted message
-        return $complete_unencrypted_message;
+        return $message;
     }
 
     /**
@@ -306,11 +306,11 @@ abstract class Cryptography
         }
 
         //get the managed version of the native key
-        $managed_key = $key();
+        $managedKey = $key();
 
         //generate the digital signature
         $digitalSignature = null;
-        if (!openssl_sign($message, $digitalSignature, $managed_key['key'], 'sha256WithRSAEncryption')) {
+        if (!openssl_sign($message, $digitalSignature, $managedKey['key'], 'sha256WithRSAEncryption')) {
             throw new AsymmetricException('It is impossible to generate the digital signature due to an unknown error', 12);
         }
 

@@ -320,8 +320,11 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         //write data to the stream
         $response->write($message);
 
+        //remove the content length
+        $response = $response->withoutHeader('Content-Length');
+
         //test the output
-        $this->assertEquals(strlen($message), $response->send($response, 24, true));
+        $this->assertEquals(strlen($message), $response->send(24, true));
     }
 
     public function testSendFixedLengthResponse()
@@ -339,6 +342,6 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $response = $response->withHeader('Content-Length', ''.strlen($message));
 
         //test the output (fixed length)
-        $this->assertEquals(strlen($message), $response->send($response, 31, true));
+        $this->assertEquals(strlen($message), $response->send(31, true));
     }
 }

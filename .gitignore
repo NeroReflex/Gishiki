@@ -9,3 +9,4 @@
 composer.lock
 composer.phar
 vagrant.xml
+.DS_Store

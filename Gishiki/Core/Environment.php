@@ -101,15 +101,13 @@ namespace Gishiki\Core {
             $config = file_get_contents(APPLICATION_DIR.'settings.json');
 
             //update every environment placeholder
-            while (strpos($config, '{{@')) {
+            while (strpos($config, '{{@') !== false) {
                 if (($toReplace = Manipulation::getBetween($config, '{{@', '}}')) != '') {
                     $value = getenv($toReplace);
                     if ($value !== false) {
                         $config = str_replace('{{@'.$toReplace.'}}', $value, $config);
                     } elseif (defined($toReplace)) {
                         $config = str_replace('{{@'.$toReplace.'}}', constant($toReplace), $config);
-                    } else {
-                        die('Unknown environment var: '.$toReplace);
                     }
                 }
             }
@@ -149,28 +147,19 @@ namespace Gishiki\Core {
          */
         public function FulfillRequest()
         {
+            //get current request...
             $currentRequest = Request::createFromEnvironment(self::$currentEnvironment);
 
-            //split the requested resource string to analyze it
-            $decoded = explode('/', $currentRequest->getUri()->getPath());
-
-            if ((count($decoded) >= 1) && ((strtoupper($decoded[0]) == 'SERVICE') || (strtoupper($decoded[0]) == 'API'))) {
-                die('Unimplemented (yet)');
-            } else {
-                //include the list of routes (if it exists)
-                if (file_exists(APPLICATION_DIR.'routes.php')) {
-                    include APPLICATION_DIR.'routes.php';
-                }
-
-                //get current request...
-                $currentRequest = Request::createFromEnvironment(self::$currentEnvironment);
-
-                //...and serve it
-                $response = Route::run($currentRequest);
-
-                //send response to the client
-                Response::send($response);
+            //include the list of routes (if it exists)
+            if (file_exists(APPLICATION_DIR.'routes.php')) {
+                include APPLICATION_DIR.'routes.php';
             }
+
+            //...and serve it
+            $response = Route::run($currentRequest);
+
+            //send response to the client
+            Response::send($response);
         }
 
         /**

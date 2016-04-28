@@ -117,75 +117,82 @@ class Response extends Message implements ResponseInterface
     /**
      * Sends the given HTTP response to the client.
      * 
-     * @param ResponseInterface $response  the response to be sent
-     * @param int               $chunkSize the size of each chunk of the response message
-     * @param bool              $testing   is a test running?
+     * Note: This method is not part of the PSR-7 standard.
+     * 
+     * @param int $chunkSize the size of each chunk of the response message
      *
      * @return int the numer of characters sent to the client
      */
-    public static function send(ResponseInterface $response, $chunkSize = 512, $testing = false)
+    public function send($chunkSize = 512)
     {
+        $runningInCli = ((php_sapi_name() === 'cli') && (!headers_sent()));
+
         //send the response HTTP header
-        if (!headers_sent()) {
-            // Status
-            if (!$testing) {
-                header('HTTP/'.$response->getProtocolVersion().' '.
-                    $response->getStatusCode().' '.
-                    $response->getReasonPhrase()
-                );
-            }
-            // Headers
-            foreach ($response->getHeaders() as $name => $values) {
-                foreach ($values as $value) {
-                    //send to output only if this is not a test
-                    if (!$testing) {
-                        header($name.': '.$value);
-                    }
+
+        // Status
+        if (!$runningInCli) {
+            header('HTTP/'.$this->getProtocolVersion().' '.
+                $this->getStatusCode().' '.
+                $this->getReasonPhrase()
+            );
+        }
+
+        // Headers
+        foreach ($this->getHeaders() as $name => $values) {
+            foreach ($values as $value) {
+                //send to output only if this is not a test
+                if (!$runningInCli) {
+                    header($name.': '.$value);
                 }
             }
         }
 
         //send the response HTTP message
-        $body = $response->getBody();
+        $body = $this->getBody();
         if ($body->isSeekable()) {
             $body->rewind();
         }
 
         //get the content length
-        $contentLength = $response->getHeaderLine('Content-Length');
-        $contentLength = (!$contentLength) ? $body->getSize() : $contentLength;
+        $contentLength = $this->getHeaderLine('Content-Length');
+        //$contentLength = (!$contentLength) ? $body->getSize() : $contentLength;
 
         //send the result and count sent bytes
         $sent = 0;
-        if (isset($contentLength)) {
-            $amountToRead = $contentLength;
+        $defContLength = isset($contentLength);
+        if ($defContLength) {
+            $amountToRead = intval($contentLength);
             while ($amountToRead > 0 && !$body->eof()) {
                 $data = $body->read(min($chunkSize, $amountToRead));
 
                 //send to output only if this is not a test
-                if (!$testing) {
+                if (!$runningInCli) {
                     echo $data;
                 }
 
                 $amountToRead -= strlen($data);
-                if (connection_status() != CONNECTION_NORMAL) {
+
+                //get the connection status
+                $connStatus = connection_status();
+                if ($connStatus != CONNECTION_NORMAL) {
                     break;
-                } else {
+                } elseif ($connStatus == CONNECTION_NORMAL) {
                     $sent += strlen($data);
                 }
             }
-        } else {
+        } elseif (!$defContLength) {
             while (!$body->eof()) {
                 $chunk = $body->read($chunkSize);
 
                 //send to output only if this is not a test
-                if (!$testing) {
+                if (!$runningInCli) {
                     echo $chunk;
                 }
-
-                if (connection_status() != CONNECTION_NORMAL) {
+                //get the connection status
+                $connStatus = connection_status();
+                if ($connStatus != CONNECTION_NORMAL) {
                     break;
-                } else {
+                } elseif ($connStatus == CONNECTION_NORMAL) {
                     $sent += strlen($chunk);
                 }
             }
@@ -526,7 +533,7 @@ class Response extends Message implements ResponseInterface
      *
      * Note: This method is not part of the PSR-7 standard.
      *
-     * @return string
+     * @return string the response complete of header and body (non-streamable)
      */
     public function __toString()
     {
@@ -537,7 +544,7 @@ class Response extends Message implements ResponseInterface
             $this->getReasonPhrase()
         );
         $output .= PHP_EOL;
-        foreach ($this->getHeaders() as $name => $values) {
+        foreach (array_key($this->getHeaders()) as $name) {
             $output .= sprintf('%s: %s', $name, $this->getHeaderLine($name)).PHP_EOL;
         }
         $output .= PHP_EOL;

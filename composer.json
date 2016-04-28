@@ -24,11 +24,13 @@
         "ext-SimpleXML": "*",
         "graylog2/gelf-php": "~1.2",
         "psr/http-message": "^1.0",
-        "psr/log": "^1.0.0"
+        "psr/log": "^1.0.0",
+        "ext-Reflection": "*"
     },
 
     "require-dev": {
-        "squizlabs/php_codesniffer": "~2.0",
+        "codeclimate/php-test-reporter": "dev-master",
+        "squizlabs/php_codesniffer": "^2.5",
         "phpunit/phpunit": ">=4.8"
     },
 
@@ -54,5 +56,14 @@
     "provide": {
         "psr/log-implementation": "1.0.0",
         "psr/psr/http-message-implementation": "1.0.0"
+    },
+    
+    "scripts": {
+        "test": [
+            "@phpunit",
+            "@phpcs"
+        ],
+        "phpunit": "php vendor/bin/phpunit",
+        "phpcs": "php vendor/bin/phpcs"
     }
 }

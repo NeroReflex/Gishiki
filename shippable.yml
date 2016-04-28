@@ -5,11 +5,12 @@ php:
 
 before_script:
   - mkdir -p shippable/testresults
+  - mkdir -p shippable/codecoverage
 
 script:
  - composer self-update
  - composer install
- - phpunit --log-junit shippable/testresults/junit.xml
+ - phpunit --log-junit shippable/testresults/junit.xml --coverage-xml shippable/codecoverage
 
 notifications:
   email: false

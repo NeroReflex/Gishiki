@@ -15,30 +15,57 @@
   limitations under the License.
 ********************************************************************************/
 
-namespace Gishiki\Core {
+namespace Gishiki\Core;
+
+use Gishiki\Logging\Logger;
+use Psr\Log\LoggerAwareTrait;
+
+/**
+ * The base class of an exception related with the framework.
+ *
+ * Benato Denis <benato.denis96@gmail.com>
+ */
+class Exception extends \Exception
+{
+    use LoggerAwareTrait;
 
     /**
-     * The base class of an exception related with the framework
+     * Create a base exception and save the log of what's happening.
      *
-     * Benato Denis <benato.denis96@gmail.com>
+     * @param string $message   the error message
+     * @param int    $errorCode the error code
      */
-    class Exception extends \Exception
+    public function __construct($message, $errorCode)
     {
-        
-        /**
-         * Create a base exception and save the log of what's happening
-         *
-         * @param string $message   the error message
-         * @param int    $errorCode the error code
-         */
-        public function __construct($message, $errorCode)
-        {
-            //perform a basic Exception constructor call
-            parent::__construct($message, $errorCode, null);
-            
+        //perform a basic Exception constructor call
+        parent::__construct($message, $errorCode, null);
+
+        //setup an empty logger
+        $this->logger = null;
+
+        if (!is_null(Environment::GetCurrentEnvironment())) {
             //build the new log entry
-            new \Gishiki\Logging\Log(get_class($this)." exception thrown", $message, \Gishiki\Logging\Priority::CRITICAL);
-            //the log entry is automatically saved
+            $this->setLogger(new Logger());
+
+            //and use it to transmit the log entry
+            $this->writeLog();
+        }
+    }
+
+    /**
+     * Write the log message using the attached logger.
+     */
+    public function writeLog()
+    {
+        if (!is_null($this->logger)) {
+            //log the exception
+            $this->logger->error('{{exception_type}} thrown at: {{file}}: {{line}} with message({{code}}): {{message}}', [
+                'exception_type' => get_called_class(),
+                'file' => $this->getFile(),
+                'line' => $this->getLine(),
+                'code' => $this->getCode(),
+                'message' => $this->getMessage(),
+            ]);
         }
     }
 }

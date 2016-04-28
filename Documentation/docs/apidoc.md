@@ -9,3 +9,6 @@ how Gishiki is organized internally.
 
 ## Accessing the docs
 You can access the API Documentation from [here](API/index.html).
+
+If you are totally unable to understand what is described there just don't worry about
+it, you can do amazing things even without reading that thing!

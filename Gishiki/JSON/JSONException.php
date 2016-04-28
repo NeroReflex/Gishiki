@@ -24,9 +24,9 @@ namespace Gishiki\JSON {
      */
     class JSONException extends \Gishiki\Core\Exception
     {
-        
         /**
-         * Create the JSON-related exception
+         * Create the JSON-related exception.
+         *
          * @param string $message   the error message
          * @param int    $errorCode the json error code
          */

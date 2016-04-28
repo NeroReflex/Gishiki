@@ -1,5 +1,10 @@
 # Gishiki
-_*Gishiki*_: a modern and elegant MVC framework for PHP >= 5.6 and HHVM.
+
+[![wercker status](https://app.wercker.com/status/c7f1b1c76dcaf0d1b89006808d2d456b/m "wercker status")](https://app.wercker.com/project/bykey/c7f1b1c76dcaf0d1b89006808d2d456b)
+
+[![Build Status](https://travis-ci.org/NeroReflex/Gishiki.svg?branch=master)](https://travis-ci.org/NeroReflex/Gishiki)
+
+_*Gishiki*_: a modern and elegant MVC framework for PHP >= 5.4 and HHVM.
 
 Gishiki means 'ritual' in japanese, this name was chosen because this framework will help you to perform the
 ritual of creation and deployment of web digital contents.
@@ -37,6 +42,11 @@ Gishiki deploy an MVC pattern that is a bit special to help you building any dig
 
 In order to help you achieving your goals Gishiki provides helpers to help you with most common operations,
 but let you free of doing things the way you want.
+
+
+## Heroku Compatibility
+Gishiki aims for total Heroku compatibility because you can deploy you fantastic
+website or app in a few seconds forgetting about maintaining the server!
 
 
 ## RESTful services
@@ -98,24 +108,7 @@ whatever you want with your log entries.
 
 
 ## Requirements
-Gishiki has a few dependencies that you should install to have the framework fully-functional.
-
-If you plan to install Gishiki without composer you will have to manually install:
-
-   -    Apache with mod_rewrite or nginx
-   -    HHVM or PHP >= 5.6
-   -    OpenSSL extension (usually included in the standard PHP release)
-   -    libxml2 extension (usually included in the standard PHP release)
-   -    PDO extension and the PDO driver for your database __AND/OR__ database native drivers
-   -    cURL extension
-
-
-## Installation
-You just checkout (or decompress a snapshot) from the github repository in your
-apache/nginx root directory and it just runs out of the box.
-
-To have a step-by-step mini tutorial read the Documentation/docs/installation.md
-file on this repository or the 'Installation' section of the documentation!
+Everything you need is a running (apache or nginx) webserver, php >= 5.6 and composer!
 
 
 ## License

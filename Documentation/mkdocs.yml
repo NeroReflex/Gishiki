@@ -2,15 +2,26 @@ site_name: Gishiki
 
 pages:
 - Home: index.md
-- Installation: installation.md
+- Installation: 
+    - Environment:          installation/index.md
+    - Basic PHP:            installation/basic_php.md
+    - PHP 7.0 & nginx:      installation/php_7_nginx.md
+    - Basic nginx:          installation/basic_nginx.md
+    - Basic apache:         installation/basic_apache.md
+    - Basic lighttpd:       installation/basic_lighttpd.md
+    - Basic IIS:            installation/basic_iis.md
+    - Composer:             installation/composer.md
+    - PaaS:                 installation/paas.md
 - API: apidoc.md
 - Usage:
-    - Router: usage/routing.md
-    - Logger: usage/logging.md
+    - Configuration:    usage/configuration.md
+    - Router:           usage/routing.md
+    - Request:          usage/request.md
+    - Logger:           usage/logging.md
     - Database: 
-        - Management: usage/database/management.md
-        - Models: usage/database/models.md
-        - CRUD: usage/database/CRUD.md
+        - Support:      usage/database/index.md
+        - Models:       usage/database/models.md
+        - CRUD:         usage/database/CRUD.md
 
 - About:
     - License: license.md

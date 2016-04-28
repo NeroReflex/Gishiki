@@ -21,6 +21,7 @@ namespace Gishiki\Core {
     use Gishiki\HttpKernel\Request;
     use Gishiki\HttpKernel\Response;
     use Gishiki\Algorithms\Manipulation;
+    use Gishiki\JSON\JSON;
 
     /**
      * Represent the environment used to run controllers.
@@ -38,7 +39,7 @@ namespace Gishiki\Core {
          *
          * @return Environment
          */
-        public static function mock(array $userData = [], $selfRegisterOfNewInstance = false, $loadApplication = false)
+        public static function mock(array $userData = [], $selfRegister = false, $loadApplication = false)
         {
             $data = array_merge([
                 'SERVER_PROTOCOL' => 'HTTP/1.1',
@@ -58,7 +59,7 @@ namespace Gishiki\Core {
                 'REQUEST_TIME_FLOAT' => microtime(true),
             ], $userData);
 
-            return new self($data, $selfRegisterOfNewInstance, $loadApplication);
+            return new self($data, $selfRegister, $loadApplication);
         }
 
         /** each environment has its configuration */
@@ -84,7 +85,7 @@ namespace Gishiki\Core {
 
             if ($loadApplication) {
                 //load the server configuration
-                $this->LoadConfiguration();
+                $this->loadConfiguration();
             }
         }
 
@@ -94,27 +95,27 @@ namespace Gishiki\Core {
          * 
          * @return array the application configuration
          */
-        public static function GetApplicationSettings()
+        public static function getApplicationSettings()
         {
             //get the json encoded application settings
-            $settings_configuration = file_get_contents(APPLICATION_DIR.'settings.json');
+            $config = file_get_contents(APPLICATION_DIR.'settings.json');
 
             //update every environment placeholder
-            while (strpos($settings_configuration, '{{@')) {
-                if (($to_be_replaced = Manipulation::get_between($settings_configuration, '{{@', '}}')) != '') {
-                    $value = getenv($to_be_replaced);
+            while (strpos($config, '{{@')) {
+                if (($toReplace = Manipulation::getBetween($config, '{{@', '}}')) != '') {
+                    $value = getenv($toReplace);
                     if ($value !== false) {
-                        $settings_configuration = str_replace('{{@'.$to_be_replaced.'}}', $value, $settings_configuration);
-                    } elseif (defined($to_be_replaced)) {
-                        $settings_configuration = str_replace('{{@'.$to_be_replaced.'}}', constant($to_be_replaced), $settings_configuration);
+                        $config = str_replace('{{@'.$toReplace.'}}', $value, $config);
+                    } elseif (defined($toReplace)) {
+                        $config = str_replace('{{@'.$toReplace.'}}', constant($toReplace), $config);
                     } else {
-                        die('Unknown environment var: '.$to_be_replaced);
+                        die('Unknown environment var: '.$toReplace);
                     }
                 }
             }
 
             //parse the settings file
-            $appConfiguration = \Gishiki\JSON\JSON::DeSerialize($settings_configuration);
+            $appConfiguration = JSON::DeSerialize($config);
 
             //return the application configuration
             return $appConfiguration;
@@ -126,7 +127,7 @@ namespace Gishiki\Core {
          * 
          * @return bool the application existence
          */
-        public static function ApplicationExists()
+        public static function applicationExists()
         {
             //return the existence of an application directory and a configuratio file
             return (file_exists(APPLICATION_DIR)) && (file_exists(APPLICATION_DIR.'settings.json'));
@@ -148,12 +149,12 @@ namespace Gishiki\Core {
          */
         public function FulfillRequest()
         {
-            $current_request = Request::createFromEnvironment(self::$currentEnvironment);
+            $currentRequest = Request::createFromEnvironment(self::$currentEnvironment);
 
             //split the requested resource string to analyze it
-            $decoded = explode('/', $current_request->getUri()->getPath());
+            $decoded = explode('/', $currentRequest->getUri()->getPath());
 
-            if ((count($decoded)) && ((strtoupper($decoded[0]) == 'SERVICE') || (strtoupper($decoded[0]) == 'API'))) {
+            if ((count($decoded) >= 1) && ((strtoupper($decoded[0]) == 'SERVICE') || (strtoupper($decoded[0]) == 'API'))) {
                 die('Unimplemented (yet)');
             } else {
                 //include the list of routes (if it exists)
@@ -162,10 +163,10 @@ namespace Gishiki\Core {
                 }
 
                 //get current request...
-                $current_request = Request::createFromEnvironment(self::$currentEnvironment);
+                $currentRequest = Request::createFromEnvironment(self::$currentEnvironment);
 
                 //...and serve it
-                $response = Route::run($current_request);
+                $response = Route::run($currentRequest);
 
                 //send response to the client
                 Response::send($response);
@@ -187,12 +188,12 @@ namespace Gishiki\Core {
          * Load the framework configuration from the config file and return it in an
          * format kwnown to the framework.
          */
-        private function LoadConfiguration()
+        private function loadConfiguration()
         {
             //get the security configuration of the current application
             $config = [];
-            if (self::ApplicationExists()) {
-                $config = self::GetApplicationSettings();
+            if (self::applicationExists()) {
+                $config = self::getApplicationSettings();
                 //General Configuration
                 $this->configuration = [
                     //get general environment configuration

@@ -60,7 +60,7 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
         //test the result
         $this->assertEquals($message, $result);
     }
-    
+
     public function testAES192Encryption()
     {
         //generate the key
@@ -77,7 +77,7 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
         //test the result
         $this->assertEquals($message, $result);
     }
-    
+
     public function testAES256Encryption()
     {
         //generate the key
@@ -93,5 +93,61 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
 
         //test the result
         $this->assertEquals($message, $result);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidKey()
+    {
+        //generate the key
+        $key = new SecretKey(SecretKey::generate('T3st1n9/k3y <3', 1));
+
+        $message = base64_encode(openssl_random_pseudo_bytes(512));
+
+        //encrypt the message (trigger the exception)
+        Cryptography::encrypt($key, $message, null, Cryptography::AES_CBC_128);
+    }
+
+    /**
+     * @expectedException Gishiki\Security\Encryption\Symmetric\SymmetricException
+     */
+    public function testAES128BadKey()
+    {
+        //generate the key
+        $key = new SecretKey(SecretKey::generate('T3st1n9/k3y <3', 2));
+
+        $message = base64_encode(openssl_random_pseudo_bytes(512));
+
+        //encrypt the message (trigger the exception)
+        Cryptography::encrypt($key, $message, null, Cryptography::AES_CBC_128);
+    }
+
+    /**
+     * @expectedException Gishiki\Security\Encryption\Symmetric\SymmetricException
+     */
+    public function testAES192BadKey()
+    {
+        //generate the key
+        $key = new SecretKey(SecretKey::generate('T3st1n9/k3y <3', 40));
+
+        $message = base64_encode(openssl_random_pseudo_bytes(512));
+
+        //encrypt the message (trigger the exception)
+        Cryptography::encrypt($key, $message, null, Cryptography::AES_CBC_192);
+    }
+
+    /**
+     * @expectedException Gishiki\Security\Encryption\Symmetric\SymmetricException
+     */
+    public function testAES256BadKey()
+    {
+        //generate the key
+        $key = new SecretKey(SecretKey::generate('T3st1n9/k3y <3', 12));
+
+        $message = base64_encode(openssl_random_pseudo_bytes(512));
+
+        //encrypt the message (trigger the exception)
+        Cryptography::encrypt($key, $message, null, Cryptography::AES_CBC_256);
     }
 }

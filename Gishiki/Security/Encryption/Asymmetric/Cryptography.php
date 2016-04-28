@@ -62,22 +62,22 @@ abstract class Cryptography
         $managedKey = $key();
 
         //encrypt the complete message
-        $complete_message = '';
-        foreach (str_split($message, $managedKey['byteLength'] / 2) as $message_chunk) {
+        $completeMsg = '';
+        foreach (str_split($message, $managedKey['byteLength'] / 2) as $msgChunk) {
             //the encrypted message
-            $encrypted_chunk = null;
+            $encryptedChunk = null;
 
             //encrypt the current message and check for failure
-            if (!openssl_private_encrypt($message_chunk, $encrypted_chunk, $managedKey['key'], OPENSSL_PKCS1_PADDING)) {
+            if (!openssl_private_encrypt($msgChunk, $encryptedChunk, $managedKey['key'], OPENSSL_PKCS1_PADDING)) {
                 throw new AsymmetricException("The message encryption can't be accomplished due to an unknown error", 4);
             }
 
             //join the current encrypted chunk to the encrypted message
-            $complete_message .=  (string) $encrypted_chunk;
+            $completeMsg .=  (string) $encryptedChunk;
         }
 
         //return the encrypted message base64-encoded
-        return base64_encode($complete_message);
+        return base64_encode($completeMsg);
     }
 
     /**
@@ -115,22 +115,22 @@ abstract class Cryptography
         $managedKey = $key();
 
         //encrypt the complete message
-        $complete_message = '';
-        foreach (str_split($message, $managedKey['byteLength'] / 2) as $message_chunk) {
+        $completeMsg = '';
+        foreach (str_split($message, $managedKey['byteLength'] / 2) as $msgChunk) {
             //the encrypted message
-            $encrypted_chunk = null;
+            $encryptedChunk = null;
 
             //encrypt the current message and check for failure
-            if (!openssl_public_encrypt($message_chunk, $encrypted_chunk, $managedKey['key'], OPENSSL_PKCS1_PADDING)) {
+            if (!openssl_public_encrypt($msgChunk, $encryptedChunk, $managedKey['key'], OPENSSL_PKCS1_PADDING)) {
                 throw new AsymmetricException("The message encryption can't be accomplished due to an unknown error", 15);
             }
 
             //join the current encrypted chunk to the encrypted message
-            $complete_message .=  (string) $encrypted_chunk;
+            $completeMsg .=  (string) $encryptedChunk;
         }
 
         //return the encrypted message base64-encoded
-        return base64_encode($complete_message);
+        return base64_encode($completeMsg);
     }
 
     /**
@@ -154,48 +154,48 @@ abstract class Cryptography
      * </code>
      * 
      * 
-     * @param PublicKey $key         the public key to be used to decrypt the encrypted message
-     * @param string    $enc_message the message to be decrypted
+     * @param PublicKey $key          the public key to be used to decrypt the encrypted message
+     * @param string    $encryptedMsg the message to be decrypted
      *
      * @return string the encrypted message
      *
      * @throws \InvalidArgumentException the encrypted message is not a string
      * @throws AsymmetricException       an error occurred while decrypting the given message
      */
-    public static function decrypt(PublicKey &$key, $enc_message)
+    public static function decrypt(PublicKey &$key, $encryptedMsg)
     {
         //check the encrypted message type
-        if ((!is_string($enc_message)) || (strlen($enc_message) <= 0)) {
+        if ((!is_string($encryptedMsg)) || (strlen($encryptedMsg) <= 0)) {
             throw new \InvalidArgumentException('The encrypted message to be decrypted must be given as a non-empty string');
         }
 
         //base64-decode of the encrypted message
-        $complete_message = base64_decode($enc_message);
+        $completeMsg = base64_decode($encryptedMsg);
 
         //get the key in native format and its length
         $managedKey = $key();
 
         //check if the message can be decrypted
-        /*if (($complete_message % $managedKey['byteLength']) != 0) {
+        /*if (($completeMsg % $managedKey['byteLength']) != 0) {
             throw new AsymmetricException('The message decryption cannot take place because the given message is malformed', 6);
         }*/
 
         //encrypt the complete message
-        $complete_unencrypted_message = '';
-        foreach (str_split($complete_message, $managedKey['byteLength']) as $encrypted_chunk) {
-            $message_chunk = null;
+        $message = '';
+        foreach (str_split($completeMsg, $managedKey['byteLength']) as $encryptedChunk) {
+            $msgChunk = null;
 
             //decrypt the current chunk of encrypted message
-            if (!openssl_public_decrypt($encrypted_chunk, $message_chunk, $managedKey['key'], OPENSSL_PKCS1_PADDING)) {
+            if (!openssl_public_decrypt($encryptedChunk, $msgChunk, $managedKey['key'], OPENSSL_PKCS1_PADDING)) {
                 throw new AsymmetricException("The message decryption can't be accomplished due to an unknown error", 5);
             }
 
             //join the current unencrypted chunk to the complete message
-            $complete_unencrypted_message .= (string) $message_chunk;
+            $message .= (string) $msgChunk;
         }
 
         //return the decrypted message
-        return $complete_unencrypted_message;
+        return $message;
     }
 
     /**
@@ -219,44 +219,44 @@ abstract class Cryptography
      * </code>
      * 
      * 
-     * @param PrivateKey $key         the public key to be used to decrypt the encrypted message
-     * @param string     $enc_message the message to be decrypted
+     * @param PrivateKey $key          the public key to be used to decrypt the encrypted message
+     * @param string     $encryptedMsg the message to be decrypted
      *
      * @return string the encrypted message
      *
      * @throws \InvalidArgumentException the encrypted message is not a string
      * @throws AsymmetricException       an error occurred while decrypting the given message
      */
-    public static function decryptReverse(PrivateKey &$key, $enc_message)
+    public static function decryptReverse(PrivateKey &$key, $encryptedMsg)
     {
         //check the encrypted message type
-        if ((!is_string($enc_message)) || (strlen($enc_message) <= 0)) {
+        if ((!is_string($encryptedMsg)) || (strlen($encryptedMsg) <= 0)) {
             throw new \InvalidArgumentException('The encrypted message to be decrypted must be given as a non-empty string');
         }
 
         //base64-decode of the encrypted message
-        $complete_message = base64_decode($enc_message);
+        $completeMsg = base64_decode($encryptedMsg);
 
         //get the key in native format and its length
         $managedKey = $key();
 
         //check if the message can be decrypted
-        /*if (($complete_message % $managedKey['byteLength']) != 0) {
+        /*if (($completeMsg % $managedKey['byteLength']) != 0) {
             throw new AsymmetricException('The message decryption cannot take place because the given message is malformed', 6);
         }*/
 
         //encrypt the complete message
         $complete_unencrypted_message = '';
-        foreach (str_split($complete_message, $managedKey['byteLength']) as $encrypted_chunk) {
-            $message_chunk = null;
+        foreach (str_split($completeMsg, $managedKey['byteLength']) as $encryptedChunk) {
+            $msgChunk = null;
 
             //decrypt the current chunk of encrypted message
-            if (!openssl_private_decrypt($encrypted_chunk, $message_chunk, $managedKey['key'], OPENSSL_PKCS1_PADDING)) {
+            if (!openssl_private_decrypt($encryptedChunk, $msgChunk, $managedKey['key'], OPENSSL_PKCS1_PADDING)) {
                 throw new AsymmetricException("The message decryption can't be accomplished due to an unknown error", 20);
             }
 
             //join the current unencrypted chunk to the complete message
-            $complete_unencrypted_message .= (string) $message_chunk;
+            $complete_unencrypted_message .= (string) $msgChunk;
         }
 
         //return the decrypted message
@@ -364,10 +364,10 @@ abstract class Cryptography
         }
 
         //get the signature result
-        $binary_unsafe_signature = base64_decode($signature);
+        $binSignature = base64_decode($signature);
 
         //attempt to verify the digital signature
-        $verificationResult = openssl_verify($message, $binary_unsafe_signature, $key()['key'], OPENSSL_ALGO_SHA256);
+        $verificationResult = openssl_verify($message, $binSignature, $key()['key'], OPENSSL_ALGO_SHA256);
 
         //check for errors in the process
         if (($verificationResult !== 0) && ($verificationResult !== 1)) {

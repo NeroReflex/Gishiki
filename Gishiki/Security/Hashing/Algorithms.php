@@ -29,14 +29,14 @@ abstract class Algorithms
     /**************************************************************************
      *                     Common hashing algorithms                          *
      **************************************************************************/
-    const CRC32     = 'crc32';
-    const MD4       = 'md4';
-    const MD5       = 'md5';
-    const SHA1      = 'sha1';
-    const SHA256    = 'sha256';
-    const SHA328    = 'sha384';
-    const SHA512    = 'sha512';
-    const ROT13     = 'rot13';
+    const CRC32 = 'crc32';
+    const MD4 = 'md4';
+    const MD5 = 'md5';
+    const SHA1 = 'sha1';
+    const SHA256 = 'sha256';
+    const SHA328 = 'sha384';
+    const SHA512 = 'sha512';
+    const ROT13 = 'rot13';
 
     /**
      * Generate the message digest for the given message.
@@ -54,19 +54,19 @@ abstract class Algorithms
      * }
      * </code>
      * 
-     * @param string $message    the string to be hashed
-     * @param string $algorithm  the name of the hashing algorithm
-     * @param bool   $raw_output if false the result is binhex
+     * @param string $message   the string to be hashed
+     * @param string $algorithm the name of the hashing algorithm
+     * @param bool   $rawOutput if false the result is binhex
      *
      * @return string the result of the hash algorithm
      *
      * @throws \InvalidArgumentException the message or the algorithm is given as a non-string or an empty string
      * @throws HashingException          the error occurred while generating the hash for the given message
      */
-    public static function hash($message, $algorithm = self::MD5, $raw_output = false)
+    public static function hash($message, $algorithm = self::MD5, $rawOutput = false)
     {
         //check for the parameter
-        if (!is_bool($raw_output)) {
+        if (!is_bool($rawOutput)) {
             throw new \InvalidArgumentException('The binary safeness must be given as a boolean value');
         }
 
@@ -79,7 +79,7 @@ abstract class Algorithms
         if ((!is_string($algorithm)) || (strlen($algorithm) <= 0)) {
             throw new \InvalidArgumentException('The name of the hashing algorithm must be given as a valid non-empty string');
         }
-        
+
         if ($algorithm == self::ROT13) {
             return str_rot13($message);
         }
@@ -90,7 +90,7 @@ abstract class Algorithms
         }
 
         //calculate the hash for the given message
-        $hash = ((in_array($algorithm, openssl_get_md_methods()))) ? openssl_digest($message, $algorithm, $raw_output) : hash($algorithm, $algorithm, $raw_output);
+        $hash = ((in_array($algorithm, openssl_get_md_methods()))) ? openssl_digest($message, $algorithm, $rawOutput) : hash($algorithm, $algorithm, $rawOutput);
 
         //check for errors
         if ($hash === false) {
@@ -109,25 +109,25 @@ abstract class Algorithms
      * This implementation of PBKDF2 was originally created by https://defuse.ca
      * With improvements by http://www.variations-of-shadow.com
      * 
-     * @param string $algorithm  the hash algorithm to use. Recommended: SHA256
-     * @param string $password   the password
-     * @param string $salt       a salt that is unique to the password
-     * @param string $count      iteration count. Higher is better, but slower. Recommended: At least 1000
-     * @param string $key_length the length of the derived key in bytes
-     * @param string $raw_output if true, the key is returned in raw binary format. Hex encoded otherwise
+     * @param string $algorithm the hash algorithm to use. Recommended: SHA256
+     * @param string $password  the password
+     * @param string $salt      a salt that is unique to the password
+     * @param string $count     iteration count. Higher is better, but slower. Recommended: At least 1000
+     * @param string $keyLength the length of the derived key in bytes
+     * @param string $rawOutput if true, the key is returned in raw binary format. Hex encoded otherwise
      *
      * @return string the key derived from the password and salt
      *
      * @throws \InvalidArgumentException invalid arguments have been passed
      * @throws HashingException          the error occurred while generating the requested hashing algorithm
      */
-    public static function pbkdf2($password, $salt, $key_length, $count, $algorithm = self::SHA1, $raw_output = false, $force_slow_algo = false)
+    public static function pbkdf2($password, $salt, $keyLength, $count, $algorithm = self::SHA1, $rawOutput = false, $forceSlowAlgo = false)
     {
         if ((!is_integer($count)) || ($count <= 0)) {
             throw new \InvalidArgumentException('The iteration number for the PBKDF2 function must be a positive non-zero integer', 2);
         }
 
-        if ((!is_integer($key_length)) || ($key_length <= 0)) {
+        if ((!is_integer($keyLength)) || ($keyLength <= 0)) {
             throw new \InvalidArgumentException('The resulting key length for the PBKDF2 function must be a positive non-zero integer', 2);
         }
 
@@ -137,10 +137,10 @@ abstract class Algorithms
             $algorithm = strtolower($algorithm);
         }
 
-        //the raw output of the max legth (beyond the $key_length algorithm)
+        //the raw output of the max legth (beyond the $keyLength algorithm)
         $output = '';
 
-        if ((function_exists('openssl_pbkdf2')) && (!$force_slow_algo)) {
+        if ((function_exists('openssl_pbkdf2')) && (!$forceSlowAlgo)) {
             /*          execute the native openssl_pbkdf2                   */
 
             //check if the algorithm is valid
@@ -148,7 +148,7 @@ abstract class Algorithms
                 throw new HashingException('Invalid algorithm: the choosen algorithm is not valid for the PBKDF2 function', 2);
             }
 
-            $output = openssl_pbkdf2($password, $salt, $key_length, $count, $algorithm);
+            $output = openssl_pbkdf2($password, $salt, $keyLength, $count, $algorithm);
         } elseif (function_exists('hash_pbkdf2')) {
             /*          execute the native hash_pbkdf2                     */
 
@@ -157,12 +157,12 @@ abstract class Algorithms
                 throw new HashingException('Invalid algorithm: the choosen algorithm is not valid for the PBKDF2 function', 2);
             }
 
-            // The output length is in NIBBLES (4-bits) if $raw_output is false!
-            if (!$raw_output) {
-                $key_length = $key_length * 2;
+            // The output length is in NIBBLES (4-bits) if $rawOutput is false!
+            if (!$rawOutput) {
+                $keyLength = $keyLength * 2;
             }
 
-            return hash_pbkdf2($algorithm, $password, $salt, $count, $key_length, $raw_output);
+            return hash_pbkdf2($algorithm, $password, $salt, $count, $keyLength, $rawOutput);
         } else {
             /*          use an hack to emulate openssl_pbkdf2               */
 
@@ -171,10 +171,10 @@ abstract class Algorithms
                 throw new HashingException('Invalid algorithm: the choosen algorithm is not valid for the PBKDF2 function', 2);
             }
 
-            $hash_length = strlen(hash($algorithm, '', true));
-            $block_count = ceil($key_length / $hash_length);
+            $hashLength = strlen(hash($algorithm, '', true));
+            $blockCount = ceil($keyLength / $hashLength);
 
-            for ($i = 1; $i <= $block_count; ++$i) {
+            for ($i = 1; $i <= $blockCount; ++$i) {
                 // $i encoded as 4 bytes, big endian.
                 $last = $salt.pack('N', $i);
 
@@ -189,6 +189,6 @@ abstract class Algorithms
             }
         }
 
-        return ($raw_output) ? substr($output, 0, $key_length) : bin2hex(substr($output, 0, $key_length));
+        return ($rawOutput) ? substr($output, 0, $keyLength) : bin2hex(substr($output, 0, $keyLength));
     }
 }

@@ -56,10 +56,10 @@ abstract class Cryptography
      * //if you used a cistom IV you don't need to pass the IV
      * </code>
      * 
-     * @param SecretKey      $key       the key to be used to encrypt the given message
-     * @param string         $message   the message to be encrypted
-     * @param string|null    $iv        the base64 representation of the IV to be used (pick a random one if null)
-     * @param string         $algorithm the name of the algorithm to be used
+     * @param SecretKey   $key       the key to be used to encrypt the given message
+     * @param string      $message   the message to be encrypted
+     * @param string|null $iv        the base64 representation of the IV to be used (pick a random one if null)
+     * @param string      $algorithm the name of the algorithm to be used
      *
      * @return array the base64 of the raw encryption result and the used IV
      *

@@ -162,8 +162,9 @@ class RouteTest extends \PHPUnit_Framework_TestCase
             'SCRIPT_NAME' => '/foo/bar/index.php',
             'REQUEST_URI' => '/foo/bar?abc=123',
         ]);
+        $request = Request::createFromEnvironment($env);
         $response = new Response();
-        $test_route(Request::createFromEnvironment($env), $response, $match_result);
+        $test_route($request, $response, $match_result);
 
         $body = $response->getBody();
         $body->rewind();

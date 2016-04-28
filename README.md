@@ -1,5 +1,7 @@
 # Gishiki
 
+[![wercker status](https://app.wercker.com/status/c7f1b1c76dcaf0d1b89006808d2d456b/m "wercker status")](https://app.wercker.com/project/bykey/c7f1b1c76dcaf0d1b89006808d2d456b)
+
 [![Build Status](https://travis-ci.org/NeroReflex/Gishiki.svg?branch=master)](https://travis-ci.org/NeroReflex/Gishiki)
 
 _*Gishiki*_: a modern and elegant MVC framework for PHP >= 5.4 and HHVM.

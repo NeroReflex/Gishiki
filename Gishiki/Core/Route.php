@@ -48,9 +48,9 @@ namespace Gishiki\Core {
         /**
          * Add a route to the route redirection list.
          * 
-         * @param \Gishiki\Core\Route $route the route to be added
+         * @param Route $route the route to be added
          */
-        public static function addRoute(Route $route)
+        public static function addRoute(Route &$route)
         {
             //add the given route to the routes list
             if ($route->isSpecialCallback() === false) {
@@ -96,11 +96,13 @@ namespace Gishiki\Core {
          * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        public static function any($URI, $function)
+        public static function &any($URI, $function)
         {
-            self::addRoute(new self($URI, $function, [
+            $route = new self($URI, $function, [
                 self::ANY,
-            ]));
+            ]);
+            self::addRoute($route);
+            return $route;
         }
 
         /**
@@ -124,11 +126,14 @@ namespace Gishiki\Core {
          * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        public static function match(array $methods, $URI, $function)
+        public static function &match(array $methods, $URI, $function)
         {
+            $route = null;
             if (count($methods) >= 1) {
-                self::addRoute(new self($URI, $function, $methods));
+                $route = new self($URI, $function, $methods);
+                self::addRoute($route);
             }
+            return $route;
         }
 
         /**
@@ -152,9 +157,11 @@ namespace Gishiki\Core {
          * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        public static function get($URI, $function)
+        public static function &get($URI, $function)
         {
-            self::addRoute(new self($URI, $function, [self::GET]));
+            $route = new self($URI, $function, [self::GET]);
+            self::addRoute($route);            
+            return $route;
         }
 
         /**
@@ -177,9 +184,11 @@ namespace Gishiki\Core {
          * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        public static function post($URI, $function)
+        public static function &post($URI, $function)
         {
-            self::addRoute(new self($URI, $function, [self::POST]));
+            $route = new self($URI, $function, [self::POST]);
+            self::addRoute($route);
+            return $route;
         }
 
         /**
@@ -202,9 +211,11 @@ namespace Gishiki\Core {
          * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        public static function put($URI, $function)
+        public static function &put($URI, $function)
         {
-            self::addRoute(new self($URI, $function, [self::PUT]));
+            $route = new self($URI, $function, [self::PUT]);
+            self::addRoute($route);        
+            return $route;
         }
 
         /**
@@ -228,9 +239,11 @@ namespace Gishiki\Core {
          * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        public static function delete($URI, $function)
+        public static function &delete($URI, $function)
         {
-            self::addRoute(new self($URI, $function, [self::DELETE]));
+            $route = new self($URI, $function, [self::DELETE]);
+            self::addRoute($route);
+            return $route;
         }
 
         /**
@@ -249,9 +262,11 @@ namespace Gishiki\Core {
          * @param string   $URI      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        public static function head($URI, $function)
+        public static function &head($URI, $function)
         {
-            self::addRoute(new self($URI, $function, [self::HEAD]));
+            $route = new self($URI, $function, [self::HEAD]);
+            self::addRoute($route);
+            return $route;
         }
 
         /**

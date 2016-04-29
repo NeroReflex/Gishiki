@@ -43,13 +43,13 @@ class Exception extends \Exception
         //setup an empty logger
         $this->logger = null;
 
-        if (!is_null(Environment::GetCurrentEnvironment())) {
-            //build the new log entry
-            $this->setLogger(new Logger());
+        $logger = (!is_null(Environment::GetCurrentEnvironment()))? new Logger() : new Logger("null") ;
+        
+        //build the new log entry
+        $this->setLogger($logger);
 
-            //and use it to transmit the log entry
-            $this->writeLog();
-        }
+        //and use it to transmit the log entry
+        $this->writeLog();
     }
 
     /**

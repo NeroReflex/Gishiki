@@ -55,9 +55,11 @@ namespace Gishiki\Core {
         public static function &addRoute(Route &$route)
         {
             //add the given route to the routes list
-            return ($route->isSpecialCallback() === false) ?
-                self::$routes[] = $route :
-                self::$callbacks[] = $route;
+            ($route->isSpecialCallback() === false) ?
+                self::$routes[] = &$route :
+                self::$callbacks[] = &$route;
+            
+            return $route;
         }
 
         /*
@@ -127,14 +129,14 @@ namespace Gishiki\Core {
          * @param string   $uri      the URI that will bring to the function execution
          * @param function $function the function executed when the URL is called
          */
-        public static function &match(array $methods, $uri, $function)
+        public static function &match($methods, $uri, $function)
         {
-            $route = null;
-            if (count($methods) >= 1) {
-                $route = new self($uri, $function, $methods);
-                self::addRoute($route);
+            if ((!is_array($methods)) || (count($methods) <= 0)) {
+                throw new \InvalidArgumentException("The collection of allowed methods must be given as a non-null array of strings");
             }
-
+            
+            $route = new self($uri, $function, $methods);
+            self::addRoute($route);
             return $route;
         }
 
@@ -575,11 +577,7 @@ namespace Gishiki\Core {
             } elseif (is_string($this->action)) {
                 //execute the controller
                 Controller::Execute($this->action, $request, $response, $arguments);
-            } /* else {
-                //what are you fucking doing?
-                $response = $response->withStatus(500);
-                $response->write('Undefined route behaviour');
-            } */
+            }
         }
     }
 }

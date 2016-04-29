@@ -46,12 +46,10 @@ namespace Gishiki\JSON {
             }
 
             //the deserialization result MUST be an array
-            if (gettype($nativeSerialization) != 'array') {
-                $nativeSerialization = [];
-            }
+            $serializationResult = (is_array($nativeSerialization))? $nativeSerialization : [];
 
             //return the deserialization result if everything went right
-            return $nativeSerialization;
+            return $serializationResult;
         }
 
         /**

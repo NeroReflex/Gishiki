@@ -242,4 +242,50 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         
         $this->assertSame($test_route, Route::addRoute($test_route));
     }
+    
+    public function testSpecialRouting()
+    {
+        $this->setUp();
+        
+        $env = Environment::mock([
+            'SCRIPT_NAME' => '/index.php',
+            'REQUEST_URI' => '/this_cannot_be_found',
+        ]);
+        $reqestToFulfill = Request::createFromEnvironment($env);
+        
+        Route::put("/should_not_match", function(Request &$request, Response &$response,  GenericCollection &$collection) {
+            $response->write("Bad error!");
+        });
+        
+        Route::get("/{user_mail:email}/post/{postname}", function(Request &$request, Response &$response,  GenericCollection &$collection) {
+            $response->write("Bad error!");
+        });
+        
+        Route::match([Route::GET], "/{user_id:number}/post/{postname}", function(Request &$request, Response &$response,  GenericCollection &$collection) {
+            $response->write("Searched post ".$collection->postname." by user ".$collection->user_id);
+        });
+        
+        Route::head("/{user_id:number}/post/{postname}", function(Request &$request, Response &$response,  GenericCollection &$collection) {
+            $response->write("Created at: ".time());
+        });
+        
+        Route::delete("/{user_id:number}/post/{postname}", function(Request &$request, Response &$response,  GenericCollection &$collection) {
+            $response->write("It is not possible to remove posts by user ".$collection->user_id);
+        });
+        
+        Route::any(Route::NOT_FOUND, function (&$request, &$response) {
+            $response->write("404 Not Found");
+        });
+        
+        $responseFilled = Route::run($reqestToFulfill);
+        
+        $body = $responseFilled->getBody();
+        $body->rewind();
+        $data = '';
+        while (!$body->eof()) {
+            $data .= $body->read(1);
+        }
+        
+        $this->assertEquals("404 Not Found", $data);
+    }
 }

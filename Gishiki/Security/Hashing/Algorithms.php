@@ -109,11 +109,11 @@ abstract class Algorithms
      * This implementation of PBKDF2 was originally created by https://defuse.ca
      * With improvements by http://www.variations-of-shadow.com
      * 
-     * @param string $algorithm    the hash algorithm to use. Recommended: SHA256
      * @param string $password     the password
      * @param string $salt         a salt that is unique to the password
-     * @param string $count        iteration count. Higher is better, but slower. Recommended: At least 1000
      * @param string $keyLength    the length of the derived key in bytes
+     * @param string $count        iteration count. Higher is better, but slower. Recommended: At least 1000
+     * @param string $algorithm    the hash algorithm to use. Recommended: SHA256
      * @param string $binaryUnsafe if true, the key is returned in raw binary format. Hex encoded otherwise
      *
      * @return string the key derived from the password and salt
@@ -121,7 +121,7 @@ abstract class Algorithms
      * @throws \InvalidArgumentException invalid arguments have been passed
      * @throws HashingException          the error occurred while generating the requested hashing algorithm
      */
-    public static function pbkdf2($password, $salt, $keyLength, $count, $algorithm = self::SHA1, $binaryUnsafe = false, $forceSlowAlgo = false)
+    public static function pbkdf2($password, $salt, $keyLength, $count, $algorithm = self::SHA1, $binaryUnsafe = false)
     {
         if ((!is_integer($count)) || ($count <= 0)) {
             throw new \InvalidArgumentException('The iteration number for the PBKDF2 function must be a positive non-zero integer', 2);
@@ -141,7 +141,7 @@ abstract class Algorithms
         //the raw output of the max legth (beyond the $keyLength algorithm)
         $output = '';
 
-        if ((function_exists('openssl_pbkdf2')) && (!$forceSlowAlgo)) {
+        if (function_exists('openssl_pbkdf2')) {
             /*          execute the native openssl_pbkdf2                   */
 
             //check if the algorithm is valid

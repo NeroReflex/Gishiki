@@ -19,6 +19,11 @@ namespace Gishiki\tests\JSON;
 
 use Gishiki\JSON\JSON;
 
+/**
+ * The tester for the JSON class
+ * 
+ * @author Benato Denis <benato.denis96@gmail.com>
+ */
 class JSONTest extends \PHPUnit_Framework_TestCase
 {
     public function testDecode()

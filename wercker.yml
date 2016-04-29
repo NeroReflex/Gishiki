@@ -17,11 +17,14 @@ build:
     - install-packages:
         packages: git
     - script:
-        name: prepare build folder
-        code: mkdir build
+        name: Install extensions
+        code: |-
+            pecl install xdebug
     - script:
-        name: prepare logs folder
-        code: mkdir build/logs
+        name: prepare build folders
+        code: |-
+            mkdir build
+            mkdir build/logs
     - script:
         name: install phpunit
         code: |-
@@ -39,6 +42,6 @@ build:
     - script:
         name: PHPUnit integration tests
         code: phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml
-#    - script:
-#        name: Send to Code Climate
-#        code: vendor/bin/test-reporter
+    - script:
+        name: Send to Code Climate
+        code: vendor/bin/test-reporter

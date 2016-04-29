@@ -23,6 +23,13 @@ use Gishiki\HttpKernel\Response;
 use Gishiki\Core\Environment;
 use Gishiki\Algorithms\Collections\GenericCollection;
 
+/**
+ * The tester for the Route class.
+ * 
+ * Used to test every feature of the router
+ * 
+ * @author Benato Denis <benato.denis96@gmail.com>
+ */
 class RouteTest extends \PHPUnit_Framework_TestCase
 {
     public function testRegexRouter()
@@ -287,5 +294,110 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         }
         
         $this->assertEquals("404 Not Found", $data);
+    }
+    
+    public function testControllerRouting()
+    {
+        $this->setUp();
+        
+        $env = Environment::mock([
+            'SCRIPT_NAME' => '/index.php',
+            'REQUEST_URI' => '/benato.denis96@gmail.com',
+        ]);
+        $reqestToFulfill = Request::createFromEnvironment($env);
+        
+        Route::get('/{mail:email}', 'Gishiki\tests\Application\FakeController->myAction');
+        
+        $responseFilled = Route::run($reqestToFulfill);
+        
+        $body = $responseFilled->getBody();
+        $body->rewind();
+        $data = '';
+        while (!$body->eof()) {
+            $data .= $body->read(1);
+        }
+        
+        $this->assertEquals("My email is: benato.denis96@gmail.com", $data);
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testNonexistentControllerRouting()
+    {
+        $this->setUp();
+        
+        $env = Environment::mock([
+            'SCRIPT_NAME' => '/index.php',
+            'REQUEST_URI' => '/benato.denis96@gmail.com/bad',
+        ]);
+        $reqestToFulfill = Request::createFromEnvironment($env);
+        
+        Route::get('/{mail:email}/bad', 'badController->badAction');
+        
+        //this will trigger the expected exception: no class badController!
+        Route::run($reqestToFulfill);
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBadNameControllerRouting()
+    {
+        $this->setUp();
+        
+        $env = Environment::mock([
+            'SCRIPT_NAME' => '/index.php',
+            'REQUEST_URI' => '/benato.denis96@gmail.com/badname',
+        ]);
+        $reqestToFulfill = Request::createFromEnvironment($env);
+        
+        Route::get('/{mail:email}/badname', 'badController->');
+        
+        //this will trigger the expected exception: no class badController!
+        Route::run($reqestToFulfill);
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBadControllerIdentifierRouting()
+    {
+        $this->setUp();
+        
+        $env = Environment::mock([
+            'SCRIPT_NAME' => '/index.php',
+            'REQUEST_URI' => '/benato.denis96@gmail.com/badid',
+        ]);
+        $reqestToFulfill = Request::createFromEnvironment($env);
+        
+        Route::get('/{mail:email}/badid', 'badController');
+        
+        //this will trigger the expected exception: no class badController!
+        Route::run($reqestToFulfill);
+    }
+    
+    public function testControllerStaticInvokationRouting()
+    {
+        $this->setUp();
+        
+        $env = Environment::mock([
+            'SCRIPT_NAME' => '/index.php',
+            'REQUEST_URI' => '/t3st1n9@fake.co.uk/quick',
+        ]);
+        $reqestToFulfill = Request::createFromEnvironment($env);
+        
+        Route::get('/{mail:email}/quick', 'Gishiki\tests\Application\FakeController::quickAction');
+        
+        $responseFilled = Route::run($reqestToFulfill);
+        
+        $body = $responseFilled->getBody();
+        $body->rewind();
+        $data = '';
+        while (!$body->eof()) {
+            $data .= $body->read(1);
+        }
+        
+        $this->assertEquals("should I send an email to t3st1n9@fake.co.uk?", $data);
     }
 }

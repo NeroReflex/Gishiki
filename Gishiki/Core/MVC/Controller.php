@@ -35,54 +35,67 @@ class Controller
     /**
      * Execute the given controller.
      * 
-     * @param string $action the name of the controller & action to be used
+     * @param string                     $action    the name of the controller and action to be used
+     * @param Request                    $request   the request to serve
+     * @param Response                   $response  the response to the given request
+     * @param GenericCollection          $arguments the list of passed arguments
+     * @throws \InvalidArgumentException            the given action identifier does not identify a valid action
      */
-    public static function Execute($action, Request $request, Response &$response, GenericCollection &$arguments)
+    public static function Execute($action, Request &$request, Response &$response, GenericCollection &$arguments)
     {
         //check for bad action
-        if ((!is_string($action)) || (strpos($action, '@') === false)) {
-            throw new \InvalidArgumentException("The name of the controller to be executed must be expressed as: 'action@controller'");
+        if ((!is_string($action)) || ((strpos($action, '@') === false) && (strpos($action, '->') === false))) {
+            throw new \InvalidArgumentException("The name of the controller to be executed must be expressed as: 'action@controller' or 'controller->action'");
         }
 
         //get the name of the action and the controller to be executed
-        $action_controller = explode('@', $action);
-
+        $controller = (strpos($action, '@') !== false)? explode('@', $action) : explode('->', $action);
+        
         //check for bad names
-        if ((strlen($action_controller[0]) <= 0) || (strlen($action_controller[1]) <= 0)) {
+        if ((strlen($controller[0]) <= 0) || (strlen($controller[1]) <= 0)) {
             throw new \InvalidArgumentException('The name of the action to be taken and controller to be selectad cannot be empty names');
         }
+        
+        if (strpos($action, '->') !== false) {
+            $temp = $controller[1];
+            $controller[1] = $controller[0];
+            $controller[0] = $temp;
+        }
 
+        $controllerName         = $controller[1];
+        $controllerAction       = $controller[0];
+        
         //and check for a class with the given name
-        if (!class_exists($action_controller[1])) {
+        if ((!class_exists($controllerName)) && (!is_null(Environment::GetCurrentEnvironment()))) {
             //get the name of the controller file
-            $controller_filepath = Environment::GetCurrentEnvironment()->GetConfigurationProperty('CONTROLLER_DIR')
-                    .$action_controller[1].'.php';
+            $controllerFilepath = Environment::GetCurrentEnvironment()->GetConfigurationProperty('CONTROLLER_DIR')
+                    .$controllerName.'.php';
 
-            if (!file_exists($controller_filepath)) {
+            if (!file_exists($controllerFilepath)) {
                 throw new \InvalidArgumentException('The given controller cannot be found on your application directory');
             }
 
             //include the controller file
-            include $controller_filepath;
-
-            //and re-check for the given controller name
-            if (!class_exists($action_controller[1])) {
-                throw new \InvalidArgumentException('The given controller name does NOT identify a valid controller but just a file with the correct name');
-            }
+            include $controllerFilepath;
         }
 
+        //and re-check for the given controller name
+        if (!class_exists($controllerName)) {
+            throw new \InvalidArgumentException('The given controller ('.$controllerName.') does NOT identify a valid controller');
+        }
+        
         //reflect the given controller class
-        $reflected_controller = new \ReflectionClass($action_controller[1]);
+        $reflectedController = new \ReflectionClass($controllerName);
 
         //and create a new instance of it
-        $controller = $reflected_controller->newInstanceArgs([$request, &$response, &$arguments]);
+        $controllerMethod = $reflectedController->newInstanceArgs([&$request, &$response, &$arguments]);
 
         //reflect the requested action
-        $reflected_action = new \ReflectionMethod($action_controller[1], $action_controller[0]);
+        $reflected_action = new \ReflectionMethod($controllerName, $controllerAction);
         $reflected_action->setAccessible(true); //can invoke private methods :)
 
         //and execute it
-        $reflected_action->invoke($controller);
+        $reflected_action->invoke($controllerMethod);
     }
 
     /***************************************************************************
@@ -119,7 +132,7 @@ class Controller
      * @param Response          $response  the response to be given to the client
      * @param GenericCollection $arguments the collection of catched URI params
      */
-    public function __construct(Request $request, Response &$response, GenericCollection &$arguments)
+    public function __construct(Request &$request, Response &$response, GenericCollection &$arguments)
     {
         //save the request
         $this->Request = $request;

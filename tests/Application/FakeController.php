@@ -28,13 +28,15 @@ use Gishiki\Algorithms\Collections\GenericCollection;
  * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class FakeController extends \Gishiki\Core\MVC\Controller {
-    
-    public function myAction() {
-        $this->Response->write("My email is: ".$this->Arguments->mail);
+class FakeController extends \Gishiki\Core\MVC\Controller
+{
+    public function myAction()
+    {
+        $this->Response->write('My email is: '.$this->Arguments->mail);
     }
-    
-    public static function quickAction(Request &$request, Response &$response,  GenericCollection &$collection) {
-        $response->write("should I send an email to ".$collection->mail."?");
+
+    public static function quickAction(Request &$request, Response &$response,  GenericCollection &$collection)
+    {
+        $response->write('should I send an email to '.$collection->mail.'?');
     }
 }

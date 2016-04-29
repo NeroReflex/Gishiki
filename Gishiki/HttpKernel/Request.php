@@ -150,7 +150,7 @@ class Request extends Message implements ServerRequestInterface
         if ($method === 'POST' &&
             in_array($request->getMediaType(), ['application/x-www-form-urlencoded', 'multipart/form-data'])
         ) {
-            // parsed body must be $_POST
+            // parsed body must be $_POST filter_input_array(INPUT_POST) won't work!
             $request = $request->withParsedBody($_POST);
         }
 

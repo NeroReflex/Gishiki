@@ -34,7 +34,7 @@ class StreamAdapter extends \Psr\Log\AbstractLogger
     /**
      * Setup a logger that works on streams.
      * 
-     * Allowed streams are: 'stderr' and 'stdout'.
+     * Allowed streams are: 'stderr', 'stdout' and 'stdmem'.
      * 
      * Default on stderr
      * 
@@ -46,13 +46,15 @@ class StreamAdapter extends \Psr\Log\AbstractLogger
             $this->stream = fopen('php://stderr', 'w');
         } elseif (($stream == 'stdout') || ($stream == 'out') || ($stream == 'output')) {
             $this->stream = fopen('php://stdout', 'w');
+        } elseif (($stream == 'memory') || ($stream == 'mem') || ($stream == 'stdmem')) {
+            $this->stream = fopen('php://memory', 'rw');
         }
     }
 
     public function log($level, $message, array $context = array())
     {
         $interpolated_message = Manipulation::interpolate($message, $context);
-        $interpolated_message = trim($interpolated_message);
+        $interpolated_message = trim($interpolated_message, "\n");
 
         //return value isn't documentated because it MUST NOT be used/trusted
         return ($this->stream) ? fwrite($this->stream, '['.$level.'] '.$interpolated_message."\n") : null;

@@ -38,6 +38,9 @@ final class Logger extends AbstractLogger
      * adapter for the given connector OR the default
      * one if 'default' is given.
      *
+     * Giving a connector named 'null' will result in
+     * a null logger: a logger that doesn't log!
+     * 
      * @param string $connector
      */
     public function __construct($connector = 'default')
@@ -47,7 +50,7 @@ final class Logger extends AbstractLogger
         //create te logger from the correct adapter
         if (($connector === null) || (strlen($connector) == 0) || (strtolower($connector) == 'null') || (strtolower($connector) == 'void')) {
             $this->adapter = new \Psr\Log\NullLogger();
-        } else {
+        } elseif (strpos($connector, "://") !== false) {
             if ($connector == 'default') {
                 $connector = Environment::GetCurrentEnvironment()->GetConfigurationProperty('LOG_CONNECTION_STRING');
             }

@@ -133,35 +133,35 @@ final class PrivateKey
      * If a string containing a serialized private key is
      * not give, the framework default one will be used
      *
-     * @param string|null $custom_key          the private key serialized as a string
-     * @param string      $custom_key_password the password to decrypt the serialized private key (if necessary)
+     * @param string|null $customKey         the private key serialized as a string
+     * @param string      $customKeyPassword the password to decrypt the serialized private key (if necessary)
      *
      * @throws \InvalidArgumentException the given key and/or password isn't a valid string
      * @throws AsymmetricException       the given key is invalid
      */
-    public function __construct($custom_key = null, $custom_key_password = '')
+    public function __construct($customKey = null, $customKeyPassword = '')
     {
-        if (!is_string($custom_key_password)) {
+        if (!is_string($customKeyPassword)) {
             throw new \InvalidArgumentException('The private key password cannot be something else than a string');
         }
 
-        //get a string containing a serialized asymmetric key
-        if (is_string($custom_key)) {
-            $serialized_key = $custom_key;
-        } elseif (is_null($custom_key)) {
-            $serialized_key = Environment::GetCurrentEnvironment()->GetConfigurationProperty('MASTER_ASYMMETRIC_KEY');
-        } else {
+        if ((!is_string($customKey)) && (!is_null($customKey))) {
             throw new \InvalidArgumentException('The serialized private key must be a string');
         }
+
+        //get a string containing a serialized asymmetric key
+        $serialized_key = (is_string($customKey)) ?
+            $serialized_key = $customKey :
+            Environment::GetCurrentEnvironment()->GetConfigurationProperty('MASTER_ASYMMETRIC_KEY');
 
         //get the beginning and ending of a private key (to stip out additional shit and check for key validity)
         $is_encrypted = strpos($serialized_key, 'ENCRYPTED') !== false;
 
         //get the password of the serialized key
-        $serialized_key_password = ($is_encrypted) ? $custom_key_password : '';
+        $serializedKeyPassword = ($is_encrypted) ? $customKeyPassword : '';
 
         //load the private key
-        $this->key = openssl_pkey_get_private($serialized_key, $serialized_key_password);
+        $this->key = openssl_pkey_get_private($serialized_key, $serializedKeyPassword);
 
         //check for errors
         if (!$this->isLoaded()) {
@@ -208,16 +208,16 @@ final class PrivateKey
      * $privateKey = new PrivateKey($exported_key);
      * </code>
      * 
-     * @param string $key_password the private key password
+     * @param string $keyPassword the private key password
      *
      * @return string the serialized private key
      *
      * @throws \InvalidArgumentException the given password is not a string
      * @throws AsymmetricException       the given key is invalid
      */
-    public function export($key_password = '')
+    public function export($keyPassword = '')
     {
-        if (!is_string($key_password)) {
+        if (!is_string($keyPassword)) {
             throw new \InvalidArgumentException('The private key password cannot be something else than a string');
         } elseif (!$this->isLoaded()) {
             throw new AsymmetricException('It is impossible to serialize an unloaded private key', 1);
@@ -238,8 +238,8 @@ final class PrivateKey
         }
 
         //serialize the key and encrypt it if requested
-        if (strlen($key_password) > 0) {
-            openssl_pkey_export($this->key, $serialized_key, $key_password, $config);
+        if (strlen($keyPassword) > 0) {
+            openssl_pkey_export($this->key, $serialized_key, $keyPassword, $config);
         } else {
             openssl_pkey_export($this->key, $serialized_key, null, $config);
         }

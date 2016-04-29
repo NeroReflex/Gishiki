@@ -58,7 +58,7 @@ namespace Gishiki\Core {
             ($route->isSpecialCallback() === false) ?
                 self::$routes[] = &$route :
                 self::$callbacks[] = &$route;
-            
+
             return $route;
         }
 
@@ -132,11 +132,12 @@ namespace Gishiki\Core {
         public static function &match($methods, $uri, $function)
         {
             if ((!is_array($methods)) || (count($methods) <= 0)) {
-                throw new \InvalidArgumentException("The collection of allowed methods must be given as a non-null array of strings");
+                throw new \InvalidArgumentException('The collection of allowed methods must be given as a non-null array of strings');
             }
-            
+
             $route = new self($uri, $function, $methods);
             self::addRoute($route);
+
             return $route;
         }
 
@@ -433,7 +434,7 @@ namespace Gishiki\Core {
 
                 //try matching the regex against the currently requested URI
                 $matches = [];
-                
+
                 if (((in_array($method, $methods)) || (in_array(self::ANY, $methods))) && (preg_match($regexData['regex'], $uri, $matches))) {
                     $reversedUri = [];
                     $skipNum = 1;

@@ -149,7 +149,7 @@ class Response extends Message implements ResponseInterface
 
         //send the response HTTP message
         $body = $this->getBody();
-	$bodySize = $body->getSize();
+        $bodySize = $body->getSize();
         if ($body->isSeekable()) {
             $body->rewind();
         }
@@ -162,7 +162,7 @@ class Response extends Message implements ResponseInterface
         $sent = 0;
         $defContLength = isset($contentLength);
 
-        $amountToRead = ($contentLength)? intval($contentLength) : $bodySize;
+        $amountToRead = ($contentLength) ? intval($contentLength) : $bodySize;
         while ($amountToRead > 0 && !$body->eof()) {
             $data = $body->read(min($chunkSize, $amountToRead));
 

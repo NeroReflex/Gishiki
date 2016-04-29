@@ -17,9 +17,6 @@ build:
     - install-packages:
         packages: git
     - script:
-        name: prepare folders
-        code: mkdir build/logs
-    - script:
         name: install phpunit
         code: |-
           curl -L https://phar.phpunit.de/phpunit.phar -o /usr/local/bin/phpunit
@@ -35,7 +32,7 @@ build:
         code: php -S localhost:8000 >> /dev/null &
     - script:
         name: PHPUnit integration tests
-        code: phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml
+        code: phpunit --configuration phpunit.xml --coverage-clover clover.xml
     - script:
         name: Send to Code Climate
         code: vendor/bin/test-reporter

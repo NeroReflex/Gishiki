@@ -46,7 +46,7 @@ final class Logger extends AbstractLogger
 
         //create te logger from the correct adapter
         if (($connector === null) || (strlen($connector) == 0) || (strtolower($connector) == 'null') || (strtolower($connector) == 'void')) {
-            $this->adapter = \Psr\Log\NullLogger;
+            $this->adapter = new \Psr\Log\NullLogger();
         } else {
             if ($connector == 'default') {
                 $connector = Environment::GetCurrentEnvironment()->GetConfigurationProperty('LOG_CONNECTION_STRING');

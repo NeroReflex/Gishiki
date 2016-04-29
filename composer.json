@@ -31,7 +31,8 @@
     "require-dev": {
         "codeclimate/php-test-reporter": "dev-master",
         "squizlabs/php_codesniffer": "^2.5",
-        "phpunit/phpunit": ">=4.8"
+        "phpunit/phpunit": ">=4.8",
+        "ext-mbstring": "*"
     },
 
     "suggest": {

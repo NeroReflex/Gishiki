@@ -177,4 +177,69 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(50, intval($data));
     }
+    
+    public function testFullRouterExecution()
+    {
+        $this->setUp();
+        
+        $env = Environment::mock([
+            'SCRIPT_NAME' => '/index.php',
+            'REQUEST_URI' => '/23/post/testing',
+        ]);
+        $reqestToFulfill = Request::createFromEnvironment($env);
+        
+        Route::post("/should_not_match", function(Request &$request, Response &$response,  GenericCollection &$collection) {
+            $response->write("Bad error!");
+        });
+        
+        Route::get("/{user_mail:email}/post/{postname}", function(Request &$request, Response &$response,  GenericCollection &$collection) {
+            $response->write("Bad error!");
+        });
+        
+        Route::match([Route::GET], "/{user_id:number}/post/{postname}", function(Request &$request, Response &$response,  GenericCollection &$collection) {
+            $response->write("Searched post ".$collection->postname." by user ".$collection->user_id);
+        });
+        
+        Route::head("/{user_id:number}/post/{postname}", function(Request &$request, Response &$response,  GenericCollection &$collection) {
+            $response->write("Created at: ".time());
+        });
+        
+        Route::delete("/{user_id:number}/post/{postname}", function(Request &$request, Response &$response,  GenericCollection &$collection) {
+            $response->write("It is not possible to remove posts by user ".$collection->user_id);
+        });
+        
+        $responseFilled = Route::run($reqestToFulfill);
+        
+        $body = $responseFilled->getBody();
+        $body->rewind();
+        $data = '';
+        while (!$body->eof()) {
+            $data .= $body->read(1);
+        }
+        
+        $this->assertEquals("Searched post testing by user 23", $data);
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBadMatchParams()
+    {
+        Route::match(Route::GET, "/{user_id:number}/post/{postname}", function(Request &$request, Response &$response,  GenericCollection &$collection) {
+            $response->write("Searched post ".$collection->postname." by user ".$collection->user_id);
+        });
+    }
+    
+    public function testReturningAddress()
+    {
+        $test_route = new Route('/add/{num_1:integer}/{num_2:integer}', function (Request $request, Response &$response, GenericCollection &$params) {
+            $result = $params->num_1 + $params->num_2;
+
+            $response->write(strval($result));
+            $response = $response->withStatus(500);
+
+        });
+        
+        $this->assertSame($test_route, Route::addRoute($test_route));
+    }
 }

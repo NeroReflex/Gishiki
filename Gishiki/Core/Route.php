@@ -303,7 +303,7 @@ namespace Gishiki\Core {
                 $reversedParams = $currentRoute->matchURI($decodedUri, $reqestToFulfill->getMethod());
                 if (is_object($reversedParams)) {
                     //execute the requested action!
-                    $actionRuote = $currentRoute;
+                    $actionRuote = &$currentRoute;
 
                     //stop searching for a suitable URI to be matched against the current one
                     break;
@@ -426,13 +426,15 @@ namespace Gishiki\Core {
         public function matchURI($uri, $method)
         {
             $reversedParams = null;
+            $methods = $this->getMethods();
 
             if ($this->isSpecialCallback() === false) {
                 $regexData = $this->getRegex();
 
                 //try matching the regex against the currently requested URI
                 $matches = [];
-                if (((in_array($method, $this->methods)) || (in_array(self::ANY, $this->methods))) && (preg_match($regexData['regex'], $uri, $matches))) {
+                
+                if (((in_array($method, $methods)) || (in_array(self::ANY, $methods))) && (preg_match($regexData['regex'], $uri, $matches))) {
                     $reversedUri = [];
                     $skipNum = 1;
                     foreach ($regexData['params'] as $currentKey => $currentMatchName) {
@@ -457,7 +459,7 @@ namespace Gishiki\Core {
                     //build a collection from the current reverser URI
                     $reversedParams = new GenericCollection($reversedUri);
                 }
-            } elseif ((in_array($method, $this->methods)) && ($uri == $this->isSpecialCallback())) {
+            } elseif (((in_array($method, $methods)) || (in_array(self::ANY, $methods))) && ($uri === $this->isSpecialCallback())) {
                 $reversedParams = new GenericCollection();
             }
 

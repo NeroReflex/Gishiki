@@ -15,15 +15,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\StructuredData;
+namespace Gishiki\Algorithms\Collections\StructuredData;
 
 use Gishiki\Algorithms\Collections\GenericCollection;
 
 /**
- * The Gishiki base controller.
- * 
- * Every controller (controllers used to generate an application for the 
- * client) inherits from this class
+ * The structured data management class.
  * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
@@ -43,25 +40,19 @@ class StructuredData extends GenericCollection
         return $result;
     }
     
+    /**
+     * Create structured data collection from the given array.
+     * 
+     * @param  array                     $data the collection of properties
+     * @throws \InvalidArgumentException       an invalid collection was given
+     */
     public function __construct($data = array())
     {
-        //check if the given items list is a valid items list
-        if (!is_array($data)) {
-            throw new \InvalidArgumentException("The collection of properties and nested data must be expressed as an array");
-        }
-
-        //this is the serialized data to be inserted into the collection
-        $serializedData = array();
-        
-        //serialize the current element
-        foreach ($data as $elementName => $elementValue) {
-            $serializedData["".$elementName] = static::serializeValue($elementValue);
-        }
-        
-        //save the array
-        $this->data = $serializedData;
+        parent::__construct($data);
     }
     
-    
+    public function set($key, $value) {
+        parent::set($key, static::serializeValue($value));
+    }
     
 }

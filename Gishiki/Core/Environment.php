@@ -159,7 +159,7 @@ namespace Gishiki\Core {
             $response = Route::run($currentRequest);
 
             //send response to the client
-            Response::send($response);
+            $response->send();
         }
 
         /**

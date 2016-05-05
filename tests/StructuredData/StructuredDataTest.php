@@ -17,7 +17,7 @@ limitations under the License.
 
 namespace Gishiki\tests\StructuredData;
 
-use Gishiki\StructuredData\StructuredData;
+use Gishiki\Algorithms\Collections\StructuredData\StructuredData;
 
 /**
  * A collection of tests for the structured data manager

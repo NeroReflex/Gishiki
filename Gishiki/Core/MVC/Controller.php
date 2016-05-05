@@ -21,7 +21,7 @@ use Gishiki\Core\Environment;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\GenericCollection;
-use Gishiki\StructuredData\StructuredData;
+use Gishiki\Algorithms\Collections\StructuredData\StructuredData;
 
 /**
  * The Gishiki base controller.
@@ -147,7 +147,7 @@ class Controller
     }
     
     
-    public function loadData(StructuredData $serializedData, Request $accepted)
+    public function loadData(StructuredData $serializedData, Request &$request, Response &$response)
     {
         
     }

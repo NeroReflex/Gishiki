@@ -54,7 +54,7 @@ abstract class Base64
         $encoded = str_replace('/', '.', base64_encode($message));
         
         //return the url safe version if requested
-        return ($urlSafe)? rtrim(strtr($encoded, '+~', '-_'), '=') : $encoded;
+        return ($urlSafe)? rtrim(strtr($encoded, '+/', '-_'), '=') : $encoded;
     }
     
     /**
@@ -90,7 +90,7 @@ abstract class Base64
         
         //get the base64 encoded valid string and return the decode result
         $validBase64 = ($url_safe)? 
-                str_pad(strtr($digestedMessage, '-_', '+~'), strlen($digestedMessage) % 4, '=', STR_PAD_RIGHT)
+                str_pad(strtr($digestedMessage, '-_', '+/'), strlen($digestedMessage) + 4 - (strlen($digestedMessage) % 4), '=', STR_PAD_RIGHT)
                 : $digestedMessage;
         return base64_decode($validBase64);
     }

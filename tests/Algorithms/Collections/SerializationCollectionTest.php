@@ -19,7 +19,7 @@ namespace Gishiki\tests\Algorithms\Collections;
 
 use Gishiki\Algorithms\Collections\SerializableCollection;
 
-class GenericCollectionTest extends \PHPUnit_Framework_TestCase
+class SerializationCollectionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException Gishiki\Algorithms\Collections\DeserializationException

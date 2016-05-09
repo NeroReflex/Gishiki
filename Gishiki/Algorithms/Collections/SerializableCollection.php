@@ -46,9 +46,9 @@ class SerializableCollection extends GenericCollection
     /**
      * Serialize the current data collection
      * 
-     * @param integer                      $format an integer representing one of the allowed formats
-     * @throw  \Gishiki\JSON\JSONException         the error occurred while serializing the collection in json format
-     * @return string                              the collection serialized
+     * @param  integer                $format an integer representing one of the allowed formats
+     * @throw  SerializationException         the error occurred while serializing the collection in json format
+     * @return string                         the collection serialized
      */
     public static function serialize($format = self::JSON) {
         if ($format == self::JSON) {
@@ -65,6 +65,14 @@ class SerializableCollection extends GenericCollection
         }*/
     }
     
+    /**
+     * Deserialize the given data collectionand create a serializable data collection.
+     * 
+     * @param  string                 $message the string containing the serialized data
+     * @param  integer                $format  an integer representing one of the allowed formats
+     * @return SerializableCollection          the deserialization result
+     * @throws DeserializationException        the error preventing the data deserialization
+     */
     public static function deserialize($message, $format = self::JSON) {
         if ($format == self::JSON) {
             //try decoding the string
@@ -79,7 +87,7 @@ class SerializableCollection extends GenericCollection
             $serializationResult = (is_array($nativeSerialization)) ? $nativeSerialization : [];
 
             //return the deserialization result if everything went right
-            return new static($serializationResult);
+            return new SerializableCollection($serializationResult);
         }
     }
     

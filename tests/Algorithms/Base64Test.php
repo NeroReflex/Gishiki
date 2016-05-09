@@ -37,15 +37,35 @@ class Base64Test extends \PHPUnit_Framework_TestCase
         Base64::decode(1);
     }
     
-    public function testEncodes() {
+    public function testURLUnsafeEncodes() {
         for ($i = 1; $i < 100; $i++) {
             $message = bin2hex(openssl_random_pseudo_bytes($i));
             
             $binsafe_message = Base64::encode($message, false);
-            $urlsafe_message = Base64::encode($message, true);
             
             $this->assertEquals($message, Base64::decode($binsafe_message));
+        }
+    }
+    
+    public function testURLSafeEncodes() {
+        for ($i = 1; $i < 100; $i++) {
+            $message = bin2hex(openssl_random_pseudo_bytes($i));
+            
+            $urlsafe_message = Base64::encode($message, true);
+            
+            $this->assertEquals($urlsafe_message, urlencode($urlsafe_message));
+            
             $this->assertEquals($message, Base64::decode($urlsafe_message));
+        }
+    }
+    
+    public function testCompatibility() {
+        for ($i = 1; $i < 100; $i++) {
+            $message = bin2hex(openssl_random_pseudo_bytes($i));
+            
+            $safe_message = base64_encode($message);
+            
+            $this->assertEquals($message, Base64::decode($safe_message));
         }
     }
 }

@@ -85,6 +85,7 @@ final class PrivateKey
             'private_key_bits' => $keyLength,
             'private_key_type' => OPENSSL_KEYTYPE_RSA,
         ];
+        //use the application openssl configuration
         if (!is_null(Environment::GetCurrentEnvironment())) {
             $config = array_merge(
                     $config,
@@ -230,12 +231,14 @@ final class PrivateKey
             'digest_alg' => 'sha512',
             'private_key_type' => OPENSSL_KEYTYPE_RSA,
         ];
+        //use the application openssl configuration
         if (!is_null(Environment::GetCurrentEnvironment())) {
             $config = array_merge(
                     $config,
                     ['config' => (file_exists(Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').'openssl.cnf')) ?
                         Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').'openssl.cnf' : null, ]);
         }
+
 
         //serialize the key and encrypt it if requested
         if (strlen($keyPassword) > 0) {

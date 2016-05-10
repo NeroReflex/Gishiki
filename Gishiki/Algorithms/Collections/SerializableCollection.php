@@ -50,13 +50,15 @@ class SerializableCollection extends GenericCollection
      * @throw  SerializationException         the error occurred while serializing the collection in json format
      * @return string                         the collection serialized
      */
-    public static function serialize($format = self::JSON) {
+    public function serialize($format = self::JSON)
+    {
         if ($format == self::JSON) {
-            $result =  json_encode($this->data, JSON_PRETTY_PRINT);
+            //try json encoding
+            $result = json_encode($this->all(), JSON_PRETTY_PRINT);
             
             //and check for the result
             if (json_last_error() != JSON_ERROR_NONE) {
-                throw new SerializationException('The given data cannot be serialized in JSON content', 2);
+                throw new SerializationException('The given data cannot be serialized in JSON content', 2);   
             }
             
             return $result;
@@ -73,10 +75,11 @@ class SerializableCollection extends GenericCollection
      * @return SerializableCollection          the deserialization result
      * @throws DeserializationException        the error preventing the data deserialization
      */
-    public static function deserialize($message, $format = self::JSON) {
+    public static function deserialize($message, $format = self::JSON)
+    {
         if ($format == self::JSON) {
             //try decoding the string
-            $nativeSerialization = json_decode($message, true);
+            $nativeSerialization = json_decode($message, true, 512);
 
             //and check for the result
             if (json_last_error() != JSON_ERROR_NONE) {
@@ -96,7 +99,8 @@ class SerializableCollection extends GenericCollection
      * 
      * @return string the serialization result
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->serialize();
     }
 }

@@ -29,4 +29,43 @@ class SerializationCollectionTest extends \PHPUnit_Framework_TestCase
         $data = SerializableCollection::deserialize("bad json", SerializableCollection::JSON);
     }
     
+    public function testCollection()
+    {
+        $collection = new SerializableCollection();
+        $collection->set("a", 1);
+        $collection->set("b", 5.50);
+        $collection->set("c", "srf");
+        $collection->set("e", true);
+        $collection->set("f", [1, 2, 3, 4]);
+        
+        $this->assertEquals([
+            "a" => 1,
+            "b" => 5.50,
+            "c" => "srf",
+            "e" => true,
+            "f" => [1, 2, 3, 4]
+        ], $collection->all());
+    }
+    
+    public function testJSONSerialization()
+    {
+        $collection = new SerializableCollection([
+            "a" => 1,
+            "b" => 5.50,
+            "c" => "srf",
+            "e" => true,
+            "f" => [1, 2, 3, 4]
+        ]);
+        
+        $serializationResult = /*json_encode*/($collection->serialize());
+        $serialization = json_decode($serializationResult, true);
+        
+        $this->assertEquals([
+            "a" => 1,
+            "b" => 5.50,
+            "c" => "srf",
+            "e" => true,
+            "f" => [1, 2, 3, 4]
+        ], $serialization);
+    }
 }

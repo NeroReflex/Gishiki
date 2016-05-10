@@ -21,6 +21,7 @@ use Gishiki\Core\Route;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Core\Environment;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 use Gishiki\Algorithms\Collections\GenericCollection;
 
 /**
@@ -76,13 +77,13 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
         //test some email address
         $this->assertEquals(
-                new GenericCollection(['address' => 'test_ing+s3m4il@sp4c3.com']),
+                new SerializableCollection(['address' => 'test_ing+s3m4il@sp4c3.com']),
                 $email_route->matchURI('/send/test_ing+s3m4il@sp4c3.com', 'GET'));
         $this->assertEquals(
-                new GenericCollection(['address' => 'test3m4il@sp4c3.co.uk']),
+                new SerializableCollection(['address' => 'test3m4il@sp4c3.co.uk']),
                 $email_route->matchURI('/send/test3m4il@sp4c3.co.uk', 'GET'));
         $this->assertEquals(
-                new GenericCollection(['address' => 'benato.denis96@gmail.com']),
+                new SerializableCollection(['address' => 'benato.denis96@gmail.com']),
                 $email_route->matchURI('/send/benato.denis96@gmail.com', 'GET'));
 
         //test using a number
@@ -93,7 +94,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $random_number = '-'.strval(rand());
 
         $this->assertEquals(
-                new GenericCollection(['random' => $random_number]),
+                new SerializableCollection(['random' => $random_number]),
                 $number_route->matchURI('/MyNumber/'.$random_number, 'GET'));
     }
 
@@ -122,7 +123,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
             '/^\/send\/(([a-zA-Z0-9_\-.+]+)\@([a-zA-Z0-9-]+)\.([a-zA-Z]+)((\.([a-zA-Z]+))?))\/([^\/]+)\/((\+|\-)?(\d)+)$/');
 
         $this->assertEquals(
-                new GenericCollection([
+                new SerializableCollection([
                     'address' => 'test_ing+s3m4il@sp4c3.com',
                     'test' => 'uuuuh... likeit! :)',
                     'test_num' => 32, ]),
@@ -148,7 +149,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
     {
         $this->setUp();
 
-        $test_route = new Route('/add/{num_1:integer}/{num_2:integer}', function (Request $request, Response &$response, GenericCollection &$params) {
+        $test_route = new Route('/add/{num_1:integer}/{num_2:integer}', function (Request $request, Response &$response, SerializableCollection &$params) {
             $result = $params->num_1 + $params->num_2;
 
             $response->write(strval($result));
@@ -159,7 +160,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $match_result = $test_route->matchURI('/add/+59/-9', Route::GET);
 
         $this->assertEquals(
-            new GenericCollection([
+            new SerializableCollection([
                     'num_1' => +59,
                     'num_2' => -9, ]),
             $match_result
@@ -195,23 +196,23 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         ]);
         $reqestToFulfill = Request::createFromEnvironment($env);
 
-        Route::post('/should_not_match', function (Request &$request, Response &$response,  GenericCollection &$collection) {
+        Route::post('/should_not_match', function (Request &$request, Response &$response,  SerializableCollection &$collection) {
             $response->write('Bad error!');
         });
 
-        Route::get('/{user_mail:email}/post/{postname}', function (Request &$request, Response &$response,  GenericCollection &$collection) {
+        Route::get('/{user_mail:email}/post/{postname}', function (Request &$request, Response &$response,  SerializableCollection &$collection) {
             $response->write('Bad error!');
         });
 
-        Route::match([Route::GET], '/{user_id:number}/post/{postname}', function (Request &$request, Response &$response,  GenericCollection &$collection) {
+        Route::match([Route::GET], '/{user_id:number}/post/{postname}', function (Request &$request, Response &$response,  SerializableCollection &$collection) {
             $response->write('Searched post '.$collection->postname.' by user '.$collection->user_id);
         });
 
-        Route::head('/{user_id:number}/post/{postname}', function (Request &$request, Response &$response,  GenericCollection &$collection) {
+        Route::head('/{user_id:number}/post/{postname}', function (Request &$request, Response &$response,  SerializableCollection &$collection) {
             $response->write('Created at: '.time());
         });
 
-        Route::delete('/{user_id:number}/post/{postname}', function (Request &$request, Response &$response,  GenericCollection &$collection) {
+        Route::delete('/{user_id:number}/post/{postname}', function (Request &$request, Response &$response,  SerializableCollection &$collection) {
             $response->write('It is not possible to remove posts by user '.$collection->user_id);
         });
 
@@ -232,14 +233,14 @@ class RouteTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadMatchParams()
     {
-        Route::match(Route::GET, '/{user_id:number}/post/{postname}', function (Request &$request, Response &$response,  GenericCollection &$collection) {
+        Route::match(Route::GET, '/{user_id:number}/post/{postname}', function (Request &$request, Response &$response,  SerializableCollection &$collection) {
             $response->write('Searched post '.$collection->postname.' by user '.$collection->user_id);
         });
     }
 
     public function testReturningAddress()
     {
-        $test_route = new Route('/add/{num_1:integer}/{num_2:integer}', function (Request $request, Response &$response, GenericCollection &$params) {
+        $test_route = new Route('/add/{num_1:integer}/{num_2:integer}', function (Request $request, Response &$response, SerializableCollection &$params) {
             $result = $params->num_1 + $params->num_2;
 
             $response->write(strval($result));
@@ -276,7 +277,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
             $response->write('Created at: '.time());
         });
 
-        Route::delete('/{user_id:number}/post/{postname}', function (Request &$request, Response &$response,  GenericCollection &$collection) {
+        Route::delete('/{user_id:number}/post/{postname}', function (Request &$request, Response &$response,  SerializableCollection &$collection) {
             $response->write('It is not possible to remove posts by user '.$collection->user_id);
         });
 

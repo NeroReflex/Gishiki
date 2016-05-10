@@ -53,12 +53,6 @@ abstract class Gishiki
         if (!defined('APPLICATION_DIR')) {
             define('APPLICATION_DIR', ROOT.'application'.DS);
         }
-
-        //each Gishiki instance is binded with a new created Environment
-        if (!is_object(self::$executionEnvironment)) {
-            self::$executionEnvironment = new Environment(
-                filter_input_array(INPUT_SERVER), true, true);
-        }
     }
 
     /**
@@ -68,6 +62,12 @@ abstract class Gishiki
     {
         //initialize the framework
         self::Initialize();
+        
+        //each Gishiki instance is binded with a newly created Environment
+        if (!is_object(self::$executionEnvironment)) {
+            self::$executionEnvironment = new Environment(
+                filter_input_array(INPUT_SERVER), true, true);
+        }
 
         //if the framework needs to be installed.....
         if (Environment::applicationExists()) {

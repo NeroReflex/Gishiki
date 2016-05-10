@@ -68,4 +68,15 @@ class SerializationCollectionTest extends \PHPUnit_Framework_TestCase
             "f" => [1, 2, 3, 4]
         ], $serialization);
     }
+    
+    public function testJSONDeserialization()
+    {
+        $this->assertEquals(new SerializableCollection([
+            "a" => 1,
+            "b" => 5.50,
+            "c" => "srf",
+            "e" => true,
+            "f" => [1, 2, 3, 4]
+        ]), SerializableCollection::deserialize("{\"a\":1,\"b\":5.5,\"c\":\"srf\",\"e\":true,\"f\":[1,2,3,4]}"));
+    }
 }

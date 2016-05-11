@@ -1047,7 +1047,8 @@ class Request extends Message implements ServerRequestInterface
                 break;
             case 'application/xml':
             case 'text/xml':
-                
+                $serializer = SerializableCollection::XML;
+                $data = $body;
                 break;
 
             case 'application/x-www-form-urlencoded':

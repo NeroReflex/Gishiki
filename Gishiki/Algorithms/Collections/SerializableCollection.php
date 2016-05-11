@@ -30,7 +30,7 @@ class SerializableCollection extends GenericCollection
      *               Serializators              *
      ********************************************/
     const JSON      = 0;
-    //const XML       = 1;
+    const XML       = 1;
     
     /**
      * Create serializable data collection from the given array.
@@ -101,10 +101,92 @@ class SerializableCollection extends GenericCollection
 
             //return the deserialization result if everything went right
             return new SerializableCollection($serializationResult);
+        } elseif ($format == self::XML) {
+            if (!is_string($message)) {
+                throw new DeserializationException("The given content is not a valid XML content", 3);
+            }
+            
+            //create the middle in-memory deserializer
+            libxml_use_internal_errors(true);
+            $nativeDeserializator = null;
+            try {
+                $nativeDeserializator = simplexml_load_string($message);
+            } catch (\Exception $ex) {
+                //throw new DeserializationException("The given content is not a valid XML content", 4);
+            }
+            
+            //check for errors
+            if (count(libxml_get_errors()) > 0) {
+                //clear the errors list for the future
+                libxml_clear_errors();
+                
+                //throw the exception
+                throw new DeserializationException("The given content is not a valid XML content", 4);
+            }
+            
+            //try decoding the string
+            $nativeSerialization = self::importNodeXml($nativeDeserializator);
+
+            //the deserialization result MUST be an array
+            $serializationResult = (is_array($nativeSerialization)) ? $nativeSerialization : [];
+
+            //return the deserialization result
+            return new SerializableCollection($nativeSerialization);
         }
         
         //impossible to serialize the message
         throw new DeserializationException("It is impossible to deserialize the given message", 2);
+    }
+    
+    
+    private static function filterValueXml(\SimpleXMLElement $currentAttribute) {
+        $data = (string)$currentAttribute[0];
+        
+        if (isset($currentAttribute->attributes()["type"])) {
+            switch ($currentAttribute->attributes()["type"]) {
+                case "integer":
+                    $data = intval((string)$currentAttribute[0]);
+                    break;
+                case "float":
+                    $data = floatval((string)$currentAttribute[0]);
+                    break;
+                case "string":
+                    $data = (string)$currentAttribute[0];
+                    break;
+                case "bool":
+                    $data = boolval((string)$currentAttribute[0]);
+                    break;
+                case "object":
+                    $data = null;
+                    break;
+                default:
+                    //$data = (string)$currentAttribute[0];
+            }
+        }
+        
+        return $data;
+    }
+    private static function importNodeXml(\SimpleXMLElement $element) {
+        $data = [];
+        
+        foreach ($element->children() as $currentAttribute) {
+            $toStore = ($currentAttribute->count() != 0)?
+                        self::importNodeXml($currentAttribute) : self::filterValueXml($currentAttribute);
+            
+            if (!isset($data[$currentAttribute->getName()])) {
+                $data[$currentAttribute->getName()] = $toStore;
+            } elseif (!is_array($data[$currentAttribute->getName()])) { 
+                $temp = $data[$currentAttribute->getName()];
+                $data[$currentAttribute->getName()] = [];
+                $data[$currentAttribute->getName()][] = $temp;
+            }
+            
+            if (is_array($data[$currentAttribute->getName()])){
+                $data[$currentAttribute->getName()][] = $toStore;
+            }
+        }
+        
+        return $data;
     }
     
     /**

@@ -30,6 +30,26 @@ class SerializationCollectionTest extends \PHPUnit_Framework_TestCase
         $data = SerializableCollection::deserialize("bad json", SerializableCollection::JSON);
     }
     
+    /**
+     * @expectedException Gishiki\Algorithms\Collections\DeserializationException
+     */
+    public function testNotStringJSONDeserialization()
+    {
+        $data = SerializableCollection::deserialize(9.70, SerializableCollection::JSON);
+    }
+    
+    public function testCollectionDeserialization() {
+        $collection = new SerializableCollection([
+            "a" => 1,
+            "b" => 5.50,
+            "c" => "srf",
+            "e" => true,
+            "f" => [1, 2, 3, 4]
+        ]);
+        
+        $this->assertEquals($collection, SerializableCollection::deserialize($collection));
+    }
+    
     public function testCollection()
     {
         $collection = new SerializableCollection();

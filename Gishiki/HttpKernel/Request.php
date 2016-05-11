@@ -19,6 +19,7 @@ use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\StreamInterface;
 use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Core\Environment;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 /**
  * Request.
@@ -975,8 +976,8 @@ class Request extends Message implements ServerRequestInterface
      * potential types MUST be arrays or objects only. A null value indicates
      * the absence of body content.
      *
-     * @return null|array|object The deserialized body parameters, if any.
-     *                           These will typically be an array or object.
+     * @return null|array|object  The deserialized body parameters, if any.
+     *                             These will typically be an array or object.
      *
      * @throws RuntimeException if the request body media type parser returns an invalid value
      */
@@ -987,7 +988,7 @@ class Request extends Message implements ServerRequestInterface
         }
 
         if (!$this->body) {
-            return;
+            return null;
         }
 
         $mediaType = $this->getMediaType();
@@ -1003,6 +1004,20 @@ class Request extends Message implements ServerRequestInterface
         }
 
         return $this->bodyParsed;
+    }
+    
+    public function getSerializedBody() {
+        //get the media type that gives the serializator to be used
+        $mediaType = $this->getMediaType();
+        
+        //get the body or something invalid
+        $body = ($this->body)? (string) $this->getBody() : null;
+
+        //get the serializer
+        $serializer = SerializableCollection::JSON;
+        
+        //return the serialization result
+        return SerializableCollection::deserialize($body, $serializer);
     }
 
     /**

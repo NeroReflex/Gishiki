@@ -74,14 +74,20 @@ class SerializableCollection extends GenericCollection
     /**
      * Deserialize the given data collectionand create a serializable data collection.
      * 
-     * @param  string                 $message the string containing the serialized data
-     * @param  integer                $format  an integer representing one of the allowed formats
-     * @return SerializableCollection          the deserialization result
-     * @throws DeserializationException        the error preventing the data deserialization
+     * @param  string|array|CollectionInterface $message the string containing the serialized data or the array of data
+     * @param  integer                          $format  an integer representing one of the allowed formats
+     * @return SerializableCollection           the deserialization result
+     * @throws DeserializationException         the error preventing the data deserialization
      */
     public static function deserialize($message, $format = self::JSON)
     {
-        if ($format == self::JSON) {
+        if ((is_array($message)) || ($message instanceof CollectionInterface)) {
+            return new SerializableCollection($message);
+        } elseif ($format == self::JSON) {
+            if (!is_string($message)) {
+                throw new DeserializationException("The given content is not a valid JSON content", 3);
+            }
+            
             //try decoding the string
             $nativeSerialization = json_decode($message, true, 512);
 
@@ -96,6 +102,9 @@ class SerializableCollection extends GenericCollection
             //return the deserialization result if everything went right
             return new SerializableCollection($serializationResult);
         }
+        
+        //impossible to serialize the message
+        throw new DeserializationException("It is impossible to deserialize the given message", 2);
     }
     
     /**

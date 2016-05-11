@@ -869,4 +869,35 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(['abc' => 'xyz', 'foo' => 'bar'], $request->getParams());
     }
+    
+    public function testGetDeserializedBody()
+    {
+        $method = 'POST';
+        $uri = new Uri('https', 'example.com', 443, '/foo/bar', 'abc=123', '', '');
+        $headers = new Headers();
+        $headers->set('Content-Type', 'application/x-www-form-urlencoded;charset=utf8');
+        $_POST["foo"] = "bar";
+        $cookies = [];
+        $serverParams = [];
+        $body = new RequestBody();
+        $body->write('foo=bar');
+        $request = new Request($method, $uri, $headers, $cookies, $serverParams, $body);
+        $this->assertEquals(new \Gishiki\Algorithms\Collections\SerializableCollection(['foo' => 'bar']), $request->getDeserializedBody());
+    }
+
+    public function testGetDeserializedBodyJson()
+    {
+        $method = 'GET';
+        $uri = new Uri('https', 'example.com', 443, '/foo/bar', 'abc=123', '', '');
+        $headers = new Headers();
+        $headers->set('Content-Type', 'application/json;charset=utf8');
+        $cookies = [];
+        $serverParams = [];
+        $body = new RequestBody();
+        $body->write('{"foo":"bar"}');
+        $request = new Request($method, $uri, $headers, $cookies, $serverParams, $body);
+
+        $this->assertEquals(new \Gishiki\Algorithms\Collections\SerializableCollection(['foo' => 'bar']), $request->getDeserializedBody());
+        $this->assertEquals(new \Gishiki\Algorithms\Collections\SerializableCollection(['foo' => 'bar']), $request->getDeserializedBody());
+    }
 }

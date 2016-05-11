@@ -149,15 +149,26 @@ namespace Gishiki\Core {
         {
             //get current request...
             $currentRequest = Request::createFromEnvironment(self::$currentEnvironment);
-
-            //include the list of routes (if it exists)
-            if (file_exists(APPLICATION_DIR.'routes.php')) {
-                include APPLICATION_DIR.'routes.php';
-            }
-
+            
             //...and serve it
-            $response = Route::run($currentRequest);
+            $response = new Response();
+            
+            try {
+                //trigger the exception if data is malformed!
+                $currentRequest->getDeserializedBody();
+                
+                //include the list of routes (if it exists)
+                if (file_exists(APPLICATION_DIR.'routes.php')) {
+                    include APPLICATION_DIR.'routes.php';
+                }
 
+                //...and serve it
+                $response = Route::run($currentRequest);
+            } catch (\RuntimeException $ex) {
+                $response = $response->withStatus(400);
+                $response = $response->write($ex->getMessage());
+            }
+            
             //send response to the client
             $response->send();
         }

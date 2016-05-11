@@ -18,6 +18,7 @@ limitations under the License.
 namespace Gishiki\tests\Algorithms\Collections;
 
 use Gishiki\Algorithms\Collections\SerializableCollection;
+use Gishiki\Algorithms\Collections\GenericCollection;
 
 class SerializationCollectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -78,5 +79,31 @@ class SerializationCollectionTest extends \PHPUnit_Framework_TestCase
             "e" => true,
             "f" => [1, 2, 3, 4]
         ]), SerializableCollection::deserialize("{\"a\":1,\"b\":5.5,\"c\":\"srf\",\"e\":true,\"f\":[1,2,3,4]}"));
+    }
+    
+    public function testLoadFromAnotherGenericCollection()
+    {
+        $collection = new SerializableCollection([
+            "a" => 1,
+            "b" => 5.50,
+            "c" => "srf",
+            "e" => true,
+            "f" => [1, 2, 3, 4]
+        ]);
+        
+        $this->assertEquals($collection, new SerializableCollection($collection));
+    }
+    
+    public function testLoadFromAnotherSerializableCollection()
+    {
+        $collection = new GenericCollection([
+            "a" => 1,
+            "b" => 5.50,
+            "c" => "srf",
+            "e" => true,
+            "f" => [1, 2, 3, 4]
+        ]);
+        
+        $this->assertEquals($collection->all(), (new SerializableCollection($collection))->all());
     }
 }

@@ -40,7 +40,11 @@ class SerializableCollection extends GenericCollection
      */
     public function __construct($data = array())
     {
-        parent::__construct($data);
+        if (is_array($data)) {
+            parent::__construct($data);
+        } elseif ($data instanceof \Gishiki\Algorithms\Collections\CollectionInterface) {
+            $this->data = $data->all();
+        }
     }
     
     /**

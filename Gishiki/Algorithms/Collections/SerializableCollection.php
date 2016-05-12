@@ -125,8 +125,20 @@ class SerializableCollection extends GenericCollection
             }
             
             //try decoding the string
-            $nativeSerialization = self::importNodeXml($nativeDeserializator);
-
+            $json = json_encode($nativeDeserializator);
+            
+            //detect errors
+            if (json_last_error() != JSON_ERROR_NONE) {
+                throw new DeserializationException("The given content is not a valid XML content", 4);
+            }
+            
+            $nativeSerialization = json_decode($json, true);
+            
+            //detect errors
+            if (json_last_error() != JSON_ERROR_NONE) {
+                throw new DeserializationException("The given content is not a valid XML content", 4);
+            }
+            
             //the deserialization result MUST be an array
             $serializationResult = (is_array($nativeSerialization)) ? $nativeSerialization : [];
 
@@ -136,57 +148,6 @@ class SerializableCollection extends GenericCollection
         
         //impossible to serialize the message
         throw new DeserializationException("It is impossible to deserialize the given message", 2);
-    }
-    
-    
-    private static function filterValueXml(\SimpleXMLElement $currentAttribute) {
-        $data = (string)$currentAttribute[0];
-        
-        if (isset($currentAttribute->attributes()["type"])) {
-            switch ($currentAttribute->attributes()["type"]) {
-                case "integer":
-                    $data = intval((string)$currentAttribute[0]);
-                    break;
-                case "float":
-                    $data = floatval((string)$currentAttribute[0]);
-                    break;
-                case "string":
-                    $data = (string)$currentAttribute[0];
-                    break;
-                case "bool":
-                    $data = boolval((string)$currentAttribute[0]);
-                    break;
-                case "object":
-                    $data = null;
-                    break;
-                default:
-                    //$data = (string)$currentAttribute[0];
-            }
-        }
-        
-        return $data;
-    }
-    private static function importNodeXml(\SimpleXMLElement $element) {
-        $data = [];
-        
-        foreach ($element->children() as $currentAttribute) {
-            $toStore = ($currentAttribute->count() != 0)?
-                        self::importNodeXml($currentAttribute) : self::filterValueXml($currentAttribute);
-            
-            if (!isset($data[$currentAttribute->getName()])) {
-                $data[$currentAttribute->getName()] = $toStore;
-            } elseif (!is_array($data[$currentAttribute->getName()])) { 
-                $temp = $data[$currentAttribute->getName()];
-                $data[$currentAttribute->getName()] = [];
-                $data[$currentAttribute->getName()][] = $temp;
-            }
-            
-            if (is_array($data[$currentAttribute->getName()])){
-                $data[$currentAttribute->getName()][] = $toStore;
-            }
-        }
-        
-        return $data;
     }
     
     /**

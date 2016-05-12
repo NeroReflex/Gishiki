@@ -1057,7 +1057,7 @@ class Request extends Message implements ServerRequestInterface
                 break;
 
             default:
-                $data = null;
+                $data = [];
                 $serializer = null;
         }
         

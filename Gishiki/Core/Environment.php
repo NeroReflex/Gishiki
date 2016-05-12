@@ -21,7 +21,6 @@ namespace Gishiki\Core {
     use Gishiki\HttpKernel\Request;
     use Gishiki\HttpKernel\Response;
     use Gishiki\Algorithms\Manipulation;
-    use Gishiki\JSON\JSON;
 
     /**
      * Represent the environment used to run controllers.
@@ -113,7 +112,7 @@ namespace Gishiki\Core {
             }
 
             //parse the settings file
-            $appConfiguration = JSON::DeSerialize($config);
+            $appConfiguration = \Gishiki\Algorithms\Collections\SerializableCollection::deserialize($config)->all();
 
             //return the application configuration
             return $appConfiguration;

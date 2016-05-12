@@ -900,4 +900,94 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(new \Gishiki\Algorithms\Collections\SerializableCollection(['foo' => 'bar']), $request->getDeserializedBody());
         $this->assertEquals(new \Gishiki\Algorithms\Collections\SerializableCollection(['foo' => 'bar']), $request->getDeserializedBody());
     }
+    
+    public function testGetDeserializedBodyXml()
+    {
+        $method = 'GET';
+        $uri = new Uri('https', 'example.com', 443, '/foo/bar', 'abc=123', '', '');
+        $headers = new Headers();
+        $headers->set('Content-Type', 'application/xml;charset=utf8');
+        $cookies = [];
+        $serverParams = [];
+        $body = new RequestBody();
+        $xml = <<<XML
+<?xml version="1.0"?>
+<book>
+    <id>bk101</id>
+    <author>Gambardella, Matthew</author>
+    <title type="string">XML Developer's Guide</title>
+    <price type="float">40.5</price>
+    <publish_date>2000-10-01</publish_date>
+    <description>An in-depth look at creating applications with XML.</description>
+</book>
+XML;
+        $body->write($xml);
+        $request = new Request($method, $uri, $headers, $cookies, $serverParams, $body);
+
+        //throw new \Exception(print_r($request->getDeserializedBody()->all(), true));
+        
+        $this->assertEquals([
+            'id' => "bk101",
+            'author' => "Gambardella, Matthew",
+            'title' => "XML Developer's Guide",
+            'price' => 40.5,
+            'publish_date' => "2000-10-01",
+            'description' => "An in-depth look at creating applications with XML."
+        ], $request->getDeserializedBody()->all());
+    }
+    
+    public function testGetDeserializedBodyComplexXml()
+    {
+        $method = 'GET';
+        $uri = new Uri('https', 'example.com', 443, '/foo/bar', 'abc=123', '', '');
+        $headers = new Headers();
+        $headers->set('Content-Type', 'application/xml;charset=utf8');
+        $cookies = [];
+        $serverParams = [];
+        $body = new RequestBody();
+        $xml = <<<XML
+<?xml version="1.0"?>
+<CATALOG>
+    <CD>
+        <TITLE>Empire Burlesque</TITLE>
+        <ARTIST>Bob Dylan</ARTIST>
+        <COUNTRY>USA</COUNTRY>
+        <COMPANY>Columbia</COMPANY>
+        <PRICE type="float">10.90</PRICE>
+        <YEAR type="integer">1985</YEAR>
+    </CD>
+    <CD>
+        <TITLE>Hide your heart</TITLE>
+        <ARTIST>Bonnie Tyler</ARTIST>
+        <COUNTRY>UK</COUNTRY>
+        <COMPANY>CBS Records</COMPANY>
+        <PRICE type="float">9.90</PRICE>
+        <YEAR type="integer">1988</YEAR>
+    </CD>
+</CATALOG>
+XML;
+        $body->write($xml);
+        $request = new Request($method, $uri, $headers, $cookies, $serverParams, $body);
+
+        $this->assertEquals([
+            'CD' => [
+                0 => [
+                    'TITLE' => "Empire Burlesque",
+                    'ARTIST' => "Bob Dylan",
+                    'COUNTRY' => "USA",
+                    'COMPANY' => "Columbia",
+                    'PRICE' => 10.90,
+                    'YEAR' => 1985
+                ],
+                1 => [
+                    'TITLE' => "Hide your heart",
+                    'ARTIST' => "Bonnie Tyler",
+                    'COUNTRY' => "UK",
+                    'COMPANY' => "CBS Records",
+                    'PRICE' => 9.90,
+                    'YEAR' => 1988
+                ]
+            ]
+        ], $request->getDeserializedBody()->all());
+    }
 }

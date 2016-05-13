@@ -33,6 +33,21 @@ class LoggerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('null', (string) $logger);
     }
     
+    public function testFileLogging()
+    {
+        file_put_contents('test.log', "");
+        $logger = new Logger('file://test.log');
+        $logger->info("my name is {{name}} and this is a {{what}}", [
+            "name" => 'Denis',
+            "what" => 'test'
+        ]);
+        $logger = null;
+        
+        $this->assertEquals(trim("[info] my name is Denis and this is a test"), trim(file_get_contents('test.log')));
+
+        unlink('test.log');
+    }
+    
     public function testStreamLogging()
     {
         $logger = new Logger('stream://stdmem');

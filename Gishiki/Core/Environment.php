@@ -21,7 +21,6 @@ namespace Gishiki\Core {
     use Gishiki\HttpKernel\Request;
     use Gishiki\HttpKernel\Response;
     use Gishiki\Algorithms\Manipulation;
-    use Gishiki\JSON\JSON;
 
     /**
      * Represent the environment used to run controllers.
@@ -113,7 +112,7 @@ namespace Gishiki\Core {
             }
 
             //parse the settings file
-            $appConfiguration = JSON::DeSerialize($config);
+            $appConfiguration = \Gishiki\Algorithms\Collections\SerializableCollection::deserialize($config)->all();
 
             //return the application configuration
             return $appConfiguration;
@@ -149,17 +148,28 @@ namespace Gishiki\Core {
         {
             //get current request...
             $currentRequest = Request::createFromEnvironment(self::$currentEnvironment);
-
-            //include the list of routes (if it exists)
-            if (file_exists(APPLICATION_DIR.'routes.php')) {
-                include APPLICATION_DIR.'routes.php';
-            }
-
+            
             //...and serve it
-            $response = Route::run($currentRequest);
+            $response = new Response();
+            
+            try {
+                //trigger the exception if data is malformed!
+                $currentRequest->getDeserializedBody();
+                
+                //include the list of routes (if it exists)
+                if (file_exists(APPLICATION_DIR.'routes.php')) {
+                    include APPLICATION_DIR.'routes.php';
+                }
 
+                //...and serve it
+                $response = Route::run($currentRequest);
+            } catch (\RuntimeException $ex) {
+                $response = $response->withStatus(400);
+                $response = $response->write($ex->getMessage());
+            }
+            
             //send response to the client
-            Response::send($response);
+            $response->send();
         }
 
         /**

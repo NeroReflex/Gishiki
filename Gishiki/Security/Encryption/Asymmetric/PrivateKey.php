@@ -85,6 +85,7 @@ final class PrivateKey
             'private_key_bits' => $keyLength,
             'private_key_type' => OPENSSL_KEYTYPE_RSA,
         ];
+        //use the application openssl configuration
         if (!is_null(Environment::GetCurrentEnvironment())) {
             $config = array_merge(
                     $config,
@@ -97,7 +98,7 @@ final class PrivateKey
 
         //check the result
         if (!is_resource($privateKey)) {
-            throw new AsymmetricException('The key generation is not possible due to an unknown error', 8);
+            throw new AsymmetricException('The key generation is not possible due to an unknown '.openssl_error_string(), 8);
         }
 
         //extract the private key string-encoded from the generated private key
@@ -220,7 +221,7 @@ final class PrivateKey
         if (!is_string($keyPassword)) {
             throw new \InvalidArgumentException('The private key password cannot be something else than a string');
         } elseif (!$this->isLoaded()) {
-            throw new AsymmetricException('It is impossible to serialize an unloaded private key', 1);
+            throw new AsymmetricException('It is impossible to serialize an unloaded private key: '.openssl_error_string(), 1);
         }
 
         $serialized_key = '';
@@ -230,12 +231,14 @@ final class PrivateKey
             'digest_alg' => 'sha512',
             'private_key_type' => OPENSSL_KEYTYPE_RSA,
         ];
+        //use the application openssl configuration
         if (!is_null(Environment::GetCurrentEnvironment())) {
             $config = array_merge(
                     $config,
                     ['config' => (file_exists(Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').'openssl.cnf')) ?
                         Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').'openssl.cnf' : null, ]);
         }
+
 
         //serialize the key and encrypt it if requested
         if (strlen($keyPassword) > 0) {

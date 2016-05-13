@@ -21,6 +21,7 @@ use Gishiki\Core\Environment;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\StructuredData\StructuredData;
 
 /**
  * The Gishiki base controller.

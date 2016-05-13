@@ -19,6 +19,7 @@ use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\StreamInterface;
 use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Core\Environment;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 /**
  * Request.
@@ -975,8 +976,8 @@ class Request extends Message implements ServerRequestInterface
      * potential types MUST be arrays or objects only. A null value indicates
      * the absence of body content.
      *
-     * @return null|array|object The deserialized body parameters, if any.
-     *                           These will typically be an array or object.
+     * @return null|array|object  The deserialized body parameters, if any.
+     *                             These will typically be an array or object.
      *
      * @throws RuntimeException if the request body media type parser returns an invalid value
      */
@@ -987,7 +988,7 @@ class Request extends Message implements ServerRequestInterface
         }
 
         if (!$this->body) {
-            return;
+            return null;
         }
 
         $mediaType = $this->getMediaType();
@@ -1003,6 +1004,82 @@ class Request extends Message implements ServerRequestInterface
         }
 
         return $this->bodyParsed;
+    }
+    
+    /**
+     * @var null|SerializableCollection the deserialized request content
+     */
+    protected $cachedDeserializedBody = null;
+    
+    /**
+     * Deserialize the content passed as the request.
+     * 
+     * Supported media types for the deserialization are:
+     *   - 'application/json'
+     *   - 'application/xml'
+     *   - 'text/xml'
+     *   - 'application/x-www-form-urlencoded'
+     *   - 'multipart/form-data'
+     *   - 'text/yaml'
+     *   - 'text/x-yaml'
+     *   - 'application/yaml'
+     *   - 'application/x-yaml'
+     * 
+     * @return SerializableCollection the deserialized body
+     * @throw  RuntimeException       the error preventing the deserialization
+     */
+    public function getDeserializedBody() {
+        if ($this->cachedDeserializedBody) {
+            return $this->cachedDeserializedBody;
+        }
+        
+        //get the media type that gives the serializator to be used
+        $mediaType = $this->getMediaType();
+        
+        //get the body or something invalid
+        $body = ($this->body)? (string) $this->getBody() : null;
+
+        //get the serializer
+        $serializer = null;
+        
+        //this is what will be deserialized
+        $data = null;
+        switch ($mediaType) {
+            case 'application/json':
+                $data = $body;
+                $serializer = SerializableCollection::JSON;
+                break;
+            
+            case 'application/xml':
+            case 'text/xml':
+                $serializer = SerializableCollection::XML;
+                $data = $body;
+                break;
+            
+            case 'text/yaml':
+            case 'text/x-yaml':
+            case 'application/yaml':
+            case 'application/x-yaml':
+                $serializer = SerializableCollection::YAML;
+                $data = $body;
+                break;
+            
+            case 'application/x-www-form-urlencoded':
+            case 'multipart/form-data':
+                $data = $this->getParsedBody();
+                break;
+
+            default:
+                $data = [];
+                $serializer = null;
+        }
+        
+        //return the serialization result
+        try {
+            return $this->cachedDeserializedBody = SerializableCollection::deserialize($data, $serializer);
+        } catch (Gishiki\Algorithms\Collections\DeserializationException $ex) {
+            throw new RuntimeException("The HTTP request is malformed");
+        }
     }
 
     /**

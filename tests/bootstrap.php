@@ -12,3 +12,5 @@ $autoloader = require dirname(__DIR__).'/vendor/autoload.php';
 $autoloader->addPsr4('Gishiki\\Tests\\', __DIR__);
 
 include __DIR__.'/Application/FakeController.php';
+
+\Gishiki\Gishiki::Initialize();

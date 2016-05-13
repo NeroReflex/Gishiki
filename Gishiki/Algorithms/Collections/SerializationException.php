@@ -12,20 +12,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-namespace Gishiki\JSON {
+namespace Gishiki\Algorithms\Collections {
+    
     /**
-     * The JSON exception thrown by Gishiki 
-     * when a bad JSON serialization/deserializations
-     * operation takes place.
+     * The serialization exception thrown by Gishiki 
+     * when a bad serialization operation takes place.
      * 
      * Data is probably malformed/unconformant or damaged!
      * 
      * @author Benato Denis <benato.denis96@gmail.com>
      */
-    class JSONException extends \Gishiki\Core\Exception
+    class SerializationException extends \Gishiki\Core\Exception
     {
         /**
-         * Create the JSON-related exception.
+         * Create the serialization-related exception.
          *
          * @param string $message   the error message
          * @param int    $errorCode the json error code

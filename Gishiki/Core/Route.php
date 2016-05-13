@@ -21,6 +21,7 @@ namespace Gishiki\Core {
     use Gishiki\HttpKernel\Response;
     use Gishiki\Algorithms\Manipulation;
     use Gishiki\Algorithms\Collections\GenericCollection;
+    use Gishiki\Algorithms\Collections\SerializableCollection;
     use Gishiki\Core\MVC\Controller;
 
     /**
@@ -291,7 +292,8 @@ namespace Gishiki\Core {
          */
         public static function run(Request &$reqestToFulfill)
         {
-            $response = new Response();
+            //derive the response from the current request
+            $response = Response::deriveFromRequest($reqestToFulfill);
             $decodedUri = urldecode($reqestToFulfill->getUri()->getPath());
             $reversedParams = null;
 
@@ -329,7 +331,7 @@ namespace Gishiki\Core {
 
             //execute the router call
             $request = clone $reqestToFulfill;
-            $deductedParams = (is_object($reversedParams)) ? $reversedParams : new GenericCollection();
+            $deductedParams = (is_object($reversedParams)) ? $reversedParams : new SerializableCollection();
             (is_object($actionRuote)) ?
                 $actionRuote($request, $response, $deductedParams) : null;
 
@@ -458,10 +460,10 @@ namespace Gishiki\Core {
                     }
 
                     //build a collection from the current reverser URI
-                    $reversedParams = new GenericCollection($reversedUri);
+                    $reversedParams = new SerializableCollection($reversedUri);
                 }
             } elseif (((in_array($method, $methods)) || (in_array(self::ANY, $methods))) && ($uri === $this->isSpecialCallback())) {
-                $reversedParams = new GenericCollection();
+                $reversedParams = new SerializableCollection();
             }
 
             return $reversedParams;

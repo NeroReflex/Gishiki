@@ -14,6 +14,7 @@ use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 /**
  * Response.
@@ -114,6 +115,36 @@ class Response extends Message implements ResponseInterface
         511 => 'Network Authentication Required',
     ];
 
+    //Note: This method is not part of the PSR-7 standard.
+    public static function deriveFromRequest(Request $request)
+    {
+        //build an empty header
+        $headers = new Headers();
+        
+        //analyze each possible acceptable encoding
+        foreach ($request->getHeader('Accept') as $acceptable) {
+        
+            if (in_array($acceptable, [
+                'text/yaml',
+                'text/x-yaml',
+                'application/yaml',
+                'application/x-yaml',
+                'application/xml',
+                'text/xml',
+                'application/json',
+            ])) {
+                //select (and store) the content type
+                $headers->set('Content-Type', $acceptable);
+
+                //the content-type has been selected
+                break;
+            }
+        }
+        
+        //build and return the response
+        return new Response(200, $headers);
+    }
+    
     /**
      * Sends the given HTTP response to the client.
      *
@@ -344,6 +375,61 @@ class Response extends Message implements ResponseInterface
 
         return $this;
     }
+    
+    /**
+     * Serialize the given serializable collection using the better serialization
+     * for the current 'Content-Type' header.
+     * 
+     * The serialization result is written to the reponse body.
+     * 
+     * If none or an invalid 'Content-Type' header is provided the default one
+     * will be used (which is 'application/json').
+     * 
+     * @param SerializableCollection $data the serializable collection
+     * @return Response                    the current response (after update)
+     * @throws \RuntimeException           an error occurred during the serialization process
+     */
+    public function setSerializedBody(SerializableCollection $data) {
+        $format = SerializableCollection::JSON;
+        
+        //read the content-type and, if no content-type is given use the default one
+        $mediaTypes = $this->getHeader('Content-Type');
+        $mediaType  = (count($mediaTypes) > 0)? $mediaTypes[0] : "application/json"; 
+        
+        //make sure to be using the correct content-type
+        $this->headers->set('Content-Type', $mediaType.";charset=utf8");
+        
+        switch ($mediaType) {
+            case "application/json":
+                $format = SerializableCollection::JSON;
+                break;
+            
+            case 'text/yaml':
+            case 'text/x-yaml':
+            case 'application/yaml':
+            case 'application/x-yaml':
+                $format = SerializableCollection::YAML;
+                break;
+            
+            case "application/xml":
+            case "text/xml":
+                $format = SerializableCollection::XML;
+                break;
+            default:
+                
+                break;
+        }
+        
+        //serialize given data and write it on the response body
+        try {
+            $this->body->rewind();
+            $this->body->write($data->serialize($format));
+        } catch (Gishiki\Algorithms\Collections\SerializationException $ex) {
+            throw new \RuntimeException("The given content cannot be serialized");
+        }
+        
+        return $this;
+    }
 
     /*******************************************************************************
      * Response Helpers
@@ -368,13 +454,17 @@ class Response extends Message implements ResponseInterface
     }
 
     /**
-     * Json.
+     * Directly write the serialized json to the output.
+     * 
+     * @deprecated deprecated since the first release (kept for Slim compatibility)
      *
      * Note: This method is not part of the PSR-7 standard.
      *
      * This method prepares the response object to return an HTTP Json
-     * response to the client.
-     *
+     * response to the client from an associative array.
+     * 
+     * This method is dangerous because no error checks are performed
+     * 
      * @param mixed $data            The data
      * @param int   $status          The HTTP status code.
      * @param int   $encodingOptions Json encoding options

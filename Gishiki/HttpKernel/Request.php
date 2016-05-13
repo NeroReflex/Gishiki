@@ -1020,6 +1020,10 @@ class Request extends Message implements ServerRequestInterface
      *   - 'text/xml'
      *   - 'application/x-www-form-urlencoded'
      *   - 'multipart/form-data'
+     *   - 'text/yaml'
+     *   - 'text/x-yaml'
+     *   - 'application/yaml'
+     *   - 'application/x-yaml'
      * 
      * @return SerializableCollection the deserialized body
      * @throw  RuntimeException       the error preventing the deserialization
@@ -1045,12 +1049,21 @@ class Request extends Message implements ServerRequestInterface
                 $data = $body;
                 $serializer = SerializableCollection::JSON;
                 break;
+            
             case 'application/xml':
             case 'text/xml':
                 $serializer = SerializableCollection::XML;
                 $data = $body;
                 break;
-
+            
+            case 'text/yaml':
+            case 'text/x-yaml':
+            case 'application/yaml':
+            case 'application/x-yaml':
+                $serializer = SerializableCollection::YAML;
+                $data = $body;
+                break;
+            
             case 'application/x-www-form-urlencoded':
             case 'multipart/form-data':
                 $data = $this->getParsedBody();

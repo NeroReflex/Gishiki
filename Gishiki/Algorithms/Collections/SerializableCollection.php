@@ -31,6 +31,7 @@ class SerializableCollection extends GenericCollection
      ********************************************/
     const JSON      = 0;
     const XML       = 1;
+    const YAML      = 2;
     
     /**
      * Create serializable data collection from the given array.
@@ -58,6 +59,7 @@ class SerializableCollection extends GenericCollection
     {
         $result = "";
         switch ($format) {
+            
             case self::JSON:
                 //try json encoding
                 $result = json_encode($this->all(), JSON_PRETTY_PRINT);
@@ -67,6 +69,7 @@ class SerializableCollection extends GenericCollection
                     throw new SerializationException('The given data cannot be serialized in JSON content', 2);   
                 }
                 break;
+            
             case self::XML:
                 $xml = new \Gishiki\Algorithms\XmlDomConstructor('1.0', 'utf-8');
                 $xml->xmlStandalone = true;
@@ -76,6 +79,11 @@ class SerializableCollection extends GenericCollection
                 $result = str_replace('standalone="yes"?>', 'standalone="yes"?><data>', $xml->saveXML());
                 $result .= "\n</data>";
                 break;
+            
+            case self::YAML:
+                $result = \Symfony\Component\Yaml\Yaml::dump($this->all());
+                break;
+            
             default:
                 throw new SerializationException("Invalid serialization format selected", 7);
         }
@@ -95,7 +103,7 @@ class SerializableCollection extends GenericCollection
     {
         if ((is_array($message)) || ($message instanceof CollectionInterface)) {
             return new SerializableCollection($message);
-        } elseif ($format == self::JSON) {
+        } elseif ($format === self::JSON) {
             if (!is_string($message)) {
                 throw new DeserializationException("The given content is not a valid JSON content", 3);
             }
@@ -113,7 +121,7 @@ class SerializableCollection extends GenericCollection
 
             //return the deserialization result if everything went right
             return new SerializableCollection($serializationResult);
-        } elseif ($format == self::XML) {
+        } elseif ($format === self::XML) {
             if (!is_string($message)) {
                 throw new DeserializationException("The given content is not a valid XML content", 3);
             }
@@ -137,6 +145,26 @@ class SerializableCollection extends GenericCollection
             //use the json engine to deserialize the object
             $string = json_encode($xml);
             $nativeSerialization = json_decode($string, true);
+            
+            //return the deserialization result
+            return new SerializableCollection($nativeSerialization);
+        } elseif ($format === self::YAML) {
+            if (!is_string($message)) {
+                throw new DeserializationException("The given content is not a valid YAML content", 8);
+            }
+            
+            //attempt to deserialize the yaml file
+            $nativeSerialization = null;
+            try {
+                $nativeSerialization = \Symfony\Component\Yaml\Yaml::parse($message, true, true);
+            } catch (\Symfony\Component\Yaml\Exception\ParseException $ex) {
+                throw new DeserializationException("The given YAML content cannot be deserialized", 9);
+            }
+            
+            //check for the result type
+            if (!is_array($nativeSerialization)) {
+                throw new DeserializationException("The YAML deserialization result cannot be used to build a collection", 10);
+            }
             
             //return the deserialization result
             return new SerializableCollection($nativeSerialization);

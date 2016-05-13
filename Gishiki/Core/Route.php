@@ -292,7 +292,8 @@ namespace Gishiki\Core {
          */
         public static function run(Request &$reqestToFulfill)
         {
-            $response = new Response();
+            //derive the response from the current request
+            $response = Response::deriveFromRequest($reqestToFulfill);
             $decodedUri = urldecode($reqestToFulfill->getUri()->getPath());
             $reversedParams = null;
 

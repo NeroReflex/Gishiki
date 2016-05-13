@@ -396,4 +396,50 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
             ]
         ], SerializableCollection::deserialize((string)$response->getBody(), SerializableCollection::XML)->all());
     }
+    
+    public function requestFactory()
+    {
+        $env = \Gishiki\Core\Environment::mock();
+
+        $uri = \Gishiki\HttpKernel\Uri::createFromString('https://example.com:443/foo/bar?abc=123');
+        $headers = Headers::createFromEnvironment($env);
+        $cookies = [
+            'user' => 'john',
+            'id' => '123',
+        ];
+        $serverParams = $env->all();
+        $body = new \Gishiki\HttpKernel\RequestBody();
+        $uploadedFiles = \Gishiki\HttpKernel\UploadedFile::createFromEnvironment($env);
+        $request = new \Gishiki\HttpKernel\Request('GET', $uri, $headers, $cookies, $serverParams, $body, $uploadedFiles);
+
+        return $request;
+    }
+    
+    public function testCompleteYamlSerialization()
+    {
+        //generate a stupid request for testing purpouses
+        $request = $this->requestFactory();
+        
+        //expecting a yaml output....
+        $response = Response::deriveFromRequest($request->withAddedHeader('Accept', 'application/x-yaml'));
+        $testArray = [
+            "a" => [0, 1, 4, 6],
+            "b" => "this is a test",
+            "c" => 1,
+            "d" => 20.5,
+            "e" => [
+                "f" => "nestedtest",
+                "g" => 9,
+                "h" => true,
+                "i" => null
+            ]
+        ];
+        $response->setSerializedBody(new SerializableCollection($testArray));
+        
+        //check for the content type
+        $this->assertEquals('application/x-yaml', explode(';', $response->getHeader('Content-Type')[0])[0]);
+        
+        //check the serialization result
+        $this->assertEquals($testArray, \Symfony\Component\Yaml\Yaml::parse((string)$response->getBody()));
+    }
 }

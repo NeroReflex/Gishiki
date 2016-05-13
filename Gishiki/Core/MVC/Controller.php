@@ -145,10 +145,4 @@ class Controller
         //save the arguments collection
         $this->Arguments = $arguments;
     }
-    
-    
-    public function loadData(StructuredData $serializedData, Request &$request, Response &$response)
-    {
-        
-    }
 }

@@ -27,7 +27,7 @@ class SerializationCollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadDeserialization()
     {
-        $data = SerializableCollection::deserialize("bad json", SerializableCollection::JSON);
+        SerializableCollection::deserialize("bad json", SerializableCollection::JSON);
     }
     
     /**
@@ -35,7 +35,15 @@ class SerializationCollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testNotStringJSONDeserialization()
     {
-        $data = SerializableCollection::deserialize(9.70, SerializableCollection::JSON);
+        SerializableCollection::deserialize(9.70, SerializableCollection::JSON);
+    }
+    
+    /**
+     * @expectedException Gishiki\Algorithms\Collections\DeserializationException
+     */
+    public function testBadDeserializator()
+    {
+        SerializableCollection::deserialize("{---", "this cannot be a valid deserializator!");
     }
     
     public function testCollectionDeserialization() {
@@ -125,5 +133,17 @@ class SerializationCollectionTest extends \PHPUnit_Framework_TestCase
         ]);
         
         $this->assertEquals($collection->all(), (new SerializableCollection($collection))->all());
+    }
+    
+    /**
+     * @expectedException Gishiki\Algorithms\Collections\DeserializationException
+     */
+    public function testBadYamlSerialization()
+    {
+        $badYaml = 
+"x
+language:";
+        
+        SerializableCollection::deserialize($badYaml, SerializableCollection::YAML);
     }
 }

@@ -14,6 +14,7 @@ use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 /**
  * Response.
@@ -342,6 +343,35 @@ class Response extends Message implements ResponseInterface
         //write data to the response body
         $this->getBody()->write($data);
 
+        return $this;
+    }
+    
+    public function setSerializedBody(SerializableCollection $data) {
+        $format = SerializableCollection::JSON;
+        
+        //read the content-type and, if no content-type is given use the default one
+        $mediaTypes = $this->getHeader('Content-Type');
+        $mediaType  = (count($mediaTypes) > 0)? $mediaTypes[0] : "application/json"; 
+        
+        //make sure to be using the correct content-type
+        $this->headers->set('Content-Type', $mediaType);
+        
+        switch ($mediaType) {
+            case "application/json":
+                $format = SerializableCollection::JSON;
+                break;
+            case "application/xml":
+            case "text/xml":
+                $format = SerializableCollection::XML;
+                break;
+            default:
+                
+                break;
+        }
+        
+        //serialize given data and write it on the response body
+        $this->write($data->serialize($format));
+        
         return $this;
     }
 

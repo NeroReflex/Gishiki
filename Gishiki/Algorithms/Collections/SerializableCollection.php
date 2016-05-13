@@ -56,19 +56,31 @@ class SerializableCollection extends GenericCollection
      */
     public function serialize($format = self::JSON)
     {
-        if ($format == self::JSON) {
-            //try json encoding
-            $result = json_encode($this->all(), JSON_PRETTY_PRINT);
-            
-            //and check for the result
-            if (json_last_error() != JSON_ERROR_NONE) {
-                throw new SerializationException('The given data cannot be serialized in JSON content', 2);   
-            }
-            
-            return $result;
-        }/* elseif ($this->format == self::XML) {
-            return $this->nativeSerializator->asXML();
-        }*/
+        $result = "";
+        switch ($format) {
+            case self::JSON:
+                //try json encoding
+                $result = json_encode($this->all(), JSON_PRETTY_PRINT);
+
+                //and check for the result
+                if (json_last_error() != JSON_ERROR_NONE) {
+                    throw new SerializationException('The given data cannot be serialized in JSON content', 2);   
+                }
+                break;
+            case self::XML:
+                $xml = new \Gishiki\Algorithms\XmlDomConstructor('1.0', 'utf-8');
+                $xml->xmlStandalone = true;
+                $xml->formatOutput = true;
+                $xml->fromMixed($this->all());
+                $xml->normalizeDocument ();
+                $result = str_replace('standalone="yes"?>', 'standalone="yes"?><data>', $xml->saveXML());
+                $result .= "\n</data>";
+                break;
+            default:
+                throw new SerializationException("Invalid serialization format selected", 7);
+        }
+        
+        return $result;
     }
     
     /**
@@ -106,42 +118,26 @@ class SerializableCollection extends GenericCollection
                 throw new DeserializationException("The given content is not a valid XML content", 3);
             }
             
-            //create the middle in-memory deserializer
+            //resolve CDATA
+            $messageParsed = preg_replace_callback('/<!\[CDATA\[(.*)\]\]>/', function ($matches) {
+                return trim(htmlspecialchars($matches[1]));
+            }, $message);
+
+            //load the xml from the cleaned string
             libxml_use_internal_errors(true);
-            $nativeDeserializator = null;
-            try {
-                $nativeDeserializator = simplexml_load_string($message);
-            } catch (\Exception $ex) {
-                //throw new DeserializationException("The given content is not a valid XML content", 4);
-            }
-            
-            //check for errors
-            if (count(libxml_get_errors()) > 0) {
-                //clear the errors list for the future
+            $xml = simplexml_load_string($messageParsed);
+
+            if ((count(libxml_get_errors()) > 0)/* || (!$xml)*/) {
+                //clear the error list to avoid interferences
                 libxml_clear_errors();
                 
-                //throw the exception
-                throw new DeserializationException("The given content is not a valid XML content", 4);
+                throw new DeserializationException("The given content is not a valid XML content", 3);
             }
             
-            //try decoding the string
-            $json = json_encode($nativeDeserializator);
+            //use the json engine to deserialize the object
+            $string = json_encode($xml);
+            $nativeSerialization = json_decode($string, true);
             
-            //detect errors
-            if (json_last_error() != JSON_ERROR_NONE) {
-                throw new DeserializationException("The given content is not a valid XML content", 4);
-            }
-            
-            $nativeSerialization = json_decode($json, true);
-            
-            //detect errors
-            if (json_last_error() != JSON_ERROR_NONE) {
-                throw new DeserializationException("The given content is not a valid XML content", 4);
-            }
-            
-            //the deserialization result MUST be an array
-            $serializationResult = (is_array($nativeSerialization)) ? $nativeSerialization : [];
-
             //return the deserialization result
             return new SerializableCollection($nativeSerialization);
         }
@@ -157,6 +153,7 @@ class SerializableCollection extends GenericCollection
      */
     public function __toString()
     {
+        //use the default serializator
         return $this->serialize();
     }
 }

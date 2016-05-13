@@ -14,6 +14,7 @@ use ReflectionProperty;
 use Gishiki\HttpKernel\Body;
 use Gishiki\HttpKernel\Headers;
 use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 class ResponseTest extends \PHPUnit_Framework_TestCase
 {
@@ -343,5 +344,56 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
         //test the output (fixed length)
         $this->assertEquals(strlen($message), $response->send(31, true));
+    }
+    
+    public function testSerializationResponse()
+    {
+        //setup a new response
+        $response = new Response();
+
+        //write data to the stream
+        $response = $response->withHeader('Content-Type', 'application/xml');
+        $response->setSerializedBody(new SerializableCollection([
+            'CD' => [
+                0 => [
+                    'TITLE' => "Empire Burlesque",
+                    'ARTIST' => "Bob Dylan",
+                    'COUNTRY' => "USA",
+                    'COMPANY' => "Columbia",
+                    'PRICE' => 10.90,
+                    'YEAR' => 1985
+                ],
+                1 => [
+                    'TITLE' => "Hide your heart",
+                    'ARTIST' => "Bonnie Tyler",
+                    'COUNTRY' => "UK",
+                    'COMPANY' => "CBS Records",
+                    'PRICE' => 9.90,
+                    'YEAR' => 1988
+                ]
+            ]
+        ]));
+        
+        //test the output deserialization result
+        $this->assertEquals([
+            'CD' => [
+                0 => [
+                    'TITLE' => "Empire Burlesque",
+                    'ARTIST' => "Bob Dylan",
+                    'COUNTRY' => "USA",
+                    'COMPANY' => "Columbia",
+                    'PRICE' => 10.90,
+                    'YEAR' => 1985
+                ],
+                1 => [
+                    'TITLE' => "Hide your heart",
+                    'ARTIST' => "Bonnie Tyler",
+                    'COUNTRY' => "UK",
+                    'COMPANY' => "CBS Records",
+                    'PRICE' => 9.90,
+                    'YEAR' => 1988
+                ]
+            ]
+        ], SerializableCollection::deserialize((string)$response->getBody(), SerializableCollection::XML)->all());
     }
 }

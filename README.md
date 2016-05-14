@@ -18,7 +18,7 @@ will help you to perform the ritual of creation and deployment of web digital co
 
 Due to its design this framework won't force you to use its features:
 you are completely free to use it as you wish to,
-even if that breaks up MVC principles and/or uses a custom ORM.
+even if that breaks up MVC principles!
 
 Gishiki is so fast to deploy that you don't even need to configure it to get started!
 
@@ -45,7 +45,7 @@ A simple tutorial is inside the Documentation folder. That tutorial is meant to 
 
 You can browse [here](http://neroreflex.github.io/Gishiki) the online updated version.
 
-The online version matches the development branch.
+The online version matches the master branch.
 
 
 ## Services
@@ -53,7 +53,8 @@ Gishiki focuses on high-performance cloud computing in an MVC-oriented paradigm.
 
 Any cloud application is composite of services.
 
-Gishiki lets you easily create every service you need and helps you interacting with yours own services from wherever you want.
+Gishiki lets you easily create every service you need and helps you interacting
+with yours own services from wherever you want.
 
 Moreover, a service can be used extremely easily in any environment, may it be 
 an Android/iOS application, another service, a Desktop program or another website.
@@ -88,27 +89,6 @@ without permanently binding yourself to a single technology, program or 3rd part
 This is achieved by giving you the option of changing a service just by editing a configuration file.
 
 
-## Database
-Gishiki uses an OHM to help you interacting with your own databases.
-
-Yes, that is not a misspell: Gishiki uses an OHM, not an ORM! OHM stands for "Object-hybrid mapper"!
-This OHM has been designed and written from scratch to be perfectly integrated within Gishiki!
-
-The OHM is designed to be as fast as possible, and maintain compatibility over differents
-database managers!
-
-Gishiki is designed to provide an invisible abstraction layer over these database managers:
-
-   - SQLite
-   - MySQL and derivates
-   - Oracle
-   - PostgreSQL
-   - Microsoft SQL Server / Azure
-   - firebase
-   - MongoDB
-   - Cassandra
-
-
 ## Caching
 Gishiki achieve better performance using its own cache engine where possible in order
 to increase your application performance!
@@ -125,7 +105,10 @@ whatever you want with your log entries.
 
 
 ## Requirements
-Everything you need is a running (apache or nginx) webserver, php >= 5.6 and composer!
+Everything you need is php >= 5.4 and composer!
+
+Gishiki runs better while using a dedicated http webserver, but you can use the
+one bundled with PHP!
 
 
 ## License

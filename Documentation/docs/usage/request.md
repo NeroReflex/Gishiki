@@ -28,10 +28,10 @@ use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::any("/method_test",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     $method = $request->getMethod();
 
@@ -64,10 +64,10 @@ use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::any("/method_test",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     $method = $request->getMethod();
     $origin_method = $request->getOriginalMethod();
@@ -103,10 +103,10 @@ use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::any("/method_test",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     //get the URI of the current request
     $uri = $request->getUri();
@@ -150,10 +150,10 @@ use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::any("/",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     foreach ($request->getHeaders() as $name => $values) {
         $response->write("name: ". $name . " => values:" . implode(", ", $values));
@@ -171,10 +171,10 @@ use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::any("/",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     foreach (array_keys($request->getHeaders()) as $name) {
         $response->write("name: ". $name . " => values:" . $request->getHeaderLine($name);
@@ -205,10 +205,10 @@ use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::any("/",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     //get the body stream
     $body = $request->getBody();

@@ -18,10 +18,6 @@ pages:
     - Router:           usage/routing.md
     - Request:          usage/request.md
     - Logger:           usage/logging.md
-    - Database: 
-        - Support:      usage/database/index.md
-        - Models:       usage/database/models.md
-        - CRUD:         usage/database/CRUD.md
 
 - About:
     - License: license.md

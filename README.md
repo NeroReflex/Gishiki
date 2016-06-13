@@ -4,8 +4,6 @@
 
 [![Build Status](https://travis-ci.org/NeroReflex/Gishiki.svg?branch=master)](https://travis-ci.org/NeroReflex/Gishiki)
 
-[![Run Status](https://api.shippable.com/projects/5721d2cd2a8192902e1e39a7/badge?branch=master)](https://app.shippable.com/projects/5721d2cd2a8192902e1e39a7)
-
 [![Test Coverage](https://codeclimate.com/github/NeroReflex/Gishiki/badges/coverage.svg)](https://codeclimate.com/github/NeroReflex/Gishiki/coverage)
 
 [![Code Climate](https://codeclimate.com/github/NeroReflex/Gishiki/badges/gpa.svg)](https://codeclimate.com/github/NeroReflex/Gishiki)
@@ -89,19 +87,11 @@ without permanently binding yourself to a single technology, program or 3rd part
 This is achieved by giving you the option of changing a service just by editing a configuration file.
 
 
-## Caching
-Gishiki achieve better performance using its own cache engine where possible in order
-to increase your application performance!
-
-
 ## Logging
 Gishiki gives you the ability of logging what happens on your server.
 
 Gishiki automatically logs exceptions, but delivers you full-control over your logs,
 exposing a simple logging API.
-
-Gishiki uses UNIX syslog for all of its logging management, allowing you to do
-whatever you want with your log entries.
 
 
 ## Requirements

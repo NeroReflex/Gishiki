@@ -200,7 +200,7 @@ PSR-7 compilant. You can obtain that stream calling the getBody() function.
 
 Let's look into an example:
 
- ```php
+```php
 use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;

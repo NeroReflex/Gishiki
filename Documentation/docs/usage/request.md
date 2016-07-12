@@ -5,10 +5,10 @@ The Request class is PSR-7 conformant and follows that specification sheet.
 
  
 ## Request Method
-When an HTTP request is done sent to a server it have to specify the type of the
+When an HTTP request is sent to the server the client has to specify the type of the
 request, that request type is called 'method'.
 
-Usually you work with the following methods:
+Usually you work with following methods:
 
   - GET
   - POST
@@ -229,7 +229,8 @@ Route::any("/",
 I know what you are thinking... You could parse that request body to obtain
 something like an array or a class that you can use within your application....
 
-Well, if that's the case you would like to know that Gishiki does this for you!
+Well, if that's the case you may appreciate the fact that Gishiki does this
+in your place!
 
 To trigger the request body automatic parsing you can use the getParsedBody()
 function that triggers the better parser for the given 'Content-type' header!

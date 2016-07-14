@@ -57,7 +57,7 @@
     
     "provide": {
         "psr/log-implementation": "1.0.0",
-        "psr/psr/http-message-implementation": "1.0.0"
+        "psr/http-message-implementation": "1.0.0"
     },
     
     "scripts": {

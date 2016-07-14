@@ -389,7 +389,7 @@ class Response extends Message implements ResponseInterface
      * @return Response                    the current response (after update)
      * @throws \RuntimeException           an error occurred during the serialization process
      */
-    public function setSerializedBody(SerializableCollection $data) {
+    public function setSerializedBody(SerializableCollection& $data) {
         $format = SerializableCollection::JSON;
         
         //read the content-type and, if no content-type is given use the default one

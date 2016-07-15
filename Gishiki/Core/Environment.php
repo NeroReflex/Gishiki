@@ -18,6 +18,7 @@ limitations under the License.
 namespace Gishiki\Core {
 
     use Gishiki\Algorithms\Collections\GenericCollection;
+	use Gishiki\Algorithms\Collections\SerializableCollection
     use Gishiki\HttpKernel\Request;
     use Gishiki\HttpKernel\Response;
     use Gishiki\Algorithms\Manipulation;
@@ -89,7 +90,7 @@ namespace Gishiki\Core {
         }
 
         /**
-         * Read the application configuration (settings.ini) and return the 
+         * Read the application configuration (settings.json) and return the 
          * parsing result.
          * 
          * @return array the application configuration
@@ -112,7 +113,7 @@ namespace Gishiki\Core {
             }
 
             //parse the settings file
-            $appConfiguration = \Gishiki\Algorithms\Collections\SerializableCollection::deserialize($config)->all();
+            $appConfiguration = SerializableCollection::deserialize($config)->all();
 
             //return the application configuration
             return $appConfiguration;

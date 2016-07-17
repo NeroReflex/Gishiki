@@ -24,6 +24,9 @@ namespace Gishiki\Pipeline;
  */
 abstract class PipelineCollector
 {
+    /**
+     * @var array the collection of registered pipelines
+     */
     private static $pipelines = array();
 
     /**

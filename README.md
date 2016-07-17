@@ -31,10 +31,10 @@ Gishiki is automatically tested and its code reviewed thaks to many *CI*
 
 A special thanks goes to Code Climate and everyboy who maintains a so special platform!
 
-Gishiki aims for total Heroku compatibility because you can deploy you fantastic
+Gishiki aims for total Heroku compatibility because you can deploy your fantastic
 website or app in a few seconds forgetting about maintaining the server!
 
-Alongside Heroku Gishiki aims for compatibility with any *PaaS* (Platform as a Service)
+Alongside Heroku Gishiki aims for the maximum compatibility with any *PaaS* (Platform as a Service)
 and Docker.
 
 

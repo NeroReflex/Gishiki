@@ -15,18 +15,17 @@
   limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\Security\Encryption\Asymmetric;
+namespace Gishiki\Pipeline;
 
 /**
- * The asymmetric encryption exception thrown by Gishiki 
- * when a cryptographic operation results is bad.
+ * An exception related to the pipeline
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class AsymmetricException extends \Gishiki\Core\Exception
+final class PipelineException extends \Gishiki\Core\Exception
 {
     /**
-     * Create the asymmetric-related exception.
+     * Create the pipeline exception.
      *
      * @param string $message   the error message
      * @param int    $errorCode the asymmetric encryption error code

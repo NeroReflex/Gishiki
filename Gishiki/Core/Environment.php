@@ -18,7 +18,7 @@ limitations under the License.
 namespace Gishiki\Core {
 
     use Gishiki\Algorithms\Collections\GenericCollection;
-	use Gishiki\Algorithms\Collections\SerializableCollection
+    use Gishiki\Algorithms\Collections\SerializableCollection;
     use Gishiki\HttpKernel\Request;
     use Gishiki\HttpKernel\Response;
     use Gishiki\Algorithms\Manipulation;

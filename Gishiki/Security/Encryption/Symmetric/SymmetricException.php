@@ -23,7 +23,7 @@ namespace Gishiki\Security\Encryption\Symmetric;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class SymmetricException extends \Gishiki\Core\Exception
+final class SymmetricException extends \Gishiki\Core\Exception
 {
     /**
      * Create the symmetric-related exception.

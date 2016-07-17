@@ -18,7 +18,7 @@
 namespace Gishiki\Pipeline;
 
 /**
- * An exception related to the pipeline
+ * An exception related to the pipeline.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */

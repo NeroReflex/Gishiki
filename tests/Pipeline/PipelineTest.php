@@ -18,8 +18,6 @@ limitations under the License.
 namespace Gishiki\tests\Pipeline;
 
 use Gishiki\Pipeline\Pipeline;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-use Gishiki\Algorithms\Collections\GenericCollection;
 
 /**
  * The tester for the Pipeline class.
@@ -30,15 +28,15 @@ class PipelineTest extends \PHPUnit_Framework_TestCase
 {
     public function testPipelineStageBinding()
     {
-	//setup a simple example pipeline
-        $pipeline = new Pipeline("testingPLLN");
-        $pipeline->bindStage("setup", function($input) {
+        //setup a simple example pipeline
+        $pipeline = new Pipeline('testingPLLN');
+        $pipeline->bindStage('setup', function ($input) {
             return $input++;
         });
-        $pipeline->bindStage("calculate", function($input) {
+        $pipeline->bindStage('calculate', function ($input) {
             return ($input % 2) == 0;
         });
-		
+
         //and additional info
         $this->assertEquals(2, $pipeline->countStages());
     }
@@ -50,40 +48,40 @@ class PipelineTest extends \PHPUnit_Framework_TestCase
     {
         $pipeline = new Pipeline(3);
     }
-	
+
     /**
      * @expectedException \InvalidArgumentException
      */
     public function testBadFunctionName()
     {
         //setup a simple example pipeline
-        $pipeline = new Pipeline("testingPLLNBadFuncName");
-        $pipeline->bindStage("", function($input) {
+        $pipeline = new Pipeline('testingPLLNBadFuncName');
+        $pipeline->bindStage('', function ($input) {
             return $input++;
         });
     }
-	
+
     /**
      * @expectedException \InvalidArgumentException
      */
     public function testBadFunction()
     {
         //setup a simple example pipeline
-        $pipeline = new Pipeline("testingPLLNBadFunc");
-        $pipeline->bindStage("correct_name", 90);
+        $pipeline = new Pipeline('testingPLLNBadFunc');
+        $pipeline->bindStage('correct_name', 90);
     }
-	
+
     /**
      * @expectedException \InvalidArgumentException
      */
     public function testDoubleFunctionName()
     {
         //setup a simple example pipeline
-        $pipeline = new Pipeline("testingPLLNDoubleFuncName");
-        $pipeline->bindStage("same_name", function($input) {
+        $pipeline = new Pipeline('testingPLLNDoubleFuncName');
+        $pipeline->bindStage('same_name', function ($input) {
             return $input++;
         });
-        $pipeline->bindStage("same_name", function($input) {
+        $pipeline->bindStage('same_name', function ($input) {
             return $input--;
         });
     }

@@ -18,8 +18,6 @@ limitations under the License.
 namespace Gishiki\tests\Pipeline;
 
 use Gishiki\Pipeline\Pipeline;
-use Gishiki\Pipeline\PipelineCollector;
-use Gishiki\Pipeline\PipelineException;
 
 /**
  * The tester for the Pipeline class.
@@ -33,7 +31,7 @@ class PipelineCollectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testDoublePipeline()
     {
-	$pipeline_one = new Pipeline("pipelineWithSameName");
-        $pipeline_two = new Pipeline("pipelineWithSameName");
+        $pipeline_one = new Pipeline('pipelineWithSameName');
+        $pipeline_two = new Pipeline('pipelineWithSameName');
     }
 }

@@ -7,7 +7,6 @@
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
-
 namespace Gishiki\tests\Http;
 
 use ReflectionProperty;
@@ -869,14 +868,14 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(['abc' => 'xyz', 'foo' => 'bar'], $request->getParams());
     }
-    
+
     public function testGetDeserializedBody()
     {
         $method = 'POST';
         $uri = new Uri('https', 'example.com', 443, '/foo/bar', 'abc=123', '', '');
         $headers = new Headers();
         $headers->set('Content-Type', 'application/x-www-form-urlencoded;charset=utf8');
-        $_POST["foo"] = "bar";
+        $_POST['foo'] = 'bar';
         $cookies = [];
         $serverParams = [];
         $body = new RequestBody();
@@ -900,7 +899,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(new \Gishiki\Algorithms\Collections\SerializableCollection(['foo' => 'bar']), $request->getDeserializedBody());
         $this->assertEquals(new \Gishiki\Algorithms\Collections\SerializableCollection(['foo' => 'bar']), $request->getDeserializedBody());
     }
-    
+
     public function testGetDeserializedBodyXml()
     {
         $method = 'GET';
@@ -925,17 +924,17 @@ XML;
         $request = new Request($method, $uri, $headers, $cookies, $serverParams, $body);
 
         //throw new \Exception(print_r($request->getDeserializedBody()->all(), true));
-        
+
         $this->assertEquals([
-            'id' => "bk101",
-            'author' => "Gambardella, Matthew",
+            'id' => 'bk101',
+            'author' => 'Gambardella, Matthew',
             'title' => "XML Developer's Guide",
             'price' => 40.5,
-            'publish_date' => "2000-10-01",
-            'description' => "An in-depth look at creating applications with XML."
+            'publish_date' => '2000-10-01',
+            'description' => 'An in-depth look at creating applications with XML.',
         ], $request->getDeserializedBody()->all());
     }
-    
+
     public function testGetDeserializedBodyComplexXml()
     {
         $method = 'GET';
@@ -972,22 +971,22 @@ XML;
         $this->assertEquals([
             'CD' => [
                 0 => [
-                    'TITLE' => "Empire Burlesque",
-                    'ARTIST' => "Bob Dylan",
-                    'COUNTRY' => "USA",
-                    'COMPANY' => "Columbia",
+                    'TITLE' => 'Empire Burlesque',
+                    'ARTIST' => 'Bob Dylan',
+                    'COUNTRY' => 'USA',
+                    'COMPANY' => 'Columbia',
                     'PRICE' => 10.90,
-                    'YEAR' => 1985
+                    'YEAR' => 1985,
                 ],
                 1 => [
-                    'TITLE' => "Hide your heart",
-                    'ARTIST' => "Bonnie Tyler",
-                    'COUNTRY' => "UK",
-                    'COMPANY' => "CBS Records",
+                    'TITLE' => 'Hide your heart',
+                    'ARTIST' => 'Bonnie Tyler',
+                    'COUNTRY' => 'UK',
+                    'COMPANY' => 'CBS Records',
                     'PRICE' => 9.90,
-                    'YEAR' => 1988
-                ]
-            ]
+                    'YEAR' => 1988,
+                ],
+            ],
         ], $request->getDeserializedBody()->all());
     }
 }

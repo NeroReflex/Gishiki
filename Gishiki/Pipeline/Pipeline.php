@@ -17,29 +17,29 @@ limitations under the License.
 
 namespace Gishiki\Pipeline;
 
-use Gishiki\Pipeline\PipelineCollector;
-
 /**
  * Represent a pipeline as a group of actions to be executed
  * in a specific order.
  * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class Pipeline {
+final class Pipeline
+{
     /**
      * @var array The ordered collection of steps
      */
     private $steps = array();
-	
+
     /**
      * @var string The name of the current pipeline
      */
     private $name;
-	
+
     /**
      * Initialize an empty pipeline with the given name.
      *
      * @param string $name the name of the pipeline
+     *
      * @throws \InvalidArgumentException invalid pipeline name
      */
     public function __construct($name)
@@ -48,20 +48,21 @@ final class Pipeline {
         if ((!is_string($name)) || (strlen($name) <= 0)) {
             throw new \InvalidArgumentException('the given pipeline name is not a valid string');
         }
-		
+
         //store the pipeline name
         $this->name = $name;
-        
+
         //register the pipeline
         PipelineCollector::registerPipeline($this);
     }
-	
+
     /**
      * Bind a stage to the current pipeline.
      * The execution order of pipeline stages is the order they are binded.
      *
-     * @param  string   $name   the name of the stage
-     * @param  \Closure $func   the function that represents the stage
+     * @param string   $name the name of the stage
+     * @param \Closure $func the function that represents the stage
+     *
      * @throws \InvalidArgumentException invalid name or function
      */
     public function bindStage($name, $func)
@@ -69,27 +70,27 @@ final class Pipeline {
         if (!is_callable($func)) {
             throw new \InvalidArgumentException('the given function cannot be called');
         }
-		
+
         if ((!is_string($name)) || (strlen($name) <= 0)) {
             throw new \InvalidArgumentException('the given function name is not a valid string');
         }
-		
+
         //check for steps with the same name
         foreach ($this->steps as $step) {
-            if ($step["step_name"] == $name) {
+            if ($step['step_name'] == $name) {
                 throw new \InvalidArgumentException('the given function name is already used in another step');
             }
         }
-		
+
         //store the step
         $this->steps[] = array(
-            "step_name" => "".$name,
-            "step_function" => $func,
+            'step_name' => ''.$name,
+            'step_function' => $func,
         );
     }
-	
+
     /**
-     * Get the number of stages inside the pipeline
+     * Get the number of stages inside the pipeline.
      *
      * @return int the number of stages of the pipeline
      */
@@ -97,14 +98,14 @@ final class Pipeline {
     {
         return count($this->steps);
     }
-        
+
     /**
-     * Get the name of the current pipeline
+     * Get the name of the current pipeline.
      * 
      * @return string the name of the pipeline
      */
     public function getName()
     {
-        return "".$this->name;
+        return ''.$this->name;
     }
 }

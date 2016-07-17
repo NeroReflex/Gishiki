@@ -7,7 +7,6 @@
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
-
 namespace Gishiki\tests\Http;
 
 use ReflectionProperty;
@@ -345,7 +344,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         //test the output (fixed length)
         $this->assertEquals(strlen($message), $response->send(31, true));
     }
-    
+
     public function testSerializationResponse()
     {
         //setup a new response
@@ -356,47 +355,47 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $response->setSerializedBody(new SerializableCollection([
             'CD' => [
                 0 => [
-                    'TITLE' => "Empire Burlesque",
-                    'ARTIST' => "Bob Dylan",
-                    'COUNTRY' => "USA",
-                    'COMPANY' => "Columbia",
+                    'TITLE' => 'Empire Burlesque',
+                    'ARTIST' => 'Bob Dylan',
+                    'COUNTRY' => 'USA',
+                    'COMPANY' => 'Columbia',
                     'PRICE' => 10.90,
-                    'YEAR' => 1985
+                    'YEAR' => 1985,
                 ],
                 1 => [
-                    'TITLE' => "Hide your heart",
-                    'ARTIST' => "Bonnie Tyler",
-                    'COUNTRY' => "UK",
-                    'COMPANY' => "CBS Records",
+                    'TITLE' => 'Hide your heart',
+                    'ARTIST' => 'Bonnie Tyler',
+                    'COUNTRY' => 'UK',
+                    'COMPANY' => 'CBS Records',
                     'PRICE' => 9.90,
-                    'YEAR' => 1988
-                ]
-            ]
+                    'YEAR' => 1988,
+                ],
+            ],
         ]));
-        
+
         //test the output deserialization result
         $this->assertEquals([
             'CD' => [
                 0 => [
-                    'TITLE' => "Empire Burlesque",
-                    'ARTIST' => "Bob Dylan",
-                    'COUNTRY' => "USA",
-                    'COMPANY' => "Columbia",
+                    'TITLE' => 'Empire Burlesque',
+                    'ARTIST' => 'Bob Dylan',
+                    'COUNTRY' => 'USA',
+                    'COMPANY' => 'Columbia',
                     'PRICE' => 10.90,
-                    'YEAR' => 1985
+                    'YEAR' => 1985,
                 ],
                 1 => [
-                    'TITLE' => "Hide your heart",
-                    'ARTIST' => "Bonnie Tyler",
-                    'COUNTRY' => "UK",
-                    'COMPANY' => "CBS Records",
+                    'TITLE' => 'Hide your heart',
+                    'ARTIST' => 'Bonnie Tyler',
+                    'COUNTRY' => 'UK',
+                    'COMPANY' => 'CBS Records',
                     'PRICE' => 9.90,
-                    'YEAR' => 1988
-                ]
-            ]
-        ], SerializableCollection::deserialize((string)$response->getBody(), SerializableCollection::XML)->all());
+                    'YEAR' => 1988,
+                ],
+            ],
+        ], SerializableCollection::deserialize((string) $response->getBody(), SerializableCollection::XML)->all());
     }
-    
+
     public function requestFactory()
     {
         $env = \Gishiki\Core\Environment::mock();
@@ -414,32 +413,32 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
         return $request;
     }
-    
+
     public function testCompleteYamlSerialization()
     {
         //generate a stupid request for testing purpouses
         $request = $this->requestFactory();
-        
+
         //expecting a yaml output....
         $response = Response::deriveFromRequest($request->withAddedHeader('Accept', 'application/x-yaml'));
         $testArray = [
-            "a" => [0, 1, 4, 6],
-            "b" => "this is a test",
-            "c" => 1,
-            "d" => 20.5,
-            "e" => [
-                "f" => "nestedtest",
-                "g" => 9,
-                "h" => true,
-                "i" => null
-            ]
+            'a' => [0, 1, 4, 6],
+            'b' => 'this is a test',
+            'c' => 1,
+            'd' => 20.5,
+            'e' => [
+                'f' => 'nestedtest',
+                'g' => 9,
+                'h' => true,
+                'i' => null,
+            ],
         ];
         $response->setSerializedBody(new SerializableCollection($testArray));
-        
+
         //check for the content type
         $this->assertEquals('application/x-yaml', explode(';', $response->getHeader('Content-Type')[0])[0]);
-        
+
         //check the serialization result
-        $this->assertEquals($testArray, \Symfony\Component\Yaml\Yaml::parse((string)$response->getBody()));
+        $this->assertEquals($testArray, \Symfony\Component\Yaml\Yaml::parse((string) $response->getBody()));
     }
 }

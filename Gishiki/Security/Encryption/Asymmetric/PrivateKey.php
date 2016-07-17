@@ -239,7 +239,6 @@ final class PrivateKey
                         Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').'openssl.cnf' : null, ]);
         }
 
-
         //serialize the key and encrypt it if requested
         if (strlen($keyPassword) > 0) {
             openssl_pkey_export($this->key, $serialized_key, $keyPassword, $config);

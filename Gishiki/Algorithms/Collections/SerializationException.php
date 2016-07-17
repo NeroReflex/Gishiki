@@ -13,7 +13,7 @@ limitations under the License.
  *****************************************************************************/
 
 namespace Gishiki\Algorithms\Collections {
-    
+
     /**
      * The serialization exception thrown by Gishiki 
      * when a bad serialization operation takes place.

@@ -62,7 +62,7 @@ abstract class Gishiki
     {
         //initialize the framework
         self::Initialize();
-        
+
         //each Gishiki instance is binded with a newly created Environment
         if (!is_object(self::$executionEnvironment)) {
             self::$executionEnvironment = new Environment(

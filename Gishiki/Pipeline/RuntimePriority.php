@@ -18,15 +18,15 @@ limitations under the License.
 namespace Gishiki\Pipeline;
 
 /**
- * Represent the execution priority of a pipeline instance
+ * Represent the execution priority of a pipeline instance.
  * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 abstract class RuntimePriority
 {
-    const URGENT    = 0;
-    const HIGH      = 1;
-    const MEDIUM    = 2;
-    const LOW       = 3;
-    const LOWEST    = 4;
+    const URGENT = 0;
+    const HIGH = 1;
+    const MEDIUM = 2;
+    const LOW = 3;
+    const LOWEST = 4;
 }

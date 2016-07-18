@@ -18,14 +18,14 @@ limitations under the License.
 namespace Gishiki\Pipeline;
 
 /**
- * Represent the execution status of a pipeline instance
+ * Represent the execution status of a pipeline instance.
  * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 abstract class RuntimeStatus
 {
-    const STOPPED    = 0;
-    const ABORTED    = 1;
-    const COMPLETED  = 2;
-    const WORKING    = 3;
+    const STOPPED = 0;
+    const ABORTED = 1;
+    const COMPLETED = 2;
+    const WORKING = 3;
 }

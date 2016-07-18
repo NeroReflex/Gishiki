@@ -108,53 +108,92 @@ final class Pipeline
     {
         return ''.$this->name;
     }
-    
-    public function getFunctionNameByIndex()
+
+    /**
+     * Retrieve the name of the function inside the current pipeline by its index.
+     * 
+     * @param int $index the index zero-based of the function
+     *
+     * @return string the name of the function
+     *
+     * @throws \InvalidArgumentException the given index is invalid
+     * @throws PipelineException         a function with the given index doesn't exists
+     */
+    public function getFunctionNameByIndex($index)
     {
         //check for bad or invalid numbers
         if (is_int($index) || ($index < 0)) {
             throw new \InvalidArgumentException('The given function index is not valid');
         }
         if ($index >= $this->countStages()) {
-            throw new PipelineException('The pipeline doesn\'t have the requested function', 2);    
+            throw new PipelineException('The pipeline doesn\'t have the requested function', 2);
         }
-        
+
         //return the step name
         return $this->steps[$index]['step_name'];
     }
-    
+
+    /**
+     * Retrieve the index of the function with the given name.
+     * 
+     * @param string $name the name of the function to be found
+     *
+     * @return int the index of the binded function with the given name
+     *
+     * @throws \InvalidArgumentException the name of the function is invalid
+     * @throws PipelineException         a function with the given name cannot be found
+     */
     public function getFunctionIndexByName($name)
     {
         //check for malformed input
         if ((!is_string($name)) || (strlen($name) <= 0)) {
             throw new \InvalidArgumentException('the given function name is not a valid string');
         }
-        
+
         //search the requested function
         foreach ($this->steps as $index => $step) {
             if (strcmp($step['step_name'], $name) == 0) {
                 return $index;
             }
         }
-        
+
         //report the error
-        throw new PipelineException("A function with the given name in not defined on the current pipeline", 3);
+        throw new PipelineException('A function with the given name in not defined on the current pipeline', 3);
     }
-    
+
+    /**
+     * Reflect the function with the given name from the current pipeline.
+     * 
+     * @param string $name the name of the function to be reflected
+     *
+     * @return \ReflectionFunction the reflected function
+     *
+     * @throws \InvalidArgumentException the given function name is invalid
+     */
     public function reflectFunctionByName($name)
     {
         //check for invalid function names
         if ((!is_string($name)) || (strlen($name) <= 0)) {
             throw new \InvalidArgumentException('The given function name is not a valid string');
         }
-        
+
         //get the function index
         $index = $this->getFunctionIndexByName($name);
-        
+
         //and return the function using its index
         return $this->reflectFunctionByIndex($index);
     }
-    
+
+    /**
+     * Reflect the function with the given index from the current pipeline.
+     * 
+     * @param string $index the name of the function to be reflected
+     *
+     * @return \ReflectionFunction the reflected function
+     *
+     * @throws \InvalidArgumentException the given function index is invalid
+     * @throws PipelineException         the given function index is out of range
+     */
     public function reflectFunctionByIndex($index)
     {
         //check for bad or invalid numbers
@@ -162,9 +201,9 @@ final class Pipeline
             throw new \InvalidArgumentException('The given function index is not valid');
         }
         if ($index >= $this->countStages()) {
-            throw new PipelineException('The pipeline doesn\'t have the requested function', 2);    
+            throw new PipelineException('The pipeline doesn\'t have the requested function', 2);
         }
-        
+
         //return the reflected function
         return new \ReflectionFunction($this->steps[$index]['step_function']);
     }

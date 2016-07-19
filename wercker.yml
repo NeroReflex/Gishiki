@@ -29,11 +29,14 @@ build:
         name: Finishing MongoDB istallation
         code: export PATH=mongodb/bin:$PATH
     - script:
+        name: Dreating db directory
+        code: mkdir -p /data/db
+    - script:
         name: Start MongoDB
-        code: mongod  --port 27017
+        code: mongodb/bin/mongod --port 27017
     - script:
         name: Setup MongoDB
-        code: mongo localhost:27017/gishiki tests/SetupTestingMongo.js
+        code: mongodb/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js
     - script:
         name: Install MongoDB extension
         code: pecl install mongodb

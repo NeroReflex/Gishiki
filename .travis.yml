@@ -11,7 +11,9 @@ before_script:
     - curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.8.tgz
     - tar -zxvf mongodb-linux-x86_64-3.2.8.tgz
     - export PATH=mongodb-linux-x86_64-3.2.8/bin:$PATH
-    - mkdir -p /data/db && chmod 0777 -R /data/db
+#    - mkdir -p /data/db && chmod 0777 -R /data/db
+    - chmod +x mongodb-linux-x86_64-3.2.8/bin/mongod
+    - chmod +x mongodb-linux-x86_64-3.2.8/bin/mongo
     - mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 &
     - sleep 30
     - mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js

@@ -2,7 +2,7 @@ box: php
 dev:
   steps:
     - install-packages:
-        packages: git openssl pkg-config libssl-dev libsslcommon2-dev
+        packages: git openssl pkg-config libssl-dev
     - script:
         name: install composer
         code: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
@@ -15,7 +15,7 @@ dev:
 build:
   steps:
     - install-packages:
-        packages: git openssl pkg-config libssl-dev libsslcommon2-dev
+        packages: git openssl pkg-config libssl-dev
     - script:
         name: Download MongoDB
         code: curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.8.tgz

@@ -30,13 +30,10 @@ build:
         code: mkdir -p /data/db && chmod 0777 -R /data/db
     - script:
         name: Start MongoDB
-        code: mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 &
-    - script:
-        name: Synchronizing MongoDB
-        code: sleep 30
-    - script:
-        name: Setup MongoDB
-        code: mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js
+        code: mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 &> /build/logs/mongodb.log &
+#    - script:
+#        name: Synchronizing MongoDB
+#        code: sleep 30
     - script:
         name: Testing PHP
         code: php -i
@@ -75,8 +72,11 @@ build:
         name: Serve application
         code: php -S localhost:8000 >> /dev/null &
     - script:
+        name: Setup MongoDB
+        code: mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js
+    - script:
         name: PHPUnit integration tests
         code: phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml
-#    - script:
-#        name: Send to Code Climate
-#        code: vendor/bin/test-reporter
+    - script:
+        name: Send to Code Climate
+        code: vendor/bin/test-reporter

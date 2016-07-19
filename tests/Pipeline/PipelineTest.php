@@ -85,4 +85,102 @@ class PipelineTest extends \PHPUnit_Framework_TestCase
             return $input--;
         });
     }
+
+    public function testNameAndIndexConversion()
+    {
+        $name_one = 'not_a_good_name';
+        $name_two = 'special_name';
+
+        //setup a simple example pipeline
+        $pipeline = new Pipeline('testingPLLNNameAndIndexConversion');
+        $pipeline->bindStage($name_one, function ($input) {
+            return $input++;
+        });
+        $pipeline->bindStage($name_two, function ($input) {
+            return $input--;
+        });
+
+        $this->assertEquals($name_two, $pipeline->getFunctionNameByIndex(1));
+        $this->assertEquals(0, $pipeline->getFunctionIndexByName($name_one));
+    }
+
+    /**
+     * @expectedException \Gishiki\Pipeline\PipelineException
+     */
+    public function testBadNameAndIndexConversion()
+    {
+        $name_one = 'bad_not_a_good_name';
+        $name_two = 'bad_special_name';
+
+        //setup a simple example pipeline
+        $pipeline = new Pipeline('testingPLLNBadNameAndIndexConversion');
+        $pipeline->bindStage($name_one, function ($input) {
+            return $input++;
+        });
+        $pipeline->bindStage($name_two, function ($input) {
+            return $input--;
+        });
+
+        $pipeline->getFunctionIndexByName('invalid_'.$name_one);
+    }
+
+    /**
+     * @expectedException \Gishiki\Pipeline\PipelineException
+     */
+    public function testNameAndBadIndexConversion()
+    {
+        $name_one = 'bad_not_a_good_name';
+        $name_two = 'bad_special_name';
+
+        //setup a simple example pipeline
+        $pipeline = new Pipeline('testingPLLNNameAndBadIndexConversion');
+        $pipeline->bindStage($name_one, function ($input) {
+            return $input++;
+        });
+        $pipeline->bindStage($name_two, function ($input) {
+            return $input--;
+        });
+
+        $pipeline->getFunctionNameByIndex(2);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testNameAndInvalidIndexConversion()
+    {
+        $name_one = 'bad_not_a_good_name';
+        $name_two = 'bad_special_name';
+
+        //setup a simple example pipeline
+        $pipeline = new Pipeline('testingPLLNNameAndInvalidIndexConversion');
+        $pipeline->bindStage($name_one, function ($input) {
+            return $input++;
+        });
+        $pipeline->bindStage($name_two, function ($input) {
+            return $input--;
+        });
+
+        $pipeline->getFunctionNameByIndex('this is a string...');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidNameAndIndexConversion()
+    {
+        $name_one = 'bad_not_a_good_name';
+        $name_two = 'bad_special_name';
+
+        //setup a simple example pipeline
+        $pipeline = new Pipeline('testingPLLNInvalidNameAndIndexConversion');
+        $pipeline->bindStage($name_one, function ($input) {
+            return $input++;
+        });
+        $pipeline->bindStage($name_two, function ($input) {
+            return $input--;
+        });
+
+        $pipeline->getFunctionIndexByName(25);
+    }
 }

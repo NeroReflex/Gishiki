@@ -17,6 +17,8 @@ limitations under the License.
 
 namespace Gishiki\Pipeline;
 
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
 /**
  * Represent the executor of a pipeline.
  * 
@@ -24,6 +26,13 @@ namespace Gishiki\Pipeline;
  */
 final class PipelineRuntime
 {
+    private static $currentExecution = null;
+
+    /**
+     * @var SerializableCollection the data that the runtime will access with R/W permissions
+     */
+    public $serializableCollection;
+
     private $uniqCode;
     private $status;
     private $priority;
@@ -47,6 +56,9 @@ final class PipelineRuntime
         if ((!is_int($priority)) || ($priority > RuntimePriority::LOWEST)) {
             throw new \InvalidArgumentException('The given execution priority is not valid');
         }
+
+        //generate a new serializable collection
+        $this->serializableCollection = new SerializableCollection();
 
         //generate an unique ID for the current pipeline executor
         $this->uniqCode = uniqid();
@@ -93,7 +105,7 @@ final class PipelineRuntime
         $stepsNumber = ($steps < 0) ?
                 $this->pipeline->countStages() : $steps;
 
-        for ($i = $this->completedStages; ($i < $stepsNumber) && (($i + $this->completedStages) < $this->pipeline->countStages()); ++$i) {
+        for ($i = $this->completedStages; ($i < ($this->completedStages + $stepsNumber)) && (($i + $this->completedStages) < $this->pipeline->countStages()); ++$i) {
             //the pipeline is working right now
             $this->status = RuntimeStatus::WORKING;
 
@@ -101,9 +113,15 @@ final class PipelineRuntime
             $startTime = time();
             $start = microtime(true);
 
+            //register the currently used runtime
+            self::$currentExecution = &$this;
+
             //fetch & execute the pipeline stage
             $reflectedFunction = $this->pipeline->reflectFunctionByIndex($i);
             $executionResult = $reflectedFunction->invokeArgs($args);
+
+            //unregister the currently used runtime
+            self::$currentExecution = null;
 
             //get the final time
             $time_elapsed_secs = microtime(true) - $start;

@@ -106,6 +106,11 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
         }
     }
 
+    /**
+     * Get the representation of the current collection as an associative array.
+     * 
+     * @return array the collection as an associative array
+     */
     public function all()
     {
         return $this->data;

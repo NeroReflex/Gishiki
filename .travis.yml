@@ -7,6 +7,7 @@ php:
   - hhvm
 
 before_script:
+    - pear install mongodb
     - composer self-update
     - composer install
     

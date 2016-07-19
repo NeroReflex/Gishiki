@@ -122,7 +122,7 @@ final class Pipeline
     public function getFunctionNameByIndex($index)
     {
         //check for bad or invalid numbers
-        if (is_int($index) || ($index < 0)) {
+        if ((!is_int($index)) || ($index < 0)) {
             throw new \InvalidArgumentException('The given function index is not valid');
         }
         if ($index >= $this->countStages()) {
@@ -197,7 +197,7 @@ final class Pipeline
     public function reflectFunctionByIndex($index)
     {
         //check for bad or invalid numbers
-        if (is_int($index) || ($index < 0)) {
+        if ((!is_int($index)) || ($index < 0)) {
             throw new \InvalidArgumentException('The given function index is not valid');
         }
         if ($index >= $this->countStages()) {

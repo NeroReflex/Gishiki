@@ -1,4 +1,6 @@
 box: php
+services:
+   - id: mongo
 dev:
   steps:
     - install-packages:
@@ -17,7 +19,13 @@ build:
     - install-packages:
         packages: git
     - script:
-        name: Install extensions
+        name: Setup MongoDB
+        code: mongo localhost:27017/gishiki tests/SetupTestingMongo.js
+    - script:
+        name: Install MongoDB extension
+        code: pecl install mongodb
+    - script:
+        name: Install XDebug
         code: |-
             pecl install xdebug
     - script:

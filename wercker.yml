@@ -38,6 +38,9 @@ build:
         name: Setup MongoDB
         code: mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js
     - script:
+        name: Preparing PECL
+        code: php -i
+    - script:
         name: Install MongoDB extension
         code: pecl install mongodb
     - script:

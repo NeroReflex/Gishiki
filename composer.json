@@ -27,7 +27,7 @@
         "psr/log": "^1.0.0",
         "ext-Reflection": "*",
         "symfony/yaml": "v2.8.6",
-        "mongodb/mongodb": "^1.0.0"
+        "ext-mongodb": "*"
     },
 
     "require-dev": {

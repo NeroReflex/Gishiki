@@ -2,7 +2,7 @@ box: php
 dev:
   steps:
     - install-packages:
-        packages: git openssl
+        packages: git openssl pkg-config libssl-dev libsslcommon2-dev
     - script:
         name: install composer
         code: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
@@ -27,7 +27,7 @@ build:
         code: export PATH=mongodb-linux-x86_64-3.2.8/bin:$PATH
     - script:
         name: Dreating db directory
-        code: mkdir -p /data/db
+        code: mkdir -p /data/db && chmod 0777 -R /data/db
     - script:
         name: Start MongoDB
         code: mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 &

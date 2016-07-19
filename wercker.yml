@@ -41,6 +41,9 @@ build:
         name: Testing PHP
         code: php -i
     - script:
+        name: Debugging PHP config dir
+        code: ls -ld /usr/local/etc/php
+    - script:
         name: Preparing PECL
         code: pecl config-set php_ini /usr/local/etc/php/php.ini
     - script:

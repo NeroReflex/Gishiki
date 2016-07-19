@@ -30,7 +30,10 @@ build:
         code: mkdir -p /data/db
     - script:
         name: Start MongoDB
-        code: mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017
+        code: mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 &
+    - script:
+        name: Synchronizing MongoDB
+        code: sleep 30
     - script:
         name: Setup MongoDB
         code: mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js

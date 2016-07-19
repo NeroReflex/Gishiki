@@ -15,7 +15,7 @@ dev:
 build:
   steps:
     - install-packages:
-        packages: git
+        packages: git openssl pkg-config libssl-dev libsslcommon2-dev
     - script:
         name: Download MongoDB
         code: curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.8.tgz

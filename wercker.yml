@@ -24,19 +24,16 @@ build:
         code: tar -zxvf mongodb-linux-x86_64-3.2.8.tgz
     - script:
         name: Installing MongoDB
-        code: mkdir -p mongodb && cp -R -n mongodb-linux-x86_64-3.2.8/ mongodb
-    - script:
-        name: Finishing MongoDB istallation
-        code: export PATH=mongodb/bin:$PATH
+        code: export PATH=mongodb-linux-x86_64-3.2.8/bin:$PATH
     - script:
         name: Dreating db directory
         code: mkdir -p /data/db
     - script:
         name: Start MongoDB
-        code: mongodb/bin/mongod --port 27017
+        code: mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017
     - script:
         name: Setup MongoDB
-        code: mongodb/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js
+        code: mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js
     - script:
         name: Install MongoDB extension
         code: pecl install mongodb

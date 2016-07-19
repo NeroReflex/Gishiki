@@ -2,7 +2,7 @@ box: php
 dev:
   steps:
     - install-packages:
-        packages: git mongodb-org mongodb-org-server mongodb-org-shell
+        packages: git openssl
     - script:
         name: install composer
         code: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
@@ -17,7 +17,19 @@ build:
     - install-packages:
         packages: git
     - script:
-        name: Setup MongoDB
+        name: Download MongoDB
+        code: curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.8.tgz
+    - script:
+        name: Extract MongoDB
+        code: tar -zxvf mongodb-linux-x86_64-3.2.8.tgz
+    - script:
+        name: Installing MongoDB
+        code: mkdir -p mongodb && cp -R -n mongodb-linux-x86_64-3.2.8/ mongodb
+    - script:
+        name: Finishing MongoDB istallation
+        code: export PATH=mongodb/bin:$PATH
+    - script:
+        name: Start MongoDB
         code: mongod  --port 27017
     - script:
         name: Setup MongoDB

@@ -17,6 +17,11 @@ build:
     - install-packages:
         packages: git openssl pkg-config libssl-dev
     - script:
+        name: prepare build folders
+        code: |-
+            mkdir build
+            mkdir build/logs
+    - script:
         name: Download MongoDB
         code: curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.8.tgz
     - script:
@@ -30,16 +35,13 @@ build:
         code: mkdir -p /data/db && chmod 0777 -R /data/db
     - script:
         name: Start MongoDB
-        code: mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 &> /build/logs/mongodb.log &
+        code: mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 > /build/logs/mongodb.log &
 #    - script:
 #        name: Synchronizing MongoDB
 #        code: sleep 30
     - script:
         name: Testing PHP
-        code: php -i
-    - script:
-        name: Debugging PHP config dir
-        code: ls -ld /usr/local/etc/php
+        code: php -i > /build/logs/phpinfo.log
     - script:
         name: Preparing PECL
         code: pecl config-set php_ini /usr/local/etc/php/php.ini
@@ -52,11 +54,6 @@ build:
     - script:
         name: Finishing installation
         code: echo -e '\nzend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20151012/xdebug.so\nextension=/usr/local/lib/php/extensions/no-debug-non-zts-20151012/mongodb.so' >> /usr/local/etc/php/php.ini
-    - script:
-        name: prepare build folders
-        code: |-
-            mkdir build
-            mkdir build/logs
     - script:
         name: install phpunit
         code: |-

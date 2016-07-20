@@ -16,8 +16,8 @@ before_script:
     - chmod +x mongodb-linux-x86_64-3.2.8/bin/mongo
     - touch mongodb.log
     - mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 > mongodb.log &
-#    - pecl install mongodb
-    - phpenv config-add .travis.php.ini
+    - pecl install mongodb-1.1.8
+#    - phpenv config-add .travis.php.ini
     - composer self-update
     - composer install
     

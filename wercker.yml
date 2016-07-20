@@ -46,10 +46,10 @@ build:
     - script:
         name: Preparing PECL INI
         code: |-
-          sudo touch /usr/local/etc/php/config.d/pecl.ini
-          sudo chmod 0777 -R /usr/local/etc/php/config.d
-          pecl config-set php_ini /usr/local/etc/php/config.d/pecl.ini
-          pear config-set php_ini /usr/local/etc/php/config.d/pecl.ini
+          sudo touch /usr/local/etc/php/conf.d/pecl.ini
+          sudo chmod 0777 -R /usr/local/etc/php/conf.d
+          pecl config-set php_ini /usr/local/etc/php/conf.d/pecl.ini
+          pear config-set php_ini /usr/local/etc/php/conf.d/pecl.ini
     - script:
         name: Install MongoDB extension
         code: pecl install mongodb-1.1.8

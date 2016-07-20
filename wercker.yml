@@ -46,20 +46,24 @@ build:
         code: |-
           touch build/logs/phpinfo.log
           php -i > build/logs/phpinfo.log
+#    - script:
+#        name: Preparing PECL INI
+#        code: |-
+#          sudo touch /usr/local/etc/php/config.d/pecl.ini
+#          sudo chmod 0777 -R /usr/local/etc/php/config.d
+#          pecl config-set php_ini /usr/local/etc/php/config.d/pecl.ini
+#          pear config-set php_ini /usr/local/etc/php/config.d/pecl.ini
     - script:
         name: Preparing PECL
         code: |-
-          pecl config-set php_ini .travis.php.ini
-          pear config-set php_ini .travis.php.ini
+          pecl config-set php_ini /usr/local/etc/php/php.ini
+          pear config-set php_ini /usr/local/etc/php/php.ini
     - script:
         name: Install MongoDB extension
-        code: pecl install mongodb-1.1.8
+        code: sudo pecl install mongodb-1.1.8
     - script:
         name: Install XDebug
-        code: pecl install xdebug-2.4.0
-    - script:
-        name: Finishing Installation
-        code: phpenv config-add .travis.php.ini
+        code: sudo pecl install xdebug-2.4.0
 #    - script:
 #        name: Finishing installation
 #        code: echo -e '\nzend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20151012/xdebug.so\nextension=/usr/local/lib/php/extensions/no-debug-non-zts-20151012/mongodb.so' >> /usr/local/etc/php/php.ini

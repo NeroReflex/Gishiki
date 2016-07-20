@@ -14,15 +14,14 @@ before_script:
     - sudo mkdir -p /data/db && sudo chmod 0777 -R /data/db
     - chmod +x mongodb-linux-x86_64-3.2.8/bin/mongod
     - chmod +x mongodb-linux-x86_64-3.2.8/bin/mongo
-    - mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 &
-    - pecl install mongodb
+    - touch mongodb.log
+    - mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 > mongodb.log &
+#    - pecl install mongodb
+    - phpenv config-add .travis.php.ini
     - composer self-update
     - composer install
     
 script:
     - sleep 30
     - mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js
-    - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then phpunit --coverage-clover build/logs/clover.xml; else phpunit ; fi
-
-after_script:
-  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then vendor/bin/test-reporter ; fi
+    - phpunit

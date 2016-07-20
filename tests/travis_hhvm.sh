@@ -13,7 +13,7 @@ cd mongo-hhvm-driver
 git submodule sync
 git submodule update --init --recursive
 hphpize
-cmake .
+cmake . -DCMAKE_CXX_COMPILER=g++-4.8 -DCMAKE_CC_COMPILER=gcc-4.8
 make configlib
 make
 sudo make install

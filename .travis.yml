@@ -17,8 +17,8 @@ before_script:
     - touch mongodb.log
     - mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 > mongodb.log &
     - sudo mkdir /pear && sudo chmod 0777 -R /pear
-    - pecl config-set temp_dir /pear
-    - pear config-set temp_dir /pear
+    - pecl config-set php_ini .travis.php.ini
+    - pear config-set php_ini .travis.php.ini
     - pecl install mongodb-1.1.8
 #    - phpenv config-add .travis.php.ini
     - composer self-update

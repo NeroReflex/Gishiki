@@ -11,7 +11,7 @@ before_script:
     - curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.8.tgz
     - tar -zxvf mongodb-linux-x86_64-3.2.8.tgz
     - export PATH=mongodb-linux-x86_64-3.2.8/bin:$PATH
-    - sudo mkdir -p /data/db && sudo chmod 0777 -R /data/db
+    - sudo mkdir -p /data/db && sudo chmod 0775 -R /data/db
     - chmod +x mongodb-linux-x86_64-3.2.8/bin/mongod
     - chmod +x mongodb-linux-x86_64-3.2.8/bin/mongo
     - touch mongodb.log

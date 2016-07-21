@@ -54,23 +54,6 @@ abstract class DatabaseManager
             self::$adaptersMap[$adapter] : $adapterTemp;
         $connectionQuery = $temp[1];
 
-        /*
-        //split user:pass from host:port/dbname
-        $temp = explode('@', $temp[1]);
-        $userPass = explode(':', $temp[0]);
-        $temp = explode('/', $temp[1]);
-        $hostPort = explode(':', $temp[0]);
-
-        //generate the connection array
-        $connectionDetails = [
-            'host' => $hostPort[0],
-            'port' => $hostPort[1],
-            'database' => $temp[1],
-            'username' => $userPass[0],
-            'password' => $userPass[1],
-        ];
-        */
-
         try {
             //reflect the adapter
             $reflectedAdapter = new \ReflectionClass('Gishiki\\Database\\Adapters\\'.$adapter);

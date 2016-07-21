@@ -18,6 +18,7 @@ limitations under the License.
 namespace Gishiki\Database\Adapters;
 
 use Gishiki\Database\DatabaseInterface;
+use Gishiki\Database\DatabaseException;
 use Gishiki\Algorithms\Collections\GenericCollection;
 
 /**
@@ -76,11 +77,17 @@ final class Mongodb implements DatabaseInterface
         }
         $adaptedData = ($data instanceof GenericCollection) ? $data->all() : $data;
 
+        //create a bulkwriter and fill it
         $bulk = new \MongoDB\Driver\BulkWrite();
+        $nativeID = $bulk->insert($adaptedData);
 
-        $bulk->insert($adaptedData);
+        //execute the write operation
         $result = $this->connection['db_manager']->executeBulkWrite($collection, $bulk);
 
-        return $result->getInsertedCount();
+        if ($result->getInsertedCount() <= 0) {
+            throw new DatabaseException('Insertion failed due to an unknown error', 2);
+        }
+
+        return new MongodbObjectID($nativeID);
     }
 }

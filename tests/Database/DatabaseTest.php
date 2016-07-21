@@ -62,6 +62,6 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
     public function testInsertion()
     {
         $connection = DatabaseManager::Connect('testing_db', self::GetConnectionQuery());
-        $this->assertEquals(true, $connection->Write('testing.phpUnit', ['x' => 3]));
+        $this->assertEquals(true, $connection->Write('testing.phpUnit', ['x' => 3])->Valid());
     }
 }

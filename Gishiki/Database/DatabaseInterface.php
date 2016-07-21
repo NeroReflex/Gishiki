@@ -60,6 +60,10 @@ interface DatabaseInterface
      * @param string                  $collection the name of the collection that will hold the data
      * @param array|GenericCollection $data       the collection of data to be written
      * @throw \InvalidArgumentException the given collection name or data is not a collection of valid values
+     *
+     * @throws DatabaseException the error occurred while inerting data to the database
+     *
+     * @return ObjectIDInterface the unique ID of the inserted data
      */
     public function Write($collection, $data);
 }

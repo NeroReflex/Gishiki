@@ -61,7 +61,8 @@ dev:
         code: php -S localhost:8000 >> /dev/null &
     - script:
         name: Setup MongoDB
-        code: mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/testing tests/SetupTestingMongo.js
+        code: mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js
+#        code: mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/testing tests/SetupTestingMongo.js
     - script:
         name: PHPUnit integration tests
         code: phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml

@@ -24,7 +24,7 @@ use Gishiki\Database\DatabaseManager;
  * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class DatabaseTest extends \PHPUnit_Framework_TestCase
+class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
 {
     private static function GetConnectionQuery()
     {
@@ -34,7 +34,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
         $pass = '45Jfh4oe8E';
         $pass = (strlen($pass) > 0) ? ':'.$pass : '';
 
-        return 'mongodb://'.$user.$pass.'@'.$host.':'.$port.'/gishiki';
+        return 'mongodb://'.$user.$pass.'@'.$host.':'.$port.'/testing';
     }
 
     /**
@@ -62,6 +62,14 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
     public function testInsertion()
     {
         $connection = DatabaseManager::Connect('testing_db', self::GetConnectionQuery());
-        $this->assertEquals(true, $connection->Write('testing.phpUnit', ['x' => 3])->Valid());
+        $this->assertEquals(true, $connection->Insert('testing.phpUnit', ['x' => 3])->Valid());
+    }
+
+    public function testChange()
+    {
+        $connection = DatabaseManager::Connect('testing_db', self::GetConnectionQuery());
+        $connection->Insert('testing.phpUnit', ['u' => 3]);
+        $numberOfAffected = $connection->Update('testing.phpUnit', ['u' => 2, 'n' => 'prova'], (new \Gishiki\Database\SelectionCriteria())->EqualThan('u', 3));
+        $this->assertEquals(1, $numberOfAffected);
     }
 }

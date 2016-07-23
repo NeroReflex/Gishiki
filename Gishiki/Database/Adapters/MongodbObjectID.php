@@ -44,6 +44,11 @@ final class MongodbObjectID implements ObjectIDInterface
 
     public function Valid()
     {
-        return strlen($this->oid) > 0;
+        return (is_string($this->oid)) && (strlen($this->oid) > 0);
+    }
+
+    public function __toString()
+    {
+        return ''.$this->oid;
     }
 }

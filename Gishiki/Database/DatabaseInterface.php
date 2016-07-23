@@ -17,8 +17,6 @@ limitations under the License.
 
 namespace Gishiki\Database;
 
-use Gishiki\Algorithms\Collections\GenericCollection;
-
 /**
  * Represent how a database connection must be implemented.
  * 
@@ -57,13 +55,24 @@ interface DatabaseInterface
      * Write data to the database on the given collection/table.
      * The name of the collection must be given witht the database.collection syntax.
      * 
-     * @param string                  $collection the name of the collection that will hold the data
-     * @param array|GenericCollection $data       the collection of data to be written
+     * @param string                    $collection the name of the collection that will hold the data
+     * @param array|CollectionInterface $data       the collection of data to be written
      * @throw \InvalidArgumentException the given collection name or data is not a collection of valid values
      *
      * @throws DatabaseException the error occurred while inerting data to the database
      *
      * @return ObjectIDInterface the unique ID of the inserted data
      */
-    public function Write($collection, $data);
+    public function Insert($collection, $data);
+
+    /**
+     * Update values of documents/records matching the given criteria.
+     * 
+     * @param string                    $collection the name of the collection that will hold the changed data
+     * @param array|CollectionInterface $data       the new data of selected documents/records
+     * @param SelectionCriteria         $where      the criteria used to select documents/records to update
+     *
+     * @return int the number of affected documents/records
+     */
+    public function Update($collection, $data, SelectionCriteria $where);
 }

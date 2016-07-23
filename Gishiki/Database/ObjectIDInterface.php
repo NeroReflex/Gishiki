@@ -25,7 +25,7 @@ namespace Gishiki\Database;
 interface ObjectIDInterface
 {
     /**
-     * Create the object ID representation fron a driver-native representation.
+     * Create the Object ID representation fron a driver-native representation.
      * 
      * @param mixed $native the object id in a native format
      *
@@ -39,4 +39,12 @@ interface ObjectIDInterface
      * @return bool TRUE only if the object ID is valid
      */
     public function Valid();
+
+    /**
+     * Fetch the not-native (string encoded) representation of the
+     * currently managed Object ID.
+     * 
+     * @return string the string representation of the object ID
+     */
+    public function __toString();
 }

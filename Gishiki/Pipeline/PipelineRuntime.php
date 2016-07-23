@@ -35,6 +35,7 @@ final class PipelineRuntime
 
     private $uniqCode;
     private $status;
+    private $type;
     private $priority;
     private $creationTime;
     private $completionReports = array();
@@ -50,12 +51,15 @@ final class PipelineRuntime
      *
      * @throws \InvalidArgumentException the given priority is not valid
      */
-    public function __construct(Pipeline &$pipeline, $priority)
+    public function __construct(Pipeline &$pipeline, $type, $priority)
     {
         //check for invalid priority
-        if ((!is_int($priority)) || ($priority > RuntimePriority::LOWEST)) {
-            throw new \InvalidArgumentException('The given execution priority is not valid');
+        if (((!is_int($priority)) || ($priority > RuntimePriority::LOWEST)) || (($type != RuntimeType::ASYNCHRONOUS) && ($type != RuntimeType::SYNCHRONOUS))) {
+            throw new \InvalidArgumentException('The given execution priority or pipeline type is not valid');
         }
+
+        //store the type of the pipeline
+        $this->type = $type;
 
         //generate a new serializable collection
         $this->serializableCollection = new SerializableCollection();
@@ -72,11 +76,11 @@ final class PipelineRuntime
         //no completed stages (yet)
         $this->completedStages = 0;
 
-        //end the execution IMMEDIATLY by executing zero stages
-        $this([], 0);
-
         //store a reference to the pipeline
         $this->pipeline = &$pipeline;
+
+        //end the execution IMMEDIATLY by executing zero stages
+        $this([], 0);
     }
 
     /**

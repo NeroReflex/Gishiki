@@ -91,7 +91,7 @@ final class Mongodb implements DatabaseInterface
         } catch (\MongoDB\Driver\Exception\InvalidArgumentException $ex) {
             throw new DatabaseException('Insertion failed due to an error occurred while parsing data', 2);
         } catch (\MongoDB\Driver\Exception\ConnectionException $ex) {
-            throw new DatabaseException('Insertion failed due to an error on authentication', 2);
+            throw new DatabaseException('Insertion failed due to an error on authentication: '.$ex->getMessage(), 2);
         } catch (\MongoDB\Driver\Exception\AuthenticationException $ex) {
             throw new DatabaseException('Insertion failed due to an error on connection', 2);
         } catch (\MongoDB\Driver\Exception\RuntimeException $ex) {
@@ -135,7 +135,7 @@ final class Mongodb implements DatabaseInterface
         } catch (\MongoDB\Driver\Exception\InvalidArgumentException $ex) {
             throw new DatabaseException('Update failed due to an error occurred while parsing data', 2);
         } catch (\MongoDB\Driver\Exception\ConnectionException $ex) {
-            throw new DatabaseException('Update failed due to an authentication error: '.$ex->getMessage(), 2);
+            throw new DatabaseException('Update failed due to an authentication error', 2);
         } catch (\MongoDB\Driver\Exception\AuthenticationException $ex) {
             throw new DatabaseException('Update failed due to an error on connection', 2);
         } catch (\MongoDB\Driver\Exception\RuntimeException $ex) {

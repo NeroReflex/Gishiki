@@ -26,5 +26,5 @@ before_script:
     - composer install
     
 script:
-    - sleep 5m
+    - mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017 tests/SetupTestingMongo.js
     - phpunit

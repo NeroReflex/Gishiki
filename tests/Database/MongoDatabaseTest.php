@@ -29,12 +29,11 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
     private static function GetConnectionQuery()
     {
         $host = 'localhost';
-        $port = (getenv('MONGO_PORT')) ? getenv('MONGO_PORT') : '27017';
+        $port = '27017';
         $user = 'MongoDB_testing';
         $pass = '45Jfh4oe8E';
-        $pass = (strlen($pass) > 0) ? ':'.$pass : '';
 
-        return 'mongodb://'.$user.$pass.'@'.$host.':'.$port.'/testing';
+        return 'mongodb://'.$user.( (strlen($pass) > 0)? ':' : '' ).$pass.'@'.$host.':'.$port.'/testing';
     }
 
     /**

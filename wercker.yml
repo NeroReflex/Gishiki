@@ -1,5 +1,5 @@
 box: php
-dev:
+build:
   steps:
     - install-packages:
         packages: git openssl pkg-config libssl-dev
@@ -13,7 +13,7 @@ dev:
         code: curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.8.tgz
     - script:
         name: Extract MongoDB
-        code: tar -zxvf mongodb-linux-x86_64-3.2.8.tgz
+        code: tar -zxf mongodb-linux-x86_64-3.2.8.tgz
     - script:
         name: Installing MongoDB
         code: export PATH=mongodb-linux-x86_64-3.2.8/bin:$PATH
@@ -29,14 +29,13 @@ dev:
           mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 > build/logs/mongodb.log &
     - script:
         name: Testing PHP
-        code: |-
-          touch build/logs/phpinfo.log
-          php -i
+        code: php -i
     - script:
         name: Preparing PECL INI
         code: |-
+          sudo rm -f /usr/local/etc/php/conf.d/pecl.ini
           sudo touch /usr/local/etc/php/conf.d/pecl.ini
-          sudo chmod 0777 -R /usr/local/etc/php/conf.d
+          sudo chmod 0775 -R /usr/local/etc/php/conf.d
           pecl config-set php_ini /usr/local/etc/php/conf.d/pecl.ini
           pear config-set php_ini /usr/local/etc/php/conf.d/pecl.ini
     - script:
@@ -46,87 +45,22 @@ dev:
         name: Install XDebug
         code: pecl install xdebug-2.4.0
     - script:
-        name: install phpunit
+        name: Install PHPUnit
         code: |-
           curl -L https://phar.phpunit.de/phpunit.phar -o /usr/local/bin/phpunit
           chmod +x /usr/local/bin/phpunit
     - script:
-        name: install composer
+        name: Install Composer
         code: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
     - script:
-        name: install dependencies
+        name: Install Dependencies
         code: composer install --dev --no-interaction
-    - script:
-        name: Serve application
-        code: php -S localhost:8000 >> /dev/null &
+#    - internal/watch:
+#        code: php -S 0.0.0.0:8000 > /dev/null &
+#        reload: true
     - script:
         name: Setup MongoDB
-        code: mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js
-#        code: mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/testing tests/SetupTestingMongo.js
-    - script:
-        name: PHPUnit integration tests
-        code: phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml
-build:
-  steps:
-    - install-packages:
-        packages: git openssl pkg-config libssl-dev
-    - script:
-        name: prepare build folders
-        code: |-
-            mkdir build
-            mkdir build/logs
-    - script:
-        name: Download MongoDB
-        code: curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.8.tgz
-    - script:
-        name: Extract MongoDB
-        code: tar -zxvf mongodb-linux-x86_64-3.2.8.tgz
-    - script:
-        name: Installing MongoDB
-        code: export PATH=mongodb-linux-x86_64-3.2.8/bin:$PATH
-    - script:
-        name: Creating the Database directory
-        code: mkdir -p /data/db && chmod 0777 -R /data/db
-    - script:
-        name: Start MongoDB
-        code: |-
-          touch build/logs/mongodb.log
-          mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 > build/logs/mongodb.log &
-    - script:
-        name: Testing PHP
-        code: |-
-          touch build/logs/phpinfo.log
-          php -i
-    - script:
-        name: Preparing PECL INI
-        code: |-
-          sudo touch /usr/local/etc/php/conf.d/pecl.ini
-          sudo chmod 0777 -R /usr/local/etc/php/conf.d
-          pecl config-set php_ini /usr/local/etc/php/conf.d/pecl.ini
-          pear config-set php_ini /usr/local/etc/php/conf.d/pecl.ini
-    - script:
-        name: Install MongoDB extension
-        code: pecl install mongodb-1.1.8
-    - script:
-        name: Install XDebug
-        code: pecl install xdebug-2.4.0
-    - script:
-        name: install phpunit
-        code: |-
-          curl -L https://phar.phpunit.de/phpunit.phar -o /usr/local/bin/phpunit
-          chmod +x /usr/local/bin/phpunit
-    - script:
-        name: install composer
-        code: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
-    - script:
-        name: install dependencies
-        code: composer install --dev --no-interaction
-    - internal/watch:
-        code: php -S 0.0.0.0:8000 > /dev/null &
-        reload: true
-    - script:
-        name: Setup MongoDB
-        code: mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js
+        code: mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017 tests/SetupTestingMongo.js
     - script:
         name: PHPUnit integration tests
         code: phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml

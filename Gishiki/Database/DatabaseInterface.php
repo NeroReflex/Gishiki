@@ -59,7 +59,7 @@ interface DatabaseInterface
      * @param array|CollectionInterface $data       the collection of data to be written
      * @throw \InvalidArgumentException the given collection name or data is not a collection of valid values
      *
-     * @throws DatabaseException the error occurred while inerting data to the database
+     * @throws DatabaseException the error occurred while inserting data to the database
      *
      * @return ObjectIDInterface the unique ID of the inserted data
      */
@@ -71,8 +71,24 @@ interface DatabaseInterface
      * @param string                    $collection the name of the collection that will hold the changed data
      * @param array|CollectionInterface $data       the new data of selected documents/records
      * @param SelectionCriteria         $where      the criteria used to select documents/records to update
+     * @throw \InvalidArgumentException the given collection name or data is not a collection of valid values
+     *
+     * @throws DatabaseException the error occurred while updating data on the database
      *
      * @return int the number of affected documents/records
      */
     public function Update($collection, $data, SelectionCriteria $where);
+    
+    /**
+     * Remove documents/records matching the given criteria.
+     * 
+     * @param string                    $collection the name of the collection that will be affected
+     * @param SelectionCriteria         $where      the criteria used to select documents/records to update
+     * @throw \InvalidArgumentException the given collection name is not a valid collection name
+     *
+     * @throws DatabaseException the error occurred while removing data from the database
+     *
+     * @return int the number of removed documents/records
+     */
+    public function Delete($collection, SelectionCriteria $where);
 }

@@ -91,9 +91,9 @@ final class Mongodb implements DatabaseInterface
         } catch (\MongoDB\Driver\Exception\InvalidArgumentException $ex) {
             throw new DatabaseException('Insertion failed due to an error occurred while parsing data', 2);
         } catch (\MongoDB\Driver\Exception\ConnectionException $ex) {
-            throw new DatabaseException('Insertion failed due to an unknown error on authentication', 2);
+            throw new DatabaseException('Insertion failed due to an error on authentication', 2);
         } catch (\MongoDB\Driver\Exception\AuthenticationException $ex) {
-            throw new DatabaseException('Insertion failed due to an unknown error on connection', 2);
+            throw new DatabaseException('Insertion failed due to an error on connection', 2);
         } catch (\MongoDB\Driver\Exception\RuntimeException $ex) {
             throw new DatabaseException('Insertion failed due to an unknown error', 2);
         }
@@ -124,7 +124,42 @@ final class Mongodb implements DatabaseInterface
         //execute the write operation
         try {
             $bulk->update(self::resolveSelectionCriteria($where), [
-                '$set' => $adaptedData, ], ['multi' => true, 'upsert' => false, 'w' => 'majority',
+                    '$set' => $adaptedData
+                ], [
+                    'multi' => true, 'upsert' => false, 'w' => 'majority'
+                ]);
+            //$writeConcern = new \MongoDB\Driver\WriteConcern(\MongoDB\Driver\WriteConcern::MAJORITY, 1000);
+            $result = $this->connection['db_manager']->executeBulkWrite($collection, $bulk/*, $writeConcern*/);
+        } catch (\MongoDB\Driver\Exception\BulkWriteException $ex) {
+            throw new DatabaseException('Update failed due to a write error', 2);
+        } catch (\MongoDB\Driver\Exception\InvalidArgumentException $ex) {
+            throw new DatabaseException('Update failed due to an error occurred while parsing data', 2);
+        } catch (\MongoDB\Driver\Exception\ConnectionException $ex) {
+            throw new DatabaseException('Update failed due to an authentication error', 2);
+        } catch (\MongoDB\Driver\Exception\AuthenticationException $ex) {
+            throw new DatabaseException('Update failed due to an error on connection', 2);
+        } catch (\MongoDB\Driver\Exception\RuntimeException $ex) {
+            throw new DatabaseException('Update failed due to an unknown error', 2);
+        }
+
+        //return the number of updated documents
+        return $result->getModifiedCount();
+    }
+    
+    public function Delete($collection, SelectionCriteria $where)
+    {
+        //check for input and get an associative array
+        if ((!is_string($collection)) || (strlen($collection) < 3) || (strpos($collection, '.') < 1)) {
+            throw new \InvalidArgumentException('The collection name to be filled on the database must be given as "database.collection"');
+        }
+
+        //create a bulkwriter and fill it
+        $bulk = new \MongoDB\Driver\BulkWrite(['ordered' => true]);
+
+        //execute the write operation
+        try {
+            $bulk->delete(self::resolveSelectionCriteria($where), [
+                'limit' => false
             ]);
             //$writeConcern = new \MongoDB\Driver\WriteConcern(\MongoDB\Driver\WriteConcern::MAJORITY, 1000);
             $result = $this->connection['db_manager']->executeBulkWrite($collection, $bulk/*, $writeConcern*/);
@@ -133,20 +168,15 @@ final class Mongodb implements DatabaseInterface
         } catch (\MongoDB\Driver\Exception\InvalidArgumentException $ex) {
             throw new DatabaseException('Update failed due to an error occurred while parsing data', 2);
         } catch (\MongoDB\Driver\Exception\ConnectionException $ex) {
-            throw new DatabaseException('Update failed due to an unknown error on authentication', 2);
+            throw new DatabaseException('Update failed due to an authentication error', 2);
         } catch (\MongoDB\Driver\Exception\AuthenticationException $ex) {
-            throw new DatabaseException('Update failed due to an unknown error on connection', 2);
+            throw new DatabaseException('Update failed due to an error on connection', 2);
         } catch (\MongoDB\Driver\Exception\RuntimeException $ex) {
             throw new DatabaseException('Update failed due to an unknown error', 2);
         }
 
-        //check for write errors
-        if ($result->getModifiedCount() <= 0) {
-            throw new DatabaseException('Update failed due to an unknown error', 2);
-        }
-
-        //return the MongoDB Object ID
-        return $result->getModifiedCount();
+        //return the number of remover documents
+        return $result->getDeletedCount();
     }
 
     private static function resolveSelectionCriteria(SelectionCriteria $where)
@@ -176,11 +206,8 @@ final class Mongodb implements DatabaseInterface
             return ['_id' => new \MongoDB\BSON\ObjectID(strtolower(''.$idValue))];
         }
 
-        return [
-            '$and' => [
-                ['_id' => new \MongoDB\BSON\ObjectID(strtolower(''.$idValue))],
-                $criteriaProperty,
-            ],
-        ];
+        return array_merge([
+                '_id' => new \MongoDB\BSON\ObjectID(strtolower(''.$idValue))
+            ], $criteriaValue);
     }
 }

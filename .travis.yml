@@ -19,11 +19,12 @@ before_script:
     - pecl config-set php_ini .travis.php.ini
     - pear config-set php_ini .travis.php.ini
     - pecl install mongodb-1.1.8
+    - rm -f .travis.php.ini
+    - touch .travis.php.ini
     - phpenv config-add .travis.php.ini
     - composer self-update
     - composer install
     
 script:
     - sleep 5m
-    - mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js
     - phpunit

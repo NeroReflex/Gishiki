@@ -16,15 +16,17 @@ before_script:
     - chmod +x mongodb-linux-x86_64-3.2.8/bin/mongo
     - touch mongodb.log
     - mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 > /dev/null &
-    - pecl config-set php_ini .travis.php.ini
-    - pear config-set php_ini .travis.php.ini
+    - touch travis.php.ini
+    - sudo chmod 0777 -R travis.php.ini
+    - pecl config-set php_ini travis.php.ini
+    - pear config-set php_ini travis.php.ini
     - pecl install mongodb-1.1.8
-    - rm -f .travis.php.ini
-    - touch .travis.php.ini
-    - phpenv config-add .travis.php.ini
+    - rm -f travis.php.ini
+    - touch travis.php.ini
+    - phpenv config-add travis.php.ini
     - composer self-update
     - composer install
     
 script:
-    - mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017 tests/SetupTestingMongo.js
+    - mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js
     - phpunit

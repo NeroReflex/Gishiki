@@ -34,8 +34,10 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
         $pass = '45Jfh4oe8E';
 
         return 'mongodb://'.$user.((strlen($pass) > 0) ? ':' : '').$pass.'@'.$host.':'.$port.'/testing';*/
-        return 'mongodb://MongoDB_testing:45Jfh4oe8E@localhost:27017/gishiki';
         
+        //working
+        //return 'mongodb://MongoDB_testing:45Jfh4oe8E@localhost:27017/gishiki';
+        return 'mongodb://MongoDB_testing:45Jfh4oe8E@localhost:27017/testing';
     }
 
     /**

@@ -37,7 +37,7 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
         
         //working
         //return 'mongodb://MongoDB_testing:45Jfh4oe8E@localhost:27017/gishiki';
-        return 'mongodb://MongoDB_testing:45Jfh4oe8E@localhost:27017/testing';
+        return 'mongodb://MongoDB_testing:45Jfh4oe8E@localhost:27017';
     }
 
     /**

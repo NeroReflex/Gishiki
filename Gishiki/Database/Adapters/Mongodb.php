@@ -91,7 +91,7 @@ final class Mongodb implements DatabaseInterface
         } catch (\MongoDB\Driver\Exception\InvalidArgumentException $ex) {
             throw new DatabaseException('Insertion failed due to an error occurred while parsing data', 2);
         } catch (\MongoDB\Driver\Exception\ConnectionException $ex) {
-            throw new DatabaseException('Insertion failed due to an error on authentication: '.$ex->getMessage(), 2);
+            throw new DatabaseException('Insertion failed due to an error on authentication', 2);
         } catch (\MongoDB\Driver\Exception\AuthenticationException $ex) {
             throw new DatabaseException('Insertion failed due to an error on connection', 2);
         } catch (\MongoDB\Driver\Exception\RuntimeException $ex) {
@@ -124,9 +124,9 @@ final class Mongodb implements DatabaseInterface
         //execute the write operation
         try {
             $bulk->update(self::resolveSelectionCriteria($where), [
-                    '$set' => $adaptedData
+                    '$set' => $adaptedData,
                 ], [
-                    'multi' => true, 'upsert' => false, 'w' => 'majority'
+                    'multi' => true, 'upsert' => false, 'w' => 'majority',
                 ]);
             //$writeConcern = new \MongoDB\Driver\WriteConcern(\MongoDB\Driver\WriteConcern::MAJORITY, 1000);
             $result = $this->connection['db_manager']->executeBulkWrite($collection, $bulk/*, $writeConcern*/);
@@ -145,7 +145,7 @@ final class Mongodb implements DatabaseInterface
         //return the number of updated documents
         return $result->getModifiedCount();
     }
-    
+
     public function Delete($collection, SelectionCriteria $where)
     {
         //check for input and get an associative array
@@ -159,24 +159,57 @@ final class Mongodb implements DatabaseInterface
         //execute the write operation
         try {
             $bulk->delete(self::resolveSelectionCriteria($where), [
-                'limit' => false
+                'limit' => false,
             ]);
             //$writeConcern = new \MongoDB\Driver\WriteConcern(\MongoDB\Driver\WriteConcern::MAJORITY, 1000);
             $result = $this->connection['db_manager']->executeBulkWrite($collection, $bulk/*, $writeConcern*/);
         } catch (\MongoDB\Driver\Exception\BulkWriteException $ex) {
-            throw new DatabaseException('Update failed due to a write error', 2);
+            throw new DatabaseException('Deletion failed due to a write error', 2);
         } catch (\MongoDB\Driver\Exception\InvalidArgumentException $ex) {
-            throw new DatabaseException('Update failed due to an error occurred while parsing data', 2);
+            throw new DatabaseException('Deletion failed due to an error occurred while parsing data', 2);
         } catch (\MongoDB\Driver\Exception\ConnectionException $ex) {
-            throw new DatabaseException('Update failed due to an authentication error', 2);
+            throw new DatabaseException('Deletion failed due to an authentication error', 2);
         } catch (\MongoDB\Driver\Exception\AuthenticationException $ex) {
-            throw new DatabaseException('Update failed due to an error on connection', 2);
+            throw new DatabaseException('Deletion failed due to an error on connection', 2);
         } catch (\MongoDB\Driver\Exception\RuntimeException $ex) {
-            throw new DatabaseException('Update failed due to an unknown error', 2);
+            throw new DatabaseException('Deletion failed due to an unknown error', 2);
         }
 
         //return the number of remover documents
         return $result->getDeletedCount();
+    }
+
+    public function Fetch($collection, SelectionCriteria $where)
+    {
+        /*$options = [
+           'projection' => ['_id' => 0],
+        ];*/
+
+        //build the search query
+        $query = new \MongoDB\Driver\Query(self::resolveSelectionCriteria($where) /*, $options*/);
+
+        //execute the search query
+        $results = $this->connection['db_manager']->executeQuery($collection, $query); // $mongo contains the connection object to MongoDB
+
+        //convert the driver-related result
+        $resultSet = array();
+        foreach ($results as $document) {
+            //get the current document
+            $record = get_object_vars($document);
+
+            //get the database-related object ID
+            $id = $record['_id'];
+
+            //get the database-UNrelated object ID
+            $recordID = new \Gishiki\Database\Adapters\MongodbObjectID($id);
+            $recordData = new \Gishiki\Algorithms\Collections\SerializableCollection($record);
+            $recordData->remove('_id');
+
+            //register the current record using its data and ID
+            $resultSet[] = new \Gishiki\Database\Record($recordID, $recordData);
+        }
+
+        return new \Gishiki\Algorithms\Collections\GenericCollection($resultSet);
     }
 
     private static function resolveSelectionCriteria(SelectionCriteria $where)
@@ -207,7 +240,7 @@ final class Mongodb implements DatabaseInterface
         }
 
         return array_merge([
-                '_id' => new \MongoDB\BSON\ObjectID(strtolower(''.$idValue))
+                '_id' => new \MongoDB\BSON\ObjectID(strtolower(''.$idValue)),
             ], $criteriaValue);
     }
 }

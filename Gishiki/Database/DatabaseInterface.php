@@ -17,6 +17,8 @@ limitations under the License.
 
 namespace Gishiki\Database;
 
+use Gishiki\Algorithms\Collections\GenericCollection;
+
 /**
  * Represent how a database connection must be implemented.
  * 
@@ -78,12 +80,12 @@ interface DatabaseInterface
      * @return int the number of affected documents/records
      */
     public function Update($collection, $data, SelectionCriteria $where);
-    
+
     /**
      * Remove documents/records matching the given criteria.
      * 
-     * @param string                    $collection the name of the collection that will be affected
-     * @param SelectionCriteria         $where      the criteria used to select documents/records to update
+     * @param string            $collection the name of the collection that will be affected
+     * @param SelectionCriteria $where      the criteria used to select documents/records to update
      * @throw \InvalidArgumentException the given collection name is not a valid collection name
      *
      * @throws DatabaseException the error occurred while removing data from the database
@@ -91,4 +93,17 @@ interface DatabaseInterface
      * @return int the number of removed documents/records
      */
     public function Delete($collection, SelectionCriteria $where);
+
+    /**
+     * Fetch documents/records matching the given criteria.
+     * 
+     * @param string            $collection the name of the collection that will be searched
+     * @param SelectionCriteria $where      the criteria used to select documents/records to fetch
+     * @throw \InvalidArgumentException the given collection name is not a valid collection name
+     *
+     * @throws DatabaseException the error occurred while fetching data from the database
+     *
+     * @return GenericCollection the search result expressed as a collection of \Gishiki\Database\Record
+     */
+    public function Fetch($collection, SelectionCriteria $where);
 }

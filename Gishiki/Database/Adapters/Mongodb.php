@@ -55,10 +55,10 @@ final class Mongodb implements DatabaseInterface
             $this->connected = true;
         } catch (\MongoDB\Driver\Exception\InvalidArgumentException $ex) {
             $this->connected = false;
-            throw new DatabaseException('Error while parsing the connection query', 1);
+            throw new DatabaseException('Error while parsing the connection query', 2);
         } catch (\MongoDB\Driver\Exception\RuntimeException $ex) {
             $this->connected = false;
-            throw new DatabaseException('Error while parsing the connection query', 1);
+            throw new DatabaseException('Error while parsing the connection query', 2);
         }
     }
 
@@ -87,20 +87,20 @@ final class Mongodb implements DatabaseInterface
             //$writeConcern = new \MongoDB\Driver\WriteConcern(\MongoDB\Driver\WriteConcern::MAJORITY, 1000);
             $result = $this->connection['db_manager']->executeBulkWrite($collection, $bulk/*, $writeConcern*/);
         } catch (\MongoDB\Driver\Exception\BulkWriteException $ex) {
-            throw new DatabaseException('Insertion failed due to a write error', 2);
+            throw new DatabaseException('Insertion failed due to a write error', 3);
         } catch (\MongoDB\Driver\Exception\InvalidArgumentException $ex) {
-            throw new DatabaseException('Insertion failed due to an error occurred while parsing data', 2);
+            throw new DatabaseException('Insertion failed due to an error occurred while parsing data', 3);
         } catch (\MongoDB\Driver\Exception\ConnectionException $ex) {
-            throw new DatabaseException('Insertion failed due to an error on authentication', 2);
+            throw new DatabaseException('Insertion failed due to an error on authentication', 3);
         } catch (\MongoDB\Driver\Exception\AuthenticationException $ex) {
-            throw new DatabaseException('Insertion failed due to an error on connection', 2);
+            throw new DatabaseException('Insertion failed due to an error on connection', 3);
         } catch (\MongoDB\Driver\Exception\RuntimeException $ex) {
-            throw new DatabaseException('Insertion failed due to an unknown error', 2);
+            throw new DatabaseException('Insertion failed due to an unknown error', 3);
         }
 
         //check for write errors
         if ($result->getInsertedCount() <= 0) {
-            throw new DatabaseException('Insertion failed due to an unknown error', 2);
+            throw new DatabaseException('Insertion failed due to an unknown error', 3);
         }
 
         //return the MongoDB Object ID
@@ -131,15 +131,15 @@ final class Mongodb implements DatabaseInterface
             //$writeConcern = new \MongoDB\Driver\WriteConcern(\MongoDB\Driver\WriteConcern::MAJORITY, 1000);
             $result = $this->connection['db_manager']->executeBulkWrite($collection, $bulk/*, $writeConcern*/);
         } catch (\MongoDB\Driver\Exception\BulkWriteException $ex) {
-            throw new DatabaseException('Update failed due to a write error', 2);
+            throw new DatabaseException('Update failed due to a write error', 4);
         } catch (\MongoDB\Driver\Exception\InvalidArgumentException $ex) {
-            throw new DatabaseException('Update failed due to an error occurred while parsing data', 2);
+            throw new DatabaseException('Update failed due to an error occurred while parsing data', 4);
         } catch (\MongoDB\Driver\Exception\ConnectionException $ex) {
-            throw new DatabaseException('Update failed due to an authentication error', 2);
+            throw new DatabaseException('Update failed due to an authentication error', 4);
         } catch (\MongoDB\Driver\Exception\AuthenticationException $ex) {
-            throw new DatabaseException('Update failed due to an error on connection', 2);
+            throw new DatabaseException('Update failed due to an error on connection', 4);
         } catch (\MongoDB\Driver\Exception\RuntimeException $ex) {
-            throw new DatabaseException('Update failed due to an unknown error', 2);
+            throw new DatabaseException('Update failed due to an unknown error', 4);
         }
 
         //return the number of updated documents
@@ -164,15 +164,15 @@ final class Mongodb implements DatabaseInterface
             //$writeConcern = new \MongoDB\Driver\WriteConcern(\MongoDB\Driver\WriteConcern::MAJORITY, 1000);
             $result = $this->connection['db_manager']->executeBulkWrite($collection, $bulk/*, $writeConcern*/);
         } catch (\MongoDB\Driver\Exception\BulkWriteException $ex) {
-            throw new DatabaseException('Deletion failed due to a write error', 2);
+            throw new DatabaseException('Deletion failed due to a write error', 5);
         } catch (\MongoDB\Driver\Exception\InvalidArgumentException $ex) {
-            throw new DatabaseException('Deletion failed due to an error occurred while parsing data', 2);
+            throw new DatabaseException('Deletion failed due to an error occurred while parsing data', 5);
         } catch (\MongoDB\Driver\Exception\ConnectionException $ex) {
-            throw new DatabaseException('Deletion failed due to an authentication error', 2);
+            throw new DatabaseException('Deletion failed due to an authentication error', 5);
         } catch (\MongoDB\Driver\Exception\AuthenticationException $ex) {
-            throw new DatabaseException('Deletion failed due to an error on connection', 2);
+            throw new DatabaseException('Deletion failed due to an error on connection', 5);
         } catch (\MongoDB\Driver\Exception\RuntimeException $ex) {
-            throw new DatabaseException('Deletion failed due to an unknown error', 2);
+            throw new DatabaseException('Deletion failed due to an unknown error', 5);
         }
 
         //return the number of remover documents

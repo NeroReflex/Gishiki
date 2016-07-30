@@ -26,7 +26,7 @@ use Gishiki\Database\DatabaseManager;
  */
 class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
 {
-    private static function GetConnectionQuery()
+    public static function GetConnectionQuery()
     {
         $host = 'localhost';
         $port = '27017';

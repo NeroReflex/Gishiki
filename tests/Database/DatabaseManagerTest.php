@@ -43,9 +43,23 @@ class DatabaseManagerTests extends \PHPUnit_Framework_TestCase {
 
     public function testConnection()
     {
-        $connection = DatabaseManager::Connect('testing_db', self::GetConnectionQuery());
+        $connection = DatabaseManager::Connect('testing_db', MongoDatabaseTest::GetConnectionQuery());
         $this->assertEquals(true, $connection->Connected());
     }
     
+    /**
+     * @expectedException \Gishiki\Database\DatabaseException
+     */
+    public function testVoidConnection()
+    {
+        $connection = DatabaseManager::Retrieve('testing_bad_db (unconnected)');
+    }
     
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidNameConnection()
+    {
+        $connection = DatabaseManager::Retrieve(3);
+    }
 }

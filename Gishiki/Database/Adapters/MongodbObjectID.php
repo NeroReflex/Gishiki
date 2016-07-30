@@ -31,7 +31,7 @@ final class MongodbObjectID implements ObjectIDInterface
      */
     private $oid = '';
 
-    public function __construct($native)
+    public function __construct($native, $collection)
     {
         //check for objectID validity
         if ((!($native instanceof \MongoDB\BSON\ObjectID)) && (!is_string($native))) {
@@ -39,7 +39,7 @@ final class MongodbObjectID implements ObjectIDInterface
         }
 
         //store the objectID as a string
-        $this->oid = ''.$native;
+        $this->oid = $collection.'|-|'.$native;
     }
 
     public function Valid()
@@ -47,8 +47,18 @@ final class MongodbObjectID implements ObjectIDInterface
         return (is_string($this->oid)) && (strlen($this->oid) > 0);
     }
 
+    public function GetTableName()
+    {
+        return explode('|-|', $this->oid)[0];
+    }
+    
+    public function Export()
+    {
+        return new \MongoDB\BSON\ObjectID(strtolower($this->oid));
+    }
+    
     public function __toString()
     {
-        return ''.$this->oid;
+        return explode('|-|', strtolower($this->oid))[1];
     }
 }

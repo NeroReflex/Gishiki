@@ -20,7 +20,7 @@ namespace Gishiki\tests\Database;
 use Gishiki\Database\DatabaseManager;
 
 /**
- * The tester for the Pipeline class.
+ * The tester for the MongoDatabase class.
  * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
@@ -34,28 +34,6 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
         $pass = '45Jfh4oe8E';
 
         return 'mongodb://'.$user.((strlen($pass) > 0) ? ':' : '').$pass.'@'.$host.':'.$port.'/gishiki';
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testBadConnectionQuery()
-    {
-        DatabaseManager::Connect(3, 'mongodb://user:pass@host:port/db');
-    }
-
-    /**
-     * @expectedException \Gishiki\Database\DatabaseException
-     */
-    public function testConnectionQuery()
-    {
-        DatabaseManager::Connect('default', 'unknown_db_adapter://user:pass@host:port/db');
-    }
-
-    public function testConnection()
-    {
-        $connection = DatabaseManager::Connect('testing_db', self::GetConnectionQuery());
-        $this->assertEquals(true, $connection->Connected());
     }
 
     public function testInsertion()
@@ -113,6 +91,7 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
 
         foreach ($result as $record) {
             $this->assertEquals(true, strlen($record->GetObjectID().'') > 0);
+            $this->assertEquals('testing.'.__FUNCTION__, $record->GetObjectID()->GetTableName());
         }
 
         $numberOfRemoved = $connection->Delete('testing.'.__FUNCTION__, new \Gishiki\Database\SelectionCriteria());

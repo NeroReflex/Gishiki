@@ -104,7 +104,7 @@ final class Mongodb implements DatabaseInterface
         }
 
         //return the MongoDB Object ID
-        return new MongodbObjectID($nativeID);
+        return new MongodbObjectID($nativeID, $collection);
     }
 
     public function Update($collection, $data, SelectionCriteria $where)
@@ -181,12 +181,8 @@ final class Mongodb implements DatabaseInterface
 
     public function Fetch($collection, SelectionCriteria $where)
     {
-        /*$options = [
-           'projection' => ['_id' => 0],
-        ];*/
-
         //build the search query
-        $query = new \MongoDB\Driver\Query(self::resolveSelectionCriteria($where) /*, $options*/);
+        $query = new \MongoDB\Driver\Query(self::resolveSelectionCriteria($where));
 
         //execute the search query
         $results = $this->connection['db_manager']->executeQuery($collection, $query); // $mongo contains the connection object to MongoDB
@@ -201,7 +197,7 @@ final class Mongodb implements DatabaseInterface
             $id = $record['_id'];
 
             //get the database-UNrelated object ID
-            $recordID = new \Gishiki\Database\Adapters\MongodbObjectID($id);
+            $recordID = new \Gishiki\Database\Adapters\MongodbObjectID($id, $collection);
             $recordData = new \Gishiki\Algorithms\Collections\SerializableCollection($record);
             $recordData->remove('_id');
 

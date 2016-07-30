@@ -35,17 +35,26 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
 
         return 'mongodb://'.$user.((strlen($pass) > 0) ? ':' : '').$pass.'@'.$host.':'.$port.'/gishiki';
     }
+    
+    private static function GetConnection()
+    {
+        try {
+            return DatabaseManager::Retrieve('mongodb_testing_db');
+        } catch (\Gishiki\Database\DatabaseException $ex) {
+            return DatabaseManager::Connect('mongodb_testing_db', self::GetConnectionQuery());
+        }
+    }
 
     public function testInsertion()
     {
-        $connection = DatabaseManager::Connect('testing_db', self::GetConnectionQuery());
+        $connection = self::GetConnection();
         $this->assertEquals(true, $connection->Insert('testing.'.__FUNCTION__, ['x' => 3])->Valid());
     }
 
     public function testChange()
     {
         //connect and setup the test
-        $connection = DatabaseManager::Connect('testing_db', self::GetConnectionQuery());
+        $connection = self::GetConnection();
         $connection->Insert('testing.'.__FUNCTION__, ['u' => 3, 'name' => 'Benato Denis']);
         $connection->Insert('testing.'.__FUNCTION__, ['u' => 3, 'name' => 'Mario Rossi']);
         $connection->Insert('testing.'.__FUNCTION__, ['u' => 3, 'email' => 'test@tt.comm']);
@@ -63,7 +72,7 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
 
     public function testUpdateWithFixedID()
     {
-        $connection = DatabaseManager::Connect('testing_db', self::GetConnectionQuery());
+        $connection = self::GetConnection();
         $objectID = $connection->Insert('testing.'.__FUNCTION__, ['n' => 'non e una prova....']);
         $numberOfAffected = $connection->Update('testing.'.__FUNCTION__, ['u' => 2, 'n' => 'scherzavo.. e una prova'], (new \Gishiki\Database\SelectionCriteria())->WhereID($objectID));
         $this->assertEquals(1, $numberOfAffected);
@@ -73,7 +82,7 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
     {
         $badStr = 'non e una prova....';
 
-        $connection = DatabaseManager::Connect('testing_db', self::GetConnectionQuery());
+        $connection = self::GetConnection();
         $objectID = $connection->Insert('testing.'.__FUNCTION__, ['n' => $badStr]);
         $numberOfAffected = $connection->Update('testing.'.__FUNCTION__, ['u' => 2, 'n' => 'scherzavo.. e una prova'], (new \Gishiki\Database\SelectionCriteria())->WhereID($objectID)->EqualThan('n', $badStr));
         $this->assertEquals(1, $numberOfAffected);
@@ -81,7 +90,7 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
 
     public function testRead()
     {
-        $connection = DatabaseManager::Connect('testing_db', self::GetConnectionQuery());
+        $connection = self::GetConnection();
         $connection->Insert('testing.'.__FUNCTION__, ['k' => 7, 'name' => 'Denis']);
         $connection->Insert('testing.'.__FUNCTION__, ['k' => 2, 'mail' => 'benato.denis96@gmail.com']);
         $connection->Insert('testing.'.__FUNCTION__, ['k' => 11, 'mail' => 'fake@mail.kk']);

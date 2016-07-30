@@ -16,6 +16,17 @@ It has a fixed (minumum) structure:
     "security": {
         "serverPassword": "{{@MASTER_KEY}}",
         "serverKey": "{{@SERVER_KEY}}"
+    },
+
+    "connections": [
+        {
+            "name": "default",
+            "query": "mongodb://user:pass@localhost:27017/db",
+        }
+    ],
+
+    "pepeline": {
+        "connection": "default"
     }
 }
 ```
@@ -49,7 +60,8 @@ and recycle the example code, or giving a file path to the serialized key, for e
 
 The file path can also be the value of the environment variable, but that is not suggested.
 
-The private key can be of any length and power of two, however 4096 is suggested.
+The private key can be of any length and power of two, however 4096 or bigger
+is suggested.
 
 ```
 openssl genrsa -out relative/path/to/file.pem 4096
@@ -61,5 +73,6 @@ That is the OpenSSL CLI command that may be used to generate a valid RSA private
 ## Server Password
 The server password is what will be used as the default server symmetric key.
 
-Unlike the server private key, the server password has a fixed length and it must be 128-bits long!
+Unlike the server private key, the server password has a fixed length and it must
+be 64 characters long!
 

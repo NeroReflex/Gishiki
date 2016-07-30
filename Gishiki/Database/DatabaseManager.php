@@ -77,14 +77,17 @@ abstract class DatabaseManager
      */
     public static function Retrieve($connectionName)
     {
+        //check for malformed input
         if ((!is_string($connectionName)) || (strlen($connectionName) <= 0)) {
             throw new \InvalidArgumentException('The name of the connection to be retrieved must be given as a string');
         }
         
+        //check if the connection was enstabilished
         if (!array_key_exists($connectionName, self::$connections)) {
             throw new DatabaseException("The given connection doesn't exists", 1);
         }
         
+        //return the enstabilished conenction
         return self::$connections[$connectionName];
     }
 }

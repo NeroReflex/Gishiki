@@ -52,7 +52,7 @@ class DatabaseManagerTests extends \PHPUnit_Framework_TestCase {
      */
     public function testVoidConnection()
     {
-        $connection = DatabaseManager::Retrieve('testing_bad_db (unconnected)');
+        DatabaseManager::Retrieve('testing_bad_db (unconnected)');
     }
     
     /**
@@ -60,6 +60,6 @@ class DatabaseManagerTests extends \PHPUnit_Framework_TestCase {
      */
     public function testInvalidNameConnection()
     {
-        $connection = DatabaseManager::Retrieve(3);
+        DatabaseManager::Retrieve(3);
     }
 }

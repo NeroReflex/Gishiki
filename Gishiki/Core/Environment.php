@@ -105,9 +105,9 @@ namespace Gishiki\Core {
                 if (($toReplace = Manipulation::getBetween($config, '{{@', '}}')) != '') {
                     $value = getenv($toReplace);
                     if ($value !== false) {
-                        $config = str_replace('{{@'.$toReplace.'}}', $value, $config);
+                        $config = str_replace('{{@'.$toReplace.'}}', json_encode(getenv($toReplace)), $config);
                     } elseif (defined($toReplace)) {
-                        $config = str_replace('{{@'.$toReplace.'}}', constant($toReplace), $config);
+                        $config = str_replace('{{@'.$toReplace.'}}', json_encode(constant($toReplace)), $config);
                     }
                 }
             }
@@ -197,7 +197,7 @@ namespace Gishiki\Core {
                 //General Configuration
                 $this->configuration = [
                     //get general environment configuration
-                    'DEVELOPMENT_ENVIRONMENT' => $config['general']['development'],
+                    'DEVELOPMENT_ENVIRONMENT' => (isset($config['general']['development'])) ? $config['general']['development'] : false,
                     'AUTOLOG_URL' => (isset($config['general']['autolog'])) ? $config['general']['autolog'] : 'null',
 
                     //Security Settings
@@ -205,6 +205,8 @@ namespace Gishiki\Core {
                         'MASTER_SYMMETRIC_KEY' => $config['security']['serverPassword'],
                         'MASTER_ASYMMETRIC_KEY' => $config['security']['serverKey'],
                     ],
+                    
+                    'CONNECTIONS' => (array_key_exists('connections', $config)) ? $config['connections'] : array(),
                 ];
             }
 
@@ -215,6 +217,11 @@ namespace Gishiki\Core {
             } else {
                 ini_set('display_errors', 0);
                 error_reporting(0);
+            }
+            
+            //connect every db connection
+            foreach ($this->configuration['CONNECTIONS'] as $connection) {
+                \Gishiki\Database\DatabaseManager::Connect($connection['name'], $connection['query']);
             }
         }
 

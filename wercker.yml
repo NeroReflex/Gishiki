@@ -15,9 +15,6 @@ build:
         name: Extract MongoDB
         code: tar -zxf mongodb-linux-x86_64-3.2.8.tgz
     - script:
-        name: Installing MongoDB
-        code: export PATH=mongodb-linux-x86_64-3.2.8/bin:$PATH
-    - script:
         name: Creating the Database directory
         code: |-
           rm -rf /data/db

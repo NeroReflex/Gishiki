@@ -10,14 +10,11 @@ php:
 before_script:
     - curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.8.tgz
     - tar -zxvf mongodb-linux-x86_64-3.2.8.tgz
-    - export PATH=mongodb-linux-x86_64-3.2.8/bin:$PATH
-    - sudo mkdir -p /data/db && sudo chmod 0775 -R /data/db
+    - sudo mkdir -p /data/db && sudo chmod 0777 -R /data/db
     - chmod +x mongodb-linux-x86_64-3.2.8/bin/mongod
     - chmod +x mongodb-linux-x86_64-3.2.8/bin/mongo
-    - touch mongodb.log
-    - mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 > /dev/null &
     - touch travis.php.ini
-    - sudo chmod 0777 -R travis.php.ini
+    - sudo chmod 0777 travis.php.ini
     - pecl config-set php_ini travis.php.ini
     - pear config-set php_ini travis.php.ini
     - pecl install -f mongodb-1.1.8
@@ -26,6 +23,9 @@ before_script:
     - composer install
     
 script:
-    - sleep 3m
+    - touch mongodb.log
+    - sudo chmod 0777 mongodb.log
+    - mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 > mongodb.log &
+    - sleep 5m
     - mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js
-    - phpunit
+    - phpunit --configuration phpunit.xml

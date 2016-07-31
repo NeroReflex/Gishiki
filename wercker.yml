@@ -123,5 +123,6 @@ deploy :
           cd Documentation/site
           git init
           git add .
+          git remote add origin $GIT_REMOTE
           git commit -m "deploy commit from $WERCKER_STARTED_BY"
-          git push -f $GIT_REMOTE gh-pages
+          git push origin:gh-pages

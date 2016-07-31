@@ -2,7 +2,7 @@ box: php
 build:
   steps:
     - install-packages:
-        packages: git openssl pkg-config libssl-dev python
+        packages: git openssl pkg-config libssl-dev python wget zlib1g-dev unzip
     - script:
         name: prepare build folders
         code: |-
@@ -16,7 +16,7 @@ build:
     - script:
         name: Download ApiGen
         code: |-
-          curl -O http://apigen.org/apigen.phar
+          wget http://apigen.org/apigen.phar
           sudo chmod 0777 apigen.phar
     - script:
         name: Testing ApiGen

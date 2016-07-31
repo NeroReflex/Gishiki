@@ -18,13 +18,12 @@ build:
         code: |-
           curl -O http://apigen.org/apigen.phar
           sudo chmod 0777 apigen.phar
-          sudo mv apigen.phar /usr/local/bin/apigen
     - script:
         name: Testing ApiGen
-        code: apigen --version
+        code: php apigen.phar --version
     - script:
         name: Generating Documentation
-        code: generate --source . --destination Documentation/docs/API --title Gishiki --charset UTF-8 --access-levels public --access-levels protected --php --tree
+        code: php apigen.phar generate --source . --destination Documentation/docs/API --title Gishiki --charset UTF-8 --access-levels public --access-levels protected --php --tree
     - script:
         name: Testing Python
         code: python --version

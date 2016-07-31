@@ -56,7 +56,7 @@ build:
         code: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
     - script:
         name: Install Dependencies
-        code: composer install --dev --no-interaction
+        code: composer install --no-interaction
 #    - internal/watch:
 #        code: php -S 0.0.0.0:8000 > /dev/null &
 #        reload: true
@@ -85,7 +85,9 @@ deploy :
         code: php apigen.phar --version
     - script:
         name: Generating Documentation
-        code: php apigen.phar generate --source . --destination Documentation/docs/API --title Gishiki --charset UTF-8 --access-levels public --access-levels protected --php --tree
+        code: |-
+          sudo rm -rf vendor
+          php apigen.phar generate --source . --destination Documentation/docs/API --title Gishiki --charset UTF-8 --access-levels public --access-levels protected --php --tree
     - script:
         name: Downloading PIP
         code: |-

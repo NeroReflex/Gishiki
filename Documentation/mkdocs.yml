@@ -17,6 +17,7 @@ pages:
     - Configuration:    usage/configuration.md
     - Router:           usage/routing.md
     - Request:          usage/request.md
+    - Response:         usage/response.md
     - Logger:           usage/logging.md
 
 - About:

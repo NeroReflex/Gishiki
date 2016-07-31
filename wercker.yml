@@ -96,4 +96,10 @@ build:
         name: Publishing Documentation
         code: |-
           cd Documentation
-          mkdocs gh-deploy --clean
+          mkdocs build
+          mkdir doc
+          cd doc
+          git clone -b gh-pages  https://github.com/NeroReflex/Gishiki.git
+          cd Gishiki && git add -A
+          git commit -m "Updating documentation"
+          git push

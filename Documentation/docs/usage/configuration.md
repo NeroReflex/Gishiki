@@ -21,12 +21,13 @@ It has a fixed (minumum) structure:
     "connections": [
         {
             "name": "default",
-            "query": "mongodb://user:pass@localhost:27017/db",
+            "query": "mongodb://user:pass@localhost:27017/dbname",
         }
     ],
 
-    "pepeline": {
+    "pipeline": {
         "connection": "default"
+        "collection": "dbname.tablename"
     }
 }
 ```

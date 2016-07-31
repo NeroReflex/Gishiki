@@ -105,9 +105,9 @@ namespace Gishiki\Core {
                 if (($toReplace = Manipulation::getBetween($config, '{{@', '}}')) != '') {
                     $value = getenv($toReplace);
                     if ($value !== false) {
-                        $config = str_replace('{{@'.$toReplace.'}}', json_encode(getenv($toReplace)), $config);
+                        $config = str_replace('{{@'.$toReplace.'}}', json_encode($value, JSON_HEX_QUOT), $config);
                     } elseif (defined($toReplace)) {
-                        $config = str_replace('{{@'.$toReplace.'}}', json_encode(constant($toReplace)), $config);
+                        $config = str_replace('{{@'.$toReplace.'}}', json_encode(constant($toReplace), JSON_HEX_QUOT), $config);
                     }
                 }
             }
@@ -207,6 +207,11 @@ namespace Gishiki\Core {
                     ],
                     
                     'CONNECTIONS' => (array_key_exists('connections', $config)) ? $config['connections'] : array(),
+                    
+                    'PIPELINE' => [
+                        'CONNECTION' => (isset($config['pipeline']['connection'])) ? $config['pipeline']['connection'] : null,
+                        'COLLECTION' => (isset($config['pipeline']['collection'])) ? $config['pipeline']['collection'] : null,
+                    ],
                 ];
             }
 
@@ -235,6 +240,12 @@ namespace Gishiki\Core {
         public function GetConfigurationProperty($property)
         {
             switch (strtoupper($property)) {
+                case 'PIPELINE_CONNECTION_NAME':
+                    return $this->configuration['PIPELINE']['CONNECTION'];
+                
+                case 'PIPELINE_TABLE_NAME':
+                    return $this->configuration['PIPELINE']['COLLECTION'];
+                
                 case 'LOG_CONNECTION_STRING':
                     return $this->configuration['AUTOLOG_URL'];
 

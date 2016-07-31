@@ -51,7 +51,7 @@ final class PipelineRuntime
      *
      * @throws \InvalidArgumentException the given priority is not valid
      */
-    public function __construct(Pipeline &$pipeline, $type, $priority)
+    public function __construct(Pipeline &$pipeline, $type = RuntimeType::ASYNCHRONOUS, $priority = RuntimePriority::LOWEST)
     {
         //check for invalid priority
         if (((!is_int($priority)) || ($priority > RuntimePriority::LOWEST)) || (($type != RuntimeType::ASYNCHRONOUS) && ($type != RuntimeType::SYNCHRONOUS))) {

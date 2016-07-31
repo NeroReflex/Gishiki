@@ -108,11 +108,9 @@ deploy :
     - script:
         name: Configure git
         code: |-
-          git config --global user.email "autodeploy@wercker.com"
-          git config --global user.name "$WERCKER_STARTED_BY"
-
-          # remove current .git folder
-          rm -rf .git
+          git config --global user.email "pleasemailus@wercker.com"
+          git config --global user.name "werckerbot"
+#          rm -rf .git
     - script:
         name: Deploy to github pages
         code: |-

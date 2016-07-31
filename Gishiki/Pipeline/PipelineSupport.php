@@ -28,5 +28,15 @@ abstract class PipelineSupport {
 
     private static $tableName = null;
     
+    private static $initialized = false;
     
+    public static function Initialize()
+    {
+        //only works for the first time (prevent user from doing bad things)
+        if (self::$initialized) {
+            return;
+        }
+        
+        
+    }
 }

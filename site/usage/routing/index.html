@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Router - Gishiki</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../API/resources/style.css" rel="stylesheet">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Router";
+    var mkdocs_page_input_path = "usage/routing.md";
+    var mkdocs_page_url = "/usage/routing/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+  <script src="../../API/elementlist.js"></script>
+  <script src="../../API/resources/combined.js"></script>
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Gishiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Installation</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/">Environment</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_php/">Basic PHP</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/php_7_nginx/">PHP 7.0 & nginx</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_nginx/">Basic nginx</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_apache/">Basic apache</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_lighttpd/">Basic lighttpd</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_iis/">Basic IIS</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/composer/">Composer</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/paas/">PaaS</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../apidoc/">API</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Usage</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../configuration/">Configuration</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Router</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#routing">Routing</a></li>
+                
+                    <li><a class="toctree-l4" href="#different-methods">Different methods</a></li>
+                
+                    <li><a class="toctree-l4" href="#static-rules">Static Rules</a></li>
+                
+                    <li><a class="toctree-l4" href="#dynamic-rules">Dynamic Rules</a></li>
+                
+                    <li><a class="toctree-l4" href="#custom-dynamic-rules">Custom Dynamic Rules</a></li>
+                
+                    <li><a class="toctree-l4" href="#all-request-methods">All request methods</a></li>
+                
+                    <li><a class="toctree-l4" href="#two-or-more-request-methods">Two or more request methods</a></li>
+                
+                    <li><a class="toctree-l4" href="#error-catching">Error catching</a></li>
+                
+                    <li><a class="toctree-l4" href="#limitation">Limitation</a></li>
+                
+                    <li><a class="toctree-l4" href="#conclusions">Conclusions</a></li>
+                
+            
+            </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../request/">Request</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../response/">Response</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../logging/">Logger</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>About</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../license/">License</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Gishiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Usage &raquo;</li>
+        
+      
+    
+    <li>Router</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="routing">Routing</h1>
+<p>When a request arrives the framework must fulfill it.</p>
+<p>The framework automatically maps a request to a resource located at "https://site.com/Home" into "/Home" (GET request).</p>
+<p>The /Home string is the URI of the requested resource, the GET request is the HTTP method used to query that resource...
+the question is.... </p>
+<p>How do I route that request to what I want to serve? The answer is: using the router!</p>
+<p>The router is that fantastic component empowering your user-friendly URLs!</p>
+<h2 id="different-methods">Different methods</h2>
+<p>As for HTTP standards a client can perform a resource request using these verbs:</p>
+<ul>
+<li>GET identified as Route::GET</li>
+<li>POST  identified as Route::POST</li>
+<li>DELETE identified as Route::DELETE</li>
+<li>PUT identified as Route::PUT</li>
+<li>HEAD identified as Route::HEAD</li>
+<li>PATCH identified as Route::PATCH</li>
+<li>OPTIONS identified as Route::OPTIONS</li>
+</ul>
+<p>When you set a routing rule (either static or dynamic) you have to select the 
+verb that you want to be served in that route.</p>
+<p>This is particulary handy when creating a RESTful service.</p>
+<h2 id="static-rules">Static Rules</h2>
+<p>Let's see how to create a custom route:</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\Logging\Logger;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::get(&quot;/&quot;,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    //this is what will be executed when the client asks for &quot;https://site.com/&quot; (the homepage)
+
+    //let's just forget about MVC pattern this time :)
+    echo &quot;Hello, World!&quot;;
+});
+</code></pre>
+
+<p>To try this rule out you have to open rules.php and paste the provided code into 
+it and direct your browser to: https://site.com (the trailing / is automatically added).</p>
+<h2 id="dynamic-rules">Dynamic Rules</h2>
+<p>This route is really simple: just an URI check... but you are creating a dynamic application, 
+and URIs cannot be static URIs every time, in fact sooner or later you will need to capture a parameter passed 
+as a parameter with the URL.</p>
+<p>Let's just consider this simple example:</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\Logging\Logger;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::get(&quot;/Hello/{name_surname}&quot;,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    //this is what will be executed when the client asks for &quot;https://site.com/User/urName+urSurname&quot;
+
+    //nice to meet you!
+    $response-&gt;write(&quot;Hello, &quot;.$params-&gt;{&quot;name_surname&quot;}.&quot;!&quot;);
+});
+
+Route::get(&quot;/Home/{name}&quot;,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    //this is what will be executed when the client asks for &quot;https://site.com/Home/some_name&quot;
+
+    //nice to meet you!
+    $response-&gt;write(&quot;Hello, &quot;.$params-&gt;name.&quot;!&quot;);
+});
+</code></pre>
+
+<p>You already know what you are going to do, right? :D</p>
+<p>https://site.com/Home/your_name and you will see "Hello, your_name!" nothing complex here, right?</p>
+<h2 id="custom-dynamic-rules">Custom Dynamic Rules</h2>
+<p>You might want to catch something more specific than just "everything but '/'",
+say for example an integer or an email address:</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\Logging\Logger;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::get(&quot;/Hello/{user_email:email}&quot;,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    //this is what will be executed when the client asks for &quot;https://site.com/Hello/yourEmail%40address.com&quot;
+
+    //send that mail!
+    if (!mail($arguments-&gt;user_email , &quot;Gishiki RESTful test&quot; , &quot;Welcome to my RESTful test service &lt;3&quot;)) {
+        $default_logger = new Logger();
+        $default_logger-&gt;warning(&quot;An e-mail is missing :(&quot;);
+    }
+});
+</code></pre>
+
+<p>That's great isn't it? Actually what you can catch is:</p>
+<ul>
+<li>'default' a generic string</li>
+<li>'email' an email address</li>
+<li>'integer' an integer number</li>
+</ul>
+<h2 id="all-request-methods">All request methods</h2>
+<p>Sometimes you may need to register a route that responds to all HTTP verbs, you 
+are allowed to do that by using 'any':</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\Logging\Logger;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::any(&quot;/&quot;,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    //do something general with your homepage!
+});
+</code></pre>
+
+<p>the action is taken if that URI is hit, regardless of the method the client used 
+to perform the request.</p>
+<h2 id="two-or-more-request-methods">Two or more request methods</h2>
+<p>An interesting feature of the router is how you create a route for two or more
+request methods:</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\Logging\Logger;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::match([Route::GET, Route::POST], &quot;/&quot;,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    //you want your homepage to be reached only with get and post
+});
+</code></pre>
+
+<p>the action is taken if that URI is hit only when using get or post request method. </p>
+<h2 id="error-catching">Error catching</h2>
+<p>You know, things doesn't always go as you want: it is necessary to think about 
+unexpected circumstances. You do it by setting an error callback, 
+which is nothing more than a bit special routing rule:</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\Logging\Logger;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::any(Route::NOT_FOUND,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    //this is what will be executed when the client asks for an unrouted URI
+
+    //error message!
+    $response-&gt;write(&quot;Sorry man, you are asking for something I can't give you :(&quot;);
+});
+</code></pre>
+
+<p>As you can see an error routing rule (or error callback) is exactly any other URI
+and follows the same exact rules, however for known errors the HTTP status code is
+automatically changed (for example if a Route::NOT_FOUND URI is catched 404 Not Found
+is added automatically to the response).</p>
+<p>You cannot change this behaviour, but you can change the status code:</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\Logging\Logger;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::any(Route::NOT_FOUND,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    //this is what will be executed when the client asks for an unrouted URI
+    $response-&gt;withStatus(500);
+
+    //error message!
+    $response-&gt;write(&quot;Sorry man, you are asking for something I can't give you :(&quot;);
+});
+</code></pre>
+
+<p>A bit stange to send to the client a 500 Internal Server Error for a missing
+resource, but nothing stops you from doing that.</p>
+<h2 id="limitation">Limitation</h2>
+<p>You cannot route URIs that start with /api/ or /service/ because they are reserved for web services (explained in a different chapter).</p>
+<p>You cannot match something that has a slash '/' character using a dynamic placeholder: {name} cannot capture something like "mario/rossi".</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>The router is the fastest and easiest component within Gishiki, 
+because it is the first component that is used and the only one you <strong>REALLY HAVE TO</strong> use.</p>
+<p>This means that you are now good to go... Everything you <em>MUST</em> know in order to use Gishiki ends here.</p>
+<p>Everything else is a plus you may need to accelerate the development of your projects,
+although you should really learn how to deal with the <a href="../request/">Request</a> and the <a href="../response/">Response</a> objects passed to you.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../request/" class="btn btn-neutral float-right" title="Request">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../configuration/" class="btn btn-neutral" title="Configuration"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../configuration/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../request/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

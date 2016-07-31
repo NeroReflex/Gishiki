@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Request - Gishiki</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../API/resources/style.css" rel="stylesheet">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Request";
+    var mkdocs_page_input_path = "usage/request.md";
+    var mkdocs_page_url = "/usage/request/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+  <script src="../../API/elementlist.js"></script>
+  <script src="../../API/resources/combined.js"></script>
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Gishiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Installation</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/">Environment</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_php/">Basic PHP</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/php_7_nginx/">PHP 7.0 & nginx</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_nginx/">Basic nginx</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_apache/">Basic apache</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_lighttpd/">Basic lighttpd</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_iis/">Basic IIS</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/composer/">Composer</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/paas/">PaaS</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../apidoc/">API</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Usage</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../configuration/">Configuration</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../routing/">Router</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Request</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#request">Request</a></li>
+                
+                    <li><a class="toctree-l4" href="#request-method">Request Method</a></li>
+                
+                    <li><a class="toctree-l4" href="#request-uri">Request URI</a></li>
+                
+                    <li><a class="toctree-l4" href="#request-headers">Request Headers</a></li>
+                
+                    <li><a class="toctree-l4" href="#request-body">Request Body</a></li>
+                
+            
+            </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../response/">Response</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../logging/">Logger</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>About</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../license/">License</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Gishiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Usage &raquo;</li>
+        
+      
+    
+    <li>Request</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="request">Request</h1>
+<p>The <strong>Gishiki\HttpKernel\Request</strong> class is used to fully represent an HTTP request.</p>
+<p>The Request class is PSR-7 conformant and follows that specification sheet.</p>
+<h2 id="request-method">Request Method</h2>
+<p>When an HTTP request is sent to the server the client has to specify the type of the
+request, that request type is called 'method'.</p>
+<p>Usually you work with following methods:</p>
+<ul>
+<li>GET</li>
+<li>POST</li>
+<li>PUT</li>
+<li>DELETE</li>
+<li>HEAD</li>
+<li>PATCH</li>
+<li>OPTIONS</li>
+</ul>
+<p>but your application can also support your own methods!</p>
+<p>You can inspect the HTTP request’s method with the Request object method
+appropriately named getMethod()</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\Logging\Logger;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::any(&quot;/method_test&quot;,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    $method = $request-&gt;getMethod();
+
+    //this is what will be executed when the client asks for an unrouted URI
+    $response-&gt;withStatus(200);
+
+    //error message!
+    $response-&gt;write(&quot;You have used the &quot;.$method.&quot; method to fetch this page!&quot;);
+});
+</code></pre>
+
+<p>However you can override the standard HTTP method including in the header an
+X-Http-Method-Override property, for example:</p>
+<pre><code>POST /path HTTP/1.1
+Host: example.com
+Content-type: application/json
+Content-length: 16
+X-Http-Method-Override: PUT
+</code></pre>
+
+<p>And the code before will return the string "PUT", and not the string "POST".</p>
+<p>If you want to retrive the real HTTP method used (non-overridden) you can do it
+using another function which is called getOriginalMethod():</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\Logging\Logger;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::any(&quot;/method_test&quot;,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    $method = $request-&gt;getMethod();
+    $origin_method = $request-&gt;getOriginalMethod();
+
+    //this is what will be executed when the client asks for an unrouted URI
+    $response-&gt;withStatus(200);
+
+    //error message!
+    $response-&gt;write(&quot;You have used the &quot;.$method.&quot; method to fetch this page!\n&quot;);
+
+    if ($method != $origin_method) 
+        $response-&gt;write(&quot;However the request used the &quot;.$origin_method.&quot; method to fetch this page!\n&quot;);
+});
+</code></pre>
+
+<p>If you try overriding the HTTP method you will see the you will be found cheating :D</p>
+<h2 id="request-uri">Request URI</h2>
+<p>Every HTTP request has a URI that identifies the requested application resource.
+The HTTP request URI is composite of several parts:</p>
+<ul>
+<li>Scheme (e.g. http or https)</li>
+<li>Host (e.g. example.com)</li>
+<li>Port (e.g. 80 or 443)</li>
+<li>Path (e.g. /users/1)</li>
+<li>Query string (e.g. sort=created&amp;dir=asc)</li>
+</ul>
+<p>You can fetch the Request object’s URI using its getUri() method:</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\Logging\Logger;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::any(&quot;/method_test&quot;,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    //get the URI of the current request
+    $uri = $request-&gt;getUri();
+
+    //do something with this URI
+});
+</code></pre>
+
+<p>Operation allowed on an URI are:</p>
+<ul>
+<li>getScheme()</li>
+<li>getAuthority()</li>
+<li>getUserInfo()</li>
+<li>getHost()</li>
+<li>getPort()</li>
+<li>getPath()</li>
+<li>getBasePath()</li>
+<li>getQuery()</li>
+<li>getFragment()</li>
+<li>getBaseUrl()</li>
+<li>getQueryParams()</li>
+</ul>
+<p>where getQueryParams() returns an associative array, getQuery() returns the complete
+query string and getBaseUrl() the complete URL of the request.</p>
+<h2 id="request-headers">Request Headers</h2>
+<p>Headers are metadata that describe the HTTP request but are not visible in the
+request’s body.</p>
+<p>Each header can contain more values: this is why the velue of a single header is
+represented as a non-associative array.</p>
+<p>You can have the complete list of headers, in form of an associative array by
+calling the getHeaders() function the interested request.</p>
+<p>A simple example can be:</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\Logging\Logger;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::any(&quot;/&quot;,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    foreach ($request-&gt;getHeaders() as $name =&gt; $values) {
+        $response-&gt;write(&quot;name: &quot;. $name . &quot; =&gt; values:&quot; . implode(&quot;, &quot;, $values));
+    }
+});
+</code></pre>
+
+<p>separing each value of the request with a comma is equal is equal to calling the
+getHeaderLine('header_name') function on the interested request.</p>
+<p>The previous example can be rewritten as:</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\Logging\Logger;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::any(&quot;/&quot;,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    foreach (array_keys($request-&gt;getHeaders()) as $name) {
+        $response-&gt;write(&quot;name: &quot;. $name . &quot; =&gt; values:&quot; . $request-&gt;getHeaderLine($name);
+    }
+});
+</code></pre>
+
+<p>You can test the existance of a given header calling the hasHeader('header_name')
+function.</p>
+<p>If the result is true you can safely call the getHeader('header_name') function
+that will return the non-associative array representing the header values.</p>
+<h2 id="request-body">Request Body</h2>
+<p>An HTTP request may have a body following its header.</p>
+<p>That body is useful when creating a RESTful service, because it may contains lots
+of information about the requested action.</p>
+<p>Within Gishiki you can access the body of the interested request as a stream
+PSR-7 compilant. You can obtain that stream calling the getBody() function.</p>
+<p>Let's look into an example:</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\Logging\Logger;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::any(&quot;/&quot;,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    //get the body stream
+    $body = $request-&gt;getBody();
+
+    //rewind the stream (aka reset the cursor at the beginning of the stream)
+    $body-&gt;rewind();
+
+    //read the entire request body
+    $request = &quot;&quot;;
+    while (!$body-&gt;eof()) {
+        $request .= read(1);
+    }
+
+    //have fun with your request body!
+});
+</code></pre>
+
+<p>I know what you are thinking... You could parse that request body to obtain
+something like an array or a class that you can use within your application....</p>
+<p>Well, if that's the case you may appreciate the fact that Gishiki does this
+in your place!</p>
+<p>To trigger the request body automatic parsing you can use the getParsedBody()
+function that triggers the better parser for the given 'Content-type' header!</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../response/" class="btn btn-neutral float-right" title="Response">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../routing/" class="btn btn-neutral" title="Router"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../routing/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../response/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

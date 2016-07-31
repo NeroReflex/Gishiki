@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Configuration - Gishiki</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../API/resources/style.css" rel="stylesheet">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Configuration";
+    var mkdocs_page_input_path = "usage/configuration.md";
+    var mkdocs_page_url = "/usage/configuration/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+  <script src="../../API/elementlist.js"></script>
+  <script src="../../API/resources/combined.js"></script>
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Gishiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Installation</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/">Environment</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_php/">Basic PHP</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/php_7_nginx/">PHP 7.0 & nginx</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_nginx/">Basic nginx</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_apache/">Basic apache</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_lighttpd/">Basic lighttpd</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_iis/">Basic IIS</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/composer/">Composer</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/paas/">PaaS</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../apidoc/">API</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Usage</span></li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Configuration</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#configuration">Configuration</a></li>
+                
+                    <li><a class="toctree-l4" href="#automatic-logger">Automatic Logger</a></li>
+                
+                    <li><a class="toctree-l4" href="#server-key">Server Key</a></li>
+                
+                    <li><a class="toctree-l4" href="#server-password">Server Password</a></li>
+                
+            
+            </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../routing/">Router</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../request/">Request</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../response/">Response</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../logging/">Logger</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>About</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../license/">License</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Gishiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Usage &raquo;</li>
+        
+      
+    
+    <li>Configuration</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="configuration">Configuration</h1>
+<p>Gishiki is a bit tricky to configure, but don't worry: you just need to copy the
+structure of the JSON file below and change what you don't like:</p>
+<p>the real configuration file and application descriptor is stored inside the application
+directory and is called settings.json</p>
+<p>It has a fixed (minumum) structure:</p>
+<pre><code class="json">{
+    &quot;general&quot;: {
+        &quot;development&quot;: true,
+        &quot;autolog&quot;: null
+    },
+
+    &quot;security&quot;: {
+        &quot;serverPassword&quot;: &quot;{{@MASTER_KEY}}&quot;,
+        &quot;serverKey&quot;: &quot;{{@SERVER_KEY}}&quot;
+    },
+
+    &quot;connections&quot;: [
+        {
+            &quot;name&quot;: &quot;default&quot;,
+            &quot;query&quot;: &quot;mongodb://user:pass@localhost:27017/dbname&quot;,
+        }
+    ],
+
+    &quot;pipeline&quot;: {
+        &quot;connection&quot;: &quot;default&quot;
+        &quot;collection&quot;: &quot;dbname.tablename&quot;
+    }
+}
+</code></pre>
+
+<p>As you might have thought those {{@VAR_NAMES}} are replaced with constants defined
+in your environment AND/OR Heroku "Config Variables"!</p>
+<p>This is a <em>GREAT</em> feature that keeps <em>SECRET</em> your database connection descriptor and
+your master server key while allowing application portability among illimitate environments!</p>
+<h2 id="automatic-logger">Automatic Logger</h2>
+<p>The automatic logger is the logger automatically used to store log entries generated by
+an exception.</p>
+<p>To understand how to connect a logger it is important to read the <a href="../logging/">Logging</a> chapter of this manual.</p>
+<p>Using null (as in the above example) will discard each log entry.</p>
+<h2 id="server-key">Server Key</h2>
+<p>The server key is a serialized RSA private key as OpenSSL can deserialize it:
+a PEM formatted private key or PEM encoded certificate/private key.</p>
+<p>The serialized key <strong>CANNOT</strong> be password encrypted.</p>
+<p>The server key can be embedded into the JSON, but it may not be the best solution:
+you should either create an environment variable holding the serialized key calling it MASTER_KEY
+and recycle the example code, or giving a file path to the serialized key, for example:
+"file:///absolute/path/to/file.pem" or "file://relative/path/to/file.pem".</p>
+<p>The file path can also be the value of the environment variable, but that is not suggested.</p>
+<p>The private key can be of any length and power of two, however 4096 or bigger
+is suggested.</p>
+<pre><code>openssl genrsa -out relative/path/to/file.pem 4096
+</code></pre>
+
+<p>That is the OpenSSL CLI command that may be used to generate a valid RSA private key.</p>
+<h2 id="server-password">Server Password</h2>
+<p>The server password is what will be used as the default server symmetric key.</p>
+<p>Unlike the server private key, the server password has a fixed length and it must
+be 64 characters long!</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../routing/" class="btn btn-neutral float-right" title="Router">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../apidoc/" class="btn btn-neutral" title="API"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../../apidoc/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../routing/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

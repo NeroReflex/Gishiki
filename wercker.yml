@@ -72,7 +72,7 @@ build:
 deploy :
   steps :
     - install-packages:
-        packages: git openssl pkg-config libssl-dev python wget zlib1g-dev unzip openssh-client
+        packages: git openssl pkg-config libssl-dev python wget zlib1g-dev unzip openssh-client rsync
     - add-ssh-key:
         keyname: DEPLOY_KEY
     - script:
@@ -122,9 +122,10 @@ deploy :
         name: Deploy to github pages
         code: |-
           cd Documentation
-          git clone -b gh-pages $GIT_REMOTE
-          cp -arf /pipeline/source/Documentation/site/ ./Gishiki
+          git clone -b gh-pages $GIT_REMOTE > /dev/null
+          rsync -avh --progress /pipeline/source/Documentation/site/ ./Gishiki
           cd Gishiki
           git add .
           git commit -m "deploy commit from $WERCKER_STARTED_BY"
-          git push
+          git push > /dev/null
+#          cp -arf /pipeline/source/Documentation/site/ ./Gishiki

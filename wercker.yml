@@ -1,10 +1,10 @@
 box: php
 build:
   steps:
-    - add-ssh-key:
-        keyname: GENERAL
     - install-packages:
         packages: git openssl pkg-config libssl-dev python wget zlib1g-dev unzip openssh-client
+    - add-ssh-key:
+        keyname: GENERAL
     - script:
         name: prepare build folders
         code: |-

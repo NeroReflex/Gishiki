@@ -2,12 +2,36 @@ box: php
 build:
   steps:
     - install-packages:
-        packages: git openssl pkg-config libssl-dev
+        packages: git openssl pkg-config libssl-dev python pip
     - script:
         name: prepare build folders
         code: |-
             mkdir build
             mkdir build/logs
+    - script:
+        name: Download ApiGen
+        code: |-
+          curl -O http://apigen.org/apigen.phar
+          sudo chmod 0777 apigen.phar
+          sudo mv apigen.phar /usr/local/bin/apigen
+    - script:
+        name: Testing ApiGen
+        code: apigen --version
+    - script:
+        name: Generating Documentation
+        code: generate --source . --destination Documentation/docs/API --title Gishiki --charset UTF-8 --access-levels public --access-levels protected --php --tree
+    - script:
+        name: Testing Python
+        code: python --version
+    - script:
+        name: Testing PIP
+        code: pip --version
+    - script:
+        name: Installing MkDocs
+        code: sudo pip install mkdocs
+    - script:
+        name: Testing MkDocs
+        code: mkdocs --version
     - script:
         name: Download MongoDB
         code: curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.8.tgz
@@ -64,3 +88,8 @@ build:
     - script:
         name: Send to Code Climate
         code: vendor/bin/test-reporter
+    - script:
+        name: Publishing Documentation
+        code: |-
+          cd Documentation
+          mkdocs gh-deploy --clean

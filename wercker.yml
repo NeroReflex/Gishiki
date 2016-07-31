@@ -2,7 +2,7 @@ box: php
 build:
   steps:
     - install-packages:
-        packages: git openssl pkg-config libssl-dev python wget zlib1g-dev unzip ssh-agent openssh-client
+        packages: git openssl pkg-config libssl-dev python wget zlib1g-dev unzip openssh-client
     - script:
         name: prepare build folders
         code: |-

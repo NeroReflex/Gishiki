@@ -123,7 +123,7 @@ deploy :
         code: |-
           cd Documentation
           git clone -b gh-pages $GIT_REMOTE
-          cp -Rf ../site Gishiki
+          cp -arf /pipeline/source/Documentation/site/ ./Gishiki
           cd Gishiki
           git add .
           git commit -m "deploy commit from $WERCKER_STARTED_BY"

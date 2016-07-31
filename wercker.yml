@@ -1,6 +1,8 @@
 box: php
 build:
   steps:
+    - add-ssh-key:
+        keyname: GENERAL_PRIVATE
     - install-packages:
         packages: git openssl pkg-config libssl-dev python wget zlib1g-dev unzip openssh-client
     - script:
@@ -98,7 +100,6 @@ build:
           eval $(ssh-agent -s)
           git config --global user.email "benato.denis96@gmail.com"
           git config --global user.name "Denis Benato"
-          ssh-add <(echo "GENERAL_PRIVATE")
           cd Documentation
           mkdocs build
           mkdir doc
@@ -109,3 +110,4 @@ build:
           git commit -m "Updating documentation"
           git push
 #         printenv | grep GENERAL_PRIVATE > deploy.pem
+#         ssh-add <(echo "GENERAL_PRIVATE")

@@ -95,15 +95,15 @@ build:
         name: Send to Code Climate
         code: vendor/bin/test-reporter
     - script:
-        name: Publishing Documentation
+        name: Building Documentation
         code: |-
           cd Documentation
           mkdocs build
-          mkdir doc
-          cd doc
-          git clone -b gh-pages git@github.com:NeroReflex/Gishiki.git
-          cp -Rf /pipeline/source/Documentation/site Gishiki
-          cd Gishiki && git add -A
-          git commit -m "Updating documentation"
-          git push
-#printenv | grep GENERAL_PRIVATE > doc_deploy.pem
+          cd ../
+          
+deploy:
+  steps:
+    - gh-pages:
+        token: $GIT_TOKEN
+        branch: gh-pages
+        basedir: Documentation/site

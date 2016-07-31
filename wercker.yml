@@ -116,13 +116,15 @@ deploy :
         code: |-
           git config --global user.email "pleasemailus@wercker.com"
           git config --global user.name "werckerbot"
+          git config --global push.default matching
 #          rm -rf .git
     - script:
         name: Deploy to github pages
         code: |-
-          cd Documentation/site
-          git init
+          cd Documentation
+          git clone -b gh-pages $GIT_REMOTE
+          cp -Rf ../site Gishiki
+          cd Gishiki
           git add .
-          git remote add origin $GIT_REMOTE
           git commit -m "deploy commit from $WERCKER_STARTED_BY"
-          git push origin:gh-pages
+          git push

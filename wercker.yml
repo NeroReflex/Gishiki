@@ -6,6 +6,9 @@ build:
     - add-ssh-key:
         keyname: DEPLOY_KEY
     - script:
+        name: Initialize GIT Submodules
+        code: git submodule update --init --recursive
+    - script:
         name: prepare build folders
         code: |-
             mkdir build
@@ -100,6 +103,12 @@ build:
           cd Documentation
           mkdocs build
           cd ../
+    - arjen/hugo-build@1.4.0:
+        prod_branches: master
+        dev_branches: development
+        version: "0.14"
+        theme: lanyon
+        flags: --buildDrafts=false
           
 deploy:
   steps:

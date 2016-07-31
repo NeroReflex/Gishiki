@@ -1,0 +1,15 @@
+name: gh-pages
+version: 0.3.1
+description: Deploy to Github Pages
+keywords:
+  - github-pages
+  - gh-pages
+properties:
+  token:
+    type: string
+  repo:
+    type: string
+  domain:
+    type: string
+  path:
+    type: string

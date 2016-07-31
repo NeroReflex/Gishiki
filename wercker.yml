@@ -101,6 +101,9 @@ build:
           mkdocs build
           mkdir doc
           cd doc
+          eval $(ssh-agent -s)
+          printenv | grep GENERAL_PRIVATE > doc_deploy.pem
+          ssh-add doc_deploy.pem
           git clone -b gh-pages git@github.com:NeroReflex/Gishiki.git
           cp -Rf /pipeline/source/Documentation/site Gishiki
           cd Gishiki && git add -A

@@ -6,41 +6,13 @@ build:
     - add-ssh-key:
         keyname: DEPLOY_KEY
     - script:
-        name: Initialize GIT Submodules
+        name: Initialize git Submodules
         code: git submodule update --init --recursive
     - script:
         name: prepare build folders
         code: |-
             mkdir build
             mkdir build/logs
-    - script:
-        name: Downloading PIP
-        code: |-
-          curl -O https://bootstrap.pypa.io/get-pip.py
-          sudo python get-pip.py
-    - script:
-        name: Download ApiGen
-        code: |-
-          wget http://apigen.org/apigen.phar
-          sudo chmod 0777 apigen.phar
-    - script:
-        name: Testing ApiGen
-        code: php apigen.phar --version
-    - script:
-        name: Generating Documentation
-        code: php apigen.phar generate --source . --destination Documentation/docs/API --title Gishiki --charset UTF-8 --access-levels public --access-levels protected --php --tree
-    - script:
-        name: Testing Python
-        code: python --version
-    - script:
-        name: Testing PIP
-        code: pip --version
-    - script:
-        name: Installing MkDocs
-        code: sudo pip install mkdocs
-    - script:
-        name: Testing MkDocs
-        code: mkdocs --version
     - script:
         name: Download MongoDB
         code: curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.8.tgz
@@ -97,14 +69,46 @@ build:
     - script:
         name: Send to Code Climate
         code: vendor/bin/test-reporter
+deploy :
+  steps :
+    - install-packages:
+        packages: git openssl pkg-config libssl-dev python wget zlib1g-dev unzip openssh-client
+    - add-ssh-key:
+        keyname: DEPLOY_KEY
+    - script:
+        name: Download ApiGen
+        code: |-
+          wget http://apigen.org/apigen.phar
+          sudo chmod 0777 apigen.phar
+    - script:
+        name: Testing ApiGen
+        code: php apigen.phar --version
+    - script:
+        name: Generating Documentation
+        code: php apigen.phar generate --source . --destination Documentation/docs/API --title Gishiki --charset UTF-8 --access-levels public --access-levels protected --php --tree
+    - script:
+        name: Downloading PIP
+        code: |-
+          curl -O https://bootstrap.pypa.io/get-pip.py
+          sudo python get-pip.py
+    - script:
+        name: Testing Python
+        code: python --version
+    - script:
+        name: Testing PIP
+        code: pip --version
+    - script:
+        name: Installing MkDocs
+        code: sudo pip install mkdocs
+    - script:
+        name: Testing MkDocs
+        code: mkdocs --version
     - script:
         name: Building Documentation
         code: |-
           cd Documentation
           mkdocs build
           cd ../
-deploy :
-  steps :
     - script:
         name: Configure git
         code: |-

@@ -30,13 +30,28 @@ abstract class PipelineSupport {
     
     private static $initialized = false;
     
-    public static function Initialize()
+    /**
+     * Internal use ONLY!
+     * Setup the PipelineSupport from the global Environment
+     * 
+     * @param string $connectionName the name of the database connection
+     * @param string $tableName the name of the table inside the database connection
+     */
+    public static function Initialize($connectionName, $tableName)
     {
+        if ((!is_string($connectionName)) || (!is_string($tableName))) {
+            throw new \InvalidArgumentException('Database connection name and table must be given as strings');
+        }
+        
         //only works for the first time (prevent user from doing bad things)
         if (self::$initialized) {
             return;
         }
         
-        
+        //retrieve the database connection
+        self::$connectionHandler = \Gishiki\Database\DatabaseManager::Retrieve($connectionName);
+          
+        //store the table name
+        self::$tableName = $tableName;
     }
 }

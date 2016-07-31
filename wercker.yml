@@ -2,7 +2,7 @@ box: php
 build:
   steps:
     - add-ssh-key:
-        keyname: GENERAL_PRIVATE
+        keyname: GENERAL
     - install-packages:
         packages: git openssl pkg-config libssl-dev python wget zlib1g-dev unzip openssh-client
     - script:

@@ -2,12 +2,17 @@ box: php
 build:
   steps:
     - install-packages:
-        packages: git openssl pkg-config libssl-dev python pip
+        packages: git openssl pkg-config libssl-dev python
     - script:
         name: prepare build folders
         code: |-
             mkdir build
             mkdir build/logs
+    - script:
+        name: Downloading PIP
+        code: |-
+          curl -O https://bootstrap.pypa.io/get-pip.py
+          sudo python get-pip.py
     - script:
         name: Download ApiGen
         code: |-

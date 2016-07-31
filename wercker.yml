@@ -117,7 +117,6 @@ deploy :
           git config --global user.email "pleasemailus@wercker.com"
           git config --global user.name "werckerbot"
           git config --global push.default matching
-#          rm -rf .git
     - script:
         name: Deploy to github pages
         code: |-
@@ -125,7 +124,6 @@ deploy :
           git clone -b gh-pages $GIT_REMOTE > /dev/null
           rsync -avh --progress /pipeline/source/Documentation/site/ ./Gishiki
           cd Gishiki
-          git add .
-          git commit -m "deploy commit from $WERCKER_STARTED_BY"
+          git add .  > /dev/null
+          git commit -m "deploy commit from $WERCKER_STARTED_BY" > /dev/null
           git push > /dev/null
-#          cp -arf /pipeline/source/Documentation/site/ ./Gishiki

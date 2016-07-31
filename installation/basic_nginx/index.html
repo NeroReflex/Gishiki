@@ -71,7 +71,14 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../environment/">Environment</a>
+        <a class="" href="../">Environment</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../basic_php/">Basic PHP</a>
         
     </li>
 
@@ -106,7 +113,28 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../basic_lighttpd/">Basic lighttpd</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../basic_iis/">Basic IIS</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../composer/">Composer</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../paas/">PaaS</a>
         
     </li>
 
@@ -128,7 +156,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../configuration/">Configuration</a>
+        <a class="" href="../../usage/configuration/">Configuration</a>
         
     </li>
 
@@ -142,38 +170,23 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../../usage/request/">Request</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../usage/response/">Response</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../../usage/logging/">Logger</a>
         
     </li>
-
-        
-            
-    <ul class="subnav">
-    <li><span>Database</span></li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../../usage/database/management/">Management</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../../usage/database/models/">Models</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../../usage/database/CRUD/">CRUD</a>
-        
-    </li>
-
-        
-    </ul>
 
         
     </ul>
@@ -236,12 +249,14 @@ do your job, so just remember to enable PHP and the rewriting engine:</p>
 <pre><code class="nginx">server {
     listen 80;
     server_name site.com;
-    root /var/www/html/Gishiki;
+    root /var/www/html;
+        error_log /var/www/error.log;
+        access_log /var/www/access.log;
 
     index index.php;
 
     location / {
-        try_files $uri $uri/ /index.php?$query_string;
+        try_files $uri $uri/ /index.php$is_args$args;
     }
 
     location ~ \.php$ {

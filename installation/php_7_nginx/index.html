@@ -71,7 +71,14 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../environment/">Environment</a>
+        <a class="" href="../">Environment</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../basic_php/">Basic PHP</a>
         
     </li>
 
@@ -82,7 +89,7 @@
         
             <ul>
             
-                <li class="toctree-l3"><a href="#php-v7-nginx">PHP v7 / nginx</a></li>
+                <li class="toctree-l3"><a href="#php-v7-nginx">PHP v7 &amp; nginx</a></li>
                 
             
             </ul>
@@ -106,7 +113,28 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../basic_lighttpd/">Basic lighttpd</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../basic_iis/">Basic IIS</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../composer/">Composer</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../paas/">PaaS</a>
         
     </li>
 
@@ -128,7 +156,7 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../../configuration/">Configuration</a>
+        <a class="" href="../../usage/configuration/">Configuration</a>
         
     </li>
 
@@ -142,38 +170,23 @@
         
             
     <li class="toctree-l1 ">
+        <a class="" href="../../usage/request/">Request</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../usage/response/">Response</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
         <a class="" href="../../usage/logging/">Logger</a>
         
     </li>
-
-        
-            
-    <ul class="subnav">
-    <li><span>Database</span></li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../../usage/database/management/">Management</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../../usage/database/models/">Models</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
-        <a class="" href="../../usage/database/CRUD/">CRUD</a>
-        
-    </li>
-
-        
-    </ul>
 
         
     </ul>
@@ -230,7 +243,7 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="php-v7-nginx">PHP v7 / nginx</h1>
+                <h1 id="php-v7-nginx">PHP v7 &amp; nginx</h1>
 <p>This framework is fully compatible with PHP 7, and you are encouraged to use it.</p>
 <p>PHP v7 is the PHP version I am using while developing Gishiki.</p>
 <p>Installation depends on your system, so read the PHP manual (or google for instructions....).</p>
@@ -252,7 +265,7 @@ which should be basically:</p>
     index index.php;
 
     location / {
-        try_files $uri $uri/ /index.php?$query_string;
+        try_files $uri $uri/ /index.php$is_args$args;
     }
 
     location ~ \.php$ {
@@ -283,7 +296,7 @@ sudo service php7.0-fpm restart
         <a href="../basic_nginx/" class="btn btn-neutral float-right" title="Basic nginx">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../environment/" class="btn btn-neutral" title="Environment"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../basic_php/" class="btn btn-neutral" title="Basic PHP"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -309,7 +322,7 @@ sudo service php7.0-fpm restart
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../environment/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../basic_php/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
         <span style="margin-left: 15px"><a href="../basic_nginx/" style="color: #fcfcfc">Next &raquo;</a></span>

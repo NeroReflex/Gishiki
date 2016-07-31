@@ -103,9 +103,21 @@ build:
           cd Documentation
           mkdocs build
           cd ../
-deploy:
-  steps:
-    - gh-pages:
-        token: $GIT_TOKEN
-        branch: gh-pages
-        basedir: Documentation/site
+deploy :
+  steps :
+    - script:
+        name: Configure git
+        code: |-
+          git config --global user.email "autodeploy@wercker.com"
+          git config --global user.name "$WERCKER_STARTED_BY"
+
+          # remove current .git folder
+          rm -rf .git
+    - script:
+        name: Deploy to github pages
+        code: |-
+          cd Documentation/site
+          git init
+          git add .
+          git commit -m "deploy commit from $WERCKER_STARTED_BY"
+          git push -f $GIT_REMOTE gh-pages

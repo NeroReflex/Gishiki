@@ -121,9 +121,9 @@ deploy :
         name: Deploy to github pages
         code: |-
           cd Documentation
-          git clone -b gh-pages $GIT_REMOTE > /dev/null
+          git clone -b gh-pages $GIT_REMOTE --quiet > /dev/null 2>&1
           rsync -avh --progress /pipeline/source/Documentation/site/ ./Gishiki
           cd Gishiki
-          git add .  > /dev/null
-          git commit -m "deploy commit from $WERCKER_STARTED_BY" > /dev/null
-          git push > /dev/null
+          git add . --quiet > /dev/null 2>&1
+          git commit -m "deploy commit from $WERCKER_STARTED_BY" --quiet > /dev/null 2>&1
+          git push --quiet > /dev/null 2>&1

@@ -53,6 +53,11 @@ You can even be more aggressive here:
     RewriteEngine On
     RewriteRule ^ index.php [QSA,L]
 </IfModule>
+
+#allow requests from outside the domain
+Header add Access-Control-Allow-Origin "*"
+Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
+Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
 ```
 
 That shorted version will call the framework even if the client is asking for a

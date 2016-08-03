@@ -24,7 +24,8 @@ use Gishiki\Database\DatabaseManager;
  * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class DatabaseManagerTests extends \PHPUnit_Framework_TestCase {
+class DatabaseManagerTest extends \PHPUnit_Framework_TestCase
+{
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -46,7 +47,7 @@ class DatabaseManagerTests extends \PHPUnit_Framework_TestCase {
         $connection = DatabaseManager::Connect('testing_db', MongoDatabaseTest::GetConnectionQuery());
         $this->assertEquals(true, $connection->Connected());
     }
-    
+
     /**
      * @expectedException \Gishiki\Database\DatabaseException
      */
@@ -54,7 +55,7 @@ class DatabaseManagerTests extends \PHPUnit_Framework_TestCase {
     {
         DatabaseManager::Retrieve('testing_bad_db (unconnected)');
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */

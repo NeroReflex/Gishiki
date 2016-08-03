@@ -51,12 +51,12 @@ final class MongodbObjectID implements ObjectIDInterface
     {
         return explode('|-|', $this->oid)[0];
     }
-    
+
     public function Export()
     {
         return new \MongoDB\BSON\ObjectID(strtolower($this->oid));
     }
-    
+
     public function __toString()
     {
         return explode('|-|', strtolower($this->oid))[1];

@@ -57,9 +57,6 @@ build:
     - script:
         name: Install Dependencies
         code: composer install --no-interaction
-#    - internal/watch:
-#        code: php -S 0.0.0.0:8000 > /dev/null &
-#        reload: true
     - script:
         name: Setup MongoDB
         code: mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js

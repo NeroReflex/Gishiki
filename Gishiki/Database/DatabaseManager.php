@@ -66,14 +66,16 @@ abstract class DatabaseManager
             throw new DatabaseException('The given connection query requires an nonexistent adapter', 0);
         }
     }
-    
+
     /**
      * Retrieve the connection with the given name from the list of performed conenctions.
      * 
      * @param string $connectionName the name of the preformed connection
+     *
      * @return DatabaseInterface the connected database instance
+     *
      * @throws \InvalidArgumentException the collection name has not be given as a string
-     * @throws DatabaseException the given connection name is not registered as a valid collection
+     * @throws DatabaseException         the given connection name is not registered as a valid collection
      */
     public static function Retrieve($connectionName)
     {
@@ -81,12 +83,12 @@ abstract class DatabaseManager
         if ((!is_string($connectionName)) || (strlen($connectionName) <= 0)) {
             throw new \InvalidArgumentException('The name of the connection to be retrieved must be given as a string');
         }
-        
+
         //check if the connection was enstabilished
         if (!array_key_exists($connectionName, self::$connections)) {
             throw new DatabaseException("The given connection doesn't exists", 1);
         }
-        
+
         //return the enstabilished conenction
         return self::$connections[$connectionName];
     }

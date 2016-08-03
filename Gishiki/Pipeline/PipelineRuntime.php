@@ -104,7 +104,10 @@ final class PipelineRuntime
         if (!is_array($args)) {
             throw new \InvalidArgumentException('The list of arguments must be given as an array');
         }
-
+        
+        //register the current runtime
+        PipelineSupport::RegisterRuntime($this);
+        
         //get the exact number of stages that should be executed
         $stepsNumber = ($steps < 0) ?
                 $this->pipeline->countStages() : $steps;

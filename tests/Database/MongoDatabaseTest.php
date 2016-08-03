@@ -35,7 +35,7 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
 
         return 'mongodb://'.$user.((strlen($pass) > 0) ? ':' : '').$pass.'@'.$host.':'.$port.'/gishiki';
     }
-    
+
     private static function GetConnection()
     {
         try {

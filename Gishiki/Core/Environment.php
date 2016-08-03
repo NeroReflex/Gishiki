@@ -89,6 +89,30 @@ namespace Gishiki\Core {
             }
         }
 
+        public static function getValueFromEnvironment(array $collection)
+        {
+            foreach ($collection as &$value) {
+                //check for sobstitution
+                if ((is_string($value)) && ((strpos($value, '{{@') === 0) && (strpos($value, '}}') !== false))) {
+                    if (($toReplace = Manipulation::getBetween($value, '{{@', '}}')) != '') {
+                        $value = getenv($toReplace);
+                        if ($value !== false) {
+                            $value = $value;
+                        } elseif (defined($toReplace)) {
+                            $value = constant($toReplace);
+                        }
+                    }
+                }
+                else if (is_array($value)) {
+                    $value = self::getValueFromEnvironment($value);
+                }
+                else if ($value instanceof GenericCollection) {
+                    $value = self::getValueFromEnvironment($value->all());
+                }
+            }
+            return $collection;
+        }
+        
         /**
          * Read the application configuration (settings.json) and return the 
          * parsing result.
@@ -100,23 +124,14 @@ namespace Gishiki\Core {
             //get the json encoded application settings
             $config = file_get_contents(APPLICATION_DIR.'settings.json');
 
-            //update every environment placeholder
-            while (strpos($config, '{{@') !== false) {
-                if (($toReplace = Manipulation::getBetween($config, '{{@', '}}')) != '') {
-                    $value = getenv($toReplace);
-                    if ($value !== false) {
-                        $config = str_replace('{{@'.$toReplace.'}}', json_encode($value, JSON_HEX_QUOT), $config);
-                    } elseif (defined($toReplace)) {
-                        $config = str_replace('{{@'.$toReplace.'}}', json_encode(constant($toReplace), JSON_HEX_QUOT), $config);
-                    }
-                }
-            }
-
             //parse the settings file
             $appConfiguration = SerializableCollection::deserialize($config)->all();
 
+            //complete settings
+            $appCompletedConfiguration = self::getValueFromEnvironment($appConfiguration);
+            
             //return the application configuration
-            return $appConfiguration;
+            return $appCompletedConfiguration;
         }
 
         /**
@@ -205,9 +220,9 @@ namespace Gishiki\Core {
                         'MASTER_SYMMETRIC_KEY' => $config['security']['serverPassword'],
                         'MASTER_ASYMMETRIC_KEY' => $config['security']['serverKey'],
                     ],
-                    
+
                     'CONNECTIONS' => (array_key_exists('connections', $config)) ? $config['connections'] : array(),
-                    
+
                     'PIPELINE' => [
                         'CONNECTION' => (isset($config['pipeline']['connection'])) ? $config['pipeline']['connection'] : null,
                         'COLLECTION' => (isset($config['pipeline']['collection'])) ? $config['pipeline']['collection'] : null,
@@ -223,11 +238,14 @@ namespace Gishiki\Core {
                 ini_set('display_errors', 0);
                 error_reporting(0);
             }
-            
+
             //connect every db connection
             foreach ($this->configuration['CONNECTIONS'] as $connection) {
                 \Gishiki\Database\DatabaseManager::Connect($connection['name'], $connection['query']);
             }
+
+            //setup the pipeline execution support
+            \Gishiki\Pipeline\PipelineSupport::Initialize($this->GetConfigurationProperty('PIPELINE_CONNECTION_NAME'), $this->GetConfigurationProperty('PIPELINE_TABLE_NAME'));
         }
 
         /**
@@ -242,10 +260,10 @@ namespace Gishiki\Core {
             switch (strtoupper($property)) {
                 case 'PIPELINE_CONNECTION_NAME':
                     return $this->configuration['PIPELINE']['CONNECTION'];
-                
+
                 case 'PIPELINE_TABLE_NAME':
                     return $this->configuration['PIPELINE']['COLLECTION'];
-                
+
                 case 'LOG_CONNECTION_STRING':
                     return $this->configuration['AUTOLOG_URL'];
 

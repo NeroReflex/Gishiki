@@ -17,41 +17,63 @@ limitations under the License.
 
 namespace Gishiki\Pipeline;
 
+use Gishiki\Database\DatabaseException;
+
 /**
  * Give runtime support to the pipeline component.
  * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-abstract class PipelineSupport {
-    
+abstract class PipelineSupport
+{
     private static $connectionHandler = null;
 
     private static $tableName = null;
-    
+
     private static $initialized = false;
     
+    private static $activeRuntime = null;
+
     /**
      * Internal use ONLY!
-     * Setup the PipelineSupport from the global Environment
+     * Setup the PipelineSupport from the global Environment.
      * 
      * @param string $connectionName the name of the database connection
-     * @param string $tableName the name of the table inside the database connection
+     * @param string $tableName      the name of the table inside the database connection
+     *
+     * @throws DatabaseException         the exception occurred while fetching the database connection
+     * @throws \InvalidArgumentException given arguments are not valid strings
      */
     public static function Initialize($connectionName, $tableName)
     {
-        if ((!is_string($connectionName)) || (!is_string($tableName))) {
-            throw new \InvalidArgumentException('Database connection name and table must be given as strings');
-        }
-        
         //only works for the first time (prevent user from doing bad things)
         if (self::$initialized) {
             return;
         }
-        
+        self::$initialized = true;
+
+        if ((!is_string($connectionName)) || (!is_string($tableName))) {
+            throw new \InvalidArgumentException('Database connection name and table must be given as strings');
+        }
+
         //retrieve the database connection
         self::$connectionHandler = \Gishiki\Database\DatabaseManager::Retrieve($connectionName);
-          
+
         //store the table name
         self::$tableName = $tableName;
+    }
+
+    
+    public static function RegisterRuntime(\Gishiki\Pipeline\PipelineRuntime &$runtime)
+    {
+        //get the runtime
+        self::$activeRuntime = &$runtime;
+    }
+    
+    
+    public static function UnregisterRuntime()
+    {
+        //get the runtime
+        self::$activeRuntime = null;
     }
 }

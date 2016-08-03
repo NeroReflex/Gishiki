@@ -288,6 +288,11 @@ application root, here I am reporting it:</p>
     RewriteEngine On
     RewriteRule ^ index.php [QSA,L]
 &lt;/IfModule&gt;
+
+#allow requests from outside the domain
+Header add Access-Control-Allow-Origin &quot;*&quot;
+Header add Access-Control-Allow-Headers &quot;origin, x-requested-with, content-type&quot;
+Header add Access-Control-Allow-Methods &quot;PUT, GET, POST, DELETE, OPTIONS&quot;
 </code></pre>
 
 <p>That shorted version will call the framework even if the client is asking for a

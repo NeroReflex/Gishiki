@@ -278,6 +278,7 @@
 				<li><a href="class-Gishiki.tests.Http.UriTest.html">Gishiki\tests\Http\UriTest</a></li>
 				<li><a href="class-Gishiki.tests.Logging.LoggerTest.html">Gishiki\tests\Logging\LoggerTest</a></li>
 				<li><a href="class-Gishiki.tests.Pipeline.PipelineCollectorTest.html">Gishiki\tests\Pipeline\PipelineCollectorTest</a></li>
+				<li><a href="class-Gishiki.tests.Pipeline.PipelineRuntimeTest.html">Gishiki\tests\Pipeline\PipelineRuntimeTest</a></li>
 				<li><a href="class-Gishiki.tests.Pipeline.PipelineTest.html">Gishiki\tests\Pipeline\PipelineTest</a></li>
 				<li><a href="class-Gishiki.tests.Security.Encryption.Asymmetric.CryptographyTest.html">Gishiki\tests\Security\Encryption\Asymmetric\CryptographyTest</a></li>
 				<li><a href="class-Gishiki.tests.Security.Encryption.Asymmetric.KeyTest.html">Gishiki\tests\Security\Encryption\Asymmetric\KeyTest</a></li>
@@ -313,6 +314,7 @@
 				<li><a href="class-Gishiki.Algorithms.Collections.SerializationException.html">Gishiki\Algorithms\Collections\SerializationException</a></li>
 				<li><a href="class-Gishiki.Core.Exception.html">Gishiki\Core\Exception</a></li>
 				<li><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></li>
+				<li><a href="class-Gishiki.Pipeline.PipelineAbortSignal.html">Gishiki\Pipeline\PipelineAbortSignal</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineException.html">Gishiki\Pipeline\PipelineException</a></li>
 				<li><a href="class-Gishiki.Security.Encryption.Asymmetric.AsymmetricException.html">Gishiki\Security\Encryption\Asymmetric\AsymmetricException</a></li>
 				<li><a href="class-Gishiki.Security.Encryption.Symmetric.SymmetricException.html">Gishiki\Security\Encryption\Symmetric\SymmetricException</a></li>
@@ -541,8 +543,31 @@
 </span><span id="183" class="l"><a href="#183">183: </a>
 </span><span id="184" class="l"><a href="#184">184: </a>        <span class="php-var">$pipeline</span>-&gt;getFunctionIndexByName(<span class="php-num">25</span>);
 </span><span id="185" class="l"><a href="#185">185: </a>    }
-</span><span id="186" class="l"><a href="#186">186: </a>}
-</span><span id="187" class="l"><a href="#187">187: </a></span></code></pre>
+</span><span id="186" class="l"><a href="#186">186: </a>
+</span><span id="187" class="l"><a href="#187">187: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> testPipelineFunctionName()
+</span><span id="188" class="l"><a href="#188">188: </a>    {
+</span><span id="189" class="l"><a href="#189">189: </a>        <span class="php-var">$name</span> = <span class="php-quote">'unique98364PipelineName'</span>;
+</span><span id="190" class="l"><a href="#190">190: </a>
+</span><span id="191" class="l"><a href="#191">191: </a>        <span class="php-var">$functionNames</span> = [<span class="php-quote">'func_zero'</span>, <span class="php-quote">'func-one'</span>, <span class="php-quote">'funk@two'</span>];
+</span><span id="192" class="l"><a href="#192">192: </a>
+</span><span id="193" class="l"><a href="#193">193: </a>        <span class="php-var">$pipeline</span> = <span class="php-keyword1">new</span> Pipeline(<span class="php-var">$name</span>);
+</span><span id="194" class="l"><a href="#194">194: </a>        <span class="php-var">$i</span> = <span class="php-num">0</span>;
+</span><span id="195" class="l"><a href="#195">195: </a>        <span class="php-var">$pipeline</span>-&gt;bindStage(<span class="php-var">$functionNames</span>[<span class="php-var">$i</span>++], <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+</span><span id="196" class="l"><a href="#196">196: </a>
+</span><span id="197" class="l"><a href="#197">197: </a>        });
+</span><span id="198" class="l"><a href="#198">198: </a>        <span class="php-var">$pipeline</span>-&gt;bindStage(<span class="php-var">$functionNames</span>[<span class="php-var">$i</span>++], <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+</span><span id="199" class="l"><a href="#199">199: </a>
+</span><span id="200" class="l"><a href="#200">200: </a>        });
+</span><span id="201" class="l"><a href="#201">201: </a>        <span class="php-var">$pipeline</span>-&gt;bindStage(<span class="php-var">$functionNames</span>[<span class="php-var">$i</span>++], <span class="php-keyword1">function</span> (<span class="php-var">$params</span>) {
+</span><span id="202" class="l"><a href="#202">202: </a>
+</span><span id="203" class="l"><a href="#203">203: </a>        });
+</span><span id="204" class="l"><a href="#204">204: </a>
+</span><span id="205" class="l"><a href="#205">205: </a>        <span class="php-var">$this</span>-&gt;assertEquals(<span class="php-num">3</span>, <span class="php-var">$pipeline</span>-&gt;countStages());
+</span><span id="206" class="l"><a href="#206">206: </a>        <span class="php-var">$this</span>-&gt;assertEquals(<span class="php-num">2</span>, <span class="php-var">$pipeline</span>-&gt;getFunctionIndexByName(<span class="php-var">$functionNames</span>[<span class="php-num">2</span>]));
+</span><span id="207" class="l"><a href="#207">207: </a>        <span class="php-var">$this</span>-&gt;assertEquals(<span class="php-var">$functionNames</span>[<span class="php-num">0</span>], <span class="php-var">$pipeline</span>-&gt;getFunctionNameByIndex(<span class="php-num">0</span>));
+</span><span id="208" class="l"><a href="#208">208: </a>    }
+</span><span id="209" class="l"><a href="#209">209: </a>}
+</span><span id="210" class="l"><a href="#210">210: </a></span></code></pre>
 
 	<div id="footer">
 		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>
@@ -550,6 +575,6 @@
 </div>
 </div>
 <script src="resources/combined.js?7ca707fdd2ed5111b54fe4aee4733c14edebe431"></script>
-<script src="elementlist.js?d65a83c5570d2abbdc3d455d68e6ac7bc75daa8b"></script>
+<script src="elementlist.js?150319c9c05d489357531c58c389cbcbc8b0484f"></script>
 </body>
 </html>

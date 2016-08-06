@@ -278,6 +278,7 @@
 				<li><a href="class-Gishiki.tests.Http.UriTest.html">Gishiki\tests\Http\UriTest</a></li>
 				<li><a href="class-Gishiki.tests.Logging.LoggerTest.html">Gishiki\tests\Logging\LoggerTest</a></li>
 				<li><a href="class-Gishiki.tests.Pipeline.PipelineCollectorTest.html">Gishiki\tests\Pipeline\PipelineCollectorTest</a></li>
+				<li><a href="class-Gishiki.tests.Pipeline.PipelineRuntimeTest.html">Gishiki\tests\Pipeline\PipelineRuntimeTest</a></li>
 				<li><a href="class-Gishiki.tests.Pipeline.PipelineTest.html">Gishiki\tests\Pipeline\PipelineTest</a></li>
 				<li><a href="class-Gishiki.tests.Security.Encryption.Asymmetric.CryptographyTest.html">Gishiki\tests\Security\Encryption\Asymmetric\CryptographyTest</a></li>
 				<li><a href="class-Gishiki.tests.Security.Encryption.Asymmetric.KeyTest.html">Gishiki\tests\Security\Encryption\Asymmetric\KeyTest</a></li>
@@ -313,6 +314,7 @@
 				<li><a href="class-Gishiki.Algorithms.Collections.SerializationException.html">Gishiki\Algorithms\Collections\SerializationException</a></li>
 				<li><a href="class-Gishiki.Core.Exception.html">Gishiki\Core\Exception</a></li>
 				<li><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></li>
+				<li><a href="class-Gishiki.Pipeline.PipelineAbortSignal.html">Gishiki\Pipeline\PipelineAbortSignal</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineException.html">Gishiki\Pipeline\PipelineException</a></li>
 				<li><a href="class-Gishiki.Security.Encryption.Asymmetric.AsymmetricException.html">Gishiki\Security\Encryption\Asymmetric\AsymmetricException</a></li>
 				<li><a href="class-Gishiki.Security.Encryption.Symmetric.SymmetricException.html">Gishiki\Security\Encryption\Symmetric\SymmetricException</a></li>
@@ -392,8 +394,45 @@
 </span><span id="34" class="l"><a href="#34">34: </a>        <span class="php-var">$pipeline_one</span> = <span class="php-keyword1">new</span> Pipeline(<span class="php-quote">'pipelineWithSameName'</span>);
 </span><span id="35" class="l"><a href="#35">35: </a>        <span class="php-var">$pipeline_two</span> = <span class="php-keyword1">new</span> Pipeline(<span class="php-quote">'pipelineWithSameName'</span>);
 </span><span id="36" class="l"><a href="#36">36: </a>    }
-</span><span id="37" class="l"><a href="#37">37: </a>}
-</span><span id="38" class="l"><a href="#38">38: </a></span></code></pre>
+</span><span id="37" class="l"><a href="#37">37: </a>
+</span><span id="38" class="l"><a href="#38">38: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> testPipelineName()
+</span><span id="39" class="l"><a href="#39">39: </a>    {
+</span><span id="40" class="l"><a href="#40">40: </a>        <span class="php-var">$name</span> = <span class="php-quote">'unique3244PipelineName'</span>;
+</span><span id="41" class="l"><a href="#41">41: </a>
+</span><span id="42" class="l"><a href="#42">42: </a>        <span class="php-var">$pipeline</span> = <span class="php-keyword1">new</span> Pipeline(<span class="php-var">$name</span>);
+</span><span id="43" class="l"><a href="#43">43: </a>        <span class="php-var">$this</span>-&gt;assertEquals(<span class="php-var">$name</span>, <span class="php-var">$pipeline</span>-&gt;getName());
+</span><span id="44" class="l"><a href="#44">44: </a>
+</span><span id="45" class="l"><a href="#45">45: </a>        <span class="php-var">$this</span>-&gt;assertEquals(<span class="php-keyword1">true</span>, \Gishiki\Pipeline\PipelineCollector::checkPipelineByName(<span class="php-var">$name</span>));
+</span><span id="46" class="l"><a href="#46">46: </a>        <span class="php-var">$this</span>-&gt;assertEquals(<span class="php-var">$pipeline</span>-&gt;getName(), \Gishiki\Pipeline\PipelineCollector::getPipelineByName(<span class="php-var">$name</span>)-&gt;getName());
+</span><span id="47" class="l"><a href="#47">47: </a>    }
+</span><span id="48" class="l"><a href="#48">48: </a>
+</span><span id="49" class="l"><a href="#49">49: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> testPipelineNonexistentName()
+</span><span id="50" class="l"><a href="#50">50: </a>    {
+</span><span id="51" class="l"><a href="#51">51: </a>        <span class="php-var">$name</span> = <span class="php-quote">'unique53463PipelineName'</span>;
+</span><span id="52" class="l"><a href="#52">52: </a>
+</span><span id="53" class="l"><a href="#53">53: </a>        <span class="php-var">$pipeline</span> = <span class="php-keyword1">new</span> Pipeline(<span class="php-var">$name</span>);
+</span><span id="54" class="l"><a href="#54">54: </a>        <span class="php-var">$this</span>-&gt;assertEquals(<span class="php-var">$name</span>, <span class="php-var">$pipeline</span>-&gt;getName());
+</span><span id="55" class="l"><a href="#55">55: </a>
+</span><span id="56" class="l"><a href="#56">56: </a>        <span class="php-var">$this</span>-&gt;assertEquals(<span class="php-keyword1">false</span>, \Gishiki\Pipeline\PipelineCollector::checkPipelineByName(<span class="php-var">$name</span>.<span class="php-quote">'_nonexistent'</span>));
+</span><span id="57" class="l"><a href="#57">57: </a>    }
+</span><span id="58" class="l"><a href="#58">58: </a>
+</span><span id="59" class="l"><a href="#59">59: </a>    <span class="php-comment">/**
+</span></span><span id="60" class="l"><a href="#60">60: </a><span class="php-comment">     * @expectedException \InvalidArgumentException
+</span></span><span id="61" class="l"><a href="#61">61: </a><span class="php-comment">     */</span>
+</span><span id="62" class="l"><a href="#62">62: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> testBadNameinGettingPipeline()
+</span><span id="63" class="l"><a href="#63">63: </a>    {
+</span><span id="64" class="l"><a href="#64">64: </a>        \Gishiki\Pipeline\PipelineCollector::getPipelineByName(<span class="php-num">4</span>);
+</span><span id="65" class="l"><a href="#65">65: </a>    }
+</span><span id="66" class="l"><a href="#66">66: </a>
+</span><span id="67" class="l"><a href="#67">67: </a>    <span class="php-comment">/**
+</span></span><span id="68" class="l"><a href="#68">68: </a><span class="php-comment">     * @expectedException \InvalidArgumentException
+</span></span><span id="69" class="l"><a href="#69">69: </a><span class="php-comment">     */</span>
+</span><span id="70" class="l"><a href="#70">70: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> testBadNameinCheckingPipeline()
+</span><span id="71" class="l"><a href="#71">71: </a>    {
+</span><span id="72" class="l"><a href="#72">72: </a>        \Gishiki\Pipeline\PipelineCollector::checkPipelineByName(<span class="php-keyword1">null</span>);
+</span><span id="73" class="l"><a href="#73">73: </a>    }
+</span><span id="74" class="l"><a href="#74">74: </a>}
+</span><span id="75" class="l"><a href="#75">75: </a></span></code></pre>
 
 	<div id="footer">
 		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>
@@ -401,6 +440,6 @@
 </div>
 </div>
 <script src="resources/combined.js?7ca707fdd2ed5111b54fe4aee4733c14edebe431"></script>
-<script src="elementlist.js?d65a83c5570d2abbdc3d455d68e6ac7bc75daa8b"></script>
+<script src="elementlist.js?150319c9c05d489357531c58c389cbcbc8b0484f"></script>
 </body>
 </html>

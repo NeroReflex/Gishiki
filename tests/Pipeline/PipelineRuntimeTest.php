@@ -55,12 +55,7 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase {
         $pipelineExecutor = new PipelineRuntime($pipeline);
         $pipelineExecutor(2);
         
-        $pipelineRuntimeReflected = new \ReflectionObject($pipelineExecutor);
-        $serializableCollectionProp = $pipelineRuntimeReflected->getProperty('serializableCollection');
-        $serializableCollectionProp->setAccessible(true);
-        $serializableCollection = $serializableCollectionProp->getValue($pipelineExecutor);
-        
-        $this->assertEquals($value, $serializableCollection->get('value'));
+        $this->assertEquals($value, $pipelineExecutor->getDataCollection()->get('value'));
         $this->assertEquals(\Gishiki\Pipeline\RuntimeStatus::COMPLETED, $pipelineExecutor->getStatus());
     }
     
@@ -84,4 +79,129 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($reason, $pipelineExecutor->getAbortMessage());
         $this->assertEquals(\Gishiki\Pipeline\RuntimeStatus::ABORTED, $pipelineExecutor->getStatus());
     }
+    
+    public function testFullMultistagePipeline()
+    {
+        self::GetConnection();
+        \Gishiki\Pipeline\PipelineSupport::Initialize('pipeline_testing_db', 'testing.pipeline');
+        
+        $pipeline = new Pipeline("second_fulltest!");
+        $pipeline->bindStage('firstStage', function (SerializableCollection &$collection)
+        {
+            $collection->set('value', 5);
+        });
+        $pipeline->bindStage('secondStage', function (SerializableCollection &$collection)
+        {
+            $collection->set('value', $collection->get('value') + 1);
+        });
+        $pipeline->bindStage('thirdStage', function (SerializableCollection &$collection)
+        {
+            $collection->set('value', $collection->get('value') * 3);
+        });
+        
+        //create the pipeline runtime
+        $pipelineExecutor = new PipelineRuntime($pipeline);
+        $pipelineExecutor(-1);
+        
+        $this->assertEquals(3, $pipelineExecutor->getCompletedStagesCount());
+        $this->assertEquals(18, $pipelineExecutor->getDataCollection()->get('value'));
+        $this->assertEquals(\Gishiki\Pipeline\RuntimeStatus::COMPLETED, $pipelineExecutor->getStatus());
+    }
+    
+    public function testFullMultistagePipelineWithReturnValues()
+    {
+        self::GetConnection();
+        \Gishiki\Pipeline\PipelineSupport::Initialize('pipeline_testing_db', 'testing.pipeline');
+        
+        $pipeline = new Pipeline("third_fulltest!");
+        $pipeline->bindStage('firstStage', function (SerializableCollection &$collection)
+        {
+            $collection->set('value', 5);
+            return "stringa";
+        });
+        $pipeline->bindStage('secondStage', function (SerializableCollection &$collection)
+        {
+            $collection->set('value', $collection->get('value') + 1);
+            return 0x5A;
+        });
+        $pipeline->bindStage('thirdStage', function (SerializableCollection &$collection)
+        {
+            $collection->set('value', $collection->get('value') * 3);
+            return 7.43;
+        });
+        
+        //create the pipeline runtime
+        $pipelineExecutor = new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::SYNCHRONOUS);
+        $pipelineExecutor(-1);
+        
+        $report = $pipelineExecutor->getExecutionReport();
+        $i = 0;
+        $this->assertEquals("stringa", $report[$i++]['result']);
+        $this->assertEquals(0x5A, $report[$i++]['result']);
+        $this->assertEquals(7.43, $report[$i++]['result']);
+        $this->assertEquals(\Gishiki\Pipeline\RuntimeType::SYNCHRONOUS, $pipelineExecutor->getType());
+    }
+    
+    public function testSplitMultistagePipelineWithReturnValues()
+    {
+        self::GetConnection();
+        \Gishiki\Pipeline\PipelineSupport::Initialize('pipeline_testing_db', 'testing.pipeline');
+        
+        $pipeline = new Pipeline("first_splittest!");
+        $pipeline->bindStage('firstStage', function (SerializableCollection &$collection)
+        {
+            $collection->set('value', 5);
+            return "stringa";
+        });
+        $pipeline->bindStage('secondStage', function (SerializableCollection &$collection)
+        {
+            $collection->set('value', $collection->get('value') + 1);
+            return 0x5A;
+        });
+        $pipeline->bindStage('thirdStage', function (SerializableCollection &$collection)
+        {
+            $collection->set('value', $collection->get('value') * 3);
+            return 7.43;
+        });
+        $pipeline->bindStage('fourthStage', function (SerializableCollection &$collection)
+        {
+            $collection->set('value', $collection->get('value') + 2);
+            return null;
+        });
+        
+        //create the pipeline runtime
+        $pipelineExecutor = new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::SYNCHRONOUS);
+        $pipelineExecutor(1);
+        
+        $this->assertEquals(5, $pipelineExecutor->getDataCollection()->get('value'));
+        $this->assertEquals(1, $pipelineExecutor->getCompletedStagesCount());
+        $this->assertEquals(\Gishiki\Pipeline\RuntimeStatus::STOPPED, $pipelineExecutor->getStatus());
+        
+        $pipelineExecutor(1);
+        
+        $this->assertEquals(6, $pipelineExecutor->getDataCollection()->get('value'));
+        $this->assertEquals(2, $pipelineExecutor->getCompletedStagesCount());
+        $this->assertEquals(\Gishiki\Pipeline\RuntimeStatus::STOPPED, $pipelineExecutor->getStatus());
+        
+        $pipelineExecutor(1);
+        
+        $this->assertEquals(18, $pipelineExecutor->getDataCollection()->get('value'));
+        $this->assertEquals(3, $pipelineExecutor->getCompletedStagesCount());
+        $this->assertEquals(\Gishiki\Pipeline\RuntimeStatus::STOPPED, $pipelineExecutor->getStatus());
+        
+        $pipelineExecutor(1);
+        
+        $this->assertEquals(20, $pipelineExecutor->getDataCollection()->get('value'));
+        $this->assertEquals(4, $pipelineExecutor->getCompletedStagesCount());
+        $this->assertEquals(\Gishiki\Pipeline\RuntimeStatus::COMPLETED, $pipelineExecutor->getStatus());
+        
+        $report = $pipelineExecutor->getExecutionReport();
+        $i = 0;
+        $this->assertEquals("stringa", $report[$i++]['result']);
+        $this->assertEquals(0x5A, $report[$i++]['result']);
+        $this->assertEquals(7.43, $report[$i++]['result']);
+        $this->assertEquals(null, $report[$i++]['result']);
+        $this->assertEquals(\Gishiki\Pipeline\RuntimeType::SYNCHRONOUS, $pipelineExecutor->getType());
+    }
+    
 }

@@ -40,7 +40,6 @@ final class PipelineRuntime
     private $priority;
     private $creationTime;
     private $completionReports = array();
-    private $completedStages;
     private $pipeline;
     private $abortMessage = null;
     
@@ -75,9 +74,6 @@ final class PipelineRuntime
         //store the timestamp of the creation time
         $this->creationTime = time();
 
-        //no completed stages (yet)
-        $this->completedStages = 0;
-
         //store a reference to the pipeline
         $this->pipeline = &$pipeline;
 
@@ -108,7 +104,7 @@ final class PipelineRuntime
         $stepsNumber = ($steps < 0) ?
                 $this->pipeline->countStages() : $steps;
 
-        for ($i = $this->completedStages; ($i < ($this->completedStages + $stepsNumber)) && (($i + $this->completedStages) < $this->pipeline->countStages()) && ($this->status != RuntimeStatus::ABORTED); ++$i) {
+        for ($i = $this->getCompletedStagesCount(); ($stepsNumber > 0) && ($i < $this->pipeline->countStages()) && ($this->status != RuntimeStatus::ABORTED); ++$i) {
             try {
                 //the pipeline is working right now
                 $this->status = RuntimeStatus::WORKING;
@@ -140,9 +136,6 @@ final class PipelineRuntime
                     'result' => $executionResult,
                 ];
 
-                //a stage has been completed
-                ++$this->completedStages;
-
                 //the pipeline is stopped right now
                 $this->status = RuntimeStatus::STOPPED;
             } catch (\Gishiki\Pipeline\PipelineAbortSignal $abortSignal) {
@@ -159,6 +152,8 @@ final class PipelineRuntime
             
             //register the currently active runtime
             PipelineSupport::saveCurrentPupeline();
+            
+            $stepsNumber--;
         }
         
         //runtime ended
@@ -176,12 +171,70 @@ final class PipelineRuntime
     }
     
     /**
-     * Get the status of the current pippeline executor.
+     * Get the status of the current pipeline executor.
      * 
      * @return int one of the RuntimeStatus constants
      */
     public function getStatus()
     {
         return $this->status;
+    }
+    
+    /**
+     * Get the type of the current pipeline executor.
+     * 
+     * @return int one of the RuntimeType constants
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+    
+    /**
+     * Get the number of pipeline stages completed.
+     * 
+     * @return int completed stages
+     */
+    public function getCompletedStagesCount()
+    {
+        return count($this->completionReports);
+    }
+    
+    /**
+     * Get the data collection that the pipeline can use to work on.
+     * 
+     * @return SerializableCollection the data collection
+     */
+    public function &getDataCollection()
+    {
+        return $this->serializableCollection;
+    }
+    
+    /**
+     * Get the report of the pipeline execution.
+     * Each time a pipeline stage get executed completely a report is generated.
+     * 
+     * <code>
+     * //this is an example of what is returned:
+     * array([
+     *          'start_time' => 1470481017,
+     *          'end_time' => 1470481017,
+     *          'elapse_time' => 2.09808349609375e-005,
+     *          'result' => 4,
+     *      ],
+     *      [
+     *          'start_time' => 1470481017,
+     *          'end_time' => 1470481017,
+     *          'elapse_time' => 3.09944152832031e-005,
+     *          'result' => 7,
+     *      ],
+     * );
+     * </code>
+     * 
+     * @return SerializableCollection the report of the result automatically generated
+     */
+    public function getExecutionReport()
+    {
+        return new SerializableCollection($this->completionReports);
     }
 }

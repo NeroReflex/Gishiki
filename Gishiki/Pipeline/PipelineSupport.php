@@ -159,11 +159,6 @@ abstract class PipelineSupport
         $completionReportsProp->setAccessible(true);
         $completionReports = $completionReportsProp->getValue(self::$activeRuntime);
 
-        //reflect the completed stages list of the pipeline
-        $completedStagesProp = $pipelineRuntimeReflected->getProperty('completedStages');
-        $completedStagesProp->setAccessible(true);
-        $completedStages = $completedStagesProp->getValue(self::$activeRuntime);
-
         //reflect the pipeline reference to the pipeline
         $pipelineProp = $pipelineRuntimeReflected->getProperty('pipeline');
         $pipelineProp->setAccessible(true);
@@ -182,14 +177,13 @@ abstract class PipelineSupport
         //generate the data to be saved
         $data = [
             'uniqID' => $uniqCode,
-            'status' => $status,
-            'type' => $type,
+            'status' => self::$activeRuntime->getStatus(),
+            'type' => self::$activeRuntime->getType(),
             'priority' => $priority,
             'creationTime' => $creationTime,
-            'completionReports' => $completionReports,
-            'completedStages' => $completedStages,
+            'completionReports' => self::$activeRuntime->getExecutionReport(),
             'pipeline' => $pipeline->getName(),
-            'abortMessage' => $abortMessage,
+            'abortMessage' => self::$activeRuntime->getAbortMessage(),
             'serializableCollection' => $serializableCollection->all() /*serialize(SerializableCollection::JSON)*/,
         ];
 

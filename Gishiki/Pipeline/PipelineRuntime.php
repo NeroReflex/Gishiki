@@ -32,8 +32,7 @@ final class PipelineRuntime
     /**
      * @var SerializableCollection the data that the runtime will access with R/W permissions
      */
-    public $serializableCollection;
-
+    private $serializableCollection;
     private $uniqCode;
     private $status;
     private $type;
@@ -45,7 +44,37 @@ final class PipelineRuntime
     
     /**
      * Create a new pipeline executor and stop the execution, so that it
-     * will be started on request.
+     * will be started on request or by the cronjob.
+     * 
+     * <code>
+     * $pipeline = new Pipeline("first_splittest!");
+     *  $pipeline->bindStage('firstStage', function (SerializableCollection &$collection)
+     *  {
+     *      $collection->set('value', 5);
+     *      return "stringa";
+     *  });
+     *  $pipeline->bindStage('secondStage', function (SerializableCollection &$collection)
+     *  {
+     *      $collection->set('value', $collection->get('value') + 1);
+     *      return 0x5A;
+     *  });
+     *  $pipeline->bindStage('thirdStage', function (SerializableCollection &$collection)
+     *  {
+     *      $collection->set('value', $collection->get('value') * 3);
+     *      return 7.43;
+     *  });
+     *  $pipeline->bindStage('fourthStage', function (SerializableCollection &$collection)
+     *  {
+     *      $collection->set('value', $collection->get('value') + 2);
+     *      return null;
+     *  });
+     *  
+     *  //create the pipeline runtime
+     *  $pipelineExecutor = new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::SYNCHRONOUS);
+     * 
+     *  //execute the pipeline entirely
+     *  $pipelineExecutor(-1);
+     * </code>
      * 
      * @param Pipeline $pipeline the pipeline to be executed
      * @param int      $priority the priority assigned to the pipeline executor
@@ -79,6 +108,19 @@ final class PipelineRuntime
 
         //end the execution IMMEDIATLY by executing zero stages
         $this(0);
+    }
+    
+    /**
+     * Forward the request to PipelineSupport.
+     * 
+     * @param string $uniqueID the unique ID of the PipelineRuntime
+     * @return PipelineRuntime the restored runtime
+     * @throws PipelineException the given unique ID is not valid
+     * @throws \InvalidArgumentException the unique ID is not a valid string
+     */
+    public static function Restore($uniqueID)
+    {
+        return PipelineSupport::Restore($uniqueID);
     }
 
     /**
@@ -191,6 +233,16 @@ final class PipelineRuntime
     }
     
     /**
+     * Get the priority of the current pipeline executor.
+     * 
+     * @return int one of the RuntimePriority constants
+     */
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+    
+    /**
      * Get the number of pipeline stages completed.
      * 
      * @return int completed stages
@@ -208,6 +260,37 @@ final class PipelineRuntime
     public function &getDataCollection()
     {
         return $this->serializableCollection;
+    }
+    
+    /**
+     * Get the name of the pipeline that is executed by this runtime.
+     * 
+     * @return string the name of the pipeline
+     */
+    public function getPipelineName()
+    {
+        return $this->pipeline->getName();
+    }
+    
+    /**
+     * Get timestamp of the runtime creation moment.
+     * 
+     * @return int the timestamp of the creation time
+     */
+    public function getCreationTime()
+    {
+        return $this->creationTime;
+    }
+    
+    /**
+     * Get the unique ID of the pipeline runtime.
+     * The given ID can be used to restore the runtime over the time.
+     * 
+     * @return string the unique ID
+     */
+    public function getUniqueID()
+    {
+        return $this->uniqCode;
     }
     
     /**

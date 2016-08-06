@@ -204,4 +204,57 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(\Gishiki\Pipeline\RuntimeType::SYNCHRONOUS, $pipelineExecutor->getType());
     }
     
+    /**
+     * @expectedException \Gishiki\Pipeline\PipelineException
+     */
+    function testNonexistentId()
+    {
+        PipelineRuntime::Restore('bad_id :D:D');
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    function testInvalidId()
+    {
+        PipelineRuntime::Restore(7);
+    }
+    
+    public function testInterruptedPipeline()
+    {
+        self::GetConnection();
+        \Gishiki\Pipeline\PipelineSupport::Initialize('pipeline_testing_db', 'testing.pipeline');
+        
+        $pipeline = new Pipeline("first_intertest!");
+        $pipeline->bindStage('firstStage', function (SerializableCollection &$collection)
+        {
+            $collection->set('value', 3);
+        });
+        $pipeline->bindStage('secondStage', function (SerializableCollection &$collection)
+        {
+            $collection->set('value', $collection->get('value') + 2);
+        });
+        $pipeline->bindStage('thirdStage', function (SerializableCollection &$collection)
+        {
+            $collection->set('value', $collection->get('value') * 3);
+        });
+        
+        //create the pipeline runtime
+        $pipelineExecutor = new PipelineRuntime($pipeline);
+        $pipelineExecutor(2);
+        
+        $this->assertEquals(2, $pipelineExecutor->getCompletedStagesCount());
+        $this->assertEquals(5, $pipelineExecutor->getDataCollection()->get('value'));
+        
+        
+        $uniqueID = $pipelineExecutor->getUniqueID();
+        $pipelineExecutor = null;
+        
+        $samePipeline = PipelineRuntime::Restore($uniqueID);
+        $samePipeline(-1);
+        
+        $this->assertEquals(3, $samePipeline->getCompletedStagesCount());
+        $this->assertEquals(15, $samePipeline->getDataCollection()->get('value'));
+        $this->assertEquals(\Gishiki\Pipeline\RuntimeStatus::COMPLETED, $samePipeline->getStatus());
+    }
 }

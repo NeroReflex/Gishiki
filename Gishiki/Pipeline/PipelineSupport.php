@@ -129,67 +129,22 @@ abstract class PipelineSupport
         //reflect the PipelineRuntime currently active
         $pipelineRuntimeReflected = new \ReflectionObject(self::$activeRuntime);
 
-        //reflect the unique ID of the pipeline
-        $uniqProp = $pipelineRuntimeReflected->getProperty('uniqCode');
-        $uniqProp->setAccessible(true);
-        $uniqCode = $uniqProp->getValue(self::$activeRuntime);
-
-        //reflect the status of the pipeline
-        $statusProp = $pipelineRuntimeReflected->getProperty('status');
-        $statusProp->setAccessible(true);
-        $status = $statusProp->getValue(self::$activeRuntime);
-
-        //reflect the type of the pipeline
-        $typeProp = $pipelineRuntimeReflected->getProperty('type');
-        $typeProp->setAccessible(true);
-        $type = $typeProp->getValue(self::$activeRuntime);
-
-        //reflect the priority of the pipeline
-        $priorityProp = $pipelineRuntimeReflected->getProperty('priority');
-        $priorityProp->setAccessible(true);
-        $priority = $priorityProp->getValue(self::$activeRuntime);
-
-        //reflect the creation time of the pipeline
-        $creationTimeProp = $pipelineRuntimeReflected->getProperty('creationTime');
-        $creationTimeProp->setAccessible(true);
-        $creationTime = $creationTimeProp->getValue(self::$activeRuntime);
-
-        //reflect completion reports of the pipeline
-        $completionReportsProp = $pipelineRuntimeReflected->getProperty('completionReports');
-        $completionReportsProp->setAccessible(true);
-        $completionReports = $completionReportsProp->getValue(self::$activeRuntime);
-
-        //reflect the pipeline reference to the pipeline
-        $pipelineProp = $pipelineRuntimeReflected->getProperty('pipeline');
-        $pipelineProp->setAccessible(true);
-        $pipeline = $pipelineProp->getValue(self::$activeRuntime);
-
-        //reflect the abortMessage of the pipeline
-        $abortMessageProp = $pipelineRuntimeReflected->getProperty('abortMessage');
-        $abortMessageProp->setAccessible(true);
-        $abortMessage = $abortMessageProp->getValue(self::$activeRuntime);
-
-        //reflect the data collection of the pipeline
-        $serializableCollectionProp = $pipelineRuntimeReflected->getProperty('serializableCollection');
-        $serializableCollectionProp->setAccessible(true);
-        $serializableCollection = $serializableCollectionProp->getValue(self::$activeRuntime);
-
         //generate the data to be saved
         $data = [
-            'uniqID' => $uniqCode,
+            'uniqID' => self::$activeRuntime->getUniqueID(),
             'status' => self::$activeRuntime->getStatus(),
             'type' => self::$activeRuntime->getType(),
-            'priority' => $priority,
-            'creationTime' => $creationTime,
-            'completionReports' => self::$activeRuntime->getExecutionReport(),
-            'pipeline' => $pipeline->getName(),
+            'priority' => self::$activeRuntime->getPriority(),
+            'creationTime' => self::$activeRuntime->getCreationTime(),
+            'completionReports' => self::$activeRuntime->getExecutionReport()->all(),
+            'pipeline' => self::$activeRuntime->getPipelineName(),
             'abortMessage' => self::$activeRuntime->getAbortMessage(),
-            'serializableCollection' => $serializableCollection->all() /*serialize(SerializableCollection::JSON)*/,
+            'serializableCollection' => self::$activeRuntime->getDataCollection()->all(),
         ];
 
         //identify the pipeline if already saved
         $selector = new \Gishiki\Database\SelectionCriteria();
-        $selector->EqualThan('uniqID', $uniqCode);
+        $selector->EqualThan('uniqID', self::$activeRuntime->getUniqueID());
 
         if (self::$connectionHandler->Fetch(self::$tableName, $selector)->count() > 0) {
             //save the pipeline status in an already existing record
@@ -200,5 +155,79 @@ abstract class PipelineSupport
 
         //save the pipeline status in a new record
         self::$connectionHandler->Insert(self::$tableName, $data);
+    }
+    
+    /**
+     * Forward the request to PipelineSupport.
+     * 
+     * @param string $uniqueID the unique ID of the PipelineRuntime
+     * @return PipelineRuntime the restored runtime
+     * @throws PipelineException the given unique ID is not valid
+     * @throws \InvalidArgumentException the unique ID is not valid or the pipeline is executing
+     */
+    public static function Restore($uniqueID)
+    {
+        if ((!is_string($uniqueID)) || (strlen($uniqueID) <= 0)) {
+            throw new \InvalidArgumentException("The unique pipeline ID is not a valid string");
+        }
+        
+        //identify the pipeline if already saved
+        $selector = new \Gishiki\Database\SelectionCriteria();
+        $selector->EqualThan('uniqID', $uniqueID);
+
+        //check for the unique ID
+        $pipelineCollectionFetched = self::$connectionHandler->Fetch(self::$tableName, $selector);
+        if ($pipelineCollectionFetched->count() != 1) {
+            throw new \Gishiki\Pipeline\PipelineException("The given ID doesn't identify an unique pipeline runtime", 2);
+        }
+        
+        //check se status of the pipeline
+        $toRestore = $pipelineCollectionFetched->get(0)->GetData();
+        if ($toRestore->get('status') == RuntimeStatus::WORKING) {
+            throw new \Gishiki\Pipeline\PipelineException("The given ID matches a pipeline runtime that is executed elsewhere", 3);
+        }
+        
+        //create an empty pipeline
+        $pipelineClassReflection = new \ReflectionClass('Gishiki\\Pipeline\\PipelineRuntime');
+        $pipelineRuntime = $pipelineClassReflection->newInstanceWithoutConstructor();
+        $pipelineReflection = new \ReflectionObject($pipelineRuntime);
+        
+        $uniqueIDProperty = $pipelineReflection->getProperty('uniqCode');
+        $uniqueIDProperty->setAccessible(true);
+        $uniqueIDProperty->setValue($pipelineRuntime, $uniqueID);
+        
+        $statusProperty = $pipelineReflection->getProperty('status');
+        $statusProperty->setAccessible(true);
+        $statusProperty->setValue($pipelineRuntime, $toRestore->get('status'));
+        
+        $typeProperty = $pipelineReflection->getProperty('type');
+        $typeProperty->setAccessible(true);
+        $typeProperty->setValue($pipelineRuntime, $toRestore->get('type'));
+        
+        $priorityProperty = $pipelineReflection->getProperty('priority');
+        $priorityProperty->setAccessible(true);
+        $priorityProperty->setValue($pipelineRuntime, $toRestore->get('priority'));
+        
+        $creationTimeProperty = $pipelineReflection->getProperty('creationTime');
+        $creationTimeProperty->setAccessible(true);
+        $creationTimeProperty->setValue($pipelineRuntime, $toRestore->get('creationTime'));
+        
+        $completionReportsProperty = $pipelineReflection->getProperty('completionReports');
+        $completionReportsProperty->setAccessible(true);
+        $completionReportsProperty->setValue($pipelineRuntime, $toRestore->get('completionReports'));
+        
+        $abortMessageProperty = $pipelineReflection->getProperty('abortMessage');
+        $abortMessageProperty->setAccessible(true);
+        $abortMessageProperty->setValue($pipelineRuntime, $toRestore->get('abortMessage'));
+        
+        $pipelineProperty = $pipelineReflection->getProperty('pipeline');
+        $pipelineProperty->setAccessible(true);
+        $pipelineProperty->setValue($pipelineRuntime, PipelineCollector::getPipelineByName($toRestore->get('pipeline')));
+        
+        $serializableCollectionProperty = $pipelineReflection->getProperty('serializableCollection');
+        $serializableCollectionProperty->setAccessible(true);
+        $serializableCollectionProperty->setValue($pipelineRuntime, new SerializableCollection($toRestore->get('serializableCollection')));
+        
+        return $pipelineRuntime;
     }
 }

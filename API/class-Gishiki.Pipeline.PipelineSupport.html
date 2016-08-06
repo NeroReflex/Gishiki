@@ -285,7 +285,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Pipeline.PipelineSupport.html#23-204" title="Go to source code">Gishiki/Pipeline/PipelineSupport.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Pipeline.PipelineSupport.html#23-233" title="Go to source code">Gishiki/Pipeline/PipelineSupport.php</a>
 		<br>
 	</div>
 
@@ -457,7 +457,7 @@ The currently active PipelineRuntime is marked as not-active-anymore.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_saveCurrentPupeline">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineSupport.html#118-203" title="Go to source code">saveCurrentPupeline</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineSupport.html#118-158" title="Go to source code">saveCurrentPupeline</a>( )</code>
 
 		<div class="description short">
 			<p>Save the currently active PipelineRuntime.</p>
@@ -472,6 +472,50 @@ The currently active PipelineRuntime is marked as not-active-anymore.</p>
 				<h4>Throws</h4>
 				<div class="list">
 					<code><a href="class-Gishiki.Pipeline.PipelineException.html">Gishiki\Pipeline\PipelineException</a></code><br>no pipeline is going to be saved
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Restore" id="_Restore">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-Gishiki.Pipeline.PipelineRuntime.html">Gishiki\Pipeline\PipelineRuntime</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Restore">#</a>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineSupport.html#160-232" title="Go to source code">Restore</a>( <span>string <var>$uniqueID</var></span> )</code>
+
+		<div class="description short">
+			<p>Forward the request to PipelineSupport.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Forward the request to PipelineSupport.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$uniqueID</var></dt>
+					<dd>the unique ID of the PipelineRuntime</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Pipeline.PipelineRuntime.html">Gishiki\Pipeline\PipelineRuntime</a></code><br>the restored runtime
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Pipeline.PipelineException.html">Gishiki\Pipeline\PipelineException</a></code><br>the given unique ID is not valid<br>
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>the unique ID is not valid or the pipeline is executing
 				</div>
 
 

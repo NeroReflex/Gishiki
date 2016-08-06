@@ -285,7 +285,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#23-240" title="Go to source code">Gishiki/Pipeline/PipelineRuntime.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#23-323" title="Go to source code">Gishiki/Pipeline/PipelineRuntime.php</a>
 		<br>
 	</div>
 
@@ -305,16 +305,44 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#46-82" title="Go to source code">__construct</a>( <span><code><a href="class-Gishiki.Pipeline.Pipeline.html">Gishiki\Pipeline\Pipeline</a></code> <var>&amp; $pipeline</var></span>, <span>integer <var>$type</var> = <code><a href="class-Gishiki.Pipeline.RuntimeType.html#ASYNCHRONOUS">Gishiki\Pipeline\RuntimeType::<b>ASYNCHRONOUS</b></a></code></span>, <span> <var>$priority</var> = <code><a href="class-Gishiki.Pipeline.RuntimePriority.html#LOWEST">Gishiki\Pipeline\RuntimePriority::<b>LOWEST</b></a></code></span> )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#45-111" title="Go to source code">__construct</a>( <span><code><a href="class-Gishiki.Pipeline.Pipeline.html">Gishiki\Pipeline\Pipeline</a></code> <var>&amp; $pipeline</var></span>, <span>integer <var>$type</var> = <code><a href="class-Gishiki.Pipeline.RuntimeType.html#ASYNCHRONOUS">Gishiki\Pipeline\RuntimeType::<b>ASYNCHRONOUS</b></a></code></span>, <span> <var>$priority</var> = <code><a href="class-Gishiki.Pipeline.RuntimePriority.html#LOWEST">Gishiki\Pipeline\RuntimePriority::<b>LOWEST</b></a></code></span> )</code>
 
 		<div class="description short">
 			<p>Create a new pipeline executor and stop the execution, so that it
-will be started on request.</p>
+will be started on request or by the cronjob.</p>
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Create a new pipeline executor and stop the execution, so that it
-will be started on request.</p>
+will be started on request or by the cronjob.</p>
+
+<pre><span class="php-var">$pipeline</span> = <span class="php-keyword1">new</span> Pipeline(<span class="php-quote">&quot;first_splittest!&quot;</span>);
+ <span class="php-var">$pipeline</span>-&gt;bindStage(<span class="php-quote">'firstStage'</span>, <span class="php-keyword1">function</span> (SerializableCollection &amp;<span class="php-var">$collection</span>)
+ {
+     <span class="php-var">$collection</span>-&gt;set(<span class="php-quote">'value'</span>, <span class="php-num">5</span>);
+     <span class="php-keyword1">return</span> <span class="php-quote">&quot;stringa&quot;</span>;
+ });
+ <span class="php-var">$pipeline</span>-&gt;bindStage(<span class="php-quote">'secondStage'</span>, <span class="php-keyword1">function</span> (SerializableCollection &amp;<span class="php-var">$collection</span>)
+ {
+     <span class="php-var">$collection</span>-&gt;set(<span class="php-quote">'value'</span>, <span class="php-var">$collection</span>-&gt;get(<span class="php-quote">'value'</span>) + <span class="php-num">1</span>);
+     <span class="php-keyword1">return</span> <span class="php-num">0x5A</span>;
+ });
+ <span class="php-var">$pipeline</span>-&gt;bindStage(<span class="php-quote">'thirdStage'</span>, <span class="php-keyword1">function</span> (SerializableCollection &amp;<span class="php-var">$collection</span>)
+ {
+     <span class="php-var">$collection</span>-&gt;set(<span class="php-quote">'value'</span>, <span class="php-var">$collection</span>-&gt;get(<span class="php-quote">'value'</span>) * <span class="php-num">3</span>);
+     <span class="php-keyword1">return</span> <span class="php-num">7.43</span>;
+ });
+ <span class="php-var">$pipeline</span>-&gt;bindStage(<span class="php-quote">'fourthStage'</span>, <span class="php-keyword1">function</span> (SerializableCollection &amp;<span class="php-var">$collection</span>)
+ {
+     <span class="php-var">$collection</span>-&gt;set(<span class="php-quote">'value'</span>, <span class="php-var">$collection</span>-&gt;get(<span class="php-quote">'value'</span>) + <span class="php-num">2</span>);
+     <span class="php-keyword1">return</span> <span class="php-keyword1">null</span>;
+ });
+
+ <span class="php-comment">//create the pipeline runtime</span>
+ <span class="php-var">$pipelineExecutor</span> = <span class="php-keyword1">new</span> PipelineRuntime(<span class="php-var">$pipeline</span>, \Gishiki\Pipeline\RuntimeType::SYNCHRONOUS);
+
+ <span class="php-comment">//execute the pipeline entirely</span>
+ <span class="php-var">$pipelineExecutor</span>(-<span class="php-num">1</span>);</pre>
 
 
 				<h4>Parameters</h4>
@@ -338,6 +366,50 @@ will be started on request.</p>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="Restore" id="_Restore">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-Gishiki.Pipeline.PipelineRuntime.html">Gishiki\Pipeline\PipelineRuntime</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Restore">#</a>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#113-124" title="Go to source code">Restore</a>( <span>string <var>$uniqueID</var></span> )</code>
+
+		<div class="description short">
+			<p>Forward the request to PipelineSupport.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Forward the request to PipelineSupport.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$uniqueID</var></dt>
+					<dd>the unique ID of the PipelineRuntime</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Pipeline.PipelineRuntime.html">Gishiki\Pipeline\PipelineRuntime</a></code><br>the restored runtime
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Pipeline.PipelineException.html">Gishiki\Pipeline\PipelineException</a></code><br>the given unique ID is not valid<br>
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>the unique ID is not a valid string
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="__invoke" id="___invoke">
 
 		<td class="attributes"><code>
@@ -350,7 +422,7 @@ will be started on request.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___invoke">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#84-161" title="Go to source code">__invoke</a>( <span>integer <var>$steps</var> = -<span class="php-num">1</span></span> )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#126-203" title="Go to source code">__invoke</a>( <span>integer <var>$steps</var> = -<span class="php-num">1</span></span> )</code>
 
 		<div class="description short">
 			<p>Execute a finite number of stages and end the execution.
@@ -393,7 +465,7 @@ pipeline is executed.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getAbortMessage">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#163-171" title="Go to source code">getAbortMessage</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#205-213" title="Go to source code">getAbortMessage</a>( )</code>
 
 		<div class="description short">
 			<p>Get the reason of the pipeline processing forced abort.</p>
@@ -427,7 +499,7 @@ pipeline is executed.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getStatus">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#173-181" title="Go to source code">getStatus</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#215-223" title="Go to source code">getStatus</a>( )</code>
 
 		<div class="description short">
 			<p>Get the status of the current pipeline executor.</p>
@@ -461,7 +533,7 @@ pipeline is executed.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getType">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#183-191" title="Go to source code">getType</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#225-233" title="Go to source code">getType</a>( )</code>
 
 		<div class="description short">
 			<p>Get the type of the current pipeline executor.</p>
@@ -483,6 +555,40 @@ pipeline is executed.</p>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="getPriority" id="_getPriority">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getPriority">#</a>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#235-243" title="Go to source code">getPriority</a>( )</code>
+
+		<div class="description short">
+			<p>Get the priority of the current pipeline executor.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the priority of the current pipeline executor.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer<br>one of the RuntimePriority constants
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="getCompletedStagesCount" id="_getCompletedStagesCount">
 
 		<td class="attributes"><code>
@@ -495,7 +601,7 @@ pipeline is executed.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCompletedStagesCount">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#193-201" title="Go to source code">getCompletedStagesCount</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#245-253" title="Go to source code">getCompletedStagesCount</a>( )</code>
 
 		<div class="description short">
 			<p>Get the number of pipeline stages completed.</p>
@@ -529,7 +635,7 @@ pipeline is executed.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDataCollection">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#203-211" title="Go to source code">getDataCollection</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#255-263" title="Go to source code">getDataCollection</a>( )</code>
 
 		<div class="description short">
 			<p>Get the data collection that the pipeline can use to work on.</p>
@@ -551,6 +657,110 @@ pipeline is executed.</p>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="getPipelineName" id="_getPipelineName">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getPipelineName">#</a>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#265-273" title="Go to source code">getPipelineName</a>( )</code>
+
+		<div class="description short">
+			<p>Get the name of the pipeline that is executed by this runtime.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the name of the pipeline that is executed by this runtime.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the name of the pipeline
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getCreationTime" id="_getCreationTime">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getCreationTime">#</a>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#275-283" title="Go to source code">getCreationTime</a>( )</code>
+
+		<div class="description short">
+			<p>Get timestamp of the runtime creation moment.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get timestamp of the runtime creation moment.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer<br>the timestamp of the creation time
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getUniqueID" id="_getUniqueID">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getUniqueID">#</a>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#285-294" title="Go to source code">getUniqueID</a>( )</code>
+
+		<div class="description short">
+			<p>Get the unique ID of the pipeline runtime.
+The given ID can be used to restore the runtime over the time.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the unique ID of the pipeline runtime.
+The given ID can be used to restore the runtime over the time.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the unique ID
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="getExecutionReport" id="_getExecutionReport">
 
 		<td class="attributes"><code>
@@ -563,7 +773,7 @@ pipeline is executed.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getExecutionReport">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#213-239" title="Go to source code">getExecutionReport</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#296-322" title="Go to source code">getExecutionReport</a>( )</code>
 
 		<div class="description short">
 			<p>Get the report of the pipeline execution.
@@ -615,34 +825,6 @@ Each time a pipeline stage get executed completely a report is generated.</p>
 
 
 
-	<table class="summary properties" id="properties">
-	<caption>Properties summary</caption>
-	<tr data-order="serializableCollection" id="$serializableCollection">
-		<td class="attributes"><code>
-			public  
-			<code><a href="class-Gishiki.Algorithms.Collections.SerializableCollection.html">Gishiki\Algorithms\Collections\SerializableCollection</a></code>
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#32-35" title="Go to source code"><var>$serializableCollection</var></a>
-
-			<div class="description short">
-				<p>the data that the runtime will access with R/W permissions</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>the data that the runtime will access with R/W permissions</p>
-
-			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#$serializableCollection" class="anchor">#</a>
-				<code></code>
-			</div>
-		</td>
-	</tr>
-	</table>
 
 
 

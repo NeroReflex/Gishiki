@@ -564,8 +564,61 @@
 </span><span id="204" class="l"><a href="#204">204: </a>        <span class="php-var">$this</span>-&gt;assertEquals(\Gishiki\Pipeline\RuntimeType::SYNCHRONOUS, <span class="php-var">$pipelineExecutor</span>-&gt;<span class="php-keyword2">getType</span>());
 </span><span id="205" class="l"><a href="#205">205: </a>    }
 </span><span id="206" class="l"><a href="#206">206: </a>    
-</span><span id="207" class="l"><a href="#207">207: </a>}
-</span><span id="208" class="l"><a href="#208">208: </a></span></code></pre>
+</span><span id="207" class="l"><a href="#207">207: </a>    <span class="php-comment">/**
+</span></span><span id="208" class="l"><a href="#208">208: </a><span class="php-comment">     * @expectedException \Gishiki\Pipeline\PipelineException
+</span></span><span id="209" class="l"><a href="#209">209: </a><span class="php-comment">     */</span>
+</span><span id="210" class="l"><a href="#210">210: </a>    <span class="php-keyword1">function</span> testNonexistentId()
+</span><span id="211" class="l"><a href="#211">211: </a>    {
+</span><span id="212" class="l"><a href="#212">212: </a>        PipelineRuntime::Restore(<span class="php-quote">'bad_id :D:D'</span>);
+</span><span id="213" class="l"><a href="#213">213: </a>    }
+</span><span id="214" class="l"><a href="#214">214: </a>    
+</span><span id="215" class="l"><a href="#215">215: </a>    <span class="php-comment">/**
+</span></span><span id="216" class="l"><a href="#216">216: </a><span class="php-comment">     * @expectedException \InvalidArgumentException
+</span></span><span id="217" class="l"><a href="#217">217: </a><span class="php-comment">     */</span>
+</span><span id="218" class="l"><a href="#218">218: </a>    <span class="php-keyword1">function</span> testInvalidId()
+</span><span id="219" class="l"><a href="#219">219: </a>    {
+</span><span id="220" class="l"><a href="#220">220: </a>        PipelineRuntime::Restore(<span class="php-num">7</span>);
+</span><span id="221" class="l"><a href="#221">221: </a>    }
+</span><span id="222" class="l"><a href="#222">222: </a>    
+</span><span id="223" class="l"><a href="#223">223: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> testInterruptedPipeline()
+</span><span id="224" class="l"><a href="#224">224: </a>    {
+</span><span id="225" class="l"><a href="#225">225: </a>        self::GetConnection();
+</span><span id="226" class="l"><a href="#226">226: </a>        \Gishiki\Pipeline\PipelineSupport::Initialize(<span class="php-quote">'pipeline_testing_db'</span>, <span class="php-quote">'testing.pipeline'</span>);
+</span><span id="227" class="l"><a href="#227">227: </a>        
+</span><span id="228" class="l"><a href="#228">228: </a>        <span class="php-var">$pipeline</span> = <span class="php-keyword1">new</span> Pipeline(<span class="php-quote">&quot;first_intertest!&quot;</span>);
+</span><span id="229" class="l"><a href="#229">229: </a>        <span class="php-var">$pipeline</span>-&gt;bindStage(<span class="php-quote">'firstStage'</span>, <span class="php-keyword1">function</span> (SerializableCollection &amp;<span class="php-var">$collection</span>)
+</span><span id="230" class="l"><a href="#230">230: </a>        {
+</span><span id="231" class="l"><a href="#231">231: </a>            <span class="php-var">$collection</span>-&gt;set(<span class="php-quote">'value'</span>, <span class="php-num">3</span>);
+</span><span id="232" class="l"><a href="#232">232: </a>        });
+</span><span id="233" class="l"><a href="#233">233: </a>        <span class="php-var">$pipeline</span>-&gt;bindStage(<span class="php-quote">'secondStage'</span>, <span class="php-keyword1">function</span> (SerializableCollection &amp;<span class="php-var">$collection</span>)
+</span><span id="234" class="l"><a href="#234">234: </a>        {
+</span><span id="235" class="l"><a href="#235">235: </a>            <span class="php-var">$collection</span>-&gt;set(<span class="php-quote">'value'</span>, <span class="php-var">$collection</span>-&gt;get(<span class="php-quote">'value'</span>) + <span class="php-num">2</span>);
+</span><span id="236" class="l"><a href="#236">236: </a>        });
+</span><span id="237" class="l"><a href="#237">237: </a>        <span class="php-var">$pipeline</span>-&gt;bindStage(<span class="php-quote">'thirdStage'</span>, <span class="php-keyword1">function</span> (SerializableCollection &amp;<span class="php-var">$collection</span>)
+</span><span id="238" class="l"><a href="#238">238: </a>        {
+</span><span id="239" class="l"><a href="#239">239: </a>            <span class="php-var">$collection</span>-&gt;set(<span class="php-quote">'value'</span>, <span class="php-var">$collection</span>-&gt;get(<span class="php-quote">'value'</span>) * <span class="php-num">3</span>);
+</span><span id="240" class="l"><a href="#240">240: </a>        });
+</span><span id="241" class="l"><a href="#241">241: </a>        
+</span><span id="242" class="l"><a href="#242">242: </a>        <span class="php-comment">//create the pipeline runtime</span>
+</span><span id="243" class="l"><a href="#243">243: </a>        <span class="php-var">$pipelineExecutor</span> = <span class="php-keyword1">new</span> PipelineRuntime(<span class="php-var">$pipeline</span>);
+</span><span id="244" class="l"><a href="#244">244: </a>        <span class="php-var">$pipelineExecutor</span>(<span class="php-num">2</span>);
+</span><span id="245" class="l"><a href="#245">245: </a>        
+</span><span id="246" class="l"><a href="#246">246: </a>        <span class="php-var">$this</span>-&gt;assertEquals(<span class="php-num">2</span>, <span class="php-var">$pipelineExecutor</span>-&gt;getCompletedStagesCount());
+</span><span id="247" class="l"><a href="#247">247: </a>        <span class="php-var">$this</span>-&gt;assertEquals(<span class="php-num">5</span>, <span class="php-var">$pipelineExecutor</span>-&gt;getDataCollection()-&gt;get(<span class="php-quote">'value'</span>));
+</span><span id="248" class="l"><a href="#248">248: </a>        
+</span><span id="249" class="l"><a href="#249">249: </a>        
+</span><span id="250" class="l"><a href="#250">250: </a>        <span class="php-var">$uniqueID</span> = <span class="php-var">$pipelineExecutor</span>-&gt;getUniqueID();
+</span><span id="251" class="l"><a href="#251">251: </a>        <span class="php-var">$pipelineExecutor</span> = <span class="php-keyword1">null</span>;
+</span><span id="252" class="l"><a href="#252">252: </a>        
+</span><span id="253" class="l"><a href="#253">253: </a>        <span class="php-var">$samePipeline</span> = PipelineRuntime::Restore(<span class="php-var">$uniqueID</span>);
+</span><span id="254" class="l"><a href="#254">254: </a>        <span class="php-var">$samePipeline</span>(-<span class="php-num">1</span>);
+</span><span id="255" class="l"><a href="#255">255: </a>        
+</span><span id="256" class="l"><a href="#256">256: </a>        <span class="php-var">$this</span>-&gt;assertEquals(<span class="php-num">3</span>, <span class="php-var">$samePipeline</span>-&gt;getCompletedStagesCount());
+</span><span id="257" class="l"><a href="#257">257: </a>        <span class="php-var">$this</span>-&gt;assertEquals(<span class="php-num">15</span>, <span class="php-var">$samePipeline</span>-&gt;getDataCollection()-&gt;get(<span class="php-quote">'value'</span>));
+</span><span id="258" class="l"><a href="#258">258: </a>        <span class="php-var">$this</span>-&gt;assertEquals(\Gishiki\Pipeline\RuntimeStatus::COMPLETED, <span class="php-var">$samePipeline</span>-&gt;getStatus());
+</span><span id="259" class="l"><a href="#259">259: </a>    }
+</span><span id="260" class="l"><a href="#260">260: </a>}
+</span><span id="261" class="l"><a href="#261">261: </a></span></code></pre>
 
 	<div id="footer">
 		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>

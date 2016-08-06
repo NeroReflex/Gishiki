@@ -81,7 +81,7 @@ final class PipelineRuntime
         $this->pipeline = &$pipeline;
 
         //end the execution IMMEDIATLY by executing zero stages
-        $this([], 0);
+        $this(0);
     }
 
     /**
@@ -99,11 +99,6 @@ final class PipelineRuntime
         if (!is_int($steps)) {
             throw new \InvalidArgumentException('The number of steps to execute must be given as an integer number');
         }
-
-        //check the list of arguments to be passed to the execution
-        if (!is_array($args)) {
-            throw new \InvalidArgumentException('The list of arguments must be given as an array');
-        }
         
         //register the current runtime
         PipelineSupport::RegisterRuntime($this);
@@ -112,7 +107,7 @@ final class PipelineRuntime
         $stepsNumber = ($steps < 0) ?
                 $this->pipeline->countStages() : $steps;
 
-        for ($i = $this->completedStages; ($i < ($this->completedStages + $stepsNumber)) && (($i + $this->completedStages) < $this->pipeline->countStages()); ++$i) {
+        for ($i = $this->completedStages; ($i < ($this->completedStages + $stepsNumber)) && (($i + $this->completedStages) < $this->pipeline->countStages()) && ($this->status != RuntimeStatus::ABORTED); ++$i) {
             try {
                 //the pipeline is working right now
                 $this->status = RuntimeStatus::WORKING;
@@ -127,7 +122,7 @@ final class PipelineRuntime
             
                 //fetch & execute the pipeline stage
                 $reflectedFunction = $this->pipeline->reflectFunctionByIndex($i);
-                $executionResult = $reflectedFunction->invokeArgs(&$this->serializableCollection);
+                $executionResult = $reflectedFunction->invokeArgs([&$this->serializableCollection]);
 
                 //unregister the currently used runtime
                 self::$currentExecution = null;
@@ -155,6 +150,10 @@ final class PipelineRuntime
                 
                 //the abort reason must be saved
                 $this->abortMessage = $abortSignal->getMessage();
+            }
+            
+            if ((is_null($this->abortMessage)) && ($this->status != RuntimeStatus::ABORTED) && ($this->pipeline->countStages() == ($i - 1))) {
+                $this->status = RuntimeStatus::COMPLETED;
             }
             
             //register the currently active runtime

@@ -84,7 +84,7 @@ abstract class PipelineSupport
     public static function RegisterRuntime(PipelineRuntime &$runtime)
     {
         //get the runtime
-        self::$activeRuntime = &$runtime;
+        self::$activeRuntime = /*&*/$runtime;
     }
 
     /**

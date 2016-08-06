@@ -18,7 +18,6 @@ limitations under the License.
 namespace Gishiki\Pipeline;
 
 use Gishiki\Algorithms\Collections\SerializableCollection;
-use Gishiki\Pipeline\RuntimeStatus;
 
 /**
  * Represent the executor of a pipeline.
@@ -41,7 +40,7 @@ final class PipelineRuntime
     private $completionReports = array();
     private $pipeline;
     private $abortMessage = null;
-    
+
     /**
      * Create a new pipeline executor and stop the execution, so that it
      * will be started on request or by the cronjob.
@@ -109,13 +108,15 @@ final class PipelineRuntime
         //end the execution IMMEDIATLY by executing zero stages
         $this(0);
     }
-    
+
     /**
      * Forward the request to PipelineSupport.
      * 
      * @param string $uniqueID the unique ID of the PipelineRuntime
+     *
      * @return PipelineRuntime the restored runtime
-     * @throws PipelineException the given unique ID is not valid
+     *
+     * @throws PipelineException         the given unique ID is not valid
      * @throws \InvalidArgumentException the unique ID is not a valid string
      */
     public static function Restore($uniqueID)
@@ -128,7 +129,7 @@ final class PipelineRuntime
      * If the number of stages to be executed are less than zero than the entire
      * pipeline is executed.
      * 
-     * @param int   $steps number of stages to be passed before stopping the execution
+     * @param int $steps number of stages to be passed before stopping the execution
      *
      * @throws \InvalidArgumentException invalid arguments passed
      */
@@ -138,10 +139,10 @@ final class PipelineRuntime
         if (!is_int($steps)) {
             throw new \InvalidArgumentException('The number of steps to execute must be given as an integer number');
         }
-        
+
         //register the current runtime
         PipelineSupport::RegisterRuntime($this);
-        
+
         //get the exact number of stages that should be executed
         $stepsNumber = ($steps < 0) ?
                 $this->pipeline->countStages() : $steps;
@@ -158,7 +159,6 @@ final class PipelineRuntime
                 //register the currently used runtime
                 self::$currentExecution = &$this;
 
-            
                 //fetch & execute the pipeline stage
                 $reflectedFunction = $this->pipeline->reflectFunctionByIndex($i);
                 $executionResult = $reflectedFunction->invokeArgs([&$this->serializableCollection]);
@@ -183,25 +183,25 @@ final class PipelineRuntime
             } catch (\Gishiki\Pipeline\PipelineAbortSignal $abortSignal) {
                 //the pipeline was aborted
                 $this->status = RuntimeStatus::ABORTED;
-                
+
                 //the abort reason must be saved
                 $this->abortMessage = $abortSignal->getMessage();
             }
-            
+
             if ((is_null($this->abortMessage)) && ($this->status != RuntimeStatus::ABORTED) && ($i == ($this->pipeline->countStages() - 1))) {
                 $this->status = RuntimeStatus::COMPLETED;
             }
-            
+
             //register the currently active runtime
             PipelineSupport::saveCurrentPupeline();
-            
-            $stepsNumber--;
+
+            --$stepsNumber;
         }
-        
+
         //runtime ended
         PipelineSupport::UnregisterRuntime();
     }
-    
+
     /**
      * Get the reason of the pipeline processing forced abort.
      * 
@@ -211,7 +211,7 @@ final class PipelineRuntime
     {
         return $this->abortMessage;
     }
-    
+
     /**
      * Get the status of the current pipeline executor.
      * 
@@ -221,7 +221,7 @@ final class PipelineRuntime
     {
         return $this->status;
     }
-    
+
     /**
      * Get the type of the current pipeline executor.
      * 
@@ -231,7 +231,7 @@ final class PipelineRuntime
     {
         return $this->type;
     }
-    
+
     /**
      * Get the priority of the current pipeline executor.
      * 
@@ -241,7 +241,7 @@ final class PipelineRuntime
     {
         return $this->priority;
     }
-    
+
     /**
      * Get the number of pipeline stages completed.
      * 
@@ -251,7 +251,7 @@ final class PipelineRuntime
     {
         return count($this->completionReports);
     }
-    
+
     /**
      * Get the data collection that the pipeline can use to work on.
      * 
@@ -261,7 +261,7 @@ final class PipelineRuntime
     {
         return $this->serializableCollection;
     }
-    
+
     /**
      * Get the name of the pipeline that is executed by this runtime.
      * 
@@ -271,7 +271,7 @@ final class PipelineRuntime
     {
         return $this->pipeline->getName();
     }
-    
+
     /**
      * Get timestamp of the runtime creation moment.
      * 
@@ -281,7 +281,7 @@ final class PipelineRuntime
     {
         return $this->creationTime;
     }
-    
+
     /**
      * Get the unique ID of the pipeline runtime.
      * The given ID can be used to restore the runtime over the time.
@@ -292,7 +292,7 @@ final class PipelineRuntime
     {
         return $this->uniqCode;
     }
-    
+
     /**
      * Get the report of the pipeline execution.
      * Each time a pipeline stage get executed completely a report is generated.

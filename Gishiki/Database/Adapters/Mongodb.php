@@ -207,19 +207,19 @@ final class Mongodb implements DatabaseInterface
 
         return new \Gishiki\Algorithms\Collections\GenericCollection($resultSet);
     }
-    
+
     private static function filterResult($records)
     {
         //we don't want stdClass in the result set
-        $recordsFiltered = ($records instanceof \stdClass)? json_decode(json_encode ($records), true) : $records;
-        
+        $recordsFiltered = ($records instanceof \stdClass) ? json_decode(json_encode($records), true) : $records;
+
         if (is_array($recordsFiltered)) {
             foreach ($recordsFiltered as &$record) {
-                $record = (($record instanceof \stdClass) || (is_array($record)))?
+                $record = (($record instanceof \stdClass) || (is_array($record))) ?
                         self::filterResult($record) : $record;
             }
         }
-        
+
         //return the filtered set
         return $recordsFiltered;
     }

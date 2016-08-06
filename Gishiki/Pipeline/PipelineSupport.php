@@ -85,7 +85,7 @@ abstract class PipelineSupport
     public static function RegisterRuntime(PipelineRuntime &$runtime)
     {
         //get the runtime
-        self::$activeRuntime = /*&*/$runtime;
+        self::$activeRuntime = $runtime;
     }
 
     /**
@@ -156,21 +156,63 @@ abstract class PipelineSupport
         //save the pipeline status in a new record
         self::$connectionHandler->Insert(self::$tableName, $data);
     }
-    
+
+    /**
+     * Get the next runtime to be executed giving priority and selecting
+     * asychronous only runtimes.
+     * 
+     * @return PipelineRuntime|null the next runtime to be executed, or null
+     */
+    public static function getNextAsyncByPriority()
+    {
+        //identify the pipeline if already saved
+        $selector = new \Gishiki\Database\SelectionCriteria();
+        $selector->EqualThan('type', RuntimeType::ASYNCHRONOUS)
+                ->EqualThan('status', RuntimeStatus::STOPPED);
+
+        //what is going to be restored
+        $toRestore = null;
+
+        for ($i = 0; $i < RuntimePriority::LOWEST; ++$i) {
+            //change searched priority
+            $selector->EqualThan('priority', $i);
+
+            //the the collection of runtimes to be completed
+            $pipelineCollectionFetched = self::$connectionHandler->Fetch(self::$tableName, $selector);
+            $resultsCount = $pipelineCollectionFetched->count();
+
+            if ($resultsCount > 0) {
+                //extract a random one
+                srand(time());
+                $random = rand(0, $resultsCount - 1);
+
+                $toRestore = $pipelineCollectionFetched->get($random)->GetData();
+            }
+        }
+
+        if ($toRestore instanceof \Gishiki\Algorithms\Collections\CollectionInterface) {
+            return self::populateRestoredPipelineRuntime($toRestore);
+        }
+
+        return;
+    }
+
     /**
      * Forward the request to PipelineSupport.
      * 
      * @param string $uniqueID the unique ID of the PipelineRuntime
+     *
      * @return PipelineRuntime the restored runtime
-     * @throws PipelineException the given unique ID is not valid
+     *
+     * @throws PipelineException         the given unique ID is not valid
      * @throws \InvalidArgumentException the unique ID is not valid or the pipeline is executing
      */
     public static function Restore($uniqueID)
     {
         if ((!is_string($uniqueID)) || (strlen($uniqueID) <= 0)) {
-            throw new \InvalidArgumentException("The unique pipeline ID is not a valid string");
+            throw new \InvalidArgumentException('The unique pipeline ID is not a valid string');
         }
-        
+
         //identify the pipeline if already saved
         $selector = new \Gishiki\Database\SelectionCriteria();
         $selector->EqualThan('uniqID', $uniqueID);
@@ -180,54 +222,59 @@ abstract class PipelineSupport
         if ($pipelineCollectionFetched->count() != 1) {
             throw new \Gishiki\Pipeline\PipelineException("The given ID doesn't identify an unique pipeline runtime", 2);
         }
-        
-        //check se status of the pipeline
+
+        //check the status of the pipeline
         $toRestore = $pipelineCollectionFetched->get(0)->GetData();
         if ($toRestore->get('status') == RuntimeStatus::WORKING) {
-            throw new \Gishiki\Pipeline\PipelineException("The given ID matches a pipeline runtime that is executed elsewhere", 3);
+            throw new \Gishiki\Pipeline\PipelineException('The given ID matches a pipeline runtime that is executed elsewhere', 3);
         }
-        
+
+        return self::populateRestoredPipelineRuntime($toRestore);
+    }
+
+    private static function populateRestoredPipelineRuntime(\Gishiki\Algorithms\Collections\CollectionInterface $toRestore)
+    {
         //create an empty pipeline
         $pipelineClassReflection = new \ReflectionClass('Gishiki\\Pipeline\\PipelineRuntime');
         $pipelineRuntime = $pipelineClassReflection->newInstanceWithoutConstructor();
         $pipelineReflection = new \ReflectionObject($pipelineRuntime);
-        
+
         $uniqueIDProperty = $pipelineReflection->getProperty('uniqCode');
         $uniqueIDProperty->setAccessible(true);
-        $uniqueIDProperty->setValue($pipelineRuntime, $uniqueID);
-        
+        $uniqueIDProperty->setValue($pipelineRuntime, $toRestore->get('uniqID'));
+
         $statusProperty = $pipelineReflection->getProperty('status');
         $statusProperty->setAccessible(true);
         $statusProperty->setValue($pipelineRuntime, $toRestore->get('status'));
-        
+
         $typeProperty = $pipelineReflection->getProperty('type');
         $typeProperty->setAccessible(true);
         $typeProperty->setValue($pipelineRuntime, $toRestore->get('type'));
-        
+
         $priorityProperty = $pipelineReflection->getProperty('priority');
         $priorityProperty->setAccessible(true);
         $priorityProperty->setValue($pipelineRuntime, $toRestore->get('priority'));
-        
+
         $creationTimeProperty = $pipelineReflection->getProperty('creationTime');
         $creationTimeProperty->setAccessible(true);
         $creationTimeProperty->setValue($pipelineRuntime, $toRestore->get('creationTime'));
-        
+
         $completionReportsProperty = $pipelineReflection->getProperty('completionReports');
         $completionReportsProperty->setAccessible(true);
         $completionReportsProperty->setValue($pipelineRuntime, $toRestore->get('completionReports'));
-        
+
         $abortMessageProperty = $pipelineReflection->getProperty('abortMessage');
         $abortMessageProperty->setAccessible(true);
         $abortMessageProperty->setValue($pipelineRuntime, $toRestore->get('abortMessage'));
-        
+
         $pipelineProperty = $pipelineReflection->getProperty('pipeline');
         $pipelineProperty->setAccessible(true);
         $pipelineProperty->setValue($pipelineRuntime, PipelineCollector::getPipelineByName($toRestore->get('pipeline')));
-        
+
         $serializableCollectionProperty = $pipelineReflection->getProperty('serializableCollection');
         $serializableCollectionProperty->setAccessible(true);
         $serializableCollectionProperty->setValue($pipelineRuntime, new SerializableCollection($toRestore->get('serializableCollection')));
-        
+
         return $pipelineRuntime;
     }
 }

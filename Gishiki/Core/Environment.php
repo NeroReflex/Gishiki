@@ -102,17 +102,16 @@ namespace Gishiki\Core {
                             $value = constant($toReplace);
                         }
                     }
-                }
-                else if (is_array($value)) {
+                } elseif (is_array($value)) {
                     $value = self::getValueFromEnvironment($value);
-                }
-                else if ($value instanceof GenericCollection) {
+                } elseif ($value instanceof GenericCollection) {
                     $value = self::getValueFromEnvironment($value->all());
                 }
             }
+
             return $collection;
         }
-        
+
         /**
          * Read the application configuration (settings.json) and return the 
          * parsing result.
@@ -129,7 +128,7 @@ namespace Gishiki\Core {
 
             //complete settings
             $appCompletedConfiguration = self::getValueFromEnvironment($appConfiguration);
-            
+
             //return the application configuration
             return $appCompletedConfiguration;
         }

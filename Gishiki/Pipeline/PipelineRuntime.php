@@ -41,7 +41,8 @@ final class PipelineRuntime
     private $completionReports = array();
     private $completedStages;
     private $pipeline;
-
+    private $abortMessage = null;
+    
     /**
      * Create a new pipeline executor and stop the execution, so that it
      * will be started on request.
@@ -88,12 +89,11 @@ final class PipelineRuntime
      * If the number of stages to be executed are less than zero than the entire
      * pipeline is executed.
      * 
-     * @param array $args  values to be passed to every pipeline function
      * @param int   $steps number of stages to be passed before stopping the execution
      *
      * @throws \InvalidArgumentException invalid arguments passed
      */
-    public function __invoke($args = array(), $steps = -1)
+    public function __invoke($steps = -1)
     {
         //check the number of steps
         if (!is_int($steps)) {
@@ -113,40 +113,64 @@ final class PipelineRuntime
                 $this->pipeline->countStages() : $steps;
 
         for ($i = $this->completedStages; ($i < ($this->completedStages + $stepsNumber)) && (($i + $this->completedStages) < $this->pipeline->countStages()); ++$i) {
-            //the pipeline is working right now
-            $this->status = RuntimeStatus::WORKING;
+            try {
+                //the pipeline is working right now
+                $this->status = RuntimeStatus::WORKING;
 
-            //get the starting time
-            $startTime = time();
-            $start = microtime(true);
+                //get the starting time
+                $startTime = time();
+                $start = microtime(true);
 
-            //register the currently used runtime
-            self::$currentExecution = &$this;
+                //register the currently used runtime
+                self::$currentExecution = &$this;
 
-            //fetch & execute the pipeline stage
-            $reflectedFunction = $this->pipeline->reflectFunctionByIndex($i);
-            $executionResult = $reflectedFunction->invokeArgs($args);
+            
+                //fetch & execute the pipeline stage
+                $reflectedFunction = $this->pipeline->reflectFunctionByIndex($i);
+                $executionResult = $reflectedFunction->invokeArgs(&$this->serializableCollection);
 
-            //unregister the currently used runtime
-            self::$currentExecution = null;
+                //unregister the currently used runtime
+                self::$currentExecution = null;
 
-            //get the final time
-            $time_elapsed_secs = microtime(true) - $start;
-            $finalTime = time();
+                //get the final time
+                $time_elapsed_secs = microtime(true) - $start;
+                $finalTime = time();
 
-            //generate and store the report
-            $this->completionReports[] = [
-                'start_time' => $startTime,
-                'end_time' => $finalTime,
-                'elapse_time' => $time_elapsed_secs,
-                'result' => $executionResult,
-            ];
+                //generate and store the report
+                $this->completionReports[] = [
+                    'start_time' => $startTime,
+                    'end_time' => $finalTime,
+                    'elapse_time' => $time_elapsed_secs,
+                    'result' => $executionResult,
+                ];
 
-            //a stage has been completed
-            ++$this->completedStages;
+                //a stage has been completed
+                ++$this->completedStages;
 
-            //the pipeline is stopped right now
-            $this->status = RuntimeStatus::STOPPED;
+                //the pipeline is stopped right now
+                $this->status = RuntimeStatus::STOPPED;
+            } catch (\Gishiki\Pipeline\PipelineAbortSignal $abortSignal) {
+                //the pipeline was aborted
+                $this->status = RuntimeStatus::ABORTED;
+                
+                //the abort reason must be saved
+                $this->abortMessage = $abortSignal->getMessage();
+            }
+            
+            //register the currently active runtime
+            PipelineSupport::saveCurrentPupeline();
         }
+        
+        //runtime ended
+        PipelineSupport::UnregisterRuntime();
+    }
+    
+    /**
+     * Get the reason of the pipeline processing forced abort.
+     * 
+     * @return null|string the reason for the project abort or null
+     */
+    public function getAbortMessage() {
+        return $this->abortMessage;
     }
 }

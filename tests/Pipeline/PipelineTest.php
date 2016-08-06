@@ -183,4 +183,27 @@ class PipelineTest extends \PHPUnit_Framework_TestCase
 
         $pipeline->getFunctionIndexByName(25);
     }
+
+    public function testPipelineFunctionName()
+    {
+        $name = 'unique98364PipelineName';
+
+        $functionNames = ['func_zero', 'func-one', 'funk@two'];
+
+        $pipeline = new Pipeline($name);
+        $i = 0;
+        $pipeline->bindStage($functionNames[$i++], function ($params) {
+
+        });
+        $pipeline->bindStage($functionNames[$i++], function ($params) {
+
+        });
+        $pipeline->bindStage($functionNames[$i++], function ($params) {
+
+        });
+
+        $this->assertEquals(3, $pipeline->countStages());
+        $this->assertEquals(2, $pipeline->getFunctionIndexByName($functionNames[2]));
+        $this->assertEquals($functionNames[0], $pipeline->getFunctionNameByIndex(0));
+    }
 }

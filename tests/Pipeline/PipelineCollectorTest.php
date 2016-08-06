@@ -34,4 +34,41 @@ class PipelineCollectorTest extends \PHPUnit_Framework_TestCase
         $pipeline_one = new Pipeline('pipelineWithSameName');
         $pipeline_two = new Pipeline('pipelineWithSameName');
     }
+
+    public function testPipelineName()
+    {
+        $name = 'unique3244PipelineName';
+
+        $pipeline = new Pipeline($name);
+        $this->assertEquals($name, $pipeline->getName());
+
+        $this->assertEquals(true, \Gishiki\Pipeline\PipelineCollector::checkPipelineByName($name));
+        $this->assertEquals($pipeline->getName(), \Gishiki\Pipeline\PipelineCollector::getPipelineByName($name)->getName());
+    }
+
+    public function testPipelineNonexistentName()
+    {
+        $name = 'unique53463PipelineName';
+
+        $pipeline = new Pipeline($name);
+        $this->assertEquals($name, $pipeline->getName());
+
+        $this->assertEquals(false, \Gishiki\Pipeline\PipelineCollector::checkPipelineByName($name.'_nonexistent'));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBadNameinGettingPipeline()
+    {
+        \Gishiki\Pipeline\PipelineCollector::getPipelineByName(4);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBadNameinCheckingPipeline()
+    {
+        \Gishiki\Pipeline\PipelineCollector::checkPipelineByName(null);
+    }
 }

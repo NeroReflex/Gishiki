@@ -54,6 +54,11 @@ abstract class PipelineCollector
      */
     public static function checkPipelineByName($name)
     {
+        //check for the name
+        if ((!is_string($name)) || (strlen($name) <= 0)) {
+            throw new \InvalidArgumentException('the given pipeline name is not a valid string');
+        }
+
         try {
             self::getPipelineByName($name);
 

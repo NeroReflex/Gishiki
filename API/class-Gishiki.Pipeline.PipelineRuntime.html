@@ -285,7 +285,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#23-187" title="Go to source code">Gishiki/Pipeline/PipelineRuntime.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#23-240" title="Go to source code">Gishiki/Pipeline/PipelineRuntime.php</a>
 		<br>
 	</div>
 
@@ -305,7 +305,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#47-86" title="Go to source code">__construct</a>( <span><code><a href="class-Gishiki.Pipeline.Pipeline.html">Gishiki\Pipeline\Pipeline</a></code> <var>&amp; $pipeline</var></span>, <span>integer <var>$type</var> = <code><a href="class-Gishiki.Pipeline.RuntimeType.html#ASYNCHRONOUS">Gishiki\Pipeline\RuntimeType::<b>ASYNCHRONOUS</b></a></code></span>, <span> <var>$priority</var> = <code><a href="class-Gishiki.Pipeline.RuntimePriority.html#LOWEST">Gishiki\Pipeline\RuntimePriority::<b>LOWEST</b></a></code></span> )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#46-82" title="Go to source code">__construct</a>( <span><code><a href="class-Gishiki.Pipeline.Pipeline.html">Gishiki\Pipeline\Pipeline</a></code> <var>&amp; $pipeline</var></span>, <span>integer <var>$type</var> = <code><a href="class-Gishiki.Pipeline.RuntimeType.html#ASYNCHRONOUS">Gishiki\Pipeline\RuntimeType::<b>ASYNCHRONOUS</b></a></code></span>, <span> <var>$priority</var> = <code><a href="class-Gishiki.Pipeline.RuntimePriority.html#LOWEST">Gishiki\Pipeline\RuntimePriority::<b>LOWEST</b></a></code></span> )</code>
 
 		<div class="description short">
 			<p>Create a new pipeline executor and stop the execution, so that it
@@ -350,7 +350,7 @@ will be started on request.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___invoke">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#88-166" title="Go to source code">__invoke</a>( <span>integer <var>$steps</var> = -<span class="php-num">1</span></span> )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#84-161" title="Go to source code">__invoke</a>( <span>integer <var>$steps</var> = -<span class="php-num">1</span></span> )</code>
 
 		<div class="description short">
 			<p>Execute a finite number of stages and end the execution.
@@ -393,7 +393,7 @@ pipeline is executed.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getAbortMessage">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#168-176" title="Go to source code">getAbortMessage</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#163-171" title="Go to source code">getAbortMessage</a>( )</code>
 
 		<div class="description short">
 			<p>Get the reason of the pipeline processing forced abort.</p>
@@ -427,20 +427,173 @@ pipeline is executed.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getStatus">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#178-186" title="Go to source code">getStatus</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#173-181" title="Go to source code">getStatus</a>( )</code>
 
 		<div class="description short">
-			<p>Get the status of the current pippeline executor.</p>
+			<p>Get the status of the current pipeline executor.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Get the status of the current pippeline executor.</p>
+			<p>Get the status of the current pipeline executor.</p>
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
 					integer<br>one of the RuntimeStatus constants
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getType" id="_getType">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getType">#</a>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#183-191" title="Go to source code">getType</a>( )</code>
+
+		<div class="description short">
+			<p>Get the type of the current pipeline executor.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the type of the current pipeline executor.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer<br>one of the RuntimeType constants
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getCompletedStagesCount" id="_getCompletedStagesCount">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getCompletedStagesCount">#</a>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#193-201" title="Go to source code">getCompletedStagesCount</a>( )</code>
+
+		<div class="description short">
+			<p>Get the number of pipeline stages completed.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the number of pipeline stages completed.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer<br>completed stages
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDataCollection" id="_getDataCollection">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Gishiki.Algorithms.Collections.SerializableCollection.html">Gishiki\Algorithms\Collections\SerializableCollection</a></code>
+			&amp;
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDataCollection">#</a>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#203-211" title="Go to source code">getDataCollection</a>( )</code>
+
+		<div class="description short">
+			<p>Get the data collection that the pipeline can use to work on.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the data collection that the pipeline can use to work on.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Algorithms.Collections.SerializableCollection.html">Gishiki\Algorithms\Collections\SerializableCollection</a></code><br>the data collection
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getExecutionReport" id="_getExecutionReport">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Gishiki.Algorithms.Collections.SerializableCollection.html">Gishiki\Algorithms\Collections\SerializableCollection</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getExecutionReport">#</a>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#213-239" title="Go to source code">getExecutionReport</a>( )</code>
+
+		<div class="description short">
+			<p>Get the report of the pipeline execution.
+Each time a pipeline stage get executed completely a report is generated.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the report of the pipeline execution.
+Each time a pipeline stage get executed completely a report is generated.</p>
+
+<pre><span class="php-comment">//this is an example of what is returned:</span>
+<span class="php-keyword1">array</span>([
+         <span class="php-quote">'start_time'</span> =&gt; <span class="php-num">1470481017</span>,
+         <span class="php-quote">'end_time'</span> =&gt; <span class="php-num">1470481017</span>,
+         <span class="php-quote">'elapse_time'</span> =&gt; <span class="php-num">2.09808349609375e-005</span>,
+         <span class="php-quote">'result'</span> =&gt; <span class="php-num">4</span>,
+     ],
+     [
+         <span class="php-quote">'start_time'</span> =&gt; <span class="php-num">1470481017</span>,
+         <span class="php-quote">'end_time'</span> =&gt; <span class="php-num">1470481017</span>,
+         <span class="php-quote">'elapse_time'</span> =&gt; <span class="php-num">3.09944152832031e-005</span>,
+         <span class="php-quote">'result'</span> =&gt; <span class="php-num">7</span>,
+     ],
+);</pre>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Algorithms.Collections.SerializableCollection.html">Gishiki\Algorithms\Collections\SerializableCollection</a></code><br>the report of the result automatically generated
 				</div>
 
 

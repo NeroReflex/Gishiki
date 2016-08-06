@@ -519,56 +519,50 @@
 </span><span id="159" class="l"><a href="#159">159: </a>        <span class="php-var">$completionReportsProp</span>-&gt;setAccessible(<span class="php-keyword1">true</span>);
 </span><span id="160" class="l"><a href="#160">160: </a>        <span class="php-var">$completionReports</span> = <span class="php-var">$completionReportsProp</span>-&gt;getValue(self::<span class="php-var">$activeRuntime</span>);
 </span><span id="161" class="l"><a href="#161">161: </a>
-</span><span id="162" class="l"><a href="#162">162: </a>        <span class="php-comment">//reflect the completed stages list of the pipeline</span>
-</span><span id="163" class="l"><a href="#163">163: </a>        <span class="php-var">$completedStagesProp</span> = <span class="php-var">$pipelineRuntimeReflected</span>-&gt;getProperty(<span class="php-quote">'completedStages'</span>);
-</span><span id="164" class="l"><a href="#164">164: </a>        <span class="php-var">$completedStagesProp</span>-&gt;setAccessible(<span class="php-keyword1">true</span>);
-</span><span id="165" class="l"><a href="#165">165: </a>        <span class="php-var">$completedStages</span> = <span class="php-var">$completedStagesProp</span>-&gt;getValue(self::<span class="php-var">$activeRuntime</span>);
+</span><span id="162" class="l"><a href="#162">162: </a>        <span class="php-comment">//reflect the pipeline reference to the pipeline</span>
+</span><span id="163" class="l"><a href="#163">163: </a>        <span class="php-var">$pipelineProp</span> = <span class="php-var">$pipelineRuntimeReflected</span>-&gt;getProperty(<span class="php-quote">'pipeline'</span>);
+</span><span id="164" class="l"><a href="#164">164: </a>        <span class="php-var">$pipelineProp</span>-&gt;setAccessible(<span class="php-keyword1">true</span>);
+</span><span id="165" class="l"><a href="#165">165: </a>        <span class="php-var">$pipeline</span> = <span class="php-var">$pipelineProp</span>-&gt;getValue(self::<span class="php-var">$activeRuntime</span>);
 </span><span id="166" class="l"><a href="#166">166: </a>
-</span><span id="167" class="l"><a href="#167">167: </a>        <span class="php-comment">//reflect the pipeline reference to the pipeline</span>
-</span><span id="168" class="l"><a href="#168">168: </a>        <span class="php-var">$pipelineProp</span> = <span class="php-var">$pipelineRuntimeReflected</span>-&gt;getProperty(<span class="php-quote">'pipeline'</span>);
-</span><span id="169" class="l"><a href="#169">169: </a>        <span class="php-var">$pipelineProp</span>-&gt;setAccessible(<span class="php-keyword1">true</span>);
-</span><span id="170" class="l"><a href="#170">170: </a>        <span class="php-var">$pipeline</span> = <span class="php-var">$pipelineProp</span>-&gt;getValue(self::<span class="php-var">$activeRuntime</span>);
+</span><span id="167" class="l"><a href="#167">167: </a>        <span class="php-comment">//reflect the abortMessage of the pipeline</span>
+</span><span id="168" class="l"><a href="#168">168: </a>        <span class="php-var">$abortMessageProp</span> = <span class="php-var">$pipelineRuntimeReflected</span>-&gt;getProperty(<span class="php-quote">'abortMessage'</span>);
+</span><span id="169" class="l"><a href="#169">169: </a>        <span class="php-var">$abortMessageProp</span>-&gt;setAccessible(<span class="php-keyword1">true</span>);
+</span><span id="170" class="l"><a href="#170">170: </a>        <span class="php-var">$abortMessage</span> = <span class="php-var">$abortMessageProp</span>-&gt;getValue(self::<span class="php-var">$activeRuntime</span>);
 </span><span id="171" class="l"><a href="#171">171: </a>
-</span><span id="172" class="l"><a href="#172">172: </a>        <span class="php-comment">//reflect the abortMessage of the pipeline</span>
-</span><span id="173" class="l"><a href="#173">173: </a>        <span class="php-var">$abortMessageProp</span> = <span class="php-var">$pipelineRuntimeReflected</span>-&gt;getProperty(<span class="php-quote">'abortMessage'</span>);
-</span><span id="174" class="l"><a href="#174">174: </a>        <span class="php-var">$abortMessageProp</span>-&gt;setAccessible(<span class="php-keyword1">true</span>);
-</span><span id="175" class="l"><a href="#175">175: </a>        <span class="php-var">$abortMessage</span> = <span class="php-var">$abortMessageProp</span>-&gt;getValue(self::<span class="php-var">$activeRuntime</span>);
+</span><span id="172" class="l"><a href="#172">172: </a>        <span class="php-comment">//reflect the data collection of the pipeline</span>
+</span><span id="173" class="l"><a href="#173">173: </a>        <span class="php-var">$serializableCollectionProp</span> = <span class="php-var">$pipelineRuntimeReflected</span>-&gt;getProperty(<span class="php-quote">'serializableCollection'</span>);
+</span><span id="174" class="l"><a href="#174">174: </a>        <span class="php-var">$serializableCollectionProp</span>-&gt;setAccessible(<span class="php-keyword1">true</span>);
+</span><span id="175" class="l"><a href="#175">175: </a>        <span class="php-var">$serializableCollection</span> = <span class="php-var">$serializableCollectionProp</span>-&gt;getValue(self::<span class="php-var">$activeRuntime</span>);
 </span><span id="176" class="l"><a href="#176">176: </a>
-</span><span id="177" class="l"><a href="#177">177: </a>        <span class="php-comment">//reflect the data collection of the pipeline</span>
-</span><span id="178" class="l"><a href="#178">178: </a>        <span class="php-var">$serializableCollectionProp</span> = <span class="php-var">$pipelineRuntimeReflected</span>-&gt;getProperty(<span class="php-quote">'serializableCollection'</span>);
-</span><span id="179" class="l"><a href="#179">179: </a>        <span class="php-var">$serializableCollectionProp</span>-&gt;setAccessible(<span class="php-keyword1">true</span>);
-</span><span id="180" class="l"><a href="#180">180: </a>        <span class="php-var">$serializableCollection</span> = <span class="php-var">$serializableCollectionProp</span>-&gt;getValue(self::<span class="php-var">$activeRuntime</span>);
-</span><span id="181" class="l"><a href="#181">181: </a>
-</span><span id="182" class="l"><a href="#182">182: </a>        <span class="php-comment">//generate the data to be saved</span>
-</span><span id="183" class="l"><a href="#183">183: </a>        <span class="php-var">$data</span> = [
-</span><span id="184" class="l"><a href="#184">184: </a>            <span class="php-quote">'uniqID'</span> =&gt; <span class="php-var">$uniqCode</span>,
-</span><span id="185" class="l"><a href="#185">185: </a>            <span class="php-quote">'status'</span> =&gt; <span class="php-var">$status</span>,
-</span><span id="186" class="l"><a href="#186">186: </a>            <span class="php-quote">'type'</span> =&gt; <span class="php-var">$type</span>,
-</span><span id="187" class="l"><a href="#187">187: </a>            <span class="php-quote">'priority'</span> =&gt; <span class="php-var">$priority</span>,
-</span><span id="188" class="l"><a href="#188">188: </a>            <span class="php-quote">'creationTime'</span> =&gt; <span class="php-var">$creationTime</span>,
-</span><span id="189" class="l"><a href="#189">189: </a>            <span class="php-quote">'completionReports'</span> =&gt; <span class="php-var">$completionReports</span>,
-</span><span id="190" class="l"><a href="#190">190: </a>            <span class="php-quote">'completedStages'</span> =&gt; <span class="php-var">$completedStages</span>,
-</span><span id="191" class="l"><a href="#191">191: </a>            <span class="php-quote">'pipeline'</span> =&gt; <span class="php-var">$pipeline</span>-&gt;getName(),
-</span><span id="192" class="l"><a href="#192">192: </a>            <span class="php-quote">'abortMessage'</span> =&gt; <span class="php-var">$abortMessage</span>,
-</span><span id="193" class="l"><a href="#193">193: </a>            <span class="php-quote">'serializableCollection'</span> =&gt; <span class="php-var">$serializableCollection</span>-&gt;all() <span class="php-comment">/*serialize(SerializableCollection::JSON)*/</span>,
-</span><span id="194" class="l"><a href="#194">194: </a>        ];
-</span><span id="195" class="l"><a href="#195">195: </a>
-</span><span id="196" class="l"><a href="#196">196: </a>        <span class="php-comment">//identify the pipeline if already saved</span>
-</span><span id="197" class="l"><a href="#197">197: </a>        <span class="php-var">$selector</span> = <span class="php-keyword1">new</span> \Gishiki\Database\SelectionCriteria();
-</span><span id="198" class="l"><a href="#198">198: </a>        <span class="php-var">$selector</span>-&gt;EqualThan(<span class="php-quote">'uniqID'</span>, <span class="php-var">$uniqCode</span>);
-</span><span id="199" class="l"><a href="#199">199: </a>
-</span><span id="200" class="l"><a href="#200">200: </a>        <span class="php-keyword1">if</span> (self::<span class="php-var">$connectionHandler</span>-&gt;Fetch(self::<span class="php-var">$tableName</span>, <span class="php-var">$selector</span>)-&gt;<span class="php-keyword2">count</span>() &gt; <span class="php-num">0</span>) {
-</span><span id="201" class="l"><a href="#201">201: </a>            <span class="php-comment">//save the pipeline status in an already existing record</span>
-</span><span id="202" class="l"><a href="#202">202: </a>             self::<span class="php-var">$connectionHandler</span>-&gt;Update(self::<span class="php-var">$tableName</span>, <span class="php-var">$data</span>, <span class="php-var">$selector</span>);
-</span><span id="203" class="l"><a href="#203">203: </a>
-</span><span id="204" class="l"><a href="#204">204: </a>            <span class="php-keyword1">return</span>;
-</span><span id="205" class="l"><a href="#205">205: </a>        }
-</span><span id="206" class="l"><a href="#206">206: </a>
-</span><span id="207" class="l"><a href="#207">207: </a>        <span class="php-comment">//save the pipeline status in a new record</span>
-</span><span id="208" class="l"><a href="#208">208: </a>        self::<span class="php-var">$connectionHandler</span>-&gt;Insert(self::<span class="php-var">$tableName</span>, <span class="php-var">$data</span>);
-</span><span id="209" class="l"><a href="#209">209: </a>    }
-</span><span id="210" class="l"><a href="#210">210: </a>}
-</span><span id="211" class="l"><a href="#211">211: </a></span></code></pre>
+</span><span id="177" class="l"><a href="#177">177: </a>        <span class="php-comment">//generate the data to be saved</span>
+</span><span id="178" class="l"><a href="#178">178: </a>        <span class="php-var">$data</span> = [
+</span><span id="179" class="l"><a href="#179">179: </a>            <span class="php-quote">'uniqID'</span> =&gt; <span class="php-var">$uniqCode</span>,
+</span><span id="180" class="l"><a href="#180">180: </a>            <span class="php-quote">'status'</span> =&gt; self::<span class="php-var">$activeRuntime</span>-&gt;getStatus(),
+</span><span id="181" class="l"><a href="#181">181: </a>            <span class="php-quote">'type'</span> =&gt; self::<span class="php-var">$activeRuntime</span>-&gt;<span class="php-keyword2">getType</span>(),
+</span><span id="182" class="l"><a href="#182">182: </a>            <span class="php-quote">'priority'</span> =&gt; <span class="php-var">$priority</span>,
+</span><span id="183" class="l"><a href="#183">183: </a>            <span class="php-quote">'creationTime'</span> =&gt; <span class="php-var">$creationTime</span>,
+</span><span id="184" class="l"><a href="#184">184: </a>            <span class="php-quote">'completionReports'</span> =&gt; self::<span class="php-var">$activeRuntime</span>-&gt;getExecutionReport(),
+</span><span id="185" class="l"><a href="#185">185: </a>            <span class="php-quote">'pipeline'</span> =&gt; <span class="php-var">$pipeline</span>-&gt;getName(),
+</span><span id="186" class="l"><a href="#186">186: </a>            <span class="php-quote">'abortMessage'</span> =&gt; self::<span class="php-var">$activeRuntime</span>-&gt;getAbortMessage(),
+</span><span id="187" class="l"><a href="#187">187: </a>            <span class="php-quote">'serializableCollection'</span> =&gt; <span class="php-var">$serializableCollection</span>-&gt;all() <span class="php-comment">/*serialize(SerializableCollection::JSON)*/</span>,
+</span><span id="188" class="l"><a href="#188">188: </a>        ];
+</span><span id="189" class="l"><a href="#189">189: </a>
+</span><span id="190" class="l"><a href="#190">190: </a>        <span class="php-comment">//identify the pipeline if already saved</span>
+</span><span id="191" class="l"><a href="#191">191: </a>        <span class="php-var">$selector</span> = <span class="php-keyword1">new</span> \Gishiki\Database\SelectionCriteria();
+</span><span id="192" class="l"><a href="#192">192: </a>        <span class="php-var">$selector</span>-&gt;EqualThan(<span class="php-quote">'uniqID'</span>, <span class="php-var">$uniqCode</span>);
+</span><span id="193" class="l"><a href="#193">193: </a>
+</span><span id="194" class="l"><a href="#194">194: </a>        <span class="php-keyword1">if</span> (self::<span class="php-var">$connectionHandler</span>-&gt;Fetch(self::<span class="php-var">$tableName</span>, <span class="php-var">$selector</span>)-&gt;<span class="php-keyword2">count</span>() &gt; <span class="php-num">0</span>) {
+</span><span id="195" class="l"><a href="#195">195: </a>            <span class="php-comment">//save the pipeline status in an already existing record</span>
+</span><span id="196" class="l"><a href="#196">196: </a>             self::<span class="php-var">$connectionHandler</span>-&gt;Update(self::<span class="php-var">$tableName</span>, <span class="php-var">$data</span>, <span class="php-var">$selector</span>);
+</span><span id="197" class="l"><a href="#197">197: </a>
+</span><span id="198" class="l"><a href="#198">198: </a>            <span class="php-keyword1">return</span>;
+</span><span id="199" class="l"><a href="#199">199: </a>        }
+</span><span id="200" class="l"><a href="#200">200: </a>
+</span><span id="201" class="l"><a href="#201">201: </a>        <span class="php-comment">//save the pipeline status in a new record</span>
+</span><span id="202" class="l"><a href="#202">202: </a>        self::<span class="php-var">$connectionHandler</span>-&gt;Insert(self::<span class="php-var">$tableName</span>, <span class="php-var">$data</span>);
+</span><span id="203" class="l"><a href="#203">203: </a>    }
+</span><span id="204" class="l"><a href="#204">204: </a>}
+</span><span id="205" class="l"><a href="#205">205: </a></span></code></pre>
 
 	<div id="footer">
 		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>

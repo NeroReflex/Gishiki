@@ -19,7 +19,7 @@ namespace Gishiki\tests\Pipeline;
 
 use Gishiki\Pipeline\PipelineRuntime;
 use Gishiki\Pipeline\Pipeline;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 use Gishiki\Database\DatabaseManager;
 
 /**
@@ -40,12 +40,15 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase {
     
     public function testFullPipeline()
     {
+        $value = 0x5F;
+        
         self::GetConnection();
         \Gishiki\Pipeline\PipelineSupport::Initialize('pipeline_testing_db', 'testing.pipeline');
         
         $pipeline = new Pipeline("first_fulltest!");
-        $pipeline->bindStage('firstStage', function (GenericCollection &$collection) {
-            $collection->set('value', 0x5F);
+        $pipeline->bindStage('firstStage', function (SerializableCollection &$collection) use($value)
+        {
+            $collection->set('value', $value);
         });
         
         //creaate the pipeline runtime
@@ -57,6 +60,28 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase {
         $serializableCollectionProp->setAccessible(true);
         $serializableCollection = $serializableCollectionProp->getValue($pipelineExecutor);
         
-        $this->assertEquals(0x5F, $serializableCollection->get('value'));
+        $this->assertEquals($value, $serializableCollection->get('value'));
+        $this->assertEquals(\Gishiki\Pipeline\RuntimeStatus::COMPLETED, $pipelineExecutor->getStatus());
+    }
+    
+    public function testAbortedPipeline()
+    {
+        $reason = "I must be doing something wrong....";
+        
+        self::GetConnection();
+        \Gishiki\Pipeline\PipelineSupport::Initialize('pipeline_testing_db', 'testing.pipeline');
+        
+        $pipeline = new Pipeline("first_aborttest!");
+        $pipeline->bindStage('firstStage', function (SerializableCollection &$collection) use($reason)
+        {
+            \Gishiki\Pipeline\PipelineSupport::Abort($reason);
+        });
+        
+        //creaate the pipeline runtime
+        $pipelineExecutor = new PipelineRuntime($pipeline);
+        $pipelineExecutor(2);
+        
+        $this->assertEquals($reason, $pipelineExecutor->getAbortMessage());
+        $this->assertEquals(\Gishiki\Pipeline\RuntimeStatus::ABORTED, $pipelineExecutor->getStatus());
     }
 }

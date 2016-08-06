@@ -18,6 +18,7 @@ limitations under the License.
 namespace Gishiki\Pipeline;
 
 use Gishiki\Algorithms\Collections\SerializableCollection;
+use Gishiki\Pipeline\RuntimeStatus;
 
 /**
  * Represent the executor of a pipeline.
@@ -152,7 +153,7 @@ final class PipelineRuntime
                 $this->abortMessage = $abortSignal->getMessage();
             }
             
-            if ((is_null($this->abortMessage)) && ($this->status != RuntimeStatus::ABORTED) && ($this->pipeline->countStages() == ($i - 1))) {
+            if ((is_null($this->abortMessage)) && ($this->status != RuntimeStatus::ABORTED) && ($i == ($this->pipeline->countStages() - 1))) {
                 $this->status = RuntimeStatus::COMPLETED;
             }
             
@@ -169,7 +170,18 @@ final class PipelineRuntime
      * 
      * @return null|string the reason for the project abort or null
      */
-    public function getAbortMessage() {
+    public function getAbortMessage()
+    {
         return $this->abortMessage;
+    }
+    
+    /**
+     * Get the status of the current pippeline executor.
+     * 
+     * @return int one of the RuntimeStatus constants
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

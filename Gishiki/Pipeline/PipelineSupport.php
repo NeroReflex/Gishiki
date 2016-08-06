@@ -18,6 +18,7 @@ limitations under the License.
 namespace Gishiki\Pipeline;
 
 use Gishiki\Database\DatabaseException;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 /**
  * Give runtime support to the pipeline component.
@@ -189,7 +190,7 @@ abstract class PipelineSupport
             'completedStages' => $completedStages,
             'pipeline' => $pipeline->getName(),
             'abortMessage' => $abortMessage,
-            'serializableCollection' => $serializableCollection->all(),
+            'serializableCollection' => $serializableCollection->all() /*serialize(SerializableCollection::JSON)*/,
         ];
 
         //identify the pipeline if already saved

@@ -5,10 +5,10 @@ The Request class is PSR-7 conformant and follows that specification sheet.
 
  
 ## Request Method
-When an HTTP request is done sent to a server it have to specify the type of the
+When an HTTP request is sent to the server the client has to specify the type of the
 request, that request type is called 'method'.
 
-Usually you work with the following methods:
+Usually you work with following methods:
 
   - GET
   - POST
@@ -28,10 +28,10 @@ use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::any("/method_test",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     $method = $request->getMethod();
 
@@ -64,10 +64,10 @@ use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::any("/method_test",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     $method = $request->getMethod();
     $origin_method = $request->getOriginalMethod();
@@ -103,10 +103,10 @@ use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::any("/method_test",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     //get the URI of the current request
     $uri = $request->getUri();
@@ -150,10 +150,10 @@ use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::any("/",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     foreach ($request->getHeaders() as $name => $values) {
         $response->write("name: ". $name . " => values:" . implode(", ", $values));
@@ -171,10 +171,10 @@ use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::any("/",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     foreach (array_keys($request->getHeaders()) as $name) {
         $response->write("name: ". $name . " => values:" . $request->getHeaderLine($name);
@@ -200,15 +200,15 @@ PSR-7 compilant. You can obtain that stream calling the getBody() function.
 
 Let's look into an example:
 
- ```php
+```php
 use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::any("/",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     //get the body stream
     $body = $request->getBody();
@@ -229,7 +229,8 @@ Route::any("/",
 I know what you are thinking... You could parse that request body to obtain
 something like an array or a class that you can use within your application....
 
-Well, if that's the case you would like to know that Gishiki does this for you!
+Well, if that's the case you may appreciate the fact that Gishiki does this
+in your place!
 
 To trigger the request body automatic parsing you can use the getParsedBody()
 function that triggers the better parser for the given 'Content-type' header!

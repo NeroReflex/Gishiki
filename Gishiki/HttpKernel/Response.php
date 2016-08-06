@@ -7,7 +7,6 @@
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
  */
-
 namespace Gishiki\HttpKernel;
 
 use InvalidArgumentException;
@@ -120,10 +119,9 @@ class Response extends Message implements ResponseInterface
     {
         //build an empty header
         $headers = new Headers();
-        
+
         //analyze each possible acceptable encoding
         foreach ($request->getHeader('Accept') as $acceptable) {
-        
             if (in_array($acceptable, [
                 'text/yaml',
                 'text/x-yaml',
@@ -140,11 +138,11 @@ class Response extends Message implements ResponseInterface
                 break;
             }
         }
-        
+
         //build and return the response
-        return new Response(200, $headers);
+        return new self(200, $headers);
     }
-    
+
     /**
      * Sends the given HTTP response to the client.
      *
@@ -375,7 +373,7 @@ class Response extends Message implements ResponseInterface
 
         return $this;
     }
-    
+
     /**
      * Serialize the given serializable collection using the better serialization
      * for the current 'Content-Type' header.
@@ -386,48 +384,51 @@ class Response extends Message implements ResponseInterface
      * will be used (which is 'application/json').
      * 
      * @param SerializableCollection $data the serializable collection
-     * @return Response                    the current response (after update)
-     * @throws \RuntimeException           an error occurred during the serialization process
+     *
+     * @return Response the current response (after update)
+     *
+     * @throws \RuntimeException an error occurred during the serialization process
      */
-    public function setSerializedBody(SerializableCollection $data) {
+    public function setSerializedBody(SerializableCollection $data)
+    {
         $format = SerializableCollection::JSON;
-        
+
         //read the content-type and, if no content-type is given use the default one
         $mediaTypes = $this->getHeader('Content-Type');
-        $mediaType  = (count($mediaTypes) > 0)? $mediaTypes[0] : "application/json"; 
-        
+        $mediaType = (count($mediaTypes) > 0) ? $mediaTypes[0] : 'application/json';
+
         //make sure to be using the correct content-type
-        $this->headers->set('Content-Type', $mediaType.";charset=utf8");
-        
+        $this->headers->set('Content-Type', $mediaType.';charset=utf8');
+
         switch ($mediaType) {
-            case "application/json":
+            case 'application/json' :
                 $format = SerializableCollection::JSON;
                 break;
-            
+
             case 'text/yaml':
             case 'text/x-yaml':
             case 'application/yaml':
             case 'application/x-yaml':
                 $format = SerializableCollection::YAML;
                 break;
-            
-            case "application/xml":
-            case "text/xml":
+
+            case 'application/xml':
+            case 'text/xml':
                 $format = SerializableCollection::XML;
                 break;
             default:
-                
+
                 break;
         }
-        
+
         //serialize given data and write it on the response body
         try {
             $this->body->rewind();
             $this->body->write($data->serialize($format));
         } catch (Gishiki\Algorithms\Collections\SerializationException $ex) {
-            throw new \RuntimeException("The given content cannot be serialized");
+            throw new \RuntimeException('The given content cannot be serialized');
         }
-        
+
         return $this;
     }
 

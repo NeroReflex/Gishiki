@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2015 Benato Denis
+Copyright 2016 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -38,25 +38,27 @@ abstract class Base64
      * var_dump(Base64::encode($message));
      * </code>
      * 
-     * @param  string $message the binary-unsafe message
-     * @param  bool   $urlSafe the generated result doesn't contains special characters
-     * @return string          the binary-safe representation of the given message
+     * @param string $message the binary-unsafe message
+     * @param bool   $urlSafe the generated result doesn't contains special characters
+     *
+     * @return string the binary-safe representation of the given message
+     *
      * @throws \InvalidArgumentException the given message is not represented as a string
      */
     public static function encode($message, $urlSafe = true)
     {
         //check for the message type
         if (!is_string($message)) {
-            throw new \InvalidArgumentException("the binary usafe content must be given as a string");
+            throw new \InvalidArgumentException('the binary usafe content must be given as a string');
         }
-        
+
         //get the base64 url unsafe
         $encoded = base64_encode($message);
-        
+
         //return the url safe version if requested
-        return ($urlSafe)? rtrim(strtr($encoded, '+/=', '-_~'), '~') : $encoded;
+        return ($urlSafe) ? rtrim(strtr($encoded, '+/=', '-_~'), '~') : $encoded;
     }
-    
+
     /**
      * Get the binary-unsafe representation of the given base64-encoded message.
      * 
@@ -73,22 +75,26 @@ abstract class Base64
      * </code>
      * 
      * @param string $message a message base64 encoded
-     * @return string         the message in a binary-unsafe format
+     *
+     * @return string the message in a binary-unsafe format
+     *
      * @throws \InvalidArgumentException the given message is not represented as a string
      */
-    public static function decode($message) {
+    public static function decode($message)
+    {
         //check for the message type
         if (!is_string($message)) {
-            throw new \InvalidArgumentException("the base64 of a string is represented as another string");
+            throw new \InvalidArgumentException('the base64 of a string is represented as another string');
         }
-        
+
         //is the base64 encoded in an URL safe format?
         $url_safe = (strlen($message) % 4) || (strpos($message, '_') !== false) || (strpos($message, '~') !== false);
-        
+
         //get the base64 encoded valid string and return the decode result
-        $validBase64 = ($url_safe)? 
+        $validBase64 = ($url_safe) ?
                 str_pad(strtr($message, '-_~', '+/='), strlen($message) + 4 - (strlen($message) % 4), '=', STR_PAD_RIGHT)
                 : $message;
+
         return base64_decode($validBase64);
     }
 }

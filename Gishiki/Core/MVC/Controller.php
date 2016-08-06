@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2015 Benato Denis
+Copyright 2016 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ use Gishiki\Core\Environment;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\GenericCollection;
-use Gishiki\Algorithms\Collections\StructuredData\StructuredData;
 
 /**
  * The Gishiki base controller.

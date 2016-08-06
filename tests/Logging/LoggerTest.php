@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2015 Benato Denis
+Copyright 2016 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,54 +20,54 @@ namespace Gishiki\tests\Logging;
 use Gishiki\Logging\Logger;
 
 /**
- * The tester for the Logger PSR-3 class
+ * The tester for the Logger PSR-3 class.
  * 
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class LoggerTest extends \PHPUnit_Framework_TestCase {
-    
+class LoggerTest extends \PHPUnit_Framework_TestCase
+{
     public function testConnection()
     {
         $logger = new Logger('null');
-        
+
         $this->assertEquals('null', (string) $logger);
     }
-    
+
     public function testFileLogging()
     {
-        file_put_contents('test.log', "");
+        file_put_contents('test.log', '');
         $logger = new Logger('file://test.log');
-        $logger->info("my name is {{name}} and this is a {{what}}", [
-            "name" => 'Denis',
-            "what" => 'test'
+        $logger->info('my name is {{name}} and this is a {{what}}', [
+            'name' => 'Denis',
+            'what' => 'test',
         ]);
         $logger = null;
-        
-        $this->assertEquals(trim("[info] my name is Denis and this is a test"), trim(file_get_contents('test.log')));
+
+        $this->assertEquals(trim('[info] my name is Denis and this is a test'), trim(file_get_contents('test.log')));
 
         unlink('test.log');
     }
-    
+
     public function testStreamLogging()
     {
         $logger = new Logger('stream://stdmem');
-        
+
         $output = "[debug] error\n";
-        $unprocessedOutput = "{{simple}}";
+        $unprocessedOutput = '{{simple}}';
         $options = [
-            "simple" => "error"
+            'simple' => 'error',
         ];
-        
-        $logger->log("debug", $unprocessedOutput, $options);
-        
-        $loggerReflected = new \ReflectionProperty($logger, "adapter");
+
+        $logger->log('debug', $unprocessedOutput, $options);
+
+        $loggerReflected = new \ReflectionProperty($logger, 'adapter');
         $loggerReflected->setAccessible(true);
         $streamLogger = $loggerReflected->getValue($logger);
-        
-        $streamReflected = new \ReflectionProperty($streamLogger, "stream");
+
+        $streamReflected = new \ReflectionProperty($streamLogger, 'stream');
         $streamReflected->setAccessible(true);
         $stream = $streamReflected->getValue($streamLogger);
-        
+
         fseek($stream, 0);
         $this->assertEquals($output, stream_get_contents($stream));
     }

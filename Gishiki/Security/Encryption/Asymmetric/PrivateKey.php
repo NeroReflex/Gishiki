@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2015 Benato Denis
+Copyright 2016 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -238,7 +238,6 @@ final class PrivateKey
                     ['config' => (file_exists(Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').'openssl.cnf')) ?
                         Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').'openssl.cnf' : null, ]);
         }
-
 
         //serialize the key and encrypt it if requested
         if (strlen($keyPassword) > 0) {

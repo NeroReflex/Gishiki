@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2015 Benato Denis
+Copyright 2016 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ limitations under the License.
 namespace Gishiki\Core {
 
     use Gishiki\Algorithms\Collections\GenericCollection;
+    use Gishiki\Algorithms\Collections\SerializableCollection;
     use Gishiki\HttpKernel\Request;
     use Gishiki\HttpKernel\Response;
     use Gishiki\Algorithms\Manipulation;
@@ -88,8 +89,31 @@ namespace Gishiki\Core {
             }
         }
 
+        public static function getValueFromEnvironment(array $collection)
+        {
+            foreach ($collection as &$value) {
+                //check for sobstitution
+                if ((is_string($value)) && ((strpos($value, '{{@') === 0) && (strpos($value, '}}') !== false))) {
+                    if (($toReplace = Manipulation::getBetween($value, '{{@', '}}')) != '') {
+                        $value = getenv($toReplace);
+                        if ($value !== false) {
+                            $value = $value;
+                        } elseif (defined($toReplace)) {
+                            $value = constant($toReplace);
+                        }
+                    }
+                } elseif (is_array($value)) {
+                    $value = self::getValueFromEnvironment($value);
+                } elseif ($value instanceof GenericCollection) {
+                    $value = self::getValueFromEnvironment($value->all());
+                }
+            }
+
+            return $collection;
+        }
+
         /**
-         * Read the application configuration (settings.ini) and return the 
+         * Read the application configuration (settings.json) and return the 
          * parsing result.
          * 
          * @return array the application configuration
@@ -99,23 +123,14 @@ namespace Gishiki\Core {
             //get the json encoded application settings
             $config = file_get_contents(APPLICATION_DIR.'settings.json');
 
-            //update every environment placeholder
-            while (strpos($config, '{{@') !== false) {
-                if (($toReplace = Manipulation::getBetween($config, '{{@', '}}')) != '') {
-                    $value = getenv($toReplace);
-                    if ($value !== false) {
-                        $config = str_replace('{{@'.$toReplace.'}}', $value, $config);
-                    } elseif (defined($toReplace)) {
-                        $config = str_replace('{{@'.$toReplace.'}}', constant($toReplace), $config);
-                    }
-                }
-            }
-
             //parse the settings file
-            $appConfiguration = \Gishiki\Algorithms\Collections\SerializableCollection::deserialize($config)->all();
+            $appConfiguration = SerializableCollection::deserialize($config)->all();
+
+            //complete settings
+            $appCompletedConfiguration = self::getValueFromEnvironment($appConfiguration);
 
             //return the application configuration
-            return $appConfiguration;
+            return $appCompletedConfiguration;
         }
 
         /**
@@ -148,14 +163,14 @@ namespace Gishiki\Core {
         {
             //get current request...
             $currentRequest = Request::createFromEnvironment(self::$currentEnvironment);
-            
+
             //...and serve it
             $response = new Response();
-            
+
             try {
                 //trigger the exception if data is malformed!
                 $currentRequest->getDeserializedBody();
-                
+
                 //include the list of routes (if it exists)
                 if (file_exists(APPLICATION_DIR.'routes.php')) {
                     include APPLICATION_DIR.'routes.php';
@@ -167,7 +182,7 @@ namespace Gishiki\Core {
                 $response = $response->withStatus(400);
                 $response = $response->write($ex->getMessage());
             }
-            
+
             //send response to the client
             $response->send();
         }
@@ -196,13 +211,20 @@ namespace Gishiki\Core {
                 //General Configuration
                 $this->configuration = [
                     //get general environment configuration
-                    'DEVELOPMENT_ENVIRONMENT' => $config['general']['development'],
+                    'DEVELOPMENT_ENVIRONMENT' => (isset($config['general']['development'])) ? $config['general']['development'] : false,
                     'AUTOLOG_URL' => (isset($config['general']['autolog'])) ? $config['general']['autolog'] : 'null',
 
                     //Security Settings
                     'SECURITY' => [
                         'MASTER_SYMMETRIC_KEY' => $config['security']['serverPassword'],
                         'MASTER_ASYMMETRIC_KEY' => $config['security']['serverKey'],
+                    ],
+
+                    'CONNECTIONS' => (array_key_exists('connections', $config)) ? $config['connections'] : array(),
+
+                    'PIPELINE' => [
+                        'CONNECTION' => (isset($config['pipeline']['connection'])) ? $config['pipeline']['connection'] : null,
+                        'COLLECTION' => (isset($config['pipeline']['collection'])) ? $config['pipeline']['collection'] : null,
                     ],
                 ];
             }
@@ -215,6 +237,14 @@ namespace Gishiki\Core {
                 ini_set('display_errors', 0);
                 error_reporting(0);
             }
+
+            //connect every db connection
+            foreach ($this->configuration['CONNECTIONS'] as $connection) {
+                \Gishiki\Database\DatabaseManager::Connect($connection['name'], $connection['query']);
+            }
+
+            //setup the pipeline execution support
+            \Gishiki\Pipeline\PipelineSupport::Initialize($this->GetConfigurationProperty('PIPELINE_CONNECTION_NAME'), $this->GetConfigurationProperty('PIPELINE_TABLE_NAME'));
         }
 
         /**
@@ -227,6 +257,12 @@ namespace Gishiki\Core {
         public function GetConfigurationProperty($property)
         {
             switch (strtoupper($property)) {
+                case 'PIPELINE_CONNECTION_NAME':
+                    return $this->configuration['PIPELINE']['CONNECTION'];
+
+                case 'PIPELINE_TABLE_NAME':
+                    return $this->configuration['PIPELINE']['COLLECTION'];
+
                 case 'LOG_CONNECTION_STRING':
                     return $this->configuration['AUTOLOG_URL'];
 

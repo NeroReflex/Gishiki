@@ -36,10 +36,10 @@ use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::get("/",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     //this is what will be executed when the client asks for "https://site.com/" (the homepage)
     
@@ -49,7 +49,7 @@ Route::get("/",
 ```
 
 To try this rule out you have to open rules.php and paste the provided code into 
-it and direct your browser to: https://site.com/ .
+it and direct your browser to: https://site.com (the trailing / is automatically added).
 
 
 ## Dynamic Rules
@@ -58,15 +58,16 @@ and URIs cannot be static URIs every time, in fact sooner or later you will need
 as a parameter with the URL.
 
 Let's just consider this simple example:
+
 ```php
 use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::get("/Hello/{name_surname}",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     //this is what will be executed when the client asks for "https://site.com/User/urName+urSurname"
     
@@ -75,7 +76,7 @@ Route::get("/Hello/{name_surname}",
 });
 
 Route::get("/Home/{name}",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     //this is what will be executed when the client asks for "https://site.com/Home/some_name"
     
@@ -97,10 +98,10 @@ use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::get("/Hello/{user_email:email}",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     //this is what will be executed when the client asks for "https://site.com/Hello/yourEmail%40address.com"
     
@@ -128,10 +129,10 @@ use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::any("/",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     //do something general with your homepage!
 });
@@ -150,10 +151,10 @@ use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::match([Route::GET, Route::POST], "/",
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     //you want your homepage to be reached only with get and post
 });
@@ -172,10 +173,10 @@ use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::any(Route::NOT_FOUND,
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     //this is what will be executed when the client asks for an unrouted URI
     
@@ -196,10 +197,10 @@ use Gishiki\Core\Route;
 use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 
 Route::any(Route::NOT_FOUND,
-    function (Request $request, Response &$response, GenericCollection &$arguments)
+    function (Request $request, Response &$response, SerializableCollection &$arguments)
 {
     //this is what will be executed when the client asks for an unrouted URI
     $response->withStatus(500);

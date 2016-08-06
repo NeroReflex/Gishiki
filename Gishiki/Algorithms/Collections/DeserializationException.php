@@ -1,6 +1,6 @@
 <?php
 /****************************************************************************
-Copyright 2015 Benato Denis
+Copyright 2016 Benato Denis
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -13,7 +13,7 @@ limitations under the License.
  *****************************************************************************/
 
 namespace Gishiki\Algorithms\Collections {
-    
+
     /**
      * The deserialization exception thrown by Gishiki 
      * when a bad deserialization operation takes place.

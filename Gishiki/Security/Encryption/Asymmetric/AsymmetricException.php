@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-  Copyright 2015 Benato Denis
+  Copyright 2016 Benato Denis
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ namespace Gishiki\Security\Encryption\Asymmetric;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class AsymmetricException extends \Gishiki\Core\Exception
+final class AsymmetricException extends \Gishiki\Core\Exception
 {
     /**
      * Create the asymmetric-related exception.

@@ -1,17 +1,31 @@
 language: php
+sudo: required
 php:
   - '7.0'
   - '5.6'
   - '5.5'
   - '5.4'
-  - hhvm
+#  - hhvm
 
 before_script:
+    - curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.8.tgz
+    - tar -zxvf mongodb-linux-x86_64-3.2.8.tgz
+    - sudo mkdir -p /data/db && sudo chmod 0777 -R /data/db
+    - chmod +x mongodb-linux-x86_64-3.2.8/bin/mongod
+    - chmod +x mongodb-linux-x86_64-3.2.8/bin/mongo
+    - touch travis.php.ini
+    - sudo chmod 0777 travis.php.ini
+    - pecl config-set php_ini travis.php.ini
+    - pear config-set php_ini travis.php.ini
+    - pecl install -f mongodb-1.1.8
+    - phpenv config-add travis.php.ini
     - composer self-update
     - composer install
     
 script:
-    - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then phpunit --coverage-clover build/logs/clover.xml; else phpunit ; fi
-
-after_script:
-  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then vendor/bin/test-reporter ; fi
+    - touch mongodb.log
+    - sudo chmod 0777 mongodb.log
+    - mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 > mongodb.log &
+    - sleep 5m
+    - mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js
+    - phpunit --configuration phpunit.xml

@@ -17,11 +17,8 @@ pages:
     - Configuration:    usage/configuration.md
     - Router:           usage/routing.md
     - Request:          usage/request.md
+    - Response:         usage/response.md
     - Logger:           usage/logging.md
-    - Database: 
-        - Support:      usage/database/index.md
-        - Models:       usage/database/models.md
-        - CRUD:         usage/database/CRUD.md
 
 - About:
     - License: license.md

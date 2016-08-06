@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2015 Benato Denis
+Copyright 2016 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -32,18 +32,19 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
     protected $data = [];
 
     /**
-     * Create new collection from the given properties collection
+     * Create new collection from the given properties collection.
      *
-     * @param  array                     $items Pre-populate collection with this key-value array
-     * @throws \InvalidArgumentException        an invalid collection was given
+     * @param array $items Pre-populate collection with this key-value array
+     *
+     * @throws \InvalidArgumentException an invalid collection was given
      */
     public function __construct($items = [])
     {
         //check if the given items list is a valid items list
         if (!is_array($items)) {
-            throw new \InvalidArgumentException("The collection of properties and nested data must be expressed as an array");
+            throw new \InvalidArgumentException('The collection of properties and nested data must be expressed as an array');
         }
-        
+
         foreach ($items as $key => $value) {
             $this->set($key, $value);
         }
@@ -105,6 +106,11 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
         }
     }
 
+    /**
+     * Get the representation of the current collection as an associative array.
+     * 
+     * @return array the collection as an associative array
+     */
     public function all()
     {
         return $this->data;

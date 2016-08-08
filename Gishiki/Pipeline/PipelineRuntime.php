@@ -90,6 +90,9 @@ final class PipelineRuntime
         //store the type of the pipeline
         $this->type = $type;
 
+        //the pipeline is stopped right now
+        $this->status = RuntimeStatus::STOPPED;
+        
         //generate a new serializable collection
         $this->serializableCollection = new SerializableCollection();
 
@@ -197,6 +200,9 @@ final class PipelineRuntime
 
             --$stepsNumber;
         }
+        
+        //register the currently active runtime
+        PipelineSupport::saveCurrentPupeline();
 
         //runtime ended
         PipelineSupport::UnregisterRuntime();

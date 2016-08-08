@@ -38,7 +38,7 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testFullPipeline()
+    function testFullPipeline()
     {
         $value = 0x5F;
 
@@ -58,7 +58,7 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(\Gishiki\Pipeline\RuntimeStatus::COMPLETED, $pipelineExecutor->getStatus());
     }
 
-    public function testAbortedPipeline()
+    function testAbortedPipeline()
     {
         $reason = 'I must be doing something wrong....';
 
@@ -78,7 +78,7 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(\Gishiki\Pipeline\RuntimeStatus::ABORTED, $pipelineExecutor->getStatus());
     }
 
-    public function testFullMultistagePipeline()
+    function testFullMultistagePipeline()
     {
         self::GetConnection();
         \Gishiki\Pipeline\PipelineSupport::Initialize('pipeline_testing_db', 'testing.pipeline');
@@ -103,7 +103,7 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(\Gishiki\Pipeline\RuntimeStatus::COMPLETED, $pipelineExecutor->getStatus());
     }
 
-    public function testFullMultistagePipelineWithReturnValues()
+    function testFullMultistagePipelineWithReturnValues()
     {
         self::GetConnection();
         \Gishiki\Pipeline\PipelineSupport::Initialize('pipeline_testing_db', 'testing.pipeline');
@@ -137,7 +137,7 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(\Gishiki\Pipeline\RuntimeType::SYNCHRONOUS, $pipelineExecutor->getType());
     }
 
-    public function testSplitMultistagePipelineWithReturnValues()
+    function testSplitMultistagePipelineWithReturnValues()
     {
         self::GetConnection();
         \Gishiki\Pipeline\PipelineSupport::Initialize('pipeline_testing_db', 'testing.pipeline');
@@ -202,7 +202,7 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \Gishiki\Pipeline\PipelineException
      */
-    public function testNonexistentId()
+    function testNonexistentId()
     {
         PipelineRuntime::Restore('bad_id :D:D');
     }
@@ -210,12 +210,12 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testInvalidId()
+    function testInvalidId()
     {
         PipelineRuntime::Restore(7);
     }
 
-    public function testInterruptedPipeline()
+    function testInterruptedPipeline()
     {
         self::GetConnection();
         \Gishiki\Pipeline\PipelineSupport::Initialize('pipeline_testing_db', 'testing.pipeline');
@@ -247,5 +247,39 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(3, $samePipeline->getCompletedStagesCount());
         $this->assertEquals(15, $samePipeline->getDataCollection()->get('value'));
         $this->assertEquals(\Gishiki\Pipeline\RuntimeStatus::COMPLETED, $samePipeline->getStatus());
+    }
+    
+    function testAsyncPipelines()
+    {
+        self::GetConnection();
+        \Gishiki\Pipeline\PipelineSupport::Initialize('pipeline_testing_db', 'testing.pipeline');
+
+        $pipeline = new Pipeline('asyncTester');
+        $pipeline->bindStage('loneStage', function (SerializableCollection &$collection) {
+            
+        });
+        
+        $highestPriority = new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::ASYNCHRONOUS, \Gishiki\Pipeline\RuntimePriority::LOWEST);
+        
+        $this->assertEquals($highestPriority->getUniqueID(), \Gishiki\Pipeline\PipelineSupport::getNextAsyncByPriority()->getUniqueID());
+         
+        new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::ASYNCHRONOUS, \Gishiki\Pipeline\RuntimePriority::LOWEST);
+        $highestPriority = new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::ASYNCHRONOUS, \Gishiki\Pipeline\RuntimePriority::LOW);
+ 
+        $this->assertEquals($highestPriority->getUniqueID(), \Gishiki\Pipeline\PipelineSupport::getNextAsyncByPriority()->getUniqueID());
+        
+        new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::ASYNCHRONOUS, \Gishiki\Pipeline\RuntimePriority::LOWEST);
+        new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::ASYNCHRONOUS, \Gishiki\Pipeline\RuntimePriority::LOW);
+        new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::ASYNCHRONOUS, \Gishiki\Pipeline\RuntimePriority::LOW);
+        $highestPriority = new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::ASYNCHRONOUS, \Gishiki\Pipeline\RuntimePriority::HIGH);
+
+        $this->assertEquals($highestPriority->getUniqueID(), \Gishiki\Pipeline\PipelineSupport::getNextAsyncByPriority()->getUniqueID());
+        
+        new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::ASYNCHRONOUS, \Gishiki\Pipeline\RuntimePriority::MEDIUM);
+        $this->assertEquals($highestPriority->getUniqueID(), \Gishiki\Pipeline\PipelineSupport::getNextAsyncByPriority()->getUniqueID());
+        
+        while ($currentPipeline = \Gishiki\Pipeline\PipelineSupport::getNextAsyncByPriority()) {
+            $currentPipeline(-1);
+        }
     }
 }

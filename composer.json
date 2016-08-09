@@ -52,8 +52,10 @@
     "autoload": {
         "psr-4": {
             "Gishiki\\": "Gishiki/"
-        }
-
+        },
+        "files": [
+            "Gishiki/frameworkSetup.php"
+        ]
     },
     
     "provide": {

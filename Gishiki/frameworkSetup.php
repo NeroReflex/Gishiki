@@ -17,32 +17,41 @@ limitations under the License.
 
 use Gishiki\Gishiki;
 use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\SerializableCollection;
 
-Route::get('/info', function (Request $request, Response &$response, SerializableCollection &$arguments)
-{
-    $info = new SerializableCollection(
-            [
-                'Framework' => 'Gishiki',
-                'PHP' => phpversion(),
-            ]);
-    
-    //write the response
-    $response->setSerializedBody($info);
-});
+if (!defined('TESTING')) {
 
-Route::get('/serverkey', function (Request $request, Response &$response, SerializableCollection &$arguments)
-{
-    //get the serialized public key
-    $serializedPubKey = (new \Gishiki\Security\Encryption\Asymmetric\PrivateKey())->exportPublicKey();
-    
-    //write the response
-    $response->withStatus(200);
-    $response->write($serializedPubKey);
-});
+    Gishiki::Initialize();
 
-//run an instance of the application
-Gishiki::Run();
+    Route::get('/info', function (Request $request, Response &$response, SerializableCollection &$arguments)
+    {
+        $info = new SerializableCollection(
+                [
+                    'Framework' => 'Gishiki',
+                    'Operating System' => php_uname(),
+                    'PHP' => phpversion(),
+                    'sapi' => php_sapi_name(),
+                    'zend' => zend_version(),
+                ]);
+
+        //write the response
+        $response->setSerializedBody($info);
+    });
+
+    Route::get('/serverkey', function (Request $request, Response &$response, SerializableCollection &$arguments)
+    {
+        //get the serialized public key
+        $serializedPubKey = (new \Gishiki\Security\Encryption\Asymmetric\PrivateKey())->exportPublicKey();
+
+        //write the response
+        $response->withHeader('Content-Type', 'application/x-pem-file');
+        $response->withStatus(200);
+        $response->write($serializedPubKey);
+    });
+
+    //run an instance of the application
+    Gishiki::Run();
+
+}

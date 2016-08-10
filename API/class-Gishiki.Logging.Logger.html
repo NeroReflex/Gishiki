@@ -287,7 +287,7 @@ Psr\Log\AbstractLogger
 		<b>Namespace:</b> <a href="namespace-Gishiki.html">Gishiki</a>\<a href="namespace-Gishiki.Logging.html">Logging</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Gishiki.Logging.Logger.html#23-98" title="Go to source code">Gishiki/Logging/Logger.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Logging.Logger.html#23-103" title="Go to source code">Gishiki/Logging/Logger.php</a>
 		<br>
 	</div>
 
@@ -349,7 +349,7 @@ a null logger: a logger that doesn't log!</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_log">#</a>
-		<code><a href="source-class-Gishiki.Logging.Logger.html#76-87" title="Go to source code">log</a>( <span>mixed <var>$level</var></span>, <span>string <var>$message</var></span>, <span>array <var>$context</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Gishiki.Logging.Logger.html#76-92" title="Go to source code">log</a>( <span>mixed <var>$level</var></span>, <span>string <var>$message</var></span>, <span>array <var>$context</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			<p>Logs with an arbitrary level.</p>
@@ -357,6 +357,9 @@ a null logger: a logger that doesn't log!</p>
 
 		<div class="description detailed hidden">
 			<p>Logs with an arbitrary level.</p>
+
+<pre><span class="php-var">$logger</span> = <span class="php-keyword1">new</span> Logger(<span class="php-quote">&quot;stream://stderr&quot;</span>);
+<span class="php-var">$logger</span>-&gt;<span class="php-keyword2">log</span>();</pre>
 
 
 				<h4>Parameters</h4>
@@ -388,7 +391,7 @@ a null logger: a logger that doesn't log!</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___toString">#</a>
-		<code><a href="source-class-Gishiki.Logging.Logger.html#89-97" title="Go to source code">__toString</a>( )</code>
+		<code><a href="source-class-Gishiki.Logging.Logger.html#94-102" title="Go to source code">__toString</a>( )</code>
 
 		<div class="description short">
 			<p>Get the connection string passed to the constructor.</p>

@@ -22,11 +22,9 @@ use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\SerializableCollection;
 
 if (!defined('TESTING')) {
-
     Gishiki::Initialize();
 
-    Route::get('/info', function (Request $request, Response &$response, SerializableCollection &$arguments)
-    {
+    Route::get('/info', function (Request $request, Response &$response, SerializableCollection &$arguments) {
         $info = new SerializableCollection(
                 [
                     'Framework' => 'Gishiki',
@@ -40,8 +38,7 @@ if (!defined('TESTING')) {
         $response->setSerializedBody($info);
     });
 
-    Route::get('/serverkey', function (Request $request, Response &$response, SerializableCollection &$arguments)
-    {
+    Route::get('/serverkey', function (Request $request, Response &$response, SerializableCollection &$arguments) {
         //get the serialized public key
         $serializedPubKey = (new \Gishiki\Security\Encryption\Asymmetric\PrivateKey())->exportPublicKey();
 
@@ -53,5 +50,4 @@ if (!defined('TESTING')) {
 
     //run an instance of the application
     Gishiki::Run();
-
 }

@@ -173,7 +173,7 @@ abstract class PipelineSupport
         //what is going to be restored
         $toRestore = null;
 
-        for ($i = RuntimePriority::URGENT; ($i <= RuntimePriority::LOWEST) && (is_null($toRestore)); $i++) {
+        for ($i = RuntimePriority::URGENT; ($i <= RuntimePriority::LOWEST) && (is_null($toRestore)); ++$i) {
             //change searched priority
             $prioritySelector = clone $selector;
             $prioritySelector->EqualThan('priority', $i);
@@ -181,7 +181,7 @@ abstract class PipelineSupport
             //the the collection of runtimes to be completed
             $pipelineCollectionFetched = self::$connectionHandler->Fetch(self::$tableName, $prioritySelector);
             $resultsCount = $pipelineCollectionFetched->count();
-            
+
             //if there is a runtime to be restored
             if ($resultsCount > 0) {
                 //extract a random one

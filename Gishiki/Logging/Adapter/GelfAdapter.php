@@ -48,7 +48,7 @@ class GelfAdapter
             $conn_info = explode(':', $native_server);
 
             $transport = null;
-            switch ($conn_info[0]) {
+            switch (strtolower($conn_info[0])) {
                 case 'tcp' :
                     $transport = new \Gelf\Transport\TcpTransport($conn_info[1], intval($conn_info[2]));
                     break;

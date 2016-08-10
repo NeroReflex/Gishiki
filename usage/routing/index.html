@@ -319,7 +319,7 @@ Route::get(&quot;/Hello/{name_surname}&quot;,
     //this is what will be executed when the client asks for &quot;https://site.com/User/urName+urSurname&quot;
 
     //nice to meet you!
-    $response-&gt;write(&quot;Hello, &quot;.$params-&gt;{&quot;name_surname&quot;}.&quot;!&quot;);
+    $response-&gt;write(&quot;Hello, &quot;.$arguments-&gt;{&quot;name_surname&quot;}.&quot;!&quot;);
 });
 
 Route::get(&quot;/Home/{name}&quot;,
@@ -328,7 +328,7 @@ Route::get(&quot;/Home/{name}&quot;,
     //this is what will be executed when the client asks for &quot;https://site.com/Home/some_name&quot;
 
     //nice to meet you!
-    $response-&gt;write(&quot;Hello, &quot;.$params-&gt;name.&quot;!&quot;);
+    $response-&gt;write(&quot;Hello, &quot;.$arguments-&gt;name.&quot;!&quot;);
 });
 </code></pre>
 

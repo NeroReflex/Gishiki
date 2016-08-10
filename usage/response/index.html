@@ -176,6 +176,12 @@
             
                 <li class="toctree-l3"><a href="#response">Response</a></li>
                 
+                    <li><a class="toctree-l4" href="#response-header">Response Header</a></li>
+                
+                    <li><a class="toctree-l4" href="#response-header-details">Response Header Details</a></li>
+                
+                    <li><a class="toctree-l4" href="#response-body">Response Body</a></li>
+                
             
             </ul>
         
@@ -244,8 +250,158 @@
             <div class="section">
               
                 <h1 id="response">Response</h1>
-<p>The <strong>Gishiki\HttpKernel\Request</strong> class is used to fully represent an HTTP response.</p>
+<p>The <strong>Gishiki\HttpKernel\Response</strong> class is used to fully represent an HTTP response.</p>
 <p>The Response class is PSR-7 conformant and follows that specification sheet.</p>
+<p>Each <a href="../request/">Request</a> triggers the generation of a response.</p>
+<p>That response is automatically sent back to the client at the end of the
+application lifetime.</p>
+<p>The main target of an application is <strong>editing</strong> that response before the departure
+of that response.</p>
+<p>An HTTP response is made of two parts:</p>
+<ul>
+<li>Response <strong>header</strong> </li>
+<li>Response <strong>body</strong></li>
+</ul>
+<p>Those parts and steps to generate them are described later on this document.</p>
+<h2 id="response-header">Response Header</h2>
+<p>Every HTTP response <strong>MUST</strong> contains an header.</p>
+<p>An HTTP header have a bare minimum structure that comprises the HTTP revision,
+the status code and the message associated to the status code.</p>
+<p>Since each status code have its own predefined status phrase (like 404 not found,
+500 internal server error, 200 OK and so on) when the status code is changed the
+status phrase is automatically changed by the framework.</p>
+<p>That can be done calling the <strong>withStatus</strong> function:</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::any(Route::NOT_FOUND,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    //the response code - phrase will be 404 - Not Found
+    $response-&gt;withStatus(404);
+});
+</code></pre>
+
+<p>You can manually change the status phrase, but you are discouraged from doing such
+thing with standard status code!</p>
+<p>What you can do is using it to send a strong signal to a bad client:</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::any(&quot;/complex&quot;,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    //numberOfRequests is the number of requests that a client has sent today
+    if ($numberOfRequests &gt; 5) {
+        //perform the complex operation (may stress the system)
+        action();
+    } else {
+        //stop flooding my servers!
+        $response-&gt;withStatus(666, 'FUCK YOU!');
+    }
+});
+</code></pre>
+
+<p>Sorry for the bad language, that was only intended to help me to give you a (real :D)
+example of usage.</p>
+<h2 id="response-header-details">Response Header Details</h2>
+<p>Each response can contains a lot of details about itselfs like the length of the
+content or the type of the content.</p>
+<p>Each 'response detail' is a collection of values binded to a key which is the name
+of the property.</p>
+<p>In order to edit the value of a property you have to use the <strong>withHeader</strong> function:</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::any(&quot;/complex&quot;,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    $request-&gt;withHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+});
+</code></pre>
+
+<p>If you are unsure on how to use this feature you should read more about http response <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers">header</a>.</p>
+<h2 id="response-body">Response Body</h2>
+<p>The body of the response is the main part of the response: the <strong>content</strong> of the
+response.</p>
+<p>For example if the response is an html content the response body is what the
+user calls <em>the webpage</em>.</p>
+<p>To directly modify the response body you can use the <strong>write</strong> function:</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::any(&quot;/&quot;,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    $content = &lt;&lt;&lt;EOT
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;My webpage&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;My webpage&lt;/h1&gt;
+        &lt;p&gt;Hello, this is my personal webpage!&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+EOT;
+
+    //write the response
+    $response-&gt;withHeader('Content-Type', 'text/html');
+    $response-&gt;write($content);
+});
+</code></pre>
+
+<p>This is a simple example to Gishiki used to generate an html response,
+however since Gishiki is built to be used as the foundation of RESTful services
+the response body shoild be a JSON, XML, YAML etc... content.</p>
+<p>To generate a response body from a serializable data collection Gishiki provides
+a function that automate this process: this function is called <strong>setSerializedBody</strong>
+and does more than just converting a collection to a fixed format:</p>
+<pre><code class="php">use Gishiki\Core\Route;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\Response;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+Route::any(&quot;/factorial/{int:integer}&quot;,
+    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
+{
+    $x = $arguments-&gt;int;
+    $factorial = fact($x);
+
+    $data = new SerializableCollection([
+        'timestamp' =&gt; time(),
+        'result'    =&gt; $factorial,
+    ]);
+
+    $response-&gt;setSerializedBody($data);
+});
+</code></pre>
+
+<p>The given collection may be serialized to a JSON content, XML content or YAML content.
+You may decide the content type by setting the header 'Content-Type' <strong>BUT THAT IS A WASTE OF TIME</strong>:
+Gishiki <strong>AUTOMAGICALLY</strong> uses the content type listening for client preferences.</p>
+<p>This means that a client is not enforced to be able to deserialize a specific
+content type, but can choose the preferred content-type including it on the
+http request header using the 'Accept' property!</p>
+<p>Following accept values are used to request a specific data serialization format:</p>
+<ul>
+<li>'text/yaml'            -&gt; YAML</li>
+<li>'text/x-yaml'          -&gt; YAML</li>
+<li>'application/yaml'     -&gt; YAML</li>
+<li>'application/x-yaml'   -&gt; XML</li>
+<li>'application/xml'      -&gt; XML</li>
+<li>'text/xml'             -&gt; XML</li>
+<li>'application/json'     -&gt; JSON</li>
+</ul>
+<p>Anything else triggers the default serialization format, which is JSON!</p>
               
             </div>
           </div>

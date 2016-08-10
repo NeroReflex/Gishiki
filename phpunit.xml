@@ -24,6 +24,7 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <exclude>
+                <file>./Gishiki/frameworkSetup.php</file>
                 <file>./Gishiki/Gishiki.php</file>
             </exclude>
             <directory>./Gishiki/</directory>

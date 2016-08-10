@@ -71,7 +71,8 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase
         });
 
         //creaate the pipeline runtime
-        $pipelineExecutor = new PipelineRuntime($pipeline);
+        $pipelineRetrieved = \Gishiki\Pipeline\PipelineCollector::getPipelineByName('first_aborttest!');
+        $pipelineExecutor = new PipelineRuntime($pipelineRetrieved);
         $pipelineExecutor(2);
 
         $this->assertEquals($reason, $pipelineExecutor->getAbortMessage());
@@ -281,5 +282,70 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase
         while ($currentPipeline = \Gishiki\Pipeline\PipelineSupport::getNextAsyncByPriority()) {
             $currentPipeline(-1);
         }
+    }
+    
+    public function testTypeChangeFromAsyncToSync()
+    {
+        self::GetConnection();
+        \Gishiki\Pipeline\PipelineSupport::Initialize('pipeline_testing_db', 'testing.pipeline');
+
+        $pipeline = new Pipeline('changeTypeFromAsyncToSync');
+        $pipeline->bindStage('firstStage', function (SerializableCollection &$collection) {
+            \Gishiki\Pipeline\PipelineSupport::ChangeType(\Gishiki\Pipeline\RuntimeType::SYNCHRONOUS);
+        });
+        $pipeline->bindStage('secondStage', function (SerializableCollection &$collection) {
+            return false;
+        });
+        
+        $runtime = new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::ASYNCHRONOUS);
+        $this->assertEquals(\Gishiki\Pipeline\RuntimeType::ASYNCHRONOUS, $runtime->getType());
+        $runtime(-1);
+        
+        $this->assertEquals(\Gishiki\Pipeline\RuntimeType::SYNCHRONOUS, $runtime->getType());
+        $this->assertEquals(1, $runtime->getCompletedStagesCount());
+        
+        $runtime(-1);
+        $this->assertEquals(\Gishiki\Pipeline\RuntimeType::SYNCHRONOUS, $runtime->getType());
+        $this->assertEquals(2, $runtime->getCompletedStagesCount());
+    }
+    
+    public function testTypeChangeFromSyncToAsync()
+    {
+        self::GetConnection();
+        \Gishiki\Pipeline\PipelineSupport::Initialize('pipeline_testing_db', 'testing.pipeline');
+
+        $pipeline = new Pipeline('changeTypeFromSyncToAsync');
+        $pipeline->bindStage('firstStage', function (SerializableCollection &$collection) {
+            \Gishiki\Pipeline\PipelineSupport::ChangeType(\Gishiki\Pipeline\RuntimeType::ASYNCHRONOUS);
+        });
+        $pipeline->bindStage('secondStage', function (SerializableCollection &$collection) {
+            return false;
+        });
+        
+        $runtime = new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::SYNCHRONOUS);
+        $this->assertEquals(\Gishiki\Pipeline\RuntimeType::SYNCHRONOUS, $runtime->getType());
+        $runtime(-1);
+        
+        $this->assertEquals(\Gishiki\Pipeline\RuntimeType::ASYNCHRONOUS, $runtime->getType());
+        $this->assertEquals(2, $runtime->getCompletedStagesCount());
+    }
+    
+    public function testCollectionInit()
+    {
+        self::GetConnection();
+        \Gishiki\Pipeline\PipelineSupport::Initialize('pipeline_testing_db', 'testing.pipeline');
+
+        $pipeline = new Pipeline('testCollectionInit');
+        $pipeline->bindStage('stageTest', function (SerializableCollection &$collection) {
+            $newval = (($collection->has('value')) && ($collection->value == 5))? 0xFF : 0x00;
+            $collection->set('result', $newval);
+        });
+        
+        $runtime = new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::SYNCHRONOUS, \Gishiki\Pipeline\RuntimePriority::URGENT, [
+            'value' => 5
+        ]);
+        $runtime(-1);
+        
+        $this->assertEquals(0xFF, $runtime->getDataCollection()->get('result'));
     }
 }

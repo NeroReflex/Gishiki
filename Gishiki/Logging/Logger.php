@@ -77,8 +77,20 @@ final class Logger extends AbstractLogger
      * Logs with an arbitrary level.
      * 
      * <code>
-     * $logger = new Logger("stream://stderr");
-     * $logger->log();
+     *  //initialize a new logger
+     *  $logger = new Logger("stream://stdout");
+     * 
+     *  if ($temp > 60.5) {
+     *      //the new log entry has alert as severity level
+     *      $logger->alert('Room temperature too high!', [
+     *          'temperature' => $temp
+     *      ]);
+     *  } else {
+     *      //the new log entry has info as severity level
+     *      $logger->alert('Room temperature normal.', [
+     *          'temperature' => $temp
+     *      ]);
+     *  }
      * </code>
      *
      * @param mixed  $level

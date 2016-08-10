@@ -48,6 +48,27 @@ if (!defined('TESTING')) {
         $response->write($serializedPubKey);
     });
 
+    Route::get('/cronjob', function (Request $request, Response &$response, SerializableCollection &$arguments) {
+        //get the deserialized request body
+        $requestBody = $request->getDeserializedBody();
+        
+        $runtimes = 5;
+        
+        if ($requestBody instanceof SerializableCollection) {
+            $unescapedRuntime = $requestBody->get('runtimes', 5);
+            $runtimes = ((is_int($unescapedRuntime)) && ($unescapedRuntime > 0))?
+                    $unescapedRuntime : $runtimes;
+        }
+        
+        //execute pipelines
+        while (($runtime = \Gishiki\Pipeline\PipelineSupport::getNextAsyncByPriority()) && ($runtimes >= 0)) {
+            $runtime(-1);
+        }
+        
+        $response->withStatus(200);
+        $response->write('done.');
+    });
+    
     //run an instance of the application
     Gishiki::Run();
 }

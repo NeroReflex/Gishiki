@@ -149,6 +149,8 @@ class Response extends Message implements ResponseInterface
 
     /**
      * Sends the given HTTP response to the client.
+     * 
+     * You MUST AVOID calls to this function!
      *
      * Note: This method is not part of the PSR-7 standard.
      *

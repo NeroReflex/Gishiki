@@ -35,6 +35,9 @@ abstract class Gishiki
      */
     public static function Initialize()
     {
+        //remove default execution time
+        set_time_limit(0);
+        
         //get directory separator
         if (!defined('DS')) {
             if (defined('DIRECTORY_SEPARATOR')) {

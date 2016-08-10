@@ -84,7 +84,7 @@ deploy :
         name: Generating Documentation
         code: |-
           sudo rm -rf vendor
-          php apigen.phar generate --source . --destination Documentation/docs/API --title Gishiki --charset UTF-8 --access-levels public --access-levels protected --php --tree
+          php apigen.phar generate --source . --exclude tests --destination Documentation/docs/API --title Gishiki --charset UTF-8 --access-levels public --access-levels protected --php --tree
     - script:
         name: Downloading PIP
         code: |-

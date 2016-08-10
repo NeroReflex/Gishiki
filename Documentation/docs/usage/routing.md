@@ -72,7 +72,7 @@ Route::get("/Hello/{name_surname}",
     //this is what will be executed when the client asks for "https://site.com/User/urName+urSurname"
     
     //nice to meet you!
-    $response->write("Hello, ".$params->{"name_surname"}."!");
+    $response->write("Hello, ".$arguments->{"name_surname"}."!");
 });
 
 Route::get("/Home/{name}",
@@ -81,7 +81,7 @@ Route::get("/Home/{name}",
     //this is what will be executed when the client asks for "https://site.com/Home/some_name"
     
     //nice to meet you!
-    $response->write("Hello, ".$params->name."!");
+    $response->write("Hello, ".$arguments->name."!");
 });
 ```
 

@@ -19,6 +19,7 @@ pages:
     - Request:          usage/request.md
     - Response:         usage/response.md
     - Logger:           usage/logging.md
+    - Logger:           usage/pipeline.md
 
 - About:
     - License: license.md

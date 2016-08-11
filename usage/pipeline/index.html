@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Pipeline - Gishiki</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../API/resources/style.css" rel="stylesheet">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Pipeline";
+    var mkdocs_page_input_path = "usage/pipeline.md";
+    var mkdocs_page_url = "/usage/pipeline/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+  <script src="../../API/elementlist.js"></script>
+  <script src="../../API/resources/combined.js"></script>
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Gishiki</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Installation</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/">Environment</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_php/">Basic PHP</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/php_7_nginx/">PHP 7.0 & nginx</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_nginx/">Basic nginx</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_apache/">Basic apache</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_lighttpd/">Basic lighttpd</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/basic_iis/">Basic IIS</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/composer/">Composer</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../installation/paas/">PaaS</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../apidoc/">API</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Usage</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../configuration/">Configuration</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../routing/">Router</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../request/">Request</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../response/">Response</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../logging/">Logger</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Pipeline</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#pipeline">Pipeline</a></li>
+                
+                    <li><a class="toctree-l4" href="#configure-the-pipeline">Configure the pipeline</a></li>
+                
+                    <li><a class="toctree-l4" href="#pipeline-definition">Pipeline Definition</a></li>
+                
+                    <li><a class="toctree-l4" href="#pipeline-runtime">Pipeline Runtime</a></li>
+                
+                    <li><a class="toctree-l4" href="#pipeline-execution">Pipeline Execution</a></li>
+                
+                    <li><a class="toctree-l4" href="#changing-type">Changing Type</a></li>
+                
+                    <li><a class="toctree-l4" href="#aborting-execution">Aborting Execution</a></li>
+                
+                    <li><a class="toctree-l4" href="#cronjob">Cronjob</a></li>
+                
+            
+            </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../database/">Database</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../CRUD/">CRUD</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>About</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../license/">License</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Gishiki</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Usage &raquo;</li>
+        
+      
+    
+    <li>Pipeline</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="pipeline">Pipeline</h1>
+<p>A pipeline is a collection of steps to be executed in a precise order: it is
+defined as an instance of the <strong>Gishiki\Pipeline\Pipeline</strong> class.</p>
+<p>With a pipeline you <strong>MAY</strong> or <strong>MAY NOT</strong> have the full control of the pipeline
+execution.</p>
+<p>Pipelines are great when you have to execute long operations outside the context
+of the operation request, but are also great to control the result of those operation
+in a different time from theirs execution.</p>
+<h3 id="configure-the-pipeline">Configure the pipeline</h3>
+<p>In order for the pipeline to work a <a href="../database/">database</a> connection must be active
+on the current <a href="../configuration/">configuration</a> and a table with the chosen name must exists.</p>
+<p>The table used to backup the pipeline support <strong>MUST</strong> be structured like this:</p>
+<ul>
+<li>_id [integer / table ID]</li>
+<li>uniqID [string - max. 26 character (NOT NULL)]</li>
+<li>status [integer (NOT NULL)]</li>
+<li>type [integer (NOT NULL)]</li>
+<li>priority [integer (NOT NULL)]</li>
+<li>creationTime [integer (NOT NULL)]</li>
+<li>completionReports [string / collection]</li>
+<li>pipeline [string (NOT NULL)]</li>
+<li>abortMessage [string]</li>
+<li>serializableCollection [string / collection]</li>
+</ul>
+<p>Field types are to be defined only where necessary: on mongodb it is impossible,
+just let the framework to take care!</p>
+<h2 id="pipeline-definition">Pipeline Definition</h2>
+<p>To execute a pipeline you have to define it.</p>
+<p>A pipeline <strong>MUST</strong> have a name and a collection of zero or more steps.</p>
+<p>Obviously a pipeline with 0 steps is totally useless!</p>
+<p>A pipeline with the same name of an another pipeline <strong>CANNOT</strong> exists: at the moment
+of creation an exception will be thrown and the new pipeline will cease to exists!</p>
+<p>Defining a pipeline is done like this:</p>
+<pre><code class="php">use Gishiki\Pipeline\Pipeline;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+//create the pipeline
+$pipeline = new Pipeline(&quot;EmailUser&quot;);
+
+//add a step to the pipeline
+$pipeline-&gt;bindStage('send', function (SerializableCollection &amp;$collection) {
+    //send the email (long task)
+    return mail($collection-&gt;dest, $collection-&gt;obj, $collection-&gt;msg);
+});
+</code></pre>
+
+<p>Now it is clear that $collection is an argument that will be passed when the
+pipeline will be executed.</p>
+<p>A pipeline should be defined in a file called as the pipeline inside the folder
+called 'pipelines', which is inside the 'application' folder.</p>
+<h2 id="pipeline-runtime">Pipeline Runtime</h2>
+<p>In order for the pipeline execution to take place a runtime <strong>MUST</strong> be created.</p>
+<p>A pipeline runtime is an instance of the <strong>Gishiki\Pipeline\PipelineRuntime</strong> class.</p>
+<p>A runtime is created from a specific pipeline, have a type and a priority.</p>
+<h3 id="runtime-type">Runtime Type</h3>
+<p>The type of the runtime identifies the timing of the execution, the type <strong>MUST</strong> be
+one of the following possible types:</p>
+<ul>
+<li>Gishiki\Pipeline\RuntimeType::ASYNCHRONOUS </li>
+<li>Gishiki\Pipeline\RuntimeType::SYNCHRONOUS</li>
+</ul>
+<p>A synchronous runtime is a runtime that has a known execution timing: it is certain
+<strong>WHEN</strong> the pipeline is executed, because the execution is triggered on demand.</p>
+<p>An asynchronous runtime is executed with an unknown timing: you can only be sure that
+sooner or later it <strong>WILL FOR SURE</strong> be executed.</p>
+<h3 id="runtime-priority">Runtime Priority</h3>
+<p>The priority of a pipeline changes the execution timing of an ASYNCHRONOUS runtime:
+it has no effects on a SYNCHRONOUS runtime.</p>
+<p>The higher the runtime priority the lower the time to wait before the execution
+of the ASYNCHRONOUS runtime!</p>
+<h2 id="pipeline-execution">Pipeline Execution</h2>
+<p>To create a runtime (described above in the "Pipeline Runtime" section) an instance
+of the Pipeline to be executed is needed.</p>
+<p>You can retrieve it knowing its name like this:</p>
+<pre><code class="php">use Gishiki\Pipeline\Pipeline;
+use Gishiki\Pipeline\PipelineCollector;
+use Gishiki\Pipeline\PipelineRuntime;
+use Gishiki\Pipeline\PipelineRuntime;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+//retrieve the pipeline
+$pipeline = PipelineCollector::getPipelineByName(&quot;EmailUser&quot;);
+
+//create the runtime with given params
+$pipelineExecutor = new PipelineRuntime($pipeline, RuntimeType::SYNCHRONOUS, RuntimePriority::LOWEST, [
+    'dest'  =&gt; '',
+    'obj'   =&gt; '',
+    'msg'   =&gt; ''
+]);
+
+//execute ALL STAGES of the pipeline
+$pipelineExecutor();
+</code></pre>
+
+<p>If (like in the previous example) you created a pipeline that needs input parameters
+in order to work you can add those parameters as the fourth parameter of the PipelineRuntime constructor.</p>
+<p><em>Note:</em> the runtime is SYNCHRONOUS, so the priority is ignored, but you can change
+the runtime type while executing the pipeline!</p>
+<p>Using the runtime object as a function will cause the runtime to execute the first
+x stages of the pipeline, if x is not given, as in the example then <strong>ALL</strong> the pipeline
+will be executed!</p>
+<h2 id="changing-type">Changing Type</h2>
+<p>The type of a reuntime can be changed while executing that pipeline by calling
+<strong>PipelineSupport::ChangeType</strong> where the first argument is the new type of the pipeline:</p>
+<pre><code class="php">use Gishiki\Pipeline\Pipeline;
+use Gishiki\Pipeline\PipelineSupport;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+//create the pipeline
+$pipeline = new Pipeline(&quot;EmailUser&quot;);
+
+//add a step to the pipeline
+$pipeline-&gt;bindStage('send', function (SerializableCollection &amp;$collection) {
+    //change the type
+    PipelineSupport::ChangeType(RuntimeType::ASYNCHRONOUS);
+
+    //send the email (long task)
+    return mail($collection-&gt;dest, $collection-&gt;obj, $collection-&gt;msg);
+});
+</code></pre>
+
+<p><strong>WARNING:</strong> changing the pipeline from asynchronous to synchronous the execution
+will be stopped after completion of the stage!</p>
+<h2 id="aborting-execution">Aborting Execution</h2>
+<p>There are situations where the runtime, to avoid serious problems, <strong>MUST</strong> be
+aborted.</p>
+<p>In future you may want to read the reason that forced the abort of the runtime.</p>
+<p>To abort the runtime you can call <strong>PipelineSupport::Abort</strong> passing as argument
+a string explaining what is happening:</p>
+<pre><code class="php">use Gishiki\Pipeline\Pipeline;
+use Gishiki\Pipeline\PipelineSupport;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+//create the pipeline
+$pipeline = new Pipeline(&quot;EmailUser&quot;);
+
+//add a step to the pipeline
+$pipeline-&gt;bindStage('send', function (SerializableCollection &amp;$collection) {
+    //change the type
+    PipelineSupport::ChangeType(RuntimeType::ASYNCHRONOUS);
+
+    //send the email (long task)
+    if (!mail($collection-&gt;dest, $collection-&gt;obj, $collection-&gt;msg))
+        PipelineSupport::Abort(&quot;Failed to send the mail.&quot;);
+});
+</code></pre>
+
+<h2 id="cronjob">Cronjob</h2>
+<p>You have seen how to execute synchronous runtimes, but what about asynchronous?</p>
+<p>Well, Gishiki is providing a cronjob that executes a number of
+asynchronous runtimes when called.</p>
+<p>That cronjob is invoked by an HTTP request to /cronjob address.</p>
+<p>In an production environment (see <a href="../configuration/">conficuration</a> chapter) /cronjob
+can be called by everyone, since it <strong>NEVER EXPOSES</strong> important output!</p>
+<p>You can configure the number of runtimes to complete by including (in the request
+body) a json that once evaluated will produce a SerializableCollection that has
+a key named 'runtimes' that has as value the number of runtimes to be executed. </p>
+<p>Working example:</p>
+<pre><code>GET /cronjob HTTP/1.1
+Host: example.com
+Content-Type: application/json
+
+{
+    &quot;runtimes&quot;: 8
+}
+</code></pre>
+
+<p>This will execute 8 asynchronous runtimes until the end is reached.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../database/" class="btn btn-neutral float-right" title="Database">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../logging/" class="btn btn-neutral" title="Logger"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../logging/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../database/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

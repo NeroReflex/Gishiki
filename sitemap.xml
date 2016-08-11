@@ -107,6 +107,24 @@
      <changefreq>daily</changefreq>
     </url>
         
+    <url>
+     <loc>None/usage/pipeline/</loc>
+     <lastmod>2016-08-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>None/usage/database/</loc>
+     <lastmod>2016-08-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>None/usage/CRUD/</loc>
+     <lastmod>2016-08-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
     
 
     

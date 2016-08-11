@@ -37,7 +37,7 @@ abstract class Gishiki
     {
         //remove default execution time
         set_time_limit(0);
-        
+
         //get directory separator
         if (!defined('DS')) {
             if (defined('DIRECTORY_SEPARATOR')) {

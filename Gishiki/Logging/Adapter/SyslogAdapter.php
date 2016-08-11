@@ -28,7 +28,6 @@ use Psr\Log\LogLevel;
 class SyslogAdapter extends \Psr\Log\AbstractLogger
 {
     /**
-     *
      * @var string The name of the program that is generating log entries
      */
     private $identity = null;

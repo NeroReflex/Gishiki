@@ -57,7 +57,7 @@ final class Logger extends AbstractLogger
 
             //separe adapter name from connection info
             $conection_exploded = explode('://', $connector, 2);
-            
+
             //open a log if it is really possible:
             if (count($conection_exploded) == 2) {
                 $adapter = $conection_exploded[0];

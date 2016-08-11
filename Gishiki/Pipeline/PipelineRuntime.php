@@ -76,16 +76,16 @@ final class PipelineRuntime
      * </code>
      * 
      * @param Pipeline $pipeline the pipeline to be followed during the runtime
-     * @param int      $type can either be RuntimeType::ASYNCHRONOUS or RuntimeType::SYNCHRONOUS
+     * @param int      $type     can either be RuntimeType::ASYNCHRONOUS or RuntimeType::SYNCHRONOUS
      * @param int      $priority the priority assigned to the pipeline executor
      *
      * @throws \InvalidArgumentException the given priority is not valid
      */
     public function __construct(Pipeline &$pipeline, $type = RuntimeType::ASYNCHRONOUS, $priority = RuntimePriority::LOWEST, $data = null)
     {
-        $data = ($data instanceof \Gishiki\Algorithms\Collections\GenericCollection)? new SerializableCollection($data->all()) : $data;
-        $data = (is_array($data))? new SerializableCollection($data) : $data;
-        
+        $data = ($data instanceof \Gishiki\Algorithms\Collections\GenericCollection) ? new SerializableCollection($data->all()) : $data;
+        $data = (is_array($data)) ? new SerializableCollection($data) : $data;
+
         //check for invalid priority
         if ((!is_int($priority)) || ($priority > RuntimePriority::LOWEST)) {
             throw new \InvalidArgumentException('The given execution priority is not valid');
@@ -98,7 +98,7 @@ final class PipelineRuntime
         $this->status = RuntimeStatus::STOPPED;
 
         //generate a new serializable collection
-        $this->serializableCollection = (!($data instanceof SerializableCollection))?
+        $this->serializableCollection = (!($data instanceof SerializableCollection)) ?
             new SerializableCollection() : $data;
 
         //generate an unique ID for the current pipeline executor
@@ -116,12 +116,13 @@ final class PipelineRuntime
         //end the execution IMMEDIATLY by executing zero stages
         $this(0);
     }
-    
+
     /**
      * Change the type of the current pipeline, but doesn't immediatly reflect
      * changes to the database.
      * 
-     * @param int      $type can either be RuntimeType::ASYNCHRONOUS or RuntimeType::SYNCHRONOUS
+     * @param int $type can either be RuntimeType::ASYNCHRONOUS or RuntimeType::SYNCHRONOUS
+     *
      * @throws \InvalidArgumentException the given type is not valid
      */
     public function ChangeType($type)
@@ -130,7 +131,7 @@ final class PipelineRuntime
         if (($type != RuntimeType::ASYNCHRONOUS) && ($type != RuntimeType::SYNCHRONOUS)) {
             throw new \InvalidArgumentException('The given pipeline type is not valid');
         }
-        
+
         //store the type
         $this->type = $type;
     }
@@ -175,7 +176,7 @@ final class PipelineRuntime
 
         for ($i = $this->getCompletedStagesCount(); ($stepsNumber > 0) && ($i < $this->pipeline->countStages()) && ($this->status != RuntimeStatus::ABORTED); ++$i) {
             $startingType = $this->type;
-            
+
             try {
                 //the pipeline is working right now
                 $this->status = RuntimeStatus::WORKING;
@@ -186,7 +187,7 @@ final class PipelineRuntime
                 //get the starting time
                 $startTime = time();
                 $start = microtime(true);
-                
+
                 //fetch & execute the pipeline stage
                 $reflectedFunction = $this->pipeline->reflectFunctionByIndex($i);
                 $executionResult = $reflectedFunction->invokeArgs([&$this->serializableCollection]);
@@ -206,9 +207,9 @@ final class PipelineRuntime
                     'result' => $executionResult,
                 ];
 
-                $stepsNumber = (($startingType != $this->type) && ($startingType == RuntimeType::ASYNCHRONOUS))?
+                $stepsNumber = (($startingType != $this->type) && ($startingType == RuntimeType::ASYNCHRONOUS)) ?
                         0 : $stepsNumber;
-                
+
                 //the pipeline is stopped right now
                 $this->status = RuntimeStatus::STOPPED;
             } catch (\Gishiki\Pipeline\PipelineAbortSignal $abortSignal) {
@@ -224,7 +225,7 @@ final class PipelineRuntime
 
             --$stepsNumber;
         }
-        
+
         if ((is_null($this->abortMessage)) && ($this->status != RuntimeStatus::ABORTED) && ($i == ($this->pipeline->countStages()/* - 1*/))) {
             $this->status = RuntimeStatus::COMPLETED;
         }

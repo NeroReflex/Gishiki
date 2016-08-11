@@ -283,7 +283,7 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase
             $currentPipeline(-1);
         }
     }
-    
+
     public function testTypeChangeFromAsyncToSync()
     {
         self::GetConnection();
@@ -296,19 +296,19 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase
         $pipeline->bindStage('secondStage', function (SerializableCollection &$collection) {
             return false;
         });
-        
+
         $runtime = new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::ASYNCHRONOUS);
         $this->assertEquals(\Gishiki\Pipeline\RuntimeType::ASYNCHRONOUS, $runtime->getType());
         $runtime(-1);
-        
+
         $this->assertEquals(\Gishiki\Pipeline\RuntimeType::SYNCHRONOUS, $runtime->getType());
         $this->assertEquals(1, $runtime->getCompletedStagesCount());
-        
+
         $runtime(-1);
         $this->assertEquals(\Gishiki\Pipeline\RuntimeType::SYNCHRONOUS, $runtime->getType());
         $this->assertEquals(2, $runtime->getCompletedStagesCount());
     }
-    
+
     public function testTypeChangeFromSyncToAsync()
     {
         self::GetConnection();
@@ -321,15 +321,15 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase
         $pipeline->bindStage('secondStage', function (SerializableCollection &$collection) {
             return false;
         });
-        
+
         $runtime = new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::SYNCHRONOUS);
         $this->assertEquals(\Gishiki\Pipeline\RuntimeType::SYNCHRONOUS, $runtime->getType());
         $runtime(-1);
-        
+
         $this->assertEquals(\Gishiki\Pipeline\RuntimeType::ASYNCHRONOUS, $runtime->getType());
         $this->assertEquals(2, $runtime->getCompletedStagesCount());
     }
-    
+
     public function testCollectionInit()
     {
         self::GetConnection();
@@ -337,15 +337,15 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase
 
         $pipeline = new Pipeline('testCollectionInit');
         $pipeline->bindStage('stageTest', function (SerializableCollection &$collection) {
-            $newval = (($collection->has('value')) && ($collection->value == 5))? 0xFF : 0x00;
+            $newval = (($collection->has('value')) && ($collection->value == 5)) ? 0xFF : 0x00;
             $collection->set('result', $newval);
         });
-        
+
         $runtime = new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::SYNCHRONOUS, \Gishiki\Pipeline\RuntimePriority::URGENT, [
-            'value' => 5
+            'value' => 5,
         ]);
         $runtime(-1);
-        
+
         $this->assertEquals(0xFF, $runtime->getDataCollection()->get('result'));
     }
 }

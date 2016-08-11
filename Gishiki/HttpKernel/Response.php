@@ -138,8 +138,8 @@ class Response extends Message implements ResponseInterface
                 break;
             }
         }
-        
-        $headers->add('Date', gmstrftime("%a, %d %b %Y %H:%M:%S GMT", time()));
+
+        $headers->add('Date', gmstrftime('%a, %d %b %Y %H:%M:%S GMT', time()));
         $headers->add('X-Powered-By', phpversion());
         $headers->add('X-Runtime', 'Gishiki');
 

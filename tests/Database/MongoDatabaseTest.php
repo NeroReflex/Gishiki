@@ -74,7 +74,6 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
     {
         $connection = self::GetConnection();
         $objectID = $connection->Insert('testing.'.__FUNCTION__, ['n' => 'non e una prova....']);
-        $numberOfAffected = $connection->Update('testing.'.__FUNCTION__, ['u' => 2, 'n' => 'scherzavo.. e una prova'], (new \Gishiki\Database\SelectionCriteria())->WhereID($objectID));
         $this->assertEquals(1, $numberOfAffected);
     }
 
@@ -84,7 +83,6 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
 
         $connection = self::GetConnection();
         $objectID = $connection->Insert('testing.'.__FUNCTION__, ['n' => $badStr]);
-        $numberOfAffected = $connection->Update('testing.'.__FUNCTION__, ['u' => 2, 'n' => 'scherzavo.. e una prova'], (new \Gishiki\Database\SelectionCriteria())->WhereID($objectID)->EqualThan('n', $badStr));
         $this->assertEquals(1, $numberOfAffected);
     }
 

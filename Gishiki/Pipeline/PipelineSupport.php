@@ -87,7 +87,7 @@ abstract class PipelineSupport
         //get the runtime
         self::$activeRuntime = $runtime;
     }
-    
+
     /**
      * Internal use ONLY!
      * The currently active PipelineRuntime is marked as not-active-anymore.
@@ -108,7 +108,7 @@ abstract class PipelineSupport
         //throw the stop signal
         throw new PipelineStopSignal(serialize($value));
     }
-    
+
     /**
      * Abort the current pipeline execution saving the reason.
      * 
@@ -125,12 +125,13 @@ abstract class PipelineSupport
         //throw the abort signal
         throw new PipelineAbortSignal($message);
     }
-    
+
     /**
      * Change the type of the current pipeline, but doesn't immediatly reflect
      * changes to the database.
      * 
-     * @param int      $type can either be RuntimeType::ASYNCHRONOUS or RuntimeType::SYNCHRONOUS
+     * @param int $type can either be RuntimeType::ASYNCHRONOUS or RuntimeType::SYNCHRONOUS
+     *
      * @throws \InvalidArgumentException the given type is not valid
      */
     public static function ChangeType($type)

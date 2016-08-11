@@ -28,6 +28,29 @@ final class SelectionCriteria
     private $criteria = array();
     private $id = null;
 
+    public static function Select(array $ct)
+    {
+        $criteria = new self();
+
+        foreach ($ct as $key => $value) {
+            if (($key == '_id') && ($value instanceof ObjectIDInterface)) {
+                $criteria = $criteria->WhereID($value);
+            }
+
+            if ($key != '_id') {
+                if (is_array($value)) {
+                    $criteria = $criteria->InRange($key, $value);
+                }
+
+                if ((is_integer($value)) || (is_string($value)) || (is_float($value))) {
+                    $criteria = $criteria->EqualThan($key, $value);
+                }
+            }
+        }
+
+        return $criteria;
+    }
+
     public function WhereID(ObjectIDInterface $objectID)
     {
         $this->id = clone $objectID;
@@ -35,7 +58,7 @@ final class SelectionCriteria
         return $this;
     }
 
-    public function InRange($field, $values)
+    public function InRange($field, array $values)
     {
         if (!array_key_exists($field, $this->criteria)) {
             $this->criteria[$field] = array();
@@ -47,7 +70,7 @@ final class SelectionCriteria
         return $this;
     }
 
-    public function NotInRange($field, $values)
+    public function NotInRange($field, array $values)
     {
         if (!array_key_exists($field, $this->criteria)) {
             $this->criteria[$field] = array();

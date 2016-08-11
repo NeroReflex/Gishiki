@@ -162,12 +162,12 @@ namespace Gishiki\Core {
         public function FulfillRequest()
         {
             //include pipelines
-            if (file_exists(APPLICATION_DIR."/pipelines")) {
-                foreach (glob(APPLICATION_DIR."/pipelines/*.php") as $filename) {
+            if (file_exists(APPLICATION_DIR.'/pipelines')) {
+                foreach (glob(APPLICATION_DIR.'/pipelines/*.php') as $filename) {
                     include $filename;
                 }
             }
-            
+
             //get current request...
             $currentRequest = Request::createFromEnvironment(self::$currentEnvironment);
 

@@ -10,6 +10,26 @@ Pipelines are great when you have to execute long operations outside the context
 of the operation request, but are also great to control the result of those operation
 in a different time from theirs execution.
 
+### Configure the pipeline
+
+In order for the pipeline to work a [database](database.md) connection must be active
+on the current [configuration](configuration.md) and a table with the chosen name must exists.
+
+The table used to backup the pipeline support __MUST__ be structured like this:
+   
+   - _id [integer / table ID]
+   - uniqID [string - max. 26 character (NOT NULL)]
+   - status [integer (NOT NULL)]
+   - type [integer (NOT NULL)]
+   - priority [integer (NOT NULL)]
+   - creationTime [integer (NOT NULL)]
+   - completionReports [string / collection]
+   - pipeline [string (NOT NULL)]
+   - abortMessage [string]
+   - serializableCollection [string / collection]
+
+Field types are to be defined only where necessary: on mongodb it is impossible,
+just let the framework to take care!
 
 ## Pipeline Definition
 
@@ -136,11 +156,40 @@ $pipeline->bindStage('send', function (SerializableCollection &$collection) {
     //send the email (long task)
     return mail($collection->dest, $collection->obj, $collection->msg);
 });
-
 ```
 
 __WARNING:__ changing the pipeline from asynchronous to synchronous the execution
 will be stopped after completion of the stage!
+
+
+## Aborting Execution
+
+There are situations where the runtime, to avoid serious problems, __MUST__ be
+aborted.
+
+In future you may want to read the reason that forced the abort of the runtime.
+
+To abort the runtime you can call __PipelineSupport::Abort__ passing as argument
+a string explaining what is happening:
+
+```php
+use Gishiki\Pipeline\Pipeline;
+use Gishiki\Pipeline\PipelineSupport;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+//create the pipeline
+$pipeline = new Pipeline("EmailUser");
+
+//add a step to the pipeline
+$pipeline->bindStage('send', function (SerializableCollection &$collection) {
+    //change the type
+    PipelineSupport::ChangeType(RuntimeType::ASYNCHRONOUS);
+
+    //send the email (long task)
+    if (!mail($collection->dest, $collection->obj, $collection->msg))
+        PipelineSupport::Abort("Failed to send the mail.");
+});
+```
 
 
 ## Cronjob

@@ -115,6 +115,34 @@ x stages of the pipeline, if x is not given, as in the example then __ALL__ the 
 will be executed!
 
 
+## Changing Type
+
+The type of a reuntime can be changed while executing that pipeline by calling
+__PipelineSupport::ChangeType__ where the first argument is the new type of the pipeline:
+
+```php
+use Gishiki\Pipeline\Pipeline;
+use Gishiki\Pipeline\PipelineSupport;
+use Gishiki\Algorithms\Collections\SerializableCollection;
+
+//create the pipeline
+$pipeline = new Pipeline("EmailUser");
+
+//add a step to the pipeline
+$pipeline->bindStage('send', function (SerializableCollection &$collection) {
+    //change the type
+    PipelineSupport::ChangeType(RuntimeType::ASYNCHRONOUS);
+
+    //send the email (long task)
+    return mail($collection->dest, $collection->obj, $collection->msg);
+});
+
+```
+
+__WARNING:__ changing the pipeline from asynchronous to synchronous the execution
+will be stopped after completion of the stage!
+
+
 ## Cronjob
 
 You have seen how to execute synchronous runtimes, but what about asynchronous?
@@ -130,3 +158,17 @@ can be called by everyone, since it __NEVER EXPOSES__ important output!
 You can configure the number of runtimes to complete by including (in the request
 body) a json that once evaluated will produce a SerializableCollection that has
 a key named 'runtimes' that has as value the number of runtimes to be executed. 
+
+Working example:
+
+```
+GET /cronjob HTTP/1.1
+Host: example.com
+Content-Type: application/json
+
+{
+    "runtimes": 8
+}
+```
+
+This will execute 8 asynchronous runtimes until the end is reached.

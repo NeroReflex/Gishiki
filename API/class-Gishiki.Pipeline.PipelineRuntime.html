@@ -110,91 +110,7 @@
 						Hashing					</a>
 
 						</li>
-							</ul></li>
-				<li>
-					<a href="namespace-Gishiki.tests.html">
-						tests<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.tests.Algorithms.html">
-						Algorithms<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.tests.Algorithms.Collections.html">
-						Collections					</a>
-
-						</li>
-							</ul></li>
-				<li>
-					<a href="namespace-Gishiki.tests.Application.html">
-						Application					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Core.html">
-						Core					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Database.html">
-						Database					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Http.html">
-						Http<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.tests.Http.Mocks.html">
-						Mocks					</a>
-
-						</li>
-							</ul></li>
-				<li>
-					<a href="namespace-Gishiki.tests.Logging.html">
-						Logging					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Pipeline.html">
-						Pipeline					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Security.html">
-						Security<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.tests.Security.Encryption.html">
-						Encryption<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.tests.Security.Encryption.Asymmetric.html">
-						Asymmetric					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Security.Encryption.Symmetric.html">
-						Symmetric					</a>
-
-						</li>
-							</ul></li>
-				<li>
-					<a href="namespace-Gishiki.tests.Security.Hashing.html">
-						Hashing					</a>
-
-						</li>
-							</ul></li></ul></li></ul></li>
+							</ul></li></ul></li>
 				<li>
 					<a href="namespace-PHP.html">
 						PHP					</a>
@@ -285,7 +201,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#22-329" title="Go to source code">Gishiki/Pipeline/PipelineRuntime.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#22-357" title="Go to source code">Gishiki/Pipeline/PipelineRuntime.php</a>
 		<br>
 	</div>
 
@@ -305,7 +221,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#44-113" title="Go to source code">__construct</a>( <span><code><a href="class-Gishiki.Pipeline.Pipeline.html">Gishiki\Pipeline\Pipeline</a></code> <var>&amp; $pipeline</var></span>, <span>integer <var>$type</var> = <code><a href="class-Gishiki.Pipeline.RuntimeType.html#ASYNCHRONOUS">Gishiki\Pipeline\RuntimeType::<b>ASYNCHRONOUS</b></a></code></span>, <span> <var>$priority</var> = <code><a href="class-Gishiki.Pipeline.RuntimePriority.html#LOWEST">Gishiki\Pipeline\RuntimePriority::<b>LOWEST</b></a></code></span> )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#44-118" title="Go to source code">__construct</a>( <span><code><a href="class-Gishiki.Pipeline.Pipeline.html">Gishiki\Pipeline\Pipeline</a></code> <var>&amp; $pipeline</var></span>, <span>integer <var>$type</var> = <code><a href="class-Gishiki.Pipeline.RuntimeType.html#ASYNCHRONOUS">Gishiki\Pipeline\RuntimeType::<b>ASYNCHRONOUS</b></a></code></span>, <span>integer <var>$priority</var> = <code><a href="class-Gishiki.Pipeline.RuntimePriority.html#LOWEST">Gishiki\Pipeline\RuntimePriority::<b>LOWEST</b></a></code></span>, <span> <var>$data</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Create a new pipeline executor and stop the execution, so that it
@@ -348,10 +264,12 @@ will be started on request or by the cronjob.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$pipeline</var></dt>
-					<dd>the pipeline to be executed</dd>
+					<dd>the pipeline to be followed during the runtime</dd>
 					<dt><var>$type</var></dt>
-					<dd>$priority the priority assigned to the pipeline executor</dd>
+					<dd>can either be RuntimeType::ASYNCHRONOUS or RuntimeType::SYNCHRONOUS</dd>
 					<dt><var>$priority</var></dt>
+					<dd>the priority assigned to the pipeline executor</dd>
+					<dt><var>$data</var></dt>
 					<dd></dd>
 				</dl></div>
 
@@ -359,6 +277,47 @@ will be started on request or by the cronjob.</p>
 				<h4>Throws</h4>
 				<div class="list">
 					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>the given priority is not valid
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="ChangeType" id="_ChangeType">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_ChangeType">#</a>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#120-136" title="Go to source code">ChangeType</a>( <span>integer <var>$type</var></span> )</code>
+
+		<div class="description short">
+			<p>Change the type of the current pipeline, but doesn't immediatly reflect
+changes to the database.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Change the type of the current pipeline, but doesn't immediatly reflect
+changes to the database.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$type</var></dt>
+					<dd>can either be RuntimeType::ASYNCHRONOUS or RuntimeType::SYNCHRONOUS</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>the given type is not valid
 				</div>
 
 
@@ -378,7 +337,7 @@ will be started on request or by the cronjob.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Restore">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#115-128" title="Go to source code">Restore</a>( <span>string <var>$uniqueID</var></span> )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#138-151" title="Go to source code">Restore</a>( <span>string <var>$uniqueID</var></span> )</code>
 
 		<div class="description short">
 			<p>Forward the request to PipelineSupport.</p>
@@ -422,7 +381,7 @@ will be started on request or by the cronjob.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___invoke">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#130-209" title="Go to source code">__invoke</a>( <span>integer <var>$steps</var> = -<span class="php-num">1</span></span> )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#153-237" title="Go to source code">__invoke</a>( <span>integer <var>$steps</var> = -<span class="php-num">1</span></span> )</code>
 
 		<div class="description short">
 			<p>Execute a finite number of stages and end the execution.
@@ -465,7 +424,7 @@ pipeline is executed.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getAbortMessage">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#211-219" title="Go to source code">getAbortMessage</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#239-247" title="Go to source code">getAbortMessage</a>( )</code>
 
 		<div class="description short">
 			<p>Get the reason of the pipeline processing forced abort.</p>
@@ -499,7 +458,7 @@ pipeline is executed.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getStatus">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#221-229" title="Go to source code">getStatus</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#249-257" title="Go to source code">getStatus</a>( )</code>
 
 		<div class="description short">
 			<p>Get the status of the current pipeline executor.</p>
@@ -533,7 +492,7 @@ pipeline is executed.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getType">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#231-239" title="Go to source code">getType</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#259-267" title="Go to source code">getType</a>( )</code>
 
 		<div class="description short">
 			<p>Get the type of the current pipeline executor.</p>
@@ -567,7 +526,7 @@ pipeline is executed.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPriority">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#241-249" title="Go to source code">getPriority</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#269-277" title="Go to source code">getPriority</a>( )</code>
 
 		<div class="description short">
 			<p>Get the priority of the current pipeline executor.</p>
@@ -601,7 +560,7 @@ pipeline is executed.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCompletedStagesCount">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#251-259" title="Go to source code">getCompletedStagesCount</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#279-287" title="Go to source code">getCompletedStagesCount</a>( )</code>
 
 		<div class="description short">
 			<p>Get the number of pipeline stages completed.</p>
@@ -635,7 +594,7 @@ pipeline is executed.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDataCollection">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#261-269" title="Go to source code">getDataCollection</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#289-297" title="Go to source code">getDataCollection</a>( )</code>
 
 		<div class="description short">
 			<p>Get the data collection that the pipeline can use to work on.</p>
@@ -669,7 +628,7 @@ pipeline is executed.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPipelineName">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#271-279" title="Go to source code">getPipelineName</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#299-307" title="Go to source code">getPipelineName</a>( )</code>
 
 		<div class="description short">
 			<p>Get the name of the pipeline that is executed by this runtime.</p>
@@ -703,7 +662,7 @@ pipeline is executed.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCreationTime">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#281-289" title="Go to source code">getCreationTime</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#309-317" title="Go to source code">getCreationTime</a>( )</code>
 
 		<div class="description short">
 			<p>Get timestamp of the runtime creation moment.</p>
@@ -737,7 +696,7 @@ pipeline is executed.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getUniqueID">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#291-300" title="Go to source code">getUniqueID</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#319-328" title="Go to source code">getUniqueID</a>( )</code>
 
 		<div class="description short">
 			<p>Get the unique ID of the pipeline runtime.
@@ -773,7 +732,7 @@ The given ID can be used to restore the runtime over the time.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getExecutionReport">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#302-328" title="Go to source code">getExecutionReport</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineRuntime.html#330-356" title="Go to source code">getExecutionReport</a>( )</code>
 
 		<div class="description short">
 			<p>Get the report of the pipeline execution.

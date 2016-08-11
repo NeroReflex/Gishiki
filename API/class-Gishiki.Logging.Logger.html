@@ -110,91 +110,7 @@
 						Hashing					</a>
 
 						</li>
-							</ul></li>
-				<li>
-					<a href="namespace-Gishiki.tests.html">
-						tests<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.tests.Algorithms.html">
-						Algorithms<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.tests.Algorithms.Collections.html">
-						Collections					</a>
-
-						</li>
-							</ul></li>
-				<li>
-					<a href="namespace-Gishiki.tests.Application.html">
-						Application					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Core.html">
-						Core					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Database.html">
-						Database					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Http.html">
-						Http<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.tests.Http.Mocks.html">
-						Mocks					</a>
-
-						</li>
-							</ul></li>
-				<li>
-					<a href="namespace-Gishiki.tests.Logging.html">
-						Logging					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Pipeline.html">
-						Pipeline					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Security.html">
-						Security<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.tests.Security.Encryption.html">
-						Encryption<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.tests.Security.Encryption.Asymmetric.html">
-						Asymmetric					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Security.Encryption.Symmetric.html">
-						Symmetric					</a>
-
-						</li>
-							</ul></li>
-				<li>
-					<a href="namespace-Gishiki.tests.Security.Hashing.html">
-						Hashing					</a>
-
-						</li>
-							</ul></li></ul></li></ul></li>
+							</ul></li></ul></li>
 				<li>
 					<a href="namespace-PHP.html">
 						PHP					</a>
@@ -287,7 +203,7 @@ Psr\Log\AbstractLogger
 		<b>Namespace:</b> <a href="namespace-Gishiki.html">Gishiki</a>\<a href="namespace-Gishiki.Logging.html">Logging</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Gishiki.Logging.Logger.html#23-103" title="Go to source code">Gishiki/Logging/Logger.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Logging.Logger.html#23-115" title="Go to source code">Gishiki/Logging/Logger.php</a>
 		<br>
 	</div>
 
@@ -349,7 +265,7 @@ a null logger: a logger that doesn't log!</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_log">#</a>
-		<code><a href="source-class-Gishiki.Logging.Logger.html#76-92" title="Go to source code">log</a>( <span>mixed <var>$level</var></span>, <span>string <var>$message</var></span>, <span>array <var>$context</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Gishiki.Logging.Logger.html#76-104" title="Go to source code">log</a>( <span>mixed <var>$level</var></span>, <span>string <var>$message</var></span>, <span>array <var>$context</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			<p>Logs with an arbitrary level.</p>
@@ -358,8 +274,20 @@ a null logger: a logger that doesn't log!</p>
 		<div class="description detailed hidden">
 			<p>Logs with an arbitrary level.</p>
 
-<pre><span class="php-var">$logger</span> = <span class="php-keyword1">new</span> Logger(<span class="php-quote">&quot;stream://stderr&quot;</span>);
-<span class="php-var">$logger</span>-&gt;<span class="php-keyword2">log</span>();</pre>
+<pre><span class="php-comment">//initialize a new logger</span>
+ <span class="php-var">$logger</span> = <span class="php-keyword1">new</span> Logger(<span class="php-quote">&quot;stream://stdout&quot;</span>);
+
+ <span class="php-keyword1">if</span> (<span class="php-var">$temp</span> &gt; <span class="php-num">60.5</span>) {
+     <span class="php-comment">//the new log entry has alert as severity level</span>
+     <span class="php-var">$logger</span>-&gt;alert(<span class="php-quote">'Room temperature too high!'</span>, [
+         <span class="php-quote">'temperature'</span> =&gt; <span class="php-var">$temp</span>
+     ]);
+ } <span class="php-keyword1">else</span> {
+     <span class="php-comment">//the new log entry has info as severity level</span>
+     <span class="php-var">$logger</span>-&gt;alert(<span class="php-quote">'Room temperature normal.'</span>, [
+         <span class="php-quote">'temperature'</span> =&gt; <span class="php-var">$temp</span>
+     ]);
+ }</pre>
 
 
 				<h4>Parameters</h4>
@@ -391,7 +319,7 @@ a null logger: a logger that doesn't log!</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___toString">#</a>
-		<code><a href="source-class-Gishiki.Logging.Logger.html#94-102" title="Go to source code">__toString</a>( )</code>
+		<code><a href="source-class-Gishiki.Logging.Logger.html#106-114" title="Go to source code">__toString</a>( )</code>
 
 		<div class="description short">
 			<p>Get the connection string passed to the constructor.</p>

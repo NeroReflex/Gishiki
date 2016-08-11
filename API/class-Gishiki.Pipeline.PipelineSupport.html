@@ -110,91 +110,7 @@
 						Hashing					</a>
 
 						</li>
-							</ul></li>
-				<li>
-					<a href="namespace-Gishiki.tests.html">
-						tests<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.tests.Algorithms.html">
-						Algorithms<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.tests.Algorithms.Collections.html">
-						Collections					</a>
-
-						</li>
-							</ul></li>
-				<li>
-					<a href="namespace-Gishiki.tests.Application.html">
-						Application					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Core.html">
-						Core					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Database.html">
-						Database					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Http.html">
-						Http<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.tests.Http.Mocks.html">
-						Mocks					</a>
-
-						</li>
-							</ul></li>
-				<li>
-					<a href="namespace-Gishiki.tests.Logging.html">
-						Logging					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Pipeline.html">
-						Pipeline					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Security.html">
-						Security<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.tests.Security.Encryption.html">
-						Encryption<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.tests.Security.Encryption.Asymmetric.html">
-						Asymmetric					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.tests.Security.Encryption.Symmetric.html">
-						Symmetric					</a>
-
-						</li>
-							</ul></li>
-				<li>
-					<a href="namespace-Gishiki.tests.Security.Hashing.html">
-						Hashing					</a>
-
-						</li>
-							</ul></li></ul></li></ul></li>
+							</ul></li></ul></li>
 				<li>
 					<a href="namespace-PHP.html">
 						PHP					</a>
@@ -285,7 +201,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Pipeline.PipelineSupport.html#23-282" title="Go to source code">Gishiki/Pipeline/PipelineSupport.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Pipeline.PipelineSupport.html#23-303" title="Go to source code">Gishiki/Pipeline/PipelineSupport.php</a>
 		<br>
 	</div>
 
@@ -406,6 +322,41 @@ The currently active PipelineRuntime is marked as not-active-anymore.</p>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="Stop" id="_Stop">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Stop">#</a>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineSupport.html#101-110" title="Go to source code">Stop</a>( <span>mixed <var>$value</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Stop the current pipeline execution to continue the execution later on.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Stop the current pipeline execution to continue the execution later on.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd>the value to be used as function return</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="Abort" id="_Abort">
 
 		<td class="attributes"><code>
@@ -418,7 +369,7 @@ The currently active PipelineRuntime is marked as not-active-anymore.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Abort">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineSupport.html#101-116" title="Go to source code">Abort</a>( <span>string <var>$message</var> = <span class="php-quote">''</span></span> )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineSupport.html#112-127" title="Go to source code">Abort</a>( <span>string <var>$message</var> = <span class="php-quote">''</span></span> )</code>
 
 		<div class="description short">
 			<p>Abort the current pipeline execution saving the reason.</p>
@@ -445,6 +396,47 @@ The currently active PipelineRuntime is marked as not-active-anymore.</p>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="ChangeType" id="_ChangeType">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_ChangeType">#</a>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineSupport.html#129-140" title="Go to source code">ChangeType</a>( <span>integer <var>$type</var></span> )</code>
+
+		<div class="description short">
+			<p>Change the type of the current pipeline, but doesn't immediatly reflect
+changes to the database.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Change the type of the current pipeline, but doesn't immediatly reflect
+changes to the database.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$type</var></dt>
+					<dd>can either be RuntimeType::ASYNCHRONOUS or RuntimeType::SYNCHRONOUS</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>the given type is not valid
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="saveCurrentPupeline" id="_saveCurrentPupeline">
 
 		<td class="attributes"><code>
@@ -457,7 +449,7 @@ The currently active PipelineRuntime is marked as not-active-anymore.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_saveCurrentPupeline">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineSupport.html#118-158" title="Go to source code">saveCurrentPupeline</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineSupport.html#142-179" title="Go to source code">saveCurrentPupeline</a>( )</code>
 
 		<div class="description short">
 			<p>Save the currently active PipelineRuntime.</p>
@@ -491,7 +483,7 @@ The currently active PipelineRuntime is marked as not-active-anymore.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getNextAsyncByPriority">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineSupport.html#160-200" title="Go to source code">getNextAsyncByPriority</a>( )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineSupport.html#181-221" title="Go to source code">getNextAsyncByPriority</a>( )</code>
 
 		<div class="description short">
 			<p>Get the next runtime to be executed giving priority and selecting
@@ -527,7 +519,7 @@ asychronous only runtimes.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Restore">#</a>
-		<code><a href="source-class-Gishiki.Pipeline.PipelineSupport.html#202-235" title="Go to source code">Restore</a>( <span>string <var>$uniqueID</var></span> )</code>
+		<code><a href="source-class-Gishiki.Pipeline.PipelineSupport.html#223-256" title="Go to source code">Restore</a>( <span>string <var>$uniqueID</var></span> )</code>
 
 		<div class="description short">
 			<p>Forward the request to PipelineSupport.</p>

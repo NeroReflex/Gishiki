@@ -99,11 +99,12 @@ interface DatabaseInterface
      * 
      * @param string            $collection the name of the collection that will be searched
      * @param SelectionCriteria $where      the criteria used to select documents/records to fetch
+     * @param integer           $limit      the maximum number of documents/records to fetch
      * @throw \InvalidArgumentException the given collection name is not a valid collection name
      *
      * @throws DatabaseException the error occurred while fetching data from the database
      *
      * @return GenericCollection the search result expressed as a collection of \Gishiki\Database\Record
      */
-    public function Fetch($collection, SelectionCriteria $where);
+    public function Fetch($collection, SelectionCriteria $where, $limit = -1);
 }

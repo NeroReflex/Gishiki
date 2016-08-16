@@ -74,6 +74,7 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
     {
         $connection = self::GetConnection();
         $objectID = $connection->Insert('testing.'.__FUNCTION__, ['n' => 'non e una prova....']);
+        $numberOfAffected = $connection->Update('testing.'.__FUNCTION__, ['u' => 2, 'n' => 'scherzavo.. e una prova'], \Gishiki\Database\SelectionCriteria::Select(['_id' => $objectID]));
         $this->assertEquals(1, $numberOfAffected);
     }
 
@@ -83,6 +84,7 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
 
         $connection = self::GetConnection();
         $objectID = $connection->Insert('testing.'.__FUNCTION__, ['n' => $badStr]);
+        $numberOfAffected = $connection->Update('testing.'.__FUNCTION__, ['u' => 2, 'n' => 'scherzavo.. e una prova'], \Gishiki\Database\SelectionCriteria::Select(['_id' => $objectID, 'n' => $badStr]));
         $this->assertEquals(1, $numberOfAffected);
     }
 
@@ -93,7 +95,7 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
         $connection->Insert('testing.'.__FUNCTION__, ['k' => 2, 'mail' => 'benato.denis96@gmail.com']);
         $connection->Insert('testing.'.__FUNCTION__, ['k' => 11, 'mail' => 'fake@mail.kk']);
 
-        $result = $connection->Fetch('testing.'.__FUNCTION__, (new \Gishiki\Database\SelectionCriteria())->LessThan('k', 10));
+        $result = $connection->Fetch('testing.'.__FUNCTION__, \Gishiki\Database\SelectionCriteria::Select([])->LessThan('k', 10));
         $this->assertEquals(2, $result->count());
 
         foreach ($result as $record) {
@@ -103,5 +105,36 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
 
         $numberOfRemoved = $connection->Delete('testing.'.__FUNCTION__, new \Gishiki\Database\SelectionCriteria());
         $this->assertEquals(3, $numberOfRemoved);
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testFetchInvalidTable()
+    {
+        //connect and setup the test
+        $connection = self::GetConnection();
+        $connection->Fetch(5, \Gishiki\Database\SelectionCriteria::Select([]));
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testFetchInvalidLimit()
+    {
+        //connect and setup the test
+        $connection = self::GetConnection();
+        $connection->Fetch('testing.'.__FUNCTION__, \Gishiki\Database\SelectionCriteria::Select([]), 'lol');
+    }
+    
+    public function testLimitedRead()
+    {
+        $connection = self::GetConnection();
+        $connection->Insert('testing.'.__FUNCTION__, ['k' => 7, 'name' => 'Denis']);
+        $connection->Insert('testing.'.__FUNCTION__, ['k' => 2, 'mail' => 'benato.denis96@gmail.com']);
+        $connection->Insert('testing.'.__FUNCTION__, ['k' => 11, 'mail' => 'fake@mail.kk']);
+
+        $result = $connection->Fetch('testing.'.__FUNCTION__, (new \Gishiki\Database\SelectionCriteria())->LessThan('k', 10), 1);
+        $this->assertEquals(1, $result->count());
     }
 }

@@ -141,6 +141,21 @@ abstract class PipelineSupport
     }
 
     /**
+     * Get the unique ID of the runtime currently executed.
+     * 
+     * @return string the unique ID of the loaded pipeline
+     * @throws PipelineException no loaded runtimes
+     */
+    public static function GetUniqueID() {
+        if (is_null(self::$activeRuntime)) {
+            throw new PipelineException("The unique ID of an unloaded runtime cannot be retrieved", 8);
+        }
+        
+        //return the unique ID
+        return self::$activeRuntime->getUniqueID();
+    }
+    
+    /**
      * Save the currently active PipelineRuntime.
      * 
      * @throws PipelineException no pipeline is going to be saved

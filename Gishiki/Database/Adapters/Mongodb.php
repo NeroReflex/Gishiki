@@ -179,13 +179,30 @@ final class Mongodb implements DatabaseInterface
         return $result->getDeletedCount();
     }
 
-    public function Fetch($collection, SelectionCriteria $where)
+    public function Fetch($collection, SelectionCriteria $where, $limit = -1)
     {
+        //check for wrong data types
+        if (!is_integer($limit)) {
+            throw new \InvalidArgumentException('The maximum number of elements to be fetched must be given as an integer');
+        }
+        if (!is_string($collection)) {
+            throw new \InvalidArgumentException('The name of the collection must be given as a string');
+        }
+        
+        //create options in a native format for the mongo driver
+        $options = [];
+        if ($limit > 0) {
+            $options = array_merge($options, [
+                //'sort' => [ 'name' => 1 ]
+                'limit' => $limit
+            ]);
+        }
+        
         //build the search query
-        $query = new \MongoDB\Driver\Query(self::resolveSelectionCriteria($where));
+        $query = new \MongoDB\Driver\Query(self::resolveSelectionCriteria($where), $options);
 
         //execute the search query
-        $results = $this->connection['db_manager']->executeQuery($collection, $query); // $mongo contains the connection object to MongoDB
+        $results = $this->connection['db_manager']->executeQuery($collection, $query);
 
         //convert the driver-related result
         $resultSet = array();

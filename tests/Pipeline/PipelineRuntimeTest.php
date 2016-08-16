@@ -348,4 +348,28 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(0xFF, $runtime->getDataCollection()->get('result'));
     }
+    
+    /**
+     * @expectedException \Gishiki\Pipeline\PipelineException
+     */
+    public function testRandomGetUniqueIDCall()
+    {
+        \Gishiki\Pipeline\PipelineSupport::GetUniqueID();
+    }
+    
+    public function testGetUniqueID()
+    {
+        self::GetConnection();
+        \Gishiki\Pipeline\PipelineSupport::Initialize('pipeline_testing_db', 'testing.pipeline');
+
+        $pipeline = new Pipeline(__FUNCTION__);
+        $pipeline->bindStage('stageTest', function (SerializableCollection &$collection) {
+            $collection->set('id', \Gishiki\Pipeline\PipelineSupport::GetUniqueID());
+        });
+
+        $runtime = new PipelineRuntime($pipeline);
+        $runtime();
+
+        $this->assertEquals($runtime->getUniqueID(), $runtime->getDataCollection()->get('id'));
+    }
 }

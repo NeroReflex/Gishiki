@@ -4,7 +4,7 @@
     
     <url>
      <loc>None/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -13,55 +13,55 @@
         
     <url>
      <loc>None/installation/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/installation/basic_php/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/installation/php_7_nginx/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/installation/basic_nginx/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/installation/basic_apache/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/installation/basic_lighttpd/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/installation/basic_iis/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/installation/composer/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/installation/paas/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -70,7 +70,7 @@
     
     <url>
      <loc>None/apidoc/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -79,49 +79,49 @@
         
     <url>
      <loc>None/usage/configuration/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/usage/routing/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/usage/request/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/usage/response/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/usage/logging/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/usage/pipeline/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/usage/database/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/usage/CRUD/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -131,7 +131,7 @@
         
     <url>
      <loc>None/license/</loc>
-     <lastmod>2016-08-11</lastmod>
+     <lastmod>2016-08-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         

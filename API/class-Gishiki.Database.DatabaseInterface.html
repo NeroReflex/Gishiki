@@ -205,7 +205,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.DatabaseInterface.html#22-109" title="Go to source code">Gishiki/Database/DatabaseInterface.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.DatabaseInterface.html#22-110" title="Go to source code">Gishiki/Database/DatabaseInterface.php</a>
 		<br>
 	</div>
 
@@ -490,7 +490,7 @@ The name of the collection must be given witht the database.collection syntax.</
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Fetch">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#97-108" title="Go to source code">Fetch</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#97-109" title="Go to source code">Fetch</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span>, <span>integer <var>$limit</var> = -<span class="php-num">1</span></span> )</code>
 
 		<div class="description short">
 			<p>Fetch documents/records matching the given criteria.</p>
@@ -506,6 +506,8 @@ The name of the collection must be given witht the database.collection syntax.</
 					<dd>the name of the collection that will be searched</dd>
 					<dt><var>$where</var></dt>
 					<dd>the criteria used to select documents/records to fetch</dd>
+					<dt><var>$limit</var></dt>
+					<dd>the maximum number of documents/records to fetch</dd>
 				</dl></div>
 
 				<h4>Returns</h4>

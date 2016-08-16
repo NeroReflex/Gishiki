@@ -411,12 +411,12 @@
 </span><span id="162" class="l"><a href="#162">162: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> FulfillRequest()
 </span><span id="163" class="l"><a href="#163">163: </a>        {
 </span><span id="164" class="l"><a href="#164">164: </a>            <span class="php-comment">//include pipelines</span>
-</span><span id="165" class="l"><a href="#165">165: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">file_exists</span>(APPLICATION_DIR.<span class="php-quote">&quot;/pipelines&quot;</span>)) {
-</span><span id="166" class="l"><a href="#166">166: </a>                <span class="php-keyword1">foreach</span> (<span class="php-keyword2">glob</span>(APPLICATION_DIR.<span class="php-quote">&quot;/pipelines/*.php&quot;</span>) <span class="php-keyword1">as</span> <span class="php-var">$filename</span>) {
+</span><span id="165" class="l"><a href="#165">165: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">file_exists</span>(APPLICATION_DIR.<span class="php-quote">'/pipelines'</span>)) {
+</span><span id="166" class="l"><a href="#166">166: </a>                <span class="php-keyword1">foreach</span> (<span class="php-keyword2">glob</span>(APPLICATION_DIR.<span class="php-quote">'/pipelines/*.php'</span>) <span class="php-keyword1">as</span> <span class="php-var">$filename</span>) {
 </span><span id="167" class="l"><a href="#167">167: </a>                    <span class="php-keyword1">include</span> <span class="php-var">$filename</span>;
 </span><span id="168" class="l"><a href="#168">168: </a>                }
 </span><span id="169" class="l"><a href="#169">169: </a>            }
-</span><span id="170" class="l"><a href="#170">170: </a>            
+</span><span id="170" class="l"><a href="#170">170: </a>
 </span><span id="171" class="l"><a href="#171">171: </a>            <span class="php-comment">//get current request...</span>
 </span><span id="172" class="l"><a href="#172">172: </a>            <span class="php-var">$currentRequest</span> = Request::createFromEnvironment(self::<span class="php-var">$currentEnvironment</span>);
 </span><span id="173" class="l"><a href="#173">173: </a>

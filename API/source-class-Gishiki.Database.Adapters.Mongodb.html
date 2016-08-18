@@ -325,7 +325,7 @@
 </span><span id="76" class="l"><a href="#76"> 76: </a>        <span class="php-keyword1">if</span> ((!<span class="php-keyword2">is_array</span>(<span class="php-var">$data</span>)) &amp;&amp; (!(<span class="php-var">$data</span> <span class="php-keyword1">instanceof</span> CollectionInterface))) {
 </span><span id="77" class="l"><a href="#77"> 77: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \InvalidArgumentException(<span class="php-quote">'The data to be written on the database must be given as a collection'</span>);
 </span><span id="78" class="l"><a href="#78"> 78: </a>        }
-</span><span id="79" class="l"><a href="#79"> 79: </a>        <span class="php-var">$adaptedData</span> = (<span class="php-var">$data</span> <span class="php-keyword1">instanceof</span> GenericCollection) ? <span class="php-var">$data</span>-&gt;all() : <span class="php-var">$data</span>;
+</span><span id="79" class="l"><a href="#79"> 79: </a>        <span class="php-var">$adaptedData</span> = (<span class="php-keyword2">is_array</span>(<span class="php-var">$data</span>)) ? <span class="php-var">$data</span> : <span class="php-var">$data</span>-&gt;all();
 </span><span id="80" class="l"><a href="#80"> 80: </a>
 </span><span id="81" class="l"><a href="#81"> 81: </a>        <span class="php-comment">//create a bulkwriter and fill it</span>
 </span><span id="82" class="l"><a href="#82"> 82: </a>        <span class="php-var">$bulk</span> = <span class="php-keyword1">new</span> \MongoDB\Driver\BulkWrite();

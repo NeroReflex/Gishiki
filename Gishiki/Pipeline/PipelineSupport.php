@@ -160,14 +160,14 @@ abstract class PipelineSupport
      * 
      * @throws PipelineException no pipeline is going to be saved
      */
-    public static function saveCurrentPupeline()
+    public static function saveCurrentPipeline()
     {
         if (is_null(self::$activeRuntime)) {
             throw new PipelineException('No pipeline currently flagged as active', 1);
         }
 
         //generate the data to be saved
-        $data = [
+        $data = new \Gishiki\Algorithms\Collections\GenericCollection([
             'uniqID' => self::$activeRuntime->getUniqueID(),
             'status' => self::$activeRuntime->getStatus(),
             'type' => self::$activeRuntime->getType(),
@@ -177,7 +177,7 @@ abstract class PipelineSupport
             'pipeline' => self::$activeRuntime->getPipelineName(),
             'abortMessage' => self::$activeRuntime->getAbortMessage(),
             'serializableCollection' => self::$activeRuntime->getDataCollection()->all(),
-        ];
+        ]);
 
         //identify the pipeline if already saved
         $selector = new \Gishiki\Database\SelectionCriteria();

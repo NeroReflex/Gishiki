@@ -221,7 +221,7 @@ final class PipelineRuntime
             }
 
             //register the currently active runtime
-            PipelineSupport::saveCurrentPupeline();
+            PipelineSupport::saveCurrentPipeline();
 
             --$stepsNumber;
         }
@@ -231,7 +231,7 @@ final class PipelineRuntime
         }
 
         //register the currently active runtime
-        PipelineSupport::saveCurrentPupeline();
+        PipelineSupport::saveCurrentPipeline();
 
         //runtime ended
         PipelineSupport::UnregisterRuntime();

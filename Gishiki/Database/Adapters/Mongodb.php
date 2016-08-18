@@ -116,7 +116,7 @@ final class Mongodb implements DatabaseInterface
         if ((!is_array($data)) && (!($data instanceof CollectionInterface))) {
             throw new \InvalidArgumentException('The data to be written on the database must be given as a collection');
         }
-        $adaptedData = ($data instanceof GenericCollection) ? $data->all() : $data;
+        $adaptedData = (is_array($data)) ? $data : $data->all();
 
         //create a bulkwriter and fill it
         $bulk = new \MongoDB\Driver\BulkWrite(['ordered' => true]);

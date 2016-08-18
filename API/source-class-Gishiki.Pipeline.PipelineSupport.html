@@ -409,14 +409,14 @@
 </span></span><span id="160" class="l"><a href="#160">160: </a><span class="php-comment">     * 
 </span></span><span id="161" class="l"><a href="#161">161: </a><span class="php-comment">     * @throws PipelineException no pipeline is going to be saved
 </span></span><span id="162" class="l"><a href="#162">162: </a><span class="php-comment">     */</span>
-</span><span id="163" class="l"><a href="#163">163: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> saveCurrentPupeline()
+</span><span id="163" class="l"><a href="#163">163: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> saveCurrentPipeline()
 </span><span id="164" class="l"><a href="#164">164: </a>    {
 </span><span id="165" class="l"><a href="#165">165: </a>        <span class="php-keyword1">if</span> (<span class="php-keyword2">is_null</span>(self::<span class="php-var">$activeRuntime</span>)) {
 </span><span id="166" class="l"><a href="#166">166: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> PipelineException(<span class="php-quote">'No pipeline currently flagged as active'</span>, <span class="php-num">1</span>);
 </span><span id="167" class="l"><a href="#167">167: </a>        }
 </span><span id="168" class="l"><a href="#168">168: </a>
 </span><span id="169" class="l"><a href="#169">169: </a>        <span class="php-comment">//generate the data to be saved</span>
-</span><span id="170" class="l"><a href="#170">170: </a>        <span class="php-var">$data</span> = [
+</span><span id="170" class="l"><a href="#170">170: </a>        <span class="php-var">$data</span> = <span class="php-keyword1">new</span> \Gishiki\Algorithms\Collections\GenericCollection([
 </span><span id="171" class="l"><a href="#171">171: </a>            <span class="php-quote">'uniqID'</span> =&gt; self::<span class="php-var">$activeRuntime</span>-&gt;getUniqueID(),
 </span><span id="172" class="l"><a href="#172">172: </a>            <span class="php-quote">'status'</span> =&gt; self::<span class="php-var">$activeRuntime</span>-&gt;getStatus(),
 </span><span id="173" class="l"><a href="#173">173: </a>            <span class="php-quote">'type'</span> =&gt; self::<span class="php-var">$activeRuntime</span>-&gt;<span class="php-keyword2">getType</span>(),
@@ -426,7 +426,7 @@
 </span><span id="177" class="l"><a href="#177">177: </a>            <span class="php-quote">'pipeline'</span> =&gt; self::<span class="php-var">$activeRuntime</span>-&gt;getPipelineName(),
 </span><span id="178" class="l"><a href="#178">178: </a>            <span class="php-quote">'abortMessage'</span> =&gt; self::<span class="php-var">$activeRuntime</span>-&gt;getAbortMessage(),
 </span><span id="179" class="l"><a href="#179">179: </a>            <span class="php-quote">'serializableCollection'</span> =&gt; self::<span class="php-var">$activeRuntime</span>-&gt;getDataCollection()-&gt;all(),
-</span><span id="180" class="l"><a href="#180">180: </a>        ];
+</span><span id="180" class="l"><a href="#180">180: </a>        ]);
 </span><span id="181" class="l"><a href="#181">181: </a>
 </span><span id="182" class="l"><a href="#182">182: </a>        <span class="php-comment">//identify the pipeline if already saved</span>
 </span><span id="183" class="l"><a href="#183">183: </a>        <span class="php-var">$selector</span> = <span class="php-keyword1">new</span> \Gishiki\Database\SelectionCriteria();

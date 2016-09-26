@@ -99,17 +99,6 @@ abstract class PipelineSupport
     }
 
     /**
-     * Stop the current pipeline execution to continue the execution later on.
-     * 
-     * @param mixed $value the value to be used as function return
-     */
-    public static function Stop($value = null)
-    {
-        //throw the stop signal
-        throw new PipelineStopSignal(serialize($value));
-    }
-
-    /**
      * Abort the current pipeline execution saving the reason.
      * 
      * @param string $message the message to be saved as the reason of the abort

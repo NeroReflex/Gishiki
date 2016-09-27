@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Gishiki\Database\SelectionCriteria | Gishiki</title>
+	<title>Class Gishiki\Database\ResultModifier | Gishiki</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -128,8 +128,8 @@
 				<li><a href="class-Gishiki.Database.DatabaseManager.html">DatabaseManager</a></li>
 				<li><a href="class-Gishiki.Database.FieldOrdering.html">FieldOrdering</a></li>
 				<li><a href="class-Gishiki.Database.Record.html">Record</a></li>
-				<li><a href="class-Gishiki.Database.ResultModifier.html">ResultModifier</a></li>
-				<li class="active"><a href="class-Gishiki.Database.SelectionCriteria.html">SelectionCriteria</a></li>
+				<li class="active"><a href="class-Gishiki.Database.ResultModifier.html">ResultModifier</a></li>
+				<li><a href="class-Gishiki.Database.SelectionCriteria.html">SelectionCriteria</a></li>
 			</ul>
 
 			<h3>Interfaces</h3>
@@ -180,12 +180,11 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class SelectionCriteria</h1>
+	<h1>Class ResultModifier</h1>
 
 
 	<div class="description">
-	<p>An helper class used to abstract how records/documents are selected from the
-database table/collection.</p>
+	<p>An helper class used to modify the result set of a database operation.</p>
 	</div>
 
 
@@ -204,7 +203,7 @@ database table/collection.</p>
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.SelectionCriteria.html#20-156" title="Go to source code">Gishiki/Database/SelectionCriteria.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.ResultModifier.html#20-143" title="Go to source code">Gishiki/Database/ResultModifier.php</a>
 		<br>
 	</div>
 
@@ -212,29 +211,33 @@ database table/collection.</p>
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="Select" id="_Select">
+	<tr data-order="Invariant" id="_Invariant">
 
 		<td class="attributes"><code>
 			 public static
 
-			
+			self
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_Select">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#31-52" title="Go to source code">Select</a>( <span>array <var>$ct</var></span> )</code>
+		<a class="anchor" href="#_Invariant">#</a>
+		<code><a href="source-class-Gishiki.Database.ResultModifier.html#32-39" title="Go to source code">Invariant</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Initialize a result modifier that doesn't apply any filter.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Initialize a result modifier that doesn't apply any filter.</p>
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					self<br>a result modifier that acts as a no-op
+				</div>
 
 
 
@@ -242,7 +245,7 @@ database table/collection.</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="WhereID" id="_WhereID">
+	<tr data-order="__construct" id="___construct">
 
 		<td class="attributes"><code>
 			 public 
@@ -253,15 +256,15 @@ database table/collection.</p>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_WhereID">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#54-59" title="Go to source code">WhereID</a>( <span><code><a href="class-Gishiki.Database.ObjectIDInterface.html">Gishiki\Database\ObjectIDInterface</a></code> <var>$objectID</var></span> )</code>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Gishiki.Database.ResultModifier.html#41-55" title="Go to source code">__construct</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Create a new result modifier that acts as "no filters".</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Create a new result modifier that acts as "no filters".</p>
 
 
 
@@ -272,100 +275,141 @@ database table/collection.</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="InRange" id="_InRange">
+	<tr data-order="order" id="_order">
 
 		<td class="attributes"><code>
 			 public 
 
-			
+			<code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_InRange">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#61-71" title="Go to source code">InRange</a>( <span> <var>$field</var></span>, <span>array <var>$values</var></span> )</code>
+		<a class="anchor" href="#_order">#</a>
+		<code><a href="source-class-Gishiki.Database.ResultModifier.html#57-82" title="Go to source code">order</a>( <span>string <var>$field</var></span>, <span>integer <var>$order</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Change the order of elements in the result set.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Change the order of elements in the result set.</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$field</var></dt>
+					<dd>the name of the field to be used for ordering</dd>
+					<dt><var>$order</var></dt>
+					<dd>the order to be applied (one of FieldOrdering consts)</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code><br>the modified filter
+				</div>
 
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>passed input is not valid or incompatible type
+				</div>
 
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="NotInRange" id="_NotInRange">
+	<tr data-order="limit" id="_limit">
 
 		<td class="attributes"><code>
 			 public 
 
-			
+			<code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_NotInRange">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#73-83" title="Go to source code">NotInRange</a>( <span> <var>$field</var></span>, <span>array <var>$values</var></span> )</code>
+		<a class="anchor" href="#_limit">#</a>
+		<code><a href="source-class-Gishiki.Database.ResultModifier.html#84-105" title="Go to source code">limit</a>( <span>integer <var>$limit</var> = -<span class="php-num">1</span></span> )</code>
 
 		<div class="description short">
-			
+			<p>Change the limit of the elements in the result set.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Change the limit of the elements in the result set.</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$limit</var></dt>
+					<dd>the maximum number of results that can be fetched from the database</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code><br>the modified filter
+				</div>
 
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>passed input is not valid or incompatible type
+				</div>
 
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="EqualThan" id="_EqualThan">
+	<tr data-order="skip" id="_skip">
 
 		<td class="attributes"><code>
 			 public 
 
-			
+			<code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_EqualThan">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#85-95" title="Go to source code">EqualThan</a>( <span> <var>$field</var></span>, <span> <var>$value</var></span> )</code>
+		<a class="anchor" href="#_skip">#</a>
+		<code><a href="source-class-Gishiki.Database.ResultModifier.html#107-128" title="Go to source code">skip</a>( <span>integer <var>$offset</var> = -<span class="php-num">1</span></span> )</code>
 
 		<div class="description short">
-			
+			<p>Change the offset of elements in the result set.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Change the offset of elements in the result set.</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$offset</var></dt>
+					<dd>the offset to be applied</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code><br>the modified filter
+				</div>
 
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>passed input is not valid or incompatible type
+				</div>
 
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="NotEqualThan" id="_NotEqualThan">
+	<tr data-order="export" id="_export">
 
 		<td class="attributes"><code>
-			 public 
+			 protected 
 
 			
 			
@@ -373,128 +417,8 @@ database table/collection.</p>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_NotEqualThan">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#97-107" title="Go to source code">NotEqualThan</a>( <span> <var>$field</var></span>, <span> <var>$value</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="GreaterThan" id="_GreaterThan">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_GreaterThan">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#109-119" title="Go to source code">GreaterThan</a>( <span> <var>$field</var></span>, <span> <var>$value</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="GreaterOrEqualThan" id="_GreaterOrEqualThan">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_GreaterOrEqualThan">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#121-131" title="Go to source code">GreaterOrEqualThan</a>( <span> <var>$field</var></span>, <span> <var>$value</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="LessThan" id="_LessThan">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_LessThan">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#133-143" title="Go to source code">LessThan</a>( <span> <var>$field</var></span>, <span> <var>$value</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="LessOrEqualThan" id="_LessOrEqualThan">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_LessOrEqualThan">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#145-155" title="Go to source code">LessOrEqualThan</a>( <span> <var>$field</var></span>, <span> <var>$value</var></span> )</code>
+		<a class="anchor" href="#_export">#</a>
+		<code><a href="source-class-Gishiki.Database.ResultModifier.html#130-141" title="Go to source code">export</a>( )</code>
 
 		<div class="description short">
 			
@@ -525,6 +449,34 @@ database table/collection.</p>
 
 
 
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="resultChanger" id="$resultChanger">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.Database.ResultModifier.html#27-30" title="Go to source code"><var>$resultChanger</var></a>
+
+			<div class="description short">
+				<p>filters to be applied to the result set</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>filters to be applied to the result set</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$resultChanger" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 
 

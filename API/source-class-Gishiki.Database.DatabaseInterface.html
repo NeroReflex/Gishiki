@@ -142,7 +142,9 @@
 				<li><a href="class-Gishiki.Database.Adapters.Mongodb.html">Gishiki\Database\Adapters\Mongodb</a></li>
 				<li><a href="class-Gishiki.Database.Adapters.MongodbObjectID.html">Gishiki\Database\Adapters\MongodbObjectID</a></li>
 				<li><a href="class-Gishiki.Database.DatabaseManager.html">Gishiki\Database\DatabaseManager</a></li>
+				<li><a href="class-Gishiki.Database.FieldOrdering.html">Gishiki\Database\FieldOrdering</a></li>
 				<li><a href="class-Gishiki.Database.Record.html">Gishiki\Database\Record</a></li>
+				<li><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></li>
 				<li><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></li>
 				<li><a href="class-Gishiki.Gishiki.html">Gishiki\Gishiki</a></li>
 				<li><a href="class-Gishiki.HttpKernel.Body.html">Gishiki\HttpKernel\Body</a></li>
@@ -348,14 +350,14 @@
 </span></span><span id="99" class="l"><a href="#99"> 99: </a><span class="php-comment">     * 
 </span></span><span id="100" class="l"><a href="#100">100: </a><span class="php-comment">     * @param string            $collection the name of the collection that will be searched
 </span></span><span id="101" class="l"><a href="#101">101: </a><span class="php-comment">     * @param SelectionCriteria $where      the criteria used to select documents/records to fetch
-</span></span><span id="102" class="l"><a href="#102">102: </a><span class="php-comment">     * @param integer           $limit      the maximum number of documents/records to fetch
+</span></span><span id="102" class="l"><a href="#102">102: </a><span class="php-comment">     * @param integer           $mod        the modifier to be applied to the result set
 </span></span><span id="103" class="l"><a href="#103">103: </a><span class="php-comment">     * @throw \InvalidArgumentException the given collection name is not a valid collection name
 </span></span><span id="104" class="l"><a href="#104">104: </a><span class="php-comment">     *
 </span></span><span id="105" class="l"><a href="#105">105: </a><span class="php-comment">     * @throws DatabaseException the error occurred while fetching data from the database
 </span></span><span id="106" class="l"><a href="#106">106: </a><span class="php-comment">     *
 </span></span><span id="107" class="l"><a href="#107">107: </a><span class="php-comment">     * @return GenericCollection the search result expressed as a collection of \Gishiki\Database\Record
 </span></span><span id="108" class="l"><a href="#108">108: </a><span class="php-comment">     */</span>
-</span><span id="109" class="l"><a href="#109">109: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> Fetch(<span class="php-var">$collection</span>, SelectionCriteria <span class="php-var">$where</span>, <span class="php-var">$limit</span> = -<span class="php-num">1</span>);
+</span><span id="109" class="l"><a href="#109">109: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> Fetch(<span class="php-var">$collection</span>, SelectionCriteria <span class="php-var">$where</span>, ResultModifier <span class="php-var">$mod</span>);
 </span><span id="110" class="l"><a href="#110">110: </a>}
 </span><span id="111" class="l"><a href="#111">111: </a></span></code></pre>
 
@@ -365,6 +367,6 @@
 </div>
 </div>
 <script src="resources/combined.js?7ca707fdd2ed5111b54fe4aee4733c14edebe431"></script>
-<script src="elementlist.js?813e9269481f52673bd9d27a80ec69ab1bd456b3"></script>
+<script src="elementlist.js?61923db80402a858d96937497884e7fed065bb96"></script>
 </body>
 </html>

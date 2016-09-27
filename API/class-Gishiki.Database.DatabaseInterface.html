@@ -126,7 +126,9 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-Gishiki.Database.DatabaseManager.html">DatabaseManager</a></li>
+				<li><a href="class-Gishiki.Database.FieldOrdering.html">FieldOrdering</a></li>
 				<li><a href="class-Gishiki.Database.Record.html">Record</a></li>
+				<li><a href="class-Gishiki.Database.ResultModifier.html">ResultModifier</a></li>
 				<li><a href="class-Gishiki.Database.SelectionCriteria.html">SelectionCriteria</a></li>
 			</ul>
 
@@ -490,7 +492,7 @@ The name of the collection must be given witht the database.collection syntax.</
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Fetch">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#97-109" title="Go to source code">Fetch</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span>, <span>integer <var>$limit</var> = -<span class="php-num">1</span></span> )</code>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#97-109" title="Go to source code">Fetch</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
 
 		<div class="description short">
 			<p>Fetch documents/records matching the given criteria.</p>
@@ -506,8 +508,8 @@ The name of the collection must be given witht the database.collection syntax.</
 					<dd>the name of the collection that will be searched</dd>
 					<dt><var>$where</var></dt>
 					<dd>the criteria used to select documents/records to fetch</dd>
-					<dt><var>$limit</var></dt>
-					<dd>the maximum number of documents/records to fetch</dd>
+					<dt><var>$mod</var></dt>
+					<dd>the modifier to be applied to the result set</dd>
 				</dl></div>
 
 				<h4>Returns</h4>

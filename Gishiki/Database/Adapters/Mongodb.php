@@ -20,6 +20,7 @@ namespace Gishiki\Database\Adapters;
 use Gishiki\Database\DatabaseInterface;
 use Gishiki\Database\DatabaseException;
 use Gishiki\Database\SelectionCriteria;
+use Gishiki\Database\ResultModifier;
 use Gishiki\Algorithms\Collections\CollectionInterface;
 
 /**
@@ -179,27 +180,20 @@ final class Mongodb implements DatabaseInterface
         return $result->getDeletedCount();
     }
 
-    public function Fetch($collection, SelectionCriteria $where, $limit = -1)
+    public function Fetch($collection, SelectionCriteria $where, ResultModifier $mod = null)
     {
-        //check for wrong data types
-        if (!is_integer($limit)) {
-            throw new \InvalidArgumentException('The maximum number of elements to be fetched must be given as an integer');
-        }
+        //check for wrong data type
         if (!is_string($collection)) {
             throw new \InvalidArgumentException('The name of the collection must be given as a string');
         }
         
-        //create options in a native format for the mongo driver
-        $options = [];
-        if ($limit > 0) {
-            $options = array_merge($options, [
-                //'sort' => [ 'name' => 1 ]
-                'limit' => $limit
-            ]);
-        }
+        //ensure the modifier is not null and reflect the export function
+        $mod = (is_null($mod)) ? ResultModifier::Invariant() : $mod;
+        $exportMethod = new \ReflectionMethod($mod, 'export');
+        $exportMethod->setAccessible(true);
         
-        //build the search query
-        $query = new \MongoDB\Driver\Query(self::resolveSelectionCriteria($where), $options);
+        //build the search query (the result of the export function is in a native format for the mongo driver)
+        $query = new \MongoDB\Driver\Query(self::resolveSelectionCriteria($where), $exportMethod->invoke($mod));
 
         //execute the search query
         $results = $this->connection['db_manager']->executeQuery($collection, $query);

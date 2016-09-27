@@ -122,5 +122,5 @@ deploy :
           rsync -avh --progress /pipeline/source/Documentation/site/ ./Gishiki
           cd Gishiki
           git add .
-          git commit -m "deploy commit from $WERCKER_STARTED_BY" --quiet &> /dev/null
+          git commit -m "[ci skip] deploy commit from $WERCKER_STARTED_BY" --quiet &> /dev/null
           git push --quiet &> /dev/null

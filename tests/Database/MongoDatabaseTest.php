@@ -124,7 +124,7 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
     {
         //connect and setup the test
         $connection = self::GetConnection();
-        $connection->Fetch('testing.'.__FUNCTION__, \Gishiki\Database\SelectionCriteria::Select([]), 'lol');
+        $connection->Fetch('testing.'.__FUNCTION__, \Gishiki\Database\SelectionCriteria::Select([]), \Gishiki\Database\ResultModifier::Invariant()->limit('lol'));
     }
     
     public function testLimitedRead()
@@ -134,7 +134,7 @@ class MongoDatabaseTest extends \PHPUnit_Framework_TestCase
         $connection->Insert('testing.'.__FUNCTION__, ['k' => 2, 'mail' => 'benato.denis96@gmail.com']);
         $connection->Insert('testing.'.__FUNCTION__, ['k' => 11, 'mail' => 'fake@mail.kk']);
 
-        $result = $connection->Fetch('testing.'.__FUNCTION__, (new \Gishiki\Database\SelectionCriteria())->LessThan('k', 10), 1);
+        $result = $connection->Fetch('testing.'.__FUNCTION__, (new \Gishiki\Database\SelectionCriteria())->LessThan('k', 10), \Gishiki\Database\ResultModifier::Invariant()->limit(1)->order('mail', \Gishiki\Database\FieldOrdering::DESC));
         $this->assertEquals(1, $result->count());
     }
 }

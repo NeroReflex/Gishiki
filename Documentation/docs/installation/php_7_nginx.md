@@ -5,13 +5,9 @@ PHP v7 is the PHP version I am using while developing Gishiki.
 
 Installation depends on your system, so read the PHP manual (or google for instructions....).
 
-You will be provided with ubuntu instructions:
+You will be provided with Ubuntu 16.04 instructions:
 
 ```shell
-sudo add-apt-repository ppa:ondrej/php
-sudo apt-get update
-sudo apt-get install -y language-pack-en-base
-sudo LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
 sudo apt-get install nginx php7.0 php7.0-dev php7.0-xml php7.0-fpm php7.0-mysql php7.0-sqlite php7.0-pgsql php7.0-curl
 ```
 

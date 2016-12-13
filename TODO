@@ -1,3 +1,5 @@
 - setup a secure protocol router-compatible
 - update documentation
 - add more tests for the Algorithms namespace!
+- review and extend ORM
+- extend the pipeline

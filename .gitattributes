@@ -14,3 +14,4 @@
 /phpcs.xml          export-ignore
 /phpunit.xml        export-ignore
 /Documentation      export-ignore
+/Vagrantfile        export-ignore

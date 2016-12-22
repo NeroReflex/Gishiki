@@ -50,7 +50,7 @@ build:
         name: Install PHPUnit
         code: |-
           wget https://phar.phpunit.de/phpunit-5.7.4.phar
-          chmod +x phpunit.phar
+          chmod +x phpunit-5.7.4.phar
     - script:
         name: Install Composer
         code: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
@@ -62,7 +62,7 @@ build:
         code: mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js
     - script:
         name: PHPUnit integration tests
-        code: php phpunit.phar --configuration phpunit.xml --coverage-clover build/logs/clover.xml
+        code: php phpunit-5.7.4.phar --configuration phpunit.xml --coverage-clover build/logs/clover.xml
 #    - script:
 #        name: Send to Code Climate
 #        code: vendor/bin/test-reporter

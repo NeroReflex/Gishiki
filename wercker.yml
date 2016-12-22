@@ -49,8 +49,8 @@ build:
     - script:
         name: Install PHPUnit
         code: |-
-          curl -L https://phar.phpunit.de/phpunit-5.7.4.phar -o /usr/local/bin/phpunit.phar
-          chmod +x /usr/local/bin/phpunit
+          wget https://phar.phpunit.de/phpunit-5.7.4.phar
+          chmod +x phpunit.phar
     - script:
         name: Install Composer
         code: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer

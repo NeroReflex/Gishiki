@@ -7,8 +7,12 @@ your composer installation (local and/or remote) and presto!
 
 
 ## Windows
-You may want to test Gishiki or develop your application on Windows:
-to install the application on windows you should install [XAMPP](https://www.apachefriends.org/) and enable PDO drivers on php.ini. 
+If you want to test Gishiki or develop your application on Windows, you can
+choose between:
+* Installing [XAMPP](https://www.apachefriends.org/) and manually enable needed
+extensions on php.ini (suggested for ancient PC that cannot run a Virtual Machine)
+* Installing [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/)
+and use the provided Vagrantfile to setup a fully-working linux environment!
 
 
 ## Mac OS X

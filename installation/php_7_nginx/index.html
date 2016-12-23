@@ -7,20 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  
-  <title>PHP 7.0 & nginx - Gishiki</title>
-  
-
   <link rel="shortcut icon" href="../../img/favicon.ico">
-
-  
+  <title>PHP 7.0 & nginx - Gishiki</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="../../css/highlight.css">
   <link href="../../API/resources/style.css" rel="stylesheet">
-
   
   <script>
     // Current page data
@@ -31,11 +25,7 @@
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
   <script src="../../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
-  <script src="../../js/theme.js"></script> 
-  <script src="../../API/elementlist.js"></script>
-  <script src="../../API/resources/combined.js"></script>
-
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
   
 </head>
 
@@ -55,7 +45,7 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
+	<ul class="current">
           
             <li>
     <li class="toctree-l1 ">
@@ -268,12 +258,8 @@
 <p>This framework is fully compatible with PHP 7, and you are encouraged to use it.</p>
 <p>PHP v7 is the PHP version I am using while developing Gishiki.</p>
 <p>Installation depends on your system, so read the PHP manual (or google for instructions....).</p>
-<p>You will be provided with ubuntu instructions:</p>
-<pre><code class="shell">sudo add-apt-repository ppa:ondrej/php
-sudo apt-get update
-sudo apt-get install -y language-pack-en-base
-sudo LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
-sudo apt-get install nginx php7.0 php7.0-dev php7.0-xml php7.0-fpm php7.0-mysql php7.0-sqlite php7.0-pgsql php7.0-curl
+<p>You will be provided with Ubuntu 16.04 instructions:</p>
+<pre><code class="shell">sudo apt-get install nginx php7.0 php7.0-dev php7.0-xml php7.0-fpm php7.0-mysql php7.0-sqlite php7.0-pgsql php7.0-curl
 </code></pre>
 
 <p>When you are done with the configuration file (/etc/nginx/sites-enabled/default), 
@@ -336,10 +322,10 @@ sudo service php7.0-fpm restart
       </div>
 
     </section>
-
+    
   </div>
 
-<div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
@@ -350,6 +336,9 @@ sudo service php7.0-fpm restart
       
     </span>
 </div>
+    <script src="../../js/theme.js"></script>
+      <script src="../../API/elementlist.js"></script>
+      <script src="../../API/resources/combined.js"></script>
 
 </body>
 </html>

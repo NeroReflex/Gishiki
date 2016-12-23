@@ -226,7 +226,9 @@
 				<li><a href="class-Gishiki.Database.Adapters.Mongodb.html">Gishiki\Database\Adapters\Mongodb</a></li>
 				<li><a href="class-Gishiki.Database.Adapters.MongodbObjectID.html">Gishiki\Database\Adapters\MongodbObjectID</a></li>
 				<li><a href="class-Gishiki.Database.DatabaseManager.html">Gishiki\Database\DatabaseManager</a></li>
+				<li><a href="class-Gishiki.Database.FieldOrdering.html">Gishiki\Database\FieldOrdering</a></li>
 				<li><a href="class-Gishiki.Database.Record.html">Gishiki\Database\Record</a></li>
+				<li><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></li>
 				<li><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></li>
 				<li><a href="class-Gishiki.Gishiki.html">Gishiki\Gishiki</a></li>
 				<li><a href="class-Gishiki.HttpKernel.Body.html">Gishiki\HttpKernel\Body</a></li>
@@ -302,7 +304,6 @@
 				<li><a href="class-Reflector.html">Reflector</a></li>
 				<li><a href="class-SeekableIterator.html">SeekableIterator</a></li>
 				<li><a href="class-Serializable.html">Serializable</a></li>
-				<li><a href="class-Throwable.html">Throwable</a></li>
 				<li><a href="class-Traversable.html">Traversable</a></li>
 			</ul>
 
@@ -434,7 +435,7 @@
 </span><span id="74" class="l"><a href="#74"> 74: </a>    {
 </span><span id="75" class="l"><a href="#75"> 75: </a>        <span class="php-var">$connection</span> = self::GetConnection();
 </span><span id="76" class="l"><a href="#76"> 76: </a>        <span class="php-var">$objectID</span> = <span class="php-var">$connection</span>-&gt;Insert(<span class="php-quote">'testing.'</span>.__FUNCTION__, [<span class="php-quote">'n'</span> =&gt; <span class="php-quote">'non e una prova....'</span>]);
-</span><span id="77" class="l"><a href="#77"> 77: </a>        <span class="php-var">$numberOfAffected</span> = <span class="php-var">$connection</span>-&gt;Update(<span class="php-quote">'testing.'</span>.__FUNCTION__, [<span class="php-quote">'u'</span> =&gt; <span class="php-num">2</span>, <span class="php-quote">'n'</span> =&gt; <span class="php-quote">'scherzavo.. e una prova'</span>], (<span class="php-keyword1">new</span> \Gishiki\Database\SelectionCriteria())-&gt;WhereID(<span class="php-var">$objectID</span>));
+</span><span id="77" class="l"><a href="#77"> 77: </a>        <span class="php-var">$numberOfAffected</span> = <span class="php-var">$connection</span>-&gt;Update(<span class="php-quote">'testing.'</span>.__FUNCTION__, [<span class="php-quote">'u'</span> =&gt; <span class="php-num">2</span>, <span class="php-quote">'n'</span> =&gt; <span class="php-quote">'scherzavo.. e una prova'</span>], \Gishiki\Database\SelectionCriteria::Select([<span class="php-quote">'_id'</span> =&gt; <span class="php-var">$objectID</span>]));
 </span><span id="78" class="l"><a href="#78"> 78: </a>        <span class="php-var">$this</span>-&gt;assertEquals(<span class="php-num">1</span>, <span class="php-var">$numberOfAffected</span>);
 </span><span id="79" class="l"><a href="#79"> 79: </a>    }
 </span><span id="80" class="l"><a href="#80"> 80: </a>
@@ -444,7 +445,7 @@
 </span><span id="84" class="l"><a href="#84"> 84: </a>
 </span><span id="85" class="l"><a href="#85"> 85: </a>        <span class="php-var">$connection</span> = self::GetConnection();
 </span><span id="86" class="l"><a href="#86"> 86: </a>        <span class="php-var">$objectID</span> = <span class="php-var">$connection</span>-&gt;Insert(<span class="php-quote">'testing.'</span>.__FUNCTION__, [<span class="php-quote">'n'</span> =&gt; <span class="php-var">$badStr</span>]);
-</span><span id="87" class="l"><a href="#87"> 87: </a>        <span class="php-var">$numberOfAffected</span> = <span class="php-var">$connection</span>-&gt;Update(<span class="php-quote">'testing.'</span>.__FUNCTION__, [<span class="php-quote">'u'</span> =&gt; <span class="php-num">2</span>, <span class="php-quote">'n'</span> =&gt; <span class="php-quote">'scherzavo.. e una prova'</span>], (<span class="php-keyword1">new</span> \Gishiki\Database\SelectionCriteria())-&gt;WhereID(<span class="php-var">$objectID</span>)-&gt;EqualThan(<span class="php-quote">'n'</span>, <span class="php-var">$badStr</span>));
+</span><span id="87" class="l"><a href="#87"> 87: </a>        <span class="php-var">$numberOfAffected</span> = <span class="php-var">$connection</span>-&gt;Update(<span class="php-quote">'testing.'</span>.__FUNCTION__, [<span class="php-quote">'u'</span> =&gt; <span class="php-num">2</span>, <span class="php-quote">'n'</span> =&gt; <span class="php-quote">'scherzavo.. e una prova'</span>], \Gishiki\Database\SelectionCriteria::Select([<span class="php-quote">'_id'</span> =&gt; <span class="php-var">$objectID</span>, <span class="php-quote">'n'</span> =&gt; <span class="php-var">$badStr</span>]));
 </span><span id="88" class="l"><a href="#88"> 88: </a>        <span class="php-var">$this</span>-&gt;assertEquals(<span class="php-num">1</span>, <span class="php-var">$numberOfAffected</span>);
 </span><span id="89" class="l"><a href="#89"> 89: </a>    }
 </span><span id="90" class="l"><a href="#90"> 90: </a>
@@ -455,7 +456,7 @@
 </span><span id="95" class="l"><a href="#95"> 95: </a>        <span class="php-var">$connection</span>-&gt;Insert(<span class="php-quote">'testing.'</span>.__FUNCTION__, [<span class="php-quote">'k'</span> =&gt; <span class="php-num">2</span>, <span class="php-quote">'mail'</span> =&gt; <span class="php-quote">'benato.denis96@gmail.com'</span>]);
 </span><span id="96" class="l"><a href="#96"> 96: </a>        <span class="php-var">$connection</span>-&gt;Insert(<span class="php-quote">'testing.'</span>.__FUNCTION__, [<span class="php-quote">'k'</span> =&gt; <span class="php-num">11</span>, <span class="php-quote">'mail'</span> =&gt; <span class="php-quote">'fake@mail.kk'</span>]);
 </span><span id="97" class="l"><a href="#97"> 97: </a>
-</span><span id="98" class="l"><a href="#98"> 98: </a>        <span class="php-var">$result</span> = <span class="php-var">$connection</span>-&gt;Fetch(<span class="php-quote">'testing.'</span>.__FUNCTION__, (<span class="php-keyword1">new</span> \Gishiki\Database\SelectionCriteria())-&gt;LessThan(<span class="php-quote">'k'</span>, <span class="php-num">10</span>));
+</span><span id="98" class="l"><a href="#98"> 98: </a>        <span class="php-var">$result</span> = <span class="php-var">$connection</span>-&gt;Fetch(<span class="php-quote">'testing.'</span>.__FUNCTION__, \Gishiki\Database\SelectionCriteria::Select([])-&gt;LessThan(<span class="php-quote">'k'</span>, <span class="php-num">10</span>));
 </span><span id="99" class="l"><a href="#99"> 99: </a>        <span class="php-var">$this</span>-&gt;assertEquals(<span class="php-num">2</span>, <span class="php-var">$result</span>-&gt;<span class="php-keyword2">count</span>());
 </span><span id="100" class="l"><a href="#100">100: </a>
 </span><span id="101" class="l"><a href="#101">101: </a>        <span class="php-keyword1">foreach</span> (<span class="php-var">$result</span> <span class="php-keyword1">as</span> <span class="php-var">$record</span>) {
@@ -466,15 +467,46 @@
 </span><span id="106" class="l"><a href="#106">106: </a>        <span class="php-var">$numberOfRemoved</span> = <span class="php-var">$connection</span>-&gt;<span class="php-keyword2">Delete</span>(<span class="php-quote">'testing.'</span>.__FUNCTION__, <span class="php-keyword1">new</span> \Gishiki\Database\SelectionCriteria());
 </span><span id="107" class="l"><a href="#107">107: </a>        <span class="php-var">$this</span>-&gt;assertEquals(<span class="php-num">3</span>, <span class="php-var">$numberOfRemoved</span>);
 </span><span id="108" class="l"><a href="#108">108: </a>    }
-</span><span id="109" class="l"><a href="#109">109: </a>}
-</span><span id="110" class="l"><a href="#110">110: </a></span></code></pre>
+</span><span id="109" class="l"><a href="#109">109: </a>    
+</span><span id="110" class="l"><a href="#110">110: </a>    <span class="php-comment">/**
+</span></span><span id="111" class="l"><a href="#111">111: </a><span class="php-comment">     * @expectedException \InvalidArgumentException
+</span></span><span id="112" class="l"><a href="#112">112: </a><span class="php-comment">     */</span>
+</span><span id="113" class="l"><a href="#113">113: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> testFetchInvalidTable()
+</span><span id="114" class="l"><a href="#114">114: </a>    {
+</span><span id="115" class="l"><a href="#115">115: </a>        <span class="php-comment">//connect and setup the test</span>
+</span><span id="116" class="l"><a href="#116">116: </a>        <span class="php-var">$connection</span> = self::GetConnection();
+</span><span id="117" class="l"><a href="#117">117: </a>        <span class="php-var">$connection</span>-&gt;Fetch(<span class="php-num">5</span>, \Gishiki\Database\SelectionCriteria::Select([]));
+</span><span id="118" class="l"><a href="#118">118: </a>    }
+</span><span id="119" class="l"><a href="#119">119: </a>    
+</span><span id="120" class="l"><a href="#120">120: </a>    <span class="php-comment">/**
+</span></span><span id="121" class="l"><a href="#121">121: </a><span class="php-comment">     * @expectedException \InvalidArgumentException
+</span></span><span id="122" class="l"><a href="#122">122: </a><span class="php-comment">     */</span>
+</span><span id="123" class="l"><a href="#123">123: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> testFetchInvalidLimit()
+</span><span id="124" class="l"><a href="#124">124: </a>    {
+</span><span id="125" class="l"><a href="#125">125: </a>        <span class="php-comment">//connect and setup the test</span>
+</span><span id="126" class="l"><a href="#126">126: </a>        <span class="php-var">$connection</span> = self::GetConnection();
+</span><span id="127" class="l"><a href="#127">127: </a>        <span class="php-var">$connection</span>-&gt;Fetch(<span class="php-quote">'testing.'</span>.__FUNCTION__, \Gishiki\Database\SelectionCriteria::Select([]), \Gishiki\Database\ResultModifier::Invariant()-&gt;limit(<span class="php-quote">'lol'</span>));
+</span><span id="128" class="l"><a href="#128">128: </a>    }
+</span><span id="129" class="l"><a href="#129">129: </a>    
+</span><span id="130" class="l"><a href="#130">130: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> testLimitedRead()
+</span><span id="131" class="l"><a href="#131">131: </a>    {
+</span><span id="132" class="l"><a href="#132">132: </a>        <span class="php-var">$connection</span> = self::GetConnection();
+</span><span id="133" class="l"><a href="#133">133: </a>        <span class="php-var">$connection</span>-&gt;Insert(<span class="php-quote">'testing.'</span>.__FUNCTION__, [<span class="php-quote">'k'</span> =&gt; <span class="php-num">7</span>, <span class="php-quote">'name'</span> =&gt; <span class="php-quote">'Denis'</span>]);
+</span><span id="134" class="l"><a href="#134">134: </a>        <span class="php-var">$connection</span>-&gt;Insert(<span class="php-quote">'testing.'</span>.__FUNCTION__, [<span class="php-quote">'k'</span> =&gt; <span class="php-num">2</span>, <span class="php-quote">'mail'</span> =&gt; <span class="php-quote">'benato.denis96@gmail.com'</span>]);
+</span><span id="135" class="l"><a href="#135">135: </a>        <span class="php-var">$connection</span>-&gt;Insert(<span class="php-quote">'testing.'</span>.__FUNCTION__, [<span class="php-quote">'k'</span> =&gt; <span class="php-num">11</span>, <span class="php-quote">'mail'</span> =&gt; <span class="php-quote">'fake@mail.kk'</span>]);
+</span><span id="136" class="l"><a href="#136">136: </a>
+</span><span id="137" class="l"><a href="#137">137: </a>        <span class="php-var">$result</span> = <span class="php-var">$connection</span>-&gt;Fetch(<span class="php-quote">'testing.'</span>.__FUNCTION__, (<span class="php-keyword1">new</span> \Gishiki\Database\SelectionCriteria())-&gt;LessThan(<span class="php-quote">'k'</span>, <span class="php-num">10</span>), \Gishiki\Database\ResultModifier::Invariant()-&gt;limit(<span class="php-num">1</span>)-&gt;order(<span class="php-quote">'mail'</span>, \Gishiki\Database\FieldOrdering::DESC));
+</span><span id="138" class="l"><a href="#138">138: </a>        <span class="php-var">$this</span>-&gt;assertEquals(<span class="php-num">1</span>, <span class="php-var">$result</span>-&gt;<span class="php-keyword2">count</span>());
+</span><span id="139" class="l"><a href="#139">139: </a>    }
+</span><span id="140" class="l"><a href="#140">140: </a>}
+</span><span id="141" class="l"><a href="#141">141: </a></span></code></pre>
 
 	<div id="footer">
 		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
 </div>
-<script src="resources/combined.js?7ca707fdd2ed5111b54fe4aee4733c14edebe431"></script>
-<script src="elementlist.js?150319c9c05d489357531c58c389cbcbc8b0484f"></script>
+<script src="resources/combined.js?7ec981fd384b70aee7ff5ceda56e0deb9171d900"></script>
+<script src="elementlist.js?ddda102f9726b8fccc22d28d1b7587a8c57d1611"></script>
 </body>
 </html>

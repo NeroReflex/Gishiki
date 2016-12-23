@@ -22,7 +22,7 @@
         }, 
         {
             "location": "/installation/", 
-            "text": "Installation\n\n\nInstalling Gishiki is really simple, even a child could be able to do it:\nhowever, in order to succeed you need to complete some steps.\n\n\nYou don't have to follow all the reported steps: you setup your environment,\nyour composer installation (local and/or remote) and presto!\n\n\nWindows\n\n\nIf you want to test Gishiki or develop your application on Windows, you can\nchoose between:\n\n Installing \nXAMPP\n and manually enable needed\nextensions on php.ini (suggested for ancient PC that cannot run a Virtual Machine)\n\n Installing \nVirtualBox\n and \nVagrant\n\nand use the provided Vagrantfile to setup a fully-working linux environment!\n\n\nMac OS X\n\n\nIf you are willing to develop your application on a Mac system you should use\n\nXAMPP\n too!\n\n\nLinux\n\n\nEvery production server runs on a linux or a container inside linux, this is why\nevery instruction you'll find are written for linux (Ubuntu 14.04/15.04 LTS).\n\n\nVirtual Machine\n\n\nIf you don't want to pollute your desktop environment you can use a virtualization\nprogram, like \nVirtualBox\n, to install \nUbuntu Server\n and\nfollow the tutorial on that virtual machine!\n\n\nLet's go!\n\n\nIf you are a newcomer I suggest you to follow the PHP 7.0 \n nginx tutorial I have written for you.\n\n\nIf you want something that works in a few seconds than the \nPaaS\n page\nis the right manual page!", 
+            "text": "Installation\n\n\nInstalling Gishiki is really simple, even a child could be able to do it:\nhowever, in order to succeed you need to complete some steps.\n\n\nYou don't have to follow all the reported steps: you setup your environment,\nyour composer installation (local and/or remote) and presto!\n\n\nWindows\n\n\nIf you want to test Gishiki or develop your application on Windows, you can\nchoose between:\n\n Installing \nXAMPP\n and manually enable needed\nextensions on php.ini (suggested for ancient PC that cannot run a Virtual Machine)\n\n Installing \nVirtualBox\n and \nVagrant\n\nand use the provided Vagrantfile to setup a fully-working linux environment!\n\n\nMac OS X\n\n\nIf you are willing to develop your application on a Mac system you should use\n\nXAMPP\n too!\n\n\nLinux\n\n\nEvery production server runs on a linux or a container inside linux, this is why\nevery instruction you'll find are written for linux: Ubuntu 16.04.\n\n\nVirtual Machine\n\n\nIf you don't want to pollute your desktop environment you can use a virtualization\nprogram, like \nVirtualBox\n, to install \nUbuntu Server\n and\nfollow the tutorial on that virtual machine!\n\n\nLet's go!\n\n\nIf you are a newcomer I suggest you to follow the \nPHP 7.0 \n nginx\n tutorial I have written for you.\n\n\nIf you want something that works in a few seconds than the \nPaaS\n page\nis the right manual page!", 
             "title": "Environment"
         }, 
         {
@@ -42,7 +42,7 @@
         }, 
         {
             "location": "/installation/#linux", 
-            "text": "Every production server runs on a linux or a container inside linux, this is why\nevery instruction you'll find are written for linux (Ubuntu 14.04/15.04 LTS).", 
+            "text": "Every production server runs on a linux or a container inside linux, this is why\nevery instruction you'll find are written for linux: Ubuntu 16.04.", 
             "title": "Linux"
         }, 
         {
@@ -52,7 +52,7 @@
         }, 
         {
             "location": "/installation/#lets-go", 
-            "text": "If you are a newcomer I suggest you to follow the PHP 7.0   nginx tutorial I have written for you.  If you want something that works in a few seconds than the  PaaS  page\nis the right manual page!", 
+            "text": "If you are a newcomer I suggest you to follow the  PHP 7.0   nginx  tutorial I have written for you.  If you want something that works in a few seconds than the  PaaS  page\nis the right manual page!", 
             "title": "Let's go!"
         }, 
         {

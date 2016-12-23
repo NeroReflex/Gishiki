@@ -39,5 +39,6 @@ after_script:
   - if [[ "$TRAVIS_PHP_VERSION" == '5.4' ]]; then curl -O https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py && sudo pip install mkdocs ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '5.4' ]]; then cd Documentation && mkdocs build && cd ../ ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '5.4' ]]; then cd Documentation && git clone -b gh-pages $GIT_REMOTE ; fi
-  - if [[ "$TRAVIS_PHP_VERSION" == '5.4' ]]; then rsync -avh --progress /pipeline/source/Documentation/site/ ./Gishiki ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '5.4' ]]; then rsync -avh --progress ./site/ ./Gishiki ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '5.4' ]]; then git config --global user.email "benato.denis96@gmail.com" && git config --global user.name "Denis Benato" && git config --global push.default matching  ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '5.4' ]]; then cd Gishiki &&  git add * && git commit -m "deploy doc from commit TRAVIS_BRANCH -> $TRAVIS_COMMIT " && git push ; fi

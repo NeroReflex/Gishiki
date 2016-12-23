@@ -22,7 +22,7 @@ If you are willing to develop your application on a Mac system you should use
 
 ## Linux
 Every production server runs on a linux or a container inside linux, this is why
-every instruction you'll find are written for linux (Ubuntu 14.04/15.04 LTS).
+every instruction you'll find are written for linux: Ubuntu 16.04.
 
 
 ## Virtual Machine
@@ -32,7 +32,7 @@ follow the tutorial on that virtual machine!
 
 
 ## Let's go!
-If you are a newcomer I suggest you to follow the PHP 7.0 & nginx tutorial I have written for you.
+If you are a newcomer I suggest you to follow the [PHP 7.0 & nginx](php_7_nginx.md) tutorial I have written for you.
 
 If you want something that works in a few seconds than the [PaaS](paas.md) page
 is the right manual page!

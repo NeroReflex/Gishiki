@@ -19,7 +19,7 @@ before_script:
     - sudo chmod 0777 travis.php.ini
     - pecl config-set php_ini travis.php.ini
     - pear config-set php_ini travis.php.ini
-    - pecl install -f mongodb-1.1.8
+    - pecl install -f mongodb-1.1.9
     - phpenv config-add travis.php.ini
     - composer self-update
     - composer install

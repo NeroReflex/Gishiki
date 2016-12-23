@@ -1,10 +1,12 @@
 # Gishiki
 
-[![Build Status](https://travis-ci.org/NeroReflex/Gishiki.svg?branch=master)](https://travis-ci.org/NeroReflex/Gishiki)
 
-[![Test Coverage](https://codeclimate.com/github/NeroReflex/Gishiki/badges/coverage.svg)](https://codeclimate.com/github/NeroReflex/Gishiki/coverage)
 
-[![Code Climate](https://codeclimate.com/github/NeroReflex/Gishiki/badges/gpa.svg)](https://codeclimate.com/github/NeroReflex/Gishiki)
+| CI           | Status  |
+|--------------|---------|
+| Code Metrics | [![Code Climate](https://codeclimate.com/github/NeroReflex/Gishiki/badges/gpa.svg)](https://codeclimate.com/github/NeroReflex/Gishiki)     |
+| Coverage     | [![Test Coverage](https://codeclimate.com/github/NeroReflex/Gishiki/badges/coverage.svg)](https://codeclimate.com/github/NeroReflex/Gishiki/coverage) |
+| Test         | [![Build Status](https://travis-ci.org/NeroReflex/Gishiki.svg?branch=master)](https://travis-ci.org/NeroReflex/Gishiki)  |
 
 
 _*Gishiki*_: a modern and elegant MVC framework for PHP >= 5.4 and HHVM.

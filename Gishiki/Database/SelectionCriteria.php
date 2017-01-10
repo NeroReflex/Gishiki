@@ -28,6 +28,27 @@ final class SelectionCriteria
     private $criteria = array();
     private $id = null;
 
+    /**
+     * Create a selection criteria from the input.
+     * 
+     * This function is NOT enough to generate every possible selection,
+     * but it is useful for starting creating the selection criteria:
+     * 
+     * <code>
+     * // this select every row where name is equal to $username and age is either 18, 19 or 20
+     * $criteria = SelectionCriteria::Select([
+     *     'name' => $username,
+     *     'age' => [18, 19, 20]
+     * ]);
+     * 
+     * //the limit is one of the many filters that cannot be applied using just Select()
+     * $criteria->limit(1);
+     * </code>
+     * 
+     * @param array $ct the input selection in a simplified format
+     * @return SelectionCriteria the SelectionCriteria built from the input
+     * @throws InvalidSelectionCriteriaException the simplified selection in input is not valid
+     */
     public static function Select(array $ct)
     {
         $criteria = new self();

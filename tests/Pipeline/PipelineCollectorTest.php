@@ -21,7 +21,7 @@ use Gishiki\Pipeline\Pipeline;
 
 /**
  * The tester for the Pipeline class.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 class PipelineCollectorTest extends \PHPUnit_Framework_TestCase

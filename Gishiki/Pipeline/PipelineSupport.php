@@ -22,7 +22,7 @@ use Gishiki\Algorithms\Collections\SerializableCollection;
 
 /**
  * Give runtime support to the pipeline component.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 abstract class PipelineSupport
@@ -43,14 +43,14 @@ abstract class PipelineSupport
     private static $initialized = false;
 
     /**
-     * @var PipelineRuntime|null the currently active runtime or null 
+     * @var PipelineRuntime|null the currently active runtime or null
      */
     private static $activeRuntime = null;
 
     /**
      * Internal use ONLY!
      * Setup the PipelineSupport from the global Environment.
-     * 
+     *
      * @param string $connectionName the name of the database connection
      * @param string $tableName      the name of the table inside the database connection
      *
@@ -79,7 +79,7 @@ abstract class PipelineSupport
     /**
      * Internal use ONLY!
      * Flag the given PipelineRuntime as the currently active one.
-     * 
+     *
      * @param PipelineRuntime $runtime
      */
     public static function RegisterRuntime(PipelineRuntime &$runtime)
@@ -100,7 +100,7 @@ abstract class PipelineSupport
 
     /**
      * Abort the current pipeline execution saving the reason.
-     * 
+     *
      * @param string $message the message to be saved as the reason of the abort
      *
      * @throws \InvalidArgumentException the given message is not a string
@@ -118,7 +118,7 @@ abstract class PipelineSupport
     /**
      * Change the type of the current pipeline, but doesn't immediatly reflect
      * changes to the database.
-     * 
+     *
      * @param int $type can either be RuntimeType::ASYNCHRONOUS or RuntimeType::SYNCHRONOUS
      *
      * @throws \InvalidArgumentException the given type is not valid
@@ -131,11 +131,12 @@ abstract class PipelineSupport
 
     /**
      * Get the unique ID of the runtime currently executed.
-     * 
+     *
      * @return string the unique ID of the loaded pipeline
      * @throws PipelineException no loaded runtimes
      */
-    public static function GetUniqueID() {
+    public static function GetUniqueID()
+    {
         if (is_null(self::$activeRuntime)) {
             throw new PipelineException("The unique ID of an unloaded runtime cannot be retrieved", 8);
         }
@@ -146,7 +147,7 @@ abstract class PipelineSupport
     
     /**
      * Save the currently active PipelineRuntime.
-     * 
+     *
      * @throws PipelineException no pipeline is going to be saved
      */
     public static function saveCurrentPipeline()
@@ -186,7 +187,7 @@ abstract class PipelineSupport
     /**
      * Get the next runtime to be executed giving priority and selecting
      * asychronous only runtimes.
-     * 
+     *
      * @return PipelineRuntime|null the next runtime to be executed, or null
      */
     public static function getNextAsyncByPriority()
@@ -227,7 +228,7 @@ abstract class PipelineSupport
 
     /**
      * Forward the request to PipelineSupport.
-     * 
+     *
      * @param string $uniqueID the unique ID of the PipelineRuntime
      *
      * @return PipelineRuntime the restored runtime

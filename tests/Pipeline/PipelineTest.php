@@ -21,7 +21,7 @@ use Gishiki\Pipeline\Pipeline;
 
 /**
  * The tester for the Pipeline class.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 class PipelineTest extends \PHPUnit_Framework_TestCase
@@ -193,13 +193,10 @@ class PipelineTest extends \PHPUnit_Framework_TestCase
         $pipeline = new Pipeline($name);
         $i = 0;
         $pipeline->bindStage($functionNames[$i++], function ($params) {
-
         });
         $pipeline->bindStage($functionNames[$i++], function ($params) {
-
         });
         $pipeline->bindStage($functionNames[$i++], function ($params) {
-
         });
 
         $this->assertEquals(3, $pipeline->countStages());

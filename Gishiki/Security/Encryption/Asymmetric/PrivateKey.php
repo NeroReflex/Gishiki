@@ -21,7 +21,7 @@ use Gishiki\Core\Environment;
 
 /**
  * This class represents a private key for the asymmetric encryption engine.
- * 
+ *
  * Note: This class uses OpenSSL for strong encryption
  *
  * @author Benato Denis <benato.denis96@gmail.com>
@@ -37,28 +37,28 @@ final class PrivateKey
 
     /**
      * Create a random private key of the given length (in bits).
-     * 
+     *
      * You can use predefined constants to have valid keylength values.
-     * 
+     *
      * The higher the key length, the higher the security the higher the required time to generate the key.
-     * 
+     *
      * Usage example:
-     * 
+     *
      * <code>
      * //give a name to the file containing the generation result
      * $filename = APPLICATION_DIR."newkey.private.pem";
-     * 
+     *
      * //generate the new key
      * $serailized_key = PrivateKey::generate(PrivateKey::RSA4096);
-     * 
+     *
      * //export to file the serialized key
      * file_put_contents($filename, $serailized_key);
      * //NOTE: this example is really BAD because the file is NOT encrypted
-     * 
+     *
      * //yes, you can load private keys directly from file
      * $private_key = new PrivateKey("file://".$filename);
      * </code>
-     * 
+     *
      * @param int $keyLength the length (in bits) of the private key to e generated
      *
      * @return string the serialized private key
@@ -182,7 +182,7 @@ final class PrivateKey
 
     /**
      * Export the public key corresponding to this private key.
-     * 
+     *
      * @return string the public key exported from this private key
      */
     public function exportPublicKey()
@@ -196,19 +196,19 @@ final class PrivateKey
 
     /**
      * Export this private key in a string format.
-     * 
+     *
      * The resulting string can be used to construct another PrivateKey instance:
-     * 
+     *
      * <code>
      * use Gishiki\Security\Encryption\Asymmetric\PrivateKey;
-     * 
+     *
      * //this is the exported private key
      * $exported_key = "...";
-     * 
+     *
      * //rebuild the private key
      * $privateKey = new PrivateKey($exported_key);
      * </code>
-     * 
+     *
      * @param string $keyPassword the private key password
      *
      * @return string the serialized private key
@@ -252,7 +252,7 @@ final class PrivateKey
 
     /**
      * Check if the key has been loaded.
-     * 
+     *
      * @return bool true if the key has been loaded
      */
     public function isLoaded()
@@ -262,7 +262,7 @@ final class PrivateKey
 
     /**
      * Proxy call to the export() function.
-     * 
+     *
      * @return string the serialized key
      */
     public function __toString()
@@ -272,7 +272,7 @@ final class PrivateKey
 
     /**
      * Export a reference to the native private key and its length in bits.
-     * 
+     *
      * @return array the array that contains the key and its legth (in bytes)
      *
      * @throws AsymmetricException the key cannot be exported

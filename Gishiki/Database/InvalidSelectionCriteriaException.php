@@ -15,21 +15,20 @@
   limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\Security\Hashing;
+namespace Gishiki\Database;
 
 /**
- * The hashing exception thrown by Gishiki
- * when an hash operation results is bad.
+ * An exception related to the selection criteria.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class HashingException extends \Gishiki\Core\Exception
+final class InvalidSelectionCriteriaException extends \Gishiki\Core\Exception
 {
     /**
-     * Create the hashing-related exception.
+     * Create the selection criteria exception.
      *
      * @param string $message   the error message
-     * @param int    $errorCode the hashing error code
+     * @param int    $errorCode the database error code
      */
     public function __construct($message, $errorCode)
     {

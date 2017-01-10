@@ -19,11 +19,11 @@ namespace Gishiki\Logging\Adapter;
 
 /**
  * An helper class for storing logs of what happens on the server.
- * 
+ *
  * This is the gelf version of the logger (based on gelf-php project)
  *
  * @link https://github.com/bzikarsky/gelf-php
- * 
+ *
  * Benato Denis <benato.denis96@gmail.com>
  */
 class GelfAdapter
@@ -33,11 +33,11 @@ class GelfAdapter
 
     /**
      * Setup a logger that works on gelf.
-     * 
+     *
      * This requires a graylog server to be waiting for logs.
-     * 
+     *
      * Default server is on udp:localhost:12201
-     * 
+     *
      * @param string $server the address of the server
      */
     public function __construct($server = 'null')
@@ -49,7 +49,7 @@ class GelfAdapter
 
             $transport = null;
             switch (strtolower($conn_info[0])) {
-                case 'tcp' :
+                case 'tcp':
                     $transport = new \Gelf\Transport\TcpTransport($conn_info[1], intval($conn_info[2]));
                     break;
 

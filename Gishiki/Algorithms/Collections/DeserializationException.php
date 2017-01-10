@@ -15,11 +15,11 @@ limitations under the License.
 namespace Gishiki\Algorithms\Collections {
 
     /**
-     * The deserialization exception thrown by Gishiki 
+     * The deserialization exception thrown by Gishiki
      * when a bad deserialization operation takes place.
-     * 
+     *
      * Data is probably malformed/unconformant or damaged!
-     * 
+     *
      * @author Benato Denis <benato.denis96@gmail.com>
      */
     class DeserializationException extends \Gishiki\Core\Exception

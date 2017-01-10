@@ -34,9 +34,9 @@ class SyslogAdapter extends \Psr\Log\AbstractLogger
 
     /**
      * Setup a logger for an application or a component.
-     * 
-     * This is the syslog version of the logger 
-     * 
+     *
+     * This is the syslog version of the logger
+     *
      * @param string $identity the name of the application
      */
     public function __construct($identity = '')
@@ -51,7 +51,7 @@ class SyslogAdapter extends \Psr\Log\AbstractLogger
         //get the urgency level:
         $syslog_level = LOG_EMERG;
         switch ($level) {
-            case LogLevel::EMERGENCY :
+            case LogLevel::EMERGENCY:
                 $syslog_level = LOG_EMERG;
                 break;
 

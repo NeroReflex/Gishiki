@@ -22,27 +22,27 @@ namespace Gishiki\Security\Encryption\Asymmetric;
  * encryption engine.
  *
  * Note: This class uses OpenSSL for strong encryption
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 abstract class Cryptography
 {
     /**
      * Encrypt the given message using the given private key.
-     * 
+     *
      * You will need the public key to decrypt the encrypted content.
-     * 
+     *
      * You can decrypt an encrypted content with the decrypt() function.
-     * 
+     *
      * An example of usage can be:
-     * 
+     *
      * <code>
      * $default_privkey = new PrivateKey();
      * $encrypted_message = Cryptography::encrypt($default_privkey, "this is my important message from my beloved half");
-     * 
+     *
      * echo "Take good care of this and give it to my GF: " . $encrypted_message;
      * </code>
-     * 
+     *
      * @param PrivateKey $key     the private key to be used to encrypt the plain message
      * @param string     $message the message to be encrypted
      *
@@ -82,20 +82,20 @@ abstract class Cryptography
 
     /**
      * Encrypt the given message using the given public key.
-     * 
+     *
      * You will need the private key to decrypt the encrypted content.
-     * 
+     *
      * You can decrypt an encrypted content with the decryptReverse() function.
-     * 
+     *
      * An example of usage can be:
-     * 
+     *
      * <code>
      * $default_pubkey = new PublicKey();
      * $encrypted_message = Cryptography::encryptReverse($default_pubkey, "this is my important message from my beloved half");
-     * 
+     *
      * echo "Take good care of this and give it to my GF: " . $encrypted_message;
      * </code>
-     * 
+     *
      * @param PublicKey $key     the public key to be used to encrypt the plain message
      * @param string    $message the message to be encrypted
      *
@@ -135,25 +135,25 @@ abstract class Cryptography
 
     /**
      * Decrypt an encrypted message created using the encrypt() function.
-     * 
+     *
      * The used public key must be decoupled from the private key used to generate the message.
-     * 
+     *
      * En example usage can be:
-     * 
+     *
      * <code>
      * //load the default public key
      * $default_pubkey = new PublicKey();
-     * 
+     *
      * //this is a message encrypted with the application's default key
      * $encrypted_message = "...";
-     * 
+     *
      * //decrypt the message
      * $plain_message = Cryptography::decrypt($default_pubkey, $encrypted_message);
-     * 
+     *
      * echo $encrypted_message;
      * </code>
-     * 
-     * 
+     *
+     *
      * @param PublicKey $key          the public key to be used to decrypt the encrypted message
      * @param string    $encryptedMsg the message to be decrypted
      *
@@ -200,25 +200,25 @@ abstract class Cryptography
 
     /**
      * Decrypt an encrypted message created using the encryptReverse() function.
-     * 
+     *
      * The used private key must be must be the corresponding public key used to generate the message.
-     * 
+     *
      * En example usage can be:
-     * 
+     *
      * <code>
      * //load the default private key
      * $default_pubkey = new PrivateKey();
-     * 
+     *
      * //this is a message encrypted with the application's default key
      * $encrypted_message = "...";
-     * 
+     *
      * //decrypt the message
      * $plain_message = Cryptography::decryptReverse($default_privkey, $encrypted_message);
-     * 
+     *
      * echo $encrypted_message;
      * </code>
-     * 
-     * 
+     *
+     *
      * @param PrivateKey $key          the public key to be used to decrypt the encrypted message
      * @param string     $encryptedMsg the message to be decrypted
      *
@@ -265,26 +265,26 @@ abstract class Cryptography
 
     /**
      * Generate a digital signature for the given message.
-     * 
+     *
      * The digital signature can be used to authenticate the message because
      * a different message will produce a different digital signature.
-     * 
+     *
      * You will be using the public key corresponding to the given private key
      * to check the digital signature.
-     * 
+     *
      * Example usage:
      * <code>
      * $message = "who knows if this message will be modified.....";
-     * 
+     *
      * //get the default private key
      * $privKey = new PrivateKey();
-     * 
+     *
      * //generate the digital signature
      * $signature = Cryptography::generateDigitalSignature($privKey, $message);
-     * 
+     *
      * //transmit the digital signature
      * </code>
-     * 
+     *
      * @param PrivateKey $key     the priate key to be used to generate the message
      * @param string     $message the message to be signed
      *
@@ -320,23 +320,23 @@ abstract class Cryptography
 
     /**
      * Check if the given digital signature belongs to the given message.
-     * 
+     *
      * You should be calling this function with a digital signature generated with
      * the generateDigitalSignature() function.
-     * 
+     *
      * Usage example (continuation of the generateDigitalSignature() example):
-     * 
+     *
      * <code>
      * //get the default public key
      * $pubKey = new PublicKey();
-     * 
+     *
      * if (Cryptography::verifyDigitalSignature($pubKey, $message, $signature)) {
      *     echo "the message was not modified";
      * } else {
      *     echo "the message have been modified";
      * }
      * </code>
-     * 
+     *
      * @param PublicKey $key       the public key associated with the private key used to generate the signature
      * @param string    $message   the message to be checked
      * @param string    $signature the digital signature of the given message

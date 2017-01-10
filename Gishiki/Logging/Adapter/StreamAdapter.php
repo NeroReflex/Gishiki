@@ -21,8 +21,8 @@ use Gishiki\Algorithms\Manipulation;
 
 /**
  * An helper class for storing logs of what happens on the server.
- * 
- * This is the Stream version of the logger 
+ *
+ * This is the Stream version of the logger
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
@@ -33,11 +33,11 @@ class StreamAdapter extends \Psr\Log\AbstractLogger
 
     /**
      * Setup a logger that works on streams.
-     * 
+     *
      * Allowed streams are: 'stderr', 'stdout' and 'stdmem'.
-     * 
+     *
      * Default on stderr
-     * 
+     *
      * @param string $stream the name of the application
      */
     public function __construct($stream = '')

@@ -24,7 +24,7 @@ use Gishiki\Security\Hashing\Algorithms;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class HashingTest  extends \PHPUnit_Framework_TestCase
+class HashingTest extends \PHPUnit_Framework_TestCase
 {
     public function testROT13()
     {

@@ -19,7 +19,7 @@ namespace Gishiki\Database;
 
 /**
  * Represent the database manager of the entire framework.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 abstract class DatabaseManager
@@ -32,7 +32,7 @@ abstract class DatabaseManager
 
     /**
      * Create a new database handler and connect it to a read database.
-     * 
+     *
      * @param string $connectionName   the name of the database connection
      * @param string $connectionString the connection string
      *
@@ -69,7 +69,7 @@ abstract class DatabaseManager
 
     /**
      * Retrieve the connection with the given name from the list of performed conenctions.
-     * 
+     *
      * @param string $connectionName the name of the preformed connection
      *
      * @return DatabaseInterface the connected database instance

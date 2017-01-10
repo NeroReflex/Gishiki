@@ -18,9 +18,9 @@ limitations under the License.
 namespace Gishiki\Database;
 
 /**
- * An helper class used to abstract how records/documents are selected from the 
+ * An helper class used to abstract how records/documents are selected from the
  * database table/collection.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 final class SelectionCriteria
@@ -33,7 +33,11 @@ final class SelectionCriteria
         $criteria = new self();
 
         foreach ($ct as $key => $value) {
-            if (($key == '_id') && ($value instanceof ObjectIDInterface)) {
+            if ($key == '_id') {
+                if (!($value instanceof ObjectIDInterface)) {
+                    throw new InvalidSelectionCriteriaException("The _id field is the primary key and MUST be given as an ObjectID instance. ".gettype($value)." given", 0);
+                }
+                
                 $criteria = $criteria->WhereID($value);
             }
 

@@ -1012,7 +1012,7 @@ class Request extends Message implements ServerRequestInterface
 
     /**
      * Deserialize the content passed as the request.
-     * 
+     *
      * Supported media types for the deserialization are:
      *   - 'application/json'
      *   - 'application/xml'
@@ -1023,7 +1023,7 @@ class Request extends Message implements ServerRequestInterface
      *   - 'text/x-yaml'
      *   - 'application/yaml'
      *   - 'application/x-yaml'
-     * 
+     *
      * @return SerializableCollection the deserialized body
      * @throw  RuntimeException       the error preventing the deserialization
      */
@@ -1045,7 +1045,7 @@ class Request extends Message implements ServerRequestInterface
         //this is what will be deserialized
         $data = null;
         switch ($mediaType) {
-            case 'application/json' :
+            case 'application/json':
                 $data = $body;
                 $serializer = SerializableCollection::JSON;
                 break;

@@ -21,7 +21,7 @@ use Gishiki\Algorithms\Collections\SerializableCollection;
 
 /**
  * Represent a record stored on the database.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 final class Record

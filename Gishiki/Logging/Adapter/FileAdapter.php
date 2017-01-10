@@ -22,8 +22,8 @@ use Gishiki\Algorithms\Manipulation;
 
 /**
  * An helper class for storing logs of what happens on the server.
- * 
- * This is the File version of the logger 
+ *
+ * This is the File version of the logger
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
@@ -37,9 +37,9 @@ class FileAdapter extends \Psr\Log\AbstractLogger
 
     /**
      * Setup a logger that works on files.
-     * 
+     *
      * Default is error.log on the application root
-     * 
+     *
      * @param string $file_path the path of the file
      */
     public function __construct($file_path = '')

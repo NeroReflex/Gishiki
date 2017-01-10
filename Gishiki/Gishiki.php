@@ -21,7 +21,7 @@ use Gishiki\Core\Environment;
 
 /**
  * The Gishiki action starter and framework entry point.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 abstract class Gishiki

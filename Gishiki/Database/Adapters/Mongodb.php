@@ -25,7 +25,7 @@ use Gishiki\Algorithms\Collections\CollectionInterface;
 
 /**
  * Represent a mongodb database.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 final class Mongodb implements DatabaseInterface

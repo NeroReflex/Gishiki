@@ -40,7 +40,7 @@ final class Logger extends AbstractLogger
      *
      * Giving a connector named 'null' will result in
      * a null logger: a logger that doesn't log!
-     * 
+     *
      * @param string $connector
      */
     public function __construct($connector = 'default')
@@ -75,11 +75,11 @@ final class Logger extends AbstractLogger
 
     /**
      * Logs with an arbitrary level.
-     * 
+     *
      * <code>
      *  //initialize a new logger
      *  $logger = new Logger("stream://stdout");
-     * 
+     *
      *  if ($temp > 60.5) {
      *      //the new log entry has alert as severity level
      *      $logger->alert('Room temperature too high!', [
@@ -105,7 +105,7 @@ final class Logger extends AbstractLogger
 
     /**
      * Get the connection string passed to the constructor.
-     * 
+     *
      * @return string the connection string passed to the constructor
      */
     public function __toString()

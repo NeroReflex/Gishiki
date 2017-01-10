@@ -21,7 +21,7 @@ use Gishiki\Logging\Logger;
 
 /**
  * The tester for the Logger PSR-3 class.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 class LoggerTest extends \PHPUnit_Framework_TestCase

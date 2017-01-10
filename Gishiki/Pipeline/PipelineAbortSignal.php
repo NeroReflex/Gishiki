@@ -19,7 +19,7 @@ namespace Gishiki\Pipeline;
 
 /**
  * Represent the abort signal of the current PipelineRuntime.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 class PipelineAbortSignal extends \Exception

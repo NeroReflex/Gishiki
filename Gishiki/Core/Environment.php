@@ -25,14 +25,14 @@ namespace Gishiki\Core {
 
     /**
      * Represent the environment used to run controllers.
-     * 
+     *
      * @author Benato Denis <benato.denis96@gmail.com>
      */
     final class Environment extends GenericCollection
     {
         /**
          * Create a mock / fake environment from the given data.
-         * 
+         *
          * The given data is organized as the $_SERVER variable is
          *
          * @param array $userData Array of custom environment keys and values
@@ -70,7 +70,7 @@ namespace Gishiki\Core {
 
         /**
          * Setup a new environment instance used to fulfill the client request.
-         * 
+         *
          * @param bool $selfRegister TRUE if the environment must be assigned as the currently valid one
          */
         public function __construct(array $userData = [], $selfRegister = false, $loadApplication = false)
@@ -113,9 +113,9 @@ namespace Gishiki\Core {
         }
 
         /**
-         * Read the application configuration (settings.json) and return the 
+         * Read the application configuration (settings.json) and return the
          * parsing result.
-         * 
+         *
          * @return array the application configuration
          */
         public static function getApplicationSettings()
@@ -136,7 +136,7 @@ namespace Gishiki\Core {
         /**
          * Check if the application to be executed exists, is valid and has the
          * configuration file.
-         * 
+         *
          * @return bool the application existence
          */
         public static function applicationExists()
@@ -147,7 +147,7 @@ namespace Gishiki\Core {
 
         /**
          * Register the currently active environment.
-         * 
+         *
          * @param Environment $env the currently active environment
          */
         public function RegisterEnvironment(Environment &$env)
@@ -196,7 +196,7 @@ namespace Gishiki\Core {
 
         /**
          * Return the currenlty active environment used to run the controller.
-         * 
+         *
          * @return Environment the current environment
          */
         public static function GetCurrentEnvironment()
@@ -256,7 +256,7 @@ namespace Gishiki\Core {
 
         /**
          * Return the configuration property.
-         * 
+         *
          * @param string $property the requested configuration property
          *
          * @return the requested configuration property or NULL

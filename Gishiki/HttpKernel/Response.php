@@ -149,7 +149,7 @@ class Response extends Message implements ResponseInterface
 
     /**
      * Sends the given HTTP response to the client.
-     * 
+     *
      * You MUST AVOID calls to this function!
      *
      * Note: This method is not part of the PSR-7 standard.
@@ -383,12 +383,12 @@ class Response extends Message implements ResponseInterface
     /**
      * Serialize the given serializable collection using the better serialization
      * for the current 'Content-Type' header.
-     * 
+     *
      * The serialization result is written to the reponse body.
-     * 
+     *
      * If none or an invalid 'Content-Type' header is provided the default one
      * will be used (which is 'application/json').
-     * 
+     *
      * @param SerializableCollection $data the serializable collection
      *
      * @return Response the current response (after update)
@@ -407,7 +407,7 @@ class Response extends Message implements ResponseInterface
         $this->headers->set('Content-Type', $mediaType.';charset=utf8');
 
         switch ($mediaType) {
-            case 'application/json' :
+            case 'application/json':
                 $format = SerializableCollection::JSON;
                 break;
 
@@ -462,16 +462,16 @@ class Response extends Message implements ResponseInterface
 
     /**
      * Directly write the serialized json to the output.
-     * 
+     *
      * @deprecated deprecated since the first release (kept for Slim compatibility)
      *
      * Note: This method is not part of the PSR-7 standard.
      *
      * This method prepares the response object to return an HTTP Json
      * response to the client from an associative array.
-     * 
+     *
      * This method is dangerous because no error checks are performed
-     * 
+     *
      * @param mixed $data            The data
      * @param int   $status          The HTTP status code.
      * @param int   $encodingOptions Json encoding options

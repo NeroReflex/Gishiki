@@ -21,7 +21,7 @@ use Gishiki\Database\DatabaseManager;
 
 /**
  * The tester for the MongoDatabase class.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 class MongoDatabaseTest extends \PHPUnit_Framework_TestCase

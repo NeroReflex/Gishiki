@@ -21,14 +21,14 @@ use Gishiki\Algorithms\Collections\GenericCollection;
 
 /**
  * Represent how a database connection must be implemented.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 interface DatabaseInterface
 {
     /**
      * Create a new database handler and logically connect the given database.
-     * 
+     *
      * @param string $details the connection string
      *
      * @throws DatabaseException         the error occurred while connecting to the database
@@ -38,7 +38,7 @@ interface DatabaseInterface
 
     /**
      * Logically connect the given database.
-     * 
+     *
      * @param string $details the connection string
      *
      * @throws DatabaseException         the error occurred while connecting to the database
@@ -48,7 +48,7 @@ interface DatabaseInterface
 
     /**
      * Check if the database handler is connected with a real database.
-     * 
+     *
      * @return bool TRUE only if the database connection is alive
      */
     public function Connected();
@@ -56,7 +56,7 @@ interface DatabaseInterface
     /**
      * Write data to the database on the given collection/table.
      * The name of the collection must be given witht the database.collection syntax.
-     * 
+     *
      * @param string                    $collection the name of the collection that will hold the data
      * @param array|CollectionInterface $data       the collection of data to be written
      * @throw \InvalidArgumentException the given collection name or data is not a collection of valid values
@@ -69,7 +69,7 @@ interface DatabaseInterface
 
     /**
      * Update values of documents/records matching the given criteria.
-     * 
+     *
      * @param string                    $collection the name of the collection that will hold the changed data
      * @param array|CollectionInterface $data       the new data of selected documents/records
      * @param SelectionCriteria         $where      the criteria used to select documents/records to update
@@ -83,7 +83,7 @@ interface DatabaseInterface
 
     /**
      * Remove documents/records matching the given criteria.
-     * 
+     *
      * @param string            $collection the name of the collection that will be affected
      * @param SelectionCriteria $where      the criteria used to select documents/records to update
      * @throw \InvalidArgumentException the given collection name is not a valid collection name
@@ -96,7 +96,7 @@ interface DatabaseInterface
 
     /**
      * Fetch documents/records matching the given criteria.
-     * 
+     *
      * @param string            $collection the name of the collection that will be searched
      * @param SelectionCriteria $where      the criteria used to select documents/records to fetch
      * @param integer           $mod        the modifier to be applied to the result set

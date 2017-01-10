@@ -24,7 +24,7 @@ use Gishiki\Database\DatabaseManager;
 
 /**
  * The tester for the PipelineRuntime class.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase
@@ -257,7 +257,6 @@ class PipelineRuntimeTest extends \PHPUnit_Framework_TestCase
 
         $pipeline = new Pipeline('asyncTester');
         $pipeline->bindStage('loneStage', function (SerializableCollection &$collection) {
-
         });
 
         $highestPriority = new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::ASYNCHRONOUS, \Gishiki\Pipeline\RuntimePriority::LOWEST);

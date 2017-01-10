@@ -19,7 +19,7 @@ namespace Gishiki\Security\Hashing;
 
 /**
  * This class is a collection of supported algorithms.
- * 
+ *
  * Note: This class uses OpenSSL for strong encryption
  *
  * @author Benato Denis <benato.denis96@gmail.com>
@@ -40,20 +40,20 @@ abstract class Algorithms
 
     /**
      * Generate the message digest for the given message.
-     * 
+     *
      * An example usage is:
-     * 
+     *
      * <code>
      * $message = "this is the message to be hashed";
-     * 
+     *
      * $test_gishiki_md5 = Algorithms::hash($message, Algorithms::MD5);
      * $test_php_md5 = md5($message);
-     * 
+     *
      * if ($test_gishiki_md5 == $test_php_md5) {
      *     echo "Gishiki's MD5 produces the same exact hash of the PHP's MD5";
      * }
      * </code>
-     * 
+     *
      * @param string $message      the string to be hashed
      * @param string $algorithm    the name of the hashing algorithm
      * @param bool   $binaryUnsafe if false the result is binhex
@@ -103,12 +103,12 @@ abstract class Algorithms
 
     /**
      * PBKDF2 key derivation function as defined by RSA's PKCS #5: https://www.ietf.org/rfc/rfc2898.txt.
-     * 
+     *
      * Test vectors can be found here: https://www.ietf.org/rfc/rfc6070.txt
      *
      * This implementation of PBKDF2 was originally created by https://defuse.ca
      * With improvements by http://www.variations-of-shadow.com
-     * 
+     *
      * @param string $password     the password
      * @param string $salt         a salt that is unique to the password
      * @param string $keyLength    the length of the derived key in bytes

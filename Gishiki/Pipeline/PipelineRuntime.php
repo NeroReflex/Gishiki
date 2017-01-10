@@ -21,7 +21,7 @@ use Gishiki\Algorithms\Collections\SerializableCollection;
 
 /**
  * Represent the executor of a pipeline.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 final class PipelineRuntime
@@ -44,7 +44,7 @@ final class PipelineRuntime
     /**
      * Create a new pipeline executor and stop the execution, so that it
      * will be started on request or by the cronjob.
-     * 
+     *
      * <code>
      * $pipeline = new Pipeline("first_splittest!");
      *  $pipeline->bindStage('firstStage', function (SerializableCollection &$collection)
@@ -67,14 +67,14 @@ final class PipelineRuntime
      *      $collection->set('value', $collection->get('value') + 2);
      *      return null;
      *  });
-     *  
+     *
      *  //create the pipeline runtime
      *  $pipelineExecutor = new PipelineRuntime($pipeline, \Gishiki\Pipeline\RuntimeType::SYNCHRONOUS);
-     * 
+     *
      *  //execute the pipeline entirely
      *  $pipelineExecutor(-1);
      * </code>
-     * 
+     *
      * @param Pipeline $pipeline the pipeline to be followed during the runtime
      * @param int      $type     can either be RuntimeType::ASYNCHRONOUS or RuntimeType::SYNCHRONOUS
      * @param int      $priority the priority assigned to the pipeline executor
@@ -120,7 +120,7 @@ final class PipelineRuntime
     /**
      * Change the type of the current pipeline, but doesn't immediatly reflect
      * changes to the database.
-     * 
+     *
      * @param int $type can either be RuntimeType::ASYNCHRONOUS or RuntimeType::SYNCHRONOUS
      *
      * @throws \InvalidArgumentException the given type is not valid
@@ -138,7 +138,7 @@ final class PipelineRuntime
 
     /**
      * Forward the request to PipelineSupport.
-     * 
+     *
      * @param string $uniqueID the unique ID of the PipelineRuntime
      *
      * @return PipelineRuntime the restored runtime
@@ -155,7 +155,7 @@ final class PipelineRuntime
      * Execute a finite number of stages and end the execution.
      * If the number of stages to be executed are less than zero than the entire
      * pipeline is executed.
-     * 
+     *
      * @param int $steps number of stages to be passed before stopping the execution
      *
      * @throws \InvalidArgumentException invalid arguments passed
@@ -239,7 +239,7 @@ final class PipelineRuntime
 
     /**
      * Get the reason of the pipeline processing forced abort.
-     * 
+     *
      * @return null|string the reason for the project abort or null
      */
     public function getAbortMessage()
@@ -249,7 +249,7 @@ final class PipelineRuntime
 
     /**
      * Get the status of the current pipeline executor.
-     * 
+     *
      * @return int one of the RuntimeStatus constants
      */
     public function getStatus()
@@ -259,7 +259,7 @@ final class PipelineRuntime
 
     /**
      * Get the type of the current pipeline executor.
-     * 
+     *
      * @return int one of the RuntimeType constants
      */
     public function getType()
@@ -269,7 +269,7 @@ final class PipelineRuntime
 
     /**
      * Get the priority of the current pipeline executor.
-     * 
+     *
      * @return int one of the RuntimePriority constants
      */
     public function getPriority()
@@ -279,7 +279,7 @@ final class PipelineRuntime
 
     /**
      * Get the number of pipeline stages completed.
-     * 
+     *
      * @return int completed stages
      */
     public function getCompletedStagesCount()
@@ -289,7 +289,7 @@ final class PipelineRuntime
 
     /**
      * Get the data collection that the pipeline can use to work on.
-     * 
+     *
      * @return SerializableCollection the data collection
      */
     public function &getDataCollection()
@@ -299,7 +299,7 @@ final class PipelineRuntime
 
     /**
      * Get the name of the pipeline that is executed by this runtime.
-     * 
+     *
      * @return string the name of the pipeline
      */
     public function getPipelineName()
@@ -309,7 +309,7 @@ final class PipelineRuntime
 
     /**
      * Get timestamp of the runtime creation moment.
-     * 
+     *
      * @return int the timestamp of the creation time
      */
     public function getCreationTime()
@@ -320,7 +320,7 @@ final class PipelineRuntime
     /**
      * Get the unique ID of the pipeline runtime.
      * The given ID can be used to restore the runtime over the time.
-     * 
+     *
      * @return string the unique ID
      */
     public function getUniqueID()
@@ -331,7 +331,7 @@ final class PipelineRuntime
     /**
      * Get the report of the pipeline execution.
      * Each time a pipeline stage get executed completely a report is generated.
-     * 
+     *
      * <code>
      * //this is an example of what is returned:
      * array([
@@ -348,7 +348,7 @@ final class PipelineRuntime
      *      ],
      * );
      * </code>
-     * 
+     *
      * @return SerializableCollection the report of the result automatically generated
      */
     public function getExecutionReport()

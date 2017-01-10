@@ -20,7 +20,7 @@ namespace Gishiki\Pipeline;
 /**
  * Represent a pipeline as a group of actions to be executed
  * in a specific order.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 final class Pipeline
@@ -101,7 +101,7 @@ final class Pipeline
 
     /**
      * Get the name of the current pipeline.
-     * 
+     *
      * @return string the name of the pipeline
      */
     public function getName()
@@ -111,7 +111,7 @@ final class Pipeline
 
     /**
      * Retrieve the name of the function inside the current pipeline by its index.
-     * 
+     *
      * @param int $index the index zero-based of the function
      *
      * @return string the name of the function
@@ -135,7 +135,7 @@ final class Pipeline
 
     /**
      * Retrieve the index of the function with the given name.
-     * 
+     *
      * @param string $name the name of the function to be found
      *
      * @return int the index of the binded function with the given name
@@ -163,7 +163,7 @@ final class Pipeline
 
     /**
      * Reflect the function with the given name from the current pipeline.
-     * 
+     *
      * @param string $name the name of the function to be reflected
      *
      * @return \ReflectionFunction the reflected function
@@ -186,7 +186,7 @@ final class Pipeline
 
     /**
      * Reflect the function with the given index from the current pipeline.
-     * 
+     *
      * @param string $index the name of the function to be reflected
      *
      * @return \ReflectionFunction the reflected function

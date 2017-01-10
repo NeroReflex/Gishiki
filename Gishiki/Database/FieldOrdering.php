@@ -22,7 +22,8 @@ namespace Gishiki\Database;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-abstract class FieldOrdering {
+abstract class FieldOrdering
+{
     const ASC = 1;
     const DESC = -1;
 }

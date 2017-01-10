@@ -21,7 +21,7 @@ use Gishiki\Database\DatabaseManager;
 
 /**
  * The tester for the DatabaseManager class.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 class DatabaseManagerTest extends \PHPUnit_Framework_TestCase

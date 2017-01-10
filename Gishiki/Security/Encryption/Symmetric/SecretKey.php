@@ -24,7 +24,7 @@ use Gishiki\Core\Environment;
  * This class represents a secret key for the symmetric encryption engine.
  *
  * Note: This class uses OpenSSL for strong encryption
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 final class SecretKey
@@ -33,10 +33,10 @@ final class SecretKey
      * Generate the hexadecimal representation of a secure key
      * using the pbkdf2 algorithm in order to derive it from the
      * given password.
-     * 
+     *
      * Note: this function MAY throw exceptions
      * (the same exceptions Algorithms::pbkdf2() can throw)
-     * 
+     *
      * @param string $password   the password to be derived
      * @param int    $key_length the final length of the key (in bytes)
      *
@@ -69,24 +69,24 @@ final class SecretKey
 
     /**
      * Create an encryption key using the given serialized key.
-     * 
+     *
      * A serialized key is the hexadecimal representation of key.
-     * 
+     *
      * You can use the generate() function to retrive a really
      * secure key from the password (the same key derivation
      * algorithm that openssl internally uses).
-     * 
+     *
      * Usage example:
-     * 
+     *
      * <code>
      * //generate a secure pbkdf2-derived key and use it as the encryption key
      * $my_key = new SecretKey(SecretKey::generate("mypassword"));
-     * 
+     *
      * //you MUST save the generated key, because it won't be possible to
      * //generate the same key once again (even using the same password)!
      * $precious_key = (string) $my_key;
      * </code>
-     * 
+     *
      * @param string $key the password to be used
      */
     public function __construct($key = null)
@@ -106,7 +106,7 @@ final class SecretKey
 
     /**
      * Export the currently loaded key.
-     * 
+     *
      * @return string the hex representation of the loaded key
      */
     public function export()
@@ -116,7 +116,7 @@ final class SecretKey
 
     /**
      * Proxy call to the export() function.
-     * 
+     *
      * @return string the serialized key
      */
     public function __toString()
@@ -126,7 +126,7 @@ final class SecretKey
 
     /**
      * Export a reference to the native private key and its length in bits.
-     * 
+     *
      * @return array the array that contains the key and its legth (in bytes)
      */
     public function __invoke()

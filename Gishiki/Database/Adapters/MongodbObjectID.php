@@ -21,7 +21,7 @@ use Gishiki\Database\ObjectIDInterface;
 
 /**
  * Represent the a mongodb unique ID of a document.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 final class MongodbObjectID implements ObjectIDInterface

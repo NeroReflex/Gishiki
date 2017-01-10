@@ -18,7 +18,7 @@
 namespace Gishiki\Security\Encryption\Asymmetric;
 
 /**
- * The asymmetric encryption exception thrown by Gishiki 
+ * The asymmetric encryption exception thrown by Gishiki
  * when a cryptographic operation results is bad.
  *
  * @author Benato Denis <benato.denis96@gmail.com>

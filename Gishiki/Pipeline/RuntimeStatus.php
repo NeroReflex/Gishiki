@@ -19,7 +19,7 @@ namespace Gishiki\Pipeline;
 
 /**
  * Represent the execution status of a pipeline instance.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 abstract class RuntimeStatus

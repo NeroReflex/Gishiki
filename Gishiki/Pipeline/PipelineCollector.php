@@ -19,7 +19,7 @@ namespace Gishiki\Pipeline;
 
 /**
  * Represent the entire collection of pipelines currectly available.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 abstract class PipelineCollector
@@ -31,7 +31,7 @@ abstract class PipelineCollector
 
     /**
      * Register a pipeline in the global pipeline collector.
-     * 
+     *
      * @param Pipeline $pipeline the pipeline to be registered
      *
      * @throws PipelineException a pipeline with the same name already eexists
@@ -47,7 +47,7 @@ abstract class PipelineCollector
 
     /**
      * Check if a pipeline with the given name already exists.
-     * 
+     *
      * @param string $name the name of the pipeline to be searched
      *
      * @return bool TRUE only is a pipeline with the given name already exists
@@ -70,7 +70,7 @@ abstract class PipelineCollector
 
     /**
      * Get a pipeline using its name.
-     * 
+     *
      * @param string $name the name of the desired pipeline
      *
      * @return Pipeline& the reference to the pipeline with the given name

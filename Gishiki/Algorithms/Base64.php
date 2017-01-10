@@ -26,18 +26,18 @@ abstract class Base64
 {
     /**
      * Create the Base64 binary-safe representation of the given message.
-     * 
+     *
      * The given message can be a binary unsafe string.
-     * 
+     *
      * Example of usage:
      * <code>
      * //this is the binary unsafe message
      * $message = " ... ";
-     * 
+     *
      * //print the result
      * var_dump(Base64::encode($message));
      * </code>
-     * 
+     *
      * @param string $message the binary-unsafe message
      * @param bool   $urlSafe the generated result doesn't contains special characters
      *
@@ -61,19 +61,19 @@ abstract class Base64
 
     /**
      * Get the binary-unsafe representation of the given base64-encoded message.
-     * 
+     *
      * This function is compatible with the php standard base64_encode and the
      * framework Base64::encode( ... ).
-     * 
+     *
      * Example of usage:
      * <code>
      * //this is the binary unsafe message
      * $message = " ... ";
-     * 
+     *
      * //print the input string (binary unsafe)
      * var_dump(Base64::decode(Base64::encode($message)));
      * </code>
-     * 
+     *
      * @param string $message a message base64 encoded
      *
      * @return string the message in a binary-unsafe format

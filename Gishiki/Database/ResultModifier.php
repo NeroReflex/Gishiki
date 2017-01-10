@@ -19,29 +19,32 @@ namespace Gishiki\Database;
 
 /**
  * An helper class used to modify the result set of a database operation.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class ResultModifier {
+final class ResultModifier
+{
     
     /**
-     * @var array filters to be applied to the result set 
+     * @var array filters to be applied to the result set
      */
     protected $resultChanger;
     
     /**
      * Initialize a result modifier that doesn't apply any filter.
-     * 
+     *
      * @return \self a result modifier that acts as a no-op
      */
-    public static function Invariant() {
+    public static function Invariant()
+    {
         return new self();
     }
     
     /**
      * Create a new result modifier that acts as "no filters".
      */
-    public function __construct() {
+    public function __construct()
+    {
         //no limit by default
         $this->resultChanger = [
             'sort' => [
@@ -50,19 +53,18 @@ final class ResultModifier {
             'limit' => -1,
             'skip' => 0
         ];
-        
-        
     }
     
     /**
      * Change the order of elements in the result set.
-     * 
+     *
      * @param string $field the name of the field to be used for ordering
      * @param int $order the order to be applied (one of FieldOrdering consts)
      * @return \Gishiki\Database\ResultModifier the modified filter
      * @throws \InvalidArgumentException passed input is not valid or incompatible type
      */
-    public function order($field, $order) {
+    public function order($field, $order)
+    {
         //check for the type of the input
         if (!is_string($field)) {
             throw new \InvalidArgumentException("The name of the field to be ordered must be given as a string");
@@ -82,13 +84,14 @@ final class ResultModifier {
     }
     
     /**
-     * Change the limit of the elements in the result set. 
-     * 
+     * Change the limit of the elements in the result set.
+     *
      * @param int $limit the maximum number of results that can be fetched from the database
      * @return \Gishiki\Database\ResultModifier the modified filter
      * @throws \InvalidArgumentException passed input is not valid or incompatible type
      */
-    public function limit($limit = -1) {
+    public function limit($limit = -1)
+    {
         //check for the type of the input
         if (!is_int($limit)) {
             throw new \InvalidArgumentException("The limit must be given as an integer number");
@@ -105,13 +108,14 @@ final class ResultModifier {
     }
     
     /**
-     * Change the offset of elements in the result set. 
-     * 
+     * Change the offset of elements in the result set.
+     *
      * @param int $offset the offset to be applied
      * @return \Gishiki\Database\ResultModifier the modified filter
      * @throws \InvalidArgumentException passed input is not valid or incompatible type
      */
-    public function skip($offset = -1) {
+    public function skip($offset = -1)
+    {
         //check for the type of the input
         if (!is_int($offset)) {
             throw new \InvalidArgumentException("The offset must be given as an integer number");
@@ -127,7 +131,8 @@ final class ResultModifier {
         //filter modifier functions
     }
     
-    protected function export() {
+    protected function export()
+    {
         $export = $this->resultChanger;
         
         if ($export['limit'] <= 0) {
@@ -139,5 +144,4 @@ final class ResultModifier {
         
         return $export;
     }
-    
 }

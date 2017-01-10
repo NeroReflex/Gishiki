@@ -15,15 +15,23 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\Pipeline;
+namespace Gishiki\tests\Database;
+
+use Gishiki\Database\SelectionCriteria;
 
 /**
- * Represent the type of a pipeline.
+ * The tester for the SelectionCriteria class.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-abstract class RuntimeType
+class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
 {
-    const ASYNCHRONOUS = 0;
-    const SYNCHRONOUS = 1;
+    
+    /**
+     * @expectedException \Gishiki\Database\InvalidSelectionCriteriaException
+     */
+    public function testInvalidObjectID()
+    {
+        SelectionCriteria::Select(['_id' => 5]);
+    }
 }

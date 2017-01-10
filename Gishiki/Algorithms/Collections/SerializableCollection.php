@@ -19,7 +19,7 @@ namespace Gishiki\Algorithms\Collections;
 
 /**
  * The structured data management class.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 class SerializableCollection extends GenericCollection
@@ -33,7 +33,7 @@ class SerializableCollection extends GenericCollection
 
     /**
      * Create serializable data collection from the given array.
-     * 
+     *
      * @param array $data the collection of properties
      *
      * @throws \InvalidArgumentException an invalid collection was given
@@ -49,7 +49,7 @@ class SerializableCollection extends GenericCollection
 
     /**
      * Serialize the current data collection.
-     * 
+     *
      * @param int $format an integer representing one of the allowed formats
      * @throw  SerializationException         the error occurred while serializing the collection in json format
      *
@@ -93,7 +93,7 @@ class SerializableCollection extends GenericCollection
 
     /**
      * Deserialize the given data collectionand create a serializable data collection.
-     * 
+     *
      * @param string|array|CollectionInterface $message the string containing the serialized data or the array of data
      * @param int                              $format  an integer representing one of the allowed formats
      *
@@ -178,7 +178,7 @@ class SerializableCollection extends GenericCollection
 
     /**
      * Get the serialization result using the default format.
-     * 
+     *
      * @return string the serialization result
      */
     public function __toString()

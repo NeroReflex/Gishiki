@@ -267,6 +267,7 @@
 				<li><a href="class-Gishiki.tests.Core.RouteTest.html">Gishiki\tests\Core\RouteTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.DatabaseManagerTest.html">Gishiki\tests\Database\DatabaseManagerTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.MongoDatabaseTest.html">Gishiki\tests\Database\MongoDatabaseTest</a></li>
+				<li><a href="class-Gishiki.tests.Database.SelectionCriteriaTest.html">Gishiki\tests\Database\SelectionCriteriaTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.BodyTest.html">Gishiki\tests\Http\BodyTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.CookiesTest.html">Gishiki\tests\Http\CookiesTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.EnvironmentTest.html">Gishiki\tests\Http\EnvironmentTest</a></li>
@@ -315,6 +316,7 @@
 				<li><a href="class-Gishiki.Algorithms.Collections.SerializationException.html">Gishiki\Algorithms\Collections\SerializationException</a></li>
 				<li><a href="class-Gishiki.Core.Exception.html">Gishiki\Core\Exception</a></li>
 				<li><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></li>
+				<li><a href="class-Gishiki.Database.InvalidSelectionCriteriaException.html">Gishiki\Database\InvalidSelectionCriteriaException</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineAbortSignal.html">Gishiki\Pipeline\PipelineAbortSignal</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineException.html">Gishiki\Pipeline\PipelineException</a></li>
 				<li><a href="class-Gishiki.Security.Encryption.Asymmetric.AsymmetricException.html">Gishiki\Security\Encryption\Asymmetric\AsymmetricException</a></li>
@@ -380,7 +382,7 @@
 </span><span id="19" class="l"><a href="#19"> 19: </a>
 </span><span id="20" class="l"><a href="#20"> 20: </a><span class="php-comment">/**
 </span></span><span id="21" class="l"><a href="#21"> 21: </a><span class="php-comment"> * This class is a collection of supported algorithms.
-</span></span><span id="22" class="l"><a href="#22"> 22: </a><span class="php-comment"> * 
+</span></span><span id="22" class="l"><a href="#22"> 22: </a><span class="php-comment"> *
 </span></span><span id="23" class="l"><a href="#23"> 23: </a><span class="php-comment"> * Note: This class uses OpenSSL for strong encryption
 </span></span><span id="24" class="l"><a href="#24"> 24: </a><span class="php-comment"> *
 </span></span><span id="25" class="l"><a href="#25"> 25: </a><span class="php-comment"> * @author Benato Denis &lt;benato.denis96@gmail.com&gt;
@@ -401,20 +403,20 @@
 </span><span id="40" class="l"><a href="#40"> 40: </a>
 </span><span id="41" class="l"><a href="#41"> 41: </a>    <span class="php-comment">/**
 </span></span><span id="42" class="l"><a href="#42"> 42: </a><span class="php-comment">     * Generate the message digest for the given message.
-</span></span><span id="43" class="l"><a href="#43"> 43: </a><span class="php-comment">     * 
+</span></span><span id="43" class="l"><a href="#43"> 43: </a><span class="php-comment">     *
 </span></span><span id="44" class="l"><a href="#44"> 44: </a><span class="php-comment">     * An example usage is:
-</span></span><span id="45" class="l"><a href="#45"> 45: </a><span class="php-comment">     * 
+</span></span><span id="45" class="l"><a href="#45"> 45: </a><span class="php-comment">     *
 </span></span><span id="46" class="l"><a href="#46"> 46: </a><span class="php-comment">     * &lt;code&gt;
 </span></span><span id="47" class="l"><a href="#47"> 47: </a><span class="php-comment">     * $message = &quot;this is the message to be hashed&quot;;
-</span></span><span id="48" class="l"><a href="#48"> 48: </a><span class="php-comment">     * 
+</span></span><span id="48" class="l"><a href="#48"> 48: </a><span class="php-comment">     *
 </span></span><span id="49" class="l"><a href="#49"> 49: </a><span class="php-comment">     * $test_gishiki_md5 = Algorithms::hash($message, Algorithms::MD5);
 </span></span><span id="50" class="l"><a href="#50"> 50: </a><span class="php-comment">     * $test_php_md5 = md5($message);
-</span></span><span id="51" class="l"><a href="#51"> 51: </a><span class="php-comment">     * 
+</span></span><span id="51" class="l"><a href="#51"> 51: </a><span class="php-comment">     *
 </span></span><span id="52" class="l"><a href="#52"> 52: </a><span class="php-comment">     * if ($test_gishiki_md5 == $test_php_md5) {
 </span></span><span id="53" class="l"><a href="#53"> 53: </a><span class="php-comment">     *     echo &quot;Gishiki's MD5 produces the same exact hash of the PHP's MD5&quot;;
 </span></span><span id="54" class="l"><a href="#54"> 54: </a><span class="php-comment">     * }
 </span></span><span id="55" class="l"><a href="#55"> 55: </a><span class="php-comment">     * &lt;/code&gt;
-</span></span><span id="56" class="l"><a href="#56"> 56: </a><span class="php-comment">     * 
+</span></span><span id="56" class="l"><a href="#56"> 56: </a><span class="php-comment">     *
 </span></span><span id="57" class="l"><a href="#57"> 57: </a><span class="php-comment">     * @param string $message      the string to be hashed
 </span></span><span id="58" class="l"><a href="#58"> 58: </a><span class="php-comment">     * @param string $algorithm    the name of the hashing algorithm
 </span></span><span id="59" class="l"><a href="#59"> 59: </a><span class="php-comment">     * @param bool   $binaryUnsafe if false the result is binhex
@@ -464,12 +466,12 @@
 </span><span id="103" class="l"><a href="#103">103: </a>
 </span><span id="104" class="l"><a href="#104">104: </a>    <span class="php-comment">/**
 </span></span><span id="105" class="l"><a href="#105">105: </a><span class="php-comment">     * PBKDF2 key derivation function as defined by RSA's PKCS #5: https://www.ietf.org/rfc/rfc2898.txt.
-</span></span><span id="106" class="l"><a href="#106">106: </a><span class="php-comment">     * 
+</span></span><span id="106" class="l"><a href="#106">106: </a><span class="php-comment">     *
 </span></span><span id="107" class="l"><a href="#107">107: </a><span class="php-comment">     * Test vectors can be found here: https://www.ietf.org/rfc/rfc6070.txt
 </span></span><span id="108" class="l"><a href="#108">108: </a><span class="php-comment">     *
 </span></span><span id="109" class="l"><a href="#109">109: </a><span class="php-comment">     * This implementation of PBKDF2 was originally created by https://defuse.ca
 </span></span><span id="110" class="l"><a href="#110">110: </a><span class="php-comment">     * With improvements by http://www.variations-of-shadow.com
-</span></span><span id="111" class="l"><a href="#111">111: </a><span class="php-comment">     * 
+</span></span><span id="111" class="l"><a href="#111">111: </a><span class="php-comment">     *
 </span></span><span id="112" class="l"><a href="#112">112: </a><span class="php-comment">     * @param string $password     the password
 </span></span><span id="113" class="l"><a href="#113">113: </a><span class="php-comment">     * @param string $salt         a salt that is unique to the password
 </span></span><span id="114" class="l"><a href="#114">114: </a><span class="php-comment">     * @param string $keyLength    the length of the derived key in bytes
@@ -562,6 +564,6 @@
 </div>
 </div>
 <script src="resources/combined.js?7ec981fd384b70aee7ff5ceda56e0deb9171d900"></script>
-<script src="elementlist.js?ddda102f9726b8fccc22d28d1b7587a8c57d1611"></script>
+<script src="elementlist.js?592d4a4e897f6f63ad90a340ac2c2bc93abe7c56"></script>
 </body>
 </html>

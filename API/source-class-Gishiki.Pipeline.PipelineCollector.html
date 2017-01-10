@@ -267,6 +267,7 @@
 				<li><a href="class-Gishiki.tests.Core.RouteTest.html">Gishiki\tests\Core\RouteTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.DatabaseManagerTest.html">Gishiki\tests\Database\DatabaseManagerTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.MongoDatabaseTest.html">Gishiki\tests\Database\MongoDatabaseTest</a></li>
+				<li><a href="class-Gishiki.tests.Database.SelectionCriteriaTest.html">Gishiki\tests\Database\SelectionCriteriaTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.BodyTest.html">Gishiki\tests\Http\BodyTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.CookiesTest.html">Gishiki\tests\Http\CookiesTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.EnvironmentTest.html">Gishiki\tests\Http\EnvironmentTest</a></li>
@@ -315,6 +316,7 @@
 				<li><a href="class-Gishiki.Algorithms.Collections.SerializationException.html">Gishiki\Algorithms\Collections\SerializationException</a></li>
 				<li><a href="class-Gishiki.Core.Exception.html">Gishiki\Core\Exception</a></li>
 				<li><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></li>
+				<li><a href="class-Gishiki.Database.InvalidSelectionCriteriaException.html">Gishiki\Database\InvalidSelectionCriteriaException</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineAbortSignal.html">Gishiki\Pipeline\PipelineAbortSignal</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineException.html">Gishiki\Pipeline\PipelineException</a></li>
 				<li><a href="class-Gishiki.Security.Encryption.Asymmetric.AsymmetricException.html">Gishiki\Security\Encryption\Asymmetric\AsymmetricException</a></li>
@@ -380,7 +382,7 @@
 </span><span id="19" class="l"><a href="#19">19: </a>
 </span><span id="20" class="l"><a href="#20">20: </a><span class="php-comment">/**
 </span></span><span id="21" class="l"><a href="#21">21: </a><span class="php-comment"> * Represent the entire collection of pipelines currectly available.
-</span></span><span id="22" class="l"><a href="#22">22: </a><span class="php-comment"> * 
+</span></span><span id="22" class="l"><a href="#22">22: </a><span class="php-comment"> *
 </span></span><span id="23" class="l"><a href="#23">23: </a><span class="php-comment"> * @author Benato Denis &lt;benato.denis96@gmail.com&gt;
 </span></span><span id="24" class="l"><a href="#24">24: </a><span class="php-comment"> */</span>
 </span><span id="25" class="l"><a href="#25">25: </a><span class="php-keyword1">abstract</span> <span class="php-keyword1">class</span> PipelineCollector
@@ -392,7 +394,7 @@
 </span><span id="31" class="l"><a href="#31">31: </a>
 </span><span id="32" class="l"><a href="#32">32: </a>    <span class="php-comment">/**
 </span></span><span id="33" class="l"><a href="#33">33: </a><span class="php-comment">     * Register a pipeline in the global pipeline collector.
-</span></span><span id="34" class="l"><a href="#34">34: </a><span class="php-comment">     * 
+</span></span><span id="34" class="l"><a href="#34">34: </a><span class="php-comment">     *
 </span></span><span id="35" class="l"><a href="#35">35: </a><span class="php-comment">     * @param Pipeline $pipeline the pipeline to be registered
 </span></span><span id="36" class="l"><a href="#36">36: </a><span class="php-comment">     *
 </span></span><span id="37" class="l"><a href="#37">37: </a><span class="php-comment">     * @throws PipelineException a pipeline with the same name already eexists
@@ -408,7 +410,7 @@
 </span><span id="47" class="l"><a href="#47">47: </a>
 </span><span id="48" class="l"><a href="#48">48: </a>    <span class="php-comment">/**
 </span></span><span id="49" class="l"><a href="#49">49: </a><span class="php-comment">     * Check if a pipeline with the given name already exists.
-</span></span><span id="50" class="l"><a href="#50">50: </a><span class="php-comment">     * 
+</span></span><span id="50" class="l"><a href="#50">50: </a><span class="php-comment">     *
 </span></span><span id="51" class="l"><a href="#51">51: </a><span class="php-comment">     * @param string $name the name of the pipeline to be searched
 </span></span><span id="52" class="l"><a href="#52">52: </a><span class="php-comment">     *
 </span></span><span id="53" class="l"><a href="#53">53: </a><span class="php-comment">     * @return bool TRUE only is a pipeline with the given name already exists
@@ -431,7 +433,7 @@
 </span><span id="70" class="l"><a href="#70">70: </a>
 </span><span id="71" class="l"><a href="#71">71: </a>    <span class="php-comment">/**
 </span></span><span id="72" class="l"><a href="#72">72: </a><span class="php-comment">     * Get a pipeline using its name.
-</span></span><span id="73" class="l"><a href="#73">73: </a><span class="php-comment">     * 
+</span></span><span id="73" class="l"><a href="#73">73: </a><span class="php-comment">     *
 </span></span><span id="74" class="l"><a href="#74">74: </a><span class="php-comment">     * @param string $name the name of the desired pipeline
 </span></span><span id="75" class="l"><a href="#75">75: </a><span class="php-comment">     *
 </span></span><span id="76" class="l"><a href="#76">76: </a><span class="php-comment">     * @return Pipeline&amp; the reference to the pipeline with the given name
@@ -465,6 +467,6 @@
 </div>
 </div>
 <script src="resources/combined.js?7ec981fd384b70aee7ff5ceda56e0deb9171d900"></script>
-<script src="elementlist.js?ddda102f9726b8fccc22d28d1b7587a8c57d1611"></script>
+<script src="elementlist.js?592d4a4e897f6f63ad90a340ac2c2bc93abe7c56"></script>
 </body>
 </html>

@@ -267,6 +267,7 @@
 				<li><a href="class-Gishiki.tests.Core.RouteTest.html">Gishiki\tests\Core\RouteTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.DatabaseManagerTest.html">Gishiki\tests\Database\DatabaseManagerTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.MongoDatabaseTest.html">Gishiki\tests\Database\MongoDatabaseTest</a></li>
+				<li><a href="class-Gishiki.tests.Database.SelectionCriteriaTest.html">Gishiki\tests\Database\SelectionCriteriaTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.BodyTest.html">Gishiki\tests\Http\BodyTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.CookiesTest.html">Gishiki\tests\Http\CookiesTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.EnvironmentTest.html">Gishiki\tests\Http\EnvironmentTest</a></li>
@@ -315,6 +316,7 @@
 				<li><a href="class-Gishiki.Algorithms.Collections.SerializationException.html">Gishiki\Algorithms\Collections\SerializationException</a></li>
 				<li><a href="class-Gishiki.Core.Exception.html">Gishiki\Core\Exception</a></li>
 				<li><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></li>
+				<li><a href="class-Gishiki.Database.InvalidSelectionCriteriaException.html">Gishiki\Database\InvalidSelectionCriteriaException</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineAbortSignal.html">Gishiki\Pipeline\PipelineAbortSignal</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineException.html">Gishiki\Pipeline\PipelineException</a></li>
 				<li><a href="class-Gishiki.Security.Encryption.Asymmetric.AsymmetricException.html">Gishiki\Security\Encryption\Asymmetric\AsymmetricException</a></li>
@@ -510,7 +512,7 @@
 </span><span id="149" class="l"><a href="#149">149: </a>
 </span><span id="150" class="l"><a href="#150">150: </a>    <span class="php-comment">/**
 </span></span><span id="151" class="l"><a href="#151">151: </a><span class="php-comment">     * Sends the given HTTP response to the client.
-</span></span><span id="152" class="l"><a href="#152">152: </a><span class="php-comment">     * 
+</span></span><span id="152" class="l"><a href="#152">152: </a><span class="php-comment">     *
 </span></span><span id="153" class="l"><a href="#153">153: </a><span class="php-comment">     * You MUST AVOID calls to this function!
 </span></span><span id="154" class="l"><a href="#154">154: </a><span class="php-comment">     *
 </span></span><span id="155" class="l"><a href="#155">155: </a><span class="php-comment">     * Note: This method is not part of the PSR-7 standard.
@@ -744,12 +746,12 @@
 </span><span id="383" class="l"><a href="#383">383: </a>    <span class="php-comment">/**
 </span></span><span id="384" class="l"><a href="#384">384: </a><span class="php-comment">     * Serialize the given serializable collection using the better serialization
 </span></span><span id="385" class="l"><a href="#385">385: </a><span class="php-comment">     * for the current 'Content-Type' header.
-</span></span><span id="386" class="l"><a href="#386">386: </a><span class="php-comment">     * 
+</span></span><span id="386" class="l"><a href="#386">386: </a><span class="php-comment">     *
 </span></span><span id="387" class="l"><a href="#387">387: </a><span class="php-comment">     * The serialization result is written to the reponse body.
-</span></span><span id="388" class="l"><a href="#388">388: </a><span class="php-comment">     * 
+</span></span><span id="388" class="l"><a href="#388">388: </a><span class="php-comment">     *
 </span></span><span id="389" class="l"><a href="#389">389: </a><span class="php-comment">     * If none or an invalid 'Content-Type' header is provided the default one
 </span></span><span id="390" class="l"><a href="#390">390: </a><span class="php-comment">     * will be used (which is 'application/json').
-</span></span><span id="391" class="l"><a href="#391">391: </a><span class="php-comment">     * 
+</span></span><span id="391" class="l"><a href="#391">391: </a><span class="php-comment">     *
 </span></span><span id="392" class="l"><a href="#392">392: </a><span class="php-comment">     * @param SerializableCollection $data the serializable collection
 </span></span><span id="393" class="l"><a href="#393">393: </a><span class="php-comment">     *
 </span></span><span id="394" class="l"><a href="#394">394: </a><span class="php-comment">     * @return Response the current response (after update)
@@ -768,7 +770,7 @@
 </span><span id="407" class="l"><a href="#407">407: </a>        <span class="php-var">$this</span>-&gt;headers-&gt;set(<span class="php-quote">'Content-Type'</span>, <span class="php-var">$mediaType</span>.<span class="php-quote">';charset=utf8'</span>);
 </span><span id="408" class="l"><a href="#408">408: </a>
 </span><span id="409" class="l"><a href="#409">409: </a>        <span class="php-keyword1">switch</span> (<span class="php-var">$mediaType</span>) {
-</span><span id="410" class="l"><a href="#410">410: </a>            <span class="php-keyword1">case</span> <span class="php-quote">'application/json'</span> :
+</span><span id="410" class="l"><a href="#410">410: </a>            <span class="php-keyword1">case</span> <span class="php-quote">'application/json'</span>:
 </span><span id="411" class="l"><a href="#411">411: </a>                <span class="php-var">$format</span> = SerializableCollection::JSON;
 </span><span id="412" class="l"><a href="#412">412: </a>                <span class="php-keyword1">break</span>;
 </span><span id="413" class="l"><a href="#413">413: </a>
@@ -823,16 +825,16 @@
 </span><span id="462" class="l"><a href="#462">462: </a>
 </span><span id="463" class="l"><a href="#463">463: </a>    <span class="php-comment">/**
 </span></span><span id="464" class="l"><a href="#464">464: </a><span class="php-comment">     * Directly write the serialized json to the output.
-</span></span><span id="465" class="l"><a href="#465">465: </a><span class="php-comment">     * 
+</span></span><span id="465" class="l"><a href="#465">465: </a><span class="php-comment">     *
 </span></span><span id="466" class="l"><a href="#466">466: </a><span class="php-comment">     * @deprecated deprecated since the first release (kept for Slim compatibility)
 </span></span><span id="467" class="l"><a href="#467">467: </a><span class="php-comment">     *
 </span></span><span id="468" class="l"><a href="#468">468: </a><span class="php-comment">     * Note: This method is not part of the PSR-7 standard.
 </span></span><span id="469" class="l"><a href="#469">469: </a><span class="php-comment">     *
 </span></span><span id="470" class="l"><a href="#470">470: </a><span class="php-comment">     * This method prepares the response object to return an HTTP Json
 </span></span><span id="471" class="l"><a href="#471">471: </a><span class="php-comment">     * response to the client from an associative array.
-</span></span><span id="472" class="l"><a href="#472">472: </a><span class="php-comment">     * 
+</span></span><span id="472" class="l"><a href="#472">472: </a><span class="php-comment">     *
 </span></span><span id="473" class="l"><a href="#473">473: </a><span class="php-comment">     * This method is dangerous because no error checks are performed
-</span></span><span id="474" class="l"><a href="#474">474: </a><span class="php-comment">     * 
+</span></span><span id="474" class="l"><a href="#474">474: </a><span class="php-comment">     *
 </span></span><span id="475" class="l"><a href="#475">475: </a><span class="php-comment">     * @param mixed $data            The data
 </span></span><span id="476" class="l"><a href="#476">476: </a><span class="php-comment">     * @param int   $status          The HTTP status code.
 </span></span><span id="477" class="l"><a href="#477">477: </a><span class="php-comment">     * @param int   $encodingOptions Json encoding options
@@ -1003,6 +1005,6 @@
 </div>
 </div>
 <script src="resources/combined.js?7ec981fd384b70aee7ff5ceda56e0deb9171d900"></script>
-<script src="elementlist.js?ddda102f9726b8fccc22d28d1b7587a8c57d1611"></script>
+<script src="elementlist.js?592d4a4e897f6f63ad90a340ac2c2bc93abe7c56"></script>
 </body>
 </html>

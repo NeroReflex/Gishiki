@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Gishiki\Database\ResultModifier | Gishiki</title>
+	<title>Class Gishiki\Database\InvalidSelectionCriteriaException | Gishiki</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -212,7 +212,7 @@
 				<li><a href="class-Gishiki.Database.DatabaseManager.html">DatabaseManager</a></li>
 				<li><a href="class-Gishiki.Database.FieldOrdering.html">FieldOrdering</a></li>
 				<li><a href="class-Gishiki.Database.Record.html">Record</a></li>
-				<li class="active"><a href="class-Gishiki.Database.ResultModifier.html">ResultModifier</a></li>
+				<li><a href="class-Gishiki.Database.ResultModifier.html">ResultModifier</a></li>
 				<li><a href="class-Gishiki.Database.SelectionCriteria.html">SelectionCriteria</a></li>
 			</ul>
 
@@ -226,7 +226,7 @@
 			<h3>Exceptions</h3>
 			<ul>
 				<li><a href="class-Gishiki.Database.DatabaseException.html">DatabaseException</a></li>
-				<li><a href="class-Gishiki.Database.InvalidSelectionCriteriaException.html">InvalidSelectionCriteriaException</a></li>
+				<li class="active"><a href="class-Gishiki.Database.InvalidSelectionCriteriaException.html">InvalidSelectionCriteriaException</a></li>
 			</ul>
 
 
@@ -265,13 +265,37 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class ResultModifier</h1>
+	<h1>Class InvalidSelectionCriteriaException</h1>
 
 
 	<div class="description">
-	<p>An helper class used to modify the result set of a database operation.</p>
+	<p>An exception related to the selection criteria.</p>
 	</div>
 
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-Exception.html"><span>Exception</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+			<a href="class-Gishiki.Core.Exception.html"><span>Gishiki\Core\Exception</span></a>
+			
+			
+			 uses 
+					Psr\Log\LoggerAwareTrait (not available)
+
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>Gishiki\Database\InvalidSelectionCriteriaException</span></b>			
+			
+			
+		</dd>
+	</dl>
 
 
 
@@ -288,7 +312,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.ResultModifier.html#20-147" title="Go to source code">Gishiki/Database/ResultModifier.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.InvalidSelectionCriteriaException.html#20-37" title="Go to source code">Gishiki/Database/InvalidSelectionCriteriaException.php</a>
 		<br>
 	</div>
 
@@ -296,40 +320,6 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="Invariant" id="_Invariant">
-
-		<td class="attributes"><code>
-			 public static
-
-			self
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_Invariant">#</a>
-		<code><a href="source-class-Gishiki.Database.ResultModifier.html#33-41" title="Go to source code">Invariant</a>( )</code>
-
-		<div class="description short">
-			<p>Initialize a result modifier that doesn't apply any filter.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Initialize a result modifier that doesn't apply any filter.</p>
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					self<br>a result modifier that acts as a no-op
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="__construct" id="___construct">
 
 		<td class="attributes"><code>
@@ -342,227 +332,82 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.Database.ResultModifier.html#43-56" title="Go to source code">__construct</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.InvalidSelectionCriteriaException.html#27-36" title="Go to source code">__construct</a>( <span>string <var>$message</var></span>, <span>integer <var>$errorCode</var></span> )</code>
 
 		<div class="description short">
-			<p>Create a new result modifier that acts as "no filters".</p>
+			<p>Create the selection criteria exception.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Create a new result modifier that acts as "no filters".</p>
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="order" id="_order">
-
-		<td class="attributes"><code>
-			 public 
-
-			<code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code>
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_order">#</a>
-		<code><a href="source-class-Gishiki.Database.ResultModifier.html#58-84" title="Go to source code">order</a>( <span>string <var>$field</var></span>, <span>integer <var>$order</var></span> )</code>
-
-		<div class="description short">
-			<p>Change the order of elements in the result set.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Change the order of elements in the result set.</p>
+			<p>Create the selection criteria exception.</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$field</var></dt>
-					<dd>the name of the field to be used for ordering</dd>
-					<dt><var>$order</var></dt>
-					<dd>the order to be applied (one of FieldOrdering consts)</dd>
+					<dt><var>$message</var></dt>
+					<dd>the error message</dd>
+					<dt><var>$errorCode</var></dt>
+					<dd>the database error code</dd>
 				</dl></div>
 
-				<h4>Returns</h4>
-				<div class="list">
-					<code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code><br>the modified filter
-				</div>
-
-				<h4>Throws</h4>
-				<div class="list">
-					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>passed input is not valid or incompatible type
-				</div>
 
 
 
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="limit" id="_limit">
-
-		<td class="attributes"><code>
-			 public 
-
-			<code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code>
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_limit">#</a>
-		<code><a href="source-class-Gishiki.Database.ResultModifier.html#86-108" title="Go to source code">limit</a>( <span>integer <var>$limit</var> = -<span class="php-num">1</span></span> )</code>
-
-		<div class="description short">
-			<p>Change the limit of the elements in the result set.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Change the limit of the elements in the result set.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$limit</var></dt>
-					<dd>the maximum number of results that can be fetched from the database</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code><br>the modified filter
-				</div>
-
-				<h4>Throws</h4>
-				<div class="list">
-					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>passed input is not valid or incompatible type
-				</div>
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="skip" id="_skip">
-
-		<td class="attributes"><code>
-			 public 
-
-			<code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code>
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_skip">#</a>
-		<code><a href="source-class-Gishiki.Database.ResultModifier.html#110-132" title="Go to source code">skip</a>( <span>integer <var>$offset</var> = -<span class="php-num">1</span></span> )</code>
-
-		<div class="description short">
-			<p>Change the offset of elements in the result set.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Change the offset of elements in the result set.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$offset</var></dt>
-					<dd>the offset to be applied</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code><br>the modified filter
-				</div>
-
-				<h4>Throws</h4>
-				<div class="list">
-					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>passed input is not valid or incompatible type
-				</div>
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="export" id="_export">
-
-		<td class="attributes"><code>
-			 protected 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_export">#</a>
-		<code><a href="source-class-Gishiki.Database.ResultModifier.html#134-146" title="Go to source code">export</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Gishiki.Core.Exception.html#___construct">Gishiki\Core\Exception::__construct()</a></code></div>
 
 		</div>
 		</div></td>
 	</tr>
 	</table>
 
-
-
-
-
-
-
-
-
-
-
-
-	<table class="summary properties" id="properties">
-	<caption>Properties summary</caption>
-	<tr data-order="resultChanger" id="$resultChanger">
-		<td class="attributes"><code>
-			protected  
-			array
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-Gishiki.Core.Exception.html#methods">Gishiki\Core\Exception</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Gishiki.Core.Exception.html#_writeLog">writeLog()</a>
 		</code></td>
-
-		<td class="name">
-				<a href="source-class-Gishiki.Database.ResultModifier.html#28-31" title="Go to source code"><var>$resultChanger</var></a>
-
-			<div class="description short">
-				<p>filters to be applied to the result set</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>filters to be applied to the result set</p>
-
-			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#$resultChanger" class="anchor">#</a>
-				<code></code>
-			</div>
-		</td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-Exception.html#methods">Exception</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Exception.html#___toString">__toString()</a>, 
+			<a href="class-Exception.html#___wakeup">__wakeup()</a>, 
+			<a href="class-Exception.html#_getCode">getCode()</a>, 
+			<a href="class-Exception.html#_getFile">getFile()</a>, 
+			<a href="class-Exception.html#_getLine">getLine()</a>, 
+			<a href="class-Exception.html#_getMessage">getMessage()</a>, 
+			<a href="class-Exception.html#_getPrevious">getPrevious()</a>, 
+			<a href="class-Exception.html#_getTrace">getTrace()</a>, 
+			<a href="class-Exception.html#_getTraceAsString">getTraceAsString()</a>
+		</code></td>
 	</tr>
 	</table>
 
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-Exception.html#properties">Exception</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Exception.html#$code"><var>$code</var></a>, 
+			<a href="class-Exception.html#$file"><var>$file</var></a>, 
+			<a href="class-Exception.html#$line"><var>$line</var></a>, 
+			<a href="class-Exception.html#$message"><var>$message</var></a>
+		</code></td>
+	</tr>
+	</table>
 
 
 

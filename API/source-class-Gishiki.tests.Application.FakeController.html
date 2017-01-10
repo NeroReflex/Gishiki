@@ -267,6 +267,7 @@
 				<li><a href="class-Gishiki.tests.Core.RouteTest.html">Gishiki\tests\Core\RouteTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.DatabaseManagerTest.html">Gishiki\tests\Database\DatabaseManagerTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.MongoDatabaseTest.html">Gishiki\tests\Database\MongoDatabaseTest</a></li>
+				<li><a href="class-Gishiki.tests.Database.SelectionCriteriaTest.html">Gishiki\tests\Database\SelectionCriteriaTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.BodyTest.html">Gishiki\tests\Http\BodyTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.CookiesTest.html">Gishiki\tests\Http\CookiesTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.EnvironmentTest.html">Gishiki\tests\Http\EnvironmentTest</a></li>
@@ -315,6 +316,7 @@
 				<li><a href="class-Gishiki.Algorithms.Collections.SerializationException.html">Gishiki\Algorithms\Collections\SerializationException</a></li>
 				<li><a href="class-Gishiki.Core.Exception.html">Gishiki\Core\Exception</a></li>
 				<li><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></li>
+				<li><a href="class-Gishiki.Database.InvalidSelectionCriteriaException.html">Gishiki\Database\InvalidSelectionCriteriaException</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineAbortSignal.html">Gishiki\Pipeline\PipelineAbortSignal</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineException.html">Gishiki\Pipeline\PipelineException</a></li>
 				<li><a href="class-Gishiki.Security.Encryption.Asymmetric.AsymmetricException.html">Gishiki\Security\Encryption\Asymmetric\AsymmetricException</a></li>
@@ -384,9 +386,9 @@
 </span><span id="23" class="l"><a href="#23">23: </a>
 </span><span id="24" class="l"><a href="#24">24: </a><span class="php-comment">/**
 </span></span><span id="25" class="l"><a href="#25">25: </a><span class="php-comment"> * A controller that is not recognised as a test by PHPUnit.
-</span></span><span id="26" class="l"><a href="#26">26: </a><span class="php-comment"> * 
+</span></span><span id="26" class="l"><a href="#26">26: </a><span class="php-comment"> *
 </span></span><span id="27" class="l"><a href="#27">27: </a><span class="php-comment"> * used to test some features of the framework
-</span></span><span id="28" class="l"><a href="#28">28: </a><span class="php-comment"> * 
+</span></span><span id="28" class="l"><a href="#28">28: </a><span class="php-comment"> *
 </span></span><span id="29" class="l"><a href="#29">29: </a><span class="php-comment"> * @author Benato Denis &lt;benato.denis96@gmail.com&gt;
 </span></span><span id="30" class="l"><a href="#30">30: </a><span class="php-comment"> */</span>
 </span><span id="31" class="l"><a href="#31">31: </a><span class="php-keyword1">class</span> FakeController <span class="php-keyword1">extends</span> \Gishiki\Core\MVC\Controller
@@ -396,7 +398,7 @@
 </span><span id="35" class="l"><a href="#35">35: </a>        <span class="php-var">$this</span>-&gt;Response-&gt;write(<span class="php-quote">'My email is: '</span>.<span class="php-var">$this</span>-&gt;Arguments-&gt;<span class="php-keyword2">mail</span>);
 </span><span id="36" class="l"><a href="#36">36: </a>    }
 </span><span id="37" class="l"><a href="#37">37: </a>
-</span><span id="38" class="l"><a href="#38">38: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> quickAction(Request &amp;<span class="php-var">$request</span>, Response &amp;<span class="php-var">$response</span>,  GenericCollection &amp;<span class="php-var">$collection</span>)
+</span><span id="38" class="l"><a href="#38">38: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> quickAction(Request &amp;<span class="php-var">$request</span>, Response &amp;<span class="php-var">$response</span>, GenericCollection &amp;<span class="php-var">$collection</span>)
 </span><span id="39" class="l"><a href="#39">39: </a>    {
 </span><span id="40" class="l"><a href="#40">40: </a>        <span class="php-var">$response</span>-&gt;write(<span class="php-quote">'should I send an email to '</span>.<span class="php-var">$collection</span>-&gt;<span class="php-keyword2">mail</span>.<span class="php-quote">'?'</span>);
 </span><span id="41" class="l"><a href="#41">41: </a>    }
@@ -409,6 +411,6 @@
 </div>
 </div>
 <script src="resources/combined.js?7ec981fd384b70aee7ff5ceda56e0deb9171d900"></script>
-<script src="elementlist.js?ddda102f9726b8fccc22d28d1b7587a8c57d1611"></script>
+<script src="elementlist.js?592d4a4e897f6f63ad90a340ac2c2bc93abe7c56"></script>
 </body>
 </html>

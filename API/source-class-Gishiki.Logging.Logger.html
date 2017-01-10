@@ -267,6 +267,7 @@
 				<li><a href="class-Gishiki.tests.Core.RouteTest.html">Gishiki\tests\Core\RouteTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.DatabaseManagerTest.html">Gishiki\tests\Database\DatabaseManagerTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.MongoDatabaseTest.html">Gishiki\tests\Database\MongoDatabaseTest</a></li>
+				<li><a href="class-Gishiki.tests.Database.SelectionCriteriaTest.html">Gishiki\tests\Database\SelectionCriteriaTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.BodyTest.html">Gishiki\tests\Http\BodyTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.CookiesTest.html">Gishiki\tests\Http\CookiesTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.EnvironmentTest.html">Gishiki\tests\Http\EnvironmentTest</a></li>
@@ -315,6 +316,7 @@
 				<li><a href="class-Gishiki.Algorithms.Collections.SerializationException.html">Gishiki\Algorithms\Collections\SerializationException</a></li>
 				<li><a href="class-Gishiki.Core.Exception.html">Gishiki\Core\Exception</a></li>
 				<li><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></li>
+				<li><a href="class-Gishiki.Database.InvalidSelectionCriteriaException.html">Gishiki\Database\InvalidSelectionCriteriaException</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineAbortSignal.html">Gishiki\Pipeline\PipelineAbortSignal</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineException.html">Gishiki\Pipeline\PipelineException</a></li>
 				<li><a href="class-Gishiki.Security.Encryption.Asymmetric.AsymmetricException.html">Gishiki\Security\Encryption\Asymmetric\AsymmetricException</a></li>
@@ -401,7 +403,7 @@
 </span></span><span id="40" class="l"><a href="#40"> 40: </a><span class="php-comment">     *
 </span></span><span id="41" class="l"><a href="#41"> 41: </a><span class="php-comment">     * Giving a connector named 'null' will result in
 </span></span><span id="42" class="l"><a href="#42"> 42: </a><span class="php-comment">     * a null logger: a logger that doesn't log!
-</span></span><span id="43" class="l"><a href="#43"> 43: </a><span class="php-comment">     * 
+</span></span><span id="43" class="l"><a href="#43"> 43: </a><span class="php-comment">     *
 </span></span><span id="44" class="l"><a href="#44"> 44: </a><span class="php-comment">     * @param string $connector
 </span></span><span id="45" class="l"><a href="#45"> 45: </a><span class="php-comment">     */</span>
 </span><span id="46" class="l"><a href="#46"> 46: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __construct(<span class="php-var">$connector</span> = <span class="php-quote">'default'</span>)
@@ -436,11 +438,11 @@
 </span><span id="75" class="l"><a href="#75"> 75: </a>
 </span><span id="76" class="l"><a href="#76"> 76: </a>    <span class="php-comment">/**
 </span></span><span id="77" class="l"><a href="#77"> 77: </a><span class="php-comment">     * Logs with an arbitrary level.
-</span></span><span id="78" class="l"><a href="#78"> 78: </a><span class="php-comment">     * 
+</span></span><span id="78" class="l"><a href="#78"> 78: </a><span class="php-comment">     *
 </span></span><span id="79" class="l"><a href="#79"> 79: </a><span class="php-comment">     * &lt;code&gt;
 </span></span><span id="80" class="l"><a href="#80"> 80: </a><span class="php-comment">     *  //initialize a new logger
 </span></span><span id="81" class="l"><a href="#81"> 81: </a><span class="php-comment">     *  $logger = new Logger(&quot;stream://stdout&quot;);
-</span></span><span id="82" class="l"><a href="#82"> 82: </a><span class="php-comment">     * 
+</span></span><span id="82" class="l"><a href="#82"> 82: </a><span class="php-comment">     *
 </span></span><span id="83" class="l"><a href="#83"> 83: </a><span class="php-comment">     *  if ($temp &gt; 60.5) {
 </span></span><span id="84" class="l"><a href="#84"> 84: </a><span class="php-comment">     *      //the new log entry has alert as severity level
 </span></span><span id="85" class="l"><a href="#85"> 85: </a><span class="php-comment">     *      $logger-&gt;alert('Room temperature too high!', [
@@ -466,7 +468,7 @@
 </span><span id="105" class="l"><a href="#105">105: </a>
 </span><span id="106" class="l"><a href="#106">106: </a>    <span class="php-comment">/**
 </span></span><span id="107" class="l"><a href="#107">107: </a><span class="php-comment">     * Get the connection string passed to the constructor.
-</span></span><span id="108" class="l"><a href="#108">108: </a><span class="php-comment">     * 
+</span></span><span id="108" class="l"><a href="#108">108: </a><span class="php-comment">     *
 </span></span><span id="109" class="l"><a href="#109">109: </a><span class="php-comment">     * @return string the connection string passed to the constructor
 </span></span><span id="110" class="l"><a href="#110">110: </a><span class="php-comment">     */</span>
 </span><span id="111" class="l"><a href="#111">111: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __toString()
@@ -482,6 +484,6 @@
 </div>
 </div>
 <script src="resources/combined.js?7ec981fd384b70aee7ff5ceda56e0deb9171d900"></script>
-<script src="elementlist.js?ddda102f9726b8fccc22d28d1b7587a8c57d1611"></script>
+<script src="elementlist.js?592d4a4e897f6f63ad90a340ac2c2bc93abe7c56"></script>
 </body>
 </html>

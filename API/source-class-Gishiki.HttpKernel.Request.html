@@ -267,6 +267,7 @@
 				<li><a href="class-Gishiki.tests.Core.RouteTest.html">Gishiki\tests\Core\RouteTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.DatabaseManagerTest.html">Gishiki\tests\Database\DatabaseManagerTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.MongoDatabaseTest.html">Gishiki\tests\Database\MongoDatabaseTest</a></li>
+				<li><a href="class-Gishiki.tests.Database.SelectionCriteriaTest.html">Gishiki\tests\Database\SelectionCriteriaTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.BodyTest.html">Gishiki\tests\Http\BodyTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.CookiesTest.html">Gishiki\tests\Http\CookiesTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.EnvironmentTest.html">Gishiki\tests\Http\EnvironmentTest</a></li>
@@ -315,6 +316,7 @@
 				<li><a href="class-Gishiki.Algorithms.Collections.SerializationException.html">Gishiki\Algorithms\Collections\SerializationException</a></li>
 				<li><a href="class-Gishiki.Core.Exception.html">Gishiki\Core\Exception</a></li>
 				<li><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></li>
+				<li><a href="class-Gishiki.Database.InvalidSelectionCriteriaException.html">Gishiki\Database\InvalidSelectionCriteriaException</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineAbortSignal.html">Gishiki\Pipeline\PipelineAbortSignal</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineException.html">Gishiki\Pipeline\PipelineException</a></li>
 				<li><a href="class-Gishiki.Security.Encryption.Asymmetric.AsymmetricException.html">Gishiki\Security\Encryption\Asymmetric\AsymmetricException</a></li>
@@ -1373,7 +1375,7 @@
 </span><span id="1012" class="l"><a href="#1012">1012: </a>
 </span><span id="1013" class="l"><a href="#1013">1013: </a>    <span class="php-comment">/**
 </span></span><span id="1014" class="l"><a href="#1014">1014: </a><span class="php-comment">     * Deserialize the content passed as the request.
-</span></span><span id="1015" class="l"><a href="#1015">1015: </a><span class="php-comment">     * 
+</span></span><span id="1015" class="l"><a href="#1015">1015: </a><span class="php-comment">     *
 </span></span><span id="1016" class="l"><a href="#1016">1016: </a><span class="php-comment">     * Supported media types for the deserialization are:
 </span></span><span id="1017" class="l"><a href="#1017">1017: </a><span class="php-comment">     *   - 'application/json'
 </span></span><span id="1018" class="l"><a href="#1018">1018: </a><span class="php-comment">     *   - 'application/xml'
@@ -1384,7 +1386,7 @@
 </span></span><span id="1023" class="l"><a href="#1023">1023: </a><span class="php-comment">     *   - 'text/x-yaml'
 </span></span><span id="1024" class="l"><a href="#1024">1024: </a><span class="php-comment">     *   - 'application/yaml'
 </span></span><span id="1025" class="l"><a href="#1025">1025: </a><span class="php-comment">     *   - 'application/x-yaml'
-</span></span><span id="1026" class="l"><a href="#1026">1026: </a><span class="php-comment">     * 
+</span></span><span id="1026" class="l"><a href="#1026">1026: </a><span class="php-comment">     *
 </span></span><span id="1027" class="l"><a href="#1027">1027: </a><span class="php-comment">     * @return SerializableCollection the deserialized body
 </span></span><span id="1028" class="l"><a href="#1028">1028: </a><span class="php-comment">     * @throw  RuntimeException       the error preventing the deserialization
 </span></span><span id="1029" class="l"><a href="#1029">1029: </a><span class="php-comment">     */</span>
@@ -1406,7 +1408,7 @@
 </span><span id="1045" class="l"><a href="#1045">1045: </a>        <span class="php-comment">//this is what will be deserialized</span>
 </span><span id="1046" class="l"><a href="#1046">1046: </a>        <span class="php-var">$data</span> = <span class="php-keyword1">null</span>;
 </span><span id="1047" class="l"><a href="#1047">1047: </a>        <span class="php-keyword1">switch</span> (<span class="php-var">$mediaType</span>) {
-</span><span id="1048" class="l"><a href="#1048">1048: </a>            <span class="php-keyword1">case</span> <span class="php-quote">'application/json'</span> :
+</span><span id="1048" class="l"><a href="#1048">1048: </a>            <span class="php-keyword1">case</span> <span class="php-quote">'application/json'</span>:
 </span><span id="1049" class="l"><a href="#1049">1049: </a>                <span class="php-var">$data</span> = <span class="php-var">$body</span>;
 </span><span id="1050" class="l"><a href="#1050">1050: </a>                <span class="php-var">$serializer</span> = SerializableCollection::JSON;
 </span><span id="1051" class="l"><a href="#1051">1051: </a>                <span class="php-keyword1">break</span>;
@@ -1557,6 +1559,6 @@
 </div>
 </div>
 <script src="resources/combined.js?7ec981fd384b70aee7ff5ceda56e0deb9171d900"></script>
-<script src="elementlist.js?ddda102f9726b8fccc22d28d1b7587a8c57d1611"></script>
+<script src="elementlist.js?592d4a4e897f6f63ad90a340ac2c2bc93abe7c56"></script>
 </body>
 </html>

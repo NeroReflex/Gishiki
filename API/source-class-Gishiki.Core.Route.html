@@ -267,6 +267,7 @@
 				<li><a href="class-Gishiki.tests.Core.RouteTest.html">Gishiki\tests\Core\RouteTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.DatabaseManagerTest.html">Gishiki\tests\Database\DatabaseManagerTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.MongoDatabaseTest.html">Gishiki\tests\Database\MongoDatabaseTest</a></li>
+				<li><a href="class-Gishiki.tests.Database.SelectionCriteriaTest.html">Gishiki\tests\Database\SelectionCriteriaTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.BodyTest.html">Gishiki\tests\Http\BodyTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.CookiesTest.html">Gishiki\tests\Http\CookiesTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.EnvironmentTest.html">Gishiki\tests\Http\EnvironmentTest</a></li>
@@ -315,6 +316,7 @@
 				<li><a href="class-Gishiki.Algorithms.Collections.SerializationException.html">Gishiki\Algorithms\Collections\SerializationException</a></li>
 				<li><a href="class-Gishiki.Core.Exception.html">Gishiki\Core\Exception</a></li>
 				<li><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></li>
+				<li><a href="class-Gishiki.Database.InvalidSelectionCriteriaException.html">Gishiki\Database\InvalidSelectionCriteriaException</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineAbortSignal.html">Gishiki\Pipeline\PipelineAbortSignal</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineException.html">Gishiki\Pipeline\PipelineException</a></li>
 				<li><a href="class-Gishiki.Security.Encryption.Asymmetric.AsymmetricException.html">Gishiki\Security\Encryption\Asymmetric\AsymmetricException</a></li>
@@ -402,14 +404,14 @@
 </span><span id="41" class="l"><a href="#41"> 41: </a>
 </span><span id="42" class="l"><a href="#42"> 42: </a>        <span class="php-comment">/**
 </span></span><span id="43" class="l"><a href="#43"> 43: </a><span class="php-comment">         * This is the list of added callback routes.
-</span></span><span id="44" class="l"><a href="#44"> 44: </a><span class="php-comment">         * 
+</span></span><span id="44" class="l"><a href="#44"> 44: </a><span class="php-comment">         *
 </span></span><span id="45" class="l"><a href="#45"> 45: </a><span class="php-comment">         * @var array a collection of callback routes
 </span></span><span id="46" class="l"><a href="#46"> 46: </a><span class="php-comment">         */</span>
 </span><span id="47" class="l"><a href="#47"> 47: </a>        <span class="php-keyword1">private</span> <span class="php-keyword1">static</span> <span class="php-var">$callbacks</span> = [];
 </span><span id="48" class="l"><a href="#48"> 48: </a>
 </span><span id="49" class="l"><a href="#49"> 49: </a>        <span class="php-comment">/**
 </span></span><span id="50" class="l"><a href="#50"> 50: </a><span class="php-comment">         * Add a route to the route redirection list.
-</span></span><span id="51" class="l"><a href="#51"> 51: </a><span class="php-comment">         * 
+</span></span><span id="51" class="l"><a href="#51"> 51: </a><span class="php-comment">         *
 </span></span><span id="52" class="l"><a href="#52"> 52: </a><span class="php-comment">         * @param Route $route the route to be added
 </span></span><span id="53" class="l"><a href="#53"> 53: </a><span class="php-comment">         *
 </span></span><span id="54" class="l"><a href="#54"> 54: </a><span class="php-comment">         * @return Route the added route
@@ -444,19 +446,19 @@
 </span><span id="83" class="l"><a href="#83"> 83: </a>
 </span><span id="84" class="l"><a href="#84"> 84: </a>        <span class="php-comment">/**
 </span></span><span id="85" class="l"><a href="#85"> 85: </a><span class="php-comment">         * Convinient proxy function to call Route::addRoute( ... ).
-</span></span><span id="86" class="l"><a href="#86"> 86: </a><span class="php-comment">         * 
+</span></span><span id="86" class="l"><a href="#86"> 86: </a><span class="php-comment">         *
 </span></span><span id="87" class="l"><a href="#87"> 87: </a><span class="php-comment">         * &lt;code&gt;
 </span></span><span id="88" class="l"><a href="#88"> 88: </a><span class="php-comment">         * use \Gishiki\Core\Route;
-</span></span><span id="89" class="l"><a href="#89"> 89: </a><span class="php-comment">         * 
+</span></span><span id="89" class="l"><a href="#89"> 89: </a><span class="php-comment">         *
 </span></span><span id="90" class="l"><a href="#90"> 90: </a><span class="php-comment">         * Route::any(&quot;/user/{id}&quot;, function ($params) {
 </span></span><span id="91" class="l"><a href="#91"> 91: </a><span class="php-comment">         *      //perform your amazing magic here
 </span></span><span id="92" class="l"><a href="#92"> 92: </a><span class="php-comment">         * });
-</span></span><span id="93" class="l"><a href="#93"> 93: </a><span class="php-comment">         * 
-</span></span><span id="94" class="l"><a href="#94"> 94: </a><span class="php-comment">         * 
+</span></span><span id="93" class="l"><a href="#93"> 93: </a><span class="php-comment">         *
+</span></span><span id="94" class="l"><a href="#94"> 94: </a><span class="php-comment">         *
 </span></span><span id="95" class="l"><a href="#95"> 95: </a><span class="php-comment">         * &lt;/code&gt;
-</span></span><span id="96" class="l"><a href="#96"> 96: </a><span class="php-comment">         * 
+</span></span><span id="96" class="l"><a href="#96"> 96: </a><span class="php-comment">         *
 </span></span><span id="97" class="l"><a href="#97"> 97: </a><span class="php-comment">         *  @see \Gishiki\Core\Route\addRoute
-</span></span><span id="98" class="l"><a href="#98"> 98: </a><span class="php-comment">         * 
+</span></span><span id="98" class="l"><a href="#98"> 98: </a><span class="php-comment">         *
 </span></span><span id="99" class="l"><a href="#99"> 99: </a><span class="php-comment">         * @param string   $uri      the URI that will bring to the function execution
 </span></span><span id="100" class="l"><a href="#100">100: </a><span class="php-comment">         * @param function $function the function executed when the URL is called
 </span></span><span id="101" class="l"><a href="#101">101: </a><span class="php-comment">         */</span>
@@ -472,22 +474,22 @@
 </span><span id="111" class="l"><a href="#111">111: </a>
 </span><span id="112" class="l"><a href="#112">112: </a>        <span class="php-comment">/**
 </span></span><span id="113" class="l"><a href="#113">113: </a><span class="php-comment">         * Convinient proxy function to call Route::addRoute( ... ).
-</span></span><span id="114" class="l"><a href="#114">114: </a><span class="php-comment">         * 
+</span></span><span id="114" class="l"><a href="#114">114: </a><span class="php-comment">         *
 </span></span><span id="115" class="l"><a href="#115">115: </a><span class="php-comment">         * &lt;code&gt;
 </span></span><span id="116" class="l"><a href="#116">116: </a><span class="php-comment">         * use \Gishiki\Core\Route;
-</span></span><span id="117" class="l"><a href="#117">117: </a><span class="php-comment">         * 
+</span></span><span id="117" class="l"><a href="#117">117: </a><span class="php-comment">         *
 </span></span><span id="118" class="l"><a href="#118">118: </a><span class="php-comment">         * Route::match([Route::GET, Route::POST], &quot;/user/{id}&quot;, function ($params) {
 </span></span><span id="119" class="l"><a href="#119">119: </a><span class="php-comment">         *      //perform your amazing magic here
 </span></span><span id="120" class="l"><a href="#120">120: </a><span class="php-comment">         * });
-</span></span><span id="121" class="l"><a href="#121">121: </a><span class="php-comment">         * 
+</span></span><span id="121" class="l"><a href="#121">121: </a><span class="php-comment">         *
 </span></span><span id="122" class="l"><a href="#122">122: </a><span class="php-comment">         * //you can also route an error:
 </span></span><span id="123" class="l"><a href="#123">123: </a><span class="php-comment">         * Route::match([Route::GET, Route::POST], Route::NOT_FOUND, function ($params) {
 </span></span><span id="124" class="l"><a href="#124">124: </a><span class="php-comment">         *      //perform your failback amazing magic here!
 </span></span><span id="125" class="l"><a href="#125">125: </a><span class="php-comment">         * });
 </span></span><span id="126" class="l"><a href="#126">126: </a><span class="php-comment">         * &lt;/code&gt;
-</span></span><span id="127" class="l"><a href="#127">127: </a><span class="php-comment">         * 
+</span></span><span id="127" class="l"><a href="#127">127: </a><span class="php-comment">         *
 </span></span><span id="128" class="l"><a href="#128">128: </a><span class="php-comment">         *  @see \Gishiki\Core\Route\addRoute
-</span></span><span id="129" class="l"><a href="#129">129: </a><span class="php-comment">         * 
+</span></span><span id="129" class="l"><a href="#129">129: </a><span class="php-comment">         *
 </span></span><span id="130" class="l"><a href="#130">130: </a><span class="php-comment">         * @param string   $uri      the URI that will bring to the function execution
 </span></span><span id="131" class="l"><a href="#131">131: </a><span class="php-comment">         * @param function $function the function executed when the URL is called
 </span></span><span id="132" class="l"><a href="#132">132: </a><span class="php-comment">         */</span>
@@ -505,22 +507,22 @@
 </span><span id="144" class="l"><a href="#144">144: </a>
 </span><span id="145" class="l"><a href="#145">145: </a>        <span class="php-comment">/**
 </span></span><span id="146" class="l"><a href="#146">146: </a><span class="php-comment">         * Convinient proxy function to call Route::addRoute( ... ).
-</span></span><span id="147" class="l"><a href="#147">147: </a><span class="php-comment">         * 
+</span></span><span id="147" class="l"><a href="#147">147: </a><span class="php-comment">         *
 </span></span><span id="148" class="l"><a href="#148">148: </a><span class="php-comment">         * &lt;code&gt;
 </span></span><span id="149" class="l"><a href="#149">149: </a><span class="php-comment">         * use \Gishiki\Core\Route;
-</span></span><span id="150" class="l"><a href="#150">150: </a><span class="php-comment">         * 
+</span></span><span id="150" class="l"><a href="#150">150: </a><span class="php-comment">         *
 </span></span><span id="151" class="l"><a href="#151">151: </a><span class="php-comment">         * Route::get(&quot;/user/{id}&quot;, function ($params) {
 </span></span><span id="152" class="l"><a href="#152">152: </a><span class="php-comment">         *      //perform your amazing magic here
 </span></span><span id="153" class="l"><a href="#153">153: </a><span class="php-comment">         * });
-</span></span><span id="154" class="l"><a href="#154">154: </a><span class="php-comment">         * 
+</span></span><span id="154" class="l"><a href="#154">154: </a><span class="php-comment">         *
 </span></span><span id="155" class="l"><a href="#155">155: </a><span class="php-comment">         * //you can also route an error:
 </span></span><span id="156" class="l"><a href="#156">156: </a><span class="php-comment">         * Route::get(Route::NOT_FOUND, function ($params) {
 </span></span><span id="157" class="l"><a href="#157">157: </a><span class="php-comment">         *      //perform your failback amazing magic here!
 </span></span><span id="158" class="l"><a href="#158">158: </a><span class="php-comment">         * });
 </span></span><span id="159" class="l"><a href="#159">159: </a><span class="php-comment">         * &lt;/code&gt;
-</span></span><span id="160" class="l"><a href="#160">160: </a><span class="php-comment">         * 
+</span></span><span id="160" class="l"><a href="#160">160: </a><span class="php-comment">         *
 </span></span><span id="161" class="l"><a href="#161">161: </a><span class="php-comment">         *  @see \Gishiki\Core\Route\addRoute
-</span></span><span id="162" class="l"><a href="#162">162: </a><span class="php-comment">         * 
+</span></span><span id="162" class="l"><a href="#162">162: </a><span class="php-comment">         *
 </span></span><span id="163" class="l"><a href="#163">163: </a><span class="php-comment">         * @param string   $uri      the URI that will bring to the function execution
 </span></span><span id="164" class="l"><a href="#164">164: </a><span class="php-comment">         * @param function $function the function executed when the URL is called
 </span></span><span id="165" class="l"><a href="#165">165: </a><span class="php-comment">         */</span>
@@ -534,10 +536,10 @@
 </span><span id="173" class="l"><a href="#173">173: </a>
 </span><span id="174" class="l"><a href="#174">174: </a>        <span class="php-comment">/**
 </span></span><span id="175" class="l"><a href="#175">175: </a><span class="php-comment">         * Convinient proxy function to call Route::addRoute( ... ).
-</span></span><span id="176" class="l"><a href="#176">176: </a><span class="php-comment">         * 
+</span></span><span id="176" class="l"><a href="#176">176: </a><span class="php-comment">         *
 </span></span><span id="177" class="l"><a href="#177">177: </a><span class="php-comment">         * &lt;code&gt;
 </span></span><span id="178" class="l"><a href="#178">178: </a><span class="php-comment">         * use \Gishiki\Core\Route;
-</span></span><span id="179" class="l"><a href="#179">179: </a><span class="php-comment">         * 
+</span></span><span id="179" class="l"><a href="#179">179: </a><span class="php-comment">         *
 </span></span><span id="180" class="l"><a href="#180">180: </a><span class="php-comment">         * Route::post(&quot;/user/{id}&quot;, function ($params) {
 </span></span><span id="181" class="l"><a href="#181">181: </a><span class="php-comment">         *      //perform your amazing magic here
 </span></span><span id="182" class="l"><a href="#182">182: </a><span class="php-comment">         * });
@@ -546,9 +548,9 @@
 </span></span><span id="185" class="l"><a href="#185">185: </a><span class="php-comment">         *      //perform your failback amazing magic here!
 </span></span><span id="186" class="l"><a href="#186">186: </a><span class="php-comment">         * });
 </span></span><span id="187" class="l"><a href="#187">187: </a><span class="php-comment">         * &lt;/code&gt;
-</span></span><span id="188" class="l"><a href="#188">188: </a><span class="php-comment">         * 
+</span></span><span id="188" class="l"><a href="#188">188: </a><span class="php-comment">         *
 </span></span><span id="189" class="l"><a href="#189">189: </a><span class="php-comment">         *  @see \Gishiki\Core\Route\addRoute
-</span></span><span id="190" class="l"><a href="#190">190: </a><span class="php-comment">         * 
+</span></span><span id="190" class="l"><a href="#190">190: </a><span class="php-comment">         *
 </span></span><span id="191" class="l"><a href="#191">191: </a><span class="php-comment">         * @param string   $uri      the URI that will bring to the function execution
 </span></span><span id="192" class="l"><a href="#192">192: </a><span class="php-comment">         * @param function $function the function executed when the URL is called
 </span></span><span id="193" class="l"><a href="#193">193: </a><span class="php-comment">         */</span>
@@ -562,10 +564,10 @@
 </span><span id="201" class="l"><a href="#201">201: </a>
 </span><span id="202" class="l"><a href="#202">202: </a>        <span class="php-comment">/**
 </span></span><span id="203" class="l"><a href="#203">203: </a><span class="php-comment">         * Convinient proxy function to call Route::addRoute( ... ).
-</span></span><span id="204" class="l"><a href="#204">204: </a><span class="php-comment">         * 
+</span></span><span id="204" class="l"><a href="#204">204: </a><span class="php-comment">         *
 </span></span><span id="205" class="l"><a href="#205">205: </a><span class="php-comment">         * &lt;code&gt;
 </span></span><span id="206" class="l"><a href="#206">206: </a><span class="php-comment">         * use \Gishiki\Core\Route;
-</span></span><span id="207" class="l"><a href="#207">207: </a><span class="php-comment">         * 
+</span></span><span id="207" class="l"><a href="#207">207: </a><span class="php-comment">         *
 </span></span><span id="208" class="l"><a href="#208">208: </a><span class="php-comment">         * Route::put(&quot;/user/{id}&quot;, function ($params) {
 </span></span><span id="209" class="l"><a href="#209">209: </a><span class="php-comment">         *      //perform your amazing magic here
 </span></span><span id="210" class="l"><a href="#210">210: </a><span class="php-comment">         * });
@@ -574,9 +576,9 @@
 </span></span><span id="213" class="l"><a href="#213">213: </a><span class="php-comment">         *      //perform your failback amazing magic here!
 </span></span><span id="214" class="l"><a href="#214">214: </a><span class="php-comment">         * });
 </span></span><span id="215" class="l"><a href="#215">215: </a><span class="php-comment">         * &lt;/code&gt;
-</span></span><span id="216" class="l"><a href="#216">216: </a><span class="php-comment">         * 
+</span></span><span id="216" class="l"><a href="#216">216: </a><span class="php-comment">         *
 </span></span><span id="217" class="l"><a href="#217">217: </a><span class="php-comment">         *  @see \Gishiki\Core\Route\addRoute
-</span></span><span id="218" class="l"><a href="#218">218: </a><span class="php-comment">         * 
+</span></span><span id="218" class="l"><a href="#218">218: </a><span class="php-comment">         *
 </span></span><span id="219" class="l"><a href="#219">219: </a><span class="php-comment">         * @param string   $uri      the URI that will bring to the function execution
 </span></span><span id="220" class="l"><a href="#220">220: </a><span class="php-comment">         * @param function $function the function executed when the URL is called
 </span></span><span id="221" class="l"><a href="#221">221: </a><span class="php-comment">         */</span>
@@ -590,22 +592,22 @@
 </span><span id="229" class="l"><a href="#229">229: </a>
 </span><span id="230" class="l"><a href="#230">230: </a>        <span class="php-comment">/**
 </span></span><span id="231" class="l"><a href="#231">231: </a><span class="php-comment">         * Convinient proxy function to call Route::addRoute( ... ).
-</span></span><span id="232" class="l"><a href="#232">232: </a><span class="php-comment">         * 
+</span></span><span id="232" class="l"><a href="#232">232: </a><span class="php-comment">         *
 </span></span><span id="233" class="l"><a href="#233">233: </a><span class="php-comment">         * &lt;code&gt;
 </span></span><span id="234" class="l"><a href="#234">234: </a><span class="php-comment">         * use \Gishiki\Core\Route;
-</span></span><span id="235" class="l"><a href="#235">235: </a><span class="php-comment">         * 
+</span></span><span id="235" class="l"><a href="#235">235: </a><span class="php-comment">         *
 </span></span><span id="236" class="l"><a href="#236">236: </a><span class="php-comment">         * Route::delete(&quot;/user/{id}&quot;, function ($params) {
 </span></span><span id="237" class="l"><a href="#237">237: </a><span class="php-comment">         *      //perform your amazing magic here
 </span></span><span id="238" class="l"><a href="#238">238: </a><span class="php-comment">         * });
-</span></span><span id="239" class="l"><a href="#239">239: </a><span class="php-comment">         * 
+</span></span><span id="239" class="l"><a href="#239">239: </a><span class="php-comment">         *
 </span></span><span id="240" class="l"><a href="#240">240: </a><span class="php-comment">         * //you can also route an error:
 </span></span><span id="241" class="l"><a href="#241">241: </a><span class="php-comment">         * Route::delete(Route::NOT_FOUND, function ($params) {
 </span></span><span id="242" class="l"><a href="#242">242: </a><span class="php-comment">         *      //perform your failback amazing magic here!
 </span></span><span id="243" class="l"><a href="#243">243: </a><span class="php-comment">         * });
 </span></span><span id="244" class="l"><a href="#244">244: </a><span class="php-comment">         * &lt;/code&gt;
-</span></span><span id="245" class="l"><a href="#245">245: </a><span class="php-comment">         * 
+</span></span><span id="245" class="l"><a href="#245">245: </a><span class="php-comment">         *
 </span></span><span id="246" class="l"><a href="#246">246: </a><span class="php-comment">         *  @see \Gishiki\Core\Route\addRoute
-</span></span><span id="247" class="l"><a href="#247">247: </a><span class="php-comment">         * 
+</span></span><span id="247" class="l"><a href="#247">247: </a><span class="php-comment">         *
 </span></span><span id="248" class="l"><a href="#248">248: </a><span class="php-comment">         * @param string   $uri      the URI that will bring to the function execution
 </span></span><span id="249" class="l"><a href="#249">249: </a><span class="php-comment">         * @param function $function the function executed when the URL is called
 </span></span><span id="250" class="l"><a href="#250">250: </a><span class="php-comment">         */</span>
@@ -619,17 +621,17 @@
 </span><span id="258" class="l"><a href="#258">258: </a>
 </span><span id="259" class="l"><a href="#259">259: </a>        <span class="php-comment">/**
 </span></span><span id="260" class="l"><a href="#260">260: </a><span class="php-comment">         * Convinient proxy function to call Route::addRoute( ... ).
-</span></span><span id="261" class="l"><a href="#261">261: </a><span class="php-comment">         * 
+</span></span><span id="261" class="l"><a href="#261">261: </a><span class="php-comment">         *
 </span></span><span id="262" class="l"><a href="#262">262: </a><span class="php-comment">         * &lt;code&gt;
 </span></span><span id="263" class="l"><a href="#263">263: </a><span class="php-comment">         * use \Gishiki\Core\Route;
-</span></span><span id="264" class="l"><a href="#264">264: </a><span class="php-comment">         * 
+</span></span><span id="264" class="l"><a href="#264">264: </a><span class="php-comment">         *
 </span></span><span id="265" class="l"><a href="#265">265: </a><span class="php-comment">         * Route::head(&quot;/user/{id}&quot;, function ($params) {
 </span></span><span id="266" class="l"><a href="#266">266: </a><span class="php-comment">         *      //perform your amazing magic here
 </span></span><span id="267" class="l"><a href="#267">267: </a><span class="php-comment">         * });
 </span></span><span id="268" class="l"><a href="#268">268: </a><span class="php-comment">         * &lt;/code&gt;
-</span></span><span id="269" class="l"><a href="#269">269: </a><span class="php-comment">         * 
+</span></span><span id="269" class="l"><a href="#269">269: </a><span class="php-comment">         *
 </span></span><span id="270" class="l"><a href="#270">270: </a><span class="php-comment">         * @see \Gishiki\Core\Route\addRoute
-</span></span><span id="271" class="l"><a href="#271">271: </a><span class="php-comment">         * 
+</span></span><span id="271" class="l"><a href="#271">271: </a><span class="php-comment">         *
 </span></span><span id="272" class="l"><a href="#272">272: </a><span class="php-comment">         * @param string   $uri      the URI that will bring to the function execution
 </span></span><span id="273" class="l"><a href="#273">273: </a><span class="php-comment">         * @param function $function the function executed when the URL is called
 </span></span><span id="274" class="l"><a href="#274">274: </a><span class="php-comment">         */</span>
@@ -643,10 +645,10 @@
 </span><span id="282" class="l"><a href="#282">282: </a>
 </span><span id="283" class="l"><a href="#283">283: </a>        <span class="php-comment">/**
 </span></span><span id="284" class="l"><a href="#284">284: </a><span class="php-comment">         * Run the router and serve the current request.
-</span></span><span id="285" class="l"><a href="#285">285: </a><span class="php-comment">         * 
+</span></span><span id="285" class="l"><a href="#285">285: </a><span class="php-comment">         *
 </span></span><span id="286" class="l"><a href="#286">286: </a><span class="php-comment">         * This function is __CALLED INTERNALLY__ and, therefore
-</span></span><span id="287" class="l"><a href="#287">287: </a><span class="php-comment">         * it __MUST NOT__ be called! 
-</span></span><span id="288" class="l"><a href="#288">288: </a><span class="php-comment">         * 
+</span></span><span id="287" class="l"><a href="#287">287: </a><span class="php-comment">         * it __MUST NOT__ be called!
+</span></span><span id="288" class="l"><a href="#288">288: </a><span class="php-comment">         *
 </span></span><span id="289" class="l"><a href="#289">289: </a><span class="php-comment">         * @param Request $reqestToFulfill the request to be served/fulfilled
 </span></span><span id="290" class="l"><a href="#290">290: </a><span class="php-comment">         *
 </span></span><span id="291" class="l"><a href="#291">291: </a><span class="php-comment">         * @return Response $reqestToFulfill the request to be served/fulfilled
@@ -701,9 +703,9 @@
 </span><span id="340" class="l"><a href="#340">340: </a>        }
 </span><span id="341" class="l"><a href="#341">341: </a>
 </span><span id="342" class="l"><a href="#342">342: </a>        <span class="php-comment">/***********************************************************************
-</span></span><span id="343" class="l"><a href="#343">343: </a><span class="php-comment">         * 
+</span></span><span id="343" class="l"><a href="#343">343: </a><span class="php-comment">         *
 </span></span><span id="344" class="l"><a href="#344">344: </a><span class="php-comment">         *                    NON-Static class members
-</span></span><span id="345" class="l"><a href="#345">345: </a><span class="php-comment">         * 
+</span></span><span id="345" class="l"><a href="#345">345: </a><span class="php-comment">         *
 </span></span><span id="346" class="l"><a href="#346">346: </a><span class="php-comment">         **********************************************************************/</span>
 </span><span id="347" class="l"><a href="#347">347: </a>
 </span><span id="348" class="l"><a href="#348">348: </a>        <span class="php-comment">/**
@@ -717,22 +719,22 @@
 </span><span id="356" class="l"><a href="#356">356: </a>        <span class="php-keyword1">private</span> <span class="php-var">$action</span>;
 </span><span id="357" class="l"><a href="#357">357: </a>
 </span><span id="358" class="l"><a href="#358">358: </a>        <span class="php-comment">/**
-</span></span><span id="359" class="l"><a href="#359">359: </a><span class="php-comment">         * @var array the list of allowed methods to be routed using the route URI 
+</span></span><span id="359" class="l"><a href="#359">359: </a><span class="php-comment">         * @var array the list of allowed methods to be routed using the route URI
 </span></span><span id="360" class="l"><a href="#360">360: </a><span class="php-comment">         */</span>
 </span><span id="361" class="l"><a href="#361">361: </a>        <span class="php-keyword1">private</span> <span class="php-var">$methods</span>;
 </span><span id="362" class="l"><a href="#362">362: </a>
 </span><span id="363" class="l"><a href="#363">363: </a>        <span class="php-comment">/**
 </span></span><span id="364" class="l"><a href="#364">364: </a><span class="php-comment">         * Create route instance that should be registered to the valid routes
 </span></span><span id="365" class="l"><a href="#365">365: </a><span class="php-comment">         * list:.
-</span></span><span id="366" class="l"><a href="#366">366: </a><span class="php-comment">         * 
+</span></span><span id="366" class="l"><a href="#366">366: </a><span class="php-comment">         *
 </span></span><span id="367" class="l"><a href="#367">367: </a><span class="php-comment">         * &lt;code&gt;
 </span></span><span id="368" class="l"><a href="#368">368: </a><span class="php-comment">         * $my_route = new Route(&quot;/user/{username}&quot;, function () {
 </span></span><span id="369" class="l"><a href="#369">369: </a><span class="php-comment">         *      //make good things here
 </span></span><span id="370" class="l"><a href="#370">370: </a><span class="php-comment">         * });
-</span></span><span id="371" class="l"><a href="#371">371: </a><span class="php-comment">         * 
+</span></span><span id="371" class="l"><a href="#371">371: </a><span class="php-comment">         *
 </span></span><span id="372" class="l"><a href="#372">372: </a><span class="php-comment">         * Route::addRoute($my_route);
 </span></span><span id="373" class="l"><a href="#373">373: </a><span class="php-comment">         * &lt;/code&gt;
-</span></span><span id="374" class="l"><a href="#374">374: </a><span class="php-comment">         * 
+</span></span><span id="374" class="l"><a href="#374">374: </a><span class="php-comment">         *
 </span></span><span id="375" class="l"><a href="#375">375: </a><span class="php-comment">         * @param string         $uri     the URI to be matched in order to take the given action
 </span></span><span id="376" class="l"><a href="#376">376: </a><span class="php-comment">         * @param Closure|string $action  the action to be performed on URI match
 </span></span><span id="377" class="l"><a href="#377">377: </a><span class="php-comment">         * @param array          $methods the list of allowed method for the current route
@@ -747,7 +749,7 @@
 </span><span id="386" class="l"><a href="#386">386: </a>
 </span><span id="387" class="l"><a href="#387">387: </a>        <span class="php-comment">/**
 </span></span><span id="388" class="l"><a href="#388">388: </a><span class="php-comment">         * Return the list of methods allowed to be routed with the given URI.
-</span></span><span id="389" class="l"><a href="#389">389: </a><span class="php-comment">         * 
+</span></span><span id="389" class="l"><a href="#389">389: </a><span class="php-comment">         *
 </span></span><span id="390" class="l"><a href="#390">390: </a><span class="php-comment">         * The return value is an array of allowed method (as strings):
 </span></span><span id="391" class="l"><a href="#391">391: </a><span class="php-comment">         * &lt;code&gt;
 </span></span><span id="392" class="l"><a href="#392">392: </a><span class="php-comment">         * //this is an example:
@@ -756,7 +758,7 @@
 </span></span><span id="395" class="l"><a href="#395">395: </a><span class="php-comment">         *     'DELETE'
 </span></span><span id="396" class="l"><a href="#396">396: </a><span class="php-comment">         * );
 </span></span><span id="397" class="l"><a href="#397">397: </a><span class="php-comment">         * &lt;/code&gt;
-</span></span><span id="398" class="l"><a href="#398">398: </a><span class="php-comment">         * 
+</span></span><span id="398" class="l"><a href="#398">398: </a><span class="php-comment">         *
 </span></span><span id="399" class="l"><a href="#399">399: </a><span class="php-comment">         * @return array the list of allowed methods
 </span></span><span id="400" class="l"><a href="#400">400: </a><span class="php-comment">         */</span>
 </span><span id="401" class="l"><a href="#401">401: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> getMethods()
@@ -766,11 +768,11 @@
 </span><span id="405" class="l"><a href="#405">405: </a>
 </span><span id="406" class="l"><a href="#406">406: </a>        <span class="php-comment">/**
 </span></span><span id="407" class="l"><a href="#407">407: </a><span class="php-comment">         * Get the type of the current route.
-</span></span><span id="408" class="l"><a href="#408">408: </a><span class="php-comment">         * 
+</span></span><span id="408" class="l"><a href="#408">408: </a><span class="php-comment">         *
 </span></span><span id="409" class="l"><a href="#409">409: </a><span class="php-comment">         * The route type can be an integer for special callbacks
 </span></span><span id="410" class="l"><a href="#410">410: </a><span class="php-comment">         * (for example NOT_FOUND) or a boolean false for a valid string URI
-</span></span><span id="411" class="l"><a href="#411">411: </a><span class="php-comment">         * 
-</span></span><span id="412" class="l"><a href="#412">412: </a><span class="php-comment">         * 
+</span></span><span id="411" class="l"><a href="#411">411: </a><span class="php-comment">         *
+</span></span><span id="412" class="l"><a href="#412">412: </a><span class="php-comment">         *
 </span></span><span id="413" class="l"><a href="#413">413: </a><span class="php-comment">         * @return int|bool the callback type or false if it is a valid URI
 </span></span><span id="414" class="l"><a href="#414">414: </a><span class="php-comment">         */</span>
 </span><span id="415" class="l"><a href="#415">415: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> isSpecialCallback()
@@ -781,7 +783,7 @@
 </span><span id="420" class="l"><a href="#420">420: </a>        <span class="php-comment">/**
 </span></span><span id="421" class="l"><a href="#421">421: </a><span class="php-comment">         * Attempt to match the given URI and mathod combination
 </span></span><span id="422" class="l"><a href="#422">422: </a><span class="php-comment">         * with the current route.
-</span></span><span id="423" class="l"><a href="#423">423: </a><span class="php-comment">         * 
+</span></span><span id="423" class="l"><a href="#423">423: </a><span class="php-comment">         *
 </span></span><span id="424" class="l"><a href="#424">424: </a><span class="php-comment">         * @param string $uri    the URI to be mtched
 </span></span><span id="425" class="l"><a href="#425">425: </a><span class="php-comment">         * @param string $method the used method
 </span></span><span id="426" class="l"><a href="#426">426: </a><span class="php-comment">         *
@@ -807,11 +809,11 @@
 </span><span id="446" class="l"><a href="#446">446: </a>
 </span><span id="447" class="l"><a href="#447">447: </a>                        <span class="php-comment">//filter the value of the matched URI param</span>
 </span><span id="448" class="l"><a href="#448">448: </a>                        <span class="php-keyword1">switch</span> (<span class="php-var">$regexData</span>[<span class="php-quote">'param_types'</span>][<span class="php-var">$currentKey</span>]) {
-</span><span id="449" class="l"><a href="#449">449: </a>                            <span class="php-keyword1">case</span> <span class="php-quote">'signed_integer'</span> :
+</span><span id="449" class="l"><a href="#449">449: </a>                            <span class="php-keyword1">case</span> <span class="php-quote">'signed_integer'</span>:
 </span><span id="450" class="l"><a href="#450">450: </a>                                <span class="php-var">$value</span> = <span class="php-keyword2">intval</span>(<span class="php-var">$value</span>);
 </span><span id="451" class="l"><a href="#451">451: </a>                                <span class="php-keyword1">break</span>;
 </span><span id="452" class="l"><a href="#452">452: </a>
-</span><span id="453" class="l"><a href="#453">453: </a>                            <span class="php-keyword1">default</span> : <span class="php-comment">//should be used for 'email', 'default', etc.</span>
+</span><span id="453" class="l"><a href="#453">453: </a>                            <span class="php-keyword1">default</span>: <span class="php-comment">//should be used for 'email', 'default', etc.</span>
 </span><span id="454" class="l"><a href="#454">454: </a>                                <span class="php-var">$value</span> = <span class="php-keyword2">strval</span>(<span class="php-var">$value</span>);
 </span><span id="455" class="l"><a href="#455">455: </a>                        }
 </span><span id="456" class="l"><a href="#456">456: </a>
@@ -844,7 +846,7 @@
 </span><span id="483" class="l"><a href="#483">483: </a>        <span class="php-comment">/**
 </span></span><span id="484" class="l"><a href="#484">484: </a><span class="php-comment">         * build a regex out of the URI of the current Route and adds name of
 </span></span><span id="485" class="l"><a href="#485">485: </a><span class="php-comment">         * regex placeholders.
-</span></span><span id="486" class="l"><a href="#486">486: </a><span class="php-comment">         * 
+</span></span><span id="486" class="l"><a href="#486">486: </a><span class="php-comment">         *
 </span></span><span id="487" class="l"><a href="#487">487: </a><span class="php-comment">         * Example:
 </span></span><span id="488" class="l"><a href="#488">488: </a><span class="php-comment">         * &lt;code&gt;
 </span></span><span id="489" class="l"><a href="#489">489: </a><span class="php-comment">         * array(
@@ -852,10 +854,10 @@
 </span></span><span id="491" class="l"><a href="#491">491: </a><span class="php-comment">         *     &quot;params&quot; =&gt; array(&quot;name&quot;, &quot;surname&quot;)
 </span></span><span id="492" class="l"><a href="#492">492: </a><span class="php-comment">         * )
 </span></span><span id="493" class="l"><a href="#493">493: </a><span class="php-comment">         * &lt;/code&gt;
-</span></span><span id="494" class="l"><a href="#494">494: </a><span class="php-comment">         * 
+</span></span><span id="494" class="l"><a href="#494">494: </a><span class="php-comment">         *
 </span></span><span id="495" class="l"><a href="#495">495: </a><span class="php-comment">         * __Note:__ if the regex field of the returned array is an empty string,
 </span></span><span id="496" class="l"><a href="#496">496: </a><span class="php-comment">         * then the router is a special callback
-</span></span><span id="497" class="l"><a href="#497">497: </a><span class="php-comment">         * 
+</span></span><span id="497" class="l"><a href="#497">497: </a><span class="php-comment">         *
 </span></span><span id="498" class="l"><a href="#498">498: </a><span class="php-comment">         * @return array the regex version of the URI and additional info
 </span></span><span id="499" class="l"><a href="#499">499: </a><span class="php-comment">         */</span>
 </span><span id="500" class="l"><a href="#500">500: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> getRegex()
@@ -924,16 +926,16 @@
 </span><span id="563" class="l"><a href="#563">563: </a>        <span class="php-comment">/**
 </span></span><span id="564" class="l"><a href="#564">564: </a><span class="php-comment">         * Execute the router callback, may it be a string (for action@controller)
 </span></span><span id="565" class="l"><a href="#565">565: </a><span class="php-comment">         * or an anonymous function.
-</span></span><span id="566" class="l"><a href="#566">566: </a><span class="php-comment">         * 
+</span></span><span id="566" class="l"><a href="#566">566: </a><span class="php-comment">         *
 </span></span><span id="567" class="l"><a href="#567">567: </a><span class="php-comment">         * This function is called __AUTOMATICALLY__ by the framework when the
 </span></span><span id="568" class="l"><a href="#568">568: </a><span class="php-comment">         * route can be used to fulfill the given request.
-</span></span><span id="569" class="l"><a href="#569">569: </a><span class="php-comment">         * 
+</span></span><span id="569" class="l"><a href="#569">569: </a><span class="php-comment">         *
 </span></span><span id="570" class="l"><a href="#570">570: </a><span class="php-comment">         * This function is provided for logical organization of the program and
 </span></span><span id="571" class="l"><a href="#571">571: </a><span class="php-comment">         * testing only!
-</span></span><span id="572" class="l"><a href="#572">572: </a><span class="php-comment">         * 
+</span></span><span id="572" class="l"><a href="#572">572: </a><span class="php-comment">         *
 </span></span><span id="573" class="l"><a href="#573">573: </a><span class="php-comment">         * @param Request           $request   a copy of the request made to the application
 </span></span><span id="574" class="l"><a href="#574">574: </a><span class="php-comment">         * @param Response          $response  the action must fille, and what will be returned to the client
-</span></span><span id="575" class="l"><a href="#575">575: </a><span class="php-comment">         * @param GenericCollection $arguments a list of reversed URI parameters 
+</span></span><span id="575" class="l"><a href="#575">575: </a><span class="php-comment">         * @param GenericCollection $arguments a list of reversed URI parameters
 </span></span><span id="576" class="l"><a href="#576">576: </a><span class="php-comment">         */</span>
 </span><span id="577" class="l"><a href="#577">577: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __invoke(Request &amp;<span class="php-var">$request</span>, Response &amp;<span class="php-var">$response</span>, GenericCollection &amp;<span class="php-var">$arguments</span>)
 </span><span id="578" class="l"><a href="#578">578: </a>        {
@@ -955,6 +957,6 @@
 </div>
 </div>
 <script src="resources/combined.js?7ec981fd384b70aee7ff5ceda56e0deb9171d900"></script>
-<script src="elementlist.js?ddda102f9726b8fccc22d28d1b7587a8c57d1611"></script>
+<script src="elementlist.js?592d4a4e897f6f63ad90a340ac2c2bc93abe7c56"></script>
 </body>
 </html>

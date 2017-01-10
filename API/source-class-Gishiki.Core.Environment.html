@@ -267,6 +267,7 @@
 				<li><a href="class-Gishiki.tests.Core.RouteTest.html">Gishiki\tests\Core\RouteTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.DatabaseManagerTest.html">Gishiki\tests\Database\DatabaseManagerTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.MongoDatabaseTest.html">Gishiki\tests\Database\MongoDatabaseTest</a></li>
+				<li><a href="class-Gishiki.tests.Database.SelectionCriteriaTest.html">Gishiki\tests\Database\SelectionCriteriaTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.BodyTest.html">Gishiki\tests\Http\BodyTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.CookiesTest.html">Gishiki\tests\Http\CookiesTest</a></li>
 				<li><a href="class-Gishiki.tests.Http.EnvironmentTest.html">Gishiki\tests\Http\EnvironmentTest</a></li>
@@ -315,6 +316,7 @@
 				<li><a href="class-Gishiki.Algorithms.Collections.SerializationException.html">Gishiki\Algorithms\Collections\SerializationException</a></li>
 				<li><a href="class-Gishiki.Core.Exception.html">Gishiki\Core\Exception</a></li>
 				<li><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></li>
+				<li><a href="class-Gishiki.Database.InvalidSelectionCriteriaException.html">Gishiki\Database\InvalidSelectionCriteriaException</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineAbortSignal.html">Gishiki\Pipeline\PipelineAbortSignal</a></li>
 				<li><a href="class-Gishiki.Pipeline.PipelineException.html">Gishiki\Pipeline\PipelineException</a></li>
 				<li><a href="class-Gishiki.Security.Encryption.Asymmetric.AsymmetricException.html">Gishiki\Security\Encryption\Asymmetric\AsymmetricException</a></li>
@@ -386,14 +388,14 @@
 </span><span id="25" class="l"><a href="#25"> 25: </a>
 </span><span id="26" class="l"><a href="#26"> 26: </a>    <span class="php-comment">/**
 </span></span><span id="27" class="l"><a href="#27"> 27: </a><span class="php-comment">     * Represent the environment used to run controllers.
-</span></span><span id="28" class="l"><a href="#28"> 28: </a><span class="php-comment">     * 
+</span></span><span id="28" class="l"><a href="#28"> 28: </a><span class="php-comment">     *
 </span></span><span id="29" class="l"><a href="#29"> 29: </a><span class="php-comment">     * @author Benato Denis &lt;benato.denis96@gmail.com&gt;
 </span></span><span id="30" class="l"><a href="#30"> 30: </a><span class="php-comment">     */</span>
 </span><span id="31" class="l"><a href="#31"> 31: </a>    <span class="php-keyword1">final</span> <span class="php-keyword1">class</span> Environment <span class="php-keyword1">extends</span> GenericCollection
 </span><span id="32" class="l"><a href="#32"> 32: </a>    {
 </span><span id="33" class="l"><a href="#33"> 33: </a>        <span class="php-comment">/**
 </span></span><span id="34" class="l"><a href="#34"> 34: </a><span class="php-comment">         * Create a mock / fake environment from the given data.
-</span></span><span id="35" class="l"><a href="#35"> 35: </a><span class="php-comment">         * 
+</span></span><span id="35" class="l"><a href="#35"> 35: </a><span class="php-comment">         *
 </span></span><span id="36" class="l"><a href="#36"> 36: </a><span class="php-comment">         * The given data is organized as the $_SERVER variable is
 </span></span><span id="37" class="l"><a href="#37"> 37: </a><span class="php-comment">         *
 </span></span><span id="38" class="l"><a href="#38"> 38: </a><span class="php-comment">         * @param array $userData Array of custom environment keys and values
@@ -431,7 +433,7 @@
 </span><span id="70" class="l"><a href="#70"> 70: </a>
 </span><span id="71" class="l"><a href="#71"> 71: </a>        <span class="php-comment">/**
 </span></span><span id="72" class="l"><a href="#72"> 72: </a><span class="php-comment">         * Setup a new environment instance used to fulfill the client request.
-</span></span><span id="73" class="l"><a href="#73"> 73: </a><span class="php-comment">         * 
+</span></span><span id="73" class="l"><a href="#73"> 73: </a><span class="php-comment">         *
 </span></span><span id="74" class="l"><a href="#74"> 74: </a><span class="php-comment">         * @param bool $selfRegister TRUE if the environment must be assigned as the currently valid one
 </span></span><span id="75" class="l"><a href="#75"> 75: </a><span class="php-comment">         */</span>
 </span><span id="76" class="l"><a href="#76"> 76: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __construct(<span class="php-keyword1">array</span> <span class="php-var">$userData</span> = [], <span class="php-var">$selfRegister</span> = <span class="php-keyword1">false</span>, <span class="php-var">$loadApplication</span> = <span class="php-keyword1">false</span>)
@@ -474,9 +476,9 @@
 </span><span id="113" class="l"><a href="#113">113: </a>        }
 </span><span id="114" class="l"><a href="#114">114: </a>
 </span><span id="115" class="l"><a href="#115">115: </a>        <span class="php-comment">/**
-</span></span><span id="116" class="l"><a href="#116">116: </a><span class="php-comment">         * Read the application configuration (settings.json) and return the 
+</span></span><span id="116" class="l"><a href="#116">116: </a><span class="php-comment">         * Read the application configuration (settings.json) and return the
 </span></span><span id="117" class="l"><a href="#117">117: </a><span class="php-comment">         * parsing result.
-</span></span><span id="118" class="l"><a href="#118">118: </a><span class="php-comment">         * 
+</span></span><span id="118" class="l"><a href="#118">118: </a><span class="php-comment">         *
 </span></span><span id="119" class="l"><a href="#119">119: </a><span class="php-comment">         * @return array the application configuration
 </span></span><span id="120" class="l"><a href="#120">120: </a><span class="php-comment">         */</span>
 </span><span id="121" class="l"><a href="#121">121: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> getApplicationSettings()
@@ -497,7 +499,7 @@
 </span><span id="136" class="l"><a href="#136">136: </a>        <span class="php-comment">/**
 </span></span><span id="137" class="l"><a href="#137">137: </a><span class="php-comment">         * Check if the application to be executed exists, is valid and has the
 </span></span><span id="138" class="l"><a href="#138">138: </a><span class="php-comment">         * configuration file.
-</span></span><span id="139" class="l"><a href="#139">139: </a><span class="php-comment">         * 
+</span></span><span id="139" class="l"><a href="#139">139: </a><span class="php-comment">         *
 </span></span><span id="140" class="l"><a href="#140">140: </a><span class="php-comment">         * @return bool the application existence
 </span></span><span id="141" class="l"><a href="#141">141: </a><span class="php-comment">         */</span>
 </span><span id="142" class="l"><a href="#142">142: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> applicationExists()
@@ -508,7 +510,7 @@
 </span><span id="147" class="l"><a href="#147">147: </a>
 </span><span id="148" class="l"><a href="#148">148: </a>        <span class="php-comment">/**
 </span></span><span id="149" class="l"><a href="#149">149: </a><span class="php-comment">         * Register the currently active environment.
-</span></span><span id="150" class="l"><a href="#150">150: </a><span class="php-comment">         * 
+</span></span><span id="150" class="l"><a href="#150">150: </a><span class="php-comment">         *
 </span></span><span id="151" class="l"><a href="#151">151: </a><span class="php-comment">         * @param Environment $env the currently active environment
 </span></span><span id="152" class="l"><a href="#152">152: </a><span class="php-comment">         */</span>
 </span><span id="153" class="l"><a href="#153">153: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> RegisterEnvironment(Environment &amp;<span class="php-var">$env</span>)
@@ -557,7 +559,7 @@
 </span><span id="196" class="l"><a href="#196">196: </a>
 </span><span id="197" class="l"><a href="#197">197: </a>        <span class="php-comment">/**
 </span></span><span id="198" class="l"><a href="#198">198: </a><span class="php-comment">         * Return the currenlty active environment used to run the controller.
-</span></span><span id="199" class="l"><a href="#199">199: </a><span class="php-comment">         * 
+</span></span><span id="199" class="l"><a href="#199">199: </a><span class="php-comment">         *
 </span></span><span id="200" class="l"><a href="#200">200: </a><span class="php-comment">         * @return Environment the current environment
 </span></span><span id="201" class="l"><a href="#201">201: </a><span class="php-comment">         */</span>
 </span><span id="202" class="l"><a href="#202">202: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> GetCurrentEnvironment()
@@ -617,7 +619,7 @@
 </span><span id="256" class="l"><a href="#256">256: </a>
 </span><span id="257" class="l"><a href="#257">257: </a>        <span class="php-comment">/**
 </span></span><span id="258" class="l"><a href="#258">258: </a><span class="php-comment">         * Return the configuration property.
-</span></span><span id="259" class="l"><a href="#259">259: </a><span class="php-comment">         * 
+</span></span><span id="259" class="l"><a href="#259">259: </a><span class="php-comment">         *
 </span></span><span id="260" class="l"><a href="#260">260: </a><span class="php-comment">         * @param string $property the requested configuration property
 </span></span><span id="261" class="l"><a href="#261">261: </a><span class="php-comment">         *
 </span></span><span id="262" class="l"><a href="#262">262: </a><span class="php-comment">         * @return the requested configuration property or NULL
@@ -681,6 +683,6 @@
 </div>
 </div>
 <script src="resources/combined.js?7ec981fd384b70aee7ff5ceda56e0deb9171d900"></script>
-<script src="elementlist.js?ddda102f9726b8fccc22d28d1b7587a8c57d1611"></script>
+<script src="elementlist.js?592d4a4e897f6f63ad90a340ac2c2bc93abe7c56"></script>
 </body>
 </html>

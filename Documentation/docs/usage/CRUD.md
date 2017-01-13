@@ -19,7 +19,7 @@ use Gishiki\Database\DatabaseManager;
 $connection = DatabaseManager::Retrieve('connectionName');
 
 //since this is a mongodb database the table name is given as dbname.tbname
-$idOfNewDocument = $connection->Insert('dbname.tbname', new SerializableCollection([
+$idOfNewDocument = $connection->Create('tbname', new SerializableCollection([
     'name'      => $name,
     'surname'   => $surname,
     'nickname'  => $nickname,

@@ -161,13 +161,6 @@ namespace Gishiki\Core {
          */
         public function FulfillRequest()
         {
-            //include pipelines
-            if (file_exists(APPLICATION_DIR.'/pipelines')) {
-                foreach (glob(APPLICATION_DIR.'/pipelines/*.php') as $filename) {
-                    include $filename;
-                }
-            }
-
             //get current request...
             $currentRequest = Request::createFromEnvironment(self::$currentEnvironment);
 
@@ -227,12 +220,7 @@ namespace Gishiki\Core {
                         'MASTER_ASYMMETRIC_KEY' => $config['security']['serverKey'],
                     ],
 
-                    'CONNECTIONS' => (array_key_exists('connections', $config)) ? $config['connections'] : array(),
-
-                    'PIPELINE' => [
-                        'CONNECTION' => (isset($config['pipeline']['connection'])) ? $config['pipeline']['connection'] : null,
-                        'COLLECTION' => (isset($config['pipeline']['collection'])) ? $config['pipeline']['collection'] : null,
-                    ],
+                    'CONNECTIONS' => (array_key_exists('connections', $config)) ? $config['connections'] : array()
                 ];
             }
 
@@ -249,9 +237,6 @@ namespace Gishiki\Core {
             foreach ($this->configuration['CONNECTIONS'] as $connection) {
                 \Gishiki\Database\DatabaseManager::Connect($connection['name'], $connection['query']);
             }
-
-            //setup the pipeline execution support
-            \Gishiki\Pipeline\PipelineSupport::Initialize($this->GetConfigurationProperty('PIPELINE_CONNECTION_NAME'), $this->GetConfigurationProperty('PIPELINE_TABLE_NAME'));
         }
 
         /**
@@ -266,13 +251,7 @@ namespace Gishiki\Core {
             switch (strtoupper($property)) {
                 case 'DEVELOPMENT':
                     return $this->configuration['DEVELOPMENT_ENVIRONMENT'];
-                
-                case 'PIPELINE_CONNECTION_NAME':
-                    return $this->configuration['PIPELINE']['CONNECTION'];
-
-                case 'PIPELINE_TABLE_NAME':
-                    return $this->configuration['PIPELINE']['COLLECTION'];
-
+                    
                 case 'LOG_CONNECTION_STRING':
                     return $this->configuration['AUTOLOG_URL'];
 

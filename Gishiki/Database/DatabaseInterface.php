@@ -55,7 +55,6 @@ interface DatabaseInterface
 
     /**
      * Write data to the database on the given collection/table.
-     * The name of the collection must be given witht the database.collection syntax.
      *
      * @param string                    $collection the name of the collection that will hold the data
      * @param array|CollectionInterface $data       the collection of data to be written
@@ -65,7 +64,7 @@ interface DatabaseInterface
      *
      * @return ObjectIDInterface the unique ID of the inserted data
      */
-    public function Insert($collection, $data);
+    public function Create($collection, $data);
 
     /**
      * Update values of documents/records matching the given criteria.
@@ -106,5 +105,5 @@ interface DatabaseInterface
      *
      * @return GenericCollection the search result expressed as a collection of \Gishiki\Database\Record
      */
-    public function Fetch($collection, SelectionCriteria $where, ResultModifier $mod);
+    public function Read($collection, SelectionCriteria $where, ResultModifier $mod);
 }

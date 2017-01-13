@@ -17,6 +17,7 @@
 
     "require": {
         "php": ">=5.4.0",
+        "ext-pdo": "*",
         "ext-openssl": "*",
         "ext-libxml": "*",
         "ext-curl": "*",
@@ -37,14 +38,12 @@
     },
 
     "suggest": {
-        "ext-pdo": "For using any SQL database",
         "ext-pdo_mysql": "For MySQL or MariaDB databases",
         "ext-pdo_sqlsrv": "For MSSQL databases on Windows platform",
         "ext-pdo_dblib": "For MSSQL or Sybase databases on Linux/UNIX platform",
         "ext-pdo_oci": "For Oracle databases",
         "ext-pdo_pqsql": "For PostgreSQL databases",
-        "ext-pdo_sqlite": "For SQLite databases",
-        "ext-mongodb": "For MongoDB connections"
+        "ext-pdo_sqlite": "For SQLite databases"
     },
 
     "autoload": {
@@ -68,5 +67,9 @@
         ],
         "phpunit": "php vendor/bin/phpunit",
         "phpcs": "php vendor/bin/phpcs"
-    }
+    },
+    
+    "bin": [
+        "Gishiki"
+    ]
 }

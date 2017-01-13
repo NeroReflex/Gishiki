@@ -30,14 +30,36 @@ final class ResultModifier
      */
     protected $resultChanger;
     
-    /**
-     * Initialize a result modifier that doesn't apply any filter.
-     *
-     * @return \self a result modifier that acts as a no-op
-     */
-    public static function Invariant()
+    
+    public static function Initialize($init = null)
     {
-        return new self();
+        if ((!is_null($init)) && (!is_array($init))) {
+            throw new \InvalidArgumentException('The initialization filter con only be null or a valid array');
+        }
+          
+        //create a new result modifier
+        $modifier = new self();
+        
+        if (is_array($init)) {
+            foreach ($init as $key => $value) {
+                if (is_string($key)) {
+                    if (strcmp($key, "skip") == 0) {
+                        $modifier->skip($value);
+                        continue;
+                    }
+
+                    if (strcmp($key, "limit") == 0) {
+                        $modifier->limit($value);
+                        continue;
+                    }
+
+                    $modifier->order($key, $value);
+                }
+            }
+        }
+        
+        // return the new result modifier
+        return $modifier;
     }
     
     /**
@@ -122,7 +144,7 @@ final class ResultModifier
         }
         
         //change the limit
-        $this->resultChanger['skip'] = $limit;
+        $this->resultChanger['skip'] = $offset;
         
         //return the modified filter
         return $this;

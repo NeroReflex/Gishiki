@@ -19,7 +19,6 @@ pages:
     - Request:          usage/request.md
     - Response:         usage/response.md
     - Logger:           usage/logging.md
-    - Pipeline:         usage/pipeline.md
     - Database:         usage/database.md
     - CRUD:             usage/CRUD.md
 

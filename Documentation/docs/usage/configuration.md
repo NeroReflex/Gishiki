@@ -24,12 +24,7 @@ It has a fixed (minumum) structure:
             "name": "default",
             "query": "mongodb://user:pass@localhost:27017/dbname"
         }
-    ],
-
-    "pipeline": {
-        "connection": "default",
-        "collection": "dbname.tablename"
-    }
+    ]
 }
 ```
 

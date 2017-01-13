@@ -85,8 +85,10 @@ abstract class Gishiki
             //fulfill the client request
             Environment::GetCurrentEnvironment()->FulfillRequest();
         } else {
-            //show the no application page!
-            echo file_get_contents(__DIR__.DS.'no_application.html');
+            if (!defined('INITIALIZING')) {
+                //show the no application page!
+                echo file_get_contents(__DIR__.DS.'no_application.html');
+            }
         }
         
         //the framework execution is complete

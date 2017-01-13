@@ -31,7 +31,7 @@ class DatabaseManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadConnectionQuery()
     {
-        DatabaseManager::Connect(3, 'mongodb://user:pass@host:port/db');
+        DatabaseManager::Connect(3, 'unknown_db_adapter://user:pass@host:port/db');
     }
 
     /**
@@ -40,12 +40,6 @@ class DatabaseManagerTest extends \PHPUnit_Framework_TestCase
     public function testConnectionQuery()
     {
         DatabaseManager::Connect('default', 'unknown_db_adapter://user:pass@host:port/db');
-    }
-
-    public function testConnection()
-    {
-        $connection = DatabaseManager::Connect('testing_db', MongoDatabaseTest::GetConnectionQuery());
-        $this->assertEquals(true, $connection->Connected());
     }
 
     /**

@@ -31,7 +31,7 @@ abstract class DatabaseManager
     ];
 
     /**
-     * Create a new database handler and connect it to a read database.
+     * Create a new database connection and store the newly generated connection.
      *
      * @param string $connectionName   the name of the database connection
      * @param string $connectionString the connection string
@@ -69,16 +69,17 @@ abstract class DatabaseManager
 
     /**
      * Retrieve the connection with the given name from the list of performed conenctions.
+     * If the name is not specified the default one is retrieved.
      *
-     * @param string $connectionName the name of the preformed connection
+     * @param string $connectionName the name of the selected connection
      *
      * @return DatabaseInterface the connected database instance
      *
      * @throws \InvalidArgumentException the collection name has not be given as a string
      * @throws DatabaseException         the given connection name is not registered as a valid collection
      */
-    public static function Retrieve($connectionName)
-    {
+    public static function Retrieve($connectionName = "default")
+    {   
         //check for malformed input
         if ((!is_string($connectionName)) || (strlen($connectionName) <= 0)) {
             throw new \InvalidArgumentException('The name of the connection to be retrieved must be given as a string');

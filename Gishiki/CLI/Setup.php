@@ -24,6 +24,11 @@ function Setup() {
         printf("The application directory cannot be created\n");
         exit();
     }
+    
+    if (!mkdir("application/Controllers")) {
+        printf("The Controllers directory cannot be created\n");
+        exit();
+    }
 
     //generate a new private key
     try {

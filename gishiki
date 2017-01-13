@@ -34,8 +34,19 @@ use Gishiki\Gishiki;
 Gishiki::Initialize();
 
 if ($argc > 1) {
-    if ((strcmp($argv[1], "setup")) == 0) {
-        Setup();
+    switch ($argv[1]) {
+        case 'setup':
+            Setup();
+            break;
+            
+        case 'help':
+            printf("The following is a list of arguments that can be passed to the gishiki CLI\n\n");
+            printf("setup: generate an empty application\n");
+            break;
+            
+        default:
+            printf("invalid command: use gishiki help for a list of available commands\n");
+            break;
     }
 } else {
     printf("use gishiki help for a list of available commands\n");

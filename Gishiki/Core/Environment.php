@@ -264,6 +264,9 @@ namespace Gishiki\Core {
         public function GetConfigurationProperty($property)
         {
             switch (strtoupper($property)) {
+                case 'DEVELOPMENT':
+                    return $this->configuration['DEVELOPMENT_ENVIRONMENT'];
+                
                 case 'PIPELINE_CONNECTION_NAME':
                     return $this->configuration['PIPELINE']['CONNECTION'];
 

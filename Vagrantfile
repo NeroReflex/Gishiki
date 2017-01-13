@@ -77,7 +77,7 @@ Vagrant.configure(2) do |config|
      ln -s /vagrant Gishiki
      
      printf "\n\nSystem info:\n"
-     php -v
+     php -i
 
      printf "\n\n\n\nThe box is ready. Now simply run \"vagrant ssh\" to connect!\n"
      

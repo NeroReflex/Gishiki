@@ -408,6 +408,7 @@ class Response extends Message implements ResponseInterface
 
         switch ($mediaType) {
             case 'application/json':
+            case 'text/json':
                 $format = SerializableCollection::JSON;
                 break;
 
@@ -422,8 +423,10 @@ class Response extends Message implements ResponseInterface
             case 'text/xml':
                 $format = SerializableCollection::XML;
                 break;
+            
+            // entering this case is prevented by the first 3 lines of the function
             default:
-
+                $format = SerializableCollection::JSON;
                 break;
         }
 

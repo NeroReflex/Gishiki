@@ -28,6 +28,9 @@ abstract class Gishiki
 {
     //this is the environment used to fulfill the incoming request
     public static $executionEnvironment = null;
+    
+    //was the Run function already being executed?
+    private static $executed = false;
 
     /**
      * Initialize the Gishiki engine and prepare for
@@ -63,6 +66,11 @@ abstract class Gishiki
      */
     public static function Run()
     {
+        //avoid double executions
+        if (self::$executed) {
+            return;
+        } 
+        
         //initialize the framework
         self::Initialize();
 
@@ -80,5 +88,8 @@ abstract class Gishiki
             //show the no application page!
             echo file_get_contents(__DIR__.DS.'no_application.html');
         }
+        
+        //the framework execution is complete
+        self::$executed = true;
     }
 }

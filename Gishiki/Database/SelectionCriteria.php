@@ -76,6 +76,12 @@ final class SelectionCriteria
         return $criteria;
     }
 
+    /**
+     * Select an element with the given object ID.
+     * 
+     * @param \Gishiki\Database\ObjectIDInterface $objectID the ID of the element to be selected
+     * @return \Gishiki\Database\SelectionCriteria          the updated selection criteria
+     */
     public function WhereID(ObjectIDInterface $objectID)
     {
         $this->id = clone $objectID;
@@ -83,8 +89,20 @@ final class SelectionCriteria
         return $this;
     }
 
+    /**
+     * Select each elemement with the given field equal of one of the array elements.
+     * 
+     * @param  string $field  the name of the field to apply the research
+     * @param  array  $values the collection of values to be searched
+     * @throws \InvalidArgumentException           the field name is invalid
+     * @return \Gishiki\Database\SelectionCriteria the updated selection criteria
+     */
     public function InRange($field, array $values)
     {
+        if ((!is_string($field)) || (strlen($field) <= 0)) {
+            throw new \InvalidArgumentException("The name of the field to be affected must be given as a non-empty string");
+        }
+        
         if (!array_key_exists($field, $this->criteria)) {
             $this->criteria[$field] = array();
         }
@@ -95,6 +113,7 @@ final class SelectionCriteria
         return $this;
     }
 
+    
     public function NotInRange($field, array $values)
     {
         if (!array_key_exists($field, $this->criteria)) {

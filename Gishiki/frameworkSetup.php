@@ -24,7 +24,17 @@ use Gishiki\Algorithms\Collections\SerializableCollection;
 if (!defined('TESTING')) {
     Gishiki::Initialize();
 
-    Route::get('/info', function (Request $request, Response &$response, SerializableCollection &$arguments) {
+    //if the xdebug plugin is enabled this is a development environment
+    if (function_exists('xdebug_get_code_coverage')) {
+        Route::get('/phpinfo', function (Request $request, Response &$response) {
+            phpinfo();
+        });
+    } else {
+        $response->withStatus(501);
+        $response->write("Not implemented on the current machine");
+    }
+    
+    Route::get('/info', function (Request $request, Response &$response) {
         $info = new SerializableCollection(
                 [
                     'Framework' => 'Gishiki',
@@ -38,7 +48,7 @@ if (!defined('TESTING')) {
         $response->setSerializedBody($info);
     });
 
-    Route::get('/serverkey', function (Request $request, Response &$response, SerializableCollection &$arguments) {
+    Route::get('/serverkey', function (Request $request, Response &$response) {
         //get the serialized public key
         $serializedPubKey = (new \Gishiki\Security\Encryption\Asymmetric\PrivateKey())->exportPublicKey();
 
@@ -48,7 +58,7 @@ if (!defined('TESTING')) {
         $response->write($serializedPubKey);
     });
 
-    Route::get('/cronjob', function (Request $request, Response &$response, SerializableCollection &$arguments) {
+    Route::get('/cronjob', function (Request $request, Response &$response) {
         //get the deserialized request body
         $requestBody = $request->getDeserializedBody();
 

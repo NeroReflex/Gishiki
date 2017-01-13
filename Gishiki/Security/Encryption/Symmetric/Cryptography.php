@@ -136,7 +136,7 @@ abstract class Cryptography
             throw new \InvalidArgumentException('The encrypted message to be decrypted must be given as a non-empty string');
         }
 
-        //get the managed kersion of the key
+        //get the managed version of the key
         $managedKey = $key();
 
         //check for the key length

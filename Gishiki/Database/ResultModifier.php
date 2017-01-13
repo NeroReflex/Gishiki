@@ -30,7 +30,22 @@ final class ResultModifier
      */
     protected $resultChanger;
     
-    
+    /**
+     * Initialize a new result modifier using the initializer data
+     *
+     * <code>
+     * $resultFilter = ResultModifier::Initialize([
+     *     'limit' => 5,
+     *     'skip'  => 8,
+     *     'nome'  => FieldOrdering::ASC
+     *
+     * ]);
+     * </code>
+     *
+     * @param  array|null $init the initializer data
+     * @return \self                     the initialized result modifier
+     * @throws \InvalidArgumentException the initializer data is not valid
+     */
     public static function Initialize($init = null)
     {
         if ((!is_null($init)) && (!is_array($init))) {
@@ -43,17 +58,19 @@ final class ResultModifier
         if (is_array($init)) {
             foreach ($init as $key => $value) {
                 if (is_string($key)) {
-                    if (strcmp($key, "skip") == 0) {
-                        $modifier->skip($value);
-                        continue;
-                    }
+                    switch ($key) {
+                        case "skip":
+                            $modifier->skip($value);
+                            break;
 
-                    if (strcmp($key, "limit") == 0) {
-                        $modifier->limit($value);
-                        continue;
-                    }
+                        case "limit":
+                            $modifier->limit($value);
+                            break;
 
-                    $modifier->order($key, $value);
+                        default:
+                            $modifier->order($key, $value);
+                            break;
+                    }
                 }
             }
         }
@@ -153,7 +170,7 @@ final class ResultModifier
         //filter modifier functions
     }
     
-    protected function export()
+    private function export()
     {
         $export = $this->resultChanger;
         

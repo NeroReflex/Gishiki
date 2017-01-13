@@ -79,7 +79,7 @@ abstract class DatabaseManager
      * @throws DatabaseException         the given connection name is not registered as a valid collection
      */
     public static function Retrieve($connectionName = "default")
-    {   
+    {
         //check for malformed input
         if ((!is_string($connectionName)) || (strlen($connectionName) <= 0)) {
             throw new \InvalidArgumentException('The name of the connection to be retrieved must be given as a string');

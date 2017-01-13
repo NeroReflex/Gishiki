@@ -69,7 +69,7 @@ abstract class Gishiki
         //avoid double executions
         if (self::$executed) {
             return;
-        } 
+        }
         
         //initialize the framework
         self::Initialize();

@@ -19,7 +19,8 @@ use \Gishiki\Algorithms\Collections\SerializableCollection;
 use \Gishiki\Security\Encryption\Asymmetric\PrivateKey;
 use \Gishiki\Security\Encryption\Symmetric\SecretKey;
 
-function Setup() {
+function Setup()
+{
     if (!mkdir("application")) {
         printf("The application directory cannot be created\n");
         exit();

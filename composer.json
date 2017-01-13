@@ -21,7 +21,6 @@
         "ext-openssl": "*",
         "ext-libxml": "*",
         "ext-curl": "*",
-        "ext-hash": "*",
         "ext-SimpleXML": "*",
         "graylog2/gelf-php": "~1.2",
         "psr/http-message": "^1.0",

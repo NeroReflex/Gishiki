@@ -141,54 +141,14 @@ abstract class Algorithms
         //the raw output of the max legth (beyond the $keyLength algorithm)
         $output = '';
 
-        if (function_exists('openssl_pbkdf2')) {
-            /*          execute the native openssl_pbkdf2                   */
+        /*          execute the native openssl_pbkdf2                   */
 
-            //check if the algorithm is valid
-            if (!in_array($algorithm, openssl_get_md_methods(true), true)) {
-                throw new HashingException('Invalid algorithm: the choosen algorithm is not valid for the PBKDF2 function', 2);
-            }
-
-            $output = openssl_pbkdf2($password, $salt, $keyLength, $count, $algorithm);
-        } elseif (function_exists('hash_pbkdf2')) {
-            /*          execute the native hash_pbkdf2                     */
-
-            //check if the algorithm is valid
-            if (!in_array($algorithm, hash_algos(), true)) {
-                throw new HashingException('Invalid algorithm: the choosen algorithm is not valid for the PBKDF2 function', 2);
-            }
-
-            // The output length is in NIBBLES (4-bits) if $binaryUnsafe is false!
-            if (!$binaryUnsafe) {
-                $keyLength = $keyLength * 2;
-            }
-
-            return hash_pbkdf2($algorithm, $password, $salt, $count, $keyLength, $binaryUnsafe);
-        } else {
-            /*          use an hack to emulate openssl_pbkdf2               */
-
-            //check if the algorithm is valid
-            if (!in_array($algorithm, hash_algos(), true)) {
-                throw new HashingException('Invalid algorithm: the choosen algorithm is not valid for the PBKDF2 function', 2);
-            }
-
-            $hashLength = strlen(hash($algorithm, '', true));
-            $blockCount = ceil($keyLength / $hashLength);
-
-            for ($i = 1; $i <= $blockCount; ++$i) {
-                // $i encoded as 4 bytes, big endian.
-                $last = $salt.pack('N', $i);
-
-                // first iteration
-                $last = $xorsum = hash_hmac($algorithm, $last, $password, true);
-
-                // perform the other $count - 1 iterations
-                for ($j = 1; $j < $count; ++$j) {
-                    $xorsum ^= ($last = hash_hmac($algorithm, $last, $password, true));
-                }
-                $output .= $xorsum;
-            }
+        //check if the algorithm is valid
+        if (!in_array($algorithm, openssl_get_md_methods(true), true)) {
+            throw new HashingException('Invalid algorithm: the choosen algorithm is not valid for the PBKDF2 function', 2);
         }
+
+        $output = openssl_pbkdf2($password, $salt, $keyLength, $count, $algorithm);
 
         return ($binaryUnsafe) ? substr($output, 0, $keyLength) : bin2hex(substr($output, 0, $keyLength));
     }

@@ -9,7 +9,7 @@
 | Test         | [![Build Status](https://travis-ci.org/NeroReflex/Gishiki.svg?branch=master)](https://travis-ci.org/NeroReflex/Gishiki)  |
 
 
-_*Gishiki*_: a modern and elegant MVC framework for PHP >= 5.4 and HHVM.
+_*Gishiki*_: a modern and elegant MVC framework for PHP >= 5.5 and HHVM.
 
 Gishiki means 'ritual' in japanese, this name was chosen because this framework
 will help you to perform the ritual of creation and deployment of web digital contents.
@@ -23,9 +23,9 @@ Installing is as simple as cloning the repository and in 2 minutes you are up in
 experimenting its features!
 
 
-## 2016 Compatibility
+## PaaS Compatibility
 
-Gishiki aims for total Heroku compatibility because you can deploy
+Gishiki aims for total [Heroku](https://www.heroku.com/) compatibility because you can deploy
 your fantastic website or app in a few seconds forgetting about maintaining
 the server!
 

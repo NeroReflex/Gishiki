@@ -85,7 +85,7 @@ abstract class Gishiki
             //fulfill the client request
             Environment::GetCurrentEnvironment()->FulfillRequest();
         } else {
-            if (!defined('INITIALIZING')) {
+            if (!defined('CLI_TOOLKIT')) {
                 //show the no application page!
                 echo file_get_contents(__DIR__.DS.'no_application.html');
             }

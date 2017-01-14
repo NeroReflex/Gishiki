@@ -26,8 +26,9 @@ abstract class DatabaseManager
 {
     private static $connections = array();
 
+    //used to give a sencond name to an adapter
     private static $adaptersMap = [
-        'Mongo' => 'Mongodb',
+        // 'Firstname' => 'Secondname'
     ];
 
     /**

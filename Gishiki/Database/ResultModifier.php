@@ -24,11 +24,20 @@ namespace Gishiki\Database;
  */
 final class ResultModifier
 {
+    /**
+     * @var integer the number of rows to be discarded
+     */
+    protected $skip = -1;
     
     /**
-     * @var array filters to be applied to the result set
+     * @var integer the limit of rows to be fetched
      */
-    protected $resultChanger;
+    protected $limit = 0;
+    
+    /**
+     * @var array a list of columns with the respective order
+     */
+    protected $orderColumns = [];
     
     /**
      * Initialize a new result modifier using the initializer data
@@ -37,8 +46,7 @@ final class ResultModifier
      * $resultFilter = ResultModifier::Initialize([
      *     'limit' => 5,
      *     'skip'  => 8,
-     *     'nome'  => FieldOrdering::ASC
-     *
+     *     'name'  => FieldOrdering::ASC
      * ]);
      * </code>
      *
@@ -86,9 +94,6 @@ final class ResultModifier
     {
         //no limit by default
         $this->resultChanger = [
-            'sort' => [
-                '_id' => FieldOrdering::ASC
-            ],
             'limit' => -1,
             'skip' => 0
         ];
@@ -113,7 +118,7 @@ final class ResultModifier
         }
         
         //set ordering
-        $this->resultChanger['sort'][$field] = $order;
+        $this->orderColumns[$field] = $order;
         
         //return the modified filter
         return $this;
@@ -137,7 +142,7 @@ final class ResultModifier
         }
         
         //change the limit
-        $this->resultChanger['limit'] = $limit;
+        $this->limit = $limit;
         
         //return the modified filter
         return $this;
@@ -161,7 +166,7 @@ final class ResultModifier
         }
         
         //change the limit
-        $this->resultChanger['skip'] = $offset;
+        $this->skip = $offset;
         
         //return the modified filter
         return $this;
@@ -172,12 +177,16 @@ final class ResultModifier
     
     private function export()
     {
-        $export = $this->resultChanger;
+        $export = [
+            'limit' => $this->limit,
+            'skip' => $this->skip,
+            'order' => $this->orderColumns
+        ];
         
         if ($export['limit'] <= 0) {
             unset($export['limit']);
         }
-        if ($export['skip'] < 0) {
+        if ($export['skip'] <= 0) {
             unset($export['skip']);
         }
         

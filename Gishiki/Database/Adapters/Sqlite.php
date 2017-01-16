@@ -22,6 +22,7 @@ use Gishiki\Database\DatabaseException;
 use Gishiki\Database\SelectionCriteria;
 use Gishiki\Database\ResultModifier;
 use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Database\Adapters\Utils\SQLBuilder;
 
 /**
  * Represent an sqlite database.
@@ -95,24 +96,17 @@ final class Sqlite implements DatabaseInterface {
         //get an associative array of the input data
         $adaptedData = ($data instanceof GenericCollection) ? $data->all() : $data;
         
-        //create a safe sql that contains placeholders for the given values
-        $sql = "INSERT INTO \"".$collection."\" (".implode(', ', array_keys($adaptedData)).") VALUES (";
-        
-        //create the sql placeholder resolver
-        $resolverArray = [];
-        foreach ($adaptedData as $columnValue) {
-            $resolverArray[] = $columnValue;
-            $sql .= "?, ";
-        }
-        $sql = trim($sql, " \n\t\r\0\x0B,").")";
+        //build the sql query
+        $queryBuilder = new SQLBuilder();
+        $queryBuilder->insertInto($collection)->values($adaptedData);
         
         //open a new statement and execute it
         try {
             //prepare a statement with that safe sql string
-            $stmt = $this->connection->prepare($sql);
+            $stmt = $this->connection->prepare($queryBuilder->exportQuery());
 
             //execute the statement resolving placeholders
-            $stmt->execute($resolverArray);
+            $stmt->execute($queryBuilder->exportParams());
         } catch (\PDOException $ex)  {
             throw new DatabaseException('Error while performing the creation operation: '.$ex->getMessage(), 3);
         }
@@ -137,31 +131,18 @@ final class Sqlite implements DatabaseInterface {
         //get an associative array of the input data
         $adaptedData = ($data instanceof GenericCollection) ? $data->all() : $data;
         
-        //create a safe sql that contains placeholders for the given values
-        $sql = "UPDATE \"".$collection."\" SET ";
-        //create the sql placeholder resolver and build the sql safe query
-        $resolverArray = [];
-        foreach ($adaptedData as $columnName => $columnValue) {
-            $resolverArray[] = $columnValue;
-            
-            $sql .= $columnName." = ?, ";
-        }
-        $sql = trim($sql, " \n\t\r\0\x0B,")." ";
-        
-        //build, append and bind params for the where statement
-        $whereResolved = $this->whereBuilder($where);
-        $sql .= $whereResolved['sql'];
-        foreach ($whereResolved['resolver'] as $whereClauseData) {
-            $resolverArray[] = $whereClauseData;
-        }
+        //build the sql query
+        $queryBuilder = new SQLBuilder();
+        $queryBuilder->update($collection)->set($adaptedData)->where($where);
         
         //open a new statement and execute it
         try {
             //prepare a statement with that safe sql string
+            $sql = $queryBuilder->exportQuery();
             $stmt = $this->connection->prepare($sql);
 
             //execute the statement resolving placeholders
-            $stmt->execute($resolverArray);
+            $stmt->execute($queryBuilder->exportParams());
         } catch (\PDOException $ex)  {
             throw new DatabaseException('Error while performing the update operation: '.$ex->getMessage(), 4);
         }
@@ -173,45 +154,5 @@ final class Sqlite implements DatabaseInterface {
     
     public function read($collection, SelectionCriteria $where, ResultModifier $mod) {
         
-    }
-    
-    private function whereBuilder(SelectionCriteria $where) {
-        $result = [
-            'sql' => "WHERE ",
-            'resolver' => [ ]
-        ];
-        
-        //execute the private function 'export'
-        $exportMethod = new \ReflectionMethod($where, 'export');
-        $exportMethod->setAccessible(true);
-        $resultModifierExported = $exportMethod->invoke($where);
-        
-        $first = true;
-        foreach ($resultModifierExported['historic'] as $current) {
-            $conjunction = "";
-            
-            $arrayIndex = $current & (~SelectionCriteria::AND_Historic_Marker);
-            $arrayConjunction = '';
-            
-            if (($current & (SelectionCriteria::AND_Historic_Marker)) != 0) {
-                $conjunction = (!$first) ? " AND " : " ";
-                $arrayConjunction = 'and';
-            } else {
-                $conjunction = (!$first) ? " OR " : " ";
-                $arrayConjunction = 'or';
-            }
-            
-            $fieldName = $resultModifierExported['criteria'][$arrayConjunction][$arrayIndex][0];
-            $fieldRelationship = $resultModifierExported['criteria'][$arrayConjunction][$arrayIndex][1];
-            $fieldValue = $resultModifierExported['criteria'][$arrayConjunction][$arrayIndex][2];
-            
-            //assemble the query
-            $result['sql'] .= $conjunction.$fieldName." ".$fieldRelationship." ? ";
-            $result['resolver'][] = $fieldValue;
-            
-            $first = false;
-        }
-        
-        return $result;
     }
 }

@@ -174,13 +174,6 @@
         
             
     <li class="toctree-l1 ">
-        <a class="" href="../pipeline/">Pipeline</a>
-        
-    </li>
-
-        
-            
-    <li class="toctree-l1 ">
         <a class="" href="../database/">Database</a>
         
     </li>
@@ -270,7 +263,7 @@ the <em>collection</em> to be affected:</p>
 $connection = DatabaseManager::Retrieve('connectionName');
 
 //since this is a mongodb database the table name is given as dbname.tbname
-$idOfNewDocument = $connection-&gt;Insert('dbname.tbname', new SerializableCollection([
+$idOfNewDocument = $connection-&gt;Create('tbname', new SerializableCollection([
     'name'      =&gt; $name,
     'surname'   =&gt; $surname,
     'nickname'  =&gt; $nickname,

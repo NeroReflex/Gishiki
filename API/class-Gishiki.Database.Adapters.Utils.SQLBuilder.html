@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Gishiki\Database\Adapters\Utils\SQLBuilder | Gishiki</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Gishiki.html">
+						Gishiki<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Algorithms.html">
+						Algorithms<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Algorithms.Collections.html">
+						Collections					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.Core.html">
+						Core<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Core.MVC.html">
+						MVC					</a>
+
+						</li>
+							</ul></li>
+				<li class="active">
+					<a href="namespace-Gishiki.Database.html">
+						Database<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Gishiki.Database.Adapters.html">
+						Adapters<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Gishiki.Database.Adapters.Utils.html">
+						Utils					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-Gishiki.HttpKernel.html">
+						HttpKernel					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Logging.html">
+						Logging<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Logging.Adapter.html">
+						Adapter					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.Security.html">
+						Security<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Security.Encryption.html">
+						Encryption<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Security.Encryption.Asymmetric.html">
+						Asymmetric					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.Security.Encryption.Symmetric.html">
+						Symmetric					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.Security.Hashing.html">
+						Hashing					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.tests.html">
+						tests<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.tests.Algorithms.html">
+						Algorithms<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.tests.Algorithms.Collections.html">
+						Collections					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.tests.Application.html">
+						Application					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.tests.Core.html">
+						Core					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.tests.Database.html">
+						Database					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.tests.Http.html">
+						Http<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.tests.Http.Mocks.html">
+						Mocks					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.tests.Logging.html">
+						Logging					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.tests.Security.html">
+						Security<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.tests.Security.Encryption.html">
+						Encryption<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.tests.Security.Encryption.Asymmetric.html">
+						Asymmetric					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Gishiki.tests.Security.Encryption.Symmetric.html">
+						Symmetric					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.tests.Security.Hashing.html">
+						Hashing					</a>
+
+						</li>
+							</ul></li></ul></li></ul></li>
+				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Gishiki.Database.Adapters.Utils.SQLBuilder.html">SQLBuilder</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Gishiki.Database.Adapters.Utils.html" title="Summary of Gishiki\Database\Adapters\Utils"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class SQLBuilder</h1>
+
+
+	<div class="description">
+	<p>This utility is useful to create sql queries for various RDBMS.</p>
+
+<p>An example of usage can be:</p>
+
+<pre><span class="php-var">$queryBuilder</span> = <span class="php-keyword1">new</span> SQLBuilder();
+<span class="php-var">$queryBuilder</span>-&gt;insertInto(<span class="php-quote">&quot;users&quot;</span>)-&gt;values([
+     <span class="php-quote">&quot;name&quot;</span> =&gt; <span class="php-quote">&quot;Mario&quot;</span>,
+     <span class="php-quote">&quot;surname&quot;</span> =&gt; <span class="php-quote">&quot;Rossi&quot;</span>,
+     <span class="php-quote">&quot;password&quot;</span> =&gt; Hashing\Algorithms::<span class="php-keyword2">hash</span>(<span class="php-quote">&quot; __= N0 r4inb0w t4bl3 ==__&quot;</span> . <span class="php-quote">&quot;Mario's password&quot;</span>, Hashing\Algorithms::SHA512);
+     <span class="php-quote">&quot;sex&quot;</span> =&gt; <span class="php-num">0</span>,
+     <span class="php-quote">&quot;height&quot;</span> =&gt; <span class="php-num">1.70</span>
+]);
+
+<span class="php-comment">//INSERT INTO &quot;users&quot; (name, surname, password, sex, height) VALUES (?, ?, ?, ?, ?)</span>
+<span class="php-var">$sql</span> = <span class="php-var">$queryBuilder</span>-&gt;exportQuery();
+
+<span class="php-comment">// array( &quot;Mario&quot;, &quot;Rossi&quot;, &quot;.....&quot;, 0, 1.70 )</span>
+<span class="php-var">$params</span> = <span class="php-var">$queryBuilder</span>-&gt;exportParams();</pre>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Gishiki.html">Gishiki</a>\<a href="namespace-Gishiki.Database.html">Database</a>\<a href="namespace-Gishiki.Database.Adapters.html">Adapters</a>\<a href="namespace-Gishiki.Database.Adapters.Utils.html">Utils</a><br>
+		
+
+				<b>Author:</b>
+				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#24-264" title="Go to source code">Gishiki/Database/Adapters/Utils/SQLBuilder.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="appendToQuery" id="_appendToQuery">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_appendToQuery">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#60-63" title="Go to source code">appendToQuery</a>( <span> <var>$sql</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="appendToParams" id="_appendToParams">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_appendToParams">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#65-74" title="Go to source code">appendToParams</a>( <span> <var>$newParams</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#76-78" title="Go to source code">__construct</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="update" id="_update">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_update">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#80-86" title="Go to source code">update</a>( <span> <var>$table</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="set" id="_set">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_set">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#88-106" title="Go to source code">set</a>( <span>array <var>$values</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="where" id="_where">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_where">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#108-153" title="Go to source code">where</a>( <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="insertInto" id="_insertInto">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_insertInto">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#155-161" title="Go to source code">insertInto</a>( <span> <var>$table</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="values" id="_values">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_values">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#163-182" title="Go to source code">values</a>( <span>array <var>$values</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="limitOffsetOrderBy" id="_limitOffsetOrderBy">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_limitOffsetOrderBy">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#184-219" title="Go to source code">limitOffsetOrderBy</a>( <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="selectAllFrom" id="_selectAllFrom">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_selectAllFrom">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#221-227" title="Go to source code">selectAllFrom</a>( <span> <var>$table</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="selectFrom" id="_selectFrom">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_selectFrom">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#229-235" title="Go to source code">selectFrom</a>( <span> <var>$table</var></span>, <span>array <var>$fields</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="deleteFrom" id="_deleteFrom">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_deleteFrom">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#237-243" title="Go to source code">deleteFrom</a>( <span> <var>$table</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="exportQuery" id="_exportQuery">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_exportQuery">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#245-253" title="Go to source code">exportQuery</a>( )</code>
+
+		<div class="description short">
+			<p>Export the SQL query string with ? in place of actual parameters.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Export the SQL query string with ? in place of actual parameters.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the SQL query without values
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="exportParams" id="_exportParams">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_exportParams">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#255-263" title="Go to source code">exportParams</a>( )</code>
+
+		<div class="description short">
+			<p>Export the list of parameters that will replace ? in the SQL query.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Export the list of parameters that will replace ? in the SQL query.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>the list of params
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="sql" id="$sql">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#50-53" title="Go to source code"><var>$sql</var></a>
+
+			<div class="description short">
+				<p>the SQL query that contains placeholders</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>the SQL query that contains placeholders</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$sql" class="anchor">#</a>
+				<code><span class="php-quote">''</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="params" id="$params">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#55-58" title="Go to source code"><var>$params</var></a>
+
+			<div class="description short">
+				<p>a list of values to be escaped and inserted in place of sql placeholders</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>a list of values to be escaped and inserted in place of sql placeholders</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$params" class="anchor">#</a>
+				<code>[]</code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

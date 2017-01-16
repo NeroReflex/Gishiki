@@ -56,10 +56,16 @@
 						<ul>
 				<li>
 					<a href="namespace-Gishiki.Database.Adapters.html">
-						Adapters					</a>
+						Adapters<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Database.Adapters.Utils.html">
+						Utils					</a>
 
 						</li>
-							</ul></li>
+							</ul></li></ul></li>
 				<li>
 					<a href="namespace-Gishiki.HttpKernel.html">
 						HttpKernel					</a>
@@ -77,11 +83,6 @@
 
 						</li>
 							</ul></li>
-				<li>
-					<a href="namespace-Gishiki.Pipeline.html">
-						Pipeline					</a>
-
-						</li>
 				<li>
 					<a href="namespace-Gishiki.Security.html">
 						Security<span></span>
@@ -162,11 +163,6 @@
 
 						</li>
 				<li>
-					<a href="namespace-Gishiki.tests.Pipeline.html">
-						Pipeline					</a>
-
-						</li>
-				<li>
 					<a href="namespace-Gishiki.tests.Security.html">
 						Security<span></span>
 					</a>
@@ -196,6 +192,11 @@
 						</li>
 							</ul></li></ul></li></ul></li>
 				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+				<li>
 					<a href="namespace-PHP.html">
 						PHP					</a>
 
@@ -211,6 +212,7 @@
 			<ul>
 				<li><a href="class-Gishiki.Database.DatabaseManager.html">DatabaseManager</a></li>
 				<li><a href="class-Gishiki.Database.FieldOrdering.html">FieldOrdering</a></li>
+				<li><a href="class-Gishiki.Database.FiledRelationship.html">FiledRelationship</a></li>
 				<li><a href="class-Gishiki.Database.Record.html">Record</a></li>
 				<li><a href="class-Gishiki.Database.ResultModifier.html">ResultModifier</a></li>
 				<li class="active"><a href="class-Gishiki.Database.SelectionCriteria.html">SelectionCriteria</a></li>
@@ -226,7 +228,6 @@
 			<h3>Exceptions</h3>
 			<ul>
 				<li><a href="class-Gishiki.Database.DatabaseException.html">DatabaseException</a></li>
-				<li><a href="class-Gishiki.Database.InvalidSelectionCriteriaException.html">InvalidSelectionCriteriaException</a></li>
 			</ul>
 
 
@@ -269,8 +270,7 @@
 
 
 	<div class="description">
-	<p>An helper class used to abstract how records/documents are selected from the
-database table/collection.</p>
+	<p>This class is used to represent a selection criteria for database rows</p>
 	</div>
 
 
@@ -289,7 +289,7 @@ database table/collection.</p>
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.SelectionCriteria.html#20-181" title="Go to source code">Gishiki/Database/SelectionCriteria.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.SelectionCriteria.html#20-141" title="Go to source code">Gishiki/Database/SelectionCriteria.php</a>
 		<br>
 	</div>
 
@@ -297,10 +297,10 @@ database table/collection.</p>
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="Select" id="_Select">
+	<tr data-order="and_where" id="_and_where">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 
 			<code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code>
 			
@@ -308,43 +308,35 @@ database table/collection.</p>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_Select">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#31-77" title="Go to source code">Select</a>( <span>array <var>$ct</var></span> )</code>
+		<a class="anchor" href="#_and_where">#</a>
+		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#42-85" title="Go to source code">and_where</a>( <span>string <var>$field</var></span>, <span>integer <var>$relationship</var></span>, <span>mixed <var>$data</var></span> )</code>
 
 		<div class="description short">
-			<p>Create a selection criteria from the input.</p>
+			<p>Create a sub-clause and append it to the where clause using an and as conjunction</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Create a selection criteria from the input.</p>
-
-<p>This function is NOT enough to generate every possible selection,
-but it is useful for starting creating the selection criteria:</p>
-
-<pre><span class="php-comment">// this select every row where name is equal to $username and age is either 18, 19 or 20</span>
-<span class="php-var">$criteria</span> = SelectionCriteria::Select([
-    <span class="php-quote">'name'</span> =&gt; <span class="php-var">$username</span>,
-    <span class="php-quote">'age'</span> =&gt; [<span class="php-num">18</span>, <span class="php-num">19</span>, <span class="php-num">20</span>]
-]);
-
-<span class="php-comment">//the limit is one of the many filters that cannot be applied using just Select()</span>
-<span class="php-var">$criteria</span>-&gt;limit(<span class="php-num">1</span>);</pre>
+			<p>Create a sub-clause and append it to the where clause using an and as conjunction</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$ct</var></dt>
-					<dd>the input selection in a simplified format</dd>
+					<dt><var>$field</var></dt>
+					<dd>the name of the field/column to be related with the data</dd>
+					<dt><var>$relationship</var></dt>
+					<dd>the relationship between the field and the data</dd>
+					<dt><var>$data</var></dt>
+					<dd>the data to be related with the field</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code><br>the SelectionCriteria built from the input
+					<code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code><br>the updated selection criteria
 				</div>
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-Gishiki.Database.InvalidSelectionCriteriaException.html">Gishiki\Database\InvalidSelectionCriteriaException</a></code><br>the simplified selection in input is not valid
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>one parameter has a wrong type
 				</div>
 
 
@@ -352,270 +344,47 @@ but it is useful for starting creating the selection criteria:</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="WhereID" id="_WhereID">
+	<tr data-order="or_where" id="_or_where">
 
 		<td class="attributes"><code>
 			 public 
 
-			
+			<code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_WhereID">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#79-84" title="Go to source code">WhereID</a>( <span><code><a href="class-Gishiki.Database.ObjectIDInterface.html">Gishiki\Database\ObjectIDInterface</a></code> <var>$objectID</var></span> )</code>
+		<a class="anchor" href="#_or_where">#</a>
+		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#87-130" title="Go to source code">or_where</a>( <span>string <var>$field</var></span>, <span>integer <var>$relationship</var></span>, <span>mixed <var>$data</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Create a sub-clause and append it to the where clause using an or as conjunction</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="InRange" id="_InRange">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_InRange">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#86-96" title="Go to source code">InRange</a>( <span> <var>$field</var></span>, <span>array <var>$values</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="NotInRange" id="_NotInRange">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_NotInRange">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#98-108" title="Go to source code">NotInRange</a>( <span> <var>$field</var></span>, <span>array <var>$values</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="EqualThan" id="_EqualThan">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_EqualThan">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#110-120" title="Go to source code">EqualThan</a>( <span> <var>$field</var></span>, <span> <var>$value</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="NotEqualThan" id="_NotEqualThan">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_NotEqualThan">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#122-132" title="Go to source code">NotEqualThan</a>( <span> <var>$field</var></span>, <span> <var>$value</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="GreaterThan" id="_GreaterThan">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_GreaterThan">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#134-144" title="Go to source code">GreaterThan</a>( <span> <var>$field</var></span>, <span> <var>$value</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="GreaterOrEqualThan" id="_GreaterOrEqualThan">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_GreaterOrEqualThan">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#146-156" title="Go to source code">GreaterOrEqualThan</a>( <span> <var>$field</var></span>, <span> <var>$value</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="LessThan" id="_LessThan">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_LessThan">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#158-168" title="Go to source code">LessThan</a>( <span> <var>$field</var></span>, <span> <var>$value</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="LessOrEqualThan" id="_LessOrEqualThan">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_LessOrEqualThan">#</a>
-		<code><a href="source-class-Gishiki.Database.SelectionCriteria.html#170-180" title="Go to source code">LessOrEqualThan</a>( <span> <var>$field</var></span>, <span> <var>$value</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
+			<p>Create a sub-clause and append it to the where clause using an or as conjunction</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$field</var></dt>
+					<dd>the name of the field/column to be related with the data</dd>
+					<dt><var>$relationship</var></dt>
+					<dd>the relationship between the field and the data</dd>
+					<dt><var>$data</var></dt>
+					<dd>the data to be related with the field</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code><br>the updated selection criteria
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>one parameter has a wrong type
+				</div>
 
 
 
@@ -631,10 +400,93 @@ but it is useful for starting creating the selection criteria:</p>
 
 
 
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="AND_Historic_Marker" id="AND_Historic_Marker">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Gishiki.Database.SelectionCriteria.html#27" title="Go to source code"><b>AND_Historic_Marker</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#AND_Historic_Marker" class="anchor">#</a>
+				<code><span class="php-num">0b10000000</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 
 
 
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="historic" id="$historic">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.Database.SelectionCriteria.html#29-32" title="Go to source code"><var>$historic</var></a>
+
+			<div class="description short">
+				<p>keeps track of the order clauses were inserted</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>keeps track of the order clauses were inserted</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$historic" class="anchor">#</a>
+				<code>[]</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="criteria" id="$criteria">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.Database.SelectionCriteria.html#34-40" title="Go to source code"><var>$criteria</var></a>
+
+			<div class="description short">
+				<p>both 'or' and 'and' are two arrays of sub-arrays</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>both 'or' and 'and' are two arrays of sub-arrays</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$criteria" class="anchor">#</a>
+				<code>[
+    <span class="php-quote">'and'</span> =&gt; [],
+    <span class="php-quote">'or'</span>  =&gt; []
+]</code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 
 

@@ -21,6 +21,11 @@ use \Gishiki\Security\Encryption\Symmetric\SecretKey;
 
 function Setup()
 {
+    if (file_exists("application")) {
+        printf("An application already exists!\n");
+        exit();
+    }
+    
     if (!mkdir("application")) {
         printf("The application directory cannot be created\n");
         exit();
@@ -33,7 +38,7 @@ function Setup()
 
     //generate a new private key
     try {
-        if (file_put_contents("application/private_key.pem", PrivateKey::generate(PrivateKey::RSA4096)) === false) {
+        if (file_put_contents("application/private_key.pem", PrivateKey::Generate(PrivateKey::RSA4096)) === false) {
             printf("The application private key cannot be written\n");
             exit();
         }
@@ -51,12 +56,12 @@ function Setup()
             ],
             "security" => [
                 "serverKey" => "file://application/private_key.pem",
-                "serverPassword" => SecretKey::generate(openssl_random_pseudo_bytes(32), 32),
+                "serverPassword" => SecretKey::Generate(openssl_random_pseudo_bytes(32), 32),
             ],
             "connections" => [
                 [
                     "name" => "default",
-                    "query" => "sqlite://default.sqlite"
+                    "query" => "sqlite://application/default.sqlite"
                 ]
             ]
         ]);
@@ -76,23 +81,23 @@ function Setup()
     "use Gishiki\HttpKernel\Response;".PHP_EOL.
     "use Gishiki\Algorithms\Collections\SerializableCollection;".PHP_EOL.
     PHP_EOL.PHP_EOL.
-    "Route::get("/", function (Request &\$request, Response &\$response) {".PHP_EOL.
+    "Route::get(\"/\", function (Request &\$request, Response &\$response) {".PHP_EOL.
     "    \$result = new SerializableCollection([".PHP_EOL.
     "        \"timestamp\" => time()".PHP_EOL.
     "    ]);".PHP_EOL.
     PHP_EOL.
     "    //send the response to the client".PHP_EOL.
-    "    \$response->setSerializedBody($result);".PHP_EOL.
+    "    \$response->setSerializedBody(\$result);".PHP_EOL.
     "});".PHP_EOL.
     PHP_EOL.PHP_EOL.
     "Route::any(Route::NOT_FOUND, function (Request &\$request, Response &\$response) {".PHP_EOL.
     "    \$result = new SerializableCollection([".PHP_EOL.
-    "        \"error\" => \"Not Found\"".PHP_EOL.
+    "        \"error\" => \"Not Found\",".PHP_EOL.
     "        \"timestamp\" => time()".PHP_EOL.
     "    ]);".PHP_EOL.
     PHP_EOL.
     "    //send the response to the client".PHP_EOL.
-    "    \$response->setSerializedBody($result);".PHP_EOL.
+    "    \$response->setSerializedBody(\$result);".PHP_EOL.
     "});".PHP_EOL;
 
     if (file_put_contents("application/routes.php", $router_file) === false) {

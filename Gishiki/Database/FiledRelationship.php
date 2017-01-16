@@ -15,16 +15,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\tests\Database;
-
-use Gishiki\Database\SelectionCriteria;
+namespace Gishiki\Database;
 
 /**
- * The tester for the SelectionCriteria class.
+ * A collection of relationship that can be applied to a field.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
-{
-    
+abstract class FiledRelationship {
+    const EQUAL = '=';
+    const NOT_EQUAL = '!=';
+    const LESS_THAN = '<';
+    const LESS_OR_EQUAL_THAN = '<=';
+    const GREATER_THAN = '>';
+    const GREATER_OR_EQUAL_THAN = '>=';
+    const IN_RANGE = 'IN';
 }

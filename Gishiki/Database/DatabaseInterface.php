@@ -44,14 +44,14 @@ interface DatabaseInterface
      * @throws DatabaseException         the error occurred while connecting to the database
      * @throws \InvalidArgumentException given details are invalid
      */
-    public function Connect($details);
+    public function connect($details);
 
     /**
      * Check if the database handler is connected with a real database.
      *
      * @return bool TRUE only if the database connection is alive
      */
-    public function Connected();
+    public function connected();
 
     /**
      * Write data to the database on the given collection/table.
@@ -64,7 +64,7 @@ interface DatabaseInterface
      *
      * @return ObjectIDInterface the unique ID of the inserted data
      */
-    public function Create($collection, $data);
+    public function create($collection, $data);
 
     /**
      * Update values of documents/records matching the given criteria.
@@ -78,7 +78,7 @@ interface DatabaseInterface
      *
      * @return int the number of affected documents/records
      */
-    public function Update($collection, $data, SelectionCriteria $where);
+    public function update($collection, $data, SelectionCriteria $where);
 
     /**
      * Remove documents/records matching the given criteria.
@@ -91,7 +91,7 @@ interface DatabaseInterface
      *
      * @return int the number of removed documents/records
      */
-    public function Delete($collection, SelectionCriteria $where);
+    public function delete($collection, SelectionCriteria $where);
 
     /**
      * Fetch documents/records matching the given criteria.
@@ -105,5 +105,5 @@ interface DatabaseInterface
      *
      * @return GenericCollection the search result expressed as a collection of \Gishiki\Database\Record
      */
-    public function Read($collection, SelectionCriteria $where, ResultModifier $mod);
+    public function read($collection, SelectionCriteria $where, ResultModifier $mod);
 }

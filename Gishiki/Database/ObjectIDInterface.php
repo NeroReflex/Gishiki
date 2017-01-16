@@ -38,21 +38,21 @@ interface ObjectIDInterface
      *
      * @return bool TRUE only if the object ID is valid
      */
-    public function Valid();
+    public function valid();
 
     /**
      * Get the name of th collection containint the  key.
      *
      * @return string the name of the collection
      */
-    public function GetTableName();
+    public function getTableName();
 
     /**
      * Export the object ID in a driver-native format.
      *
      * @return mixed the native object ID
      */
-    public function Export();
+    public function export();
 
     /**
      * Fetch the not-native (string encoded) representation of the

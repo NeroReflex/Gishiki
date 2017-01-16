@@ -18,7 +18,7 @@ limitations under the License.
 namespace Gishiki\Database;
 
 /**
- * An helper class used to modify the result set of a database operation.
+ * An helper class used to modify the result set of a database read operation.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
@@ -27,7 +27,7 @@ final class ResultModifier
     /**
      * @var integer the number of rows to be discarded
      */
-    protected $skip = -1;
+    protected $skip = 0;
     
     /**
      * @var integer the limit of rows to be fetched
@@ -92,11 +92,7 @@ final class ResultModifier
      */
     public function __construct()
     {
-        //no limit by default
-        $this->resultChanger = [
-            'limit' => -1,
-            'skip' => 0
-        ];
+        
     }
     
     /**
@@ -182,13 +178,6 @@ final class ResultModifier
             'skip' => $this->skip,
             'order' => $this->orderColumns
         ];
-        
-        if ($export['limit'] <= 0) {
-            unset($export['limit']);
-        }
-        if ($export['skip'] <= 0) {
-            unset($export['skip']);
-        }
         
         return $export;
     }

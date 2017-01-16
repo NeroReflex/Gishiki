@@ -35,12 +35,12 @@ final class Record
         $this->data = $data;
     }
 
-    public function GetObjectID()
+    public function getObjectID()
     {
         return $this->id;
     }
 
-    public function GetData()
+    public function getData()
     {
         return $this->data;
     }

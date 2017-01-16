@@ -24,6 +24,8 @@ namespace Gishiki\Database;
  */
 final class SelectionCriteria {
     
+    const AND_Historic_Marker = 0b10000000;
+    
     /**
      * @var array keeps track of the order clauses were inserted
      */
@@ -50,8 +52,14 @@ final class SelectionCriteria {
         if (!is_string($field) || (strlen($field) <= 0)) {
             throw new \InvalidArgumentException('the field name must be a string');
         }
-        if (($relationship != FieldOrdering::ASC) && ($relationship != FieldOrdering::DESC)) {
-            throw new \InvalidArgumentException('the field name must be either FieldOrdering::ASC or FieldOrdering::DESC');
+        if (    ($relationship != FiledRelationship::EQUAL) && 
+                ($relationship != FiledRelationship::NOT_EQUAL) && 
+                ($relationship != FiledRelationship::LESS_THAN) && 
+                ($relationship != FiledRelationship::LESS_OR_EQUAL_THAN) && 
+                ($relationship != FiledRelationship::GREATER_THAN) && 
+                ($relationship != FiledRelationship::GREATER_OR_EQUAL_THAN) && 
+                ($relationship != FiledRelationship::IN_RANGE)    ) {
+            throw new \InvalidArgumentException('the relationship between a column and its value must be expressed by one of FiledRelationship constants');
         }
         if (is_object($data)) {
             throw new \InvalidArgumentException('the field data cannot be a php object');
@@ -63,7 +71,7 @@ final class SelectionCriteria {
             2 => $data
         ];
         
-        $this->historic[] = 'and|'.(count($this->criteria['and']) - 1);
+        $this->historic[] = self::AND_Historic_Marker | (count($this->criteria['and']) - 1);
         
         //return the modified filter
         return $this;
@@ -85,8 +93,14 @@ final class SelectionCriteria {
         if (!is_string($field)) {
             throw new \InvalidArgumentException('the field name must be a string');
         }
-        if (($relationship != FieldOrdering::ASC) && ($relationship != FieldOrdering::DESC)) {
-            throw new \InvalidArgumentException('the field name must be either FieldOrdering::ASC or FieldOrdering::DESC');
+        if (    ($relationship != FiledRelationship::EQUAL) && 
+                ($relationship != FiledRelationship::NOT_EQUAL) && 
+                ($relationship != FiledRelationship::LESS_THAN) && 
+                ($relationship != FiledRelationship::LESS_OR_EQUAL_THAN) && 
+                ($relationship != FiledRelationship::GREATER_THAN) && 
+                ($relationship != FiledRelationship::GREATER_OR_EQUAL_THAN) && 
+                ($relationship != FiledRelationship::IN_RANGE)     ) {
+            throw new \InvalidArgumentException('the relationship between a column and its value must be expressed by one of FiledRelationship constants');
         }
         if (is_object($data)) {
             throw new \InvalidArgumentException('the field data cannot be a php object');
@@ -98,12 +112,22 @@ final class SelectionCriteria {
             2 => $data
         ];
         
-        $this->historic[] = 'or|'.(count($this->criteria['or']) - 1);
+        $this->historic[] = count($this->criteria['or']) - 1;
         
         //return the modified filter
         return $this;
         //this is really important as it
         //allows the developer to chain
         //filter modifier functions
+    }
+    
+    private function export()
+    {
+        $export = [
+            'historic' => $this->historic,
+            'criteria' => $this->criteria
+        ];
+        
+        return $export;
     }
 }

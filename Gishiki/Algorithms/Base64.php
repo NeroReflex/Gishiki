@@ -35,7 +35,7 @@ abstract class Base64
      * $message = " ... ";
      *
      * //print the result
-     * var_dump(Base64::encode($message));
+     * var_dump(Base64::Encode($message));
      * </code>
      *
      * @param string $message the binary-unsafe message
@@ -45,7 +45,7 @@ abstract class Base64
      *
      * @throws \InvalidArgumentException the given message is not represented as a string
      */
-    public static function encode($message, $urlSafe = true)
+    public static function Encode($message, $urlSafe = true)
     {
         //check for the message type
         if (!is_string($message)) {
@@ -63,7 +63,7 @@ abstract class Base64
      * Get the binary-unsafe representation of the given base64-encoded message.
      *
      * This function is compatible with the php standard base64_encode and the
-     * framework Base64::encode( ... ).
+     * framework Base64::Encode( ... ).
      *
      * Example of usage:
      * <code>
@@ -71,7 +71,7 @@ abstract class Base64
      * $message = " ... ";
      *
      * //print the input string (binary unsafe)
-     * var_dump(Base64::decode(Base64::encode($message)));
+     * var_dump(Base64::Decode(Base64::Encode($message)));
      * </code>
      *
      * @param string $message a message base64 encoded
@@ -80,7 +80,7 @@ abstract class Base64
      *
      * @throws \InvalidArgumentException the given message is not represented as a string
      */
-    public static function decode($message)
+    public static function Decode($message)
     {
         //check for the message type
         if (!is_string($message)) {

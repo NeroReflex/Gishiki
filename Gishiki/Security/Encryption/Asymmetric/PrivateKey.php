@@ -49,7 +49,7 @@ final class PrivateKey
      * $filename = APPLICATION_DIR."newkey.private.pem";
      *
      * //generate the new key
-     * $serailized_key = PrivateKey::generate(PrivateKey::RSA4096);
+     * $serailized_key = PrivateKey::Generate(PrivateKey::RSA4096);
      *
      * //export to file the serialized key
      * file_put_contents($filename, $serailized_key);
@@ -66,7 +66,7 @@ final class PrivateKey
      * @throws \InvalidArgumentException the given key length is not an integer power of two
      * @throws AsymmetricException       the error occurred while generating and exporting the new private key
      */
-    public static function generate($keyLength = self::RSA4096)
+    public static function Generate($keyLength = self::RSA4096)
     {
         if (!is_integer($keyLength)) {
             throw new \InvalidArgumentException('The key length must be given as an integer number which is a power of two');

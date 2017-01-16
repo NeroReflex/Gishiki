@@ -18,6 +18,7 @@ limitations under the License.
 namespace Gishiki\tests\Database;
 
 use Gishiki\Database\SelectionCriteria;
+use Gishiki\Database\FieldRelationship;
 
 /**
  * The tester for the SelectionCriteria class.
@@ -26,4 +27,47 @@ use Gishiki\Database\SelectionCriteria;
  */
 class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    function testBadNameAnd() {
+        SelectionCriteria::Select([ 'a' => [3, 5, 6]])->and_where(3, FieldRelationship::EQUAL, "");
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    function testBadRelationshipAnd() {
+        SelectionCriteria::Select([ 'a' => [3, 5, 6]])->and_where('a', 'IDK', "");
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    function testBadValueAnd() {
+        SelectionCriteria::Select([ 'a' => [3, 5, 6]])->and_where('a', FieldRelationship::EQUAL, new SelectionCriteria());
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    function testBadValueOr() {
+        SelectionCriteria::Select([ 'a' => [3, 5, 6]])->or_where('a', FieldRelationship::EQUAL, new SelectionCriteria());
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    function testBadNameOr() {
+        SelectionCriteria::Select([ 'a' => [3, 5, 6]])->or_where(3, FieldRelationship::EQUAL, "");
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    function testBadRelationshipOr() {
+        SelectionCriteria::Select([ 'a' => [3, 5, 6]])->or_where('a', 'IDK', "");
+    }
+    
+    
 }

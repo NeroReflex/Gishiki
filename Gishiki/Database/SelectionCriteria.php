@@ -17,6 +17,8 @@ limitations under the License.
 
 namespace Gishiki\Database;
 
+use Gishiki\Database\FieldRelationship;
+
 /**
  * This class is used to represent a selection criteria for database rows
  *
@@ -39,6 +41,19 @@ final class SelectionCriteria
         'or'  => []
     ];
     
+    public static function Select(array $selection) {
+        //create an empty selection criteria
+        $selectionCriteria = new self();
+        
+        foreach ($selection as $fieldName => $fieldValue) {
+            (!is_array($fieldValue)) ?
+                $selectionCriteria->and_where($fieldName, FieldRelationship::EQUAL, $fieldValue)
+                    : $selectionCriteria->and_where($fieldName, FieldRelationship::IN_RANGE, $fieldValue);
+        }
+        
+        return $selectionCriteria;
+    }
+    
     /**
      * Create a sub-clause and append it to the where clause using an and as conjunction
      *
@@ -53,20 +68,20 @@ final class SelectionCriteria
         if (!is_string($field) || (strlen($field) <= 0)) {
             throw new \InvalidArgumentException('the field name must be a string');
         }
-        if (($relationship != FiledRelationship::EQUAL) &&
-                ($relationship != FiledRelationship::NOT_EQUAL) &&
-                ($relationship != FiledRelationship::LESS_THAN) &&
-                ($relationship != FiledRelationship::LESS_OR_EQUAL_THAN) &&
-                ($relationship != FiledRelationship::GREATER_THAN) &&
-                ($relationship != FiledRelationship::GREATER_OR_EQUAL_THAN) &&
-                ($relationship != FiledRelationship::IN_RANGE) &&
-                ($relationship != FiledRelationship::NOT_IN_RANGE) &&
-                ($relationship != FiledRelationship::LIKE) &&
-                ($relationship != FiledRelationship::NOT_LIKE)) {
-            throw new \InvalidArgumentException('the relationship between a column and its value must be expressed by one of FiledRelationship constants');
+        if (($relationship != FieldRelationship::EQUAL) &&
+                ($relationship != FieldRelationship::NOT_EQUAL) &&
+                ($relationship != FieldRelationship::LESS_THAN) &&
+                ($relationship != FieldRelationship::LESS_OR_EQUAL_THAN) &&
+                ($relationship != FieldRelationship::GREATER_THAN) &&
+                ($relationship != FieldRelationship::GREATER_OR_EQUAL_THAN) &&
+                ($relationship != FieldRelationship::IN_RANGE) &&
+                ($relationship != FieldRelationship::NOT_IN_RANGE) &&
+                ($relationship != FieldRelationship::LIKE) &&
+                ($relationship != FieldRelationship::NOT_LIKE)) {
+            throw new \InvalidArgumentException('the relationship between a column and its value must be expressed by one of FieldRelationship constants');
         }
-        if (is_object($data)) {
-            throw new \InvalidArgumentException('the field data cannot be a php object');
+        if ((is_object($data)) || (is_resource($data))) {
+            throw new \InvalidArgumentException('the field data cannot be a php object or an extension native resource');
         }
         
         $this->criteria['and'][] = [
@@ -98,20 +113,20 @@ final class SelectionCriteria
         if (!is_string($field)) {
             throw new \InvalidArgumentException('the field name must be a string');
         }
-        if (($relationship != FiledRelationship::EQUAL) &&
-                ($relationship != FiledRelationship::NOT_EQUAL) &&
-                ($relationship != FiledRelationship::LESS_THAN) &&
-                ($relationship != FiledRelationship::LESS_OR_EQUAL_THAN) &&
-                ($relationship != FiledRelationship::GREATER_THAN) &&
-                ($relationship != FiledRelationship::GREATER_OR_EQUAL_THAN) &&
-                ($relationship != FiledRelationship::IN_RANGE) &&
-                ($relationship != FiledRelationship::NOT_IN_RANGE) &&
-                ($relationship != FiledRelationship::LIKE) &&
-                ($relationship != FiledRelationship::NOT_LIKE)) {
-            throw new \InvalidArgumentException('the relationship between a column and its value must be expressed by one of FiledRelationship constants');
+        if (($relationship != FieldRelationship::EQUAL) &&
+                ($relationship != FieldRelationship::NOT_EQUAL) &&
+                ($relationship != FieldRelationship::LESS_THAN) &&
+                ($relationship != FieldRelationship::LESS_OR_EQUAL_THAN) &&
+                ($relationship != FieldRelationship::GREATER_THAN) &&
+                ($relationship != FieldRelationship::GREATER_OR_EQUAL_THAN) &&
+                ($relationship != FieldRelationship::IN_RANGE) &&
+                ($relationship != FieldRelationship::NOT_IN_RANGE) &&
+                ($relationship != FieldRelationship::LIKE) &&
+                ($relationship != FieldRelationship::NOT_LIKE)) {
+            throw new \InvalidArgumentException('the relationship between a column and its value must be expressed by one of FieldRelationship constants');
         }
-        if (is_object($data)) {
-            throw new \InvalidArgumentException('the field data cannot be a php object');
+        if ((is_object($data)) || (is_resource($data))) {
+            throw new \InvalidArgumentException('the field data cannot be a php object or an extension native resource');
         }
         
         $this->criteria['or'][] = [

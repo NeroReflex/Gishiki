@@ -22,8 +22,8 @@ namespace Gishiki\Database;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class SelectionCriteria {
-    
+final class SelectionCriteria
+{
     const AND_Historic_Marker = 0b10000000;
     
     /**
@@ -41,23 +41,24 @@ final class SelectionCriteria {
     
     /**
      * Create a sub-clause and append it to the where clause using an and as conjunction
-     * 
+     *
      * @param  string  $field        the name of the field/column to be related with the data
      * @param  integer $relationship the relationship between the field and the data
      * @param  mixed   $data         the data to be related with the field
      * @return \Gishiki\Database\SelectionCriteria the updated selection criteria
      * @throws \InvalidArgumentException one parameter has a wrong type
      */
-    public function and_where($field, $relationship, $data) {
+    public function and_where($field, $relationship, $data)
+    {
         if (!is_string($field) || (strlen($field) <= 0)) {
             throw new \InvalidArgumentException('the field name must be a string');
         }
-        if (    ($relationship != FiledRelationship::EQUAL) && 
-                ($relationship != FiledRelationship::NOT_EQUAL) && 
-                ($relationship != FiledRelationship::LESS_THAN) && 
-                ($relationship != FiledRelationship::LESS_OR_EQUAL_THAN) && 
-                ($relationship != FiledRelationship::GREATER_THAN) && 
-                ($relationship != FiledRelationship::GREATER_OR_EQUAL_THAN) && 
+        if (($relationship != FiledRelationship::EQUAL) &&
+                ($relationship != FiledRelationship::NOT_EQUAL) &&
+                ($relationship != FiledRelationship::LESS_THAN) &&
+                ($relationship != FiledRelationship::LESS_OR_EQUAL_THAN) &&
+                ($relationship != FiledRelationship::GREATER_THAN) &&
+                ($relationship != FiledRelationship::GREATER_OR_EQUAL_THAN) &&
                 ($relationship != FiledRelationship::IN_RANGE) &&
                 ($relationship != FiledRelationship::NOT_IN_RANGE) &&
                 ($relationship != FiledRelationship::LIKE) &&
@@ -85,23 +86,24 @@ final class SelectionCriteria {
     
     /**
      * Create a sub-clause and append it to the where clause using an or as conjunction
-     * 
+     *
      * @param  string  $field        the name of the field/column to be related with the data
      * @param  integer $relationship the relationship between the field and the data
      * @param  mixed   $data         the data to be related with the field
      * @return \Gishiki\Database\SelectionCriteria the updated selection criteria
      * @throws \InvalidArgumentException one parameter has a wrong type
      */
-    public function or_where($field, $relationship, $data) {
+    public function or_where($field, $relationship, $data)
+    {
         if (!is_string($field)) {
             throw new \InvalidArgumentException('the field name must be a string');
         }
-        if (    ($relationship != FiledRelationship::EQUAL) && 
-                ($relationship != FiledRelationship::NOT_EQUAL) && 
-                ($relationship != FiledRelationship::LESS_THAN) && 
-                ($relationship != FiledRelationship::LESS_OR_EQUAL_THAN) && 
-                ($relationship != FiledRelationship::GREATER_THAN) && 
-                ($relationship != FiledRelationship::GREATER_OR_EQUAL_THAN) && 
+        if (($relationship != FiledRelationship::EQUAL) &&
+                ($relationship != FiledRelationship::NOT_EQUAL) &&
+                ($relationship != FiledRelationship::LESS_THAN) &&
+                ($relationship != FiledRelationship::LESS_OR_EQUAL_THAN) &&
+                ($relationship != FiledRelationship::GREATER_THAN) &&
+                ($relationship != FiledRelationship::GREATER_OR_EQUAL_THAN) &&
                 ($relationship != FiledRelationship::IN_RANGE) &&
                 ($relationship != FiledRelationship::NOT_IN_RANGE) &&
                 ($relationship != FiledRelationship::LIKE) &&

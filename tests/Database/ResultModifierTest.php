@@ -96,7 +96,7 @@ class ResultModifierTest extends \PHPUnit_Framework_TestCase
         $exportResult = [
             'limit' => 0,
             'skip' => 0,
-            'order' => [ 
+            'order' => [
                 "name" => FieldOrdering::ASC,
                 "surname" => FieldOrdering::ASC,
                 "year" =>  FieldOrdering::DESC,

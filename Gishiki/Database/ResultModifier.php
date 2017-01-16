@@ -92,7 +92,6 @@ final class ResultModifier
      */
     public function __construct()
     {
-        
     }
     
     /**

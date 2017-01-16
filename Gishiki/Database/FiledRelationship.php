@@ -22,7 +22,8 @@ namespace Gishiki\Database;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-abstract class FiledRelationship {
+abstract class FiledRelationship
+{
     const EQUAL = '=';
     const NOT_EQUAL = '!=';
     const LESS_THAN = '<';

@@ -106,4 +106,19 @@ interface DatabaseInterface
      * @return array the search result expressed as an array of associative arrays
      */
     public function read($collection, SelectionCriteria $where, ResultModifier $mod);
+    
+    /**
+     * Fetch documents/records matching the given criteria, but retrieve only the specified columns.
+     *
+     * @param string            $collection the name of the collection that will be searched
+     * @param array             $fields     the list containing names of columns to be fetched
+     * @param SelectionCriteria $where      the criteria used to select documents/records to fetch
+     * @param ResultModifier    $mod        the modifier to be applied to the result set
+     * @throw \InvalidArgumentException the given collection name is not a valid collection name
+     *
+     * @throws DatabaseException the error occurred while fetching data from the database
+     *
+     * @return array the search result expressed as an array of associative arrays
+     */
+    public function readSelective($collection, $fields, SelectionCriteria $where, ResultModifier $mod);
 }

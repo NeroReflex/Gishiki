@@ -23,7 +23,7 @@ use Gishiki\Database\FieldOrdering;
 
 /**
  * This utility is useful to create sql queries for various RDBMS.
- * 
+ *
  * An example of usage can be:
  * <code>
  * $queryBuilder = new SQLBuilder();
@@ -34,17 +34,18 @@ use Gishiki\Database\FieldOrdering;
  *      "sex" => 0,
  *      "height" => 1.70
  * ]);
- * 
+ *
  * //INSERT INTO "users" (name, surname, password, sex, height) VALUES (?, ?, ?, ?, ?)
  * $sql = $queryBuilder->exportQuery();
- * 
+ *
  * // array( "Mario", "Rossi", ".....", 0, 1.70 )
  * $params = $queryBuilder->exportParams();
  * </code>
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class SQLBuilder {
+class SQLBuilder
+{
     
     /**
      * @var string the SQL query that contains placeholders
@@ -56,11 +57,13 @@ class SQLBuilder {
      */
     protected $params = [];
     
-    protected function appendToQuery($sql) {
+    protected function appendToQuery($sql)
+    {
         $this->sql .= $sql;
     }
     
-    protected function appendToParams($newParams) {
+    protected function appendToParams($newParams)
+    {
         if (is_array($newParams)) {
             foreach ($newParams as $currentParam) {
                 $this->params[] = $currentParam;
@@ -70,18 +73,20 @@ class SQLBuilder {
         }
     }
     
-    public function __construct() {
-        
+    public function __construct()
+    {
     }
     
-    public function update($table) {
+    public function update($table)
+    {
         $this->appendToQuery('UPDATE "'.$table.'" ');
         
         //chain functions calls
         return $this;
     }
     
-    public function set(array $values) {        
+    public function set(array $values)
+    {
         $this->appendToQuery('SET ');
 
         //create the sql placeholder resolver
@@ -100,7 +105,8 @@ class SQLBuilder {
         return $this;
     }
     
-    public function where(SelectionCriteria $where) {
+    public function where(SelectionCriteria $where)
+    {
         $this->appendToQuery('WHERE ');
         
         //execute the private function 'export'
@@ -146,14 +152,16 @@ class SQLBuilder {
         return $this;
     }
     
-    public function insertInto($table) {
+    public function insertInto($table)
+    {
         $this->appendToQuery('INSERT INTO "'.$table.'" ');
         
         //chain functions calls
         return $this;
     }
     
-    public function values(array $values) {
+    public function values(array $values)
+    {
         $this->appendToQuery("(".implode(', ', array_keys($values)).") VALUES (");
         
         //create the sql placeholder resolver
@@ -173,7 +181,8 @@ class SQLBuilder {
         return $this;
     }
     
-    public function limitOffsetOrderBy(ResultModifier $mod) {
+    public function limitOffsetOrderBy(ResultModifier $mod)
+    {
         //execute the private function 'export'
         $exportMethod = new \ReflectionMethod($mod, 'export');
         $exportMethod->setAccessible(true);
@@ -209,14 +218,24 @@ class SQLBuilder {
         return $this;
     }
     
-    public function selectAllFrom($table) {
+    public function selectAllFrom($table)
+    {
         $this->appendToQuery('SELECT * FROM "'.$table.'" ');
         
         //chain functions calls
         return $this;
     }
     
-    public function deleteFrom($table) {
+    public function selectFrom($table, array $fields)
+    {
+        $this->appendToQuery('SELECT '.  implode(', ', $fields).' FROM "'.$table.'" ');
+        
+        //chain functions calls
+        return $this;
+    }
+    
+    public function deleteFrom($table)
+    {
         $this->appendToQuery('DELETE FROM "'.$table.'" ');
         
         //chain functions calls
@@ -225,19 +244,21 @@ class SQLBuilder {
     
     /**
      * Export the SQL query string with ? in place of actual parameters.
-     * 
+     *
      * @return string the SQL query without values
      */
-    public function exportQuery() {
+    public function exportQuery()
+    {
         return $this->sql;
     }
     
     /**
      * Export the list of parameters that will replace ? in the SQL query.
-     * 
+     *
      * @return array the list of params
      */
-    public function exportParams() {
+    public function exportParams()
+    {
         return $this->params;
     }
 }

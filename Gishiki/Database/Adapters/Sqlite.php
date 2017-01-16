@@ -26,10 +26,11 @@ use Gishiki\Database\Adapters\Utils\SQLBuilder;
 
 /**
  * Represent an sqlite database.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class Sqlite implements DatabaseInterface {
+final class Sqlite implements DatabaseInterface
+{
     
     /**
      * @var boolean TRUE only if the connection is alive
@@ -41,7 +42,8 @@ final class Sqlite implements DatabaseInterface {
      */
     private $connection;
     
-    public function __construct($details) {
+    public function __construct($details)
+    {
         $this->connection = array();
         $this->connected = false;
         
@@ -50,7 +52,8 @@ final class Sqlite implements DatabaseInterface {
     }
 
     
-    public function connect($details) {
+    public function connect($details)
+    {
         //check for argument type
         if ((!is_string($details)) || (strlen($details) <= 0)) {
             throw new \InvalidArgumentException('The connection query must be given as a non-empty string');
@@ -73,11 +76,13 @@ final class Sqlite implements DatabaseInterface {
         }
     }
     
-    public function connected() {
+    public function connected()
+    {
         return $this->connected;
     }
     
-    public function create($collection, $data) {
+    public function create($collection, $data)
+    {
         //check for invalid database name
         if ((!is_string($collection)) || (strlen($collection) <= 0)) {
             throw new \InvalidArgumentException('The name of the table must be given as a non-empty string');
@@ -107,12 +112,13 @@ final class Sqlite implements DatabaseInterface {
 
             //execute the statement resolving placeholders
             $stmt->execute($queryBuilder->exportParams());
-        } catch (\PDOException $ex)  {
+        } catch (\PDOException $ex) {
             throw new DatabaseException('Error while performing the creation operation: '.$ex->getMessage(), 3);
         }
     }
     
-    public function update($collection, $data, SelectionCriteria $where) {
+    public function update($collection, $data, SelectionCriteria $where)
+    {
         //check for invalid database name
         if ((!is_string($collection)) || (strlen($collection) <= 0)) {
             throw new \InvalidArgumentException('The name of the table must be given as a non-empty string');
@@ -143,12 +149,13 @@ final class Sqlite implements DatabaseInterface {
 
             //execute the statement resolving placeholders
             $stmt->execute($queryBuilder->exportParams());
-        } catch (\PDOException $ex)  {
+        } catch (\PDOException $ex) {
             throw new DatabaseException('Error while performing the update operation: '.$ex->getMessage(), 4);
         }
     }
     
-    public function delete($collection, SelectionCriteria $where) {
+    public function delete($collection, SelectionCriteria $where)
+    {
         //check for invalid database name
         if ((!is_string($collection)) || (strlen($collection) <= 0)) {
             throw new \InvalidArgumentException('The name of the table must be given as a non-empty string');
@@ -170,12 +177,13 @@ final class Sqlite implements DatabaseInterface {
 
             //execute the statement resolving placeholders
             $stmt->execute($queryBuilder->exportParams());
-        } catch (\PDOException $ex)  {
+        } catch (\PDOException $ex) {
             throw new DatabaseException('Error while performing the delete operation: '.$ex->getMessage(), 5);
         }
     }
     
-    public function read($collection, SelectionCriteria $where, ResultModifier $mod) {
+    public function read($collection, SelectionCriteria $where, ResultModifier $mod)
+    {
         //check for invalid database name
         if ((!is_string($collection)) || (strlen($collection) <= 0)) {
             throw new \InvalidArgumentException('The name of the table must be given as a non-empty string');
@@ -201,7 +209,39 @@ final class Sqlite implements DatabaseInterface {
             $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             
             return $results;
-        } catch (\PDOException $ex)  {
+        } catch (\PDOException $ex) {
+            throw new DatabaseException('Error while performing the read operation: '.$ex->getMessage(), 6);
+        }
+    }
+    
+    public function readSelective($collection, $fields, SelectionCriteria $where, ResultModifier $mod)
+    {
+        //check for invalid database name
+        if ((!is_string($collection)) || (strlen($collection) <= 0)) {
+            throw new \InvalidArgumentException('The name of the table must be given as a non-empty string');
+        }
+        
+        //check for closed database connection
+        if (!$this->connected()) {
+            throw new DatabaseException('The database connection must be opened before executing any operation', 2);
+        }
+        
+        //build the sql query
+        $queryBuilder = new SQLBuilder();
+        $queryBuilder->selectFrom($collection, $fields)->where($where)->limitOffsetOrderBy($mod);
+        
+        //open a new statement and execute it
+        try {
+            //prepare a statement with that safe sql string
+            $stmt = $this->connection->prepare($queryBuilder->exportQuery());
+
+            //execute the statement resolving placeholders
+            $stmt->execute($queryBuilder->exportParams());
+            
+            $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            
+            return $results;
+        } catch (\PDOException $ex) {
             throw new DatabaseException('Error while performing the read operation: '.$ex->getMessage(), 6);
         }
     }

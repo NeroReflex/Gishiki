@@ -26,5 +26,4 @@ use Gishiki\Database\SelectionCriteria;
  */
 class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
 {
-    
 }

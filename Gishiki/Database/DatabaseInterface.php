@@ -98,12 +98,12 @@ interface DatabaseInterface
      *
      * @param string            $collection the name of the collection that will be searched
      * @param SelectionCriteria $where      the criteria used to select documents/records to fetch
-     * @param integer           $mod        the modifier to be applied to the result set
+     * @param ResultModifier    $mod        the modifier to be applied to the result set
      * @throw \InvalidArgumentException the given collection name is not a valid collection name
      *
      * @throws DatabaseException the error occurred while fetching data from the database
      *
-     * @return GenericCollection the search result expressed as a collection of \Gishiki\Database\Record
+     * @return array the search result expressed as an array of associative arrays
      */
     public function read($collection, SelectionCriteria $where, ResultModifier $mod);
 }

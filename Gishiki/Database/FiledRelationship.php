@@ -30,4 +30,7 @@ abstract class FiledRelationship {
     const GREATER_THAN = '>';
     const GREATER_OR_EQUAL_THAN = '>=';
     const IN_RANGE = 'IN';
+    const NOT_IN_RANGE = 'NOT IN';
+    const LIKE = 'LIKE';
+    const NOT_LIKE = 'NOT LIKE';
 }

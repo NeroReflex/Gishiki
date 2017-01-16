@@ -1,5 +1,6 @@
 - review and add documentation
-- add more tests for the Algorithms namespace!
+- add more tests for EVERYTHING!
 - review the Database namespace
 - rething to a fast ORM
 - think about implementing a good templating engine
+- check for empty SelectionCriteria (breaks the where condition....)

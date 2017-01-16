@@ -18,6 +18,8 @@ limitations under the License.
 namespace Gishiki\Database\Adapters\Utils;
 
 use Gishiki\Database\SelectionCriteria;
+use Gishiki\Database\ResultModifier;
+use Gishiki\Database\FieldOrdering;
 
 /**
  * This utility is useful to create sql queries for various RDBMS.
@@ -166,6 +168,49 @@ class SQLBuilder {
         }
         
         $this->appendToQuery(')');
+        
+        //chain functions calls
+        return $this;
+    }
+    
+    public function limitOffsetOrderBy(ResultModifier $mod) {
+        //execute the private function 'export'
+        $exportMethod = new \ReflectionMethod($mod, 'export');
+        $exportMethod->setAccessible(true);
+        $resultModifierExported = $exportMethod->invoke($mod);
+        
+        //append limit if needed
+        if ($resultModifierExported['limit'] > 0) {
+            $this->appendToQuery('LIMIT '.$resultModifierExported['limit'].' ');
+        }
+        
+        //append offset if needed
+        if ($resultModifierExported['skip'] > 0) {
+            $this->appendToQuery('OFFSET '.$resultModifierExported['skip'].' ');
+        }
+        
+        //append order if needed
+        if (count($resultModifierExported['order']) > 0) {
+            $this->appendToQuery('ORDER BY ');
+            $first = true;
+            foreach ($resultModifierExported['order'] as $column => $order) {
+                if (!$first) {
+                    $this->appendToQuery(', ');
+                }
+                
+                $orderStr = ($order == FieldOrdering::ASC) ? 'ASC' : 'DESC';
+                $this->appendToQuery($column.' '.$orderStr);
+                
+                $first = false;
+            }
+        }
+        
+        //chain functions calls
+        return $this;
+    }
+    
+    public function selectAllFrom($table) {
+        $this->appendToQuery('SELECT * FROM "'.$table.'" ');
         
         //chain functions calls
         return $this;

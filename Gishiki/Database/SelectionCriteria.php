@@ -58,7 +58,10 @@ final class SelectionCriteria {
                 ($relationship != FiledRelationship::LESS_OR_EQUAL_THAN) && 
                 ($relationship != FiledRelationship::GREATER_THAN) && 
                 ($relationship != FiledRelationship::GREATER_OR_EQUAL_THAN) && 
-                ($relationship != FiledRelationship::IN_RANGE)    ) {
+                ($relationship != FiledRelationship::IN_RANGE) &&
+                ($relationship != FiledRelationship::NOT_IN_RANGE) &&
+                ($relationship != FiledRelationship::LIKE) &&
+                ($relationship != FiledRelationship::NOT_LIKE)) {
             throw new \InvalidArgumentException('the relationship between a column and its value must be expressed by one of FiledRelationship constants');
         }
         if (is_object($data)) {
@@ -99,7 +102,10 @@ final class SelectionCriteria {
                 ($relationship != FiledRelationship::LESS_OR_EQUAL_THAN) && 
                 ($relationship != FiledRelationship::GREATER_THAN) && 
                 ($relationship != FiledRelationship::GREATER_OR_EQUAL_THAN) && 
-                ($relationship != FiledRelationship::IN_RANGE)     ) {
+                ($relationship != FiledRelationship::IN_RANGE) &&
+                ($relationship != FiledRelationship::NOT_IN_RANGE) &&
+                ($relationship != FiledRelationship::LIKE) &&
+                ($relationship != FiledRelationship::NOT_LIKE)) {
             throw new \InvalidArgumentException('the relationship between a column and its value must be expressed by one of FiledRelationship constants');
         }
         if (is_object($data)) {

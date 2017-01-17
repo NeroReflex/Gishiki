@@ -1,7 +1,8 @@
 # Configuration
 
-Gishiki is a bit tricky to configure, but don't worry: you just need to copy the
-structure of the JSON file below and change what you don't like:
+Gishiki is a bit tricky to configure, but don't worry: you just need to edit
+what you don't like as the [gishiki CLI](../cli/index.md) takes care of bootstrapping
+a fully-working configuration.
 
 the real configuration file and application descriptor is stored inside the application
 directory and is called settings.json
@@ -22,7 +23,11 @@ It has a fixed (minumum) structure:
     "connections": [
         {
             "name": "default",
-            "query": "mongodb://user:pass@localhost:27017/dbname"
+            "query": "sqlite://relative/path/to/db.sqlite"
+        },
+        {
+            "name": "debug",
+            "query": "sqlite:///absolute/path/to/db.sqlite"
         }
     ]
 }

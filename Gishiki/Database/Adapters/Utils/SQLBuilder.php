@@ -144,45 +144,47 @@ class SQLBuilder
      */
     public function where(SelectionCriteria $where)
     {
-        $this->appendToQuery('WHERE ');
-        
         //execute the private function 'export'
         $exportMethod = new \ReflectionMethod($where, 'export');
         $exportMethod->setAccessible(true);
         $resultModifierExported = $exportMethod->invoke($where);
         
-        $first = true;
-        foreach ($resultModifierExported['historic'] as $current) {
-            $conjunction = "";
-            
-            $arrayIndex = $current & (~SelectionCriteria::AND_Historic_Marker);
-            $arrayConjunction = '';
-            
-            if (($current & (SelectionCriteria::AND_Historic_Marker)) != 0) {
-                $conjunction = (!$first) ? " AND " : " ";
-                $arrayConjunction = 'and';
-            } else {
-                $conjunction = (!$first) ? " OR " : " ";
-                $arrayConjunction = 'or';
+        if (count($resultModifierExported['historic']) > 0) {
+            $this->appendToQuery('WHERE ');
+
+            $first = true;
+            foreach ($resultModifierExported['historic'] as $current) {
+                $conjunction = "";
+
+                $arrayIndex = $current & (~SelectionCriteria::AND_Historic_Marker);
+                $arrayConjunction = '';
+
+                if (($current & (SelectionCriteria::AND_Historic_Marker)) != 0) {
+                    $conjunction = (!$first) ? " AND " : " ";
+                    $arrayConjunction = 'and';
+                } else {
+                    $conjunction = (!$first) ? " OR " : " ";
+                    $arrayConjunction = 'or';
+                }
+
+                $fieldName = $resultModifierExported['criteria'][$arrayConjunction][$arrayIndex][0];
+                $fieldRelationship = $resultModifierExported['criteria'][$arrayConjunction][$arrayIndex][1];
+                $fieldValue = $resultModifierExported['criteria'][$arrayConjunction][$arrayIndex][2];
+
+                //assemble the query
+                $qmarks = '';
+                $parentOpen = '';
+                $parentClose = '';
+                if (is_array($fieldValue)) {
+                    $qmarks = str_repeat(' ?,', count($fieldValue) - 1);
+                    $parentOpen = '(';
+                    $parentClose = ')';
+                }
+                $this->appendToQuery($conjunction.$fieldName.' '.$fieldRelationship.' '.$parentOpen.$qmarks.' ?'.$parentClose.' ');
+                $this->appendToParams($fieldValue);
+
+                $first = false;
             }
-            
-            $fieldName = $resultModifierExported['criteria'][$arrayConjunction][$arrayIndex][0];
-            $fieldRelationship = $resultModifierExported['criteria'][$arrayConjunction][$arrayIndex][1];
-            $fieldValue = $resultModifierExported['criteria'][$arrayConjunction][$arrayIndex][2];
-            
-            //assemble the query
-            $qmarks = '';
-            $parentOpen = '';
-            $parentClose = '';
-            if (is_array($fieldValue)) {
-                $qmarks = str_repeat(' ?,', count($fieldValue) - 1);
-                $parentOpen = '(';
-                $parentClose = ')';
-            }
-            $this->appendToQuery($conjunction.$fieldName.' '.$fieldRelationship.' '.$parentOpen.$qmarks.' ?'.$parentClose.' ');
-            $this->appendToParams($fieldValue);
-            
-            $first = false;
         }
         
         //chain functions calls

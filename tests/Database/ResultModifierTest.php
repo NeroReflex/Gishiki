@@ -103,7 +103,10 @@ class ResultModifierTest extends \PHPUnit_Framework_TestCase
             ]
         ];
         
-        $resMod = ResultModifier::Initialize([ ])->order("name", FieldOrdering::ASC)->order("surname", FieldOrdering::ASC)->order("year", FieldOrdering::DESC);
+        $resMod = ResultModifier::Initialize([ ])
+                ->order("name", FieldOrdering::ASC)
+                ->order("surname", FieldOrdering::ASC)
+                ->order("year", FieldOrdering::DESC);
         
         $exportMethod = new \ReflectionMethod($resMod, 'export');
         $exportMethod->setAccessible(true);

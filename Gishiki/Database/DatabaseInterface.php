@@ -94,6 +94,18 @@ interface DatabaseInterface
     public function delete($collection, SelectionCriteria $where);
 
     /**
+     * Remove EVERY documents/records on the given collection/table.
+     *
+     * @param string            $collection the name of the collection that will be affected
+     * @throw \InvalidArgumentException the given collection name is not a valid collection name
+     *
+     * @throws DatabaseException the error occurred while removing data from the database
+     *
+     * @return int the number of removed documents/records
+     */
+    public function deleteAll($collection);
+    
+    /**
      * Fetch documents/records matching the given criteria.
      *
      * @param string            $collection the name of the collection that will be searched

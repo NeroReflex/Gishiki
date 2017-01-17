@@ -19,10 +19,12 @@
 namespace Gishiki\Database;
 
 /**
- * Represent how a database connection must be implemented.
+ * Represent how a relational database connection must be implemented.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 interface RelationalDatabaseInterface extends DatabaseInterface {
+    
+    public function CreateTable($tbName);
     
 }

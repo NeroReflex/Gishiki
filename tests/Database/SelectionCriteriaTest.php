@@ -69,5 +69,63 @@ class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
         SelectionCriteria::Select([ 'a' => [3, 5, 6]])->or_where('a', 'IDK', "");
     }
     
+    function testInitializerOnly() {
+        $sc = SelectionCriteria::Select([ 'a' => [3, 5, 6], 'b' => 96]);
+        
+        $exportMethod = new \ReflectionMethod($sc, 'export');
+        $exportMethod->setAccessible(true);
+        $resultModifierExported = $exportMethod->invoke($sc);
+        
+        $this->assertEquals([
+            'historic' => [ 128, 129 ],
+            'criteria' => [
+                'and' => [
+                    [
+                        0 => 'a',
+                        1 => FieldRelationship::IN_RANGE,
+                        2 => [3, 5, 6]
+                    ],
+                    [
+                        0 => 'b',
+                        1 => FieldRelationship::EQUAL,
+                        2 => 96
+                    ]
+                ],
+                'or' => []
+            ]
+        ], $resultModifierExported);
+    }
     
+    function testOrAfterInitializer() {
+        $sc = SelectionCriteria::Select([ 'a' => [3, 5, 6], 'b' => 96])->or_where('c', FieldRelationship::LIKE, '%test%');
+        
+        $exportMethod = new \ReflectionMethod($sc, 'export');
+        $exportMethod->setAccessible(true);
+        $resultModifierExported = $exportMethod->invoke($sc);
+        
+        $this->assertEquals([
+            'historic' => [ 128, 129, 0 ],
+            'criteria' => [
+                'and' => [
+                    [
+                        0 => 'a',
+                        1 => FieldRelationship::IN_RANGE,
+                        2 => [3, 5, 6]
+                    ],
+                    [
+                        0 => 'b',
+                        1 => FieldRelationship::EQUAL,
+                        2 => 96
+                    ]
+                ],
+                'or' => [
+                        [
+                            0 => 'c',
+                            1 => FieldRelationship::LIKE,
+                            2 => '%test%'
+                        ]
+                    ]
+            ]
+        ], $resultModifierExported);
+    }
 }

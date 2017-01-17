@@ -449,35 +449,47 @@
 </span><span id="94" class="l"><a href="#94"> 94: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <span class="php-keyword2">delete</span>(<span class="php-var">$collection</span>, SelectionCriteria <span class="php-var">$where</span>);
 </span><span id="95" class="l"><a href="#95"> 95: </a>
 </span><span id="96" class="l"><a href="#96"> 96: </a>    <span class="php-comment">/**
-</span></span><span id="97" class="l"><a href="#97"> 97: </a><span class="php-comment">     * Fetch documents/records matching the given criteria.
+</span></span><span id="97" class="l"><a href="#97"> 97: </a><span class="php-comment">     * Remove EVERY documents/records on the given collection/table.
 </span></span><span id="98" class="l"><a href="#98"> 98: </a><span class="php-comment">     *
-</span></span><span id="99" class="l"><a href="#99"> 99: </a><span class="php-comment">     * @param string            $collection the name of the collection that will be searched
-</span></span><span id="100" class="l"><a href="#100">100: </a><span class="php-comment">     * @param SelectionCriteria $where      the criteria used to select documents/records to fetch
-</span></span><span id="101" class="l"><a href="#101">101: </a><span class="php-comment">     * @param ResultModifier    $mod        the modifier to be applied to the result set
-</span></span><span id="102" class="l"><a href="#102">102: </a><span class="php-comment">     * @throw \InvalidArgumentException the given collection name is not a valid collection name
+</span></span><span id="99" class="l"><a href="#99"> 99: </a><span class="php-comment">     * @param string            $collection the name of the collection that will be affected
+</span></span><span id="100" class="l"><a href="#100">100: </a><span class="php-comment">     * @throw \InvalidArgumentException the given collection name is not a valid collection name
+</span></span><span id="101" class="l"><a href="#101">101: </a><span class="php-comment">     *
+</span></span><span id="102" class="l"><a href="#102">102: </a><span class="php-comment">     * @throws DatabaseException the error occurred while removing data from the database
 </span></span><span id="103" class="l"><a href="#103">103: </a><span class="php-comment">     *
-</span></span><span id="104" class="l"><a href="#104">104: </a><span class="php-comment">     * @throws DatabaseException the error occurred while fetching data from the database
-</span></span><span id="105" class="l"><a href="#105">105: </a><span class="php-comment">     *
-</span></span><span id="106" class="l"><a href="#106">106: </a><span class="php-comment">     * @return array the search result expressed as an array of associative arrays
-</span></span><span id="107" class="l"><a href="#107">107: </a><span class="php-comment">     */</span>
-</span><span id="108" class="l"><a href="#108">108: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> read(<span class="php-var">$collection</span>, SelectionCriteria <span class="php-var">$where</span>, ResultModifier <span class="php-var">$mod</span>);
-</span><span id="109" class="l"><a href="#109">109: </a>    
-</span><span id="110" class="l"><a href="#110">110: </a>    <span class="php-comment">/**
-</span></span><span id="111" class="l"><a href="#111">111: </a><span class="php-comment">     * Fetch documents/records matching the given criteria, but retrieve only the specified columns.
-</span></span><span id="112" class="l"><a href="#112">112: </a><span class="php-comment">     *
-</span></span><span id="113" class="l"><a href="#113">113: </a><span class="php-comment">     * @param string            $collection the name of the collection that will be searched
-</span></span><span id="114" class="l"><a href="#114">114: </a><span class="php-comment">     * @param array             $fields     the list containing names of columns to be fetched
-</span></span><span id="115" class="l"><a href="#115">115: </a><span class="php-comment">     * @param SelectionCriteria $where      the criteria used to select documents/records to fetch
-</span></span><span id="116" class="l"><a href="#116">116: </a><span class="php-comment">     * @param ResultModifier    $mod        the modifier to be applied to the result set
-</span></span><span id="117" class="l"><a href="#117">117: </a><span class="php-comment">     * @throw \InvalidArgumentException the given collection name is not a valid collection name
-</span></span><span id="118" class="l"><a href="#118">118: </a><span class="php-comment">     *
-</span></span><span id="119" class="l"><a href="#119">119: </a><span class="php-comment">     * @throws DatabaseException the error occurred while fetching data from the database
-</span></span><span id="120" class="l"><a href="#120">120: </a><span class="php-comment">     *
-</span></span><span id="121" class="l"><a href="#121">121: </a><span class="php-comment">     * @return array the search result expressed as an array of associative arrays
-</span></span><span id="122" class="l"><a href="#122">122: </a><span class="php-comment">     */</span>
-</span><span id="123" class="l"><a href="#123">123: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> readSelective(<span class="php-var">$collection</span>, <span class="php-var">$fields</span>, SelectionCriteria <span class="php-var">$where</span>, ResultModifier <span class="php-var">$mod</span>);
-</span><span id="124" class="l"><a href="#124">124: </a>}
-</span><span id="125" class="l"><a href="#125">125: </a></span></code></pre>
+</span></span><span id="104" class="l"><a href="#104">104: </a><span class="php-comment">     * @return int the number of removed documents/records
+</span></span><span id="105" class="l"><a href="#105">105: </a><span class="php-comment">     */</span>
+</span><span id="106" class="l"><a href="#106">106: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> deleteAll(<span class="php-var">$collection</span>);
+</span><span id="107" class="l"><a href="#107">107: </a>    
+</span><span id="108" class="l"><a href="#108">108: </a>    <span class="php-comment">/**
+</span></span><span id="109" class="l"><a href="#109">109: </a><span class="php-comment">     * Fetch documents/records matching the given criteria.
+</span></span><span id="110" class="l"><a href="#110">110: </a><span class="php-comment">     *
+</span></span><span id="111" class="l"><a href="#111">111: </a><span class="php-comment">     * @param string            $collection the name of the collection that will be searched
+</span></span><span id="112" class="l"><a href="#112">112: </a><span class="php-comment">     * @param SelectionCriteria $where      the criteria used to select documents/records to fetch
+</span></span><span id="113" class="l"><a href="#113">113: </a><span class="php-comment">     * @param ResultModifier    $mod        the modifier to be applied to the result set
+</span></span><span id="114" class="l"><a href="#114">114: </a><span class="php-comment">     * @throw \InvalidArgumentException the given collection name is not a valid collection name
+</span></span><span id="115" class="l"><a href="#115">115: </a><span class="php-comment">     *
+</span></span><span id="116" class="l"><a href="#116">116: </a><span class="php-comment">     * @throws DatabaseException the error occurred while fetching data from the database
+</span></span><span id="117" class="l"><a href="#117">117: </a><span class="php-comment">     *
+</span></span><span id="118" class="l"><a href="#118">118: </a><span class="php-comment">     * @return array the search result expressed as an array of associative arrays
+</span></span><span id="119" class="l"><a href="#119">119: </a><span class="php-comment">     */</span>
+</span><span id="120" class="l"><a href="#120">120: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> read(<span class="php-var">$collection</span>, SelectionCriteria <span class="php-var">$where</span>, ResultModifier <span class="php-var">$mod</span>);
+</span><span id="121" class="l"><a href="#121">121: </a>    
+</span><span id="122" class="l"><a href="#122">122: </a>    <span class="php-comment">/**
+</span></span><span id="123" class="l"><a href="#123">123: </a><span class="php-comment">     * Fetch documents/records matching the given criteria, but retrieve only the specified columns.
+</span></span><span id="124" class="l"><a href="#124">124: </a><span class="php-comment">     *
+</span></span><span id="125" class="l"><a href="#125">125: </a><span class="php-comment">     * @param string            $collection the name of the collection that will be searched
+</span></span><span id="126" class="l"><a href="#126">126: </a><span class="php-comment">     * @param array             $fields     the list containing names of columns to be fetched
+</span></span><span id="127" class="l"><a href="#127">127: </a><span class="php-comment">     * @param SelectionCriteria $where      the criteria used to select documents/records to fetch
+</span></span><span id="128" class="l"><a href="#128">128: </a><span class="php-comment">     * @param ResultModifier    $mod        the modifier to be applied to the result set
+</span></span><span id="129" class="l"><a href="#129">129: </a><span class="php-comment">     * @throw \InvalidArgumentException the given collection name is not a valid collection name
+</span></span><span id="130" class="l"><a href="#130">130: </a><span class="php-comment">     *
+</span></span><span id="131" class="l"><a href="#131">131: </a><span class="php-comment">     * @throws DatabaseException the error occurred while fetching data from the database
+</span></span><span id="132" class="l"><a href="#132">132: </a><span class="php-comment">     *
+</span></span><span id="133" class="l"><a href="#133">133: </a><span class="php-comment">     * @return array the search result expressed as an array of associative arrays
+</span></span><span id="134" class="l"><a href="#134">134: </a><span class="php-comment">     */</span>
+</span><span id="135" class="l"><a href="#135">135: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> readSelective(<span class="php-var">$collection</span>, <span class="php-var">$fields</span>, SelectionCriteria <span class="php-var">$where</span>, ResultModifier <span class="php-var">$mod</span>);
+</span><span id="136" class="l"><a href="#136">136: </a>}
+</span><span id="137" class="l"><a href="#137">137: </a></span></code></pre>
 
 	<div id="footer">
 		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>

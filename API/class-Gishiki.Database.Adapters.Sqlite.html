@@ -284,7 +284,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.Adapters.Sqlite.html#27-274" title="Go to source code">Gishiki/Database/Adapters/Sqlite.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.Adapters.Sqlite.html#27-304" title="Go to source code">Gishiki/Database/Adapters/Sqlite.php</a>
 		<br>
 	</div>
 
@@ -557,6 +557,51 @@
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="deleteAll" id="_deleteAll">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_deleteAll">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#206-234" title="Go to source code">deleteAll</a>( <span>string <var>$collection</var></span> )</code>
+
+		<div class="description short">
+			<p>Remove EVERY documents/records on the given collection/table.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Remove EVERY documents/records on the given collection/table.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$collection</var></dt>
+					<dd>the name of the collection that will be affected</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer<br>the number of removed documents/records
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></code><br>the error occurred while removing data from the database
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Gishiki.Database.DatabaseInterface.html#_deleteAll">Gishiki\Database\DatabaseInterface::deleteAll()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="read" id="_read">
 
 		<td class="attributes"><code>
@@ -569,7 +614,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_read">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#206-239" title="Go to source code">read</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#236-269" title="Go to source code">read</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
 
 		<div class="description short">
 			<p>Fetch documents/records matching the given criteria.</p>
@@ -618,7 +663,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_readSelective">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#241-273" title="Go to source code">readSelective</a>( <span>string <var>$collection</var></span>, <span>array <var>$fields</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#271-303" title="Go to source code">readSelective</a>( <span>string <var>$collection</var></span>, <span>array <var>$fields</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
 
 		<div class="description short">
 			<p>Fetch documents/records matching the given criteria, but retrieve only the specified columns.</p>
@@ -659,6 +704,14 @@
 	</tr>
 	</table>
 
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-Gishiki.Database.RelationalDatabaseInterface.html#methods">Gishiki\Database\RelationalDatabaseInterface</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Gishiki.Database.RelationalDatabaseInterface.html#_CreateTable">CreateTable()</a>
+		</code></td>
+	</tr>
+	</table>
 
 
 

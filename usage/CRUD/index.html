@@ -189,6 +189,8 @@
                 
                     <li><a class="toctree-l4" href="#create">Create</a></li>
                 
+                    <li><a class="toctree-l4" href="#delete">Delete</a></li>
+                
             
             </ul>
         
@@ -265,20 +267,21 @@
             <div class="section">
               
                 <h1 id="crud">CRUD</h1>
-<p>The acronym CRUD stands for Create, Read, Update and Delete: those are names of
-operations you will be allowed (directly or indirectly) to perform on databases
-you are connected to.</p>
+<p>The acronym <strong>CRUD</strong> stands for Create, Read, Update and Delete: those are names
+of main operations you will be allowed (directly or indirectly) to perform on
+databases that are supporting your application.</p>
+<p><strong>Notice that:</strong> if you only need read permissions from a database such as
+PostgreSQL or MySQL, you do <strong>NOT</strong> need to use an user with full access.</p>
 <h2 id="create">Create</h2>
-<p>The creation of a new <em>document</em> starts from a <strong>CollectionInterface</strong>, such as
-<strong>SerializableCollection</strong>.</p>
-<p>The function that has to be called is <strong>Insert</strong> that also requires the name of
-the <em>collection</em> to be affected:</p>
+<p>The creation of a new <em>document</em>/<em>row</em> either starts from a <strong>CollectionInterface</strong>,
+such as <strong>SerializableCollection</strong> or a native PHP array.</p>
+<p>The function that has to be called is <strong>create</strong> that also requires the name of
+the <em>table</em>/<em>collection</em> to be affected:</p>
 <pre><code class="php">use Gishiki\Database\DatabaseManager;
 
 $connection = DatabaseManager::Retrieve('connectionName');
 
-//since this is a mongodb database the table name is given as dbname.tbname
-$idOfNewDocument = $connection-&gt;Create('tbname', new SerializableCollection([
+$idOfNewDocument = $connection-&gt;create('tbname', new SerializableCollection([
     'name'      =&gt; $name,
     'surname'   =&gt; $surname,
     'nickname'  =&gt; $nickname,
@@ -287,6 +290,38 @@ $idOfNewDocument = $connection-&gt;Create('tbname', new SerializableCollection([
 </code></pre>
 
 <p>Where the name of the connection is the same name in the application <a href="../configuration/">configuration</a>.</p>
+<h2 id="delete">Delete</h2>
+<p>To delete a restricted set of <em>documents</em>/<em>rows</em> from a <em>table</em>/<em>collection</em>
+you have to call, on the desired database connection the <strong>delete</strong> function.</p>
+<p>The delete function needs the name of the table/collection to be affected and
+a valid instance of SelectionCriteria:</p>
+<pre><code class="php">use Gishiki\Database\DatabaseManager;
+use Gishiki\Database\SelectionCriteria;
+use Gishiki\Database\FieldRelationship;
+
+$connection = DatabaseManager::Retrieve('connectionName');
+
+$connection-&gt;delete('tbname', SelectionCriteria::Select([
+            'nickname' =&gt; $nickname
+        ])-&gt;or_where('email', FieldRelationship::EQUAL, $email)
+    );
+</code></pre>
+
+<p>You can also delete <strong>EVERY</strong> <em>documents</em>/<em>rows</em> from a <em>table</em>/<em>collection</em>
+using the <strong>deleteAll</strong> function.</p>
+<p>The delete function only needs the name of the table/collection to be affected:</p>
+<pre><code class="php">use Gishiki\Database\DatabaseManager;
+use Gishiki\Database\SelectionCriteria;
+use Gishiki\Database\FieldRelationship;
+
+$connection = DatabaseManager::Retrieve('connectionName');
+
+$connection-&gt;deleteAll('tbname');
+</code></pre>
+
+<p><strong>Note that:</strong> calling the delete function, passing an empty SelectionCriteria
+object has the same effect of calling deleteAll, however deleteAll will perform
+a little better!</p>
               
             </div>
           </div>

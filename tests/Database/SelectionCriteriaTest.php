@@ -119,12 +119,12 @@ class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
                     ]
                 ],
                 'or' => [
-                        [
-                            0 => 'c',
-                            1 => FieldRelationship::LIKE,
-                            2 => '%test%'
-                        ]
+                    [
+                        0 => 'c',
+                        1 => FieldRelationship::LIKE,
+                        2 => '%test%'
                     ]
+                ]
             ]
         ], $resultModifierExported);
     }

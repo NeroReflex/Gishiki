@@ -51,7 +51,9 @@ final class Sqlite implements DatabaseInterface
         $this->connect($details);
     }
 
-    
+    /**
+     * {@inheritdoc}
+     */
     public function connect($details)
     {
         //check for argument type
@@ -76,11 +78,17 @@ final class Sqlite implements DatabaseInterface
         }
     }
     
+    /**
+     * {@inheritdoc}
+     */
     public function connected()
     {
         return $this->connected;
     }
     
+    /**
+     * {@inheritdoc}
+     */
     public function create($collection, $data)
     {
         //check for invalid database name
@@ -117,6 +125,9 @@ final class Sqlite implements DatabaseInterface
         }
     }
     
+    /**
+     * {@inheritdoc}
+     */
     public function update($collection, $data, SelectionCriteria $where)
     {
         //check for invalid database name
@@ -154,6 +165,9 @@ final class Sqlite implements DatabaseInterface
         }
     }
     
+    /**
+     * {@inheritdoc}
+     */
     public function delete($collection, SelectionCriteria $where)
     {
         //check for invalid database name
@@ -182,6 +196,9 @@ final class Sqlite implements DatabaseInterface
         }
     }
     
+    /**
+     * {@inheritdoc}
+     */
     public function read($collection, SelectionCriteria $where, ResultModifier $mod)
     {
         //check for invalid database name
@@ -214,6 +231,9 @@ final class Sqlite implements DatabaseInterface
         }
     }
     
+    /**
+     * {@inheritdoc}
+     */
     public function readSelective($collection, $fields, SelectionCriteria $where, ResultModifier $mod)
     {
         //check for invalid database name

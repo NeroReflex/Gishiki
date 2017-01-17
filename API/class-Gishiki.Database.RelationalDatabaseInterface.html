@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Gishiki\Database\DatabaseManager | Gishiki</title>
+	<title>Interface Gishiki\Database\RelationalDatabaseInterface | Gishiki</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -210,7 +210,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-Gishiki.Database.DatabaseManager.html">DatabaseManager</a></li>
+				<li><a href="class-Gishiki.Database.DatabaseManager.html">DatabaseManager</a></li>
 				<li><a href="class-Gishiki.Database.FieldOrdering.html">FieldOrdering</a></li>
 				<li><a href="class-Gishiki.Database.FieldRelationship.html">FieldRelationship</a></li>
 				<li><a href="class-Gishiki.Database.Record.html">Record</a></li>
@@ -222,7 +222,7 @@
 			<ul>
 				<li><a href="class-Gishiki.Database.DatabaseInterface.html">DatabaseInterface</a></li>
 				<li><a href="class-Gishiki.Database.ObjectIDInterface.html">ObjectIDInterface</a></li>
-				<li><a href="class-Gishiki.Database.RelationalDatabaseInterface.html">RelationalDatabaseInterface</a></li>
+				<li class="active"><a href="class-Gishiki.Database.RelationalDatabaseInterface.html">RelationalDatabaseInterface</a></li>
 			</ul>
 
 
@@ -267,130 +267,64 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class DatabaseManager</h1>
+	<h1>Interface RelationalDatabaseInterface</h1>
 
 
 	<div class="description">
-	<p>Represent the database manager of the entire framework.</p>
+	<p>Represent how a database connection must be implemented.</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>Gishiki\Database\RelationalDatabaseInterface</span></b>			
+			 implements 
+				<a href="class-Gishiki.Database.DatabaseInterface.html"><span>Gishiki\Database\DatabaseInterface</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+	<div>
+		<h4>Direct known implementers</h4>
+			<a href="class-Gishiki.Database.Adapters.Sqlite.html">Gishiki\Database\Adapters\Sqlite</a>
 	</div>
 
 
 
 
-
-
-
-
-
 	<div class="info">
-		<b>Abstract</b><br>
+		
 		
 		<b>Namespace:</b> <a href="namespace-Gishiki.html">Gishiki</a>\<a href="namespace-Gishiki.Database.html">Database</a><br>
 		
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.DatabaseManager.html#20-97" title="Go to source code">Gishiki/Database/DatabaseManager.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.RelationalDatabaseInterface.html#21-28" title="Go to source code">Gishiki/Database/RelationalDatabaseInterface.php</a>
 		<br>
 	</div>
 
 
 
-	<table class="summary methods" id="methods">
-	<caption>Methods summary</caption>
-	<tr data-order="Connect" id="_Connect">
 
-		<td class="attributes"><code>
-			 public static
-
-			<code><a href="class-Gishiki.Database.DatabaseInterface.html">Gishiki\Database\DatabaseInterface</a></code>
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_Connect">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseManager.html#34-69" title="Go to source code">Connect</a>( <span>string <var>$connectionName</var></span>, <span>string <var>$connectionString</var></span> )</code>
-
-		<div class="description short">
-			<p>Create a new database connection and store the newly generated connection.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Create a new database connection and store the newly generated connection.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$connectionName</var></dt>
-					<dd>the name of the database connection</dd>
-					<dt><var>$connectionString</var></dt>
-					<dd>the connection string</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code><a href="class-Gishiki.Database.DatabaseInterface.html">Gishiki\Database\DatabaseInterface</a></code><br>the connected database instance
-				</div>
-
-				<h4>Throws</h4>
-				<div class="list">
-					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>invalid name or connection string
-				</div>
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="Retrieve" id="_Retrieve">
-
-		<td class="attributes"><code>
-			 public static
-
-			<code><a href="class-Gishiki.Database.DatabaseInterface.html">Gishiki\Database\DatabaseInterface</a></code>
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_Retrieve">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseManager.html#71-96" title="Go to source code">Retrieve</a>( <span>string <var>$connectionName</var> = <span class="php-quote">&quot;default&quot;</span></span> )</code>
-
-		<div class="description short">
-			<p>Retrieve the connection with the given name from the list of performed conenctions.
-If the name is not specified the default one is retrieved.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Retrieve the connection with the given name from the list of performed conenctions.
-If the name is not specified the default one is retrieved.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$connectionName</var></dt>
-					<dd>the name of the selected connection</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code><a href="class-Gishiki.Database.DatabaseInterface.html">Gishiki\Database\DatabaseInterface</a></code><br>the connected database instance
-				</div>
-
-				<h4>Throws</h4>
-				<div class="list">
-					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>the collection name has not be given as a string<br>
-					<code><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></code><br>the given connection name is not registered as a valid collection
-				</div>
-
-
-
-		</div>
-		</div></td>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-Gishiki.Database.DatabaseInterface.html#methods">Gishiki\Database\DatabaseInterface</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Gishiki.Database.DatabaseInterface.html#___construct">__construct()</a>, 
+			<a href="class-Gishiki.Database.DatabaseInterface.html#_connect">connect()</a>, 
+			<a href="class-Gishiki.Database.DatabaseInterface.html#_connected">connected()</a>, 
+			<a href="class-Gishiki.Database.DatabaseInterface.html#_create">create()</a>, 
+			<a href="class-Gishiki.Database.DatabaseInterface.html#_delete">delete()</a>, 
+			<a href="class-Gishiki.Database.DatabaseInterface.html#_read">read()</a>, 
+			<a href="class-Gishiki.Database.DatabaseInterface.html#_readSelective">readSelective()</a>, 
+			<a href="class-Gishiki.Database.DatabaseInterface.html#_update">update()</a>
+		</code></td>
 	</tr>
 	</table>
-
 
 
 

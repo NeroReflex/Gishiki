@@ -118,8 +118,6 @@
                 
                     <li><a class="toctree-l4" href="#bootstrapping-an-application">Bootstrapping an application</a></li>
                 
-                    <li><a class="toctree-l4" href="#fresh-start">Fresh start</a></li>
-                
             
             </ul>
         
@@ -202,6 +200,21 @@
           
             <li>
     <ul class="subnav">
+    <li><span>CLI</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../cli/">CLI Toolkit</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
     <li><span>About</span></li>
 
         
@@ -259,18 +272,17 @@
 php -r &quot;if (hash('SHA384', file_get_contents('composer-setup.php')) === '7228c001f88bee97506740ef0888240bd8a760b046ee16db8f4095c0d8d525f2367663f22a46b48d072c816e7fe19959') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;&quot;
 php composer-setup.php
 php -r &quot;unlink('composer-setup.php');&quot;
+sudo mv composer.phar /usr/local/bin/composer
 </code></pre>
 
 <p>Remember that composer is essential to run Gishiki: composer is what loads the
-entire framework and manages the framework version!</p>
+entire framework, manages its dependencies and keep updated the framework!</p>
 <h2 id="bootstrapping-an-application">Bootstrapping an application</h2>
 <p>You like digging immediatly into development? No problem!</p>
-<p>I have setup a <a href="https://github.com/NeroReflex/gishiki_startup">small application</a> example you can fork to have something you can
-instantly develop on!</p>
-<h2 id="fresh-start">Fresh start</h2>
-<p>You like reading documentation or you have great experience with Gishiki? Another time... No problem!</p>
-<p>You can use composer to start up your new project!</p>
-<pre><code class="shell">php composer.phar create-project neroreflex/gishiki path
+<p>You will have to use composer to start up your new project!</p>
+<pre><code class="shell">composer init # remember to specify neroreflex/gishiki
+composer install --no-dev
+./vendor/bin/gishiki setup
 </code></pre>
 
 <p>nice and easy! Good work!</p>

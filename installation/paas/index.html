@@ -202,6 +202,21 @@
           
             <li>
     <ul class="subnav">
+    <li><span>CLI</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../cli/">CLI Toolkit</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
     <li><span>About</span></li>
 
         
@@ -262,13 +277,13 @@ life, especially with automatic content delivery and/or application update:
 for example Heroku automatically Sync your application with its GitHub repository
 and automatically deploy your application on each push if it passes the
 automatic integration testing set!</p>
-<p>A small list of supported PaaS may be:</p>
-<ul>
-<li>Heroku</li>
-<li>OpenShift</li>
-<li>Google AppEngine</li>
-<li>Microsoft Azure</li>
-</ul>
+<p>A small list of supported PaaS may be:
+ - Heroku
+ - OpenShift
+ - Google AppEngine
+ - PagodaBox
+ - elastx
+ - Microsoft Azure</p>
 <p>But there are many, many more of them: everything that can run PHP 5.4 will work!</p>
 <h2 id="getting-started">Getting Started</h2>
 <p>Gishiki is tested costantly with Heroku because Heroku is fantastic
@@ -276,11 +291,10 @@ and empowers your application with a lot of simple tools without forcing you to
 maintain a server or a container!</p>
 <p>Setting up a perfectly working Heroku/OpenShift application is super-easy:</p>
 <ul>
-<li>Fork <a href="https://github.com/NeroReflex/gishiki_startup">this</a> repository on GitHub</li>
 <li>Register &amp; Login to your PaaS provider website</li>
 <li>Create a new application using your PaaS provider website</li>
 <li>Setup auto-deploy using your PaaS provider website</li>
-<li>Clone your new GitHub application to your local drive</li>
+<li>Create a new application using <a href="../composer/">composer</a></li>
 </ul>
 <p>Edit locally your application, commit and when a <em>git push</em> is performed to GitHub your
 Heroku/openShift application is automatically updated! Have fun &lt;3.</p>

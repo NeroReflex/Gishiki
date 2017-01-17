@@ -284,7 +284,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.Adapters.Sqlite.html#27-248" title="Go to source code">Gishiki/Database/Adapters/Sqlite.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.Adapters.Sqlite.html#27-268" title="Go to source code">Gishiki/Database/Adapters/Sqlite.php</a>
 		<br>
 	</div>
 
@@ -346,7 +346,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_connect">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#55-77" title="Go to source code">connect</a>( <span>string <var>$details</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#54-79" title="Go to source code">connect</a>( <span>string <var>$details</var></span> )</code>
 
 		<div class="description short">
 			<p>Logically connect the given database.</p>
@@ -388,7 +388,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_connected">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#79-82" title="Go to source code">connected</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#81-87" title="Go to source code">connected</a>( )</code>
 
 		<div class="description short">
 			<p>Check if the database handler is connected with a real database.</p>
@@ -424,7 +424,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_create">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#84-118" title="Go to source code">create</a>( <span>string <var>$collection</var></span>, <span>array|CollectionInterface <var>$data</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#89-126" title="Go to source code">create</a>( <span>string <var>$collection</var></span>, <span>array|CollectionInterface <var>$data</var></span> )</code>
 
 		<div class="description short">
 			<p>Write data to the database on the given collection/table.</p>
@@ -452,10 +452,6 @@
 					<code><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></code><br>the error occurred while inserting data to the database
 				</div>
 
-				<h4>Throw</h4>
-				<div class="list">
-						\InvalidArgumentException the given collection name or data is not a collection of valid values<br>
-				</div>
 
 
 				<h4>Implementation of</h4>
@@ -475,7 +471,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_update">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#120-155" title="Go to source code">update</a>( <span>string <var>$collection</var></span>, <span>array|CollectionInterface <var>$data</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#128-166" title="Go to source code">update</a>( <span>string <var>$collection</var></span>, <span>array|CollectionInterface <var>$data</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span> )</code>
 
 		<div class="description short">
 			<p>Update values of documents/records matching the given criteria.</p>
@@ -505,10 +501,6 @@
 					<code><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></code><br>the error occurred while updating data on the database
 				</div>
 
-				<h4>Throw</h4>
-				<div class="list">
-						\InvalidArgumentException the given collection name or data is not a collection of valid values<br>
-				</div>
 
 
 				<h4>Implementation of</h4>
@@ -528,7 +520,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_delete">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#157-183" title="Go to source code">delete</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#168-197" title="Go to source code">delete</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span> )</code>
 
 		<div class="description short">
 			<p>Remove documents/records matching the given criteria.</p>
@@ -556,10 +548,6 @@
 					<code><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></code><br>the error occurred while removing data from the database
 				</div>
 
-				<h4>Throw</h4>
-				<div class="list">
-						\InvalidArgumentException the given collection name is not a valid collection name<br>
-				</div>
 
 
 				<h4>Implementation of</h4>
@@ -579,7 +567,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_read">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#185-215" title="Go to source code">read</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#199-232" title="Go to source code">read</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
 
 		<div class="description short">
 			<p>Fetch documents/records matching the given criteria.</p>
@@ -609,10 +597,6 @@
 					<code><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></code><br>the error occurred while fetching data from the database
 				</div>
 
-				<h4>Throw</h4>
-				<div class="list">
-						\InvalidArgumentException the given collection name is not a valid collection name<br>
-				</div>
 
 
 				<h4>Implementation of</h4>
@@ -632,7 +616,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_readSelective">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#217-247" title="Go to source code">readSelective</a>( <span>string <var>$collection</var></span>, <span>array <var>$fields</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#234-267" title="Go to source code">readSelective</a>( <span>string <var>$collection</var></span>, <span>array <var>$fields</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
 
 		<div class="description short">
 			<p>Fetch documents/records matching the given criteria, but retrieve only the specified columns.</p>
@@ -664,10 +648,6 @@
 					<code><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></code><br>the error occurred while fetching data from the database
 				</div>
 
-				<h4>Throw</h4>
-				<div class="list">
-						\InvalidArgumentException the given collection name is not a valid collection name<br>
-				</div>
 
 
 				<h4>Implementation of</h4>

@@ -274,6 +274,7 @@ class SQLBuilder
     }
     
     /**
+     * Add SELECT * FROM  %tablename% to the SQL query.
      * 
      * @param  string $table the name of the table to be affected
      * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
@@ -286,6 +287,13 @@ class SQLBuilder
         return $this;
     }
     
+    /**
+     * Add SELECT col1, col2, col3 FROM %tablename% to the SQL query.
+     * 
+     * @param  string $table the name of the table to be affected
+     * @param  array  $fields the list containing names of columns to be selected
+     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
+     */
     public function selectFrom($table, array $fields)
     {
         $this->appendToQuery('SELECT '.  implode(', ', $fields).' FROM "'.$table.'" ');
@@ -294,6 +302,12 @@ class SQLBuilder
         return $this;
     }
     
+    /**
+     * Add DELETE FROM  %tablename% to the SQL query.
+     * 
+     * @param  string $table the name of the table to be affected
+     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
+     */
     public function deleteFrom($table)
     {
         $this->appendToQuery('DELETE FROM "'.$table.'" ');

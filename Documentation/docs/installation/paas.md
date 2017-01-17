@@ -13,11 +13,12 @@ and automatically deploy your application on each push if it passes the
 automatic integration testing set!
 
 A small list of supported PaaS may be:
-   
-   - Heroku
-   - OpenShift
-   - Google AppEngine
-   - Microsoft Azure
+ - Heroku
+ - OpenShift
+ - Google AppEngine
+ - PagodaBox
+ - elastx
+ - Microsoft Azure
 
 But there are many, many more of them: everything that can run PHP 5.4 will work!
 
@@ -29,11 +30,10 @@ maintain a server or a container!
 
 Setting up a perfectly working Heroku/OpenShift application is super-easy:
 
-   - Fork [this](https://github.com/NeroReflex/gishiki_startup) repository on GitHub
    - Register & Login to your PaaS provider website
    - Create a new application using your PaaS provider website
    - Setup auto-deploy using your PaaS provider website
-   - Clone your new GitHub application to your local drive
+   - Create a new application using [composer](composer.md)
 
 Edit locally your application, commit and when a *git push* is performed to GitHub your
 Heroku/openShift application is automatically updated! Have fun <3.

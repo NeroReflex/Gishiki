@@ -17,7 +17,7 @@ limitations under the License.
 
 namespace Gishiki\Database\Adapters;
 
-use Gishiki\Database\DatabaseInterface;
+use Gishiki\Database\RelationalDatabaseInterface;
 use Gishiki\Database\DatabaseException;
 use Gishiki\Database\SelectionCriteria;
 use Gishiki\Database\ResultModifier;
@@ -29,7 +29,7 @@ use Gishiki\Database\Adapters\Utils\SQLBuilder;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class Sqlite implements DatabaseInterface
+final class Sqlite implements RelationalDatabaseInterface
 {
     
     /**
@@ -42,6 +42,13 @@ final class Sqlite implements DatabaseInterface
      */
     private $connection;
     
+    /**
+     * Create a new SQLite database connection using the given connection string.
+     * 
+     * The connect function is automatically called.
+     * 
+     * @param string $details the connection string
+     */
     public function __construct($details)
     {
         $this->connection = array();
@@ -258,9 +265,8 @@ final class Sqlite implements DatabaseInterface
             //execute the statement resolving placeholders
             $stmt->execute($queryBuilder->exportParams());
             
-            $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-            
-            return $results;
+            //return the fetch result
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\PDOException $ex) {
             throw new DatabaseException('Error while performing the read operation: '.$ex->getMessage(), 6);
         }

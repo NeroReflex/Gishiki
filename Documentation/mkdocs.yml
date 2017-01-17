@@ -21,7 +21,9 @@ pages:
     - Logger:           usage/logging.md
     - Database:         usage/database.md
     - CRUD:             usage/CRUD.md
-
+- CLI: 
+    - CLI Toolkit:          cli/index.md
+    
 - About:
     - License: license.md
 

@@ -41,7 +41,7 @@ class HashingTest extends \PHPUnit_Framework_TestCase
     public function testInvalidMessage()
     {
         //test hash compatibility
-        $rot_ed = Algorithms::hash('', Algorithms::SHA512, 'OMG!');
+        $rot_ed = Algorithms::hash('', Algorithms::SHA512);
     }
     
     /**
@@ -50,7 +50,7 @@ class HashingTest extends \PHPUnit_Framework_TestCase
     public function testInvalidAlgorithm()
     {
         //test hash compatibility
-        $rot_ed = Algorithms::hash('my message', '74', 'OMG!');
+        $rot_ed = Algorithms::hash('my message', null);
     }
     
     public function testROT13()

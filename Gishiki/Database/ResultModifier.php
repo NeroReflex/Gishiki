@@ -66,7 +66,7 @@ final class ResultModifier
         if (is_array($init)) {
             foreach ($init as $key => $value) {
                 if (is_string($key)) {
-                    switch ($key) {
+                    switch (strtolower($key)) {
                         case "skip":
                             $modifier->skip($value);
                             break;

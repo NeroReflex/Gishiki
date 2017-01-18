@@ -58,6 +58,11 @@ abstract class Cryptography
             throw new \InvalidArgumentException('The plain message to be encrypted must be given as a non-empty string');
         }
 
+        //check for the private key
+        if (!$key->isLoaded()) {
+            throw new AsymmetricException('It is impossible to generate a digital signature with an unloaded key', 11);
+        }
+        
         //get the key in native format and its length
         $managedKey = $key();
 
@@ -111,6 +116,11 @@ abstract class Cryptography
             throw new \InvalidArgumentException('The plain message to be encrypted must be given as a non-empty string');
         }
 
+        //check for the public key
+        if (!$key->isLoaded()) {
+            throw new AsymmetricException('It is impossible to generate a digital signature with an unloaded key', 11);
+        }
+        
         //get the key in native format and its length
         $managedKey = $key();
 
@@ -168,17 +178,17 @@ abstract class Cryptography
         if ((!is_string($encryptedMsg)) || (strlen($encryptedMsg) <= 0)) {
             throw new \InvalidArgumentException('The encrypted message to be decrypted must be given as a non-empty string');
         }
+        
+        //check for the public key
+        if (!$key->isLoaded()) {
+            throw new AsymmetricException('It is impossible to generate a digital signature with an unloaded key', 11);
+        }
 
         //base64-decode of the encrypted message
         $completeMsg = base64_decode($encryptedMsg);
 
         //get the key in native format and its length
         $managedKey = $key();
-
-        //check if the message can be decrypted
-        /*if (($completeMsg % $managedKey['byteLength']) != 0) {
-            throw new AsymmetricException('The message decryption cannot take place because the given message is malformed', 6);
-        }*/
 
         //encrypt the complete message
         $message = '';
@@ -232,6 +242,11 @@ abstract class Cryptography
         //check the encrypted message type
         if ((!is_string($encryptedMsg)) || (strlen($encryptedMsg) <= 0)) {
             throw new \InvalidArgumentException('The encrypted message to be decrypted must be given as a non-empty string');
+        }
+        
+        //check for the private key
+        if (!$key->isLoaded()) {
+            throw new AsymmetricException('It is impossible to generate a digital signature with an unloaded key', 11);
         }
 
         //base64-decode of the encrypted message

@@ -57,4 +57,16 @@ class DatabaseManagerTest extends \PHPUnit_Framework_TestCase
     {
         DatabaseManager::Retrieve(3);
     }
+    
+    public function testValidConnection()
+    {
+        //connect an empty-memory bounded database
+        DatabaseManager::Connect("temp_db", "sqlite://:memory:");
+        
+        //retrieve the connected database
+        $connection = DatabaseManager::Retrieve("temp_db");
+        
+        //test for a successful retrieve operation
+        $this->assertEquals(true, $connection->connected());
+    }
 }

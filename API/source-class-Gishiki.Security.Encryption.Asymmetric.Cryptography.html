@@ -650,7 +650,7 @@
 </span><span id="296" class="l"><a href="#296">296: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> generateDigitalSignature(PrivateKey &amp;<span class="php-var">$key</span>, <span class="php-var">$message</span>)
 </span><span id="297" class="l"><a href="#297">297: </a>    {
 </span><span id="298" class="l"><a href="#298">298: </a>        <span class="php-comment">//check the message type</span>
-</span><span id="299" class="l"><a href="#299">299: </a>        <span class="php-keyword1">if</span> ((!<span class="php-keyword2">is_string</span>(<span class="php-var">$message</span>)) &amp;&amp; (<span class="php-keyword2">strlen</span>(<span class="php-var">$message</span>) &lt;= <span class="php-num">0</span>)) {
+</span><span id="299" class="l"><a href="#299">299: </a>        <span class="php-keyword1">if</span> ((!<span class="php-keyword2">is_string</span>(<span class="php-var">$message</span>)) || (<span class="php-keyword2">strlen</span>(<span class="php-var">$message</span>) &lt;= <span class="php-num">0</span>)) {
 </span><span id="300" class="l"><a href="#300">300: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \InvalidArgumentException(<span class="php-quote">'The message to be signed must be a non-empty string'</span>);
 </span><span id="301" class="l"><a href="#301">301: </a>        }
 </span><span id="302" class="l"><a href="#302">302: </a>
@@ -703,12 +703,12 @@
 </span><span id="349" class="l"><a href="#349">349: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> verifyDigitalSignature(PublicKey &amp;<span class="php-var">$key</span>, <span class="php-var">$message</span>, <span class="php-var">$signature</span>)
 </span><span id="350" class="l"><a href="#350">350: </a>    {
 </span><span id="351" class="l"><a href="#351">351: </a>        <span class="php-comment">//check the message type</span>
-</span><span id="352" class="l"><a href="#352">352: </a>        <span class="php-keyword1">if</span> ((!<span class="php-keyword2">is_string</span>(<span class="php-var">$message</span>)) &amp;&amp; (<span class="php-keyword2">strlen</span>(<span class="php-var">$message</span>) &lt;= <span class="php-num">0</span>)) {
+</span><span id="352" class="l"><a href="#352">352: </a>        <span class="php-keyword1">if</span> ((!<span class="php-keyword2">is_string</span>(<span class="php-var">$message</span>)) || (<span class="php-keyword2">strlen</span>(<span class="php-var">$message</span>) &lt;= <span class="php-num">0</span>)) {
 </span><span id="353" class="l"><a href="#353">353: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \InvalidArgumentException(<span class="php-quote">'The message to be checked must be a non-empty string'</span>);
 </span><span id="354" class="l"><a href="#354">354: </a>        }
 </span><span id="355" class="l"><a href="#355">355: </a>
 </span><span id="356" class="l"><a href="#356">356: </a>        <span class="php-comment">//check the message type</span>
-</span><span id="357" class="l"><a href="#357">357: </a>        <span class="php-keyword1">if</span> ((!<span class="php-keyword2">is_string</span>(<span class="php-var">$signature</span>)) &amp;&amp; (<span class="php-keyword2">strlen</span>(<span class="php-var">$signature</span>) &lt;= <span class="php-num">0</span>)) {
+</span><span id="357" class="l"><a href="#357">357: </a>        <span class="php-keyword1">if</span> ((!<span class="php-keyword2">is_string</span>(<span class="php-var">$signature</span>)) || (<span class="php-keyword2">strlen</span>(<span class="php-var">$signature</span>) &lt;= <span class="php-num">0</span>)) {
 </span><span id="358" class="l"><a href="#358">358: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \InvalidArgumentException(<span class="php-quote">'The digital signature of the message must be a non-empty string'</span>);
 </span><span id="359" class="l"><a href="#359">359: </a>        }
 </span><span id="360" class="l"><a href="#360">360: </a>

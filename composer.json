@@ -42,7 +42,8 @@
         "ext-pdo_dblib": "For MSSQL or Sybase databases on Linux/UNIX platform",
         "ext-pdo_oci": "For Oracle databases",
         "ext-pdo_pqsql": "For PostgreSQL databases",
-        "ext-pdo_sqlite": "For SQLite databases"
+        "ext-pdo_sqlite": "For SQLite databases",
+        "ext-mongodb": "For MongoDB databases"
     },
 
     "autoload": {

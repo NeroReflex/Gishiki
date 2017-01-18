@@ -296,7 +296,7 @@ abstract class Cryptography
     public static function generateDigitalSignature(PrivateKey &$key, $message)
     {
         //check the message type
-        if ((!is_string($message)) && (strlen($message) <= 0)) {
+        if ((!is_string($message)) || (strlen($message) <= 0)) {
             throw new \InvalidArgumentException('The message to be signed must be a non-empty string');
         }
 
@@ -349,12 +349,12 @@ abstract class Cryptography
     public static function verifyDigitalSignature(PublicKey &$key, $message, $signature)
     {
         //check the message type
-        if ((!is_string($message)) && (strlen($message) <= 0)) {
+        if ((!is_string($message)) || (strlen($message) <= 0)) {
             throw new \InvalidArgumentException('The message to be checked must be a non-empty string');
         }
 
         //check the message type
-        if ((!is_string($signature)) && (strlen($signature) <= 0)) {
+        if ((!is_string($signature)) || (strlen($signature) <= 0)) {
             throw new \InvalidArgumentException('The digital signature of the message must be a non-empty string');
         }
 

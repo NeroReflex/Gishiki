@@ -105,6 +105,14 @@ function Setup()
         exit();
     }
 
+    if (!file_exists("index.php")) {
+        $indexContent = file_get_contents("vendor/neroreflex/gishiki/index.php");
+        
+        if (file_put_contents("index.php", $indexContent) === false) {
+            printf("The application index file cannot be written, you will have to perform a softlink to index.php\n");
+            exit();
+        }
+    }
 
     //congrats! The project has been initialized
     printf("An empty project has been created\n");

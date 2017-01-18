@@ -28,6 +28,112 @@ use Gishiki\Security\Encryption\Asymmetric\Cryptography;
  */
 class CryptographyTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidMessageEncryption()
+    {
+        $privateKey = new PrivateKey(PrivateKey::Generate());
+
+        //check if the private key has been loaded correctly
+        $this->assertEquals(true, $privateKey->isLoaded());
+
+        //attempt to perform the bad encryption
+        Cryptography::encrypt($privateKey, 73);
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidMessageReverseEncryption()
+    {
+        //generate a new private key and the associated public key
+        $privKey = new PrivateKey(PrivateKey::Generate());
+        $pubKey = new PublicKey($privKey->exportPublicKey());
+
+        //attempt to reverse encrypt a bad message
+        Cryptography::encryptReverse($pubKey, '');
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidMessageDecryption()
+    {
+        //this is the test example message
+        $message = 'mL84hPpR+nmb2UuWDnhiXnpMDxzQT0NMPXT.dY.*?ImTrO86Dt';
+
+        //generate two keys
+        $privateKey = new PrivateKey(PrivateKey::Generate());
+        $publicKey = new PublicKey($privateKey->exportPublicKey());
+
+        //check if the private key has been loaded correctly
+        $this->assertEquals(true, $privateKey->isLoaded());
+
+        //attempt to perform the bad decryption
+        $decryption_result = Cryptography::decrypt($publicKey, '');
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidMessageReverseDecryption()
+    {
+        //generate a new private key and the associated public key
+        $privKey = new PrivateKey(PrivateKey::Generate());
+        $pubKey = new PublicKey($privKey->exportPublicKey());
+
+        //attempt to reverse decrypt a bad message
+         Cryptography::decryptReverse($privKey, '');
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidMessageGenerateDigitalSignature()
+    {
+        //generate a new private key and the associated public key
+        $privKey = new PrivateKey(PrivateKey::Generate());
+        $pubKey = new PublicKey($privKey->exportPublicKey());
+
+        $message = 'who knows if this message will be modified.....';
+
+        //generate the signature
+        Cryptography::generateDigitalSignature($privKey, '');
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidMessageVerifyDigitalSignature()
+    {
+        //generate a new private key and the associated public key
+        $privKey = new PrivateKey(PrivateKey::Generate());
+        $pubKey = new PublicKey($privKey->exportPublicKey());
+
+        $message = 'verify me if U can.....';
+
+        //generate the signature
+        $signature = Cryptography::generateDigitalSignature($privKey, $message);
+        Cryptography::verifyDigitalSignature($pubKey, '', $signature);
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidSignatureVerifyDigitalSignature()
+    {
+        //generate a new private key and the associated public key
+        $privKey = new PrivateKey(PrivateKey::Generate());
+        $pubKey = new PublicKey($privKey->exportPublicKey());
+
+        $message = 'verify me if U can.....';
+
+        //generate the signature
+        $signature = Cryptography::generateDigitalSignature($privKey, $message);
+        Cryptography::verifyDigitalSignature($pubKey, $message, '');
+    }
+    
     public function testEncryption()
     {
         $privateKey = new PrivateKey(PrivateKey::Generate());

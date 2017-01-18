@@ -229,7 +229,6 @@
 				<li><a href="class-Gishiki.Database.DatabaseManager.html">Gishiki\Database\DatabaseManager</a></li>
 				<li><a href="class-Gishiki.Database.FieldOrdering.html">Gishiki\Database\FieldOrdering</a></li>
 				<li><a href="class-Gishiki.Database.FieldRelationship.html">Gishiki\Database\FieldRelationship</a></li>
-				<li><a href="class-Gishiki.Database.Record.html">Gishiki\Database\Record</a></li>
 				<li><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></li>
 				<li><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></li>
 				<li><a href="class-Gishiki.Gishiki.html">Gishiki\Gishiki</a></li>
@@ -278,6 +277,7 @@
 				<li><a href="class-Gishiki.tests.Security.Encryption.Asymmetric.CryptographyTest.html">Gishiki\tests\Security\Encryption\Asymmetric\CryptographyTest</a></li>
 				<li><a href="class-Gishiki.tests.Security.Encryption.Asymmetric.KeyTest.html">Gishiki\tests\Security\Encryption\Asymmetric\KeyTest</a></li>
 				<li><a href="class-Gishiki.tests.Security.Encryption.Symmetric.CriptographyTest.html">Gishiki\tests\Security\Encryption\Symmetric\CriptographyTest</a></li>
+				<li><a href="class-Gishiki.tests.Security.Encryption.Symmetric.KeyTest.html">Gishiki\tests\Security\Encryption\Symmetric\KeyTest</a></li>
 				<li><a href="class-Gishiki.tests.Security.Hashing.HashingTest.html">Gishiki\tests\Security\Hashing\HashingTest</a></li>
 			</ul>
 
@@ -287,7 +287,6 @@
 				<li><a href="class-Countable.html">Countable</a></li>
 				<li><a href="class-Gishiki.Algorithms.Collections.CollectionInterface.html">Gishiki\Algorithms\Collections\CollectionInterface</a></li>
 				<li><a href="class-Gishiki.Database.DatabaseInterface.html">Gishiki\Database\DatabaseInterface</a></li>
-				<li><a href="class-Gishiki.Database.ObjectIDInterface.html">Gishiki\Database\ObjectIDInterface</a></li>
 				<li><a href="class-Gishiki.Database.RelationalDatabaseInterface.html">Gishiki\Database\RelationalDatabaseInterface</a></li>
 				<li><a href="class-Gishiki.HttpKernel.CookiesInterface.html">Gishiki\HttpKernel\CookiesInterface</a></li>
 				<li><a href="class-Gishiki.HttpKernel.HeadersInterface.html">Gishiki\HttpKernel\HeadersInterface</a></li>
@@ -665,8 +664,54 @@
 </span><span id="310" class="l"><a href="#310">310: </a>    {
 </span><span id="311" class="l"><a href="#311">311: </a>        SerializableCollection::deserialize(<span class="php-quote">'bad json'</span>, SerializableCollection::JSON);
 </span><span id="312" class="l"><a href="#312">312: </a>    }
-</span><span id="313" class="l"><a href="#313">313: </a>}
-</span><span id="314" class="l"><a href="#314">314: </a></span></code></pre>
+</span><span id="313" class="l"><a href="#313">313: </a>    
+</span><span id="314" class="l"><a href="#314">314: </a>    <span class="php-comment">/**
+</span></span><span id="315" class="l"><a href="#315">315: </a><span class="php-comment">     * @expectedException Gishiki\Algorithms\Collections\SerializationException
+</span></span><span id="316" class="l"><a href="#316">316: </a><span class="php-comment">     */</span>
+</span><span id="317" class="l"><a href="#317">317: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> testUnknownSerializationException()
+</span><span id="318" class="l"><a href="#318">318: </a>    {
+</span><span id="319" class="l"><a href="#319">319: </a>        (<span class="php-keyword1">new</span> SerializableCollection([
+</span><span id="320" class="l"><a href="#320">320: </a>            <span class="php-quote">'a'</span> =&gt; <span class="php-num">1</span>,
+</span><span id="321" class="l"><a href="#321">321: </a>            <span class="php-quote">'b'</span> =&gt; <span class="php-num">5.50</span>,
+</span><span id="322" class="l"><a href="#322">322: </a>            <span class="php-quote">'c'</span> =&gt; <span class="php-quote">'srf'</span>,
+</span><span id="323" class="l"><a href="#323">323: </a>            <span class="php-quote">'e'</span> =&gt; <span class="php-keyword1">true</span>,
+</span><span id="324" class="l"><a href="#324">324: </a>            <span class="php-quote">'f'</span> =&gt; [<span class="php-num">1</span>, <span class="php-num">2</span>, <span class="php-num">3</span>, <span class="php-num">4</span>],
+</span><span id="325" class="l"><a href="#325">325: </a>        ]))-&gt;<span class="php-keyword2">serialize</span>(<span class="php-num">255</span>);
+</span><span id="326" class="l"><a href="#326">326: </a>    }
+</span><span id="327" class="l"><a href="#327">327: </a>    
+</span><span id="328" class="l"><a href="#328">328: </a>    <span class="php-comment">/**
+</span></span><span id="329" class="l"><a href="#329">329: </a><span class="php-comment">     * @expectedException \InvalidArgumentException
+</span></span><span id="330" class="l"><a href="#330">330: </a><span class="php-comment">     */</span>
+</span><span id="331" class="l"><a href="#331">331: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> testInvalidSerializationException()
+</span><span id="332" class="l"><a href="#332">332: </a>    {
+</span><span id="333" class="l"><a href="#333">333: </a>        (<span class="php-keyword1">new</span> SerializableCollection([
+</span><span id="334" class="l"><a href="#334">334: </a>            <span class="php-quote">'a'</span> =&gt; <span class="php-num">1</span>,
+</span><span id="335" class="l"><a href="#335">335: </a>            <span class="php-quote">'b'</span> =&gt; <span class="php-num">5.50</span>,
+</span><span id="336" class="l"><a href="#336">336: </a>            <span class="php-quote">'c'</span> =&gt; <span class="php-quote">'srf'</span>,
+</span><span id="337" class="l"><a href="#337">337: </a>            <span class="php-quote">'e'</span> =&gt; <span class="php-keyword1">true</span>,
+</span><span id="338" class="l"><a href="#338">338: </a>            <span class="php-quote">'f'</span> =&gt; [<span class="php-num">1</span>, <span class="php-num">2</span>, <span class="php-num">3</span>, <span class="php-num">4</span>],
+</span><span id="339" class="l"><a href="#339">339: </a>        ]))-&gt;<span class="php-keyword2">serialize</span>(<span class="php-quote">'WTF?!?'</span>);
+</span><span id="340" class="l"><a href="#340">340: </a>    }
+</span><span id="341" class="l"><a href="#341">341: </a>    
+</span><span id="342" class="l"><a href="#342">342: </a>    <span class="php-comment">/**
+</span></span><span id="343" class="l"><a href="#343">343: </a><span class="php-comment">     * @expectedException Gishiki\Algorithms\Collections\SerializationException
+</span></span><span id="344" class="l"><a href="#344">344: </a><span class="php-comment">     */</span>
+</span><span id="345" class="l"><a href="#345">345: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> testBadSerializationException()
+</span><span id="346" class="l"><a href="#346">346: </a>    {
+</span><span id="347" class="l"><a href="#347">347: </a>        <span class="php-var">$obj</span> = (<span class="php-keyword1">new</span> SerializableCollection([
+</span><span id="348" class="l"><a href="#348">348: </a>            <span class="php-quote">'a'</span> =&gt; <span class="php-num">1</span>,
+</span><span id="349" class="l"><a href="#349">349: </a>            <span class="php-quote">'b'</span> =&gt; <span class="php-num">5.50</span>,
+</span><span id="350" class="l"><a href="#350">350: </a>            <span class="php-quote">'c'</span> =&gt; <span class="php-quote">'srf'</span>,
+</span><span id="351" class="l"><a href="#351">351: </a>            <span class="php-quote">'e'</span> =&gt; <span class="php-keyword1">true</span>,
+</span><span id="352" class="l"><a href="#352">352: </a>            <span class="php-quote">'f'</span> =&gt; [<span class="php-num">1</span>, <span class="php-num">2</span>, <span class="php-num">3</span>, <span class="php-num">4</span>],
+</span><span id="353" class="l"><a href="#353">353: </a>        ]));
+</span><span id="354" class="l"><a href="#354">354: </a>        
+</span><span id="355" class="l"><a href="#355">355: </a>        <span class="php-var">$obj</span>-&gt;set(<span class="php-quote">&quot;bad_chars&quot;</span>, <span class="php-quote">&quot;\xB1\x31&quot;</span>);
+</span><span id="356" class="l"><a href="#356">356: </a>        
+</span><span id="357" class="l"><a href="#357">357: </a>        <span class="php-var">$obj</span>-&gt;<span class="php-keyword2">serialize</span>();
+</span><span id="358" class="l"><a href="#358">358: </a>    }
+</span><span id="359" class="l"><a href="#359">359: </a>}
+</span><span id="360" class="l"><a href="#360">360: </a></span></code></pre>
 
 	<div id="footer">
 		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>
@@ -674,6 +719,6 @@
 </div>
 </div>
 <script src="resources/combined.js?7ec981fd384b70aee7ff5ceda56e0deb9171d900"></script>
-<script src="elementlist.js?9ff6e70fe61a82aa46736dfd6ee7e3e316bec297"></script>
+<script src="elementlist.js?943ac8b8f95595d9e9cd25d86386110439ebd8d2"></script>
 </body>
 </html>

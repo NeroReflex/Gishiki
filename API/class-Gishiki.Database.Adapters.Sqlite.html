@@ -284,7 +284,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.Adapters.Sqlite.html#27-304" title="Go to source code">Gishiki/Database/Adapters/Sqlite.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.Adapters.Sqlite.html#27-311" title="Go to source code">Gishiki/Database/Adapters/Sqlite.php</a>
 		<br>
 	</div>
 
@@ -378,6 +378,38 @@
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="createTable" id="_createTable">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createTable">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#88-93" title="Go to source code">createTable</a>( <span> <var>$tbName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Gishiki.Database.RelationalDatabaseInterface.html#_createTable">Gishiki\Database\RelationalDatabaseInterface::createTable()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="connected" id="_connected">
 
 		<td class="attributes"><code>
@@ -390,7 +422,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_connected">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#88-94" title="Go to source code">connected</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#95-101" title="Go to source code">connected</a>( )</code>
 
 		<div class="description short">
 			<p>Check if the database handler is connected with a real database.</p>
@@ -426,7 +458,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_create">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#96-133" title="Go to source code">create</a>( <span>string <var>$collection</var></span>, <span>array|CollectionInterface <var>$data</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#103-140" title="Go to source code">create</a>( <span>string <var>$collection</var></span>, <span>array|CollectionInterface <var>$data</var></span> )</code>
 
 		<div class="description short">
 			<p>Write data to the database on the given collection/table.</p>
@@ -473,7 +505,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_update">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#135-173" title="Go to source code">update</a>( <span>string <var>$collection</var></span>, <span>array|CollectionInterface <var>$data</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#142-180" title="Go to source code">update</a>( <span>string <var>$collection</var></span>, <span>array|CollectionInterface <var>$data</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span> )</code>
 
 		<div class="description short">
 			<p>Update values of documents/records matching the given criteria.</p>
@@ -522,7 +554,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_delete">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#175-204" title="Go to source code">delete</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#182-211" title="Go to source code">delete</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span> )</code>
 
 		<div class="description short">
 			<p>Remove documents/records matching the given criteria.</p>
@@ -569,7 +601,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteAll">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#206-234" title="Go to source code">deleteAll</a>( <span>string <var>$collection</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#213-241" title="Go to source code">deleteAll</a>( <span>string <var>$collection</var></span> )</code>
 
 		<div class="description short">
 			<p>Remove EVERY documents/records on the given collection/table.</p>
@@ -614,7 +646,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_read">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#236-269" title="Go to source code">read</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#243-276" title="Go to source code">read</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
 
 		<div class="description short">
 			<p>Fetch documents/records matching the given criteria.</p>
@@ -663,7 +695,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_readSelective">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#271-303" title="Go to source code">readSelective</a>( <span>string <var>$collection</var></span>, <span>array <var>$fields</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#278-310" title="Go to source code">readSelective</a>( <span>string <var>$collection</var></span>, <span>array <var>$fields</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
 
 		<div class="description short">
 			<p>Fetch documents/records matching the given criteria, but retrieve only the specified columns.</p>
@@ -704,14 +736,6 @@
 	</tr>
 	</table>
 
-	<table class="summary inherited">
-	<caption>Methods inherited from <a href="class-Gishiki.Database.RelationalDatabaseInterface.html#methods">Gishiki\Database\RelationalDatabaseInterface</a></caption>
-	<tr>
-		<td><code>
-			<a href="class-Gishiki.Database.RelationalDatabaseInterface.html#_CreateTable">CreateTable()</a>
-		</code></td>
-	</tr>
-	</table>
 
 
 

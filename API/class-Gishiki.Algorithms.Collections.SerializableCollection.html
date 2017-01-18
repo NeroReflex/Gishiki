@@ -303,7 +303,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Algorithms.Collections.SerializableCollection.html#20-189" title="Go to source code">Gishiki/Algorithms/Collections/SerializableCollection.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Algorithms.Collections.SerializableCollection.html#20-194" title="Go to source code">Gishiki/Algorithms/Collections/SerializableCollection.php</a>
 		<br>
 	</div>
 
@@ -364,7 +364,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_serialize">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.Collections.SerializableCollection.html#50-92" title="Go to source code">serialize</a>( <span>integer <var>$format</var> = <code><a href="class-Gishiki.Algorithms.Collections.SerializableCollection.html#JSON">Gishiki\Algorithms\Collections\SerializableCollection::<b>JSON</b></a></code></span> )</code>
+		<code><a href="source-class-Gishiki.Algorithms.Collections.SerializableCollection.html#50-97" title="Go to source code">serialize</a>( <span>integer <var>$format</var> = <code><a href="class-Gishiki.Algorithms.Collections.SerializableCollection.html#JSON">Gishiki\Algorithms\Collections\SerializableCollection::<b>JSON</b></a></code></span> )</code>
 
 		<div class="description short">
 			<p>Serialize the current data collection.</p>
@@ -388,6 +388,7 @@
 
 				<h4>Throw</h4>
 				<div class="list">
+						\InvalidArgumentException      the serialization format is invalid<br>
 						SerializationException         the error occurred while serializing the collection in json format<br>
 				</div>
 
@@ -407,7 +408,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deserialize">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.Collections.SerializableCollection.html#94-177" title="Go to source code">deserialize</a>( <span>string|array|<code><a href="class-Gishiki.Algorithms.Collections.CollectionInterface.html">Gishiki\Algorithms\Collections\CollectionInterface</a></code> <var>$message</var></span>, <span>integer <var>$format</var> = <code><a href="class-Gishiki.Algorithms.Collections.SerializableCollection.html#JSON">Gishiki\Algorithms\Collections\SerializableCollection::<b>JSON</b></a></code></span> )</code>
+		<code><a href="source-class-Gishiki.Algorithms.Collections.SerializableCollection.html#99-182" title="Go to source code">deserialize</a>( <span>string|array|<code><a href="class-Gishiki.Algorithms.Collections.CollectionInterface.html">Gishiki\Algorithms\Collections\CollectionInterface</a></code> <var>$message</var></span>, <span>integer <var>$format</var> = <code><a href="class-Gishiki.Algorithms.Collections.SerializableCollection.html#JSON">Gishiki\Algorithms\Collections\SerializableCollection::<b>JSON</b></a></code></span> )</code>
 
 		<div class="description short">
 			<p>Deserialize the given data collectionand create a serializable data collection.</p>
@@ -452,7 +453,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___toString">#</a>
-		<code><a href="source-class-Gishiki.Algorithms.Collections.SerializableCollection.html#179-188" title="Go to source code">__toString</a>( )</code>
+		<code><a href="source-class-Gishiki.Algorithms.Collections.SerializableCollection.html#184-193" title="Go to source code">__toString</a>( )</code>
 
 		<div class="description short">
 			<p>Get the serialization result using the default format.</p>

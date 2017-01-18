@@ -143,9 +143,22 @@
 						</li>
 				<li>
 					<a href="namespace-Gishiki.tests.Database.html">
-						Database					</a>
+						Database<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.tests.Database.Adapters.html">
+						Adapters<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.tests.Database.Adapters.Utils.html">
+						Utils					</a>
 
 						</li>
+							</ul></li></ul></li>
 				<li>
 					<a href="namespace-Gishiki.tests.Http.html">
 						Http<span></span>
@@ -259,6 +272,7 @@
 				<li><a href="class-Gishiki.tests.Algorithms.ManipulationTest.html">Gishiki\tests\Algorithms\ManipulationTest</a></li>
 				<li><a href="class-Gishiki.tests.Application.FakeController.html">Gishiki\tests\Application\FakeController</a></li>
 				<li><a href="class-Gishiki.tests.Core.RouteTest.html">Gishiki\tests\Core\RouteTest</a></li>
+				<li><a href="class-Gishiki.tests.Database.Adapters.Utils.SQLBuilderTest.html">Gishiki\tests\Database\Adapters\Utils\SQLBuilderTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.DatabaseManagerTest.html">Gishiki\tests\Database\DatabaseManagerTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.ResultModifierTest.html">Gishiki\tests\Database\ResultModifierTest</a></li>
 				<li><a href="class-Gishiki.tests.Database.SelectionCriteriaTest.html">Gishiki\tests\Database\SelectionCriteriaTest</a></li>
@@ -395,7 +409,7 @@
 </span><span id="41" class="l"><a href="#41"> 41: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> testInvalidMessage()
 </span><span id="42" class="l"><a href="#42"> 42: </a>    {
 </span><span id="43" class="l"><a href="#43"> 43: </a>        <span class="php-comment">//test hash compatibility</span>
-</span><span id="44" class="l"><a href="#44"> 44: </a>        <span class="php-var">$rot_ed</span> = Algorithms::<span class="php-keyword2">hash</span>(<span class="php-quote">''</span>, Algorithms::SHA512, <span class="php-quote">'OMG!'</span>);
+</span><span id="44" class="l"><a href="#44"> 44: </a>        <span class="php-var">$rot_ed</span> = Algorithms::<span class="php-keyword2">hash</span>(<span class="php-quote">''</span>, Algorithms::SHA512);
 </span><span id="45" class="l"><a href="#45"> 45: </a>    }
 </span><span id="46" class="l"><a href="#46"> 46: </a>    
 </span><span id="47" class="l"><a href="#47"> 47: </a>    <span class="php-comment">/**
@@ -404,7 +418,7 @@
 </span><span id="50" class="l"><a href="#50"> 50: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> testInvalidAlgorithm()
 </span><span id="51" class="l"><a href="#51"> 51: </a>    {
 </span><span id="52" class="l"><a href="#52"> 52: </a>        <span class="php-comment">//test hash compatibility</span>
-</span><span id="53" class="l"><a href="#53"> 53: </a>        <span class="php-var">$rot_ed</span> = Algorithms::<span class="php-keyword2">hash</span>(<span class="php-quote">'my message'</span>, <span class="php-quote">'74'</span>, <span class="php-quote">'OMG!'</span>);
+</span><span id="53" class="l"><a href="#53"> 53: </a>        <span class="php-var">$rot_ed</span> = Algorithms::<span class="php-keyword2">hash</span>(<span class="php-quote">'my message'</span>, <span class="php-keyword1">null</span>);
 </span><span id="54" class="l"><a href="#54"> 54: </a>    }
 </span><span id="55" class="l"><a href="#55"> 55: </a>    
 </span><span id="56" class="l"><a href="#56"> 56: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> testROT13()
@@ -529,6 +543,6 @@
 </div>
 </div>
 <script src="resources/combined.js?7ec981fd384b70aee7ff5ceda56e0deb9171d900"></script>
-<script src="elementlist.js?943ac8b8f95595d9e9cd25d86386110439ebd8d2"></script>
+<script src="elementlist.js?432f6723bbb1dea5322c00e260704bc3b57986a9"></script>
 </body>
 </html>

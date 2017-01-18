@@ -142,9 +142,22 @@
 						</li>
 				<li>
 					<a href="namespace-Gishiki.tests.Database.html">
-						Database					</a>
+						Database<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.tests.Database.Adapters.html">
+						Adapters<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.tests.Database.Adapters.Utils.html">
+						Utils					</a>
 
 						</li>
+							</ul></li></ul></li>
 				<li>
 					<a href="namespace-Gishiki.tests.Http.html">
 						Http<span></span>
@@ -292,7 +305,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#24-340" title="Go to source code">Gishiki/Database/Adapters/Utils/SQLBuilder.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#24-342" title="Go to source code">Gishiki/Database/Adapters/Utils/SQLBuilder.php</a>
 		<br>
 	</div>
 
@@ -456,7 +469,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_set">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#113-137" title="Go to source code">set</a>( <span>array <var>$values</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#113-139" title="Go to source code">set</a>( <span>array <var>$values</var></span> )</code>
 
 		<div class="description short">
 			<p>Add SET col1 = ?, col2 = ?, col3 = ? to the SQL query.</p>
@@ -495,7 +508,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_where">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#139-192" title="Go to source code">where</a>( <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#141-194" title="Go to source code">where</a>( <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span> )</code>
 
 		<div class="description short">
 			<p>Add WHERE col1 = ? OR col2 &lt;= ? ....... to the SQL query.</p>
@@ -534,7 +547,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_insertInto">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#194-206" title="Go to source code">insertInto</a>( <span>string <var>$table</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#196-208" title="Go to source code">insertInto</a>( <span>string <var>$table</var></span> )</code>
 
 		<div class="description short">
 			<p>Add INSERT INTO %tablename% to the SQL query.</p>
@@ -573,7 +586,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_values">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#208-233" title="Go to source code">values</a>( <span>array <var>$values</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#210-235" title="Go to source code">values</a>( <span>array <var>$values</var></span> )</code>
 
 		<div class="description short">
 			<p>Add (col1, col2, col3) VALUES (?, ?, ?, ?) to the SQL query.</p>
@@ -612,7 +625,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_limitOffsetOrderBy">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#235-276" title="Go to source code">limitOffsetOrderBy</a>( <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#237-278" title="Go to source code">limitOffsetOrderBy</a>( <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
 
 		<div class="description short">
 			<p>Add LIMIT ? OFFSET ? ORDER BY ..... to the SQL query wheter they are needed.</p>
@@ -651,7 +664,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_selectAllFrom">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#278-290" title="Go to source code">selectAllFrom</a>( <span>string <var>$table</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#280-292" title="Go to source code">selectAllFrom</a>( <span>string <var>$table</var></span> )</code>
 
 		<div class="description short">
 			<p>Add SELECT * FROM  %tablename% to the SQL query.</p>
@@ -690,7 +703,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_selectFrom">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#292-305" title="Go to source code">selectFrom</a>( <span>string <var>$table</var></span>, <span>array <var>$fields</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#294-307" title="Go to source code">selectFrom</a>( <span>string <var>$table</var></span>, <span>array <var>$fields</var></span> )</code>
 
 		<div class="description short">
 			<p>Add SELECT col1, col2, col3 FROM %tablename% to the SQL query.</p>
@@ -731,7 +744,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteFrom">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#307-319" title="Go to source code">deleteFrom</a>( <span>string <var>$table</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#309-321" title="Go to source code">deleteFrom</a>( <span>string <var>$table</var></span> )</code>
 
 		<div class="description short">
 			<p>Add DELETE FROM  %tablename% to the SQL query.</p>
@@ -770,7 +783,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_exportQuery">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#321-329" title="Go to source code">exportQuery</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#323-331" title="Go to source code">exportQuery</a>( )</code>
 
 		<div class="description short">
 			<p>Export the SQL query string with ? in place of actual parameters.</p>
@@ -804,7 +817,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_exportParams">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#331-339" title="Go to source code">exportParams</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLBuilder.html#333-341" title="Go to source code">exportParams</a>( )</code>
 
 		<div class="description short">
 			<p>Export the list of parameters that will replace ? in the SQL query.</p>

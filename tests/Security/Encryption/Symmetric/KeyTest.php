@@ -6,42 +6,32 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*****************************************************************************/
+ *****************************************************************************/
 
-namespace Gishiki\Database;
+namespace Gishiki\tests\Security\Encryption\Symmetric;
 
-use Gishiki\Algorithms\Collections\SerializableCollection;
+use Gishiki\Security\Encryption\Symmetric\SecretKey;
+use Gishiki\Security\Encryption\Symmetric\Cryptography;
 
 /**
- * Represent a record stored on the database.
+ * Tests for the SecretKey class.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class Record
-{
-    private $id = null;
-    private $data = null;
-
-    public function __construct(ObjectIDInterface $id, SerializableCollection $data)
-    {
-        $this->id = $id;
-        $this->data = $data;
+class KeyTest extends \PHPUnit_Framework_TestCase {
+    
+    public function testKeyExport() {
+        
+        $key = new Secretkey("6578616d706c65206865782064617461");
+        
+        $this->assertEquals("6578616d706c65206865782064617461", ''.$key);
     }
-
-    public function getObjectID()
-    {
-        return $this->id;
-    }
-
-    public function getData()
-    {
-        return $this->data;
-    }
+    
 }

@@ -310,4 +310,50 @@ XML;
     {
         SerializableCollection::deserialize('bad json', SerializableCollection::JSON);
     }
+    
+    /**
+     * @expectedException Gishiki\Algorithms\Collections\SerializationException
+     */
+    public function testUnknownSerializationException()
+    {
+        (new SerializableCollection([
+            'a' => 1,
+            'b' => 5.50,
+            'c' => 'srf',
+            'e' => true,
+            'f' => [1, 2, 3, 4],
+        ]))->serialize(255);
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidSerializationException()
+    {
+        (new SerializableCollection([
+            'a' => 1,
+            'b' => 5.50,
+            'c' => 'srf',
+            'e' => true,
+            'f' => [1, 2, 3, 4],
+        ]))->serialize('WTF?!?');
+    }
+    
+    /**
+     * @expectedException Gishiki\Algorithms\Collections\SerializationException
+     */
+    public function testBadSerializationException()
+    {
+        $obj = (new SerializableCollection([
+            'a' => 1,
+            'b' => 5.50,
+            'c' => 'srf',
+            'e' => true,
+            'f' => [1, 2, 3, 4],
+        ]));
+        
+        $obj->set("bad_chars", "\xB1\x31");
+        
+        $obj->serialize();
+    }
 }

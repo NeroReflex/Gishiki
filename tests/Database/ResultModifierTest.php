@@ -27,6 +27,13 @@ use Gishiki\Database\FieldOrdering;
  */
 class ResultModifierTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBadInitializer()
+    {
+        ResultModifier::Initialize('only array and null are allowed here!');
+    }
     
     /**
      * @expectedException \InvalidArgumentException
@@ -107,6 +114,30 @@ class ResultModifierTest extends \PHPUnit_Framework_TestCase
                 ->order("name", FieldOrdering::ASC)
                 ->order("surname", FieldOrdering::ASC)
                 ->order("year", FieldOrdering::DESC);
+        
+        $exportMethod = new \ReflectionMethod($resMod, 'export');
+        $exportMethod->setAccessible(true);
+
+        $this->assertEquals($exportResult, $exportMethod->invoke($resMod));
+    }
+    
+    public function testOrderingOnInitializer()
+    {
+        $exportResult = [
+            'limit' => 0,
+            'skip' => 0,
+            'order' => [
+                "name" => FieldOrdering::ASC,
+                "surname" => FieldOrdering::ASC,
+                "year" =>  FieldOrdering::DESC,
+            ]
+        ];
+        
+        $resMod = ResultModifier::Initialize([
+            "name" => FieldOrdering::ASC,
+            "surname" => FieldOrdering::ASC,
+            "year" => FieldOrdering::DESC,
+        ]);
         
         $exportMethod = new \ReflectionMethod($resMod, 'export');
         $exportMethod->setAccessible(true);

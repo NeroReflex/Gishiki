@@ -51,12 +51,17 @@ class SerializableCollection extends GenericCollection
      * Serialize the current data collection.
      *
      * @param int $format an integer representing one of the allowed formats
+     * @throw  \InvalidArgumentException      the serialization format is invalid
      * @throw  SerializationException         the error occurred while serializing the collection in json format
      *
      * @return string the collection serialized
      */
     public function serialize($format = self::JSON)
     {
+        if (!is_integer($format)) {
+            throw new \InvalidArgumentException('Invalid serialization format');
+        }
+        
         $result = '';
         switch ($format) {
 

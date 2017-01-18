@@ -87,7 +87,7 @@ final class SecretKey
      * $precious_key = (string) $my_key;
      * </code>
      *
-     * @param string $key the password to be used
+     * @param string $key the password to be used in a HEX encoded format
      */
     public function __construct($key = null)
     {

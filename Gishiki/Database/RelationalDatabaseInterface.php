@@ -25,6 +25,6 @@ namespace Gishiki\Database;
  */
 interface RelationalDatabaseInterface extends DatabaseInterface {
     
-    public function CreateTable($tbName);
+    public function createTable($tbName);
     
 }

@@ -1,6 +1,6 @@
 <?php
 /****************************************************************************
-Copyright 2017 Benato Denis
+Copyright 2016 Benato Denis
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -12,27 +12,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-namespace Gishiki\Algorithms\Collections {
+namespace Gishiki\Algorithms\Collections;
 
+/**
+ * The serialization exception thrown by Gishiki 
+ * when a bad serialization operation takes place.
+ * 
+ * Data is probably malformed/unconformant or damaged!
+ * 
+ * @author Benato Denis <benato.denis96@gmail.com>
+ */
+class SerializationException extends \Gishiki\Core\Exception
+{
     /**
-     * The serialization exception thrown by Gishiki
-     * when a bad serialization operation takes place.
+     * Create the serialization-related exception.
      *
-     * Data is probably malformed/unconformant or damaged!
-     *
-     * @author Benato Denis <benato.denis96@gmail.com>
+     * @param string $message   the error message
+     * @param int    $errorCode the json error code
      */
-    class SerializationException extends \Gishiki\Core\Exception
+    public function __construct($message, $errorCode)
     {
-        /**
-         * Create the serialization-related exception.
-         *
-         * @param string $message   the error message
-         * @param int    $errorCode the json error code
-         */
-        public function __construct($message, $errorCode)
-        {
-            parent::__construct($message, $errorCode);
-        }
+        parent::__construct($message, $errorCode);
     }
 }

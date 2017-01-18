@@ -26,6 +26,33 @@ use Gishiki\Security\Hashing\Algorithms;
  */
 class HashingTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidBinaryUnsafe()
+    {
+        //test hash compatibility
+        $rot_ed = Algorithms::hash('hash me if U can!!1!', Algorithms::SHA512, 'OMG!');
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidMessage()
+    {
+        //test hash compatibility
+        $rot_ed = Algorithms::hash('', Algorithms::SHA512, 'OMG!');
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidAlgorithm()
+    {
+        //test hash compatibility
+        $rot_ed = Algorithms::hash('my message', '74', 'OMG!');
+    }
+    
     public function testROT13()
     {
         $message = 'this is a small>example<to/test rot-13';
@@ -62,6 +89,14 @@ class HashingTest extends \PHPUnit_Framework_TestCase
     public function testBadHashPbkdf2()
     {
         Algorithms::pbkdf2('password', 'salt', 512, 3, 'bad-algo');
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBadAlgorithmPbkdf2()
+    {
+        Algorithms::pbkdf2('message', 'salt', 512, 3, '');
     }
 
     /**

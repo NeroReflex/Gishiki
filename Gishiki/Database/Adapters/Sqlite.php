@@ -88,6 +88,13 @@ final class Sqlite implements RelationalDatabaseInterface
     /**
      * {@inheritdoc}
      */
+    public function createTable($tbName) {
+        
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
     public function connected()
     {
         return $this->connected;

@@ -125,12 +125,14 @@ class SQLBuilder
         foreach ($values as $columnName => $columnValue) {
             $this->appendToParams($columnValue);
             if (!$first) {
-                $this->appendToQuery(',');
+                $this->appendToQuery(', ');
             }
-            $this->appendToQuery($columnName.' = ? ');
+            $this->appendToQuery($columnName.' = ?');
             
             $first = false;
         }
+        
+        $this->appendToQuery(' ');
         
         //chain functions calls
         return $this;

@@ -128,9 +128,9 @@ class SQLBuilderTest  extends \PHPUnit_Framework_TestCase
     
     public function testUpdateSetWhere() {
         $query = new SQLBuilder();
-        $query->update("users")->set(['name' => 'Gianni'])->where(SelectionCriteria::Select(['id' => 200]));
+        $query->update("users")->set(['name' => 'Gianni', 'surname' => 'Pinotto'])->where(SelectionCriteria::Select(['id' => 200]));
         
-        $this->assertEquals(self::filterQuery("UPDATE \"users\" SET name = ? WHERE id = ?"), self::filterQuery($query->exportQuery()));
-        $this->assertEquals(['Gianni', 200], $query->exportParams());
+        $this->assertEquals(self::filterQuery("UPDATE \"users\" SET name = ?, surname = ? WHERE id = ?"), self::filterQuery($query->exportQuery()));
+        $this->assertEquals(['Gianni', 'Pinotto', 200], $query->exportParams());
     }
 }

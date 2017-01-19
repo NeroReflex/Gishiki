@@ -17,9 +17,9 @@ limitations under the License.
 
 namespace Gishiki\Database\Adapters\Utils;
 
-use Gishiki\Database\SelectionCriteria;
-use Gishiki\Database\ResultModifier;
-use Gishiki\Database\FieldOrdering;
+use Gishiki\Database\Runtime\SelectionCriteria;
+use Gishiki\Database\Runtime\ResultModifier;
+use Gishiki\Database\Runtime\FieldOrdering;
 
 /**
  * This utility is useful to create sql queries for various RDBMS.

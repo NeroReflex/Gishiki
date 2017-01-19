@@ -18,6 +18,10 @@ limitations under the License.
 namespace Gishiki\Database;
 
 use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Database\Runtime\FieldOrdering;
+use Gishiki\Database\Runtime\FieldRelationship;
+use Gishiki\Database\Runtime\ResultModifier;
+use Gishiki\Database\Runtime\SelectionCriteria;
 
 /**
  * Represent how a database connection must be implemented.

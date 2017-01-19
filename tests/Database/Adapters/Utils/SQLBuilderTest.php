@@ -18,10 +18,10 @@ limitations under the License.
 namespace Gishiki\tests\Database\Adapters\Utils;
 
 use Gishiki\Database\Adapters\Utils\SQLBuilder;
-use Gishiki\Database\SelectionCriteria;
-use Gishiki\Database\FieldRelationship;
-use Gishiki\Database\ResultModifier;
-use Gishiki\Database\FieldOrdering;
+use Gishiki\Database\Runtime\SelectionCriteria;
+use Gishiki\Database\Runtime\FieldRelationship;
+use Gishiki\Database\Runtime\ResultModifier;
+use Gishiki\Database\Runtime\FieldOrdering;
 
 /**
  * The tester for the SQLBuilder class.

@@ -17,8 +17,8 @@ limitations under the License.
 
 namespace Gishiki\tests\Database;
 
-use Gishiki\Database\SelectionCriteria;
-use Gishiki\Database\FieldRelationship;
+use Gishiki\Database\Runtime\SelectionCriteria;
+use Gishiki\Database\Runtime\FieldRelationship;
 
 /**
  * The tester for the SelectionCriteria class.

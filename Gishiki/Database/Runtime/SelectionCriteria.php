@@ -15,9 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-namespace Gishiki\Database;
-
-use Gishiki\Database\FieldRelationship;
+namespace Gishiki\Database\Runtime;
 
 /**
  * This class is used to represent a selection criteria for database rows
@@ -60,7 +58,7 @@ final class SelectionCriteria
      * @param  string  $field        the name of the field/column to be related with the data
      * @param  integer $relationship the relationship between the field and the data
      * @param  mixed   $data         the data to be related with the field
-     * @return \Gishiki\Database\SelectionCriteria the updated selection criteria
+     * @return \Gishiki\Database\Runtime\SelectionCriteria the updated selection criteria
      * @throws \InvalidArgumentException one parameter has a wrong type
      */
     public function and_where($field, $relationship, $data)
@@ -105,7 +103,7 @@ final class SelectionCriteria
      * @param  string  $field        the name of the field/column to be related with the data
      * @param  integer $relationship the relationship between the field and the data
      * @param  mixed   $data         the data to be related with the field
-     * @return \Gishiki\Database\SelectionCriteria the updated selection criteria
+     * @return \Gishiki\Database\Runtime\SelectionCriteria the updated selection criteria
      * @throws \InvalidArgumentException one parameter has a wrong type
      */
     public function or_where($field, $relationship, $data)

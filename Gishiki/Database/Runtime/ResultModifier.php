@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\Database;
+namespace Gishiki\Database\Runtime;
 
 /**
  * An helper class used to modify the result set of a database read operation.
@@ -99,7 +99,7 @@ final class ResultModifier
      *
      * @param string $field the name of the field to be used for ordering
      * @param int $order the order to be applied (one of FieldOrdering consts)
-     * @return \Gishiki\Database\ResultModifier the modified filter
+     * @return \Gishiki\Database\Runtime\ResultModifier the modified filter
      * @throws \InvalidArgumentException passed input is not valid or incompatible type
      */
     public function order($field, $order)
@@ -126,7 +126,7 @@ final class ResultModifier
      * Change the limit of the elements in the result set.
      *
      * @param int $limit the maximum number of results that can be fetched from the database
-     * @return \Gishiki\Database\ResultModifier the modified filter
+     * @return \Gishiki\Database\Runtime\ResultModifier the modified filter
      * @throws \InvalidArgumentException passed input is not valid or incompatible type
      */
     public function limit($limit = -1)
@@ -150,7 +150,7 @@ final class ResultModifier
      * Change the offset of elements in the result set.
      *
      * @param int $offset the offset to be applied
-     * @return \Gishiki\Database\ResultModifier the modified filter
+     * @return \Gishiki\Database\Runtime\ResultModifier the modified filter
      * @throws \InvalidArgumentException passed input is not valid or incompatible type
      */
     public function skip($offset = -1)

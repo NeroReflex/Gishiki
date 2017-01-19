@@ -17,8 +17,8 @@ limitations under the License.
 
 namespace Gishiki\tests\Database;
 
-use Gishiki\Database\ResultModifier;
-use Gishiki\Database\FieldOrdering;
+use Gishiki\Database\Runtime\ResultModifier;
+use Gishiki\Database\Runtime\FieldOrdering;
 
 /**
  * The tester for the ResultModifier class.

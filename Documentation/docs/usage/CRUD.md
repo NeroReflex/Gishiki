@@ -37,8 +37,8 @@ a valid instance of SelectionCriteria:
 
 ```php
 use Gishiki\Database\DatabaseManager;
-use Gishiki\Database\SelectionCriteria;
-use Gishiki\Database\FieldRelationship;
+use Gishiki\Database\Runtime\SelectionCriteria;
+use Gishiki\Database\Runtime\FieldRelationship;
 
 $connection = DatabaseManager::Retrieve('connectionName');
 
@@ -55,8 +55,8 @@ The delete function only needs the name of the table/collection to be affected:
 
 ```php
 use Gishiki\Database\DatabaseManager;
-use Gishiki\Database\SelectionCriteria;
-use Gishiki\Database\FieldRelationship;
+use Gishiki\Database\Runtime\SelectionCriteria;
+use Gishiki\Database\Runtime\FieldRelationship;
 
 $connection = DatabaseManager::Retrieve('connectionName');
 

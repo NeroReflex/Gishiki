@@ -51,7 +51,7 @@
             "Gishiki\\": "Gishiki/"
         },
         "files": [
-            "Gishiki/frameworkSetup.php",
+            "Gishiki/bootstrap.php",
             "Gishiki/CLI/Setup.php"
         ]
     },

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Closure | Gishiki</title>
+	<title>Class Gishiki\Database\Schema\ColumnType | Gishiki</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -18,7 +18,7 @@
 		<div id="groups">
 				<h3>Namespaces</h3>
 			<ul>
-				<li>
+				<li class="active">
 					<a href="namespace-Gishiki.html">
 						Gishiki<span></span>
 					</a>
@@ -48,7 +48,7 @@
 
 						</li>
 							</ul></li>
-				<li>
+				<li class="active">
 					<a href="namespace-Gishiki.Database.html">
 						Database<span></span>
 					</a>
@@ -71,7 +71,7 @@
 						Runtime					</a>
 
 						</li>
-				<li>
+				<li class="active">
 					<a href="namespace-Gishiki.Database.Schema.html">
 						Schema					</a>
 
@@ -128,7 +128,7 @@
 						None					</a>
 
 						</li>
-				<li class="active">
+				<li>
 					<a href="namespace-PHP.html">
 						PHP					</a>
 
@@ -142,33 +142,12 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-ArrayIterator.html">ArrayIterator</a></li>
-				<li class="active"><a href="class-Closure.html">Closure</a></li>
-				<li><a href="class-DOMDocument.html">DOMDocument</a></li>
-				<li><a href="class-DOMElement.html">DOMElement</a></li>
-				<li><a href="class-DOMNode.html">DOMNode</a></li>
-			</ul>
-
-			<h3>Interfaces</h3>
-			<ul>
-				<li><a href="class-ArrayAccess.html">ArrayAccess</a></li>
-				<li><a href="class-Countable.html">Countable</a></li>
-				<li><a href="class-Iterator.html">Iterator</a></li>
-				<li><a href="class-IteratorAggregate.html">IteratorAggregate</a></li>
-				<li><a href="class-SeekableIterator.html">SeekableIterator</a></li>
-				<li><a href="class-Serializable.html">Serializable</a></li>
-				<li><a href="class-Throwable.html">Throwable</a></li>
-				<li><a href="class-Traversable.html">Traversable</a></li>
+				<li class="active"><a href="class-Gishiki.Database.Schema.ColumnType.html">ColumnType</a></li>
+				<li><a href="class-Gishiki.Database.Schema.TableColumn.html">TableColumn</a></li>
 			</ul>
 
 
-			<h3>Exceptions</h3>
-			<ul>
-				<li><a href="class-Exception.html">Exception</a></li>
-				<li><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></li>
-				<li><a href="class-LogicException.html">LogicException</a></li>
-				<li><a href="class-RuntimeException.html">RuntimeException</a></li>
-			</ul>
+
 
 
 		</div>
@@ -191,7 +170,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="namespace-PHP.html" title="Summary of PHP"><span>Namespace</span></a>
+				<a href="namespace-Gishiki.Database.Schema.html" title="Summary of Gishiki\Database\Schema"><span>Namespace</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -206,9 +185,12 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class Closure</h1>
+	<h1>Class ColumnType</h1>
 
 
+	<div class="description">
+	<p>A collection of data types that a column can store.</p>
+	</div>
 
 
 
@@ -219,118 +201,126 @@
 
 
 	<div class="info">
-		<b>Final</b><br>
-		<b>PHP Extension:</b> <a href="http://php.net/manual/en" title="Go to PHP documentation">Core</a><br>
+		<b>Abstract</b><br>
 		
+		<b>Namespace:</b> <a href="namespace-Gishiki.html">Gishiki</a>\<a href="namespace-Gishiki.Database.html">Database</a>\<a href="namespace-Gishiki.Database.Schema.html">Schema</a><br>
 		
 
-			<b>Documented at</b> <a href="http://php.net/manual/en/reserved.classes.php" title="Go to PHP documentation">php.net</a>
+				<b>Author:</b>
+				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.Schema.ColumnType.html#20-30" title="Go to source code">Gishiki/Database/Schema/ColumnType.php</a>
 		<br>
 	</div>
 
 
 
-	<table class="summary methods" id="methods">
-	<caption>Methods summary</caption>
-	<tr data-order="bind" id="_bind">
 
-		<td class="attributes"><code>
-			 public static
 
-			
-			
+
+
+
+
+
+
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="INTEGER" id="INTEGER">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Gishiki.Database.Schema.ColumnType.html#26" title="Go to source code"><b>INTEGER</b></a>
 			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
 		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_bind">#</a>
-		<code><a href="http://php.net/manual/en/reserved.classes.php" title="Go to PHP documentation">bind</a>( <span> <var>$closure</var></span>, <span> <var>$newthis</var></span>, <span> <var>$newscope</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
+		<td class="value">
+			<div>
+				<a href="#INTEGER" class="anchor">#</a>
+				<code><span class="php-num">0</span></code>
+			</div>
+		</td>
 	</tr>
-	<tr data-order="bindTo" id="_bindTo">
+	<tr data-order="TEXT" id="TEXT">
 
-		<td class="attributes"><code>
-			 public 
-
-			
-			
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Gishiki.Database.Schema.ColumnType.html#27" title="Go to source code"><b>TEXT</b></a>
 			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
 		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_bindTo">#</a>
-		<code><a href="http://php.net/manual/en/reserved.classes.php" title="Go to PHP documentation">bindTo</a>( <span> <var>$newthis</var></span>, <span> <var>$newscope</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
+		<td class="value">
+			<div>
+				<a href="#TEXT" class="anchor">#</a>
+				<code><span class="php-num">1</span></code>
+			</div>
+		</td>
 	</tr>
-	<tr data-order="call" id="_call">
+	<tr data-order="REAL" id="REAL">
 
-		<td class="attributes"><code>
-			 public 
-
-			
-			
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Gishiki.Database.Schema.ColumnType.html#28" title="Go to source code"><b>REAL</b></a>
 			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
 		</td>
+		<td class="value">
+			<div>
+				<a href="#REAL" class="anchor">#</a>
+				<code><span class="php-num">2</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="DATETIME" id="DATETIME">
 
-		<td class="name"><div>
-		<a class="anchor" href="#_call">#</a>
-		<code><a href="http://php.net/manual/en/reserved.classes.php" title="Go to PHP documentation">call</a>( <span> <var>$newthis</var></span>, <span> <var>$parameters</var></span> )</code>
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Gishiki.Database.Schema.ColumnType.html#29" title="Go to source code"><b>DATETIME</b></a>
+			</code>
 
-		<div class="description short">
-			
-		</div>
+			<div class="description short">
+				
+			</div>
 
-		<div class="description detailed hidden">
-			
+			<div class="description detailed hidden">
+				
 
-
-
-
-
-
-
-		</div>
-		</div></td>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#DATETIME" class="anchor">#</a>
+				<code><span class="php-num">3</span></code>
+			</div>
+		</td>
 	</tr>
 	</table>
-
-
-
-
-
-
-
-
 
 
 

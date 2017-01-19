@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\tests\Database;
+namespace Gishiki\tests\Database\Runtime;
 
 use Gishiki\Database\Runtime\ResultModifier;
 use Gishiki\Database\Runtime\FieldOrdering;

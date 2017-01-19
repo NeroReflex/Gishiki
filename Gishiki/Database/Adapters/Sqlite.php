@@ -134,6 +134,9 @@ final class Sqlite implements RelationalDatabaseInterface
 
             //execute the statement resolving placeholders
             $stmt->execute($queryBuilder->exportParams());
+            
+            //as per documentation return the id of the last inserted row
+            return $this->connection->lastInsertId();
         } catch (\PDOException $ex) {
             throw new DatabaseException('Error while performing the creation operation: '.$ex->getMessage(), 3);
         }
@@ -174,6 +177,9 @@ final class Sqlite implements RelationalDatabaseInterface
 
             //execute the statement resolving placeholders
             $stmt->execute($queryBuilder->exportParams());
+            
+            //return the number of affected rows
+            return $this->connection->rowCount();
         } catch (\PDOException $ex) {
             throw new DatabaseException('Error while performing the update operation: '.$ex->getMessage(), 4);
         }
@@ -205,6 +211,9 @@ final class Sqlite implements RelationalDatabaseInterface
 
             //execute the statement resolving placeholders
             $stmt->execute($queryBuilder->exportParams());
+            
+            //return the number of affected rows
+            return $this->connection->rowCount();
         } catch (\PDOException $ex) {
             throw new DatabaseException('Error while performing the delete operation: '.$ex->getMessage(), 5);
         }
@@ -235,6 +244,9 @@ final class Sqlite implements RelationalDatabaseInterface
 
             //execute the statement resolving placeholders
             $stmt->execute($queryBuilder->exportParams());
+            
+            //return the number of affected rows
+            return $this->connection->rowCount();
         } catch (\PDOException $ex) {
             throw new DatabaseException('Error while performing the delete operation: '.$ex->getMessage(), 5);
         }
@@ -267,9 +279,8 @@ final class Sqlite implements RelationalDatabaseInterface
             //execute the statement resolving placeholders
             $stmt->execute($queryBuilder->exportParams());
             
-            $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-            
-            return $results;
+            //return an associative array of data
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\PDOException $ex) {
             throw new DatabaseException('Error while performing the read operation: '.$ex->getMessage(), 6);
         }

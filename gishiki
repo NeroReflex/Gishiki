@@ -22,10 +22,10 @@ global $argv;
 global $argc;
 
 //include the base application and perform basic operations
-if (file_exists(__DIR__.'/vendor/autoload.php')) {
-    require __DIR__.'/vendor/autoload.php';
+if (file_exists(__DIR__.'/../vendor/autoload.php')) {
+    require __DIR__.'/../vendor/autoload.php';
 } else {
-    die("You have to run 'php composer.phar install' to complete the installation!");
+    die("You have to run 'composer install --no-dev' to complete the installation!");
 }
 
 use Gishiki\Gishiki;

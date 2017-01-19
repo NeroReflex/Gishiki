@@ -102,7 +102,7 @@ class SQLBuilder
      * @param  string $table the name of the table to be updated
      * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
      */
-    public function update($table)
+    public function &update($table)
     {
         $this->appendToQuery('UPDATE "'.$table.'" ');
         
@@ -116,7 +116,7 @@ class SQLBuilder
      * @param  array $values an associative array of columns => value to be changed
      * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
      */
-    public function set(array $values)
+    public function &set(array $values)
     {
         $this->appendToQuery('SET ');
 
@@ -144,7 +144,7 @@ class SQLBuilder
      * @param  SelectionCriteria $where the selection criteria
      * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
      */
-    public function where(SelectionCriteria $where)
+    public function &where(SelectionCriteria $where)
     {
         //execute the private function 'export'
         $exportMethod = new \ReflectionMethod($where, 'export');
@@ -199,7 +199,7 @@ class SQLBuilder
      * @param  string $table the name of the table to be affected
      * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
      */
-    public function insertInto($table)
+    public function &insertInto($table)
     {
         $this->appendToQuery('INSERT INTO "'.$table.'" ');
         
@@ -213,7 +213,7 @@ class SQLBuilder
      * @param  array $values an associative array of columnName => rowValue
      * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
      */
-    public function values(array $values)
+    public function &values(array $values)
     {
         $this->appendToQuery("(".implode(', ', array_keys($values)).") VALUES (");
         
@@ -240,7 +240,7 @@ class SQLBuilder
      * @param  ResultModifier $mod the result modifier
      * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
      */
-    public function limitOffsetOrderBy(ResultModifier $mod)
+    public function &limitOffsetOrderBy(ResultModifier $mod)
     {
         //execute the private function 'export'
         $exportMethod = new \ReflectionMethod($mod, 'export');
@@ -283,7 +283,7 @@ class SQLBuilder
      * @param  string $table the name of the table to be affected
      * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
      */
-    public function selectAllFrom($table)
+    public function &selectAllFrom($table)
     {
         $this->appendToQuery('SELECT * FROM "'.$table.'" ');
         
@@ -298,7 +298,7 @@ class SQLBuilder
      * @param  array  $fields the list containing names of columns to be selected
      * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
      */
-    public function selectFrom($table, array $fields)
+    public function &selectFrom($table, array $fields)
     {
         $this->appendToQuery('SELECT '.  implode(', ', $fields).' FROM "'.$table.'" ');
         
@@ -312,7 +312,7 @@ class SQLBuilder
      * @param  string $table the name of the table to be affected
      * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
      */
-    public function deleteFrom($table)
+    public function &deleteFrom($table)
     {
         $this->appendToQuery('DELETE FROM "'.$table.'" ');
         

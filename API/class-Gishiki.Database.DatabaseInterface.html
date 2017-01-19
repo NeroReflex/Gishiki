@@ -65,7 +65,13 @@
 						Utils					</a>
 
 						</li>
-							</ul></li></ul></li>
+							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.Database.Runtime.html">
+						Runtime					</a>
+
+						</li>
+							</ul></li>
 				<li>
 					<a href="namespace-Gishiki.HttpKernel.html">
 						HttpKernel					</a>
@@ -224,10 +230,6 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-Gishiki.Database.DatabaseManager.html">DatabaseManager</a></li>
-				<li><a href="class-Gishiki.Database.FieldOrdering.html">FieldOrdering</a></li>
-				<li><a href="class-Gishiki.Database.FieldRelationship.html">FieldRelationship</a></li>
-				<li><a href="class-Gishiki.Database.ResultModifier.html">ResultModifier</a></li>
-				<li><a href="class-Gishiki.Database.SelectionCriteria.html">SelectionCriteria</a></li>
 			</ul>
 
 			<h3>Interfaces</h3>
@@ -309,7 +311,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.DatabaseInterface.html#22-136" title="Go to source code">Gishiki/Database/DatabaseInterface.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.DatabaseInterface.html#26-140" title="Go to source code">Gishiki/Database/DatabaseInterface.php</a>
 		<br>
 	</div>
 
@@ -329,7 +331,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#29-37" title="Go to source code">__construct</a>( <span>string <var>$details</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#33-41" title="Go to source code">__construct</a>( <span>string <var>$details</var></span> )</code>
 
 		<div class="description short">
 			<p>Create a new database handler and logically connect the given database.</p>
@@ -369,7 +371,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_connect">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#39-47" title="Go to source code">connect</a>( <span>string <var>$details</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#43-51" title="Go to source code">connect</a>( <span>string <var>$details</var></span> )</code>
 
 		<div class="description short">
 			<p>Logically connect the given database.</p>
@@ -409,7 +411,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_connected">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#49-54" title="Go to source code">connected</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#53-58" title="Go to source code">connected</a>( )</code>
 
 		<div class="description short">
 			<p>Check if the database handler is connected with a real database.</p>
@@ -443,7 +445,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_create">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#56-67" title="Go to source code">create</a>( <span>string <var>$collection</var></span>, <span>array|CollectionInterface <var>$data</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#60-71" title="Go to source code">create</a>( <span>string <var>$collection</var></span>, <span>array|CollectionInterface <var>$data</var></span> )</code>
 
 		<div class="description short">
 			<p>Write data to the database on the given collection/table.</p>
@@ -492,7 +494,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_update">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#69-81" title="Go to source code">update</a>( <span>string <var>$collection</var></span>, <span>array|CollectionInterface <var>$data</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#73-85" title="Go to source code">update</a>( <span>string <var>$collection</var></span>, <span>array|CollectionInterface <var>$data</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></code> <var>$where</var></span> )</code>
 
 		<div class="description short">
 			<p>Update values of documents/records matching the given criteria.</p>
@@ -543,7 +545,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_delete">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#83-94" title="Go to source code">delete</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#87-98" title="Go to source code">delete</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></code> <var>$where</var></span> )</code>
 
 		<div class="description short">
 			<p>Remove documents/records matching the given criteria.</p>
@@ -592,7 +594,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteAll">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#96-106" title="Go to source code">deleteAll</a>( <span>string <var>$collection</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#100-110" title="Go to source code">deleteAll</a>( <span>string <var>$collection</var></span> )</code>
 
 		<div class="description short">
 			<p>Remove EVERY documents/records on the given collection/table.</p>
@@ -639,7 +641,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_read">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#108-120" title="Go to source code">read</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#112-124" title="Go to source code">read</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.ResultModifier.html">Gishiki\Database\Runtime\ResultModifier</a></code> <var>$mod</var></span> )</code>
 
 		<div class="description short">
 			<p>Fetch documents/records matching the given criteria.</p>
@@ -690,7 +692,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_readSelective">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#122-135" title="Go to source code">readSelective</a>( <span>string <var>$collection</var></span>, <span>array <var>$fields</var></span>, <span><code><a href="class-Gishiki.Database.SelectionCriteria.html">Gishiki\Database\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.ResultModifier.html">Gishiki\Database\ResultModifier</a></code> <var>$mod</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#126-139" title="Go to source code">readSelective</a>( <span>string <var>$collection</var></span>, <span>array <var>$fields</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.ResultModifier.html">Gishiki\Database\Runtime\ResultModifier</a></code> <var>$mod</var></span> )</code>
 
 		<div class="description short">
 			<p>Fetch documents/records matching the given criteria, but retrieve only the specified columns.</p>

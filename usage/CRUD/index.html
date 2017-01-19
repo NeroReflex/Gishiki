@@ -296,8 +296,8 @@ you have to call, on the desired database connection the <strong>delete</strong>
 <p>The delete function needs the name of the table/collection to be affected and
 a valid instance of SelectionCriteria:</p>
 <pre><code class="php">use Gishiki\Database\DatabaseManager;
-use Gishiki\Database\SelectionCriteria;
-use Gishiki\Database\FieldRelationship;
+use Gishiki\Database\Runtime\SelectionCriteria;
+use Gishiki\Database\Runtime\FieldRelationship;
 
 $connection = DatabaseManager::Retrieve('connectionName');
 
@@ -311,8 +311,8 @@ $connection-&gt;delete('tbname', SelectionCriteria::Select([
 using the <strong>deleteAll</strong> function.</p>
 <p>The delete function only needs the name of the table/collection to be affected:</p>
 <pre><code class="php">use Gishiki\Database\DatabaseManager;
-use Gishiki\Database\SelectionCriteria;
-use Gishiki\Database\FieldRelationship;
+use Gishiki\Database\Runtime\SelectionCriteria;
+use Gishiki\Database\Runtime\FieldRelationship;
 
 $connection = DatabaseManager::Retrieve('connectionName');
 

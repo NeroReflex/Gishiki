@@ -34,7 +34,7 @@ class HashingTest extends \PHPUnit_Framework_TestCase
         //test hash compatibility
         $rot_ed = Algorithms::hash('hash me if U can!!1!', Algorithms::SHA512, 'OMG!');
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -43,7 +43,7 @@ class HashingTest extends \PHPUnit_Framework_TestCase
         //test hash compatibility
         $rot_ed = Algorithms::hash('', Algorithms::SHA512);
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -52,7 +52,7 @@ class HashingTest extends \PHPUnit_Framework_TestCase
         //test hash compatibility
         $rot_ed = Algorithms::hash('my message', null);
     }
-    
+
     public function testROT13()
     {
         $message = 'this is a small>example<to/test rot-13';
@@ -74,7 +74,7 @@ class HashingTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Gishiki\Security\Hashing\HashingException
+     * @expectedException \Gishiki\Security\Hashing\HashingException
      */
     public function testBadAlgorithm()
     {
@@ -84,13 +84,13 @@ class HashingTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Gishiki\Security\Hashing\HashingException
+     * @expectedException \Gishiki\Security\Hashing\HashingException
      */
     public function testBadHashPbkdf2()
     {
         Algorithms::pbkdf2('password', 'salt', 512, 3, 'bad-algo');
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */

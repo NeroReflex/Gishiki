@@ -17,7 +17,6 @@ limitations under the License.
 
 namespace Gishiki\Database;
 
-use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Database\Runtime\ResultModifier;
 use Gishiki\Database\Runtime\SelectionCriteria;
 
@@ -98,7 +97,7 @@ interface DatabaseInterface
     /**
      * Remove EVERY documents/records on the given collection/table.
      *
-     * @param string            $collection the name of the collection that will be affected
+     * @param string $collection the name of the collection that will be affected
      * @throw \InvalidArgumentException the given collection name is not a valid collection name
      *
      * @throws DatabaseException the error occurred while removing data from the database
@@ -106,7 +105,7 @@ interface DatabaseInterface
      * @return int the number of removed documents/records
      */
     public function deleteAll($collection);
-    
+
     /**
      * Fetch documents/records matching the given criteria.
      *

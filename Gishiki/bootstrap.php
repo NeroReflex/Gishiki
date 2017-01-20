@@ -31,9 +31,9 @@ if (!defined('TESTING')) {
         });
     } else {
         $response->withStatus(501);
-        $response->write("Not implemented on the current machine");
+        $response->write('Not implemented on the current machine');
     }
-    
+
     Route::get('/info', function (Request $request, Response &$response) {
         $info = new SerializableCollection(
                 [

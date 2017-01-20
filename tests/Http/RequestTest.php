@@ -7,6 +7,7 @@
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\tests\Http;
 
 use ReflectionProperty;
@@ -90,7 +91,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Request::createFromEnvironment
+     * @covers \Gishiki\HttpKernel\Request::createFromEnvironment
      */
     public function testCreateFromEnvironment()
     {
@@ -106,7 +107,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Request::createFromEnvironment
+     * @covers \Gishiki\HttpKernel\Request::createFromEnvironment
      */
     public function testCreateFromEnvironmentWithMultipart()
     {
@@ -126,7 +127,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Request::createFromEnvironment
+     * @covers \Gishiki\HttpKernel\Request::createFromEnvironment
      */
     public function testCreateFromEnvironmentWithMultipartMethodOverride()
     {
@@ -575,8 +576,8 @@ class RequestTest extends \PHPUnit_Framework_TestCase
      ******************************************************************************/
 
     /**
-     * @covers Gishiki\HttpKernel\Request::withUploadedFiles
-     * @covers Gishiki\HttpKernel\Request::getUploadedFiles
+     * @covers \Gishiki\HttpKernel\Request::withUploadedFiles
+     * @covers \Gishiki\HttpKernel\Request::getUploadedFiles
      */
     public function testWithUploadedFiles()
     {
@@ -909,7 +910,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $cookies = [];
         $serverParams = [];
         $body = new RequestBody();
-        $xml = <<<XML
+        $xml = <<<'XML'
 <?xml version="1.0"?>
 <book>
     <id>bk101</id>
@@ -944,7 +945,7 @@ XML;
         $cookies = [];
         $serverParams = [];
         $body = new RequestBody();
-        $xml = <<<XML
+        $xml = <<<'XML'
 <?xml version="1.0"?>
 <CATALOG>
     <CD>

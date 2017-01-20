@@ -28,7 +28,7 @@ abstract class Gishiki
 {
     //this is the environment used to fulfill the incoming request
     public static $executionEnvironment = null;
-    
+
     //was the Run function already being executed?
     private static $executed = false;
 
@@ -70,7 +70,7 @@ abstract class Gishiki
         if (self::$executed) {
             return;
         }
-        
+
         //initialize the framework
         self::Initialize();
 
@@ -90,7 +90,7 @@ abstract class Gishiki
                 echo file_get_contents(__DIR__.DS.'no_application.html');
             }
         }
-        
+
         //the framework execution is complete
         self::$executed = true;
     }

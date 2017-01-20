@@ -220,7 +220,7 @@ namespace Gishiki\Core {
                         'MASTER_ASYMMETRIC_KEY' => $config['security']['serverKey'],
                     ],
 
-                    'CONNECTIONS' => (array_key_exists('connections', $config)) ? $config['connections'] : array()
+                    'CONNECTIONS' => (array_key_exists('connections', $config)) ? $config['connections'] : array(),
                 ];
             }
 
@@ -251,7 +251,7 @@ namespace Gishiki\Core {
             switch (strtoupper($property)) {
                 case 'DEVELOPMENT':
                     return $this->configuration['DEVELOPMENT_ENVIRONMENT'];
-                    
+
                 case 'LOG_CONNECTION_STRING':
                     return $this->configuration['AUTOLOG_URL'];
 

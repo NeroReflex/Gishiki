@@ -110,7 +110,7 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Gishiki\Security\Encryption\Symmetric\SymmetricException
+     * @expectedException \Gishiki\Security\Encryption\Symmetric\SymmetricException
      */
     public function testAES128BadKey()
     {
@@ -124,7 +124,7 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Gishiki\Security\Encryption\Symmetric\SymmetricException
+     * @expectedException \Gishiki\Security\Encryption\Symmetric\SymmetricException
      */
     public function testAES192BadKey()
     {
@@ -138,7 +138,7 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Gishiki\Security\Encryption\Symmetric\SymmetricException
+     * @expectedException \Gishiki\Security\Encryption\Symmetric\SymmetricException
      */
     public function testAES256BadKey()
     {

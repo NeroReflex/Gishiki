@@ -7,6 +7,7 @@
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\tests\Http;
 
 use Gishiki\HttpKernel\Headers;
@@ -19,7 +20,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
      ******************************************************************************/
 
     /**
-     * @covers Gishiki\HttpKernel\Message::getProtocolVersion
+     * @covers \Gishiki\HttpKernel\Message::getProtocolVersion
      */
     public function testGetProtocolVersion()
     {
@@ -30,7 +31,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Message::withProtocolVersion
+     * @covers \Gishiki\HttpKernel\Message::withProtocolVersion
      */
     public function testWithProtocolVersion()
     {
@@ -41,7 +42,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Message::withProtocolVersion
+     * @covers \Gishiki\HttpKernel\Message::withProtocolVersion
      * @expectedException \InvalidArgumentException
      */
     public function testWithProtocolVersionInvalidThrowsException()
@@ -55,7 +56,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
      ******************************************************************************/
 
     /**
-     * @covers Gishiki\HttpKernel\Message::getHeaders
+     * @covers \Gishiki\HttpKernel\Message::getHeaders
      */
     public function testGetHeaders()
     {
@@ -79,7 +80,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Message::hasHeader
+     * @covers \Gishiki\HttpKernel\Message::hasHeader
      */
     public function testHasHeader()
     {
@@ -94,7 +95,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Message::getHeaderLine
+     * @covers \Gishiki\HttpKernel\Message::getHeaderLine
      */
     public function testGetHeaderLine()
     {
@@ -111,7 +112,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Message::getHeader
+     * @covers \Gishiki\HttpKernel\Message::getHeader
      */
     public function testGetHeader()
     {
@@ -128,7 +129,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Message::withHeader
+     * @covers \Gishiki\HttpKernel\Message::withHeader
      */
     public function testWithHeader()
     {
@@ -142,7 +143,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Message::withAddedHeader
+     * @covers \Gishiki\HttpKernel\Message::withAddedHeader
      */
     public function testWithAddedHeader()
     {
@@ -156,7 +157,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Message::withoutHeader
+     * @covers \Gishiki\HttpKernel\Message::withoutHeader
      */
     public function testWithoutHeader()
     {
@@ -178,7 +179,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
      ******************************************************************************/
 
     /**
-     * @covers Gishiki\HttpKernel\Message::getBody
+     * @covers \Gishiki\HttpKernel\Message::getBody
      */
     public function testGetBody()
     {
@@ -190,7 +191,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Message::withBody
+     * @covers \Gishiki\HttpKernel\Message::withBody
      */
     public function testWithBody()
     {

@@ -61,7 +61,7 @@ class SerializableCollection extends GenericCollection
         if (!is_integer($format)) {
             throw new \InvalidArgumentException('Invalid serialization format');
         }
-        
+
         $result = '';
         switch ($format) {
 

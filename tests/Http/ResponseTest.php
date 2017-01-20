@@ -7,6 +7,7 @@
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\tests\Http;
 
 use ReflectionProperty;
@@ -150,7 +151,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Response::withRedirect
+     * @covers \Gishiki\HttpKernel\Response::withRedirect
      */
     public function testWithRedirect()
     {

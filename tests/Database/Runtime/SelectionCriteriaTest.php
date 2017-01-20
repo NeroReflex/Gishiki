@@ -30,102 +30,110 @@ class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    function testBadNameAnd() {
-        SelectionCriteria::Select([ 'a' => [3, 5, 6]])->and_where(3, FieldRelationship::EQUAL, "");
+    public function testBadNameAnd()
+    {
+        SelectionCriteria::Select(['a' => [3, 5, 6]])->and_where(3, FieldRelationship::EQUAL, '');
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
-    function testBadRelationshipAnd() {
-        SelectionCriteria::Select([ 'a' => [3, 5, 6]])->and_where('a', 'IDK', "");
+    public function testBadRelationshipAnd()
+    {
+        SelectionCriteria::Select(['a' => [3, 5, 6]])->and_where('a', 'IDK', '');
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
-    function testBadValueAnd() {
-        SelectionCriteria::Select([ 'a' => [3, 5, 6]])->and_where('a', FieldRelationship::EQUAL, new SelectionCriteria());
+    public function testBadValueAnd()
+    {
+        SelectionCriteria::Select(['a' => [3, 5, 6]])->and_where('a', FieldRelationship::EQUAL, new SelectionCriteria());
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
-    function testBadValueOr() {
-        SelectionCriteria::Select([ 'a' => [3, 5, 6]])->or_where('a', FieldRelationship::EQUAL, new SelectionCriteria());
+    public function testBadValueOr()
+    {
+        SelectionCriteria::Select(['a' => [3, 5, 6]])->or_where('a', FieldRelationship::EQUAL, new SelectionCriteria());
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
-    function testBadNameOr() {
-        SelectionCriteria::Select([ 'a' => [3, 5, 6]])->or_where(3, FieldRelationship::EQUAL, "");
+    public function testBadNameOr()
+    {
+        SelectionCriteria::Select(['a' => [3, 5, 6]])->or_where(3, FieldRelationship::EQUAL, '');
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
-    function testBadRelationshipOr() {
-        SelectionCriteria::Select([ 'a' => [3, 5, 6]])->or_where('a', 'IDK', "");
+    public function testBadRelationshipOr()
+    {
+        SelectionCriteria::Select(['a' => [3, 5, 6]])->or_where('a', 'IDK', '');
     }
-    
-    function testInitializerOnly() {
-        $sc = SelectionCriteria::Select([ 'a' => [3, 5, 6], 'b' => 96]);
-        
+
+    public function testInitializerOnly()
+    {
+        $sc = SelectionCriteria::Select(['a' => [3, 5, 6], 'b' => 96]);
+
         $exportMethod = new \ReflectionMethod($sc, 'export');
         $exportMethod->setAccessible(true);
         $resultModifierExported = $exportMethod->invoke($sc);
-        
+
         $this->assertEquals([
-            'historic' => [ 128, 129 ],
+            'historic' => [128, 129],
             'criteria' => [
                 'and' => [
                     [
                         0 => 'a',
                         1 => FieldRelationship::IN_RANGE,
-                        2 => [3, 5, 6]
+                        2 => [3, 5, 6],
                     ],
                     [
                         0 => 'b',
                         1 => FieldRelationship::EQUAL,
-                        2 => 96
-                    ]
+                        2 => 96,
+                    ],
                 ],
-                'or' => []
-            ]
+                'or' => [],
+            ],
         ], $resultModifierExported);
     }
-    
-    function testOrAfterInitializer() {
-        $sc = SelectionCriteria::Select([ 'a' => [3, 5, 6], 'b' => 96])->or_where('c', FieldRelationship::LIKE, '%test%');
-        
+
+    public function testOrAfterInitializer()
+    {
+        $sc = SelectionCriteria::Select(['a' => [3, 5, 6], 'b' => 96])->or_where('c', FieldRelationship::LIKE, '%test%');
+
         $exportMethod = new \ReflectionMethod($sc, 'export');
         $exportMethod->setAccessible(true);
         $resultModifierExported = $exportMethod->invoke($sc);
-        
+
         $this->assertEquals([
-            'historic' => [ 128, 129, 0 ],
+            'historic' => [128, 129, 0],
             'criteria' => [
                 'and' => [
                     [
                         0 => 'a',
                         1 => FieldRelationship::IN_RANGE,
-                        2 => [3, 5, 6]
+                        2 => [3, 5, 6],
                     ],
                     [
                         0 => 'b',
                         1 => FieldRelationship::EQUAL,
-                        2 => 96
-                    ]
+                        2 => 96,
+                    ],
                 ],
                 'or' => [
                     [
                         0 => 'c',
                         1 => FieldRelationship::LIKE,
-                        2 => '%test%'
-                    ]
-                ]
-            ]
+                        2 => '%test%',
+                    ],
+                ],
+            ],
         ], $resultModifierExported);
     }
 }

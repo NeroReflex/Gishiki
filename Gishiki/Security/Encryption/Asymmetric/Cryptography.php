@@ -62,7 +62,7 @@ abstract class Cryptography
         if (!$key->isLoaded()) {
             throw new AsymmetricException('It is impossible to generate a digital signature with an unloaded key', 11);
         }
-        
+
         //get the key in native format and its length
         $managedKey = $key();
 
@@ -78,7 +78,7 @@ abstract class Cryptography
             }
 
             //join the current encrypted chunk to the encrypted message
-            $completeMsg .=  (string) $encryptedChunk;
+            $completeMsg .= (string) $encryptedChunk;
         }
 
         //return the encrypted message base64-encoded
@@ -120,7 +120,7 @@ abstract class Cryptography
         if (!$key->isLoaded()) {
             throw new AsymmetricException('It is impossible to generate a digital signature with an unloaded key', 11);
         }
-        
+
         //get the key in native format and its length
         $managedKey = $key();
 
@@ -136,7 +136,7 @@ abstract class Cryptography
             }
 
             //join the current encrypted chunk to the encrypted message
-            $completeMsg .=  (string) $encryptedChunk;
+            $completeMsg .= (string) $encryptedChunk;
         }
 
         //return the encrypted message base64-encoded
@@ -178,7 +178,7 @@ abstract class Cryptography
         if ((!is_string($encryptedMsg)) || (strlen($encryptedMsg) <= 0)) {
             throw new \InvalidArgumentException('The encrypted message to be decrypted must be given as a non-empty string');
         }
-        
+
         //check for the public key
         if (!$key->isLoaded()) {
             throw new AsymmetricException('It is impossible to generate a digital signature with an unloaded key', 11);
@@ -243,7 +243,7 @@ abstract class Cryptography
         if ((!is_string($encryptedMsg)) || (strlen($encryptedMsg) <= 0)) {
             throw new \InvalidArgumentException('The encrypted message to be decrypted must be given as a non-empty string');
         }
-        
+
         //check for the private key
         if (!$key->isLoaded()) {
             throw new AsymmetricException('It is impossible to generate a digital signature with an unloaded key', 11);

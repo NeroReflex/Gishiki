@@ -41,7 +41,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         //attempt to perform the bad encryption
         Cryptography::encrypt($privateKey, 73);
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -54,7 +54,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         //attempt to reverse encrypt a bad message
         Cryptography::encryptReverse($pubKey, '');
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -73,7 +73,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         //attempt to perform the bad decryption
         $decryption_result = Cryptography::decrypt($publicKey, '');
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -86,7 +86,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         //attempt to reverse decrypt a bad message
          Cryptography::decryptReverse($privKey, '');
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -101,7 +101,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         //generate the signature
         Cryptography::generateDigitalSignature($privKey, '');
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -117,7 +117,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         $signature = Cryptography::generateDigitalSignature($privKey, $message);
         Cryptography::verifyDigitalSignature($pubKey, '', $signature);
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -133,7 +133,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         $signature = Cryptography::generateDigitalSignature($privKey, $message);
         Cryptography::verifyDigitalSignature($pubKey, $message, '');
     }
-    
+
     public function testEncryption()
     {
         $privateKey = new PrivateKey(PrivateKey::Generate());
@@ -189,7 +189,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Gishiki\Security\Encryption\Asymmetric\AsymmetricException
+     * @expectedException \Gishiki\Security\Encryption\Asymmetric\AsymmetricException
      */
     public function testBadDecryption()
     {

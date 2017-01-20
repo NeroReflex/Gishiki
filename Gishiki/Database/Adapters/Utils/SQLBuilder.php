@@ -46,34 +46,33 @@ use Gishiki\Database\Runtime\FieldOrdering;
  */
 class SQLBuilder
 {
-    
     /**
      * @var string the SQL query that contains placeholders
      */
     protected $sql;
-    
+
     /**
      * @var array a list of values to be escaped and inserted in place of sql placeholders
      */
     protected $params;
-    
+
     /**
      * Append to the current SQL the given text.
-     * 
+     *
      * Placeholders are question marks: ? and the value must be registered using
      * the appendToParams function.
-     * 
+     *
      * @param string $sql the SQL with '?' placeholders
      */
     protected function appendToQuery($sql)
     {
         $this->sql .= $sql;
     }
-    
+
     /**
      * This is a collection of raw values that the PDO will replace to ?
      * on the SQL query.
-     * 
+     *
      * @param mixed $newParams an array of values or the value to be replaced
      */
     protected function appendToParams($newParams)
@@ -86,35 +85,37 @@ class SQLBuilder
             $this->params[] = $newParams;
         }
     }
-    
+
     /**
-     * Initialize an empty SQL query
+     * Initialize an empty SQL query.
      */
     public function __construct()
     {
         $this->sql = '';
         $this->params = [];
     }
-    
+
     /**
      * Add UPDATE %tablename% to the SQL query.
-     * 
-     * @param  string $table the name of the table to be updated
-     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
+     *
+     * @param string $table the name of the table to be updated
+     *
+     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder the updated sql builder
      */
     public function &update($table)
     {
         $this->appendToQuery('UPDATE "'.$table.'" ');
-        
+
         //chain functions calls
         return $this;
     }
-    
+
     /**
      * Add SET col1 = ?, col2 = ?, col3 = ? to the SQL query.
-     * 
-     * @param  array $values an associative array of columns => value to be changed
-     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
+     *
+     * @param array $values an associative array of columns => value to be changed
+     *
+     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder the updated sql builder
      */
     public function &set(array $values)
     {
@@ -128,21 +129,22 @@ class SQLBuilder
                 $this->appendToQuery(', ');
             }
             $this->appendToQuery($columnName.' = ?');
-            
+
             $first = false;
         }
-        
+
         $this->appendToQuery(' ');
-        
+
         //chain functions calls
         return $this;
     }
-    
+
     /**
      * Add WHERE col1 = ? OR col2 <= ? ....... to the SQL query.
-     * 
-     * @param  SelectionCriteria $where the selection criteria
-     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
+     *
+     * @param SelectionCriteria $where the selection criteria
+     *
+     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder the updated sql builder
      */
     public function &where(SelectionCriteria $where)
     {
@@ -150,22 +152,22 @@ class SQLBuilder
         $exportMethod = new \ReflectionMethod($where, 'export');
         $exportMethod->setAccessible(true);
         $resultModifierExported = $exportMethod->invoke($where);
-        
+
         if (count($resultModifierExported['historic']) > 0) {
             $this->appendToQuery('WHERE ');
 
             $first = true;
             foreach ($resultModifierExported['historic'] as $current) {
-                $conjunction = "";
+                $conjunction = '';
 
                 $arrayIndex = $current & (~SelectionCriteria::AND_Historic_Marker);
                 $arrayConjunction = '';
 
                 if (($current & (SelectionCriteria::AND_Historic_Marker)) != 0) {
-                    $conjunction = (!$first) ? " AND " : " ";
+                    $conjunction = (!$first) ? ' AND ' : ' ';
                     $arrayConjunction = 'and';
                 } else {
-                    $conjunction = (!$first) ? " OR " : " ";
+                    $conjunction = (!$first) ? ' OR ' : ' ';
                     $arrayConjunction = 'or';
                 }
 
@@ -188,35 +190,37 @@ class SQLBuilder
                 $first = false;
             }
         }
-        
+
         //chain functions calls
         return $this;
     }
-    
+
     /**
      * Add INSERT INTO %tablename% to the SQL query.
-     * 
-     * @param  string $table the name of the table to be affected
-     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
+     *
+     * @param string $table the name of the table to be affected
+     *
+     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder the updated sql builder
      */
     public function &insertInto($table)
     {
         $this->appendToQuery('INSERT INTO "'.$table.'" ');
-        
+
         //chain functions calls
         return $this;
     }
-    
+
     /**
      * Add (col1, col2, col3) VALUES (?, ?, ?, ?) to the SQL query.
-     * 
-     * @param  array $values an associative array of columnName => rowValue
-     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
+     *
+     * @param array $values an associative array of columnName => rowValue
+     *
+     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder the updated sql builder
      */
     public function &values(array $values)
     {
-        $this->appendToQuery("(".implode(', ', array_keys($values)).") VALUES (");
-        
+        $this->appendToQuery('('.implode(', ', array_keys($values)).') VALUES (');
+
         //create the sql placeholder resolver
         $first = true;
         foreach ($values as $columnValue) {
@@ -227,18 +231,19 @@ class SQLBuilder
             $this->appendToQuery('?');
             $first = false;
         }
-        
+
         $this->appendToQuery(')');
-        
+
         //chain functions calls
         return $this;
     }
-    
+
     /**
      * Add LIMIT ? OFFSET ? ORDER BY ..... to the SQL query wheter they are needed.
-     * 
-     * @param  ResultModifier $mod the result modifier
-     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
+     *
+     * @param ResultModifier $mod the result modifier
+     *
+     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder the updated sql builder
      */
     public function &limitOffsetOrderBy(ResultModifier $mod)
     {
@@ -246,17 +251,17 @@ class SQLBuilder
         $exportMethod = new \ReflectionMethod($mod, 'export');
         $exportMethod->setAccessible(true);
         $resultModifierExported = $exportMethod->invoke($mod);
-        
+
         //append limit if needed
         if ($resultModifierExported['limit'] > 0) {
             $this->appendToQuery('LIMIT '.$resultModifierExported['limit'].' ');
         }
-        
+
         //append offset if needed
         if ($resultModifierExported['skip'] > 0) {
             $this->appendToQuery('OFFSET '.$resultModifierExported['skip'].' ');
         }
-        
+
         //append order if needed
         if (count($resultModifierExported['order']) > 0) {
             $this->appendToQuery('ORDER BY ');
@@ -265,61 +270,64 @@ class SQLBuilder
                 if (!$first) {
                     $this->appendToQuery(', ');
                 }
-                
+
                 $orderStr = ($order == FieldOrdering::ASC) ? 'ASC' : 'DESC';
                 $this->appendToQuery($column.' '.$orderStr);
-                
+
                 $first = false;
             }
         }
-        
+
         //chain functions calls
         return $this;
     }
-    
+
     /**
      * Add SELECT * FROM  %tablename% to the SQL query.
-     * 
-     * @param  string $table the name of the table to be affected
-     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
+     *
+     * @param string $table the name of the table to be affected
+     *
+     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder the updated sql builder
      */
     public function &selectAllFrom($table)
     {
         $this->appendToQuery('SELECT * FROM "'.$table.'" ');
-        
+
         //chain functions calls
         return $this;
     }
-    
+
     /**
      * Add SELECT col1, col2, col3 FROM %tablename% to the SQL query.
-     * 
-     * @param  string $table the name of the table to be affected
-     * @param  array  $fields the list containing names of columns to be selected
-     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
+     *
+     * @param string $table  the name of the table to be affected
+     * @param array  $fields the list containing names of columns to be selected
+     *
+     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder the updated sql builder
      */
     public function &selectFrom($table, array $fields)
     {
-        $this->appendToQuery('SELECT '.  implode(', ', $fields).' FROM "'.$table.'" ');
-        
+        $this->appendToQuery('SELECT '.implode(', ', $fields).' FROM "'.$table.'" ');
+
         //chain functions calls
         return $this;
     }
-    
+
     /**
      * Add DELETE FROM  %tablename% to the SQL query.
-     * 
-     * @param  string $table the name of the table to be affected
-     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder  the updated sql builder
+     *
+     * @param string $table the name of the table to be affected
+     *
+     * @return \Gishiki\Database\Adapters\Utils\SQLBuilder the updated sql builder
      */
     public function &deleteFrom($table)
     {
         $this->appendToQuery('DELETE FROM "'.$table.'" ');
-        
+
         //chain functions calls
         return $this;
     }
-    
+
     /**
      * Export the SQL query string with ? in place of actual parameters.
      *
@@ -329,7 +337,7 @@ class SQLBuilder
     {
         return $this->sql;
     }
-    
+
     /**
      * Export the list of parameters that will replace ? in the SQL query.
      *

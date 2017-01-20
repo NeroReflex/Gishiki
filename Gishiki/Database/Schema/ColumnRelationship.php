@@ -18,14 +18,32 @@ limitations under the License.
 namespace Gishiki\Database\Schema;
 
 /**
- * A collection of data types that a column can store.
+ * Represent a column inside a table of a relational database.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-abstract class ColumnType
+final class ColumnRelationship
 {
-    const INTEGER = 0;
-    const TEXT = 1;
-    const REAL = 2;
-    const DATETIME = 3;
+    /**
+     * @var Column the column of the current table
+     */
+    protected $column;
+
+    /**
+     * @var Column the foreign key column (in another table)
+     */
+    protected $foreignKey;
+
+    public function __construct(Column &$column, Column &$foreignColumn)
+    {
+        //oh come one.... you cannot create a reference to a column in the sable table
+        if ($column->getTable() == $foreignColumn->getTable()) {
+            
+        }
+        
+        //and I hope you are not going to reference something that is not a primary key
+        if ($foreignColumn->getPrimaryKey()) {
+            
+        }
+    }
 }

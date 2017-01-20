@@ -117,7 +117,7 @@ cf1zSJX0I5GEo9EIBb2r7cFNdOLa02qTL/IO4a3c5NbHqmDBqyfh9lpU6Do=
     }
 
     /**
-     * @expectedException Gishiki\Security\Encryption\Asymmetric\AsymmetricException
+     * @expectedException \Gishiki\Security\Encryption\Asymmetric\AsymmetricException
      */
     public function testFakePrivateKeyload()
     {

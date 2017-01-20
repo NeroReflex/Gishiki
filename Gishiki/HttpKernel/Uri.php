@@ -7,6 +7,7 @@
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\HttpKernel;
 
 use Gishiki\Core\Environment;
@@ -101,14 +102,14 @@ class Uri implements UriInterface
     /**
      * Create new Uri.
      *
-     * @param string $scheme   Uri scheme.
-     * @param string $host     Uri host.
-     * @param int    $port     Uri port number.
-     * @param string $path     Uri path.
-     * @param string $query    Uri query string.
-     * @param string $fragment Uri fragment.
-     * @param string $user     Uri user.
-     * @param string $password Uri password.
+     * @param string $scheme   Uri scheme
+     * @param string $host     Uri host
+     * @param int    $port     Uri port number
+     * @param string $path     Uri path
+     * @param string $query    Uri query string
+     * @param string $fragment Uri fragment
+     * @param string $user     Uri user
+     * @param string $password Uri password
      */
     public function __construct($scheme, $host, $port = null, $path = '/', $query = '', $fragment = '', $user = '', $password = '')
     {
@@ -126,7 +127,7 @@ class Uri implements UriInterface
      * Create new Uri from string.
      *
      * @param string $uri Complete Uri string
-     *                    (i.e., https://user:pass@host:443/path?query).
+     *                    (i.e., https://user:pass@host:443/path?query)
      *
      * @return self
      */
@@ -241,7 +242,7 @@ class Uri implements UriInterface
      *
      * @see https://tools.ietf.org/html/rfc3986#section-3.1
      *
-     * @return string The URI scheme.
+     * @return string The URI scheme
      */
     public function getScheme()
     {
@@ -259,11 +260,11 @@ class Uri implements UriInterface
      *
      * An empty scheme is equivalent to removing the scheme.
      *
-     * @param string $scheme The scheme to use with the new instance.
+     * @param string $scheme The scheme to use with the new instance
      *
-     * @return self A new instance with the specified scheme.
+     * @return self A new instance with the specified scheme
      *
-     * @throws \InvalidArgumentException for invalid or unsupported schemes.
+     * @throws \InvalidArgumentException for invalid or unsupported schemes
      */
     public function withScheme($scheme)
     {
@@ -277,12 +278,12 @@ class Uri implements UriInterface
     /**
      * Filter Uri scheme.
      *
-     * @param string $scheme Raw Uri scheme.
+     * @param string $scheme Raw Uri scheme
      *
      * @return string
      *
-     * @throws InvalidArgumentException If the Uri scheme is not a string.
-     * @throws InvalidArgumentException If Uri scheme is not "", "https", or "http".
+     * @throws InvalidArgumentException If the Uri scheme is not a string
+     * @throws InvalidArgumentException If Uri scheme is not "", "https", or "http"
      */
     protected function filterScheme($scheme)
     {
@@ -325,7 +326,7 @@ class Uri implements UriInterface
      *
      * @see https://tools.ietf.org/html/rfc3986#section-3.2
      *
-     * @return string The URI authority, in "[user-info@]host[:port]" format.
+     * @return string The URI authority, in "[user-info@]host[:port]" format
      */
     public function getAuthority()
     {
@@ -349,7 +350,7 @@ class Uri implements UriInterface
      * The trailing "@" character is not part of the user information and MUST
      * NOT be added.
      *
-     * @return string The URI user information, in "username[:password]" format.
+     * @return string The URI user information, in "username[:password]" format
      */
     public function getUserInfo()
     {
@@ -366,10 +367,10 @@ class Uri implements UriInterface
      * user; an empty string for the user is equivalent to removing user
      * information.
      *
-     * @param string      $user     The user name to use for authority.
-     * @param null|string $password The password associated with $user.
+     * @param string      $user     The user name to use for authority
+     * @param null|string $password The password associated with $user
      *
-     * @return self A new instance with the specified user information.
+     * @return self A new instance with the specified user information
      */
     public function withUserInfo($user, $password = null)
     {
@@ -390,7 +391,7 @@ class Uri implements UriInterface
      *
      * @see http://tools.ietf.org/html/rfc3986#section-3.2.2
      *
-     * @return string The URI host.
+     * @return string The URI host
      */
     public function getHost()
     {
@@ -405,11 +406,11 @@ class Uri implements UriInterface
      *
      * An empty host value is equivalent to removing the host.
      *
-     * @param string $host The hostname to use with the new instance.
+     * @param string $host The hostname to use with the new instance
      *
-     * @return self A new instance with the specified host.
+     * @return self A new instance with the specified host
      *
-     * @throws \InvalidArgumentException for invalid hostnames.
+     * @throws \InvalidArgumentException for invalid hostnames
      */
     public function withHost($host)
     {
@@ -432,7 +433,7 @@ class Uri implements UriInterface
      * If no port is present, but a scheme is present, this method MAY return
      * the standard port for that scheme, but SHOULD return null.
      *
-     * @return null|int The URI port.
+     * @return null|int The URI port
      */
     public function getPort()
     {
@@ -452,11 +453,11 @@ class Uri implements UriInterface
      * information.
      *
      * @param null|int $port The port to use with the new instance; a null value
-     *                       removes the port information.
+     *                       removes the port information
      *
-     * @return self A new instance with the specified port.
+     * @return self A new instance with the specified port
      *
-     * @throws \InvalidArgumentException for invalid ports.
+     * @throws \InvalidArgumentException for invalid ports
      */
     public function withPort($port)
     {
@@ -480,11 +481,11 @@ class Uri implements UriInterface
     /**
      * Filter Uri port.
      *
-     * @param null|int $port The Uri port number.
+     * @param null|int $port The Uri port number
      *
      * @return null|int
      *
-     * @throws InvalidArgumentException If the port is invalid.
+     * @throws InvalidArgumentException If the port is invalid
      */
     protected function filterPort($port)
     {
@@ -523,7 +524,7 @@ class Uri implements UriInterface
      * @see https://tools.ietf.org/html/rfc3986#section-2
      * @see https://tools.ietf.org/html/rfc3986#section-3.3
      *
-     * @return string The URI path.
+     * @return string The URI path
      */
     public function getPath()
     {
@@ -548,11 +549,11 @@ class Uri implements UriInterface
      * Users can provide both encoded and decoded path characters.
      * Implementations ensure the correct encoding as outlined in getPath().
      *
-     * @param string $path The path to use with the new instance.
+     * @param string $path The path to use with the new instance
      *
-     * @return self A new instance with the specified path.
+     * @return self A new instance with the specified path
      *
-     * @throws \InvalidArgumentException for invalid paths.
+     * @throws \InvalidArgumentException for invalid paths
      */
     public function withPath($path)
     {
@@ -579,7 +580,7 @@ class Uri implements UriInterface
      * This method MUST return a string; if no path is present it MUST return
      * an empty string.
      *
-     * @return string The base path segment of the URI.
+     * @return string The base path segment of the URI
      */
     public function getBasePath()
     {
@@ -620,9 +621,9 @@ class Uri implements UriInterface
      * will NOT double-encode characters that are already
      * percent-encoded.
      *
-     * @param string $path The raw uri path.
+     * @param string $path The raw uri path
      *
-     * @return string The RFC 3986 percent-encoded uri path.
+     * @return string The RFC 3986 percent-encoded uri path
      *
      * @link   http://www.faqs.org/rfcs/rfc3986.html
      */
@@ -660,7 +661,7 @@ class Uri implements UriInterface
      * @see https://tools.ietf.org/html/rfc3986#section-2
      * @see https://tools.ietf.org/html/rfc3986#section-3.4
      *
-     * @return string The URI query string.
+     * @return string The URI query string
      */
     public function getQuery()
     {
@@ -678,11 +679,11 @@ class Uri implements UriInterface
      *
      * An empty query string value is equivalent to removing the query string.
      *
-     * @param string $query The query string to use with the new instance.
+     * @param string $query The query string to use with the new instance
      *
-     * @return self A new instance with the specified query string.
+     * @return self A new instance with the specified query string
      *
-     * @throws \InvalidArgumentException for invalid query strings.
+     * @throws \InvalidArgumentException for invalid query strings
      */
     public function withQuery($query)
     {
@@ -699,9 +700,9 @@ class Uri implements UriInterface
     /**
      * Filters the query string or fragment of a URI.
      *
-     * @param string $query The raw uri query string.
+     * @param string $query The raw uri query string
      *
-     * @return string The percent-encoded query string.
+     * @return string The percent-encoded query string
      */
     protected function filterQuery($query)
     {
@@ -733,7 +734,7 @@ class Uri implements UriInterface
      * @see https://tools.ietf.org/html/rfc3986#section-2
      * @see https://tools.ietf.org/html/rfc3986#section-3.5
      *
-     * @return string The URI fragment.
+     * @return string The URI fragment
      */
     public function getFragment()
     {
@@ -751,9 +752,9 @@ class Uri implements UriInterface
      *
      * An empty fragment value is equivalent to removing the fragment.
      *
-     * @param string $fragment The fragment to use with the new instance.
+     * @param string $fragment The fragment to use with the new instance
      *
-     * @return self A new instance with the specified fragment.
+     * @return self A new instance with the specified fragment
      */
     public function withFragment($fragment)
     {

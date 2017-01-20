@@ -18,20 +18,18 @@ limitations under the License.
 namespace Gishiki\tests\Security\Encryption\Symmetric;
 
 use Gishiki\Security\Encryption\Symmetric\SecretKey;
-use Gishiki\Security\Encryption\Symmetric\Cryptography;
 
 /**
  * Tests for the SecretKey class.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class KeyTest extends \PHPUnit_Framework_TestCase {
-    
-    public function testKeyExport() {
-        
-        $key = new Secretkey("6578616d706c65206865782064617461");
-        
-        $this->assertEquals("6578616d706c65206865782064617461", ''.$key);
+class KeyTest extends \PHPUnit_Framework_TestCase
+{
+    public function testKeyExport()
+    {
+        $key = new Secretkey('6578616d706c65206865782064617461');
+
+        $this->assertEquals('6578616d706c65206865782064617461', ''.$key);
     }
-    
 }

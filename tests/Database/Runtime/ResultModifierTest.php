@@ -34,7 +34,7 @@ class ResultModifierTest extends \PHPUnit_Framework_TestCase
     {
         ResultModifier::Initialize('only array and null are allowed here!');
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -42,10 +42,10 @@ class ResultModifierTest extends \PHPUnit_Framework_TestCase
     {
         $resMod = ResultModifier::Initialize([
             'limit' => 5,
-            'skip' => 8
-        ])->limit("bad")->skip(5);
+            'skip' => 8,
+        ])->limit('bad')->skip(5);
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -53,10 +53,10 @@ class ResultModifierTest extends \PHPUnit_Framework_TestCase
     {
         $resMod = ResultModifier::Initialize([
             'limit' => 5,
-            'skip' => 8
-        ])->limit(10)->skip("bad");
+            'skip' => 8,
+        ])->limit(10)->skip('bad');
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -64,10 +64,10 @@ class ResultModifierTest extends \PHPUnit_Framework_TestCase
     {
         $resMod = ResultModifier::Initialize([
             'limit' => 5,
-            'skip' => 8
+            'skip' => 8,
         ])->order(null, FieldOrdering::ASC);
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -75,70 +75,70 @@ class ResultModifierTest extends \PHPUnit_Framework_TestCase
     {
         $resMod = ResultModifier::Initialize([
             'limit' => 5,
-            'skip' => 8
-        ])->order("name", null);
+            'skip' => 8,
+        ])->order('name', null);
     }
-    
+
     public function testLimitAndOffset()
     {
         $exportResult = [
             'limit' => 8,
             'skip' => 5,
-            'order' => [ ]
+            'order' => [],
         ];
-        
+
         $resMod = ResultModifier::Initialize([
             'limit' => 5,
-            'skip' => 8
+            'skip' => 8,
         ])->limit(8)->skip(5);
-        
+
         $exportMethod = new \ReflectionMethod($resMod, 'export');
         $exportMethod->setAccessible(true);
 
         $this->assertEquals($exportResult, $exportMethod->invoke($resMod));
     }
-    
+
     public function testOrdering()
     {
         $exportResult = [
             'limit' => 0,
             'skip' => 0,
             'order' => [
-                "name" => FieldOrdering::ASC,
-                "surname" => FieldOrdering::ASC,
-                "year" =>  FieldOrdering::DESC,
-            ]
+                'name' => FieldOrdering::ASC,
+                'surname' => FieldOrdering::ASC,
+                'year' => FieldOrdering::DESC,
+            ],
         ];
-        
-        $resMod = ResultModifier::Initialize([ ])
-                ->order("name", FieldOrdering::ASC)
-                ->order("surname", FieldOrdering::ASC)
-                ->order("year", FieldOrdering::DESC);
-        
+
+        $resMod = ResultModifier::Initialize([])
+                ->order('name', FieldOrdering::ASC)
+                ->order('surname', FieldOrdering::ASC)
+                ->order('year', FieldOrdering::DESC);
+
         $exportMethod = new \ReflectionMethod($resMod, 'export');
         $exportMethod->setAccessible(true);
 
         $this->assertEquals($exportResult, $exportMethod->invoke($resMod));
     }
-    
+
     public function testOrderingOnInitializer()
     {
         $exportResult = [
             'limit' => 0,
             'skip' => 0,
             'order' => [
-                "name" => FieldOrdering::ASC,
-                "surname" => FieldOrdering::ASC,
-                "year" =>  FieldOrdering::DESC,
-            ]
+                'name' => FieldOrdering::ASC,
+                'surname' => FieldOrdering::ASC,
+                'year' => FieldOrdering::DESC,
+            ],
         ];
-        
+
         $resMod = ResultModifier::Initialize([
-            "name" => FieldOrdering::ASC,
-            "surname" => FieldOrdering::ASC,
-            "year" => FieldOrdering::DESC,
+            'name' => FieldOrdering::ASC,
+            'surname' => FieldOrdering::ASC,
+            'year' => FieldOrdering::DESC,
         ]);
-        
+
         $exportMethod = new \ReflectionMethod($resMod, 'export');
         $exportMethod->setAccessible(true);
 

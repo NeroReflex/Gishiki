@@ -17,7 +17,6 @@ limitations under the License.
 
 namespace Gishiki\Database;
 
-use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Database\Runtime\ResultModifier;
 use Gishiki\Database\Runtime\SelectionCriteria;
 
@@ -26,8 +25,8 @@ use Gishiki\Database\Runtime\SelectionCriteria;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-interface RelationalDatabaseInterface extends DatabaseInterface {
-    
+interface RelationalDatabaseInterface extends DatabaseInterface
+{
     /**
      * Fetch documents/records matching the given criteria, but retrieve only the specified columns.
      *
@@ -42,7 +41,6 @@ interface RelationalDatabaseInterface extends DatabaseInterface {
      * @return array the search result expressed as an array of associative arrays
      */
     public function readSelective($collection, $fields, SelectionCriteria $where, ResultModifier $mod);
-    
+
     public function createTable($tbName);
-    
 }

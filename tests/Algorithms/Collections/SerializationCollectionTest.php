@@ -147,7 +147,7 @@ class SerializationCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testYamlDeserialization()
     {
-        $yaml = <<<EOD
+        $yaml = <<<'EOD'
 --- !clarkevans.com/^invoice
 invoice: 34843
 date: "2001-01-23"
@@ -246,7 +246,7 @@ EOD;
     }
 
     /**
-     * @expectedException Gishiki\Algorithms\Collections\DeserializationException
+     * @expectedException \Gishiki\Algorithms\Collections\DeserializationException
      */
     public function testNotStringJsonDeserialization()
     {
@@ -254,7 +254,7 @@ EOD;
     }
 
     /**
-     * @expectedException Gishiki\Algorithms\Collections\DeserializationException
+     * @expectedException \Gishiki\Algorithms\Collections\DeserializationException
      */
     public function testNotStringXmlDeserialization()
     {
@@ -262,7 +262,7 @@ EOD;
     }
 
     /**
-     * @expectedException Gishiki\Algorithms\Collections\DeserializationException
+     * @expectedException \Gishiki\Algorithms\Collections\DeserializationException
      */
     public function testNotStringYamlDeserialization()
     {
@@ -270,7 +270,7 @@ EOD;
     }
 
     /**
-     * @expectedException Gishiki\Algorithms\Collections\DeserializationException
+     * @expectedException \Gishiki\Algorithms\Collections\DeserializationException
      */
     public function testBadDeserializator()
     {
@@ -278,7 +278,7 @@ EOD;
     }
 
     /**
-     * @expectedException Gishiki\Algorithms\Collections\DeserializationException
+     * @expectedException \Gishiki\Algorithms\Collections\DeserializationException
      */
     public function testBadYamlDeserialization()
     {
@@ -290,11 +290,11 @@ language:';
     }
 
     /**
-     * @expectedException Gishiki\Algorithms\Collections\DeserializationException
+     * @expectedException \Gishiki\Algorithms\Collections\DeserializationException
      */
     public function testBadXmlDeserialization()
     {
-        $badXml = <<<XML
+        $badXml = <<<'XML'
 <root>probl<em>
                 </root>
                 
@@ -304,15 +304,15 @@ XML;
     }
 
     /**
-     * @expectedException Gishiki\Algorithms\Collections\DeserializationException
+     * @expectedException \Gishiki\Algorithms\Collections\DeserializationException
      */
     public function testBadJsonDeserialization()
     {
         SerializableCollection::deserialize('bad json', SerializableCollection::JSON);
     }
-    
+
     /**
-     * @expectedException Gishiki\Algorithms\Collections\SerializationException
+     * @expectedException \Gishiki\Algorithms\Collections\SerializationException
      */
     public function testUnknownSerializationException()
     {
@@ -324,7 +324,7 @@ XML;
             'f' => [1, 2, 3, 4],
         ]))->serialize(255);
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -338,9 +338,9 @@ XML;
             'f' => [1, 2, 3, 4],
         ]))->serialize('WTF?!?');
     }
-    
+
     /**
-     * @expectedException Gishiki\Algorithms\Collections\SerializationException
+     * @expectedException \Gishiki\Algorithms\Collections\SerializationException
      */
     public function testBadSerializationException()
     {
@@ -351,9 +351,9 @@ XML;
             'e' => true,
             'f' => [1, 2, 3, 4],
         ]));
-        
-        $obj->set("bad_chars", "\xB1\x31");
-        
+
+        $obj->set('bad_chars', "\xB1\x31");
+
         $obj->serialize();
     }
 }

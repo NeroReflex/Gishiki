@@ -7,6 +7,7 @@
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\HttpKernel;
 
 use InvalidArgumentException;
@@ -77,9 +78,9 @@ class Stream implements StreamInterface
     /**
      * Create a new Stream.
      *
-     * @param resource $stream A PHP resource handle.
+     * @param resource $stream A PHP resource handle
      *
-     * @throws InvalidArgumentException If argument is not a resource.
+     * @throws InvalidArgumentException If argument is not a resource
      */
     public function __construct($stream)
     {
@@ -94,11 +95,11 @@ class Stream implements StreamInterface
      *
      * @link http://php.net/manual/en/function.stream-get-meta-data.php
      *
-     * @param string $key Specific metadata to retrieve.
+     * @param string $key Specific metadata to retrieve
      *
      * @return array|mixed|null Returns an associative array if no key is
      *                          provided. Returns a specific key value if a key is provided and the
-     *                          value is found, or null if the key is not found.
+     *                          value is found, or null if the key is not found
      */
     public function getMetadata($key = null)
     {
@@ -127,9 +128,9 @@ class Stream implements StreamInterface
      *
      * Note: This method is not part of the PSR-7 standard.
      *
-     * @param resource $newStream A PHP resource handle.
+     * @param resource $newStream A PHP resource handle
      *
-     * @throws InvalidArgumentException If argument is not a valid PHP resource.
+     * @throws InvalidArgumentException If argument is not a valid PHP resource
      */
     protected function attach($newStream)
     {
@@ -209,7 +210,7 @@ class Stream implements StreamInterface
     /**
      * Get the size of the stream if known.
      *
-     * @return int|null Returns the size in bytes if known, or null if unknown.
+     * @return int|null Returns the size in bytes if known, or null if unknown
      */
     public function getSize()
     {
@@ -226,7 +227,7 @@ class Stream implements StreamInterface
      *
      * @return int Position of the file pointer
      *
-     * @throws RuntimeException on error.
+     * @throws RuntimeException on error
      */
     public function tell()
     {
@@ -321,9 +322,9 @@ class Stream implements StreamInterface
      *                    based on the seek offset. Valid values are identical to the built-in
      *                    PHP $whence values for `fseek()`.  SEEK_SET: Set position equal to
      *                    offset bytes SEEK_CUR: Set position to current location plus offset
-     *                    SEEK_END: Set position to end-of-stream plus offset.
+     *                    SEEK_END: Set position to end-of-stream plus offset
      *
-     * @throws RuntimeException on failure.
+     * @throws RuntimeException on failure
      */
     public function seek($offset, $whence = SEEK_SET)
     {
@@ -342,7 +343,7 @@ class Stream implements StreamInterface
      * @see seek()
      * @link http://www.php.net/manual/en/function.fseek.php
      *
-     * @throws RuntimeException on failure.
+     * @throws RuntimeException on failure
      */
     public function rewind()
     {
@@ -356,12 +357,12 @@ class Stream implements StreamInterface
      *
      * @param int $length Read up to $length bytes from the object and return
      *                    them. Fewer than $length bytes may be returned if underlying stream
-     *                    call returns fewer bytes.
+     *                    call returns fewer bytes
      *
      * @return string Returns the data read from the stream, or an empty string
-     *                if no bytes are available.
+     *                if no bytes are available
      *
-     * @throws RuntimeException if an error occurs.
+     * @throws RuntimeException if an error occurs
      */
     public function read($length)
     {
@@ -375,11 +376,11 @@ class Stream implements StreamInterface
     /**
      * Write data to the stream.
      *
-     * @param string $string The string that is to be written.
+     * @param string $string The string that is to be written
      *
-     * @return int Returns the number of bytes written to the stream.
+     * @return int Returns the number of bytes written to the stream
      *
-     * @throws RuntimeException on failure.
+     * @throws RuntimeException on failure
      */
     public function write($string)
     {
@@ -399,7 +400,7 @@ class Stream implements StreamInterface
      * @return string
      *
      * @throws RuntimeException if unable to read or an error occurs while
-     *                          reading.
+     *                          reading
      */
     public function getContents()
     {

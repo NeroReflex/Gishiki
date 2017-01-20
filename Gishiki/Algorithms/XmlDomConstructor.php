@@ -50,8 +50,8 @@ class XmlDomConstructor extends \DOMDocument
      );
      \endverbatim
      *
-     * @param mixed      $mixed      An array or string.
-     * @param DOMElement $domElement the element from where the array will be construct to.
+     * @param mixed      $mixed      An array or string
+     * @param DOMElement $domElement the element from where the array will be construct to
      */
     public function fromMixed($mixed, \DOMElement $domElement = null)
     {

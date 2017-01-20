@@ -15,11 +15,11 @@ limitations under the License.
 namespace Gishiki\Algorithms\Collections;
 
 /**
- * The serialization exception thrown by Gishiki 
+ * The serialization exception thrown by Gishiki
  * when a bad serialization operation takes place.
- * 
+ *
  * Data is probably malformed/unconformant or damaged!
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 class SerializationException extends \Gishiki\Core\Exception

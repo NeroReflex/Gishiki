@@ -7,6 +7,7 @@
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\tests\Http\Mocks;
 
 use Gishiki\HttpKernel\Message;

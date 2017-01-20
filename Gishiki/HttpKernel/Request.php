@@ -7,6 +7,7 @@
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\HttpKernel;
 
 use Closure;
@@ -238,7 +239,7 @@ class Request extends Message implements ServerRequestInterface
     /**
      * Retrieves the HTTP method of the request.
      *
-     * @return string Returns the request method.
+     * @return string Returns the request method
      */
     public function getMethod()
     {
@@ -289,11 +290,11 @@ class Request extends Message implements ServerRequestInterface
      * immutability of the message, and MUST return an instance that has the
      * changed request method.
      *
-     * @param string $method Case-sensitive method.
+     * @param string $method Case-sensitive method
      *
      * @return self
      *
-     * @throws \InvalidArgumentException for invalid HTTP methods.
+     * @throws \InvalidArgumentException for invalid HTTP methods
      */
     public function withMethod($method)
     {
@@ -312,7 +313,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @return null|string
      *
-     * @throws \InvalidArgumentException on invalid HTTP method.
+     * @throws \InvalidArgumentException on invalid HTTP method
      */
     protected function filterMethod($method)
     {
@@ -533,7 +534,7 @@ class Request extends Message implements ServerRequestInterface
      * @link http://tools.ietf.org/html/rfc3986#section-4.3
      *
      * @return UriInterface Returns a UriInterface instance
-     *                      representing the URI of the request.
+     *                      representing the URI of the request
      */
     public function getUri()
     {
@@ -567,8 +568,8 @@ class Request extends Message implements ServerRequestInterface
      *
      * @link http://tools.ietf.org/html/rfc3986#section-4.3
      *
-     * @param UriInterface $uri          New request URI to use.
-     * @param bool         $preserveHost Preserve the original state of the Host header.
+     * @param UriInterface $uri          New request URI to use
+     * @param bool         $preserveHost Preserve the original state of the Host header
      *
      * @return self
      */
@@ -710,7 +711,7 @@ class Request extends Message implements ServerRequestInterface
      * immutability of the message, and MUST return an instance that has the
      * updated cookie values.
      *
-     * @param array $cookies Array of key/value pairs representing cookies.
+     * @param array $cookies Array of key/value pairs representing cookies
      *
      * @return self
      */
@@ -772,7 +773,7 @@ class Request extends Message implements ServerRequestInterface
      * updated query string arguments.
      *
      * @param array $query Array of query string arguments, typically from
-     *                     $_GET.
+     *                     $_GET
      *
      * @return self
      */
@@ -798,7 +799,7 @@ class Request extends Message implements ServerRequestInterface
      * instantiation, or MAY be injected via withUploadedFiles().
      *
      * @return array An array tree of UploadedFileInterface instances; an empty
-     *               array MUST be returned if no data is present.
+     *               array MUST be returned if no data is present
      */
     public function getUploadedFiles()
     {
@@ -812,11 +813,11 @@ class Request extends Message implements ServerRequestInterface
      * immutability of the message, and MUST return an instance that has the
      * updated body parameters.
      *
-     * @param array $uploadedFiles An array tree of UploadedFileInterface instances.
+     * @param array $uploadedFiles An array tree of UploadedFileInterface instances
      *
      * @return self
      *
-     * @throws \InvalidArgumentException if an invalid structure is provided.
+     * @throws \InvalidArgumentException if an invalid structure is provided
      */
     public function withUploadedFiles(array $uploadedFiles)
     {
@@ -857,7 +858,7 @@ class Request extends Message implements ServerRequestInterface
      * deserializing non-form-encoded message bodies; etc. Attributes
      * will be application and request specific, and CAN be mutable.
      *
-     * @return array Attributes derived from the request.
+     * @return array Attributes derived from the request
      */
     public function getAttributes()
     {
@@ -876,8 +877,8 @@ class Request extends Message implements ServerRequestInterface
      *
      * @see getAttributes()
      *
-     * @param string $name    The attribute name.
-     * @param mixed  $default Default value to return if the attribute does not exist.
+     * @param string $name    The attribute name
+     * @param mixed  $default Default value to return if the attribute does not exist
      *
      * @return mixed
      */
@@ -898,8 +899,8 @@ class Request extends Message implements ServerRequestInterface
      *
      * @see getAttributes()
      *
-     * @param string $name  The attribute name.
-     * @param mixed  $value The value of the attribute.
+     * @param string $name  The attribute name
+     * @param mixed  $value The value of the attribute
      *
      * @return self
      */
@@ -947,7 +948,7 @@ class Request extends Message implements ServerRequestInterface
      *
      * @see getAttributes()
      *
-     * @param string $name The attribute name.
+     * @param string $name The attribute name
      *
      * @return self
      */
@@ -976,7 +977,7 @@ class Request extends Message implements ServerRequestInterface
      * the absence of body content.
      *
      * @return null|array|object The deserialized body parameters, if any.
-     *                           These will typically be an array or object.
+     *                           These will typically be an array or object
      *
      * @throws RuntimeException if the request body media type parser returns an invalid value
      */
@@ -1105,12 +1106,12 @@ class Request extends Message implements ServerRequestInterface
      * updated body parameters.
      *
      * @param null|array|object $data The deserialized body data. This will
-     *                                typically be in an array or object.
+     *                                typically be in an array or object
      *
      * @return self
      *
      * @throws \InvalidArgumentException if an unsupported argument type is
-     *                                   provided.
+     *                                   provided
      */
     public function withParsedBody($data)
     {
@@ -1130,9 +1131,9 @@ class Request extends Message implements ServerRequestInterface
      * Note: This method is not part of the PSR-7 standard.
      *
      * @param string   $mediaType A HTTP media type (excluding content-type
-     *                            params).
+     *                            params)
      * @param callable $callable  A callable that returns parsed contents for
-     *                            media type.
+     *                            media type
      */
     public function registerMediaTypeParser($mediaType, callable $callable)
     {
@@ -1151,10 +1152,10 @@ class Request extends Message implements ServerRequestInterface
      *
      * Note: This method is not part of the PSR-7 standard.
      *
-     * @param string $key     The parameter key.
-     * @param string $default The default value.
+     * @param string $key     The parameter key
+     * @param string $default The default value
      *
-     * @return mixed The parameter value.
+     * @return mixed The parameter value
      */
     public function getParam($key, $default = null)
     {

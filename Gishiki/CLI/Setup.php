@@ -21,24 +21,24 @@ use \Gishiki\Security\Encryption\Symmetric\SecretKey;
 
 function Setup()
 {
-    if (file_exists("application")) {
+    if (file_exists('application')) {
         printf("An application already exists!\n");
         exit();
     }
-    
-    if (!mkdir("application")) {
+
+    if (!mkdir('application')) {
         printf("The application directory cannot be created\n");
         exit();
     }
-    
-    if (!mkdir("application/Controllers")) {
+
+    if (!mkdir('application/Controllers')) {
         printf("The Controllers directory cannot be created\n");
         exit();
     }
 
     //generate a new private key
     try {
-        if (file_put_contents("application/private_key.pem", PrivateKey::Generate(PrivateKey::RSA4096)) === false) {
+        if (file_put_contents('application/private_key.pem', PrivateKey::Generate(PrivateKey::RSA4096)) === false) {
             printf("The application private key cannot be written\n");
             exit();
         }
@@ -50,23 +50,23 @@ function Setup()
     //generate a new configuration file
     try {
         $settings = new SerializableCollection([
-            "general" => [
-                "development" => true,
-                "autolog" => "stream://error"
+            'general' => [
+                'development' => true,
+                'autolog' => 'stream://error',
             ],
-            "security" => [
-                "serverKey" => "file://application/private_key.pem",
-                "serverPassword" => SecretKey::Generate(openssl_random_pseudo_bytes(32), 32),
+            'security' => [
+                'serverKey' => 'file://application/private_key.pem',
+                'serverPassword' => SecretKey::Generate(openssl_random_pseudo_bytes(32), 32),
             ],
-            "connections" => [
+            'connections' => [
                 [
-                    "name" => "default",
-                    "query" => "sqlite://application/default.sqlite"
-                ]
-            ]
+                    'name' => 'default',
+                    'query' => 'sqlite://application/default.sqlite',
+                ],
+            ],
         ]);
 
-        if (file_put_contents("application/settings.json", $settings->serialize(SerializableCollection::JSON)) === false) {
+        if (file_put_contents('application/settings.json', $settings->serialize(SerializableCollection::JSON)) === false) {
             printf("The application configuration cannot be written\n");
             exit();
         }
@@ -75,40 +75,40 @@ function Setup()
         exit();
     }
 
-    $router_file = "<?php".PHP_EOL.
+    $router_file = '<?php'.PHP_EOL.
     "use Gishiki\Core\Route;".PHP_EOL.
     "use Gishiki\HttpKernel\Request;".PHP_EOL.
     "use Gishiki\HttpKernel\Response;".PHP_EOL.
     "use Gishiki\Algorithms\Collections\SerializableCollection;".PHP_EOL.
     PHP_EOL.PHP_EOL.
-    "Route::get(\"/\", function (Request &\$request, Response &\$response) {".PHP_EOL.
-    "    \$result = new SerializableCollection([".PHP_EOL.
-    "        \"timestamp\" => time()".PHP_EOL.
-    "    ]);".PHP_EOL.
+    'Route::get("/", function (Request &$request, Response &$response) {'.PHP_EOL.
+    '    $result = new SerializableCollection(['.PHP_EOL.
+    '        "timestamp" => time()'.PHP_EOL.
+    '    ]);'.PHP_EOL.
     PHP_EOL.
-    "    //send the response to the client".PHP_EOL.
-    "    \$response->setSerializedBody(\$result);".PHP_EOL.
-    "});".PHP_EOL.
+    '    //send the response to the client'.PHP_EOL.
+    '    $response->setSerializedBody($result);'.PHP_EOL.
+    '});'.PHP_EOL.
     PHP_EOL.PHP_EOL.
-    "Route::any(Route::NOT_FOUND, function (Request &\$request, Response &\$response) {".PHP_EOL.
-    "    \$result = new SerializableCollection([".PHP_EOL.
-    "        \"error\" => \"Not Found\",".PHP_EOL.
-    "        \"timestamp\" => time()".PHP_EOL.
-    "    ]);".PHP_EOL.
+    'Route::any(Route::NOT_FOUND, function (Request &$request, Response &$response) {'.PHP_EOL.
+    '    $result = new SerializableCollection(['.PHP_EOL.
+    '        "error" => "Not Found",'.PHP_EOL.
+    '        "timestamp" => time()'.PHP_EOL.
+    '    ]);'.PHP_EOL.
     PHP_EOL.
-    "    //send the response to the client".PHP_EOL.
-    "    \$response->setSerializedBody(\$result);".PHP_EOL.
-    "});".PHP_EOL;
+    '    //send the response to the client'.PHP_EOL.
+    '    $response->setSerializedBody($result);'.PHP_EOL.
+    '});'.PHP_EOL;
 
-    if (file_put_contents("application/routes.php", $router_file) === false) {
+    if (file_put_contents('application/routes.php', $router_file) === false) {
         printf("The application router file cannot be written\n");
         exit();
     }
 
-    if (!file_exists("index.php")) {
-        $indexContent = file_get_contents("vendor/neroreflex/gishiki/index.php");
-        
-        if (file_put_contents("index.php", $indexContent) === false) {
+    if (!file_exists('index.php')) {
+        $indexContent = file_get_contents('vendor/neroreflex/gishiki/index.php');
+
+        if (file_put_contents('index.php', $indexContent) === false) {
             printf("The application index file cannot be written, you will have to perform a softlink to index.php\n");
             exit();
         }

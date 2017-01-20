@@ -7,6 +7,7 @@
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\tests\Http;
 
 use Gishiki\Core\Environment;
@@ -41,8 +42,8 @@ class UploadedFilesTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param array $input    The input array to parse.
-     * @param array $expected The expected normalized output.
+     * @param array $input    The input array to parse
+     * @param array $expected The expected normalized output
      *
      * @dataProvider providerCreateFromEnvironment
      */
@@ -176,7 +177,7 @@ class UploadedFilesTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param array $mockEnv An array representing a mock environment.
+     * @param array $mockEnv An array representing a mock environment
      *
      * @return Request
      */

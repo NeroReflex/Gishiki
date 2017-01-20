@@ -238,7 +238,7 @@
 
 				<b>Link:</b>
 				<a href="https://github.com/php-fig/http-message/blob/master/src/StreamInterface.php">https://github.com/php-fig/http-message/blob/master/src/StreamInterface.php</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.HttpKernel.Stream.html#16-412" title="Go to source code">Gishiki/HttpKernel/Stream.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.HttpKernel.Stream.html#17-413" title="Go to source code">Gishiki/HttpKernel/Stream.php</a>
 		<br>
 	</div>
 
@@ -258,7 +258,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#77-87" title="Go to source code">__construct</a>( <span>resource <var>$stream</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#78-88" title="Go to source code">__construct</a>( <span>resource <var>$stream</var></span> )</code>
 
 		<div class="description short">
 			<p>Create a new Stream.</p>
@@ -271,13 +271,13 @@
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$stream</var></dt>
-					<dd>A PHP resource handle.</dd>
+					<dd>A PHP resource handle</dd>
 				</dl></div>
 
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>If argument is not a resource.
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>If argument is not a resource
 				</div>
 
 
@@ -297,7 +297,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMetadata">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#89-111" title="Go to source code">getMetadata</a>( <span>string <var>$key</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#90-112" title="Go to source code">getMetadata</a>( <span>string <var>$key</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Get stream metadata as an associative array or retrieve a specific key.</p>
@@ -313,14 +313,14 @@ stream_get_meta_data() function.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$key</var></dt>
-					<dd>Specific metadata to retrieve.</dd>
+					<dd>Specific metadata to retrieve</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
 					array|mixed|null<br><p>Returns an associative array if no key is
                          provided. Returns a specific key value if a key is provided and the
-                         value is found, or null if the key is not found.</p>
+                         value is found, or null if the key is not found</p>
 				</div>
 
 
@@ -345,7 +345,7 @@ stream_get_meta_data() function.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isAttached">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#113-123" title="Go to source code">isAttached</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#114-124" title="Go to source code">isAttached</a>( )</code>
 
 		<div class="description short">
 			<p>Is a resource attached to this stream?</p>
@@ -381,7 +381,7 @@ stream_get_meta_data() function.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_attach">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#125-145" title="Go to source code">attach</a>( <span>resource <var>$newStream</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#126-146" title="Go to source code">attach</a>( <span>resource <var>$newStream</var></span> )</code>
 
 		<div class="description short">
 			<p>Attach new resource to this object.</p>
@@ -396,13 +396,13 @@ stream_get_meta_data() function.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$newStream</var></dt>
-					<dd>A PHP resource handle.</dd>
+					<dd>A PHP resource handle</dd>
 				</dl></div>
 
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>If argument is not a valid PHP resource.
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>If argument is not a valid PHP resource
 				</div>
 
 
@@ -422,7 +422,7 @@ stream_get_meta_data() function.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_detach">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#147-165" title="Go to source code">detach</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#148-166" title="Go to source code">detach</a>( )</code>
 
 		<div class="description short">
 			<p>Separates any underlying resources from the stream.</p>
@@ -458,7 +458,7 @@ stream_get_meta_data() function.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___toString">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#167-195" title="Go to source code">__toString</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#168-196" title="Go to source code">__toString</a>( )</code>
 
 		<div class="description short">
 			<p>Reads all data from the stream into a string, from the beginning to end.</p>
@@ -504,7 +504,7 @@ string casting operations.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_close">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#197-207" title="Go to source code">close</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#198-208" title="Go to source code">close</a>( )</code>
 
 		<div class="description short">
 			<p>Closes the stream and any underlying resources.</p>
@@ -534,7 +534,7 @@ string casting operations.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSize">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#209-222" title="Go to source code">getSize</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#210-223" title="Go to source code">getSize</a>( )</code>
 
 		<div class="description short">
 			<p>Get the size of the stream if known.</p>
@@ -547,7 +547,7 @@ string casting operations.</p>
 
 				<h4>Returns</h4>
 				<div class="list">
-					integer|null<br>Returns the size in bytes if known, or null if unknown.
+					integer|null<br>Returns the size in bytes if known, or null if unknown
 				</div>
 
 
@@ -568,7 +568,7 @@ string casting operations.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_tell">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#224-238" title="Go to source code">tell</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#225-239" title="Go to source code">tell</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the current position of the file read/write pointer.</p>
@@ -586,7 +586,7 @@ string casting operations.</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-RuntimeException.html">RuntimeException</a></code><br>on error.
+					<code><a href="class-RuntimeException.html">RuntimeException</a></code><br>on error
 				</div>
 
 
@@ -606,7 +606,7 @@ string casting operations.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_eof">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#240-248" title="Go to source code">eof</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#241-249" title="Go to source code">eof</a>( )</code>
 
 		<div class="description short">
 			<p>Returns true if the stream is at the end of the stream.</p>
@@ -640,7 +640,7 @@ string casting operations.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isReadable">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#250-271" title="Go to source code">isReadable</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#251-272" title="Go to source code">isReadable</a>( )</code>
 
 		<div class="description short">
 			<p>Returns whether or not the stream is readable.</p>
@@ -674,7 +674,7 @@ string casting operations.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isWritable">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#273-294" title="Go to source code">isWritable</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#274-295" title="Go to source code">isWritable</a>( )</code>
 
 		<div class="description short">
 			<p>Returns whether or not the stream is writable.</p>
@@ -708,7 +708,7 @@ string casting operations.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isSeekable">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#296-312" title="Go to source code">isSeekable</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#297-313" title="Go to source code">isSeekable</a>( )</code>
 
 		<div class="description short">
 			<p>Returns whether or not the stream is seekable.</p>
@@ -742,7 +742,7 @@ string casting operations.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_seek">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#314-334" title="Go to source code">seek</a>( <span>integer <var>$offset</var></span>, <span>integer <var>$whence</var> = SEEK_SET</span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#315-335" title="Go to source code">seek</a>( <span>integer <var>$offset</var></span>, <span>integer <var>$whence</var> = SEEK_SET</span> )</code>
 
 		<div class="description short">
 			<p>Seek to a position in the stream.</p>
@@ -761,13 +761,13 @@ string casting operations.</p>
                    based on the seek offset. Valid values are identical to the built-in
                    PHP $whence values for <code>fseek()</code>.  SEEK_SET: Set position equal to
                    offset bytes SEEK_CUR: Set position to current location plus offset
-                   SEEK_END: Set position to end-of-stream plus offset.</p></dd>
+                   SEEK_END: Set position to end-of-stream plus offset</p></dd>
 				</dl></div>
 
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-RuntimeException.html">RuntimeException</a></code><br>on failure.
+					<code><a href="class-RuntimeException.html">RuntimeException</a></code><br>on failure
 				</div>
 
 				<h4>Link</h4>
@@ -791,7 +791,7 @@ string casting operations.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_rewind">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#336-352" title="Go to source code">rewind</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#337-353" title="Go to source code">rewind</a>( )</code>
 
 		<div class="description short">
 			<p>Seek to the beginning of the stream.</p>
@@ -808,7 +808,7 @@ otherwise, it will perform a seek(0).</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-RuntimeException.html">RuntimeException</a></code><br>on failure.
+					<code><a href="class-RuntimeException.html">RuntimeException</a></code><br>on failure
 				</div>
 
 				<h4>See</h4>
@@ -836,7 +836,7 @@ otherwise, it will perform a seek(0).</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_read">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#354-373" title="Go to source code">read</a>( <span>integer <var>$length</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#355-374" title="Go to source code">read</a>( <span>integer <var>$length</var></span> )</code>
 
 		<div class="description short">
 			<p>Read data from the stream.</p>
@@ -851,18 +851,18 @@ otherwise, it will perform a seek(0).</p>
 					<dt><var>$length</var></dt>
 					<dd><p>Read up to $length bytes from the object and return
                    them. Fewer than $length bytes may be returned if underlying stream
-                   call returns fewer bytes.</p></dd>
+                   call returns fewer bytes</p></dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
 					string<br><p>Returns the data read from the stream, or an empty string
-               if no bytes are available.</p>
+               if no bytes are available</p>
 				</div>
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-RuntimeException.html">RuntimeException</a></code><br>if an error occurs.
+					<code><a href="class-RuntimeException.html">RuntimeException</a></code><br>if an error occurs
 				</div>
 
 
@@ -882,7 +882,7 @@ otherwise, it will perform a seek(0).</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_write">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#375-394" title="Go to source code">write</a>( <span>string <var>$string</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#376-395" title="Go to source code">write</a>( <span>string <var>$string</var></span> )</code>
 
 		<div class="description short">
 			<p>Write data to the stream.</p>
@@ -895,17 +895,17 @@ otherwise, it will perform a seek(0).</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$string</var></dt>
-					<dd>The string that is to be written.</dd>
+					<dd>The string that is to be written</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					integer<br>Returns the number of bytes written to the stream.
+					integer<br>Returns the number of bytes written to the stream
 				</div>
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-RuntimeException.html">RuntimeException</a></code><br>on failure.
+					<code><a href="class-RuntimeException.html">RuntimeException</a></code><br>on failure
 				</div>
 
 
@@ -925,7 +925,7 @@ otherwise, it will perform a seek(0).</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContents">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#396-411" title="Go to source code">getContents</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Stream.html#397-412" title="Go to source code">getContents</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the remaining contents in a string.</p>
@@ -944,7 +944,7 @@ otherwise, it will perform a seek(0).</p>
 				<h4>Throws</h4>
 				<div class="list">
 					<code><a href="class-RuntimeException.html">RuntimeException</a></code><br><p>if unable to read or an error occurs while
-                         reading.</p>
+                         reading</p>
 				</div>
 
 
@@ -974,7 +974,7 @@ otherwise, it will perform a seek(0).</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Stream.html#23-33" title="Go to source code"><var>$modes</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Stream.html#24-34" title="Go to source code"><var>$modes</var></a>
 
 			<div class="description short">
 				<p>Resource modes.</p>
@@ -1006,7 +1006,7 @@ otherwise, it will perform a seek(0).</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Stream.html#35-40" title="Go to source code"><var>$stream</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Stream.html#36-41" title="Go to source code"><var>$stream</var></a>
 
 			<div class="description short">
 				<p>The underlying stream resource.</p>
@@ -1031,7 +1031,7 @@ otherwise, it will perform a seek(0).</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Stream.html#42-47" title="Go to source code"><var>$meta</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Stream.html#43-48" title="Go to source code"><var>$meta</var></a>
 
 			<div class="description short">
 				<p>Stream metadata.</p>
@@ -1056,7 +1056,7 @@ otherwise, it will perform a seek(0).</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Stream.html#49-54" title="Go to source code"><var>$readable</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Stream.html#50-55" title="Go to source code"><var>$readable</var></a>
 
 			<div class="description short">
 				<p>Is this stream readable?</p>
@@ -1081,7 +1081,7 @@ otherwise, it will perform a seek(0).</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Stream.html#56-61" title="Go to source code"><var>$writable</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Stream.html#57-62" title="Go to source code"><var>$writable</var></a>
 
 			<div class="description short">
 				<p>Is this stream writable?</p>
@@ -1106,7 +1106,7 @@ otherwise, it will perform a seek(0).</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Stream.html#63-68" title="Go to source code"><var>$seekable</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Stream.html#64-69" title="Go to source code"><var>$seekable</var></a>
 
 			<div class="description short">
 				<p>Is this stream seekable?</p>
@@ -1131,7 +1131,7 @@ otherwise, it will perform a seek(0).</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Stream.html#70-75" title="Go to source code"><var>$size</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Stream.html#71-76" title="Go to source code"><var>$size</var></a>
 
 			<div class="description short">
 				<p>The size of the stream if known.</p>

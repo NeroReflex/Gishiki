@@ -243,7 +243,7 @@ according to the PSR-7 standard.</p>
 				<a href="https://github.com/php-fig/http-message/blob/master/src/MessageInterface.php">https://github.com/php-fig/http-message/blob/master/src/MessageInterface.php</a><br>
 				<b>Link:</b>
 				<a href="https://github.com/php-fig/http-message/blob/master/src/ResponseInterface.php">https://github.com/php-fig/http-message/blob/master/src/ResponseInterface.php</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.HttpKernel.Response.html#18-639" title="Go to source code">Gishiki/HttpKernel/Response.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.HttpKernel.Response.html#19-640" title="Go to source code">Gishiki/HttpKernel/Response.php</a>
 		<br>
 	</div>
 
@@ -263,7 +263,7 @@ according to the PSR-7 standard.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deriveFromRequest">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#118-148" title="Go to source code">deriveFromRequest</a>( <span><code><a href="class-Gishiki.HttpKernel.Request.html">Gishiki\HttpKernel\Request</a></code> <var>$request</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#119-149" title="Go to source code">deriveFromRequest</a>( <span><code><a href="class-Gishiki.HttpKernel.Request.html">Gishiki\HttpKernel\Request</a></code> <var>$request</var></span> )</code>
 
 		<div class="description short">
 			
@@ -293,7 +293,7 @@ according to the PSR-7 standard.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_send">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#150-222" title="Go to source code">send</a>( <span>integer <var>$chunkSize</var> = <span class="php-num">512</span></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#151-223" title="Go to source code">send</a>( <span>integer <var>$chunkSize</var> = <span class="php-num">512</span></span> )</code>
 
 		<div class="description short">
 			<p>Sends the given HTTP response to the client.</p>
@@ -336,7 +336,7 @@ according to the PSR-7 standard.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#224-236" title="Go to source code">__construct</a>( <span>integer <var>$status</var> = <span class="php-num">200</span></span>, <span><code><a href="class-Gishiki.HttpKernel.HeadersInterface.html">Gishiki\HttpKernel\HeadersInterface</a></code> <var>$headers</var> = <span class="php-keyword1">null</span></span>, <span>Psr\Http\Message\StreamInterface <var>$body</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#225-237" title="Go to source code">__construct</a>( <span>integer <var>$status</var> = <span class="php-num">200</span></span>, <span><code><a href="class-Gishiki.HttpKernel.HeadersInterface.html">Gishiki\HttpKernel\HeadersInterface</a></code> <var>$headers</var> = <span class="php-keyword1">null</span></span>, <span>Psr\Http\Message\StreamInterface <var>$body</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Create new HTTP response.</p>
@@ -349,11 +349,11 @@ according to the PSR-7 standard.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$status</var></dt>
-					<dd>The response status code.</dd>
+					<dd>The response status code</dd>
 					<dt><var>$headers</var></dt>
-					<dd>The response headers.</dd>
+					<dd>The response headers</dd>
 					<dt><var>$body</var></dt>
-					<dd>The response body.</dd>
+					<dd>The response body</dd>
 				</dl></div>
 
 
@@ -375,7 +375,7 @@ according to the PSR-7 standard.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___clone">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#238-248" title="Go to source code">__clone</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#239-249" title="Go to source code">__clone</a>( )</code>
 
 		<div class="description short">
 			<p>This method is applied to the cloned object
@@ -411,7 +411,7 @@ for the cloned object's internal reference pointers.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getStatusCode">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#254-265" title="Go to source code">getStatusCode</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#255-266" title="Go to source code">getStatusCode</a>( )</code>
 
 		<div class="description short">
 			<p>Gets the response status code.</p>
@@ -427,7 +427,7 @@ to understand and satisfy the request.</p>
 
 				<h4>Returns</h4>
 				<div class="list">
-					integer<br>Status code.
+					integer<br>Status code
 				</div>
 
 
@@ -448,7 +448,7 @@ to understand and satisfy the request.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_withStatus">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#267-311" title="Go to source code">withStatus</a>( <span>integer <var>$code</var></span>, <span>string <var>$reasonPhrase</var> = <span class="php-quote">''</span></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#268-312" title="Go to source code">withStatus</a>( <span>integer <var>$code</var></span>, <span>string <var>$reasonPhrase</var> = <span class="php-quote">''</span></span> )</code>
 
 		<div class="description short">
 			<p>Return an instance with the specified status code and, optionally, reason phrase.</p>
@@ -469,11 +469,11 @@ updated status and reason phrase.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$code</var></dt>
-					<dd>The 3-digit integer result code to set.</dd>
+					<dd>The 3-digit integer result code to set</dd>
 					<dt><var>$reasonPhrase</var></dt>
 					<dd><p>The reason phrase to use with the
                             provided status code; if none is provided, implementations MAY
-                            use the defaults as suggested in the HTTP specification.</p></dd>
+                            use the defaults as suggested in the HTTP specification</p></dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -483,7 +483,7 @@ updated status and reason phrase.</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>For invalid status code arguments.
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>For invalid status code arguments
 				</div>
 
 				<h4>Link</h4>
@@ -508,7 +508,7 @@ updated status and reason phrase.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_filterStatus">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#313-329" title="Go to source code">filterStatus</a>( <span>integer <var>$status</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#314-330" title="Go to source code">filterStatus</a>( <span>integer <var>$status</var></span> )</code>
 
 		<div class="description short">
 			<p>Filter HTTP status code.</p>
@@ -521,7 +521,7 @@ updated status and reason phrase.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$status</var></dt>
-					<dd>HTTP status code.</dd>
+					<dd>HTTP status code</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -531,7 +531,7 @@ updated status and reason phrase.</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>If an invalid HTTP status code is provided.
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>If an invalid HTTP status code is provided
 				</div>
 
 
@@ -551,7 +551,7 @@ updated status and reason phrase.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getReasonPhrase">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#331-358" title="Go to source code">getReasonPhrase</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#332-359" title="Go to source code">getReasonPhrase</a>( )</code>
 
 		<div class="description short">
 			<p>Gets the response reason phrase associated with the status code.</p>
@@ -570,7 +570,7 @@ status code.</p>
 
 				<h4>Returns</h4>
 				<div class="list">
-					string<br>Reason phrase; must return an empty string if none present.
+					string<br>Reason phrase; must return an empty string if none present
 				</div>
 
 
@@ -596,7 +596,7 @@ status code.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_write">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#364-381" title="Go to source code">write</a>( <span>string <var>$data</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#365-382" title="Go to source code">write</a>( <span>string <var>$data</var></span> )</code>
 
 		<div class="description short">
 			<p>Write data to the response body.</p>
@@ -639,7 +639,7 @@ status code.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setSerializedBody">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#383-442" title="Go to source code">setSerializedBody</a>( <span><code><a href="class-Gishiki.Algorithms.Collections.SerializableCollection.html">Gishiki\Algorithms\Collections\SerializableCollection</a></code> <var>$data</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#384-443" title="Go to source code">setSerializedBody</a>( <span><code><a href="class-Gishiki.Algorithms.Collections.SerializableCollection.html">Gishiki\Algorithms\Collections\SerializableCollection</a></code> <var>$data</var></span> )</code>
 
 		<div class="description short">
 			<p>Serialize the given serializable collection using the better serialization
@@ -689,7 +689,7 @@ will be used (which is 'application/json').</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_withRedirect">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#448-464" title="Go to source code">withRedirect</a>( <span>string|Psr\Http\Message\UriInterface <var>$url</var></span>, <span>integer <var>$status</var> = <span class="php-num">302</span></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#449-465" title="Go to source code">withRedirect</a>( <span>string|Psr\Http\Message\UriInterface <var>$url</var></span>, <span>integer <var>$status</var> = <span class="php-num">302</span></span> )</code>
 
 		<div class="description short">
 			<p>Redirect.</p>
@@ -707,9 +707,9 @@ response to the client.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$url</var></dt>
-					<dd>The redirect destination.</dd>
+					<dd>The redirect destination</dd>
 					<dt><var>$status</var></dt>
-					<dd>The redirect HTTP status code.</dd>
+					<dd>The redirect HTTP status code</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -735,7 +735,7 @@ response to the client.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_withJson">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#466-491" title="Go to source code">withJson</a>( <span>mixed <var>$data</var></span>, <span>integer <var>$status</var> = <span class="php-num">200</span></span>, <span>integer <var>$encodingOptions</var> = <span class="php-num">0</span></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#467-492" title="Go to source code">withJson</a>( <span>mixed <var>$data</var></span>, <span>integer <var>$status</var> = <span class="php-num">200</span></span>, <span>integer <var>$encodingOptions</var> = <span class="php-num">0</span></span> )</code>
 
 		<div class="description short">
 			<p>Directly write the serialized json to the output.</p>
@@ -761,7 +761,7 @@ response to the client from an associative array.</p>
 					<dt><var>$data</var></dt>
 					<dd>The data</dd>
 					<dt><var>$status</var></dt>
-					<dd>The HTTP status code.</dd>
+					<dd>The HTTP status code</dd>
 					<dt><var>$encodingOptions</var></dt>
 					<dd>Json encoding options</dd>
 				</dl></div>
@@ -789,7 +789,7 @@ response to the client from an associative array.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isEmpty">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#493-503" title="Go to source code">isEmpty</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#494-504" title="Go to source code">isEmpty</a>( )</code>
 
 		<div class="description short">
 			<p>Is this response empty?</p>
@@ -825,7 +825,7 @@ response to the client from an associative array.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isInformational">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#505-515" title="Go to source code">isInformational</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#506-516" title="Go to source code">isInformational</a>( )</code>
 
 		<div class="description short">
 			<p>Is this response informational?</p>
@@ -861,7 +861,7 @@ response to the client from an associative array.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isOk">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#517-527" title="Go to source code">isOk</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#518-528" title="Go to source code">isOk</a>( )</code>
 
 		<div class="description short">
 			<p>Is this response OK?</p>
@@ -897,7 +897,7 @@ response to the client from an associative array.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isSuccessful">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#529-539" title="Go to source code">isSuccessful</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#530-540" title="Go to source code">isSuccessful</a>( )</code>
 
 		<div class="description short">
 			<p>Is this response successful?</p>
@@ -933,7 +933,7 @@ response to the client from an associative array.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isRedirect">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#541-551" title="Go to source code">isRedirect</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#542-552" title="Go to source code">isRedirect</a>( )</code>
 
 		<div class="description short">
 			<p>Is this response a redirect?</p>
@@ -969,7 +969,7 @@ response to the client from an associative array.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isRedirection">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#553-563" title="Go to source code">isRedirection</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#554-564" title="Go to source code">isRedirection</a>( )</code>
 
 		<div class="description short">
 			<p>Is this response a redirection?</p>
@@ -1005,7 +1005,7 @@ response to the client from an associative array.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isForbidden">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#565-577" title="Go to source code">isForbidden</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#566-578" title="Go to source code">isForbidden</a>( )</code>
 
 		<div class="description short">
 			<p>Is this response forbidden?</p>
@@ -1044,7 +1044,7 @@ response to the client from an associative array.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isNotFound">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#579-589" title="Go to source code">isNotFound</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#580-590" title="Go to source code">isNotFound</a>( )</code>
 
 		<div class="description short">
 			<p>Is this response not Found?</p>
@@ -1080,7 +1080,7 @@ response to the client from an associative array.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isClientError">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#591-601" title="Go to source code">isClientError</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#592-602" title="Go to source code">isClientError</a>( )</code>
 
 		<div class="description short">
 			<p>Is this response a client error?</p>
@@ -1116,7 +1116,7 @@ response to the client from an associative array.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isServerError">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#603-613" title="Go to source code">isServerError</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#604-614" title="Go to source code">isServerError</a>( )</code>
 
 		<div class="description short">
 			<p>Is this response a server error?</p>
@@ -1152,7 +1152,7 @@ response to the client from an associative array.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___toString">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Response.html#615-638" title="Go to source code">__toString</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Response.html#616-639" title="Go to source code">__toString</a>( )</code>
 
 		<div class="description short">
 			<p>Convert response to string.</p>
@@ -1217,7 +1217,7 @@ response to the client from an associative array.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Response.html#30-35" title="Go to source code"><var>$status</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Response.html#31-36" title="Go to source code"><var>$status</var></a>
 
 			<div class="description short">
 				<p>Status code.</p>
@@ -1242,7 +1242,7 @@ response to the client from an associative array.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Response.html#37-42" title="Go to source code"><var>$reasonPhrase</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Response.html#38-43" title="Go to source code"><var>$reasonPhrase</var></a>
 
 			<div class="description short">
 				<p>Reason phrase.</p>
@@ -1267,7 +1267,7 @@ response to the client from an associative array.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Response.html#44-115" title="Go to source code"><var>$messages</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Response.html#45-116" title="Go to source code"><var>$messages</var></a>
 
 			<div class="description short">
 				<p>Status codes and reason phrases.</p>

@@ -245,7 +245,7 @@ according to the PRS-7 standard.</p>
 				<a href="https://github.com/php-fig/http-message/blob/master/src/RequestInterface.php">https://github.com/php-fig/http-message/blob/master/src/RequestInterface.php</a><br>
 				<b>Link:</b>
 				<a href="https://github.com/php-fig/http-message/blob/master/src/ServerRequestInterface.php">https://github.com/php-fig/http-message/blob/master/src/ServerRequestInterface.php</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.HttpKernel.Request.html#23-1190" title="Go to source code">Gishiki/HttpKernel/Request.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.HttpKernel.Request.html#24-1191" title="Go to source code">Gishiki/HttpKernel/Request.php</a>
 		<br>
 	</div>
 
@@ -265,7 +265,7 @@ according to the PRS-7 standard.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createFromEnvironment">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#130-158" title="Go to source code">createFromEnvironment</a>( <span><code><a href="class-Gishiki.Core.Environment.html">Gishiki\Core\Environment</a></code> <var>$environment</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#131-159" title="Go to source code">createFromEnvironment</a>( <span><code><a href="class-Gishiki.Core.Environment.html">Gishiki\Core\Environment</a></code> <var>$environment</var></span> )</code>
 
 		<div class="description short">
 			<p>Create new HTTP request with data extracted from the application
@@ -306,7 +306,7 @@ Environment object.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#160-219" title="Go to source code">__construct</a>( <span>string <var>$method</var></span>, <span>Psr\Http\Message\UriInterface <var>$uri</var></span>, <span><code><a href="class-Gishiki.HttpKernel.HeadersInterface.html">Gishiki\HttpKernel\HeadersInterface</a></code> <var>$headers</var></span>, <span>array <var>$cookies</var></span>, <span>array <var>$serverParams</var></span>, <span>Psr\Http\Message\StreamInterface <var>$body</var></span>, <span>array <var>$uploadedFiles</var> = []</span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#161-220" title="Go to source code">__construct</a>( <span>string <var>$method</var></span>, <span>Psr\Http\Message\UriInterface <var>$uri</var></span>, <span><code><a href="class-Gishiki.HttpKernel.HeadersInterface.html">Gishiki\HttpKernel\HeadersInterface</a></code> <var>$headers</var></span>, <span>array <var>$cookies</var></span>, <span>array <var>$serverParams</var></span>, <span>Psr\Http\Message\StreamInterface <var>$body</var></span>, <span>array <var>$uploadedFiles</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Create new HTTP request.</p>
@@ -355,7 +355,7 @@ Environment object.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___clone">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#221-232" title="Go to source code">__clone</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#222-233" title="Go to source code">__clone</a>( )</code>
 
 		<div class="description short">
 			<p>This method is applied to the cloned object
@@ -391,7 +391,7 @@ for the cloned object's internal reference pointers.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMethod">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#238-267" title="Go to source code">getMethod</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#239-268" title="Go to source code">getMethod</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieves the HTTP method of the request.</p>
@@ -404,7 +404,7 @@ for the cloned object's internal reference pointers.</p>
 
 				<h4>Returns</h4>
 				<div class="list">
-					string<br>Returns the request method.
+					string<br>Returns the request method
 				</div>
 
 
@@ -425,7 +425,7 @@ for the cloned object's internal reference pointers.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getOriginalMethod">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#269-279" title="Go to source code">getOriginalMethod</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#270-280" title="Go to source code">getOriginalMethod</a>( )</code>
 
 		<div class="description short">
 			<p>Get the original HTTP method (ignore override).</p>
@@ -461,7 +461,7 @@ for the cloned object's internal reference pointers.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_withMethod">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#281-306" title="Go to source code">withMethod</a>( <span>string <var>$method</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#282-307" title="Go to source code">withMethod</a>( <span>string <var>$method</var></span> )</code>
 
 		<div class="description short">
 			<p>Return an instance with the provided HTTP method.</p>
@@ -482,7 +482,7 @@ changed request method.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$method</var></dt>
-					<dd>Case-sensitive method.</dd>
+					<dd>Case-sensitive method</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -492,7 +492,7 @@ changed request method.</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>for invalid HTTP methods.
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>for invalid HTTP methods
 				</div>
 
 
@@ -512,7 +512,7 @@ changed request method.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_filterMethod">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#308-339" title="Go to source code">filterMethod</a>( <span>null|string <var>$method</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#309-340" title="Go to source code">filterMethod</a>( <span>null|string <var>$method</var></span> )</code>
 
 		<div class="description short">
 			<p>Validate the HTTP method.</p>
@@ -535,7 +535,7 @@ changed request method.</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>on invalid HTTP method.
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>on invalid HTTP method
 				</div>
 
 
@@ -555,7 +555,7 @@ changed request method.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isMethod">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#341-353" title="Go to source code">isMethod</a>( <span>string <var>$method</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#342-354" title="Go to source code">isMethod</a>( <span>string <var>$method</var></span> )</code>
 
 		<div class="description short">
 			<p>Does this request use a given method?</p>
@@ -596,7 +596,7 @@ changed request method.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isGet">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#355-365" title="Go to source code">isGet</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#356-366" title="Go to source code">isGet</a>( )</code>
 
 		<div class="description short">
 			<p>Is this a GET request?</p>
@@ -632,7 +632,7 @@ changed request method.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isPost">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#367-377" title="Go to source code">isPost</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#368-378" title="Go to source code">isPost</a>( )</code>
 
 		<div class="description short">
 			<p>Is this a POST request?</p>
@@ -668,7 +668,7 @@ changed request method.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isPut">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#379-389" title="Go to source code">isPut</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#380-390" title="Go to source code">isPut</a>( )</code>
 
 		<div class="description short">
 			<p>Is this a PUT request?</p>
@@ -704,7 +704,7 @@ changed request method.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isPatch">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#391-401" title="Go to source code">isPatch</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#392-402" title="Go to source code">isPatch</a>( )</code>
 
 		<div class="description short">
 			<p>Is this a PATCH request?</p>
@@ -740,7 +740,7 @@ changed request method.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isDelete">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#403-413" title="Go to source code">isDelete</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#404-414" title="Go to source code">isDelete</a>( )</code>
 
 		<div class="description short">
 			<p>Is this a DELETE request?</p>
@@ -776,7 +776,7 @@ changed request method.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isHead">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#415-425" title="Go to source code">isHead</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#416-426" title="Go to source code">isHead</a>( )</code>
 
 		<div class="description short">
 			<p>Is this a HEAD request?</p>
@@ -812,7 +812,7 @@ changed request method.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isOptions">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#427-437" title="Go to source code">isOptions</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#428-438" title="Go to source code">isOptions</a>( )</code>
 
 		<div class="description short">
 			<p>Is this a OPTIONS request?</p>
@@ -848,7 +848,7 @@ changed request method.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isXhr">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#439-449" title="Go to source code">isXhr</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#440-450" title="Go to source code">isXhr</a>( )</code>
 
 		<div class="description short">
 			<p>Is this an XHR request?</p>
@@ -884,7 +884,7 @@ changed request method.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRequestTarget">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#455-492" title="Go to source code">getRequestTarget</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#456-493" title="Go to source code">getRequestTarget</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieves the message's request target.</p>
@@ -929,7 +929,7 @@ provided, this method MUST return the string "/".</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_withRequestTarget">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#494-526" title="Go to source code">withRequestTarget</a>( <span>mixed <var>$requestTarget</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#495-527" title="Go to source code">withRequestTarget</a>( <span>mixed <var>$requestTarget</var></span> )</code>
 
 		<div class="description short">
 			<p>Return an instance with the specific request-target.</p>
@@ -986,7 +986,7 @@ changed request target.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getUri">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#528-541" title="Go to source code">getUri</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#529-542" title="Go to source code">getUri</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieves the URI instance.</p>
@@ -1002,7 +1002,7 @@ changed request target.</p>
 				<h4>Returns</h4>
 				<div class="list">
 					Psr\Http\Message\UriInterface<br><p>Returns a UriInterface instance
-                     representing the URI of the request.</p>
+                     representing the URI of the request</p>
 				</div>
 
 
@@ -1027,7 +1027,7 @@ changed request target.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_withUri">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#543-591" title="Go to source code">withUri</a>( <span>Psr\Http\Message\UriInterface <var>$uri</var></span>, <span>boolean <var>$preserveHost</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#544-592" title="Go to source code">withUri</a>( <span>Psr\Http\Message\UriInterface <var>$uri</var></span>, <span>boolean <var>$preserveHost</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			<p>Returns an instance with the provided URI.</p>
@@ -1059,9 +1059,9 @@ new UriInterface instance.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$uri</var></dt>
-					<dd>New request URI to use.</dd>
+					<dd>New request URI to use</dd>
 					<dt><var>$preserveHost</var></dt>
-					<dd>Preserve the original state of the Host header.</dd>
+					<dd>Preserve the original state of the Host header</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -1091,7 +1091,7 @@ new UriInterface instance.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContentType">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#593-605" title="Go to source code">getContentType</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#594-606" title="Go to source code">getContentType</a>( )</code>
 
 		<div class="description short">
 			<p>Get request content type.</p>
@@ -1127,7 +1127,7 @@ new UriInterface instance.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMediaType">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#607-624" title="Go to source code">getMediaType</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#608-625" title="Go to source code">getMediaType</a>( )</code>
 
 		<div class="description short">
 			<p>Get request media type, if known.</p>
@@ -1163,7 +1163,7 @@ new UriInterface instance.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMediaTypeParams">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#626-647" title="Go to source code">getMediaTypeParams</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#627-648" title="Go to source code">getMediaTypeParams</a>( )</code>
 
 		<div class="description short">
 			<p>Get request media type params, if known.</p>
@@ -1199,7 +1199,7 @@ new UriInterface instance.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContentCharset">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#649-664" title="Go to source code">getContentCharset</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#650-665" title="Go to source code">getContentCharset</a>( )</code>
 
 		<div class="description short">
 			<p>Get request content character set, if known.</p>
@@ -1235,7 +1235,7 @@ new UriInterface instance.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContentLength">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#666-678" title="Go to source code">getContentLength</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#667-679" title="Go to source code">getContentLength</a>( )</code>
 
 		<div class="description short">
 			<p>Get request content length, if known.</p>
@@ -1271,7 +1271,7 @@ new UriInterface instance.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCookieParams">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#684-697" title="Go to source code">getCookieParams</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#685-698" title="Go to source code">getCookieParams</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve cookies.</p>
@@ -1310,7 +1310,7 @@ superglobal.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_withCookieParams">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#699-723" title="Go to source code">withCookieParams</a>( <span>array <var>$cookies</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#700-724" title="Go to source code">withCookieParams</a>( <span>array <var>$cookies</var></span> )</code>
 
 		<div class="description short">
 			<p>Return an instance with the specified cookies.</p>
@@ -1334,7 +1334,7 @@ updated cookie values.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$cookies</var></dt>
-					<dd>Array of key/value pairs representing cookies.</dd>
+					<dd>Array of key/value pairs representing cookies</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -1360,7 +1360,7 @@ updated cookie values.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getQueryParams">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#729-754" title="Go to source code">getQueryParams</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#730-755" title="Go to source code">getQueryParams</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve query string arguments.</p>
@@ -1401,7 +1401,7 @@ or from the <code>QUERY_STRING</code> server param.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_withQueryParams">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#756-785" title="Go to source code">withQueryParams</a>( <span>array <var>$query</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#757-786" title="Go to source code">withQueryParams</a>( <span>array <var>$query</var></span> )</code>
 
 		<div class="description short">
 			<p>Return an instance with the specified query string arguments.</p>
@@ -1430,7 +1430,7 @@ updated query string arguments.</p>
 				<div class="list"><dl>
 					<dt><var>$query</var></dt>
 					<dd><p>Array of query string arguments, typically from
-                    $_GET.</p></dd>
+                    $_GET</p></dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -1456,7 +1456,7 @@ updated query string arguments.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getUploadedFiles">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#791-806" title="Go to source code">getUploadedFiles</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#792-807" title="Go to source code">getUploadedFiles</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve normalized file upload data.</p>
@@ -1476,7 +1476,7 @@ instantiation, or MAY be injected via withUploadedFiles().</p>
 				<h4>Returns</h4>
 				<div class="list">
 					array<br><p>An array tree of UploadedFileInterface instances; an empty
-              array MUST be returned if no data is present.</p>
+              array MUST be returned if no data is present</p>
 				</div>
 
 
@@ -1497,7 +1497,7 @@ instantiation, or MAY be injected via withUploadedFiles().</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_withUploadedFiles">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#808-827" title="Go to source code">withUploadedFiles</a>( <span>array <var>$uploadedFiles</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#809-828" title="Go to source code">withUploadedFiles</a>( <span>array <var>$uploadedFiles</var></span> )</code>
 
 		<div class="description short">
 			<p>Create a new instance with the specified uploaded files.</p>
@@ -1514,7 +1514,7 @@ updated body parameters.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$uploadedFiles</var></dt>
-					<dd>An array tree of UploadedFileInterface instances.</dd>
+					<dd>An array tree of UploadedFileInterface instances</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -1524,7 +1524,7 @@ updated body parameters.</p>
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>if an invalid structure is provided.
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>if an invalid structure is provided
 				</div>
 
 
@@ -1544,7 +1544,7 @@ updated body parameters.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getServerParams">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#833-845" title="Go to source code">getServerParams</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#834-846" title="Go to source code">getServerParams</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve server parameters.</p>
@@ -1582,7 +1582,7 @@ REQUIRED to originate from $_SERVER.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getAttributes">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#851-865" title="Go to source code">getAttributes</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#852-866" title="Go to source code">getAttributes</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve attributes derived from the request.</p>
@@ -1601,7 +1601,7 @@ will be application and request specific, and CAN be mutable.</p>
 
 				<h4>Returns</h4>
 				<div class="list">
-					array<br>Attributes derived from the request.
+					array<br>Attributes derived from the request
 				</div>
 
 
@@ -1622,7 +1622,7 @@ will be application and request specific, and CAN be mutable.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getAttribute">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#867-887" title="Go to source code">getAttribute</a>( <span>string <var>$name</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#868-888" title="Go to source code">getAttribute</a>( <span>string <var>$name</var></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Retrieve a single derived request attribute.</p>
@@ -1642,9 +1642,9 @@ specifying a default value to return if the attribute is not found.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$name</var></dt>
-					<dd>The attribute name.</dd>
+					<dd>The attribute name</dd>
 					<dt><var>$default</var></dt>
-					<dd>Default value to return if the attribute does not exist.</dd>
+					<dd>Default value to return if the attribute does not exist</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -1674,7 +1674,7 @@ specifying a default value to return if the attribute is not found.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_withAttribute">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#889-912" title="Go to source code">withAttribute</a>( <span>string <var>$name</var></span>, <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#890-913" title="Go to source code">withAttribute</a>( <span>string <var>$name</var></span>, <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
 			<p>Return an instance with the specified derived request attribute.</p>
@@ -1694,9 +1694,9 @@ updated attribute.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$name</var></dt>
-					<dd>The attribute name.</dd>
+					<dd>The attribute name</dd>
 					<dt><var>$value</var></dt>
-					<dd>The value of the attribute.</dd>
+					<dd>The value of the attribute</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -1726,7 +1726,7 @@ updated attribute.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_withAttributes">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#914-936" title="Go to source code">withAttributes</a>( <span>array <var>$attributes</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#915-937" title="Go to source code">withAttributes</a>( <span>array <var>$attributes</var></span> )</code>
 
 		<div class="description short">
 			<p>Create a new instance with the specified derived request attributes.</p>
@@ -1774,7 +1774,7 @@ updated attributes.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_withoutAttribute">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#938-960" title="Go to source code">withoutAttribute</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#939-961" title="Go to source code">withoutAttribute</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			<p>Return an instance that removes the specified derived request attribute.</p>
@@ -1794,7 +1794,7 @@ the attribute.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$name</var></dt>
-					<dd>The attribute name.</dd>
+					<dd>The attribute name</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -1824,7 +1824,7 @@ the attribute.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getParsedBody">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#966-1006" title="Go to source code">getParsedBody</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#967-1007" title="Go to source code">getParsedBody</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve any parameters provided in the request body.</p>
@@ -1847,7 +1847,7 @@ the absence of body content.</p>
 				<h4>Returns</h4>
 				<div class="list">
 					null|array|object<br><p>The deserialized body parameters, if any.
-                          These will typically be an array or object.</p>
+                          These will typically be an array or object</p>
 				</div>
 
 				<h4>Throws</h4>
@@ -1872,7 +1872,7 @@ the absence of body content.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDeserializedBody">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#1013-1083" title="Go to source code">getDeserializedBody</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#1014-1084" title="Go to source code">getDeserializedBody</a>( )</code>
 
 		<div class="description short">
 			<p>Deserialize the content passed as the request.</p>
@@ -1912,7 +1912,7 @@ the absence of body content.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_withParsedBody">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#1085-1125" title="Go to source code">withParsedBody</a>( <span>null|array|object <var>$data</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#1086-1126" title="Go to source code">withParsedBody</a>( <span>null|array|object <var>$data</var></span> )</code>
 
 		<div class="description short">
 			<p>Return an instance with the specified body parameters.</p>
@@ -1945,7 +1945,7 @@ updated body parameters.</p>
 				<div class="list"><dl>
 					<dt><var>$data</var></dt>
 					<dd><p>The deserialized body data. This will
-                               typically be in an array or object.</p></dd>
+                               typically be in an array or object</p></dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -1956,7 +1956,7 @@ updated body parameters.</p>
 				<h4>Throws</h4>
 				<div class="list">
 					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br><p>if an unsupported argument type is
-                                  provided.</p>
+                                  provided</p>
 				</div>
 
 
@@ -1976,7 +1976,7 @@ updated body parameters.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_registerMediaTypeParser">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#1127-1143" title="Go to source code">registerMediaTypeParser</a>( <span>string <var>$mediaType</var></span>, <span>callable <var>$callable</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#1128-1144" title="Go to source code">registerMediaTypeParser</a>( <span>string <var>$mediaType</var></span>, <span>callable <var>$callable</var></span> )</code>
 
 		<div class="description short">
 			<p>Register media type parser.</p>
@@ -1992,10 +1992,10 @@ updated body parameters.</p>
 				<div class="list"><dl>
 					<dt><var>$mediaType</var></dt>
 					<dd><p>A HTTP media type (excluding content-type
-                           params).</p></dd>
+                           params)</p></dd>
 					<dt><var>$callable</var></dt>
 					<dd><p>A callable that returns parsed contents for
-                           media type.</p></dd>
+                           media type</p></dd>
 				</dl></div>
 
 
@@ -2017,7 +2017,7 @@ updated body parameters.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getParam">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#1149-1173" title="Go to source code">getParam</a>( <span>string <var>$key</var></span>, <span>string <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#1150-1174" title="Go to source code">getParam</a>( <span>string <var>$key</var></span>, <span>string <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Fetch request parameter value from body or query string (in that order).</p>
@@ -2032,14 +2032,14 @@ updated body parameters.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$key</var></dt>
-					<dd>The parameter key.</dd>
+					<dd>The parameter key</dd>
 					<dt><var>$default</var></dt>
-					<dd>The default value.</dd>
+					<dd>The default value</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					mixed<br>The parameter value.
+					mixed<br>The parameter value
 				</div>
 
 
@@ -2060,7 +2060,7 @@ updated body parameters.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getParams">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.Request.html#1175-1189" title="Go to source code">getParams</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.Request.html#1176-1190" title="Go to source code">getParams</a>( )</code>
 
 		<div class="description short">
 			<p>Fetch assocative array of body and query string parameters.</p>
@@ -2123,7 +2123,7 @@ updated body parameters.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Request.html#36-41" title="Go to source code"><var>$method</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Request.html#37-42" title="Go to source code"><var>$method</var></a>
 
 			<div class="description short">
 				<p>The request method.</p>
@@ -2148,7 +2148,7 @@ updated body parameters.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Request.html#43-48" title="Go to source code"><var>$originalMethod</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Request.html#44-49" title="Go to source code"><var>$originalMethod</var></a>
 
 			<div class="description short">
 				<p>The original request method (ignoring override).</p>
@@ -2173,7 +2173,7 @@ updated body parameters.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Request.html#50-55" title="Go to source code"><var>$uri</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Request.html#51-56" title="Go to source code"><var>$uri</var></a>
 
 			<div class="description short">
 				<p>The request URI object.</p>
@@ -2198,7 +2198,7 @@ updated body parameters.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Request.html#57-62" title="Go to source code"><var>$requestTarget</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Request.html#58-63" title="Go to source code"><var>$requestTarget</var></a>
 
 			<div class="description short">
 				<p>The request URI target (path + query string).</p>
@@ -2223,7 +2223,7 @@ updated body parameters.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Request.html#64-69" title="Go to source code"><var>$queryParams</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Request.html#65-70" title="Go to source code"><var>$queryParams</var></a>
 
 			<div class="description short">
 				<p>The request query string params.</p>
@@ -2248,7 +2248,7 @@ updated body parameters.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Request.html#71-76" title="Go to source code"><var>$cookies</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Request.html#72-77" title="Go to source code"><var>$cookies</var></a>
 
 			<div class="description short">
 				<p>The request cookies.</p>
@@ -2273,7 +2273,7 @@ updated body parameters.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Request.html#78-83" title="Go to source code"><var>$serverParams</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Request.html#79-84" title="Go to source code"><var>$serverParams</var></a>
 
 			<div class="description short">
 				<p>The server environment variables at the time the request was created.</p>
@@ -2298,7 +2298,7 @@ updated body parameters.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Request.html#85-90" title="Go to source code"><var>$attributes</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Request.html#86-91" title="Go to source code"><var>$attributes</var></a>
 
 			<div class="description short">
 				<p>The request attributes (route segment names and values).</p>
@@ -2323,7 +2323,7 @@ updated body parameters.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Request.html#92-97" title="Go to source code"><var>$bodyParsed</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Request.html#93-98" title="Go to source code"><var>$bodyParsed</var></a>
 
 			<div class="description short">
 				<p>The request body parsed (if possible) into a PHP array or object.</p>
@@ -2348,7 +2348,7 @@ updated body parameters.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Request.html#99-104" title="Go to source code"><var>$bodyParsers</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Request.html#100-105" title="Go to source code"><var>$bodyParsers</var></a>
 
 			<div class="description short">
 				<p>List of request body parsers (e.g., url-encoded, JSON, XML, multipart).</p>
@@ -2373,7 +2373,7 @@ updated body parameters.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Request.html#106-111" title="Go to source code"><var>$uploadedFiles</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Request.html#107-112" title="Go to source code"><var>$uploadedFiles</var></a>
 
 			<div class="description short">
 				<p>List of uploaded files.</p>
@@ -2398,7 +2398,7 @@ updated body parameters.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Request.html#113-128" title="Go to source code"><var>$validMethods</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Request.html#114-129" title="Go to source code"><var>$validMethods</var></a>
 
 			<div class="description short">
 				<p>Valid request methods.</p>
@@ -2433,7 +2433,7 @@ updated body parameters.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.Request.html#1008-1011" title="Go to source code"><var>$cachedDeserializedBody</var></a>
+				<a href="source-class-Gishiki.HttpKernel.Request.html#1009-1012" title="Go to source code"><var>$cachedDeserializedBody</var></a>
 
 			<div class="description short">
 				<p>the deserialized request content</p>

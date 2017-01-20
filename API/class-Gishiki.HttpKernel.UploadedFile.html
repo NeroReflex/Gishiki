@@ -234,7 +234,7 @@
 				<a href="https://github.com/php-fig/http-message/blob/master/src/UploadedFileInterface.php">https://github.com/php-fig/http-message/blob/master/src/UploadedFileInterface.php</a><br>
 				<b>Link:</b>
 				<a href="https://github.com/php-fig/http-message/blob/master/src/StreamInterface.php">https://github.com/php-fig/http-message/blob/master/src/StreamInterface.php</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.HttpKernel.UploadedFile.html#18-320" title="Go to source code">Gishiki/HttpKernel/UploadedFile.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.HttpKernel.UploadedFile.html#19-321" title="Go to source code">Gishiki/HttpKernel/UploadedFile.php</a>
 		<br>
 	</div>
 
@@ -254,7 +254,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createFromEnvironment">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.UploadedFile.html#71-87" title="Go to source code">createFromEnvironment</a>( <span><code><a href="class-Gishiki.Core.Environment.html">Gishiki\Core\Environment</a></code> <var>$env</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.UploadedFile.html#72-88" title="Go to source code">createFromEnvironment</a>( <span><code><a href="class-Gishiki.Core.Environment.html">Gishiki\Core\Environment</a></code> <var>$env</var></span> )</code>
 
 		<div class="description short">
 			<p>Create a normalized tree of UploadedFile instances from the Environment.</p>
@@ -272,7 +272,7 @@
 
 				<h4>Returns</h4>
 				<div class="list">
-					array|null<br>A normalized tree of UploadedFile instances or null if none are provided.
+					array|null<br>A normalized tree of UploadedFile instances or null if none are provided
 				</div>
 
 
@@ -293,7 +293,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.UploadedFile.html#133-151" title="Go to source code">__construct</a>( <span>string <var>$file</var></span>, <span>string|null <var>$name</var> = <span class="php-keyword1">null</span></span>, <span>string|null <var>$type</var> = <span class="php-keyword1">null</span></span>, <span>integer|null <var>$size</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$error</var> = UPLOAD_ERR_OK</span>, <span>boolean <var>$sapi</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.UploadedFile.html#134-152" title="Go to source code">__construct</a>( <span>string <var>$file</var></span>, <span>string|null <var>$name</var> = <span class="php-keyword1">null</span></span>, <span>string|null <var>$type</var> = <span class="php-keyword1">null</span></span>, <span>integer|null <var>$size</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$error</var> = UPLOAD_ERR_OK</span>, <span>boolean <var>$sapi</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			<p>Construct a new UploadedFile instance.</p>
@@ -306,17 +306,17 @@
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$file</var></dt>
-					<dd>The full path to the uploaded file provided by the client.</dd>
+					<dd>The full path to the uploaded file provided by the client</dd>
 					<dt><var>$name</var></dt>
-					<dd>The file name.</dd>
+					<dd>The file name</dd>
 					<dt><var>$type</var></dt>
-					<dd>The file media type.</dd>
+					<dd>The file media type</dd>
 					<dt><var>$size</var></dt>
-					<dd>The file size in bytes.</dd>
+					<dd>The file size in bytes</dd>
 					<dt><var>$error</var></dt>
-					<dd>The UPLOAD_ERR_XXX code representing the status of the upload.</dd>
+					<dd>The UPLOAD_ERR_XXX code representing the status of the upload</dd>
 					<dt><var>$sapi</var></dt>
-					<dd>Indicates if the upload is in a SAPI environment.</dd>
+					<dd>Indicates if the upload is in a SAPI environment</dd>
 				</dl></div>
 
 
@@ -338,7 +338,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getStream">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.UploadedFile.html#153-180" title="Go to source code">getStream</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.UploadedFile.html#154-181" title="Go to source code">getStream</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve a stream representing the uploaded file.</p>
@@ -360,13 +360,13 @@ an exception.</p>
 
 				<h4>Returns</h4>
 				<div class="list">
-					Psr\Http\Message\StreamInterface<br>Stream representation of the uploaded file.
+					Psr\Http\Message\StreamInterface<br>Stream representation of the uploaded file
 				</div>
 
 				<h4>Throws</h4>
 				<div class="list">
 					<code><a href="class-RuntimeException.html">RuntimeException</a></code><br><p>in cases when no stream is available or can be
-                          created.</p>
+                          created</p>
 				</div>
 
 
@@ -386,7 +386,7 @@ an exception.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_moveTo">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.UploadedFile.html#182-249" title="Go to source code">moveTo</a>( <span>string <var>$targetPath</var></span> )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.UploadedFile.html#183-250" title="Go to source code">moveTo</a>( <span>string <var>$targetPath</var></span> )</code>
 
 		<div class="description short">
 			<p>Move the uploaded file to a new location.</p>
@@ -421,15 +421,15 @@ cannot guarantee writing to stream destinations.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$targetPath</var></dt>
-					<dd>Path to which to move the uploaded file.</dd>
+					<dd>Path to which to move the uploaded file</dd>
 				</dl></div>
 
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>if the $path specified is invalid.<br>
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>if the $path specified is invalid<br>
 					<code><a href="class-RuntimeException.html">RuntimeException</a></code><br><p>on any error during the move operation, or on
-                                 the second or subsequent call to the method.</p>
+                                 the second or subsequent call to the method</p>
 				</div>
 
 				<h4>See</h4>
@@ -454,7 +454,7 @@ cannot guarantee writing to stream destinations.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getError">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.UploadedFile.html#251-269" title="Go to source code">getError</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.UploadedFile.html#252-270" title="Go to source code">getError</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve the error associated with the uploaded file.</p>
@@ -475,7 +475,7 @@ the file in the $_FILES array.</p>
 
 				<h4>Returns</h4>
 				<div class="list">
-					integer<br>One of PHP's UPLOAD_ERR_XXX constants.
+					integer<br>One of PHP's UPLOAD_ERR_XXX constants
 				</div>
 
 
@@ -500,7 +500,7 @@ the file in the $_FILES array.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getClientFilename">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.UploadedFile.html#271-287" title="Go to source code">getClientFilename</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.UploadedFile.html#272-288" title="Go to source code">getClientFilename</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve the filename sent by the client.</p>
@@ -521,7 +521,7 @@ the file in the $_FILES array.</p>
 				<h4>Returns</h4>
 				<div class="list">
 					string|null<br><p>The filename sent by the client or null if none
-                    was provided.</p>
+                    was provided</p>
 				</div>
 
 
@@ -542,7 +542,7 @@ the file in the $_FILES array.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getClientMediaType">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.UploadedFile.html#289-305" title="Go to source code">getClientMediaType</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.UploadedFile.html#290-306" title="Go to source code">getClientMediaType</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve the media type sent by the client.</p>
@@ -563,7 +563,7 @@ the file in the $_FILES array.</p>
 				<h4>Returns</h4>
 				<div class="list">
 					string|null<br><p>The media type sent by the client or null if none
-                    was provided.</p>
+                    was provided</p>
 				</div>
 
 
@@ -584,7 +584,7 @@ the file in the $_FILES array.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSize">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.UploadedFile.html#307-319" title="Go to source code">getSize</a>( )</code>
+		<code><a href="source-class-Gishiki.HttpKernel.UploadedFile.html#308-320" title="Go to source code">getSize</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve the file size.</p>
@@ -601,7 +601,7 @@ on the actual size transmitted.</p>
 
 				<h4>Returns</h4>
 				<div class="list">
-					integer|null<br>The file size in bytes or null if unknown.
+					integer|null<br>The file size in bytes or null if unknown
 				</div>
 
 
@@ -632,7 +632,7 @@ on the actual size transmitted.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.UploadedFile.html#28-33" title="Go to source code"><var>$name</var></a>
+				<a href="source-class-Gishiki.HttpKernel.UploadedFile.html#29-34" title="Go to source code"><var>$name</var></a>
 
 			<div class="description short">
 				<p>The client-provided file name.</p>
@@ -657,7 +657,7 @@ on the actual size transmitted.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.UploadedFile.html#34-39" title="Go to source code"><var>$type</var></a>
+				<a href="source-class-Gishiki.HttpKernel.UploadedFile.html#35-40" title="Go to source code"><var>$type</var></a>
 
 			<div class="description short">
 				<p>The client-provided media type of the file.</p>
@@ -682,7 +682,7 @@ on the actual size transmitted.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.UploadedFile.html#40-45" title="Go to source code"><var>$size</var></a>
+				<a href="source-class-Gishiki.HttpKernel.UploadedFile.html#41-46" title="Go to source code"><var>$size</var></a>
 
 			<div class="description short">
 				<p>The size of the file in bytes.</p>
@@ -707,7 +707,7 @@ on the actual size transmitted.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.UploadedFile.html#46-51" title="Go to source code"><var>$error</var></a>
+				<a href="source-class-Gishiki.HttpKernel.UploadedFile.html#47-52" title="Go to source code"><var>$error</var></a>
 
 			<div class="description short">
 				<p>A valid PHP UPLOAD_ERR_xxx code for the file upload.</p>
@@ -732,7 +732,7 @@ on the actual size transmitted.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.UploadedFile.html#52-57" title="Go to source code"><var>$sapi</var></a>
+				<a href="source-class-Gishiki.HttpKernel.UploadedFile.html#53-58" title="Go to source code"><var>$sapi</var></a>
 
 			<div class="description short">
 				<p>Indicates if the upload is from a SAPI environment.</p>
@@ -757,7 +757,7 @@ on the actual size transmitted.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.UploadedFile.html#58-63" title="Go to source code"><var>$stream</var></a>
+				<a href="source-class-Gishiki.HttpKernel.UploadedFile.html#59-64" title="Go to source code"><var>$stream</var></a>
 
 			<div class="description short">
 				<p>An optional StreamInterface wrapping the file resource.</p>
@@ -782,7 +782,7 @@ on the actual size transmitted.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.HttpKernel.UploadedFile.html#64-69" title="Go to source code"><var>$moved</var></a>
+				<a href="source-class-Gishiki.HttpKernel.UploadedFile.html#65-70" title="Go to source code"><var>$moved</var></a>
 
 			<div class="description short">
 				<p>Indicates if the uploaded file has already been moved.</p>

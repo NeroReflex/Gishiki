@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Interface Gishiki\HttpKernel\CookiesInterface | Gishiki</title>
+	<title>Class Gishiki\Database\Schema\ColumnRelationship | Gishiki</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -48,7 +48,7 @@
 
 						</li>
 							</ul></li>
-				<li>
+				<li class="active">
 					<a href="namespace-Gishiki.Database.html">
 						Database<span></span>
 					</a>
@@ -71,13 +71,13 @@
 						Runtime					</a>
 
 						</li>
-				<li>
+				<li class="active">
 					<a href="namespace-Gishiki.Database.Schema.html">
 						Schema					</a>
 
 						</li>
 							</ul></li>
-				<li class="active">
+				<li>
 					<a href="namespace-Gishiki.HttpKernel.html">
 						HttpKernel					</a>
 
@@ -142,23 +142,12 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-Gishiki.HttpKernel.Body.html">Body</a></li>
-				<li><a href="class-Gishiki.HttpKernel.Cookies.html">Cookies</a></li>
-				<li><a href="class-Gishiki.HttpKernel.Headers.html">Headers</a></li>
-				<li><a href="class-Gishiki.HttpKernel.Message.html">Message</a></li>
-				<li><a href="class-Gishiki.HttpKernel.Request.html">Request</a></li>
-				<li><a href="class-Gishiki.HttpKernel.RequestBody.html">RequestBody</a></li>
-				<li><a href="class-Gishiki.HttpKernel.Response.html">Response</a></li>
-				<li><a href="class-Gishiki.HttpKernel.Stream.html">Stream</a></li>
-				<li><a href="class-Gishiki.HttpKernel.UploadedFile.html">UploadedFile</a></li>
-				<li><a href="class-Gishiki.HttpKernel.Uri.html">Uri</a></li>
+				<li><a href="class-Gishiki.Database.Schema.Column.html">Column</a></li>
+				<li class="active"><a href="class-Gishiki.Database.Schema.ColumnRelationship.html">ColumnRelationship</a></li>
+				<li><a href="class-Gishiki.Database.Schema.ColumnType.html">ColumnType</a></li>
+				<li><a href="class-Gishiki.Database.Schema.Table.html">Table</a></li>
 			</ul>
 
-			<h3>Interfaces</h3>
-			<ul>
-				<li class="active"><a href="class-Gishiki.HttpKernel.CookiesInterface.html">CookiesInterface</a></li>
-				<li><a href="class-Gishiki.HttpKernel.HeadersInterface.html">HeadersInterface</a></li>
-			</ul>
 
 
 
@@ -183,7 +172,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="namespace-Gishiki.HttpKernel.html" title="Summary of Gishiki\HttpKernel"><span>Namespace</span></a>
+				<a href="namespace-Gishiki.Database.Schema.html" title="Summary of Gishiki\Database\Schema"><span>Namespace</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -198,34 +187,30 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Interface CookiesInterface</h1>
+	<h1>Class ColumnRelationship</h1>
 
 
 	<div class="description">
-	<p>Cookies Interface.</p>
+	<p>Represent a column inside a table of a relational database.</p>
 	</div>
 
 
 
 
 
-	<div>
-		<h4>Direct known implementers</h4>
-			<a href="class-Gishiki.HttpKernel.Cookies.html">Gishiki\HttpKernel\Cookies</a>
-	</div>
 
 
 
 
 	<div class="info">
+		<b>Final</b><br>
 		
-		
-		<b>Namespace:</b> <a href="namespace-Gishiki.html">Gishiki</a>\<a href="namespace-Gishiki.HttpKernel.html">HttpKernel</a><br>
+		<b>Namespace:</b> <a href="namespace-Gishiki.html">Gishiki</a>\<a href="namespace-Gishiki.Database.html">Database</a>\<a href="namespace-Gishiki.Database.Schema.html">Schema</a><br>
 		
 
-				<b>Since:</b>
-				3.0.0<br>
-			<b>Located at</b> <a href="source-class-Gishiki.HttpKernel.CookiesInterface.html#13-24" title="Go to source code">Gishiki/HttpKernel/CookiesInterface.php</a>
+				<b>Author:</b>
+				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.Schema.ColumnRelationship.html#20-49" title="Go to source code">Gishiki/Database/Schema/ColumnRelationship.php</a>
 		<br>
 	</div>
 
@@ -233,7 +218,7 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="get" id="_get">
+	<tr data-order="__construct" id="___construct">
 
 		<td class="attributes"><code>
 			 public 
@@ -244,98 +229,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_get">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.CookiesInterface.html#20" title="Go to source code">get</a>( <span> <var>$name</var></span>, <span> <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="set" id="_set">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_set">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.CookiesInterface.html#21" title="Go to source code">set</a>( <span> <var>$name</var></span>, <span> <var>$value</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="toHeaders" id="_toHeaders">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_toHeaders">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.CookiesInterface.html#22" title="Go to source code">toHeaders</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="parseHeader" id="_parseHeader">
-
-		<td class="attributes"><code>
-			 public static
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_parseHeader">#</a>
-		<code><a href="source-class-Gishiki.HttpKernel.CookiesInterface.html#23" title="Go to source code">parseHeader</a>( <span> <var>$header</var></span> )</code>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Gishiki.Database.Schema.ColumnRelationship.html#37-48" title="Go to source code">__construct</a>( <span><code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code> <var>&amp; $column</var></span>, <span><code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code> <var>&amp; $foreignColumn</var></span> )</code>
 
 		<div class="description short">
 			
@@ -366,6 +261,59 @@
 
 
 
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="column" id="$column">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.Database.Schema.ColumnRelationship.html#27-30" title="Go to source code"><var>$column</var></a>
+
+			<div class="description short">
+				<p>the column of the current table</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>the column of the current table</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$column" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="foreignKey" id="$foreignKey">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.Database.Schema.ColumnRelationship.html#32-35" title="Go to source code"><var>$foreignKey</var></a>
+
+			<div class="description short">
+				<p>the foreign key column (in another table)</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>the foreign key column (in another table)</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$foreignKey" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 
 

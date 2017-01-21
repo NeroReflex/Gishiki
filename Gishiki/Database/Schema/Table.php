@@ -28,7 +28,17 @@ final class Table
      * @var string the name of the table
      */
     protected $name;
+    
+    /**
+     * @var array a list of relations of columns on the current table
+     */
+    protected $relations;
 
+    /**
+     * @var array a list of columns inside the current database
+     */
+    protected $columns;
+    
     /**
      * Initialize a table with the given name.
      * This function internally calls setName(), and you should catch
@@ -39,7 +49,8 @@ final class Table
     public function __construct($name)
     {
         $this->name = '';
-
+        $this->columns = [];
+        $this->relations = [];
         $this->setName($name);
     }
 

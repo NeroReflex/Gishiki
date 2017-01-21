@@ -19,7 +19,7 @@ namespace Gishiki\tests\Database\Adapters\Utils;
 
 use Gishiki\Database\Adapters\Utils\SQLBuilder;
 use Gishiki\Database\Runtime\SelectionCriteria;
-use Gishiki\Database\Runtime\FieldRelationship;
+use Gishiki\Database\Runtime\FieldRelation;
 use Gishiki\Database\Runtime\ResultModifier;
 use Gishiki\Database\Runtime\FieldOrdering;
 
@@ -69,7 +69,7 @@ class SQLBuilderTest extends \PHPUnit_Framework_TestCase
         $query = new SQLBuilder();
         $query->selectAllFrom('test1')->where(SelectionCriteria::Select([
             'id' => [5, 6, 7],
-        ])->or_where('name', FieldRelationship::NOT_LIKE, '%inv%'));
+        ])->or_where('name', FieldRelation::NOT_LIKE, '%inv%'));
 
         $this->assertEquals(self::filterQuery('SELECT * FROM "test1" WHERE id IN (?,?,?) OR name NOT LIKE ?'), self::filterQuery($query->exportQuery()));
         $this->assertEquals([5, 6, 7, '%inv%'], $query->exportParams());
@@ -81,7 +81,7 @@ class SQLBuilderTest extends \PHPUnit_Framework_TestCase
         $query->selectAllFrom('test1')
                 ->where(SelectionCriteria::Select([
                         'id' => [5, 6, 7],
-                    ])->or_where('price', FieldRelationship::GREATER_THAN, 1.25))
+                    ])->or_where('price', FieldRelation::GREATER_THAN, 1.25))
                 ->limitOffsetOrderBy(ResultModifier::Initialize([
                     'limit' => 1024,
                     'skip' => 100,
@@ -98,7 +98,7 @@ class SQLBuilderTest extends \PHPUnit_Framework_TestCase
         $query->selectFrom('test1', ['name', 'surname'])
                 ->where(SelectionCriteria::Select([
                         'id' => [5, 6, 7],
-                    ])->or_where('price', FieldRelationship::GREATER_THAN, 1.25))
+                    ])->or_where('price', FieldRelation::GREATER_THAN, 1.25))
                 ->limitOffsetOrderBy(ResultModifier::Initialize([
                     'limit' => 1024,
                     'skip' => 100,

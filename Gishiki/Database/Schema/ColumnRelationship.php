@@ -17,12 +17,14 @@ limitations under the License.
 
 namespace Gishiki\Database\Schema;
 
+use Gishiki\Database\DatabaseException;
+
 /**
  * Represent a column inside a table of a relational database.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class ColumnRelationship
+final class ColumnRelation
 {
     /**
      * @var Column the column of the current table
@@ -32,18 +34,48 @@ final class ColumnRelationship
     /**
      * @var Column the foreign key column (in another table)
      */
-    protected $foreignKey;
+    protected $externColumn;
 
-    public function __construct(Column &$column, Column &$foreignColumn)
+    /**
+     * Create a new Relation from the first column to the second one, which
+     * is a primary key.
+     * 
+     * @param  \Gishiki\Database\Schema\Column $column       the column to be related with a foreign key
+     * @param  \Gishiki\Database\Schema\Column $externColumn the foreign column
+     * @throws DatabaseException the error occurred while enstabilishing the Relation
+     */
+    public function __construct(Column &$column, Column &$externColumn)
     {
         //oh come one.... you cannot create a reference to a column in the sable table
         if ($column->getTable() == $foreignColumn->getTable()) {
-            
+            throw new DatabaseException('A Relation between two column cannot be created on the same column', 128);
         }
         
         //and I hope you are not going to reference something that is not a primary key
         if ($foreignColumn->getPrimaryKey()) {
-            
+            throw new DatabaseException('A Relation can only be created with a foreign primary key', 129);
         }
+        
+        $this->column = $column;
+        $this->externColumn = $externColumn;
+    }
+    
+    /**
+     * Get the column on the current table.
+     * 
+     * @return Column the reference to the column
+     */
+    public function &getForeignKey() {
+        return $this->column;
+    }
+    
+    /**
+     * Get the column on the related table.
+     * 
+     * @return Column the reference to the column
+     */
+    public function &getReference()
+    {
+        return $this->externColumn;
     }
 }

@@ -18,7 +18,7 @@ limitations under the License.
 namespace Gishiki\tests\Database\Runtime;
 
 use Gishiki\Database\Runtime\SelectionCriteria;
-use Gishiki\Database\Runtime\FieldRelationship;
+use Gishiki\Database\Runtime\FieldRelation;
 
 /**
  * The tester for the SelectionCriteria class.
@@ -32,13 +32,13 @@ class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadNameAnd()
     {
-        SelectionCriteria::Select(['a' => [3, 5, 6]])->and_where(3, FieldRelationship::EQUAL, '');
+        SelectionCriteria::Select(['a' => [3, 5, 6]])->and_where(3, FieldRelation::EQUAL, '');
     }
 
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testBadRelationshipAnd()
+    public function testBadRelationAnd()
     {
         SelectionCriteria::Select(['a' => [3, 5, 6]])->and_where('a', 'IDK', '');
     }
@@ -48,7 +48,7 @@ class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadValueAnd()
     {
-        SelectionCriteria::Select(['a' => [3, 5, 6]])->and_where('a', FieldRelationship::EQUAL, new SelectionCriteria());
+        SelectionCriteria::Select(['a' => [3, 5, 6]])->and_where('a', FieldRelation::EQUAL, new SelectionCriteria());
     }
 
     /**
@@ -56,7 +56,7 @@ class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadValueOr()
     {
-        SelectionCriteria::Select(['a' => [3, 5, 6]])->or_where('a', FieldRelationship::EQUAL, new SelectionCriteria());
+        SelectionCriteria::Select(['a' => [3, 5, 6]])->or_where('a', FieldRelation::EQUAL, new SelectionCriteria());
     }
 
     /**
@@ -64,13 +64,13 @@ class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadNameOr()
     {
-        SelectionCriteria::Select(['a' => [3, 5, 6]])->or_where(3, FieldRelationship::EQUAL, '');
+        SelectionCriteria::Select(['a' => [3, 5, 6]])->or_where(3, FieldRelation::EQUAL, '');
     }
 
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testBadRelationshipOr()
+    public function testBadRelationOr()
     {
         SelectionCriteria::Select(['a' => [3, 5, 6]])->or_where('a', 'IDK', '');
     }
@@ -89,12 +89,12 @@ class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
                 'and' => [
                     [
                         0 => 'a',
-                        1 => FieldRelationship::IN_RANGE,
+                        1 => FieldRelation::IN_RANGE,
                         2 => [3, 5, 6],
                     ],
                     [
                         0 => 'b',
-                        1 => FieldRelationship::EQUAL,
+                        1 => FieldRelation::EQUAL,
                         2 => 96,
                     ],
                 ],
@@ -105,7 +105,7 @@ class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
 
     public function testOrAfterInitializer()
     {
-        $sc = SelectionCriteria::Select(['a' => [3, 5, 6], 'b' => 96])->or_where('c', FieldRelationship::LIKE, '%test%');
+        $sc = SelectionCriteria::Select(['a' => [3, 5, 6], 'b' => 96])->or_where('c', FieldRelation::LIKE, '%test%');
 
         $exportMethod = new \ReflectionMethod($sc, 'export');
         $exportMethod->setAccessible(true);
@@ -117,19 +117,19 @@ class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
                 'and' => [
                     [
                         0 => 'a',
-                        1 => FieldRelationship::IN_RANGE,
+                        1 => FieldRelation::IN_RANGE,
                         2 => [3, 5, 6],
                     ],
                     [
                         0 => 'b',
-                        1 => FieldRelationship::EQUAL,
+                        1 => FieldRelation::EQUAL,
                         2 => 96,
                     ],
                 ],
                 'or' => [
                     [
                         0 => 'c',
-                        1 => FieldRelationship::LIKE,
+                        1 => FieldRelation::LIKE,
                         2 => '%test%',
                     ],
                 ],

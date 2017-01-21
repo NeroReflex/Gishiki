@@ -38,13 +38,13 @@ a valid instance of SelectionCriteria:
 ```php
 use Gishiki\Database\DatabaseManager;
 use Gishiki\Database\Runtime\SelectionCriteria;
-use Gishiki\Database\Runtime\FieldRelationship;
+use Gishiki\Database\Runtime\FieldRelation;
 
 $connection = DatabaseManager::Retrieve('connectionName');
 
 $connection->delete('tbname', SelectionCriteria::Select([
             'nickname' => $nickname
-        ])->or_where('email', FieldRelationship::EQUAL, $email)
+        ])->or_where('email', FieldRelation::EQUAL, $email)
     );
 ```
 
@@ -56,7 +56,7 @@ The delete function only needs the name of the table/collection to be affected:
 ```php
 use Gishiki\Database\DatabaseManager;
 use Gishiki\Database\Runtime\SelectionCriteria;
-use Gishiki\Database\Runtime\FieldRelationship;
+use Gishiki\Database\Runtime\FieldRelation;
 
 $connection = DatabaseManager::Retrieve('connectionName');
 

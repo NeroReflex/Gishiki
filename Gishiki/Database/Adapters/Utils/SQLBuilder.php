@@ -172,7 +172,7 @@ class SQLBuilder
                 }
 
                 $fieldName = $resultModifierExported['criteria'][$arrayConjunction][$arrayIndex][0];
-                $fieldRelationship = $resultModifierExported['criteria'][$arrayConjunction][$arrayIndex][1];
+                $fieldRelation = $resultModifierExported['criteria'][$arrayConjunction][$arrayIndex][1];
                 $fieldValue = $resultModifierExported['criteria'][$arrayConjunction][$arrayIndex][2];
 
                 //assemble the query
@@ -184,7 +184,7 @@ class SQLBuilder
                     $parentOpen = '(';
                     $parentClose = ')';
                 }
-                $this->appendToQuery($conjunction.$fieldName.' '.$fieldRelationship.' '.$parentOpen.$qmarks.' ?'.$parentClose.' ');
+                $this->appendToQuery($conjunction.$fieldName.' '.$fieldRelation.' '.$parentOpen.$qmarks.' ?'.$parentClose.' ');
                 $this->appendToParams($fieldValue);
 
                 $first = false;

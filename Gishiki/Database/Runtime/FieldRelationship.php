@@ -18,11 +18,11 @@ limitations under the License.
 namespace Gishiki\Database\Runtime;
 
 /**
- * A collection of relationship that can be applied to a field.
+ * A collection of Relation that can be applied to a field.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-abstract class FieldRelationship
+abstract class FieldRelation
 {
     const EQUAL = '=';
     const NOT_EQUAL = '!=';

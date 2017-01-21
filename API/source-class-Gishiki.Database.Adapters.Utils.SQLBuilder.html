@@ -160,11 +160,11 @@
 				<li><a href="class-Gishiki.Database.Adapters.Utils.SQLBuilder.html">Gishiki\Database\Adapters\Utils\SQLBuilder</a></li>
 				<li><a href="class-Gishiki.Database.DatabaseManager.html">Gishiki\Database\DatabaseManager</a></li>
 				<li><a href="class-Gishiki.Database.Runtime.FieldOrdering.html">Gishiki\Database\Runtime\FieldOrdering</a></li>
-				<li><a href="class-Gishiki.Database.Runtime.FieldRelationship.html">Gishiki\Database\Runtime\FieldRelationship</a></li>
+				<li><a href="class-Gishiki.Database.Runtime.FieldRelation.html">Gishiki\Database\Runtime\FieldRelation</a></li>
 				<li><a href="class-Gishiki.Database.Runtime.ResultModifier.html">Gishiki\Database\Runtime\ResultModifier</a></li>
 				<li><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></li>
 				<li><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></li>
-				<li><a href="class-Gishiki.Database.Schema.ColumnRelationship.html">Gishiki\Database\Schema\ColumnRelationship</a></li>
+				<li><a href="class-Gishiki.Database.Schema.ColumnRelation.html">Gishiki\Database\Schema\ColumnRelation</a></li>
 				<li><a href="class-Gishiki.Database.Schema.ColumnType.html">Gishiki\Database\Schema\ColumnType</a></li>
 				<li><a href="class-Gishiki.Database.Schema.Table.html">Gishiki\Database\Schema\Table</a></li>
 				<li><a href="class-Gishiki.Gishiki.html">Gishiki\Gishiki</a></li>
@@ -436,7 +436,7 @@
 </span><span id="172" class="l"><a href="#172">172: </a>                }
 </span><span id="173" class="l"><a href="#173">173: </a>
 </span><span id="174" class="l"><a href="#174">174: </a>                <span class="php-var">$fieldName</span> = <span class="php-var">$resultModifierExported</span>[<span class="php-quote">'criteria'</span>][<span class="php-var">$arrayConjunction</span>][<span class="php-var">$arrayIndex</span>][<span class="php-num">0</span>];
-</span><span id="175" class="l"><a href="#175">175: </a>                <span class="php-var">$fieldRelationship</span> = <span class="php-var">$resultModifierExported</span>[<span class="php-quote">'criteria'</span>][<span class="php-var">$arrayConjunction</span>][<span class="php-var">$arrayIndex</span>][<span class="php-num">1</span>];
+</span><span id="175" class="l"><a href="#175">175: </a>                <span class="php-var">$fieldRelation</span> = <span class="php-var">$resultModifierExported</span>[<span class="php-quote">'criteria'</span>][<span class="php-var">$arrayConjunction</span>][<span class="php-var">$arrayIndex</span>][<span class="php-num">1</span>];
 </span><span id="176" class="l"><a href="#176">176: </a>                <span class="php-var">$fieldValue</span> = <span class="php-var">$resultModifierExported</span>[<span class="php-quote">'criteria'</span>][<span class="php-var">$arrayConjunction</span>][<span class="php-var">$arrayIndex</span>][<span class="php-num">2</span>];
 </span><span id="177" class="l"><a href="#177">177: </a>
 </span><span id="178" class="l"><a href="#178">178: </a>                <span class="php-comment">//assemble the query</span>
@@ -448,7 +448,7 @@
 </span><span id="184" class="l"><a href="#184">184: </a>                    <span class="php-var">$parentOpen</span> = <span class="php-quote">'('</span>;
 </span><span id="185" class="l"><a href="#185">185: </a>                    <span class="php-var">$parentClose</span> = <span class="php-quote">')'</span>;
 </span><span id="186" class="l"><a href="#186">186: </a>                }
-</span><span id="187" class="l"><a href="#187">187: </a>                <span class="php-var">$this</span>-&gt;appendToQuery(<span class="php-var">$conjunction</span>.<span class="php-var">$fieldName</span>.<span class="php-quote">' '</span>.<span class="php-var">$fieldRelationship</span>.<span class="php-quote">' '</span>.<span class="php-var">$parentOpen</span>.<span class="php-var">$qmarks</span>.<span class="php-quote">' ?'</span>.<span class="php-var">$parentClose</span>.<span class="php-quote">' '</span>);
+</span><span id="187" class="l"><a href="#187">187: </a>                <span class="php-var">$this</span>-&gt;appendToQuery(<span class="php-var">$conjunction</span>.<span class="php-var">$fieldName</span>.<span class="php-quote">' '</span>.<span class="php-var">$fieldRelation</span>.<span class="php-quote">' '</span>.<span class="php-var">$parentOpen</span>.<span class="php-var">$qmarks</span>.<span class="php-quote">' ?'</span>.<span class="php-var">$parentClose</span>.<span class="php-quote">' '</span>);
 </span><span id="188" class="l"><a href="#188">188: </a>                <span class="php-var">$this</span>-&gt;appendToParams(<span class="php-var">$fieldValue</span>);
 </span><span id="189" class="l"><a href="#189">189: </a>
 </span><span id="190" class="l"><a href="#190">190: </a>                <span class="php-var">$first</span> = <span class="php-keyword1">false</span>;
@@ -620,6 +620,6 @@
 </div>
 </div>
 <script src="resources/combined.js?7ec981fd384b70aee7ff5ceda56e0deb9171d900"></script>
-<script src="elementlist.js?1714110d27b3c5310015523dbbca57573ca40033"></script>
+<script src="elementlist.js?c0fea98609448fdc29dccf23227c501c7ce6ae67"></script>
 </body>
 </html>

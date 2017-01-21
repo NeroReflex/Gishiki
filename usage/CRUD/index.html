@@ -297,13 +297,13 @@ you have to call, on the desired database connection the <strong>delete</strong>
 a valid instance of SelectionCriteria:</p>
 <pre><code class="php">use Gishiki\Database\DatabaseManager;
 use Gishiki\Database\Runtime\SelectionCriteria;
-use Gishiki\Database\Runtime\FieldRelationship;
+use Gishiki\Database\Runtime\FieldRelation;
 
 $connection = DatabaseManager::Retrieve('connectionName');
 
 $connection-&gt;delete('tbname', SelectionCriteria::Select([
             'nickname' =&gt; $nickname
-        ])-&gt;or_where('email', FieldRelationship::EQUAL, $email)
+        ])-&gt;or_where('email', FieldRelation::EQUAL, $email)
     );
 </code></pre>
 
@@ -312,7 +312,7 @@ using the <strong>deleteAll</strong> function.</p>
 <p>The delete function only needs the name of the table/collection to be affected:</p>
 <pre><code class="php">use Gishiki\Database\DatabaseManager;
 use Gishiki\Database\Runtime\SelectionCriteria;
-use Gishiki\Database\Runtime\FieldRelationship;
+use Gishiki\Database\Runtime\FieldRelation;
 
 $connection = DatabaseManager::Retrieve('connectionName');
 

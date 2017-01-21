@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Gishiki\Database\Schema\ColumnType | Gishiki</title>
+	<title>Class Gishiki\Database\Schema\ColumnRelation | Gishiki</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -143,8 +143,8 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-Gishiki.Database.Schema.Column.html">Column</a></li>
-				<li><a href="class-Gishiki.Database.Schema.ColumnRelation.html">ColumnRelation</a></li>
-				<li class="active"><a href="class-Gishiki.Database.Schema.ColumnType.html">ColumnType</a></li>
+				<li class="active"><a href="class-Gishiki.Database.Schema.ColumnRelation.html">ColumnRelation</a></li>
+				<li><a href="class-Gishiki.Database.Schema.ColumnType.html">ColumnType</a></li>
 				<li><a href="class-Gishiki.Database.Schema.Table.html">Table</a></li>
 			</ul>
 
@@ -187,11 +187,11 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class ColumnType</h1>
+	<h1>Class ColumnRelation</h1>
 
 
 	<div class="description">
-	<p>A collection of data types that a column can store.</p>
+	<p>Represent a column inside a table of a relational database.</p>
 	</div>
 
 
@@ -203,130 +203,198 @@
 
 
 	<div class="info">
-		<b>Abstract</b><br>
+		<b>Final</b><br>
 		
 		<b>Namespace:</b> <a href="namespace-Gishiki.html">Gishiki</a>\<a href="namespace-Gishiki.Database.html">Database</a>\<a href="namespace-Gishiki.Database.Schema.html">Schema</a><br>
 		
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.Schema.ColumnType.html#20-31" title="Go to source code">Gishiki/Database/Schema/ColumnType.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#22-81" title="Go to source code">Gishiki/Database/Schema/ColumnRelationship.php</a>
 		<br>
 	</div>
 
 
 
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
 
+		<td class="attributes"><code>
+			 public 
 
-
-
-
-
-
-
-	<table class="summary constants" id="constants">
-	<caption>Constants summary</caption>
-	<tr data-order="INTEGER" id="INTEGER">
-
-		<td class="attributes"><code>integer</code></td>
-		<td class="name">
-			<code>
-				<a href="source-class-Gishiki.Database.Schema.ColumnType.html#27" title="Go to source code"><b>INTEGER</b></a>
+			
+			
 			</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
 		</td>
-		<td class="value">
-			<div>
-				<a href="#INTEGER" class="anchor">#</a>
-				<code><span class="php-num">0</span></code>
-			</div>
-		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#39-61" title="Go to source code">__construct</a>( <span><code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code> <var>&amp; $column</var></span>, <span><code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code> <var>&amp; $externColumn</var></span> )</code>
+
+		<div class="description short">
+			<p>Create a new Relation from the first column to the second one, which
+is a primary key.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Create a new Relation from the first column to the second one, which
+is a primary key.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$column</var></dt>
+					<dd>the column to be related with a foreign key</dd>
+					<dt><var>$externColumn</var></dt>
+					<dd>the foreign column</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></code><br>the error occurred while enstabilishing the Relation
+				</div>
+
+
+
+		</div>
+		</div></td>
 	</tr>
-	<tr data-order="TEXT" id="TEXT">
+	<tr data-order="getForeignKey" id="_getForeignKey">
 
-		<td class="attributes"><code>integer</code></td>
-		<td class="name">
-			<code>
-				<a href="source-class-Gishiki.Database.Schema.ColumnType.html#28" title="Go to source code"><b>TEXT</b></a>
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code>
+			&amp;
 			</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
 		</td>
-		<td class="value">
-			<div>
-				<a href="#TEXT" class="anchor">#</a>
-				<code><span class="php-num">1</span></code>
-			</div>
-		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getForeignKey">#</a>
+		<code><a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#63-70" title="Go to source code">getForeignKey</a>( )</code>
+
+		<div class="description short">
+			<p>Get the column on the current table.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the column on the current table.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code><br>the reference to the column
+				</div>
+
+
+
+
+		</div>
+		</div></td>
 	</tr>
-	<tr data-order="REAL" id="REAL">
+	<tr data-order="getReference" id="_getReference">
 
-		<td class="attributes"><code>integer</code></td>
-		<td class="name">
-			<code>
-				<a href="source-class-Gishiki.Database.Schema.ColumnType.html#29" title="Go to source code"><b>REAL</b></a>
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code>
+			&amp;
 			</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
 		</td>
-		<td class="value">
-			<div>
-				<a href="#REAL" class="anchor">#</a>
-				<code><span class="php-num">2</span></code>
-			</div>
-		</td>
-	</tr>
-	<tr data-order="DATETIME" id="DATETIME">
 
-		<td class="attributes"><code>integer</code></td>
-		<td class="name">
-			<code>
-				<a href="source-class-Gishiki.Database.Schema.ColumnType.html#30" title="Go to source code"><b>DATETIME</b></a>
-			</code>
+		<td class="name"><div>
+		<a class="anchor" href="#_getReference">#</a>
+		<code><a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#72-80" title="Go to source code">getReference</a>( )</code>
 
-			<div class="description short">
-				
-			</div>
+		<div class="description short">
+			<p>Get the column on the related table.</p>
+		</div>
 
-			<div class="description detailed hidden">
-				
+		<div class="description detailed hidden">
+			<p>Get the column on the related table.</p>
 
-			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#DATETIME" class="anchor">#</a>
-				<code><span class="php-num">3</span></code>
-			</div>
-		</td>
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code><br>the reference to the column
+				</div>
+
+
+
+
+		</div>
+		</div></td>
 	</tr>
 	</table>
 
 
 
 
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="column" id="$column">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#29-32" title="Go to source code"><var>$column</var></a>
+
+			<div class="description short">
+				<p>the column of the current table</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>the column of the current table</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$column" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="externColumn" id="$externColumn">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#34-37" title="Go to source code"><var>$externColumn</var></a>
+
+			<div class="description short">
+				<p>the foreign key column (in another table)</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>the foreign key column (in another table)</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$externColumn" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 
 

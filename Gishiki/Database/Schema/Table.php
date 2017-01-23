@@ -53,7 +53,24 @@ final class Table
         $this->relations = [];
         $this->setName($name);
     }
+    
+    
+    public function addColumn(Column &$col)
+    {
+        foreach ($this->columns as $currentCol) {
+            if (strcmp($col->getName(), $currentCol->getName()) == 0) {
+                throw new DatabaseException('A Table cannot contain two columns with the same name', 140);
+            }
+        }
+        
+        $this->columns[] = $col;
+    }
 
+    public function getColumns()
+    {
+        
+    }
+    
     /**
      * Change the name of the current table.
      *

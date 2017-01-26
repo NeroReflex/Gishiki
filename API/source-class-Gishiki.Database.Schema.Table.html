@@ -357,7 +357,7 @@
 </span></span><span id="93" class="l"><a href="#93"> 93: </a><span class="php-comment">     */</span>
 </span><span id="94" class="l"><a href="#94"> 94: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> &amp;addForeignKey(ColumnRelation <span class="php-var">$foreignKey</span>)
 </span><span id="95" class="l"><a href="#95"> 95: </a>    {
-</span><span id="96" class="l"><a href="#96"> 96: </a>        <span class="php-keyword1">foreach</span> (<span class="php-var">$this</span>-&gt;columns <span class="php-keyword1">as</span> <span class="php-var">$currentForeignKey</span>) {
+</span><span id="96" class="l"><a href="#96"> 96: </a>        <span class="php-keyword1">foreach</span> (<span class="php-var">$this</span>-&gt;foreignKeys <span class="php-keyword1">as</span> <span class="php-var">$currentForeignKey</span>) {
 </span><span id="97" class="l"><a href="#97"> 97: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">strcmp</span>(<span class="php-var">$foreignKey</span>-&gt;getForeignKey()-&gt;getName(), <span class="php-var">$currentForeignKey</span>-&gt;getForeignKey()-&gt;getName()) == <span class="php-num">0</span>) {
 </span><span id="98" class="l"><a href="#98"> 98: </a>                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> DatabaseException(<span class="php-quote">'A Table cannot contain two foreign key with the same name'</span>, <span class="php-num">141</span>);
 </span><span id="99" class="l"><a href="#99"> 99: </a>            }

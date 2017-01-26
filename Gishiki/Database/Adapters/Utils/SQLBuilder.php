@@ -57,6 +57,36 @@ class SQLBuilder
     protected $params;
 
     /**
+     * Beautify an SQL query.
+     * 
+     * @param string $query the ugly SQL query
+     */
+    public static function Beautify($query)
+    {
+        $count = 1;
+        while ($count > 0) {
+            $query = str_replace('  ', ' ', $query, $count);
+        }
+
+        $count = 1;
+        while ($count > 0) {
+            $query = str_replace('( ', '(', $query, $count);
+        }
+
+        $count = 1;
+        while ($count > 0) {
+            $query = str_replace(' )', ')', $query, $count);
+        }
+
+        $count = 1;
+        while ($count > 0) {
+            $query = str_replace('?, ?', '?,?', $query, $count);
+        }
+
+        return trim($query);
+    }
+    
+    /**
      * Append to the current SQL the given text.
      *
      * Placeholders are question marks: ? and the value must be registered using
@@ -335,7 +365,7 @@ class SQLBuilder
      */
     public function exportQuery()
     {
-        return $this->sql;
+        return self::Beautify($this->sql);
     }
 
     /**

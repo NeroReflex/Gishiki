@@ -59,10 +59,11 @@ final class Column
      * This function internally calls setName(), and you should catch
      * exceptions thrown by that function.
      *
-     * @param  Table a reference to the table containing the this column
-     * @param string $name the name of the column
+     * @param Table   $table a reference to the table containing the this column
+     * @param string  $name  the name of the column
+     * @param integer $type  the data type of the column
      */
-    public function __construct(Table &$table, $name)
+    public function __construct(Table &$table, $name, $type)
     {
         $this->name = '';
         $this->dataType = 0;
@@ -71,16 +72,45 @@ final class Column
         $this->table = &$table;
         $this->notNull = false;
         $this->setName($name);
+        $this->setType($type);
     }
 
     /**
-     * Get a reference to the table containing this column.
+     * Retrieve a reference to the table containing this column.
      *
      * @return Table a reference to the table
      */
     public function &getTable()
     {
         return $this->table;
+    }
+    
+    /**
+     * Change the primary key flag on the column.
+     *
+     * @param bool $enable TRUE is used to flag a not null column as such
+     *
+     * @throws \InvalidArgumentException the new status is invalid
+     */
+    public function &setNotNull($enable)
+    {
+        if (!is_bool($enable)) {
+            throw new \InvalidArgumentException('The auto-increment flag of a column must be given as a boolean value');
+        }
+
+        $this->notNull = $enable;
+
+        return $this;
+    }
+
+    /**
+     * Retrieve the not null flag on the column.
+     *
+     * @param bool $enable TRUE if the column cannot contains null
+     */
+    public function getNotNull()
+    {
+        return $this->notNull;
     }
 
     /**
@@ -102,7 +132,7 @@ final class Column
     }
 
     /**
-     * Change the auto increment flag on the column.
+     * Retrieve the auto increment flag on the column.
      *
      * @param bool $enable TRUE if the column is a primary key
      */
@@ -130,7 +160,7 @@ final class Column
     }
 
     /**
-     * Change the auto increment flag on the column.
+     * Retrieve the auto increment flag on the column.
      *
      * @param bool $enable TRUE is used to enables auto increment
      */
@@ -149,7 +179,7 @@ final class Column
     public function &setName($name)
     {
         //avoid bad names
-        if ((!is_string($name)) || (strlen($name) < 0)) {
+        if ((!is_string($name)) || (strlen($name) <= 0)) {
             throw new \InvalidArgumentException('The name of a column must be expressed as a non-empty string');
         }
 
@@ -176,7 +206,7 @@ final class Column
      *
      * @throws \InvalidArgumentException the column name is invalid
      */
-    public function &settype($type)
+    public function &setType($type)
     {
         //avoid bad names
         if ((!is_integer($type)) || (

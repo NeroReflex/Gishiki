@@ -30,37 +30,18 @@ use Gishiki\Database\Runtime\FieldOrdering;
  */
 class SQLBuilderTest extends \PHPUnit_Framework_TestCase
 {
-    private static function filterQuery($query)
+
+    public function testBeautify()
     {
-        $count = 1;
-        while ($count > 0) {
-            $query = str_replace('  ', ' ', $query, $count);
-        }
-
-        $count = 1;
-        while ($count > 0) {
-            $query = str_replace('( ', '(', $query, $count);
-        }
-
-        $count = 1;
-        while ($count > 0) {
-            $query = str_replace(' )', ')', $query, $count);
-        }
-
-        $count = 1;
-        while ($count > 0) {
-            $query = str_replace('?, ?', '?,?', $query, $count);
-        }
-
-        return trim($query);
+        $this->assertEquals('SELECT * FROM "test0" WHERE id = ? OR name = ? ORDER BY id DESC', SQLBuilder::Beautify("SELECT  *  FROM  \"test0\" WHERE id   = ? OR name = ? ORDER BY id DESC"));
     }
-
+    
     public function testSelectAllFrom()
     {
         $query = new SQLBuilder();
         $query->selectAllFrom('test1');
 
-        $this->assertEquals(self::filterQuery('SELECT * FROM "test1"'), self::filterQuery($query->exportQuery()));
+        $this->assertEquals(SQLBuilder::Beautify('SELECT * FROM "test1"'), SQLBuilder::Beautify($query->exportQuery()));
         $this->assertEquals([], $query->exportParams());
     }
 
@@ -71,7 +52,7 @@ class SQLBuilderTest extends \PHPUnit_Framework_TestCase
             'id' => [5, 6, 7],
         ])->or_where('name', FieldRelation::NOT_LIKE, '%inv%'));
 
-        $this->assertEquals(self::filterQuery('SELECT * FROM "test1" WHERE id IN (?,?,?) OR name NOT LIKE ?'), self::filterQuery($query->exportQuery()));
+        $this->assertEquals(SQLBuilder::Beautify('SELECT * FROM "test1" WHERE id IN (?,?,?) OR name NOT LIKE ?'), SQLBuilder::Beautify($query->exportQuery()));
         $this->assertEquals([5, 6, 7, '%inv%'], $query->exportParams());
     }
 
@@ -88,7 +69,7 @@ class SQLBuilderTest extends \PHPUnit_Framework_TestCase
                     'name' => FieldOrdering::ASC,
                 ]));
 
-        $this->assertEquals(self::filterQuery('SELECT * FROM "test1" WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC'), self::filterQuery($query->exportQuery()));
+        $this->assertEquals(SQLBuilder::Beautify('SELECT * FROM "test1" WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC'), SQLBuilder::Beautify($query->exportQuery()));
         $this->assertEquals([5, 6, 7, 1.25], $query->exportParams());
     }
 
@@ -106,7 +87,7 @@ class SQLBuilderTest extends \PHPUnit_Framework_TestCase
                     'surname' => FieldOrdering::DESC,
                 ]));
 
-        $this->assertEquals(self::filterQuery('SELECT name, surname FROM "test1" WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC, surname DESC'), self::filterQuery($query->exportQuery()));
+        $this->assertEquals(SQLBuilder::Beautify('SELECT name, surname FROM "test1" WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC, surname DESC'), SQLBuilder::Beautify($query->exportQuery()));
         $this->assertEquals([5, 6, 7, 1.25], $query->exportParams());
     }
 
@@ -120,7 +101,7 @@ class SQLBuilderTest extends \PHPUnit_Framework_TestCase
             'time' => 56.04,
         ]);
 
-        $this->assertEquals(self::filterQuery('INSERT INTO "users" (name, surname, age, time) VALUES (?,?,?,?)'), self::filterQuery($query->exportQuery()));
+        $this->assertEquals(SQLBuilder::Beautify('INSERT INTO "users" (name, surname, age, time) VALUES (?,?,?,?)'), SQLBuilder::Beautify($query->exportQuery()));
         $this->assertEquals(['Mario', 'Rossi', 25, 56.04], $query->exportParams());
     }
 
@@ -129,7 +110,7 @@ class SQLBuilderTest extends \PHPUnit_Framework_TestCase
         $query = new SQLBuilder();
         $query->deleteFrom('users');
 
-        $this->assertEquals(self::filterQuery('DELETE FROM "users"'), self::filterQuery($query->exportQuery()));
+        $this->assertEquals(SQLBuilder::Beautify('DELETE FROM "users"'), SQLBuilder::Beautify($query->exportQuery()));
         $this->assertEquals([], $query->exportParams());
     }
 
@@ -138,7 +119,7 @@ class SQLBuilderTest extends \PHPUnit_Framework_TestCase
         $query = new SQLBuilder();
         $query->update('users')->set(['name' => 'Gianni', 'surname' => 'Pinotto'])->where(SelectionCriteria::Select(['id' => 200]));
 
-        $this->assertEquals(self::filterQuery('UPDATE "users" SET name = ?, surname = ? WHERE id = ?'), self::filterQuery($query->exportQuery()));
+        $this->assertEquals(SQLBuilder::Beautify('UPDATE "users" SET name = ?, surname = ? WHERE id = ?'), SQLBuilder::Beautify($query->exportQuery()));
         $this->assertEquals(['Gianni', 'Pinotto', 200], $query->exportParams());
     }
 }

@@ -93,7 +93,7 @@ final class Table
      */
     public function &addForeignKey(ColumnRelation $foreignKey)
     {
-        foreach ($this->columns as $currentForeignKey) {
+        foreach ($this->foreignKeys as $currentForeignKey) {
             if (strcmp($foreignKey->getForeignKey()->getName(), $currentForeignKey->getForeignKey()->getName()) == 0) {
                 throw new DatabaseException('A Table cannot contain two foreign key with the same name', 141);
             }

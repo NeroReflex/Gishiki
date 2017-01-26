@@ -29,12 +29,12 @@ final class ColumnRelation
     /**
      * @var Column the column of the current table
      */
-    protected $column;
+    protected $foreignKey;
 
     /**
      * @var Column the foreign key column (in another table)
      */
-    protected $externColumn;
+    protected $localKey;
 
     /**
      * Create a new Relation from the first column to the second one, which
@@ -47,17 +47,17 @@ final class ColumnRelation
     public function __construct(Column &$column, Column &$externColumn)
     {
         //oh come one.... you cannot create a reference to a column in the sable table
-        if ($column->getTable() == $foreignColumn->getTable()) {
+        if ($column->getTable() == $externColumn->getTable()) {
             throw new DatabaseException('A Relation between two column cannot be created on the same column', 128);
         }
         
         //and I hope you are not going to reference something that is not a primary key
-        if ($foreignColumn->getPrimaryKey()) {
+        if (!$externColumn->getPrimaryKey()) {
             throw new DatabaseException('A Relation can only be created with a foreign primary key', 129);
         }
         
-        $this->column = $column;
-        $this->externColumn = $externColumn;
+        $this->localKey = $column;
+        $this->foreignKey = $externColumn;
     }
     
     /**
@@ -66,7 +66,7 @@ final class ColumnRelation
      * @return Column the reference to the column
      */
     public function &getForeignKey() {
-        return $this->column;
+        return $this->foreignKey;
     }
     
     /**
@@ -74,8 +74,8 @@ final class ColumnRelation
      * 
      * @return Column the reference to the column
      */
-    public function &getReference()
+    public function &getLocalKey()
     {
-        return $this->externColumn;
+        return $this->localKey;
     }
 }

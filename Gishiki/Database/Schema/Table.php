@@ -32,7 +32,7 @@ final class Table
     /**
      * @var array a list of relations of columns on the current table
      */
-    protected $relations;
+    protected $foreignKeys;
 
     /**
      * @var array a list of columns inside the current database
@@ -50,12 +50,18 @@ final class Table
     {
         $this->name = '';
         $this->columns = [];
-        $this->relations = [];
+        $this->foreignKeys = [];
         $this->setName($name);
     }
     
-    
-    public function addColumn(Column &$col)
+    /**
+     * Add a column to the current table.
+     * 
+     * @param \Gishiki\Database\Schema\Column $col the column to be added
+     * @return \Gishiki\Database\Schema\Table a reference to the modified table
+     * @throws DatabaseException A table with the same name already exists
+     */
+    public function &addColumn(Column &$col)
     {
         foreach ($this->columns as $currentCol) {
             if (strcmp($col->getName(), $currentCol->getName()) == 0) {
@@ -64,18 +70,56 @@ final class Table
         }
         
         $this->columns[] = $col;
+        
+        return $this;
     }
 
+    /**
+     * Return the list of columns inside the current table.
+     * 
+     * @return array thelist of columns
+     */
     public function getColumns()
     {
+        return $this->columns;
+    }
+    
+    /**
+     * Add a relationship between a column and a table external to the given column.
+     * 
+     * @param \Gishiki\Database\Schema\ColumnRelation $foreignKey the relation between a foreign key and a primary key
+     * @return \Gishiki\Database\Schema\Table a reference to the modified table
+     * @throws DatabaseException the foreign key already exists
+     */
+    public function &addForeignKey(ColumnRelation $foreignKey)
+    {
+        foreach ($this->columns as $currentForeignKey) {
+            if (strcmp($foreignKey->getForeignKey()->getName(), $currentForeignKey->getForeignKey()->getName()) == 0) {
+                throw new DatabaseException('A Table cannot contain two foreign key with the same name', 141);
+            }
+        }
         
+        //add the foreign key to the list
+        $this->foreignKeys[] = $foreignKey;
+        
+        return $this;
+    }
+    
+    /**
+     * Return the list of foreign keys on the current table.
+     * 
+     * @return array the list of relations
+     */
+    public function getForeignKeys()
+    {
+        return $this->foreignKeys;
     }
     
     /**
      * Change the name of the current table.
      *
      * @param string $name the name of the table
-     *
+     * @return \Gishiki\Database\Schema\Table a reference to the modified table
      * @throws \InvalidArgumentException the table name is invalid
      */
     public function &setName($name)

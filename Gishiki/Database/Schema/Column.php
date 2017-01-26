@@ -48,6 +48,11 @@ final class Column
      * @var Table a reference to the table containing the column
      */
     protected $table;
+    
+    /**
+     * @var bool TRUE if the column is a primary key
+     */
+    protected $pkey;
 
     /**
      * Initialize a column with the given name.
@@ -62,9 +67,9 @@ final class Column
         $this->name = '';
         $this->dataType = 0;
         $this->ai = false;
-
+        $this->pkey = false;
         $this->table = &$table;
-
+        $this->notNull = false;
         $this->setName($name);
     }
 
@@ -91,7 +96,7 @@ final class Column
             throw new \InvalidArgumentException('The auto-increment flag of a column must be given as a boolean value');
         }
 
-        $this->ai = $enable;
+        $this->pkey = $enable;
 
         return $this;
     }
@@ -103,7 +108,7 @@ final class Column
      */
     public function getPrimaryKey()
     {
-        return $this->ai;
+        return $this->pkey;
     }
 
     /**

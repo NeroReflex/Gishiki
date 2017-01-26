@@ -210,7 +210,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.Schema.Table.html#20-102" title="Go to source code">Gishiki/Database/Schema/Table.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.Schema.Table.html#20-146" title="Go to source code">Gishiki/Database/Schema/Table.php</a>
 		<br>
 	</div>
 
@@ -262,25 +262,38 @@ exceptions thrown by that function.</p>
 		<td class="attributes"><code>
 			 public 
 
-			
-			
+			<code><a href="class-Gishiki.Database.Schema.Table.html">Gishiki\Database\Schema\Table</a></code>
+			&amp;
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addColumn">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Table.html#58-67" title="Go to source code">addColumn</a>( <span><code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code> <var>&amp; $col</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Table.html#57-75" title="Go to source code">addColumn</a>( <span><code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code> <var>&amp; $col</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Add a column to the current table.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Add a column to the current table.</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$col</var></dt>
+					<dd>the column to be added</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.Schema.Table.html">Gishiki\Database\Schema\Table</a></code><br>a reference to the modified table
+				</div>
 
+				<h4>Throws</h4>
+				<div class="list">
+					DatabaseException<br>A table with the same name already exists
+				</div>
 
 
 
@@ -292,24 +305,105 @@ exceptions thrown by that function.</p>
 		<td class="attributes"><code>
 			 public 
 
-			
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getColumns">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Table.html#69-72" title="Go to source code">getColumns</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Table.html#77-85" title="Go to source code">getColumns</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Return the list of columns inside the current table.</p>
 		</div>
 
 		<div class="description detailed hidden">
+			<p>Return the list of columns inside the current table.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>thelist of columns
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addForeignKey" id="_addForeignKey">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Gishiki.Database.Schema.Table.html">Gishiki\Database\Schema\Table</a></code>
+			&amp;
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addForeignKey">#</a>
+		<code><a href="source-class-Gishiki.Database.Schema.Table.html#87-106" title="Go to source code">addForeignKey</a>( <span><code><a href="class-Gishiki.Database.Schema.ColumnRelation.html">Gishiki\Database\Schema\ColumnRelation</a></code> <var>$foreignKey</var></span> )</code>
+
+		<div class="description short">
+			<p>Add a relationship between a column and a table external to the given column.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Add a relationship between a column and a table external to the given column.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$foreignKey</var></dt>
+					<dd>the relation between a foreign key and a primary key</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.Schema.Table.html">Gishiki\Database\Schema\Table</a></code><br>a reference to the modified table
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					DatabaseException<br>the foreign key already exists
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getForeignKeys" id="_getForeignKeys">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
 			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getForeignKeys">#</a>
+		<code><a href="source-class-Gishiki.Database.Schema.Table.html#108-116" title="Go to source code">getForeignKeys</a>( )</code>
+
+		<div class="description short">
+			<p>Return the list of foreign keys on the current table.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return the list of foreign keys on the current table.</p>
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>the list of relations
+				</div>
 
 
 
@@ -322,14 +416,14 @@ exceptions thrown by that function.</p>
 		<td class="attributes"><code>
 			 public 
 
-			
+			<code><a href="class-Gishiki.Database.Schema.Table.html">Gishiki\Database\Schema\Table</a></code>
 			&amp;
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setName">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Table.html#74-91" title="Go to source code">setName</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Table.html#118-135" title="Go to source code">setName</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			<p>Change the name of the current table.</p>
@@ -345,6 +439,10 @@ exceptions thrown by that function.</p>
 					<dd>the name of the table</dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.Schema.Table.html">Gishiki\Database\Schema\Table</a></code><br>a reference to the modified table
+				</div>
 
 				<h4>Throws</h4>
 				<div class="list">
@@ -368,7 +466,7 @@ exceptions thrown by that function.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getName">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Table.html#93-101" title="Go to source code">getName</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Table.html#137-145" title="Go to source code">getName</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve the name of the table.</p>
@@ -430,14 +528,14 @@ exceptions thrown by that function.</p>
 			</div>
 		</td>
 	</tr>
-	<tr data-order="relations" id="$relations">
+	<tr data-order="foreignKeys" id="$foreignKeys">
 		<td class="attributes"><code>
 			protected  
 			array
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.Database.Schema.Table.html#32-35" title="Go to source code"><var>$relations</var></a>
+				<a href="source-class-Gishiki.Database.Schema.Table.html#32-35" title="Go to source code"><var>$foreignKeys</var></a>
 
 			<div class="description short">
 				<p>a list of relations of columns on the current table</p>
@@ -450,7 +548,7 @@ exceptions thrown by that function.</p>
 		</td>
 		<td class="value">
 			<div>
-				<a href="#$relations" class="anchor">#</a>
+				<a href="#$foreignKeys" class="anchor">#</a>
 				<code></code>
 			</div>
 		</td>

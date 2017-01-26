@@ -26,36 +26,19 @@ use Gishiki\Database\Schema\Table;
  */
 class ColumnTest extends \PHPUnit_Framework_TestCase {
     
-    public function testColumnTable()
-    {
-        //create the table for this test
-        $table = new Table(__FUNCTION__);
-        
-        //create a testing column
-        $col = new Column($table, 'test', ColumnType::INTEGER);
-        
-        $this->assertEquals($table, $col->getTable());
-    }
-    
     /**
      * @expectedException \InvalidArgumentException
      */
     public function testColumnBadNaming()
     {
-        //create the table for this test
-        $table = new Table(__FUNCTION__);
-        
         //create a testing column
-        $col = new Column($table, '', ColumnType::INTEGER);
+        $col = new Column('', ColumnType::INTEGER);
     }
     
     public function testColumnNaming()
     {
-        //create the table for this test
-        $table = new Table(__FUNCTION__);
-        
         //create a testing column
-        $col = new Column($table, 'test', ColumnType::INTEGER);
+        $col = new Column('test', ColumnType::INTEGER);
         
         $this->assertEquals('test', $col->getName());
     }
@@ -66,7 +49,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
         $table = new Table(__FUNCTION__);
         
         //create a testing column (by default a new column is NOT a primary key)
-        $col = new Column($table, 'id', ColumnType::INTEGER);
+        $col = new Column('id', ColumnType::INTEGER);
         
         $this->assertEquals(false, $col->getPrimaryKey());
         
@@ -80,11 +63,8 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
      */
     public function testColumnBadPrimaryKey()
     {
-        //create the table for this test
-        $table = new Table(__FUNCTION__);
-        
         //create a testing column
-        $col = new Column($table, 'id', ColumnType::INTEGER);
+        $col = new Column('id', ColumnType::INTEGER);
         $col->setPrimaryKey(null);
     }
     
@@ -93,21 +73,15 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
      */
     public function testColumnBadAutoIncrement()
     {
-        //create the table for this test
-        $table = new Table(__FUNCTION__);
-        
         //create a testing column
-        $col = new Column($table, 'id', ColumnType::INTEGER);
+        $col = new Column('id', ColumnType::INTEGER);
         $col->setAutoIncrement(null);
     }
     
     public function testColumnAutoIncrement()
     {
-        //create the table for this test
-        $table = new Table(__FUNCTION__);
-        
         //create a testing column (by default a new column is NOT a primary key)
-        $col = new Column($table, 'id', ColumnType::INTEGER);
+        $col = new Column('id', ColumnType::INTEGER);
         
         $this->assertEquals(false, $col->getAutoIncrement());
         
@@ -121,21 +95,15 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
      */
     public function testColumnBadNotNull()
     {
-        //create the table for this test
-        $table = new Table(__FUNCTION__);
-        
         //create a testing column
-        $col = new Column($table, 'id', ColumnType::INTEGER);
+        $col = new Column('id', ColumnType::INTEGER);
         $col->setNotNull(null);
     }
     
     public function testColumnNotNull()
     {
-        //create the table for this test
-        $table = new Table(__FUNCTION__);
-        
         //create a testing column (by default a new column is NOT a primary key)
-        $col = new Column($table, 'id', ColumnType::INTEGER);
+        $col = new Column('id', ColumnType::INTEGER);
         
         $this->assertEquals(false, $col->getNotNull());
         
@@ -149,21 +117,15 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
      */
     public function testColumnBadType()
     {
-        //create the table for this test
-        $table = new Table(__FUNCTION__);
-        
         //create a testing column
-        $col = new Column($table, 'id', null);
+        $col = new Column('id', null);
         $col->setNotNull(null);
     }
     
     public function testColumnType()
     {
-        //create the table for this test
-        $table = new Table(__FUNCTION__);
-        
         //create a testing column (by default a new column is NOT a primary key)
-        $col = new Column($table, 'id', ColumnType::INTEGER);
+        $col = new Column('id', ColumnType::INTEGER);
         
         $this->assertEquals(ColumnType::INTEGER, $col->getType());
         

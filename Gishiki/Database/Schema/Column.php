@@ -43,11 +43,6 @@ final class Column
      * @var bool TRUE if the column cannot hold null
      */
     protected $notNull;
-
-    /**
-     * @var Table a reference to the table containing the column
-     */
-    protected $table;
     
     /**
      * @var bool TRUE if the column is a primary key
@@ -59,30 +54,18 @@ final class Column
      * This function internally calls setName(), and you should catch
      * exceptions thrown by that function.
      *
-     * @param Table   $table a reference to the table containing the this column
      * @param string  $name  the name of the column
      * @param integer $type  the data type of the column
      */
-    public function __construct(Table &$table, $name, $type)
+    public function __construct($name, $type)
     {
         $this->name = '';
         $this->dataType = 0;
         $this->ai = false;
         $this->pkey = false;
-        $this->table = &$table;
         $this->notNull = false;
         $this->setName($name);
         $this->setType($type);
-    }
-
-    /**
-     * Retrieve a reference to the table containing this column.
-     *
-     * @return Table a reference to the table
-     */
-    public function &getTable()
-    {
-        return $this->table;
     }
     
     /**

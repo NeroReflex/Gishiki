@@ -17,8 +17,10 @@ limitations under the License.
 
 namespace Gishiki\Database\Schema;
 
+use Gishiki\Database\DatabaseException;
+
 /**
- * Represent a table inside a table of a relational database.
+ * Represent a table inside a database.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
@@ -125,7 +127,7 @@ final class Table
     public function &setName($name)
     {
         //avoid bad names
-        if ((!is_string($name)) || (strlen($name) < 0)) {
+        if ((!is_string($name)) || (strlen($name) <= 0)) {
             throw new \InvalidArgumentException('The name of a table must be expressed as a non-empty string');
         }
 

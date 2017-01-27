@@ -16,6 +16,7 @@ limitations under the License.
 *****************************************************************************/
 
 use Gishiki\Database\Schema\Column;
+use Gishiki\Database\Schema\ColumnRelation;
 use Gishiki\Database\Schema\ColumnType;
 use Gishiki\Database\Schema\Table;
 
@@ -67,4 +68,63 @@ class TableTest extends \PHPUnit_Framework_TestCase {
         ], $table->getColumns());
     }
     
+    public function testTableColumnRelation()
+    {
+        $externTable = new Table(__FUNCTION__.'_extern');
+        
+        $externColumn = new Column('id', ColumnType::INTEGER);
+        $externColumn->setPrimaryKey(true); 
+        $externColumn->setNotNull(true);
+        $externColumn->setAutoIncrement(true);
+        
+        $externTable->addColumn($externColumn);
+        
+        $localColumn = new Column(($externTable->getName()).'_id', ColumnType::INTEGER);
+        
+        $relation = new ColumnRelation($localColumn, $externTable, $externColumn);
+        
+        $this->assertEquals($externTable, $relation->getForeignTable());
+        $this->assertEquals($externColumn, $relation->getForeignKey());
+        $this->assertEquals($localColumn, $relation->getLocalKey());
+        
+        $localTable = new Table(__FUNCTION__.'local');
+        
+        //before adding a column relation there are none of them
+        $this->assertEquals([ ], $localTable->getRelations());
+        
+        $localTable->addRelation($relation);
+        
+        // after adding one there should be one :)
+        $this->assertEquals([$relation], $localTable->getRelations());
+    }
+    
+    /**
+     * @expectedException Gishiki\Database\DatabaseException
+     */
+    public function testTableDuplicateColumnRelation()
+    {
+        $externTable = new Table(__FUNCTION__.'_extern');
+        
+        $externColumn = new Column('id', ColumnType::INTEGER);
+        $externColumn->setPrimaryKey(true); 
+        $externColumn->setNotNull(true);
+        $externColumn->setAutoIncrement(true);
+        
+        $externTable->addColumn($externColumn);
+        
+        $localColumn = new Column(($externTable->getName()).'_id', ColumnType::INTEGER);
+        $localColumnDuplicate = new Column(($externTable->getName()).'_id_dup', ColumnType::INTEGER);
+        
+        $relation = new ColumnRelation($localColumn, $externTable, $externColumn);
+        $relationDuplicate = new ColumnRelation($localColumnDuplicate, $externTable, $externColumn);
+        
+        $this->assertEquals($externTable, $relation->getForeignTable());
+        $this->assertEquals($externColumn, $relation->getForeignKey());
+        $this->assertEquals($localColumn, $relation->getLocalKey());
+        
+        $localTable = new Table(__FUNCTION__.'local');
+        
+        $localTable->addRelation($relation);
+        $localTable->addRelation($relationDuplicate);
+    }
 }

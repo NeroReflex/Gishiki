@@ -16,6 +16,7 @@ limitations under the License.
 *****************************************************************************/
 
 use Gishiki\Database\Schema\Column;
+use Gishiki\Database\Schema\ColumnRelation;
 use Gishiki\Database\Schema\ColumnType;
 use Gishiki\Database\Schema\Table;
 

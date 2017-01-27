@@ -93,11 +93,11 @@ final class Table
      * @return \Gishiki\Database\Schema\Table a reference to the modified table
      * @throws DatabaseException the foreign key already exists
      */
-    public function &addForeignKey(ColumnRelation $foreignKey)
+    public function &addRelation(ColumnRelation $foreignKey)
     {
         foreach ($this->foreignKeys as $currentForeignKey) {
-            if (strcmp($foreignKey->getForeignKey()->getName(), $currentForeignKey->getForeignKey()->getName()) == 0) {
-                throw new DatabaseException('A Table cannot contain two foreign key with the same name', 141);
+            if (strcmp($foreignKey->getForeignTable()->getName(), $currentForeignKey->getForeignTable()->getName()) == 0) {
+                throw new DatabaseException('A Table cannot contain two foreign key that points at the same table', 141);
             }
         }
         
@@ -112,7 +112,7 @@ final class Table
      * 
      * @return array the list of relations
      */
-    public function getForeignKeys()
+    public function getRelations()
     {
         return $this->foreignKeys;
     }

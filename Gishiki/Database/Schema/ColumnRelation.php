@@ -27,6 +27,11 @@ use Gishiki\Database\DatabaseException;
 final class ColumnRelation
 {
     /**
+     * @var Table the table containing the foreign key
+     */
+    protected $foreignTable;
+    
+    /**
      * @var Column the column of the current table
      */
     protected $foreignKey;
@@ -44,20 +49,21 @@ final class ColumnRelation
      * @param  \Gishiki\Database\Schema\Column $externColumn the foreign column
      * @throws DatabaseException the error occurred while enstabilishing the Relation
      */
-    public function __construct(Column &$column, Column &$externColumn)
-    {
-        //oh come one.... you cannot create a reference to a column in the sable table
-        if ($column->getTable() == $externColumn->getTable()) {
-            throw new DatabaseException('A Relation between two column cannot be created on the same column', 128);
+    public function __construct(Column &$column, Table &$externTable, Column &$externColumn)
+    {        
+        //I hope you are not going to reference something that is not a primary key
+        if (!$externColumn->getPrimaryKey()) {
+            throw new DatabaseException('A Relation can only be created with a foreign primary key', 128);
         }
         
-        //and I hope you are not going to reference something that is not a primary key
-        if (!$externColumn->getPrimaryKey()) {
-            throw new DatabaseException('A Relation can only be created with a foreign primary key', 129);
+        //... oh and I am pretty sure you are not doing something bad, right?
+        if (!in_array($externColumn, $externTable->getColumns())) {
+            throw new DatabaseException("The given foreign table doesn't contain a column with the same name", 129);
         }
         
         $this->localKey = $column;
         $this->foreignKey = $externColumn;
+        $this->foreignTable = $externTable;
     }
     
     /**
@@ -65,8 +71,19 @@ final class ColumnRelation
      * 
      * @return Column the reference to the column
      */
-    public function &getForeignKey() {
+    public function &getForeignKey()
+    {
         return $this->foreignKey;
+    }
+    
+    /**
+     * Get the table containing the foreign key
+     * 
+     * @return Table the table containing the foreign key
+     */
+    public function &getForeignTable()
+    {
+        return $this->foreignTable;
     }
     
     /**

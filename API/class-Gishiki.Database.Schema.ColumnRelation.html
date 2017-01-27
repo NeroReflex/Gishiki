@@ -210,7 +210,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#22-81" title="Go to source code">Gishiki/Database/Schema/ColumnRelation.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#22-98" title="Go to source code">Gishiki/Database/Schema/ColumnRelation.php</a>
 		<br>
 	</div>
 
@@ -230,7 +230,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#39-61" title="Go to source code">__construct</a>( <span><code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code> <var>&amp; $column</var></span>, <span><code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code> <var>&amp; $externColumn</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#44-67" title="Go to source code">__construct</a>( <span><code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code> <var>&amp; $column</var></span>, <span><code><a href="class-Gishiki.Database.Schema.Table.html">Gishiki\Database\Schema\Table</a></code> <var>&amp; $externTable</var></span>, <span><code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code> <var>&amp; $externColumn</var></span> )</code>
 
 		<div class="description short">
 			<p>Create a new Relation from the first column to the second one, which
@@ -246,8 +246,10 @@ is a primary key.</p>
 				<div class="list"><dl>
 					<dt><var>$column</var></dt>
 					<dd>the column to be related with a foreign key</dd>
+					<dt><var>$externTable</var></dt>
+					<dd>$externColumn the foreign column</dd>
 					<dt><var>$externColumn</var></dt>
-					<dd>the foreign column</dd>
+					<dd></dd>
 				</dl></div>
 
 
@@ -273,7 +275,7 @@ is a primary key.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getForeignKey">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#63-70" title="Go to source code">getForeignKey</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#69-77" title="Go to source code">getForeignKey</a>( )</code>
 
 		<div class="description short">
 			<p>Get the column on the current table.</p>
@@ -295,6 +297,40 @@ is a primary key.</p>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="getForeignTable" id="_getForeignTable">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Gishiki.Database.Schema.Table.html">Gishiki\Database\Schema\Table</a></code>
+			&amp;
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getForeignTable">#</a>
+		<code><a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#79-87" title="Go to source code">getForeignTable</a>( )</code>
+
+		<div class="description short">
+			<p>Get the table containing the foreign key</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the table containing the foreign key</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.Schema.Table.html">Gishiki\Database\Schema\Table</a></code><br>the table containing the foreign key
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="getLocalKey" id="_getLocalKey">
 
 		<td class="attributes"><code>
@@ -307,7 +343,7 @@ is a primary key.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getLocalKey">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#72-80" title="Go to source code">getLocalKey</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#89-97" title="Go to source code">getLocalKey</a>( )</code>
 
 		<div class="description short">
 			<p>Get the column on the related table.</p>
@@ -344,6 +380,31 @@ is a primary key.</p>
 
 	<table class="summary properties" id="properties">
 	<caption>Properties summary</caption>
+	<tr data-order="foreignTable" id="$foreignTable">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-Gishiki.Database.Schema.Table.html">Gishiki\Database\Schema\Table</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#29-32" title="Go to source code"><var>$foreignTable</var></a>
+
+			<div class="description short">
+				<p>the table containing the foreign key</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>the table containing the foreign key</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$foreignTable" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
 	<tr data-order="foreignKey" id="$foreignKey">
 		<td class="attributes"><code>
 			protected  
@@ -351,7 +412,7 @@ is a primary key.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#29-32" title="Go to source code"><var>$foreignKey</var></a>
+				<a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#34-37" title="Go to source code"><var>$foreignKey</var></a>
 
 			<div class="description short">
 				<p>the column of the current table</p>
@@ -376,7 +437,7 @@ is a primary key.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#34-37" title="Go to source code"><var>$localKey</var></a>
+				<a href="source-class-Gishiki.Database.Schema.ColumnRelation.html#39-42" title="Go to source code"><var>$localKey</var></a>
 
 			<div class="description short">
 				<p>the foreign key column (in another table)</p>

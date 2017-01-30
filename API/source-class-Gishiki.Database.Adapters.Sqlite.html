@@ -157,7 +157,8 @@
 				<li><a href="class-Gishiki.Core.MVC.Controller.html">Gishiki\Core\MVC\Controller</a></li>
 				<li><a href="class-Gishiki.Core.Route.html">Gishiki\Core\Route</a></li>
 				<li><a href="class-Gishiki.Database.Adapters.Sqlite.html">Gishiki\Database\Adapters\Sqlite</a></li>
-				<li><a href="class-Gishiki.Database.Adapters.Utils.SQLBuilder.html">Gishiki\Database\Adapters\Utils\SQLBuilder</a></li>
+				<li><a href="class-Gishiki.Database.Adapters.Utils.SQLiteQueryBuilder.html">Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder</a></li>
+				<li><a href="class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html">Gishiki\Database\Adapters\Utils\SQLQueryBuilder</a></li>
 				<li><a href="class-Gishiki.Database.DatabaseManager.html">Gishiki\Database\DatabaseManager</a></li>
 				<li><a href="class-Gishiki.Database.Runtime.FieldOrdering.html">Gishiki\Database\Runtime\FieldOrdering</a></li>
 				<li><a href="class-Gishiki.Database.Runtime.FieldRelation.html">Gishiki\Database\Runtime\FieldRelation</a></li>
@@ -286,7 +287,7 @@
 </span><span id="22" class="l"><a href="#22"> 22: </a><span class="php-keyword1">use</span> Gishiki\Database\Runtime\SelectionCriteria;
 </span><span id="23" class="l"><a href="#23"> 23: </a><span class="php-keyword1">use</span> Gishiki\Database\Runtime\ResultModifier;
 </span><span id="24" class="l"><a href="#24"> 24: </a><span class="php-keyword1">use</span> Gishiki\Algorithms\Collections\GenericCollection;
-</span><span id="25" class="l"><a href="#25"> 25: </a><span class="php-keyword1">use</span> Gishiki\Database\Adapters\Utils\SQLBuilder;
+</span><span id="25" class="l"><a href="#25"> 25: </a><span class="php-keyword1">use</span> Gishiki\Database\Adapters\Utils\SQLQueryBuilder;
 </span><span id="26" class="l"><a href="#26"> 26: </a>
 </span><span id="27" class="l"><a href="#27"> 27: </a><span class="php-comment">/**
 </span></span><span id="28" class="l"><a href="#28"> 28: </a><span class="php-comment"> * Represent an sqlite database.
@@ -387,7 +388,7 @@
 </span><span id="123" class="l"><a href="#123">123: </a>        <span class="php-var">$adaptedData</span> = (<span class="php-var">$data</span> <span class="php-keyword1">instanceof</span> GenericCollection) ? <span class="php-var">$data</span>-&gt;all() : <span class="php-var">$data</span>;
 </span><span id="124" class="l"><a href="#124">124: </a>
 </span><span id="125" class="l"><a href="#125">125: </a>        <span class="php-comment">//build the sql query</span>
-</span><span id="126" class="l"><a href="#126">126: </a>        <span class="php-var">$queryBuilder</span> = <span class="php-keyword1">new</span> SQLBuilder();
+</span><span id="126" class="l"><a href="#126">126: </a>        <span class="php-var">$queryBuilder</span> = <span class="php-keyword1">new</span> SQLQueryBuilder();
 </span><span id="127" class="l"><a href="#127">127: </a>        <span class="php-var">$queryBuilder</span>-&gt;insertInto(<span class="php-var">$collection</span>)-&gt;values(<span class="php-var">$adaptedData</span>);
 </span><span id="128" class="l"><a href="#128">128: </a>
 </span><span id="129" class="l"><a href="#129">129: </a>        <span class="php-comment">//open a new statement and execute it</span>
@@ -429,7 +430,7 @@
 </span><span id="165" class="l"><a href="#165">165: </a>        <span class="php-var">$adaptedData</span> = (<span class="php-var">$data</span> <span class="php-keyword1">instanceof</span> GenericCollection) ? <span class="php-var">$data</span>-&gt;all() : <span class="php-var">$data</span>;
 </span><span id="166" class="l"><a href="#166">166: </a>
 </span><span id="167" class="l"><a href="#167">167: </a>        <span class="php-comment">//build the sql query</span>
-</span><span id="168" class="l"><a href="#168">168: </a>        <span class="php-var">$queryBuilder</span> = <span class="php-keyword1">new</span> SQLBuilder();
+</span><span id="168" class="l"><a href="#168">168: </a>        <span class="php-var">$queryBuilder</span> = <span class="php-keyword1">new</span> SQLQueryBuilder();
 </span><span id="169" class="l"><a href="#169">169: </a>        <span class="php-var">$queryBuilder</span>-&gt;update(<span class="php-var">$collection</span>)-&gt;set(<span class="php-var">$adaptedData</span>)-&gt;where(<span class="php-var">$where</span>);
 </span><span id="170" class="l"><a href="#170">170: </a>
 </span><span id="171" class="l"><a href="#171">171: </a>        <span class="php-comment">//open a new statement and execute it</span>
@@ -464,7 +465,7 @@
 </span><span id="200" class="l"><a href="#200">200: </a>        }
 </span><span id="201" class="l"><a href="#201">201: </a>
 </span><span id="202" class="l"><a href="#202">202: </a>        <span class="php-comment">//build the sql query</span>
-</span><span id="203" class="l"><a href="#203">203: </a>        <span class="php-var">$queryBuilder</span> = <span class="php-keyword1">new</span> SQLBuilder();
+</span><span id="203" class="l"><a href="#203">203: </a>        <span class="php-var">$queryBuilder</span> = <span class="php-keyword1">new</span> SQLQueryBuilder();
 </span><span id="204" class="l"><a href="#204">204: </a>        <span class="php-var">$queryBuilder</span>-&gt;deleteFrom(<span class="php-var">$collection</span>)-&gt;where(<span class="php-var">$where</span>);
 </span><span id="205" class="l"><a href="#205">205: </a>
 </span><span id="206" class="l"><a href="#206">206: </a>        <span class="php-comment">//open a new statement and execute it</span>
@@ -498,7 +499,7 @@
 </span><span id="234" class="l"><a href="#234">234: </a>        }
 </span><span id="235" class="l"><a href="#235">235: </a>
 </span><span id="236" class="l"><a href="#236">236: </a>        <span class="php-comment">//build the sql query</span>
-</span><span id="237" class="l"><a href="#237">237: </a>        <span class="php-var">$queryBuilder</span> = <span class="php-keyword1">new</span> SQLBuilder();
+</span><span id="237" class="l"><a href="#237">237: </a>        <span class="php-var">$queryBuilder</span> = <span class="php-keyword1">new</span> SQLQueryBuilder();
 </span><span id="238" class="l"><a href="#238">238: </a>        <span class="php-var">$queryBuilder</span>-&gt;deleteFrom(<span class="php-var">$collection</span>);
 </span><span id="239" class="l"><a href="#239">239: </a>
 </span><span id="240" class="l"><a href="#240">240: </a>        <span class="php-comment">//open a new statement and execute it</span>
@@ -532,7 +533,7 @@
 </span><span id="268" class="l"><a href="#268">268: </a>        }
 </span><span id="269" class="l"><a href="#269">269: </a>
 </span><span id="270" class="l"><a href="#270">270: </a>        <span class="php-comment">//build the sql query</span>
-</span><span id="271" class="l"><a href="#271">271: </a>        <span class="php-var">$queryBuilder</span> = <span class="php-keyword1">new</span> SQLBuilder();
+</span><span id="271" class="l"><a href="#271">271: </a>        <span class="php-var">$queryBuilder</span> = <span class="php-keyword1">new</span> SQLQueryBuilder();
 </span><span id="272" class="l"><a href="#272">272: </a>        <span class="php-var">$queryBuilder</span>-&gt;selectAllFrom(<span class="php-var">$collection</span>)-&gt;where(<span class="php-var">$where</span>)-&gt;limitOffsetOrderBy(<span class="php-var">$mod</span>);
 </span><span id="273" class="l"><a href="#273">273: </a>
 </span><span id="274" class="l"><a href="#274">274: </a>        <span class="php-comment">//open a new statement and execute it</span>
@@ -566,7 +567,7 @@
 </span><span id="302" class="l"><a href="#302">302: </a>        }
 </span><span id="303" class="l"><a href="#303">303: </a>
 </span><span id="304" class="l"><a href="#304">304: </a>        <span class="php-comment">//build the sql query</span>
-</span><span id="305" class="l"><a href="#305">305: </a>        <span class="php-var">$queryBuilder</span> = <span class="php-keyword1">new</span> SQLBuilder();
+</span><span id="305" class="l"><a href="#305">305: </a>        <span class="php-var">$queryBuilder</span> = <span class="php-keyword1">new</span> SQLQueryBuilder();
 </span><span id="306" class="l"><a href="#306">306: </a>        <span class="php-var">$queryBuilder</span>-&gt;selectFrom(<span class="php-var">$collection</span>, <span class="php-var">$fields</span>)-&gt;where(<span class="php-var">$where</span>)-&gt;limitOffsetOrderBy(<span class="php-var">$mod</span>);
 </span><span id="307" class="l"><a href="#307">307: </a>
 </span><span id="308" class="l"><a href="#308">308: </a>        <span class="php-comment">//open a new statement and execute it</span>
@@ -592,6 +593,6 @@
 </div>
 </div>
 <script src="resources/combined.js?7ec981fd384b70aee7ff5ceda56e0deb9171d900"></script>
-<script src="elementlist.js?c0fea98609448fdc29dccf23227c501c7ce6ae67"></script>
+<script src="elementlist.js?2359136bb57538a7539633c21eb277dbead5e8d3"></script>
 </body>
 </html>

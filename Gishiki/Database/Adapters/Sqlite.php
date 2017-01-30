@@ -22,7 +22,7 @@ use Gishiki\Database\DatabaseException;
 use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\ResultModifier;
 use Gishiki\Algorithms\Collections\GenericCollection;
-use Gishiki\Database\Adapters\Utils\SQLBuilder;
+use Gishiki\Database\Adapters\Utils\SQLQueryBuilder;
 
 /**
  * Represent an sqlite database.
@@ -123,7 +123,7 @@ final class Sqlite implements RelationalDatabaseInterface
         $adaptedData = ($data instanceof GenericCollection) ? $data->all() : $data;
 
         //build the sql query
-        $queryBuilder = new SQLBuilder();
+        $queryBuilder = new SQLQueryBuilder();
         $queryBuilder->insertInto($collection)->values($adaptedData);
 
         //open a new statement and execute it
@@ -165,7 +165,7 @@ final class Sqlite implements RelationalDatabaseInterface
         $adaptedData = ($data instanceof GenericCollection) ? $data->all() : $data;
 
         //build the sql query
-        $queryBuilder = new SQLBuilder();
+        $queryBuilder = new SQLQueryBuilder();
         $queryBuilder->update($collection)->set($adaptedData)->where($where);
 
         //open a new statement and execute it
@@ -200,7 +200,7 @@ final class Sqlite implements RelationalDatabaseInterface
         }
 
         //build the sql query
-        $queryBuilder = new SQLBuilder();
+        $queryBuilder = new SQLQueryBuilder();
         $queryBuilder->deleteFrom($collection)->where($where);
 
         //open a new statement and execute it
@@ -234,7 +234,7 @@ final class Sqlite implements RelationalDatabaseInterface
         }
 
         //build the sql query
-        $queryBuilder = new SQLBuilder();
+        $queryBuilder = new SQLQueryBuilder();
         $queryBuilder->deleteFrom($collection);
 
         //open a new statement and execute it
@@ -268,7 +268,7 @@ final class Sqlite implements RelationalDatabaseInterface
         }
 
         //build the sql query
-        $queryBuilder = new SQLBuilder();
+        $queryBuilder = new SQLQueryBuilder();
         $queryBuilder->selectAllFrom($collection)->where($where)->limitOffsetOrderBy($mod);
 
         //open a new statement and execute it
@@ -302,7 +302,7 @@ final class Sqlite implements RelationalDatabaseInterface
         }
 
         //build the sql query
-        $queryBuilder = new SQLBuilder();
+        $queryBuilder = new SQLQueryBuilder();
         $queryBuilder->selectFrom($collection, $fields)->where($where)->limitOffsetOrderBy($mod);
 
         //open a new statement and execute it

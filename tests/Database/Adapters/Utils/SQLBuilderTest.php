@@ -17,48 +17,48 @@ limitations under the License.
 
 namespace Gishiki\tests\Database\Adapters\Utils;
 
-use Gishiki\Database\Adapters\Utils\SQLBuilder;
+use Gishiki\Database\Adapters\Utils\SQLQueryBuilder;
 use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\FieldRelation;
 use Gishiki\Database\Runtime\ResultModifier;
 use Gishiki\Database\Runtime\FieldOrdering;
 
 /**
- * The tester for the SQLBuilder class.
+ * The tester for the SQLQueryBuilder class.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class SQLBuilderTest extends \PHPUnit_Framework_TestCase
+class SQLQueryBuilderTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testBeautify()
     {
-        $this->assertEquals('SELECT * FROM "test0" WHERE id = ? OR name = ? ORDER BY id DESC', SQLBuilder::Beautify("SELECT  *  FROM  \"test0\" WHERE id   = ? OR name = ? ORDER BY id DESC"));
+        $this->assertEquals('SELECT * FROM "test0" WHERE id = ? OR name = ? ORDER BY id DESC', SQLQueryBuilder::Beautify("SELECT  *  FROM  \"test0\" WHERE id   = ? OR name = ? ORDER BY id DESC"));
     }
     
     public function testSelectAllFrom()
     {
-        $query = new SQLBuilder();
+        $query = new SQLQueryBuilder();
         $query->selectAllFrom('test1');
 
-        $this->assertEquals(SQLBuilder::Beautify('SELECT * FROM "test1"'), SQLBuilder::Beautify($query->exportQuery()));
+        $this->assertEquals(SQLQueryBuilder::Beautify('SELECT * FROM "test1"'), SQLQueryBuilder::Beautify($query->exportQuery()));
         $this->assertEquals([], $query->exportParams());
     }
 
     public function testSelectAllFromWhere()
     {
-        $query = new SQLBuilder();
+        $query = new SQLQueryBuilder();
         $query->selectAllFrom('test1')->where(SelectionCriteria::Select([
             'id' => [5, 6, 7],
         ])->or_where('name', FieldRelation::NOT_LIKE, '%inv%'));
 
-        $this->assertEquals(SQLBuilder::Beautify('SELECT * FROM "test1" WHERE id IN (?,?,?) OR name NOT LIKE ?'), SQLBuilder::Beautify($query->exportQuery()));
+        $this->assertEquals(SQLQueryBuilder::Beautify('SELECT * FROM "test1" WHERE id IN (?,?,?) OR name NOT LIKE ?'), SQLQueryBuilder::Beautify($query->exportQuery()));
         $this->assertEquals([5, 6, 7, '%inv%'], $query->exportParams());
     }
 
     public function testSelectAllFromWhereLimitOffsetOrderBy()
     {
-        $query = new SQLBuilder();
+        $query = new SQLQueryBuilder();
         $query->selectAllFrom('test1')
                 ->where(SelectionCriteria::Select([
                         'id' => [5, 6, 7],
@@ -69,13 +69,13 @@ class SQLBuilderTest extends \PHPUnit_Framework_TestCase
                     'name' => FieldOrdering::ASC,
                 ]));
 
-        $this->assertEquals(SQLBuilder::Beautify('SELECT * FROM "test1" WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC'), SQLBuilder::Beautify($query->exportQuery()));
+        $this->assertEquals(SQLQueryBuilder::Beautify('SELECT * FROM "test1" WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC'), SQLQueryBuilder::Beautify($query->exportQuery()));
         $this->assertEquals([5, 6, 7, 1.25], $query->exportParams());
     }
 
     public function testSelectFromWhereLimitOffsetOrderBy()
     {
-        $query = new SQLBuilder();
+        $query = new SQLQueryBuilder();
         $query->selectFrom('test1', ['name', 'surname'])
                 ->where(SelectionCriteria::Select([
                         'id' => [5, 6, 7],
@@ -87,13 +87,13 @@ class SQLBuilderTest extends \PHPUnit_Framework_TestCase
                     'surname' => FieldOrdering::DESC,
                 ]));
 
-        $this->assertEquals(SQLBuilder::Beautify('SELECT name, surname FROM "test1" WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC, surname DESC'), SQLBuilder::Beautify($query->exportQuery()));
+        $this->assertEquals(SQLQueryBuilder::Beautify('SELECT name, surname FROM "test1" WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC, surname DESC'), SQLQueryBuilder::Beautify($query->exportQuery()));
         $this->assertEquals([5, 6, 7, 1.25], $query->exportParams());
     }
 
     public function testInsertIntoValues()
     {
-        $query = new SQLBuilder();
+        $query = new SQLQueryBuilder();
         $query->insertInto('users')->values([
             'name' => 'Mario',
             'surname' => 'Rossi',
@@ -101,25 +101,25 @@ class SQLBuilderTest extends \PHPUnit_Framework_TestCase
             'time' => 56.04,
         ]);
 
-        $this->assertEquals(SQLBuilder::Beautify('INSERT INTO "users" (name, surname, age, time) VALUES (?,?,?,?)'), SQLBuilder::Beautify($query->exportQuery()));
+        $this->assertEquals(SQLQueryBuilder::Beautify('INSERT INTO "users" (name, surname, age, time) VALUES (?,?,?,?)'), SQLQueryBuilder::Beautify($query->exportQuery()));
         $this->assertEquals(['Mario', 'Rossi', 25, 56.04], $query->exportParams());
     }
 
     public function testDeleteFrom()
     {
-        $query = new SQLBuilder();
+        $query = new SQLQueryBuilder();
         $query->deleteFrom('users');
 
-        $this->assertEquals(SQLBuilder::Beautify('DELETE FROM "users"'), SQLBuilder::Beautify($query->exportQuery()));
+        $this->assertEquals(SQLQueryBuilder::Beautify('DELETE FROM "users"'), SQLQueryBuilder::Beautify($query->exportQuery()));
         $this->assertEquals([], $query->exportParams());
     }
 
     public function testUpdateSetWhere()
     {
-        $query = new SQLBuilder();
+        $query = new SQLQueryBuilder();
         $query->update('users')->set(['name' => 'Gianni', 'surname' => 'Pinotto'])->where(SelectionCriteria::Select(['id' => 200]));
 
-        $this->assertEquals(SQLBuilder::Beautify('UPDATE "users" SET name = ?, surname = ? WHERE id = ?'), SQLBuilder::Beautify($query->exportQuery()));
+        $this->assertEquals(SQLQueryBuilder::Beautify('UPDATE "users" SET name = ?, surname = ? WHERE id = ?'), SQLQueryBuilder::Beautify($query->exportQuery()));
         $this->assertEquals(['Gianni', 'Pinotto', 200], $query->exportParams());
     }
 }

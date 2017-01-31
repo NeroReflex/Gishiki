@@ -210,7 +210,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.Schema.Column.html#20-215" title="Go to source code">Gishiki/Database/Schema/Column.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.Schema.Column.html#20-211" title="Go to source code">Gishiki/Database/Schema/Column.php</a>
 		<br>
 	</div>
 
@@ -407,7 +407,7 @@ exceptions thrown by that function.</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="setAutoIncrement" id="_setAutoIncrement">
+	<tr data-order="setRelation" id="_setRelation">
 
 		<td class="attributes"><code>
 			 public 
@@ -418,27 +418,27 @@ exceptions thrown by that function.</p>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_setAutoIncrement">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Column.html#127-143" title="Go to source code">setAutoIncrement</a>( <span>boolean <var>$enable</var></span> )</code>
+		<a class="anchor" href="#_setRelation">#</a>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#127-139" title="Go to source code">setRelation</a>( <span><code><a href="class-Gishiki.Database.Schema.ColumnRelation.html">Gishiki\Database\Schema\ColumnRelation</a></code> <var>&amp; $rel</var></span> )</code>
 
 		<div class="description short">
-			<p>Change the auto increment flag on the column.</p>
+			<p>Change the relation of the current column.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Change the auto increment flag on the column.</p>
+			<p>Change the relation of the current column.</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$enable</var></dt>
-					<dd>TRUE is used to enables auto increment</dd>
+					<dt><var>$rel</var></dt>
+					<dd>the column relation</dd>
 				</dl></div>
 
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>the new status is invalid
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>the column name is invalid
 				</div>
 
 
@@ -446,34 +446,33 @@ exceptions thrown by that function.</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getAutoIncrement" id="_getAutoIncrement">
+	<tr data-order="getRelation" id="_getRelation">
 
 		<td class="attributes"><code>
 			 public 
 
-			
+			<code><a href="class-Gishiki.Database.Schema.ColumnRelation.html">Gishiki\Database\Schema\ColumnRelation</a></code>|null
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getAutoIncrement">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Column.html#145-153" title="Go to source code">getAutoIncrement</a>( <span>boolean <var>$enable</var>,…</span> )</code>
+		<a class="anchor" href="#_getRelation">#</a>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#141-149" title="Go to source code">getRelation</a>( )</code>
 
 		<div class="description short">
-			<p>Retrieve the auto increment flag on the column.</p>
+			<p>Retrieve the relation of the column.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Retrieve the auto increment flag on the column.</p>
+			<p>Retrieve the relation of the column.</p>
 
 
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$enable</var>,…</dt>
-					<dd>TRUE is used to enables auto increment</dd>
-				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.Schema.ColumnRelation.html">Gishiki\Database\Schema\ColumnRelation</a></code>|null<br>the column relation or null
+				</div>
 
 
 
@@ -493,7 +492,7 @@ exceptions thrown by that function.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setName">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Column.html#155-172" title="Go to source code">setName</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#151-168" title="Go to source code">setName</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			<p>Change the name of the current column.</p>
@@ -532,7 +531,7 @@ exceptions thrown by that function.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getName">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Column.html#174-182" title="Go to source code">getName</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#170-178" title="Go to source code">getName</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve the name of the column.</p>
@@ -566,7 +565,7 @@ exceptions thrown by that function.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setType">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Column.html#184-204" title="Go to source code">setType</a>( <span>string <var>$type</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#180-200" title="Go to source code">setType</a>( <span>string <var>$type</var></span> )</code>
 
 		<div class="description short">
 			<p>Change the type of the current table passing as argument one
@@ -607,7 +606,7 @@ of the ColumnType contants.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getType">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Column.html#206-214" title="Go to source code">getType</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#202-210" title="Go to source code">getType</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve the type of the column.</p>
@@ -694,31 +693,6 @@ of the ColumnType contants.</p>
 			</div>
 		</td>
 	</tr>
-	<tr data-order="ai" id="$ai">
-		<td class="attributes"><code>
-			protected  
-			boolean
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-Gishiki.Database.Schema.Column.html#37-40" title="Go to source code"><var>$ai</var></a>
-
-			<div class="description short">
-				<p>TRUE if the column uses auto increment</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>TRUE if the column uses auto increment</p>
-
-			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#$ai" class="anchor">#</a>
-				<code></code>
-			</div>
-		</td>
-	</tr>
 	<tr data-order="notNull" id="$notNull">
 		<td class="attributes"><code>
 			protected  
@@ -726,7 +700,7 @@ of the ColumnType contants.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.Database.Schema.Column.html#42-45" title="Go to source code"><var>$notNull</var></a>
+				<a href="source-class-Gishiki.Database.Schema.Column.html#37-40" title="Go to source code"><var>$notNull</var></a>
 
 			<div class="description short">
 				<p>TRUE if the column cannot hold null</p>
@@ -751,7 +725,7 @@ of the ColumnType contants.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.Database.Schema.Column.html#47-50" title="Go to source code"><var>$pkey</var></a>
+				<a href="source-class-Gishiki.Database.Schema.Column.html#42-45" title="Go to source code"><var>$pkey</var></a>
 
 			<div class="description short">
 				<p>TRUE if the column is a primary key</p>
@@ -765,6 +739,31 @@ of the ColumnType contants.</p>
 		<td class="value">
 			<div>
 				<a href="#$pkey" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="relation" id="$relation">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-Gishiki.Database.Schema.ColumnRelation.html">Gishiki\Database\Schema\ColumnRelation</a></code>|null
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.Database.Schema.Column.html#47-50" title="Go to source code"><var>$relation</var></a>
+
+			<div class="description short">
+				<p>the relation to an external table or null</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>the relation to an external table or null</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$relation" class="anchor">#</a>
 				<code></code>
 			</div>
 		</td>

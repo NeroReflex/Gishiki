@@ -48,11 +48,29 @@ class SQLiteQueryBuilder extends SQLQueryBuilder {
     /**
      * Add (id INT PRIMARY KEY NUT NULL, name TEXT NOT NULL, ... ) to the SQL query.
      * 
-     * @param Table $tableDefinition the structure of the table
+     * @param array $columns a collection of Gishiki\Database\Schema\Column
+     * @return \Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder the updated sql builder
      */
-    public function &definedAs(Table &$tableDefinition)
+    public function &definedAs($columns)
     {
         $this->appendToQuery('(');
+        
+        $first = true;
+        foreach ($columns as $column) {
+            if (!$first) {
+                $this->appendToQuery(',');
+            }
+            
+            $this->appendToQuery($column->getName().' ');
+            
+            if ($column->getNotNull()) {
+                $this->appendToQuery('NOT NULL ');
+            }
+            
+            $this->appendToQuery(', ');
+            $first = false;
+        }
+        
         
         
         $this->appendToQuery(')');
@@ -61,6 +79,12 @@ class SQLiteQueryBuilder extends SQLQueryBuilder {
         return $this;
     }
     
+    /**
+     * Add DROP TABLE IF EXISTS %tablename% to the SQL query.
+     * 
+     * @param  string $tableName the name of the table
+     * @return \Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder the updated sql builder
+     */
     public function &dropTable($tableName)
     {
         $this->appendToQuery('DROP TABLE IF EXISTS '.$tableName.' ');

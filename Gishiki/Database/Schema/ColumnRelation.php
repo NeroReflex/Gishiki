@@ -37,19 +37,12 @@ final class ColumnRelation
     protected $foreignKey;
 
     /**
-     * @var Column the foreign key column (in another table)
-     */
-    protected $localKey;
-
-    /**
-     * Create a new Relation from the first column to the second one, which
-     * is a primary key.
+     * Create a new relation to the given pprimary key.
      * 
-     * @param  \Gishiki\Database\Schema\Column $column       the column to be related with a foreign key
      * @param  \Gishiki\Database\Schema\Column $externColumn the foreign column
      * @throws DatabaseException the error occurred while enstabilishing the Relation
      */
-    public function __construct(Column &$column, Table &$externTable, Column &$externColumn)
+    public function __construct(Table &$externTable, Column &$externColumn)
     {        
         //I hope you are not going to reference something that is not a primary key
         if (!$externColumn->getPrimaryKey()) {
@@ -61,7 +54,6 @@ final class ColumnRelation
             throw new DatabaseException("The given foreign table doesn't contain a column with the same name", 129);
         }
         
-        $this->localKey = $column;
         $this->foreignKey = $externColumn;
         $this->foreignTable = $externTable;
     }
@@ -84,15 +76,5 @@ final class ColumnRelation
     public function &getForeignTable()
     {
         return $this->foreignTable;
-    }
-    
-    /**
-     * Get the column on the related table.
-     * 
-     * @return Column the reference to the column
-     */
-    public function &getLocalKey()
-    {
-        return $this->localKey;
     }
 }

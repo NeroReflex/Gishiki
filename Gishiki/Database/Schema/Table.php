@@ -30,11 +30,6 @@ final class Table
      * @var string the name of the table
      */
     protected $name;
-    
-    /**
-     * @var array a list of relations of columns on the current table
-     */
-    protected $foreignKeys;
 
     /**
      * @var array a list of columns inside the current database
@@ -84,37 +79,6 @@ final class Table
     public function getColumns()
     {
         return $this->columns;
-    }
-    
-    /**
-     * Add a relationship between a column and a table external to the given column.
-     * 
-     * @param \Gishiki\Database\Schema\ColumnRelation $foreignKey the relation between a foreign key and a primary key
-     * @return \Gishiki\Database\Schema\Table a reference to the modified table
-     * @throws DatabaseException the foreign key already exists
-     */
-    public function &addRelation(ColumnRelation $foreignKey)
-    {
-        foreach ($this->foreignKeys as $currentForeignKey) {
-            if (strcmp($foreignKey->getForeignTable()->getName(), $currentForeignKey->getForeignTable()->getName()) == 0) {
-                throw new DatabaseException('A Table cannot contain two foreign key that points at the same table', 141);
-            }
-        }
-        
-        //add the foreign key to the list
-        $this->foreignKeys[] = $foreignKey;
-        
-        return $this;
-    }
-    
-    /**
-     * Return the list of foreign keys on the current table.
-     * 
-     * @return array the list of relations
-     */
-    public function getRelations()
-    {
-        return $this->foreignKeys;
     }
     
     /**

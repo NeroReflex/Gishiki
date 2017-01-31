@@ -35,11 +35,6 @@ final class Column
     protected $type;
 
     /**
-     * @var bool TRUE if the column uses auto increment
-     */
-    protected $ai;
-
-    /**
      * @var bool TRUE if the column cannot hold null
      */
     protected $notNull;
@@ -48,6 +43,11 @@ final class Column
      * @var bool TRUE if the column is a primary key
      */
     protected $pkey;
+    
+    /**
+     * @var ColumnRelation|null the relation to an external table or null
+     */
+    protected $relation;
 
     /**
      * Initialize a column with the given name.
@@ -61,9 +61,9 @@ final class Column
     {
         $this->name = '';
         $this->dataType = 0;
-        $this->ai = false;
         $this->pkey = false;
         $this->notNull = false;
+        $this->relation = null;
         $this->setName($name);
         $this->setType($type);
     }
@@ -123,33 +123,29 @@ final class Column
     {
         return $this->pkey;
     }
-
+    
     /**
-     * Change the auto increment flag on the column.
+     * Change the relation of the current column.
      *
-     * @param bool $enable TRUE is used to enables auto increment
+     * @param ColumnRelation $rel the column relation
      *
-     * @throws \InvalidArgumentException the new status is invalid
+     * @throws \InvalidArgumentException the column name is invalid
      */
-    public function &setAutoIncrement($enable)
+    public function &setRelation(ColumnRelation &$rel)
     {
-        if (!is_bool($enable)) {
-            throw new \InvalidArgumentException('The auto-increment flag of a column must be given as a boolean value');
-        }
-
-        $this->ai = $enable;
+        $this->relation = $rel;
 
         return $this;
     }
 
     /**
-     * Retrieve the auto increment flag on the column.
+     * Retrieve the relation of the column.
      *
-     * @param bool $enable TRUE is used to enables auto increment
+     * @return ColumnRelation|null the column relation or null
      */
-    public function getAutoIncrement()
+    public function getRelation()
     {
-        return $this->ai;
+        return $this->relation;
     }
 
     /**

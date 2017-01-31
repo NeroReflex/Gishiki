@@ -72,28 +72,6 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testColumnBadAutoIncrement()
-    {
-        //create a testing column
-        $col = new Column('id', ColumnType::INTEGER);
-        $col->setAutoIncrement(null);
-    }
-    
-    public function testColumnAutoIncrement()
-    {
-        //create a testing column (by default a new column is NOT a primary key)
-        $col = new Column('id', ColumnType::INTEGER);
-        
-        $this->assertEquals(false, $col->getAutoIncrement());
-        
-        $col->setAutoIncrement(true);
-        
-        $this->assertEquals(true, $col->getAutoIncrement());
-    }
-    
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testColumnBadNotNull()
     {
         //create a testing column

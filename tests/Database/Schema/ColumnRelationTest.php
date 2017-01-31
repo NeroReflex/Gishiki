@@ -37,13 +37,10 @@ class ColumnRelationTest extends \PHPUnit_Framework_TestCase {
         $externColumn = new Column('id', ColumnType::INTEGER);
         // $externColumn->setPrimaryKey(true); this is not a primary key, so... an error should be triggered
         $externColumn->setNotNull(true);
-        $externColumn->setAutoIncrement(true);
         
         $externTable->addColumn($externColumn);
         
-        $localColumn = new Column(__FUNCTION__.'_id', ColumnType::INTEGER);
-        
-        $relation = new ColumnRelation($localColumn, $externTable, $externColumn);
+        $relation = new ColumnRelation($externTable, $externColumn);
     }
     
     /**
@@ -56,11 +53,8 @@ class ColumnRelationTest extends \PHPUnit_Framework_TestCase {
         $externColumn = new Column('id', ColumnType::INTEGER);
         $externColumn->setPrimaryKey(true); 
         $externColumn->setNotNull(true);
-        $externColumn->setAutoIncrement(true);
         
-        $localColumn = new Column(__FUNCTION__.'_id', ColumnType::INTEGER);
-        
-        $relation = new ColumnRelation($localColumn, $externTable, $externColumn);
+        $relation = new ColumnRelation($externTable, $externColumn);
     }
     
     public function testColumnRelation()
@@ -70,16 +64,12 @@ class ColumnRelationTest extends \PHPUnit_Framework_TestCase {
         $externColumn = new Column('id', ColumnType::INTEGER);
         $externColumn->setPrimaryKey(true); 
         $externColumn->setNotNull(true);
-        $externColumn->setAutoIncrement(true);
         
         $externTable->addColumn($externColumn);
         
-        $localColumn = new Column(__FUNCTION__.'_id', ColumnType::INTEGER);
-        
-        $relation = new ColumnRelation($localColumn, $externTable, $externColumn);
+        $relation = new ColumnRelation($externTable, $externColumn);
         
         $this->assertEquals($externTable, $relation->getForeignTable());
         $this->assertEquals($externColumn, $relation->getForeignKey());
-        $this->assertEquals($localColumn, $relation->getLocalKey());
     }
 }

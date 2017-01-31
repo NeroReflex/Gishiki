@@ -21,6 +21,7 @@ use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\ResultModifier;
 use Gishiki\Database\Runtime\FieldOrdering;
 use Gishiki\Database\Schema\Table;
+use Gishiki\Database\Schema\ColumnType;
 
 /**
  * This utility is useful to create sql queries for SQLite ONLY.
@@ -62,6 +63,26 @@ class SQLiteQueryBuilder extends SQLQueryBuilder {
             }
             
             $this->appendToQuery($column->getName().' ');
+            
+            $typename = "";
+            switch($column->getType()) {
+                case ColumnType::INTEGER:
+                    $typename = "INT";
+                    break;
+                    
+                case ColumnType::TEXT:
+                    $typename = "TEXT";
+                    break;
+                    
+                case ColumnType::REAL:
+                    $typename = "REAL";
+                    break;
+                
+                default:
+                    $typename = "INT";
+            }
+            
+            $this->appendToQuery($typename.' ');
             
             if ($column->getNotNull()) {
                 $this->appendToQuery('NOT NULL ');

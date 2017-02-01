@@ -52,14 +52,14 @@ class SQLiteQueryBuilder extends SQLQueryBuilder {
      * @param array $columns a collection of Gishiki\Database\Schema\Column
      * @return \Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder the updated sql builder
      */
-    public function &definedAs($columns)
+    public function &definedAs(array $columns)
     {
         $this->appendToQuery('(');
         
         $first = true;
         foreach ($columns as $column) {
             if (!$first) {
-                $this->appendToQuery(',');
+                $this->appendToQuery(', ');
             }
             
             $this->appendToQuery($column->getName().' ');
@@ -79,16 +79,18 @@ class SQLiteQueryBuilder extends SQLQueryBuilder {
                     break;
                 
                 default:
-                    $typename = "INT";
             }
             
             $this->appendToQuery($typename.' ');
             
-            if ($column->getNotNull()) {
-                $this->appendToQuery('NOT NULL ');
+            if ($column->getPrimaryKey()) {
+                $this->appendToQuery('PRIMARY KEY ');
             }
             
-            $this->appendToQuery(', ');
+            if ($column->getNotNull()) {
+                $this->appendToQuery('NOT NULL');
+            }
+            
             $first = false;
         }
         

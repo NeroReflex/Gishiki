@@ -18,10 +18,10 @@ limitations under the License.
 namespace Gishiki\tests\Database\Adapters\Utils;
 
 use Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder;
-use Gishiki\Database\Runtime\SelectionCriteria;
-use Gishiki\Database\Runtime\FieldRelation;
-use Gishiki\Database\Runtime\ResultModifier;
-use Gishiki\Database\Runtime\FieldOrdering;
+use Gishiki\Database\Schema\Table;
+use Gishiki\Database\Schema\Column;
+use Gishiki\Database\Schema\ColumnType;
+use Gishiki\Database\Schema\ColumnRelation;
 
 /**
  * The tester for the SQLiteQueryBuilder class.
@@ -36,5 +36,30 @@ class SQLiteQueryBuilderTest extends \PHPUnit_Framework_TestCase
         $query->dropTable(__FUNCTION__);
         
         $this->assertEquals(SQLiteQueryBuilder::Beautify('DROP TABLE IF EXISTS '.__FUNCTION__), SQLiteQueryBuilder::Beautify($query->exportQuery()));
+    }
+    
+    public function testSelectAllFrom()
+    {
+        $table = new Table(__FUNCTION__);
+        
+        $idColumn = new Column('id', ColumnType::INTEGER);
+        $idColumn->setNotNull(true);
+        $idColumn->setPrimaryKey(true);
+        $table->addColumn($idColumn);
+        $nameColumn = new Column('name', ColumnType::TEXT);
+        $nameColumn->setNotNull(true);
+        $table->addColumn($nameColumn);
+        $creditColumn = new Column('credit', ColumnType::REAL);
+        $creditColumn->setNotNull(true);
+        $table->addColumn($creditColumn);
+        
+        $query = new SQLiteQueryBuilder();
+        $query->createTable($table->getName())->definedAs($table->getColumns());
+
+        $this->assertEquals(SQLiteQueryBuilder::Beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
+                . 'id INT PRIMARY KEY NOT NULL, '
+                . 'name TEXT NOT NULL, '
+                . 'credit REAL NOT NULL'
+                . ')'), SQLiteQueryBuilder::Beautify($query->exportQuery()));
     }
 }

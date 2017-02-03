@@ -1,9 +1,11 @@
 # Installation
-Installing Gishiki is really simple, even a child could be able to do it:
-however, in order to succeed you need to complete some steps.
+Setting up a project using Gishiki is really simple, even a child could be able to do it:
+however, in order to succeed you need to complete steps listed on the [Composer](composer.md) page.
 
-You don't have to follow all the reported steps: you setup your environment,
-your composer installation (local and/or remote) and presto!
+For the sake of simplicity, the application, while in development stage, can be
+run using the [php built-in webserver](basic_php.md).
+
+To setup a production environment you should read the folling chapters.
 
 
 ## Windows
@@ -16,13 +18,16 @@ and use the provided Vagrantfile to setup a fully-working linux environment!
 
 
 ## Mac OS X
-If you are willing to develop your application on a Mac system you should use
-[XAMPP](https://www.apachefriends.org/) too!
+If you are willing to *develop* your application on a Mac system you can either use
+[XAMPP](https://www.apachefriends.org/) or the PHP built-in webserver.
 
 
 ## Linux
 Every production server runs on a linux or a container inside linux, this is why
 every instruction you'll find are written for linux: Ubuntu 16.04.
+
+If you are a newcomer I suggest you to follow the [PHP 7.0 & nginx](php_7_nginx.md)
+tutorial I have written for you.
 
 
 ## Virtual Machine
@@ -32,7 +37,5 @@ follow the tutorial on that virtual machine!
 
 
 ## Let's go!
-If you are a newcomer I suggest you to follow the [PHP 7.0 & nginx](php_7_nginx.md) tutorial I have written for you.
-
 If you want something that works in a few seconds than the [PaaS](paas.md) page
 is the right manual page!

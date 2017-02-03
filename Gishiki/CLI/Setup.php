@@ -21,16 +21,6 @@ use \Gishiki\Security\Encryption\Symmetric\SecretKey;
 
 function Setup()
 {
-    if (file_exists('application')) {
-        printf("An application already exists!\n");
-        exit();
-    }
-
-    if (!mkdir('application')) {
-        printf("The application directory cannot be created\n");
-        exit();
-    }
-
     if (!mkdir('application/Controllers')) {
         printf("The Controllers directory cannot be created\n");
         exit();
@@ -55,18 +45,18 @@ function Setup()
                 'autolog' => 'stream://error',
             ],
             'security' => [
-                'serverKey' => 'file://application/private_key.pem',
+                'serverKey' => 'file://private_key.pem',
                 'serverPassword' => SecretKey::Generate(openssl_random_pseudo_bytes(32), 32),
             ],
             'connections' => [
                 [
                     'name' => 'default',
-                    'query' => 'sqlite://application/default.sqlite',
+                    'query' => 'sqlite://default.sqlite',
                 ],
             ],
         ]);
 
-        if (file_put_contents('application/settings.json', $settings->serialize(SerializableCollection::JSON)) === false) {
+        if (file_put_contents('settings.json', $settings->serialize(SerializableCollection::JSON)) === false) {
             printf("The application configuration cannot be written\n");
             exit();
         }
@@ -75,11 +65,13 @@ function Setup()
         exit();
     }
 
-    $router_file = '<?php'.PHP_EOL.
+    $router_file = '<?php'.PHP_EOL.PHP_EOL.
+    "require __DIR__.'/vendor/autoload.php';".PHP_EOL.PHP_EOL.
     "use Gishiki\Core\Route;".PHP_EOL.
     "use Gishiki\HttpKernel\Request;".PHP_EOL.
     "use Gishiki\HttpKernel\Response;".PHP_EOL.
     "use Gishiki\Algorithms\Collections\SerializableCollection;".PHP_EOL.
+    "use Gishiki\Gishiki;".PHP_EOL.
     PHP_EOL.PHP_EOL.
     'Route::get("/", function (Request &$request, Response &$response) {'.PHP_EOL.
     '    $result = new SerializableCollection(['.PHP_EOL.
@@ -98,20 +90,12 @@ function Setup()
     PHP_EOL.
     '    //send the response to the client'.PHP_EOL.
     '    $response->setSerializedBody($result);'.PHP_EOL.
-    '});'.PHP_EOL;
+    '});'.PHP_EOL.PHP_EOL.
+    'Gishiki::Run();'.PHP_EOL;
 
-    if (file_put_contents('application/routes.php', $router_file) === false) {
+    if (file_put_contents('index.php', $router_file) === false) {
         printf("The application router file cannot be written\n");
         exit();
-    }
-
-    if (!file_exists('index.php')) {
-        $indexContent = file_get_contents('vendor/neroreflex/gishiki/index.php');
-
-        if (file_put_contents('index.php', $indexContent) === false) {
-            printf("The application index file cannot be written, you will have to perform a softlink to index.php\n");
-            exit();
-        }
     }
 
     //congrats! The project has been initialized

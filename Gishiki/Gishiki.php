@@ -57,7 +57,7 @@ abstract class Gishiki
 
         //the name of the directory that contains model, view and controller (must be placed in the root)
         if (!defined('APPLICATION_DIR')) {
-            define('APPLICATION_DIR', ROOT.'application'.DS);
+            define('APPLICATION_DIR', ROOT.DS);
         }
     }
 

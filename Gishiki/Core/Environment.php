@@ -171,11 +171,6 @@ namespace Gishiki\Core {
                 //trigger the exception if data is malformed!
                 $currentRequest->getDeserializedBody();
 
-                //include the list of routes (if it exists)
-                if (file_exists(APPLICATION_DIR.'routes.php')) {
-                    include APPLICATION_DIR.'routes.php';
-                }
-
                 //...and serve it
                 $response = Route::run($currentRequest);
             } catch (\RuntimeException $ex) {

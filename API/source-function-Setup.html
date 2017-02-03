@@ -286,14 +286,14 @@
 </span><span id="21" class="l"><a href="#21"> 21: </a>
 </span><span id="22" class="l"><a href="#22"> 22: </a><span class="php-keyword1">function</span> Setup()
 </span><span id="23" class="l"><a href="#23"> 23: </a>{
-</span><span id="24" class="l"><a href="#24"> 24: </a>    <span class="php-keyword1">if</span> (!<span class="php-keyword2">mkdir</span>(<span class="php-quote">'application/Controllers'</span>)) {
+</span><span id="24" class="l"><a href="#24"> 24: </a>    <span class="php-keyword1">if</span> (!<span class="php-keyword2">mkdir</span>(<span class="php-quote">'Controllers'</span>)) {
 </span><span id="25" class="l"><a href="#25"> 25: </a>        <span class="php-keyword2">printf</span>(<span class="php-quote">&quot;The Controllers directory cannot be created\n&quot;</span>);
 </span><span id="26" class="l"><a href="#26"> 26: </a>        <span class="php-keyword1">exit</span>();
 </span><span id="27" class="l"><a href="#27"> 27: </a>    }
 </span><span id="28" class="l"><a href="#28"> 28: </a>
 </span><span id="29" class="l"><a href="#29"> 29: </a>    <span class="php-comment">//generate a new private key</span>
 </span><span id="30" class="l"><a href="#30"> 30: </a>    <span class="php-keyword1">try</span> {
-</span><span id="31" class="l"><a href="#31"> 31: </a>        <span class="php-keyword1">if</span> (<span class="php-keyword2">file_put_contents</span>(<span class="php-quote">'application/private_key.pem'</span>, PrivateKey::Generate(PrivateKey::RSA4096)) === <span class="php-keyword1">false</span>) {
+</span><span id="31" class="l"><a href="#31"> 31: </a>        <span class="php-keyword1">if</span> (<span class="php-keyword2">file_put_contents</span>(<span class="php-quote">'private_key.pem'</span>, PrivateKey::Generate(PrivateKey::RSA4096)) === <span class="php-keyword1">false</span>) {
 </span><span id="32" class="l"><a href="#32"> 32: </a>            <span class="php-keyword2">printf</span>(<span class="php-quote">&quot;The application private key cannot be written\n&quot;</span>);
 </span><span id="33" class="l"><a href="#33"> 33: </a>            <span class="php-keyword1">exit</span>();
 </span><span id="34" class="l"><a href="#34"> 34: </a>        }

@@ -21,14 +21,14 @@ use \Gishiki\Security\Encryption\Symmetric\SecretKey;
 
 function Setup()
 {
-    if (!mkdir('application/Controllers')) {
+    if (!mkdir('Controllers')) {
         printf("The Controllers directory cannot be created\n");
         exit();
     }
 
     //generate a new private key
     try {
-        if (file_put_contents('application/private_key.pem', PrivateKey::Generate(PrivateKey::RSA4096)) === false) {
+        if (file_put_contents('private_key.pem', PrivateKey::Generate(PrivateKey::RSA4096)) === false) {
             printf("The application private key cannot be written\n");
             exit();
         }

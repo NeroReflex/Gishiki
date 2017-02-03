@@ -74,8 +74,6 @@
             
                 <li class="toctree-l3"><a href="#basic-php">Basic PHP</a></li>
                 
-                    <li><a class="toctree-l4" href="#php-webserver">PHP Webserver</a></li>
-                
             
             </ul>
         
@@ -265,19 +263,16 @@
             <div class="section">
               
                 <h1 id="basic-php">Basic PHP</h1>
-<p>You <strong>have to</strong> download and install PHP on your development environment and on
-your production server.</p>
-<p>You don't need a webserver, nor a database manager, nor a graylog2 server:
-you <em>only</em> need PHP version 5.6 or greater!</p>
-<h2 id="php-webserver">PHP Webserver</h2>
 <p>You may not want to install a webserver in you development machine, but you might
 want to test your products by yourself and locally before performing the push/deploy.</p>
-<p>You can test your products by starting the PHP own's webserver:</p>
+<p>If your php version is greather or equal than 5.6 you can test your products by
+starting the PHP built-in webserver:</p>
 <pre><code class="shell">php -S localhost:8080 -t ./
 </code></pre>
 
-<p>This feature is meant for testing purpouse because it is IDE friendly and easy to
-use without an ide, but you <strong>should avoid</strong> using PHP webserver in production!</p>
+<p>This feature is meant for testing purpouse <strong>ONLY</strong> because it is IDE friendly
+and easy to use without an IDE, but you <strong>should avoid</strong> using PHP webserver
+in a production environment due to its <em>really</em> low performance!</p>
               
             </div>
           </div>

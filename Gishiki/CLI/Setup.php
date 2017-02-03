@@ -65,7 +65,8 @@ function Setup()
         exit();
     }
 
-    $router_file = '<?php'.PHP_EOL.PHP_EOL.
+    $router_file = 
+    '<?php'.PHP_EOL.PHP_EOL.
     "require __DIR__.'/vendor/autoload.php';".PHP_EOL.PHP_EOL.
     "use Gishiki\Core\Route;".PHP_EOL.
     "use Gishiki\HttpKernel\Request;".PHP_EOL.
@@ -91,6 +92,7 @@ function Setup()
     '    //send the response to the client'.PHP_EOL.
     '    $response->setSerializedBody($result);'.PHP_EOL.
     '});'.PHP_EOL.PHP_EOL.
+    '//this triggers the framework execution'.PHP_EOL.
     'Gishiki::Run();'.PHP_EOL;
 
     if (file_put_contents('index.php', $router_file) === false) {

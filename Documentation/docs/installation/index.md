@@ -24,7 +24,7 @@ If you are willing to *develop* your application on a Mac system you can either 
 
 ## Linux
 Every production server runs on a linux or a container inside linux, this is why
-every instruction you'll find are written for linux: Ubuntu 16.04.
+every instruction you'll find are written for linux and tested with Ubuntu 16.04.
 
 If you are a newcomer I suggest you to follow the [PHP 7.0 & nginx](php_7_nginx.md)
 tutorial I have written for you.

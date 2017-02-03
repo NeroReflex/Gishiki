@@ -100,7 +100,7 @@ exposing a simple logging API.
 
 ## Requirements
 
-Everything you need is php >= 5.4 and composer!
+Everything you need is php >= 5.5 and composer!
 
 Gishiki runs better while using a dedicated http webserver, but you can use the
 one bundled with PHP!

@@ -66,12 +66,14 @@ class SQLiteQueryBuilder extends SQLQueryBuilder {
             
             $typename = "";
             switch($column->getType()) {
-                case ColumnType::INTEGER:
-                    $typename = "INT";
-                    break;
-                    
+                
+                case ColumnType::DATETIME:
                 case ColumnType::TEXT:
                     $typename = "TEXT";
+                    break;
+                
+                case ColumnType::INTEGER:
+                    $typename = "INT";
                     break;
                     
                 case ColumnType::REAL:
@@ -89,6 +91,10 @@ class SQLiteQueryBuilder extends SQLQueryBuilder {
             
             if ($column->getNotNull()) {
                 $this->appendToQuery('NOT NULL');
+            }
+            
+            if (($relation = $column->getRelation()) != null) {
+                $this->appendToQuery(', FOREIGN KEY ('.$column->getName().') REFERENCES '.$relation->getForeignTable()->getName().'('.$relation->getForeignKey()->getName().')');
             }
             
             $first = false;

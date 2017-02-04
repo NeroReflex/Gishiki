@@ -38,12 +38,12 @@ final class Column
      * @var bool TRUE if the column cannot hold null
      */
     protected $notNull;
-    
+
     /**
      * @var bool TRUE if the column is a primary key
      */
     protected $pkey;
-    
+
     /**
      * @var ColumnRelation|null the relation to an external table or null
      */
@@ -54,8 +54,8 @@ final class Column
      * This function internally calls setName(), and you should catch
      * exceptions thrown by that function.
      *
-     * @param string  $name  the name of the column
-     * @param integer $type  the data type of the column
+     * @param string $name the name of the column
+     * @param int    $type the data type of the column
      */
     public function __construct($name, $type)
     {
@@ -67,7 +67,7 @@ final class Column
         $this->setName($name);
         $this->setType($type);
     }
-    
+
     /**
      * Change the primary key flag on the column.
      *
@@ -123,7 +123,7 @@ final class Column
     {
         return $this->pkey;
     }
-    
+
     /**
      * Change the relation of the current column.
      *
@@ -185,7 +185,7 @@ final class Column
      *
      * @throws \InvalidArgumentException the column name is invalid
      */
-    public function &setType($type)
+    public function &settype($type)
     {
         //avoid bad names
         if ((!is_integer($type)) || (

@@ -21,20 +21,21 @@ use Gishiki\Algorithms\Collections\SerializableCollection;
 use Gishiki\Security\Encryption\Asymmetric\PrivateKey;
 use Gishiki\Security\Encryption\Symmetric\SecretKey;
 
-final class Bootstrapper {
-
-    function application()
+final class Bootstrapper
+{
+    public function application()
     {
-        if ((!mkdir('Controllers')))
-            throw new \Exception("The Controllers directory cannot be created");
+        if ((!mkdir('Controllers'))) {
+            throw new \Exception('The Controllers directory cannot be created');
+        }
 
         //generate a new private key
         try {
-            if (file_put_contents('private_key.pem', PrivateKey::Generate(PrivateKey::RSA4096)) === false)
-                throw new \Exception("The application private key cannot be written");
-                
+            if (file_put_contents('private_key.pem', PrivateKey::Generate(PrivateKey::RSA4096)) === false) {
+                throw new \Exception('The application private key cannot be written');
+            }
         } catch (\Gishiki\Exception $ex) {
-            throw new \Exception("The private key cannot be generated");
+            throw new \Exception('The private key cannot be generated');
         }
 
         //generate a new configuration file
@@ -56,13 +57,14 @@ final class Bootstrapper {
                 ],
             ]);
 
-            if (file_put_contents('settings.json', $settings->serialize(SerializableCollection::JSON)) === false)
-                throw new \Exception("The application configuration cannot be written");
+            if (file_put_contents('settings.json', $settings->serialize(SerializableCollection::JSON)) === false) {
+                throw new \Exception('The application configuration cannot be written');
+            }
         } catch (\Gishiki\Exception $ex) {
-            throw new \Exception("The application configuration cannot be generated");
+            throw new \Exception('The application configuration cannot be generated');
         }
 
-        $router_file = 
+        $router_file =
         '<?php'.PHP_EOL.PHP_EOL.
         "require __DIR__.'/vendor/autoload.php';".PHP_EOL.PHP_EOL.
         "use Gishiki\Core\Route;".PHP_EOL.
@@ -92,8 +94,8 @@ final class Bootstrapper {
         '//this triggers the framework execution'.PHP_EOL.
         'Gishiki::Run();'.PHP_EOL;
 
-        if (file_put_contents('index.php', $router_file) === false)
-            throw new \Exception("The application router file cannot be written");
+        if (file_put_contents('index.php', $router_file) === false) {
+            throw new \Exception('The application router file cannot be written');
+        }
     }
-
 }

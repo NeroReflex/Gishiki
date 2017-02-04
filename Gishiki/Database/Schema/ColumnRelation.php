@@ -30,7 +30,7 @@ final class ColumnRelation
      * @var Table the table containing the foreign key
      */
     protected $foreignTable;
-    
+
     /**
      * @var Column the column of the current table
      */
@@ -38,39 +38,40 @@ final class ColumnRelation
 
     /**
      * Create a new relation to the given pprimary key.
-     * 
-     * @param  \Gishiki\Database\Schema\Column $externColumn the foreign column
+     *
+     * @param \Gishiki\Database\Schema\Column $externColumn the foreign column
+     *
      * @throws DatabaseException the error occurred while enstabilishing the Relation
      */
     public function __construct(Table &$externTable, Column &$externColumn)
-    {        
+    {
         //I hope you are not going to reference something that is not a primary key
         if (!$externColumn->getPrimaryKey()) {
             throw new DatabaseException('A Relation can only be created with a foreign primary key', 128);
         }
-        
+
         //... oh and I am pretty sure you are not doing something bad, right?
         if (!in_array($externColumn, $externTable->getColumns())) {
             throw new DatabaseException("The given foreign table doesn't contain a column with the same name", 129);
         }
-        
+
         $this->foreignKey = $externColumn;
         $this->foreignTable = $externTable;
     }
-    
+
     /**
      * Get the column on the current table.
-     * 
+     *
      * @return Column the reference to the column
      */
     public function &getForeignKey()
     {
         return $this->foreignKey;
     }
-    
+
     /**
-     * Get the table containing the foreign key
-     * 
+     * Get the table containing the foreign key.
+     *
      * @return Table the table containing the foreign key
      */
     public function &getForeignTable()

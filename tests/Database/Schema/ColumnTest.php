@@ -16,7 +16,6 @@ limitations under the License.
 *****************************************************************************/
 
 use Gishiki\Database\Schema\Column;
-use Gishiki\Database\Schema\ColumnRelation;
 use Gishiki\Database\Schema\ColumnType;
 use Gishiki\Database\Schema\Table;
 
@@ -25,8 +24,8 @@ use Gishiki\Database\Schema\Table;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class ColumnTest extends \PHPUnit_Framework_TestCase {
-    
+class ColumnTest extends \PHPUnit_Framework_TestCase
+{
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -35,30 +34,30 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
         //create a testing column
         $col = new Column('', ColumnType::INTEGER);
     }
-    
+
     public function testColumnNaming()
     {
         //create a testing column
         $col = new Column('test', ColumnType::INTEGER);
-        
+
         $this->assertEquals('test', $col->getName());
     }
-    
+
     public function testColumnPrimaryKey()
     {
         //create the table for this test
         $table = new Table(__FUNCTION__);
-        
+
         //create a testing column (by default a new column is NOT a primary key)
         $col = new Column('id', ColumnType::INTEGER);
-        
+
         $this->assertEquals(false, $col->getPrimaryKey());
-        
+
         $col->setPrimaryKey(true);
-        
+
         $this->assertEquals(true, $col->getPrimaryKey());
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -68,7 +67,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
         $col = new Column('id', ColumnType::INTEGER);
         $col->setPrimaryKey(null);
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -78,19 +77,19 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
         $col = new Column('id', ColumnType::INTEGER);
         $col->setNotNull(null);
     }
-    
+
     public function testColumnNotNull()
     {
         //create a testing column (by default a new column is NOT a primary key)
         $col = new Column('id', ColumnType::INTEGER);
-        
+
         $this->assertEquals(false, $col->getNotNull());
-        
+
         $col->setNotNull(true);
-        
+
         $this->assertEquals(true, $col->getNotNull());
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -100,24 +99,23 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
         $col = new Column('id', null);
         $col->setNotNull(null);
     }
-    
+
     public function testColumnType()
     {
         //create a testing column (by default a new column is NOT a primary key)
         $col = new Column('id', ColumnType::INTEGER);
-        
+
         $this->assertEquals(ColumnType::INTEGER, $col->getType());
-        
-        
+
         $col->setType(ColumnType::TEXT);
         $this->assertEquals(ColumnType::TEXT, $col->getType());
-        
+
         $col->setType(ColumnType::REAL);
         $this->assertEquals(ColumnType::REAL, $col->getType());
-        
+
         $col->setType(ColumnType::DATETIME);
         $this->assertEquals(ColumnType::DATETIME, $col->getType());
-        
+
         $col->setType(ColumnType::INTEGER);
         $this->assertEquals(ColumnType::INTEGER, $col->getType());
     }

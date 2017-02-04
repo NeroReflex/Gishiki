@@ -17,9 +17,6 @@ limitations under the License.
 
 namespace Gishiki\Database\Adapters\Utils;
 
-use Gishiki\Database\Runtime\SelectionCriteria;
-use Gishiki\Database\Runtime\ResultModifier;
-use Gishiki\Database\Runtime\FieldOrdering;
 use Gishiki\Database\Schema\Table;
 use Gishiki\Database\Schema\ColumnType;
 
@@ -30,94 +27,95 @@ use Gishiki\Database\Schema\ColumnType;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class SQLiteQueryBuilder extends SQLQueryBuilder {
-    
+class SQLiteQueryBuilder extends SQLQueryBuilder
+{
     /**
      * Add CREATE TABLE IF NOT EXISTS %tablename% to the SQL query.
-     * 
-     * @param  string $tableName the name of the table
+     *
+     * @param string $tableName the name of the table
+     *
      * @return \Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder the updated sql builder
      */
     public function &createTable($tableName)
     {
         $this->appendToQuery('CREATE TABLE IF NOT EXISTS '.$tableName.' ');
-        
+
         //chain functions calls
         return $this;
     }
-    
+
     /**
      * Add (id INT PRIMARY KEY NUT NULL, name TEXT NOT NULL, ... ) to the SQL query.
-     * 
+     *
      * @param array $columns a collection of Gishiki\Database\Schema\Column
+     *
      * @return \Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder the updated sql builder
      */
     public function &definedAs(array $columns)
     {
         $this->appendToQuery('(');
-        
+
         $first = true;
         foreach ($columns as $column) {
             if (!$first) {
                 $this->appendToQuery(', ');
             }
-            
+
             $this->appendToQuery($column->getName().' ');
-            
-            $typename = "";
-            switch($column->getType()) {
-                
+
+            $typename = '';
+            switch ($column->getType()) {
+
                 case ColumnType::DATETIME:
                 case ColumnType::TEXT:
-                    $typename = "TEXT";
+                    $typename = 'TEXT';
                     break;
-                
+
                 case ColumnType::INTEGER:
-                    $typename = "INT";
+                    $typename = 'INT';
                     break;
-                    
+
                 case ColumnType::REAL:
-                    $typename = "REAL";
+                    $typename = 'REAL';
                     break;
-                
+
                 default:
             }
-            
+
             $this->appendToQuery($typename.' ');
-            
+
             if ($column->getPrimaryKey()) {
                 $this->appendToQuery('PRIMARY KEY ');
             }
-            
+
             if ($column->getNotNull()) {
                 $this->appendToQuery('NOT NULL');
             }
-            
+
             if (($relation = $column->getRelation()) != null) {
                 $this->appendToQuery(', FOREIGN KEY ('.$column->getName().') REFERENCES '.$relation->getForeignTable()->getName().'('.$relation->getForeignKey()->getName().')');
             }
-            
+
             $first = false;
         }
-        
-        
-        
+
         $this->appendToQuery(')');
-        
+
         //chain functions calls
         return $this;
     }
-    
+
     /**
      * Add DROP TABLE IF EXISTS %tablename% to the SQL query.
-     * 
-     * @param  string $tableName the name of the table
+     *
+     * @param string $tableName the name of the table
+     *
      * @return \Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder the updated sql builder
      */
     public function &dropTable($tableName)
     {
         $this->appendToQuery('DROP TABLE IF EXISTS '.$tableName.' ');
-        
+
         //chain functions calls
         return $this;
     }

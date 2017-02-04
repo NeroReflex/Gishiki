@@ -17,7 +17,6 @@ limitations under the License.
 
 namespace Gishiki\tests\CLI;
 
-
 use Gishiki\CLI\Console;
 
 /**
@@ -25,52 +24,52 @@ use Gishiki\CLI\Console;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class ConsoleTest extends \PHPUnit_Framework_TestCase {
-    
+class ConsoleTest extends \PHPUnit_Framework_TestCase
+{
     public function testWriteBooleanFalse()
     {
         ob_start();
-        
+
         Console::Write(false);
-        
-        $this->assertEquals("false", ob_get_clean());
+
+        $this->assertEquals('false', ob_get_clean());
     }
-    
+
     public function testWriteBooleanTrue()
     {
         ob_start();
-        
+
         Console::Write(true);
-        
-        $this->assertEquals("true", ob_get_clean());
+
+        $this->assertEquals('true', ob_get_clean());
     }
-    
+
     public function testWriteNull()
     {
         ob_start();
-        
+
         Console::Write(null);
-        
-        $this->assertEquals("null", ob_get_clean());
+
+        $this->assertEquals('null', ob_get_clean());
     }
-    
+
     public function testWriteArray()
     {
-        $arr = ["Hello, ", 'World!', "It's ", time(), " Already"];
-        
+        $arr = ['Hello, ', 'World!', "It's ", time(), ' Already'];
+
         ob_start();
-        
+
         Console::Write($arr);
-        
-        $this->assertEquals(implode("", $arr), ob_get_clean());
+
+        $this->assertEquals(implode('', $arr), ob_get_clean());
     }
-    
+
     public function testWriteLine()
     {
         ob_start();
-        
-        Console::WriteLine("The sum is".': '.(50+3));
-        
+
+        Console::WriteLine('The sum is'.': '.(50 + 3));
+
         $this->assertEquals("The sum is: 53\n", ob_get_clean());
     }
 }

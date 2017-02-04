@@ -35,7 +35,7 @@ final class Table
      * @var array a list of columns inside the current database
      */
     protected $columns;
-    
+
     /**
      * Initialize a table with the given name.
      * This function internally calls setName(), and you should catch
@@ -50,12 +50,14 @@ final class Table
         $this->foreignKeys = [];
         $this->setName($name);
     }
-    
+
     /**
      * Add a column to the current table.
-     * 
+     *
      * @param \Gishiki\Database\Schema\Column $col the column to be added
+     *
      * @return \Gishiki\Database\Schema\Table a reference to the modified table
+     *
      * @throws DatabaseException A table with the same name already exists
      */
     public function &addColumn(Column &$col)
@@ -65,27 +67,29 @@ final class Table
                 throw new DatabaseException('A Table cannot contain two columns with the same name', 140);
             }
         }
-        
+
         $this->columns[] = $col;
-        
+
         return $this;
     }
 
     /**
      * Return the list of columns inside the current table.
-     * 
+     *
      * @return array thelist of columns
      */
     public function getColumns()
     {
         return $this->columns;
     }
-    
+
     /**
      * Change the name of the current table.
      *
      * @param string $name the name of the table
+     *
      * @return \Gishiki\Database\Schema\Table a reference to the modified table
+     *
      * @throws \InvalidArgumentException the table name is invalid
      */
     public function &setName($name)

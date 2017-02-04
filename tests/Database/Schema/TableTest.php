@@ -25,71 +25,75 @@ use Gishiki\Database\Schema\Table;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class TableTest extends \PHPUnit_Framework_TestCase {
-    
+class TableTest extends \PHPUnit_Framework_TestCase
+{
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testTableBadName() {
+    public function testTableBadName()
+    {
         $table = new Table('');
     }
-    
-    public function testTableName() {
+
+    public function testTableName()
+    {
         $table = new Table(__FUNCTION__);
-        
+
         $this->assertEquals(__FUNCTION__, $table->getName());
     }
-    
+
     /**
-     * @expectedException Gishiki\Database\DatabaseException
+     * @expectedException \Gishiki\Database\DatabaseException
      */
-    public function testTableDuplicateColumns() {
+    public function testTableDuplicateColumns()
+    {
         $table = new Table(__FUNCTION__);
-        
+
         $columnOne = new Column('id', ColumnType::INTEGER);
         $columnTwo = new Column('id', ColumnType::TEXT);
-        
+
         $table->addColumn($columnOne)->addColumn($columnTwo);
     }
-    
-    public function testTableColumns() {
+
+    public function testTableColumns()
+    {
         $table = new Table(__FUNCTION__);
-        
+
         $columnOne = new Column('id', ColumnType::INTEGER);
         $columnTwo = new Column('test', ColumnType::TEXT);
         $columnThree = new Column('created_at', ColumnType::DATETIME);
-        
+
         $table->addColumn($columnOne)->addColumn($columnTwo)->addColumn($columnThree);
-        
+
         $this->assertEquals([
             $columnOne,
             $columnTwo,
-            $columnThree
+            $columnThree,
         ], $table->getColumns());
     }
-    
+
     public function testTableColumnRelation()
     {
         $externTable = new Table(__FUNCTION__.'_extern');
-        
+
         $externColumn = new Column('id', ColumnType::INTEGER);
-        $externColumn->setPrimaryKey(true); 
+        $externColumn->setPrimaryKey(true);
         $externColumn->setNotNull(true);
-        
+
         $externTable->addColumn($externColumn);
-        
+
         $localColumn = new Column(($externTable->getName()).'_id', ColumnType::INTEGER);
-        
+
         $relation = new ColumnRelation($externTable, $externColumn);
-        
+
         //at the beginning no relation
         $this->assertEquals(null,  $localColumn->getRelation());
-        
+
         $localColumn->setRelation($relation);
-        
+
         $this->assertEquals($externTable, $relation->getForeignTable());
         $this->assertEquals($externColumn, $relation->getForeignKey());
-        
+
         //after adding one there should be one :)
         $this->assertEquals($relation,  $localColumn->getRelation());
     }

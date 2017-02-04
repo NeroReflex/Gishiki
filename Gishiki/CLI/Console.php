@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\CLI; 
+namespace Gishiki\CLI;
 
 /**
  * A class to emulate the C# System.Console class.
@@ -23,48 +23,47 @@ namespace Gishiki\CLI;
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 abstract class Console
-{    
-    
+{
     /**
      * Write to the standard output without printing a newline.
-     * 
+     *
      * @param mixed $what what will be printed out
      */
-    static function Write($what)
+    public static function Write($what)
     {
-        $str = "";
-        
-        switch (strtolower(gettype($what)))
-        {
-            case "boolean":
-                $str = ($what) ? "true" : "false";
+        $str = '';
+
+        switch (strtolower(gettype($what))) {
+            case 'boolean':
+                $str = ($what) ? 'true' : 'false';
                 break;
-            
-            case "null":
-                $str = "null";
+
+            case 'null':
+                $str = 'null';
                 break;
-            
-            case "array":
-                foreach($what as $element) {
+
+            case 'array':
+                foreach ($what as $element) {
                     self::Write($element);
                 }
                 break;
-            
+
             default:
-                $str = "".$what;
+                $str = ''.$what;
         }
-        
+
         printf($str);
     }
-    
+
     /**
      * Write to the standard output printing a newline afterward.
-     * 
+     *
      * @param mixed $what what will be printed out
      */
-    static function WriteLine($what) {
+    public static function WriteLine($what)
+    {
         self::Write($what);
-        
+
         //print the newline
         self::Write("\n");
     }

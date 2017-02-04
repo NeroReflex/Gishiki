@@ -25,50 +25,50 @@ use Gishiki\Database\Schema\Table;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class ColumnRelationTest extends \PHPUnit_Framework_TestCase {
-    
+class ColumnRelationTest extends \PHPUnit_Framework_TestCase
+{
     /**
-     * @expectedException Gishiki\Database\DatabaseException
+     * @expectedException \Gishiki\Database\DatabaseException
      */
     public function testColumnRelationNotPrimaryKey()
     {
         $externTable = new Table(__FUNCTION__);
-        
+
         $externColumn = new Column('id', ColumnType::INTEGER);
         // $externColumn->setPrimaryKey(true); this is not a primary key, so... an error should be triggered
         $externColumn->setNotNull(true);
-        
+
         $externTable->addColumn($externColumn);
-        
+
         $relation = new ColumnRelation($externTable, $externColumn);
     }
-    
+
     /**
-     * @expectedException Gishiki\Database\DatabaseException
+     * @expectedException \Gishiki\Database\DatabaseException
      */
     public function testColumnRelationUnbindedColumn()
     {
         $externTable = new Table(__FUNCTION__);
-        
+
         $externColumn = new Column('id', ColumnType::INTEGER);
-        $externColumn->setPrimaryKey(true); 
+        $externColumn->setPrimaryKey(true);
         $externColumn->setNotNull(true);
-        
+
         $relation = new ColumnRelation($externTable, $externColumn);
     }
-    
+
     public function testColumnRelation()
     {
         $externTable = new Table(__FUNCTION__);
-        
+
         $externColumn = new Column('id', ColumnType::INTEGER);
-        $externColumn->setPrimaryKey(true); 
+        $externColumn->setPrimaryKey(true);
         $externColumn->setNotNull(true);
-        
+
         $externTable->addColumn($externColumn);
-        
+
         $relation = new ColumnRelation($externTable, $externColumn);
-        
+
         $this->assertEquals($externTable, $relation->getForeignTable());
         $this->assertEquals($externColumn, $relation->getForeignKey());
     }

@@ -30,12 +30,11 @@ use Gishiki\Database\Runtime\FieldOrdering;
  */
 class SQLQueryBuilderTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testBeautify()
     {
-        $this->assertEquals('SELECT * FROM "test0" WHERE id = ? OR name = ? ORDER BY id DESC', SQLQueryBuilder::Beautify("SELECT  *  FROM  \"test0\" WHERE id   = ? OR name = ? ORDER BY id DESC"));
+        $this->assertEquals('SELECT * FROM "test0" WHERE id = ? OR name = ? ORDER BY id DESC', SQLQueryBuilder::Beautify('SELECT  *  FROM  "test0" WHERE id   = ? OR name = ? ORDER BY id DESC'));
     }
-    
+
     public function testSelectAllFrom()
     {
         $query = new SQLQueryBuilder();

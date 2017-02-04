@@ -58,7 +58,7 @@ class SQLQueryBuilder
 
     /**
      * Beautify an SQL query.
-     * 
+     *
      * @param string $query the ugly SQL query
      */
     public static function Beautify($query)
@@ -85,7 +85,7 @@ class SQLQueryBuilder
 
         return trim($query);
     }
-    
+
     /**
      * Append to the current SQL the given text.
      *
@@ -107,13 +107,7 @@ class SQLQueryBuilder
      */
     protected function appendToParams($newParams)
     {
-        if (is_array($newParams)) {
-            foreach ($newParams as $currentParam) {
-                $this->params[] = $currentParam;
-            }
-        } else {
-            $this->params[] = $newParams;
-        }
+        $this->params[] = (is_array($newParams)) ? array_merge($this->params, $newParams) : $newParams;
     }
 
     /**

@@ -34,14 +34,14 @@ class SQLiteQueryBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $query = new SQLiteQueryBuilder();
         $query->dropTable(__FUNCTION__);
-        
+
         $this->assertEquals(SQLiteQueryBuilder::Beautify('DROP TABLE IF EXISTS '.__FUNCTION__), SQLiteQueryBuilder::Beautify($query->exportQuery()));
     }
-    
+
     public function testCreateTableWithNoForeignKey()
     {
         $table = new Table(__FUNCTION__);
-        
+
         $idColumn = new Column('id', ColumnType::INTEGER);
         $idColumn->setNotNull(true);
         $idColumn->setPrimaryKey(true);
@@ -55,18 +55,18 @@ class SQLiteQueryBuilderTest extends \PHPUnit_Framework_TestCase
         $registeredColumn = new Column('registered', ColumnType::DATETIME);
         $registeredColumn->setNotNull(false);
         $table->addColumn($registeredColumn);
-        
+
         $query = new SQLiteQueryBuilder();
         $query->createTable($table->getName())->definedAs($table->getColumns());
 
         $this->assertEquals(SQLiteQueryBuilder::Beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
-                . 'id INT PRIMARY KEY NOT NULL, '
-                . 'name TEXT NOT NULL, '
-                . 'credit REAL NOT NULL, '
-                . 'registered TEXT'
-                . ')'), SQLiteQueryBuilder::Beautify($query->exportQuery()));
+                .'id INT PRIMARY KEY NOT NULL, '
+                .'name TEXT NOT NULL, '
+                .'credit REAL NOT NULL, '
+                .'registered TEXT'
+                .')'), SQLiteQueryBuilder::Beautify($query->exportQuery()));
     }
-    
+
     public function testCreateTableWithForeignKey()
     {
         $tableExtern = new Table('users');
@@ -74,11 +74,11 @@ class SQLiteQueryBuilderTest extends \PHPUnit_Framework_TestCase
         $userIdColumn->setNotNull(true);
         $userIdColumn->setPrimaryKey(true);
         $tableExtern->addColumn($userIdColumn);
-        
+
         $table = new Table('orders');
-        
+
         $relation = new ColumnRelation($tableExtern, $userIdColumn);
-        
+
         $idColumn = new Column('id', ColumnType::INTEGER);
         $idColumn->setNotNull(true);
         $idColumn->setPrimaryKey(true);
@@ -93,16 +93,16 @@ class SQLiteQueryBuilderTest extends \PHPUnit_Framework_TestCase
         $registeredColumn = new Column('ship_date', ColumnType::DATETIME);
         $registeredColumn->setNotNull(false);
         $table->addColumn($registeredColumn);
-        
+
         $query = new SQLiteQueryBuilder();
         $query->createTable($table->getName())->definedAs($table->getColumns());
 
         $this->assertEquals(SQLiteQueryBuilder::Beautify('CREATE TABLE IF NOT EXISTS orders ('
-                . 'id INT PRIMARY KEY NOT NULL, '
-                . 'customer_id INT NOT NULL, '
-                . 'FOREIGN KEY (customer_id) REFERENCES users(id), '
-                . 'spent REAL NOT NULL, '
-                . 'ship_date TEXT'
-                . ')'), SQLiteQueryBuilder::Beautify($query->exportQuery()));
+                .'id INT PRIMARY KEY NOT NULL, '
+                .'customer_id INT NOT NULL, '
+                .'FOREIGN KEY (customer_id) REFERENCES users(id), '
+                .'spent REAL NOT NULL, '
+                .'ship_date TEXT'
+                .')'), SQLiteQueryBuilder::Beautify($query->exportQuery()));
     }
 }

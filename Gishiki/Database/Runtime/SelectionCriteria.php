@@ -56,9 +56,9 @@ final class SelectionCriteria
     /**
      * Create a sub-clause and append it to the where clause using an and as conjunction.
      *
-     * @param string $field        the name of the field/column to be related with the data
+     * @param string $field    the name of the field/column to be related with the data
      * @param int    $Relation the Relation between the field and the data
-     * @param mixed  $data         the data to be related with the field
+     * @param mixed  $data     the data to be related with the field
      *
      * @return \Gishiki\Database\Runtime\SelectionCriteria the updated selection criteria
      *
@@ -103,9 +103,9 @@ final class SelectionCriteria
     /**
      * Create a sub-clause and append it to the where clause using an or as conjunction.
      *
-     * @param string $field        the name of the field/column to be related with the data
+     * @param string $field    the name of the field/column to be related with the data
      * @param int    $Relation the Relation between the field and the data
-     * @param mixed  $data         the data to be related with the field
+     * @param mixed  $data     the data to be related with the field
      *
      * @return \Gishiki\Database\Runtime\SelectionCriteria the updated selection criteria
      *

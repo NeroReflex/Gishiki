@@ -300,12 +300,12 @@
 </span></span><span id="38" class="l"><a href="#38"> 38: </a><span class="php-comment">     * @var bool TRUE if the column cannot hold null
 </span></span><span id="39" class="l"><a href="#39"> 39: </a><span class="php-comment">     */</span>
 </span><span id="40" class="l"><a href="#40"> 40: </a>    <span class="php-keyword1">protected</span> <span class="php-var">$notNull</span>;
-</span><span id="41" class="l"><a href="#41"> 41: </a>    
+</span><span id="41" class="l"><a href="#41"> 41: </a>
 </span><span id="42" class="l"><a href="#42"> 42: </a>    <span class="php-comment">/**
 </span></span><span id="43" class="l"><a href="#43"> 43: </a><span class="php-comment">     * @var bool TRUE if the column is a primary key
 </span></span><span id="44" class="l"><a href="#44"> 44: </a><span class="php-comment">     */</span>
 </span><span id="45" class="l"><a href="#45"> 45: </a>    <span class="php-keyword1">protected</span> <span class="php-var">$pkey</span>;
-</span><span id="46" class="l"><a href="#46"> 46: </a>    
+</span><span id="46" class="l"><a href="#46"> 46: </a>
 </span><span id="47" class="l"><a href="#47"> 47: </a>    <span class="php-comment">/**
 </span></span><span id="48" class="l"><a href="#48"> 48: </a><span class="php-comment">     * @var ColumnRelation|null the relation to an external table or null
 </span></span><span id="49" class="l"><a href="#49"> 49: </a><span class="php-comment">     */</span>
@@ -316,8 +316,8 @@
 </span></span><span id="54" class="l"><a href="#54"> 54: </a><span class="php-comment">     * This function internally calls setName(), and you should catch
 </span></span><span id="55" class="l"><a href="#55"> 55: </a><span class="php-comment">     * exceptions thrown by that function.
 </span></span><span id="56" class="l"><a href="#56"> 56: </a><span class="php-comment">     *
-</span></span><span id="57" class="l"><a href="#57"> 57: </a><span class="php-comment">     * @param string  $name  the name of the column
-</span></span><span id="58" class="l"><a href="#58"> 58: </a><span class="php-comment">     * @param integer $type  the data type of the column
+</span></span><span id="57" class="l"><a href="#57"> 57: </a><span class="php-comment">     * @param string $name the name of the column
+</span></span><span id="58" class="l"><a href="#58"> 58: </a><span class="php-comment">     * @param int    $type the data type of the column
 </span></span><span id="59" class="l"><a href="#59"> 59: </a><span class="php-comment">     */</span>
 </span><span id="60" class="l"><a href="#60"> 60: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __construct(<span class="php-var">$name</span>, <span class="php-var">$type</span>)
 </span><span id="61" class="l"><a href="#61"> 61: </a>    {
@@ -329,7 +329,7 @@
 </span><span id="67" class="l"><a href="#67"> 67: </a>        <span class="php-var">$this</span>-&gt;setName(<span class="php-var">$name</span>);
 </span><span id="68" class="l"><a href="#68"> 68: </a>        <span class="php-var">$this</span>-&gt;<span class="php-keyword2">setType</span>(<span class="php-var">$type</span>);
 </span><span id="69" class="l"><a href="#69"> 69: </a>    }
-</span><span id="70" class="l"><a href="#70"> 70: </a>    
+</span><span id="70" class="l"><a href="#70"> 70: </a>
 </span><span id="71" class="l"><a href="#71"> 71: </a>    <span class="php-comment">/**
 </span></span><span id="72" class="l"><a href="#72"> 72: </a><span class="php-comment">     * Change the primary key flag on the column.
 </span></span><span id="73" class="l"><a href="#73"> 73: </a><span class="php-comment">     *
@@ -385,7 +385,7 @@
 </span><span id="123" class="l"><a href="#123">123: </a>    {
 </span><span id="124" class="l"><a href="#124">124: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;pkey;
 </span><span id="125" class="l"><a href="#125">125: </a>    }
-</span><span id="126" class="l"><a href="#126">126: </a>    
+</span><span id="126" class="l"><a href="#126">126: </a>
 </span><span id="127" class="l"><a href="#127">127: </a>    <span class="php-comment">/**
 </span></span><span id="128" class="l"><a href="#128">128: </a><span class="php-comment">     * Change the relation of the current column.
 </span></span><span id="129" class="l"><a href="#129">129: </a><span class="php-comment">     *
@@ -447,7 +447,7 @@
 </span></span><span id="185" class="l"><a href="#185">185: </a><span class="php-comment">     *
 </span></span><span id="186" class="l"><a href="#186">186: </a><span class="php-comment">     * @throws \InvalidArgumentException the column name is invalid
 </span></span><span id="187" class="l"><a href="#187">187: </a><span class="php-comment">     */</span>
-</span><span id="188" class="l"><a href="#188">188: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> &amp;<span class="php-keyword2">setType</span>(<span class="php-var">$type</span>)
+</span><span id="188" class="l"><a href="#188">188: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> &amp;<span class="php-keyword2">settype</span>(<span class="php-var">$type</span>)
 </span><span id="189" class="l"><a href="#189">189: </a>    {
 </span><span id="190" class="l"><a href="#190">190: </a>        <span class="php-comment">//avoid bad names</span>
 </span><span id="191" class="l"><a href="#191">191: </a>        <span class="php-keyword1">if</span> ((!<span class="php-keyword2">is_integer</span>(<span class="php-var">$type</span>)) || (

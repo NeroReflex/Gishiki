@@ -1,7 +1,6 @@
 # Gishiki
 
 
-
 | CI           | Status  |
 |--------------|---------|
 | Code Metrics | [![Code Climate](https://codeclimate.com/github/NeroReflex/Gishiki/badges/gpa.svg)](https://codeclimate.com/github/NeroReflex/Gishiki)     |
@@ -23,36 +22,24 @@ Installing is as simple as cloning the repository and in 2 minutes you are up in
 experimenting its features!
 
 
-## PaaS Compatibility
-
-Gishiki aims for total [Heroku](https://www.heroku.com/) compatibility because you can deploy
-your fantastic website or app in a few seconds forgetting about maintaining
-the server!
-
-Alongside Heroku, Gishiki aims for the maximum compatibility with any *PaaS* (Platform as a Service)
-and Docker.
-
-
 ## Documentation
 
 A simple tutorial is inside the Documentation folder.
 That tutorial is meant to be compiled using mkdocs.
 
 You can browse [here](http://neroreflex.github.io/Gishiki) the online 
-version matching the master branch.
+version matching the last valid development branch.
 
 
 ## Services
 
 Gishiki focuses on high-performance cloud computing in an MVC-oriented paradigm.
 
-Any cloud application is composite of services.
+The majority of cloud application is composite of RESTFul  services.
 
-Gishiki lets you easily create every service you need and helps you interacting
-with yours own services from wherever you want.
-
-Moreover, a service can be used extremely easily in any environment, may it be 
-an Android/iOS application, another service, a Desktop program or another website.
+Gishiki lets you easily create RESTFul services to interact with your
+own service from wherever you want, may it be an Android/iOS application,
+another service, a Desktop program or the website for your service.
 
 
 ## Websites
@@ -63,13 +50,6 @@ In order to help you achieving your goals Gishiki provides helpers to help you w
 but let you free of doing things the way you want.
 
 
-## RESTful services
-
-Thanks to the really fast router you can deploy a RESTful service in a minute or two...
-
-The HTTP router is written from scratch to be as fast as possible!
-
-
 ## Security
 
 Security is never enough, especially when dealing with people's data in a
@@ -78,24 +58,6 @@ digital environment!
 To help you obtaining a secure working environment Gishiki deploy a set of
 cryptographic utilities based on the OpenSSL ones and abstract away most
 common cryptographic operations.
-
-
-## Description
-
-This framework was written with speed, security and simplicity in mind!
-Gishiki helps you creating in a very short amount of time web services and web applications which are both: maintainable and expandable.
-
-With Gishiki you can create any digital service that your new business activity may need,
-without permanently binding yourself to a single technology, program or 3rd party service.
-This is achieved by giving you the option of changing a service just by editing a configuration file.
-
-
-## Logging
-
-Gishiki gives you the ability of logging what happens on your server.
-
-Gishiki automatically logs exceptions, but delivers you full-control over your logs,
-exposing a simple logging API.
 
 
 ## Requirements

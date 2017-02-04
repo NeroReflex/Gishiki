@@ -204,6 +204,8 @@
                 
                     <li><a class="toctree-l4" href="#application-creation">Application Creation</a></li>
                 
+                    <li><a class="toctree-l4" href="#controller-creation">Controller Creation</a></li>
+                
             
             </ul>
         
@@ -276,13 +278,18 @@ you want to perform:</p>
 <p>The number of parameters following the action depends on the action you want to
 perform.</p>
 <h2 id="application-creation">Application Creation</h2>
-<p>To bootstrap a new application you have to call the gishiki toolkit,
-passing "setup" as the action to be performed:</p>
-<pre><code class="sh">./vendor/bin/gishiki setup
+<p>To bootstrap a new application the command is fixed:</p>
+<pre><code class="sh">./vendor/bin/gishiki new application
 </code></pre>
 
 <p>This will create a basic and empty application that uses an sqlite3 database,
-has a randomly-generated RSA private key, and is ready to be executed!</p>
+has a randomly-generated RSA private key, and is ready to be executed.</p>
+<h2 id="controller-creation">Controller Creation</h2>
+<p>To bootstrap a new controller the command requires controller name:</p>
+<pre><code class="sh">./vendor/bin/gishiki new controller ControllerName
+</code></pre>
+
+<p>This will create a basic controller with a small example piece of code.</p>
               
             </div>
           </div>

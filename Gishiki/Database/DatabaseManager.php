@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2016 Benato Denis
+Copyright 2017 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,20 +19,21 @@ namespace Gishiki\Database;
 
 /**
  * Represent the database manager of the entire framework.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 abstract class DatabaseManager
 {
     private static $connections = array();
 
+    //used to give a sencond name to an adapter
     private static $adaptersMap = [
-        'Mongo' => 'Mongodb',
+        // 'Firstname' => 'Secondname'
     ];
 
     /**
-     * Create a new database handler and connect it to a read database.
-     * 
+     * Create a new database connection and store the newly generated connection.
+     *
      * @param string $connectionName   the name of the database connection
      * @param string $connectionString the connection string
      *
@@ -69,15 +70,16 @@ abstract class DatabaseManager
 
     /**
      * Retrieve the connection with the given name from the list of performed conenctions.
-     * 
-     * @param string $connectionName the name of the preformed connection
+     * If the name is not specified the default one is retrieved.
+     *
+     * @param string $connectionName the name of the selected connection
      *
      * @return DatabaseInterface the connected database instance
      *
      * @throws \InvalidArgumentException the collection name has not be given as a string
      * @throws DatabaseException         the given connection name is not registered as a valid collection
      */
-    public static function Retrieve($connectionName)
+    public static function Retrieve($connectionName = 'default')
     {
         //check for malformed input
         if ((!is_string($connectionName)) || (strlen($connectionName) <= 0)) {

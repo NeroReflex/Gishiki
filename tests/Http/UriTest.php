@@ -7,9 +7,9 @@
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/master/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\tests\Http;
 
-use InvalidArgumentException;
 use Gishiki\Core\Environment;
 use Gishiki\HttpKernel\Uri;
 
@@ -65,7 +65,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Uri scheme must be one of: "", "https", "http"
      */
     public function testWithSchemeInvalid()
@@ -74,7 +74,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Uri scheme must be a string
      */
     public function testWithSchemeInvalidType()
@@ -254,7 +254,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testWithPortInvalidInt()
     {
@@ -262,7 +262,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testWithPortInvalidString()
     {
@@ -286,8 +286,8 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Uri::withBasePath
-     * @expectedException InvalidArgumentException
+     * @covers \Gishiki\HttpKernel\Uri::withBasePath
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Uri path must be a string
      */
     public function testWithBasePathInvalidType()
@@ -350,8 +350,8 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Uri::withPath
-     * @expectedException InvalidArgumentException
+     * @covers \Gishiki\HttpKernel\Uri::withPath
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Uri path must be a string
      */
     public function testWithPathInvalidType()
@@ -390,8 +390,8 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Uri::withQuery
-     * @expectedException InvalidArgumentException
+     * @covers \Gishiki\HttpKernel\Uri::withQuery
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Uri query must be a string
      */
     public function testWithQueryInvalidType()
@@ -430,8 +430,8 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Uri::withFragment
-     * @expectedException InvalidArgumentException
+     * @covers \Gishiki\HttpKernel\Uri::withFragment
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Uri fragment must be a string
      */
     public function testWithFragmentInvalidType()
@@ -470,7 +470,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Uri::createFromString
+     * @covers \Gishiki\HttpKernel\Uri::createFromString
      */
     public function testCreateFromString()
     {
@@ -484,8 +484,8 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Uri::createFromString
-     * @expectedException InvalidArgumentException
+     * @covers \Gishiki\HttpKernel\Uri::createFromString
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Uri must be a string
      */
     public function testCreateFromStringWithInvalidType()
@@ -539,7 +539,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Uri::createFromEnvironment
+     * @covers \Gishiki\HttpKernel\Uri::createFromEnvironment
      * @ticket 1375
      */
     public function testCreateEnvironmentWithBasePath()
@@ -601,7 +601,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Gishiki\HttpKernel\Uri::createFromEnvironment
+     * @covers \Gishiki\HttpKernel\Uri::createFromEnvironment
      * @ticket 1380
      */
     public function testWithPathWhenBaseRootIsEmpty()

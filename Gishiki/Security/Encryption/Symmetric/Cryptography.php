@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2016 Benato Denis
+Copyright 2017 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ namespace Gishiki\Security\Encryption\Symmetric;
  * encryption engine.
  *
  * Note: This class uses OpenSSL for strong encryption
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 abstract class Cryptography
@@ -37,25 +37,25 @@ abstract class Cryptography
     /**
      * Encrypt the given content using the given secure key (that should be
      * prepared using pbkdf2).
-     * 
+     *
      * The resulting IV (automatically generated if null is passed) is
      * base64 encoded.
-     * 
+     *
      * The resulting encrypted content is base64 encoded.
-     * 
+     *
      * Example usage:
      * <code>
      * //prepare the secret key for the symmetric cipher
      * $key = new SecretKey( ... );
      * //Note: the key is NOT the password
-     * 
+     *
      * //encrypt the content
      * $enc_result = Cryptography::encrypt($key, "this is the message to be encrypted");
-     * 
+     *
      * //transmit the IV_base64 and Encryption to decrypt the content
      * //if you used a cistom IV you don't need to pass the IV
      * </code>
-     * 
+     *
      * @param SecretKey   $key        the key to be used to encrypt the given message
      * @param string      $message    the message to be encrypted
      * @param string|null $initVector the base64 representation of the IV to be used (pick a random one if null)
@@ -102,23 +102,23 @@ abstract class Cryptography
     /**
      * Decrypt the given encrypted content using the given secure key
      * (that should be prepared using pbkdf2 Ahead Of Time).
-     * 
+     *
      * Example Usage:
      * <code>
      * //this is the key encoded in hex format required to create the SecureKey
      * $key_hex_encoded = " ... "; //make sure this is the key used when encrypting
      * //Note: the key is NOT the password
-     * 
+     *
      * //build the key
      * $key = new SecretKey($key_hex_encoded);
-     * 
+     *
      * //this is the IV encoded in base64: it is returned by the encrypt() function
      * $initVector_base_encoded = " ... ";
-     * 
+     *
      * //$message will hold the original plaintext message
      * $message = Cryptography::decrypt($key, $encryptedMessage, $initVector_base_encoded);
      * </code>
-     * 
+     *
      * @param SecretKey $key              the key that has been used to encrypt the message
      * @param string    $encryptedMessage the encryption result (must be base64-encoded)
      * @param string    $initVector       the iv represented in base64
@@ -136,7 +136,7 @@ abstract class Cryptography
             throw new \InvalidArgumentException('The encrypted message to be decrypted must be given as a non-empty string');
         }
 
-        //get the managed kersion of the key
+        //get the managed version of the key
         $managedKey = $key();
 
         //check for the key length

@@ -1,6 +1,6 @@
 <?php
 /****************************************************************************
-  Copyright 2016 Benato Denis
+  Copyright 2017 Benato Denis
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ use Gishiki\Algorithms\Manipulation;
 
 /**
  * An helper class for storing logs of what happens on the server.
- * 
- * This is the File version of the logger 
+ *
+ * This is the File version of the logger
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
@@ -37,9 +37,9 @@ class FileAdapter extends \Psr\Log\AbstractLogger
 
     /**
      * Setup a logger that works on files.
-     * 
+     *
      * Default is error.log on the application root
-     * 
+     *
      * @param string $file_path the path of the file
      */
     public function __construct($file_path = '')

@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2016 Benato Denis
+Copyright 2017 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ namespace Gishiki\Algorithms\Collections;
 
 /**
  * This is a Generic Collection Implementation modificed from the Slim's one.
- * 
+ *
  * Benato Denis <benato.denis96@gmail.com>
  */
 class GenericCollection implements CollectionInterface, \IteratorAggregate
@@ -52,7 +52,7 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
 
     /**
      * Get the currently managed collection as a native array.
-     * 
+     *
      * @return array the current collection
      */
     public function __invoke()
@@ -62,9 +62,9 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
 
     /**
      * Get an element of the collection as it would be an object property.
-     * 
+     *
      * Return null if the array doesn't contain the given key
-     * 
+     *
      * @param int|string $key the index of the array element to be accessed
      *
      * @return mixed the requested array element or NULL
@@ -76,7 +76,7 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
 
     /**
      * Set an element of the collection as it would be an object property.
-     * 
+     *
      * @param string $key   the of the property to be modified
      * @param mixed  $value the value to be assigned to the property
      */
@@ -108,7 +108,7 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
 
     /**
      * Get the representation of the current collection as an associative array.
-     * 
+     *
      * @return array the collection as an associative array
      */
     public function all()

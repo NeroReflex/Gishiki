@@ -23,9 +23,6 @@
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <exclude>
-                <file>./Gishiki/Gishiki.php</file>
-            </exclude>
             <directory>./Gishiki/</directory>
         </whitelist>
     </filter>

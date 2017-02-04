@@ -50,7 +50,6 @@ X-Http-Method-Override property, for example:
 POST /path HTTP/1.1
 Host: example.com
 Content-type: application/json
-Content-length: 16
 X-Http-Method-Override: PUT
 ```
 

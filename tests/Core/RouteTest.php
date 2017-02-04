@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2016 Benato Denis
+Copyright 2017 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,9 +26,9 @@ use Gishiki\Algorithms\Collections\GenericCollection;
 
 /**
  * The tester for the Route class.
- * 
+ *
  * Used to test every feature of the router
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 class RouteTest extends \PHPUnit_Framework_TestCase
@@ -154,7 +154,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
             $response->write(strval($result));
             $response = $response->withStatus(500);
-
         });
 
         $match_result = $test_route->matchURI('/add/+59/-9', Route::GET);
@@ -196,23 +195,23 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         ]);
         $reqestToFulfill = Request::createFromEnvironment($env);
 
-        Route::post('/should_not_match', function (Request &$request, Response &$response,  SerializableCollection &$collection) {
+        Route::post('/should_not_match', function (Request &$request, Response &$response, SerializableCollection &$collection) {
             $response->write('Bad error!');
         });
 
-        Route::get('/{user_mail:email}/post/{postname}', function (Request &$request, Response &$response,  SerializableCollection &$collection) {
+        Route::get('/{user_mail:email}/post/{postname}', function (Request &$request, Response &$response, SerializableCollection &$collection) {
             $response->write('Bad error!');
         });
 
-        Route::match([Route::GET], '/{user_id:number}/post/{postname}', function (Request &$request, Response &$response,  SerializableCollection &$collection) {
+        Route::match([Route::GET], '/{user_id:number}/post/{postname}', function (Request &$request, Response &$response, SerializableCollection &$collection) {
             $response->write('Searched post '.$collection->postname.' by user '.$collection->user_id);
         });
 
-        Route::head('/{user_id:number}/post/{postname}', function (Request &$request, Response &$response,  SerializableCollection &$collection) {
+        Route::head('/{user_id:number}/post/{postname}', function (Request &$request, Response &$response, SerializableCollection &$collection) {
             $response->write('Created at: '.time());
         });
 
-        Route::delete('/{user_id:number}/post/{postname}', function (Request &$request, Response &$response,  SerializableCollection &$collection) {
+        Route::delete('/{user_id:number}/post/{postname}', function (Request &$request, Response &$response, SerializableCollection &$collection) {
             $response->write('It is not possible to remove posts by user '.$collection->user_id);
         });
 
@@ -233,7 +232,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadMatchParams()
     {
-        Route::match(Route::GET, '/{user_id:number}/post/{postname}', function (Request &$request, Response &$response,  SerializableCollection &$collection) {
+        Route::match(Route::GET, '/{user_id:number}/post/{postname}', function (Request &$request, Response &$response, SerializableCollection &$collection) {
             $response->write('Searched post '.$collection->postname.' by user '.$collection->user_id);
         });
     }
@@ -245,7 +244,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase
 
             $response->write(strval($result));
             $response = $response->withStatus(500);
-
         });
 
         $this->assertSame($test_route, Route::addRoute($test_route));
@@ -261,23 +259,23 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         ]);
         $reqestToFulfill = Request::createFromEnvironment($env);
 
-        Route::put('/should_not_match', function (Request &$request, Response &$response,  GenericCollection &$collection) {
+        Route::put('/should_not_match', function (Request &$request, Response &$response, GenericCollection &$collection) {
             $response->write('Bad error!');
         });
 
-        Route::get('/{user_mail:email}/post/{postname}', function (Request &$request, Response &$response,  GenericCollection &$collection) {
+        Route::get('/{user_mail:email}/post/{postname}', function (Request &$request, Response &$response, GenericCollection &$collection) {
             $response->write('Bad error!');
         });
 
-        Route::match([Route::GET], '/{user_id:number}/post/{postname}', function (Request &$request, Response &$response,  GenericCollection &$collection) {
+        Route::match([Route::GET], '/{user_id:number}/post/{postname}', function (Request &$request, Response &$response, GenericCollection &$collection) {
             $response->write('Searched post '.$collection->postname.' by user '.$collection->user_id);
         });
 
-        Route::head('/{user_id:number}/post/{postname}', function (Request &$request, Response &$response,  GenericCollection &$collection) {
+        Route::head('/{user_id:number}/post/{postname}', function (Request &$request, Response &$response, GenericCollection &$collection) {
             $response->write('Created at: '.time());
         });
 
-        Route::delete('/{user_id:number}/post/{postname}', function (Request &$request, Response &$response,  SerializableCollection &$collection) {
+        Route::delete('/{user_id:number}/post/{postname}', function (Request &$request, Response &$response, SerializableCollection &$collection) {
             $response->write('It is not possible to remove posts by user '.$collection->user_id);
         });
 

@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2016 Benato Denis
+Copyright 2017 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ class Base64Test extends \PHPUnit_Framework_TestCase
      */
     public function testEncodeBadMessage()
     {
-        Base64::encode(1);
+        Base64::Encode(1);
     }
 
     /**
@@ -34,7 +34,7 @@ class Base64Test extends \PHPUnit_Framework_TestCase
      */
     public function testDecodeBadMessage()
     {
-        Base64::decode(1);
+        Base64::Decode(1);
     }
 
     public function testURLUnsafeEncodes()
@@ -42,9 +42,9 @@ class Base64Test extends \PHPUnit_Framework_TestCase
         for ($i = 1; $i < 100; ++$i) {
             $message = bin2hex(openssl_random_pseudo_bytes($i));
 
-            $binsafe_message = Base64::encode($message, false);
+            $binsafe_message = Base64::Encode($message, false);
 
-            $this->assertEquals($message, Base64::decode($binsafe_message));
+            $this->assertEquals($message, Base64::Decode($binsafe_message));
         }
     }
 
@@ -53,11 +53,11 @@ class Base64Test extends \PHPUnit_Framework_TestCase
         for ($i = 1; $i < 100; ++$i) {
             $message = bin2hex(openssl_random_pseudo_bytes($i));
 
-            $urlsafe_message = Base64::encode($message, true);
+            $urlsafe_message = Base64::Encode($message, true);
 
             $this->assertEquals($urlsafe_message, urlencode($urlsafe_message));
 
-            $this->assertEquals($message, Base64::decode($urlsafe_message));
+            $this->assertEquals($message, Base64::Decode($urlsafe_message));
         }
     }
 
@@ -68,7 +68,7 @@ class Base64Test extends \PHPUnit_Framework_TestCase
 
             $safe_message = base64_encode($message);
 
-            $this->assertEquals($message, Base64::decode($safe_message));
+            $this->assertEquals($message, Base64::Decode($safe_message));
         }
     }
 }

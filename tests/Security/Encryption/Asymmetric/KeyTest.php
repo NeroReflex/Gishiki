@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2016 Benato Denis
+Copyright 2017 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -117,7 +117,7 @@ cf1zSJX0I5GEo9EIBb2r7cFNdOLa02qTL/IO4a3c5NbHqmDBqyfh9lpU6Do=
     }
 
     /**
-     * @expectedException Gishiki\Security\Encryption\Asymmetric\AsymmetricException
+     * @expectedException \Gishiki\Security\Encryption\Asymmetric\AsymmetricException
      */
     public function testFakePrivateKeyload()
     {
@@ -134,7 +134,7 @@ cf1zSJX0I5GEo9EIBb2r7cFNdOLa02qTL/IO4a3c5NbHqmDBqyfh9lpU6Do=
     public function testKeyGeneration()
     {
         //generate a new serialized key
-        $serialized_private_key = PrivateKey::generate();
+        $serialized_private_key = PrivateKey::Generate();
 
         $this->assertEquals(true, strlen($serialized_private_key) > 1);
 

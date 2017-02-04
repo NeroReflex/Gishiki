@@ -16,18 +16,17 @@
     ],
 
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.5.0",
+        "ext-pdo": "*",
         "ext-openssl": "*",
         "ext-libxml": "*",
         "ext-curl": "*",
-        "ext-hash": "*",
         "ext-SimpleXML": "*",
         "graylog2/gelf-php": "~1.2",
         "psr/http-message": "^1.0",
         "psr/log": "^1.0.0",
         "ext-Reflection": "*",
-        "symfony/yaml": "v2.8.6",
-        "ext-mongodb": "*"
+        "symfony/yaml": "v2.8.6"
     },
 
     "require-dev": {
@@ -38,22 +37,19 @@
     },
 
     "suggest": {
-        "ext-redis": "Enable caching using redis",
-        "ext-mongo": "For MongoDB databases",
-        "ext-pdo": "For using any SQL database",
         "ext-pdo_mysql": "For MySQL or MariaDB databases",
         "ext-pdo_sqlsrv": "For MSSQL databases on Windows platform",
         "ext-pdo_dblib": "For MSSQL or Sybase databases on Linux/UNIX platform",
         "ext-pdo_oci": "For Oracle databases",
         "ext-pdo_pqsql": "For PostgreSQL databases",
-        "ext-pdo_sqlite": "For SQLite databases"
+        "ext-pdo_sqlite": "For SQLite databases",
+        "ext-mongodb": "For MongoDB databases"
     },
 
     "autoload": {
         "psr-4": {
             "Gishiki\\": "Gishiki/"
         }
-
     },
     
     "provide": {
@@ -68,5 +64,9 @@
         ],
         "phpunit": "php vendor/bin/phpunit",
         "phpcs": "php vendor/bin/phpcs"
-    }
+    },
+    
+    "bin": [
+        "gishiki"
+    ]
 }

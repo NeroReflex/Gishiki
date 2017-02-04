@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2016 Benato Denis
+Copyright 2017 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ use Gishiki\Database\DatabaseManager;
 
 /**
  * The tester for the DatabaseManager class.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 class DatabaseManagerTest extends \PHPUnit_Framework_TestCase
@@ -31,7 +31,7 @@ class DatabaseManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadConnectionQuery()
     {
-        DatabaseManager::Connect(3, 'mongodb://user:pass@host:port/db');
+        DatabaseManager::Connect(3, 'unknown_db_adapter://user:pass@host:port/db');
     }
 
     /**
@@ -40,12 +40,6 @@ class DatabaseManagerTest extends \PHPUnit_Framework_TestCase
     public function testConnectionQuery()
     {
         DatabaseManager::Connect('default', 'unknown_db_adapter://user:pass@host:port/db');
-    }
-
-    public function testConnection()
-    {
-        $connection = DatabaseManager::Connect('testing_db', MongoDatabaseTest::GetConnectionQuery());
-        $this->assertEquals(true, $connection->Connected());
     }
 
     /**
@@ -62,5 +56,17 @@ class DatabaseManagerTest extends \PHPUnit_Framework_TestCase
     public function testInvalidNameConnection()
     {
         DatabaseManager::Retrieve(3);
+    }
+
+    public function testValidConnection()
+    {
+        //connect an empty-memory bounded database
+        DatabaseManager::Connect('temp_db', 'sqlite://:memory:');
+
+        //retrieve the connected database
+        $connection = DatabaseManager::Retrieve('temp_db');
+
+        //test for a successful retrieve operation
+        $this->assertEquals(true, $connection->connected());
     }
 }

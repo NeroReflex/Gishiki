@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2016 Benato Denis
+Copyright 2017 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -15,33 +15,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\Database;
-
-use Gishiki\Algorithms\Collections\SerializableCollection;
+namespace Gishiki\Database\Runtime;
 
 /**
- * Represent a record stored on the database.
- * 
+ * A collection of orders that can be applied to a field.
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class Record
+abstract class FieldOrdering
 {
-    private $id = null;
-    private $data = null;
-
-    public function __construct(ObjectIDInterface $id, SerializableCollection $data)
-    {
-        $this->id = $id;
-        $this->data = $data;
-    }
-
-    public function GetObjectID()
-    {
-        return $this->id;
-    }
-
-    public function GetData()
-    {
-        return $this->data;
-    }
+    const ASC = 1;
+    const DESC = -1;
 }

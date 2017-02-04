@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2016 Benato Denis
+Copyright 2017 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,18 +17,19 @@ limitations under the License.
 
 namespace Gishiki\Database;
 
-use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Database\Runtime\ResultModifier;
+use Gishiki\Database\Runtime\SelectionCriteria;
 
 /**
  * Represent how a database connection must be implemented.
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 interface DatabaseInterface
 {
     /**
      * Create a new database handler and logically connect the given database.
-     * 
+     *
      * @param string $details the connection string
      *
      * @throws DatabaseException         the error occurred while connecting to the database
@@ -38,38 +39,37 @@ interface DatabaseInterface
 
     /**
      * Logically connect the given database.
-     * 
+     *
      * @param string $details the connection string
      *
      * @throws DatabaseException         the error occurred while connecting to the database
      * @throws \InvalidArgumentException given details are invalid
      */
-    public function Connect($details);
+    public function connect($details);
 
     /**
      * Check if the database handler is connected with a real database.
-     * 
+     *
      * @return bool TRUE only if the database connection is alive
      */
-    public function Connected();
+    public function connected();
 
     /**
      * Write data to the database on the given collection/table.
-     * The name of the collection must be given witht the database.collection syntax.
-     * 
+     *
      * @param string                    $collection the name of the collection that will hold the data
      * @param array|CollectionInterface $data       the collection of data to be written
      * @throw \InvalidArgumentException the given collection name or data is not a collection of valid values
      *
      * @throws DatabaseException the error occurred while inserting data to the database
      *
-     * @return ObjectIDInterface the unique ID of the inserted data
+     * @return mixed the unique ID of the inserted data
      */
-    public function Insert($collection, $data);
+    public function create($collection, $data);
 
     /**
      * Update values of documents/records matching the given criteria.
-     * 
+     *
      * @param string                    $collection the name of the collection that will hold the changed data
      * @param array|CollectionInterface $data       the new data of selected documents/records
      * @param SelectionCriteria         $where      the criteria used to select documents/records to update
@@ -79,11 +79,11 @@ interface DatabaseInterface
      *
      * @return int the number of affected documents/records
      */
-    public function Update($collection, $data, SelectionCriteria $where);
+    public function update($collection, $data, SelectionCriteria $where);
 
     /**
      * Remove documents/records matching the given criteria.
-     * 
+     *
      * @param string            $collection the name of the collection that will be affected
      * @param SelectionCriteria $where      the criteria used to select documents/records to update
      * @throw \InvalidArgumentException the given collection name is not a valid collection name
@@ -92,18 +92,31 @@ interface DatabaseInterface
      *
      * @return int the number of removed documents/records
      */
-    public function Delete($collection, SelectionCriteria $where);
+    public function delete($collection, SelectionCriteria $where);
+
+    /**
+     * Remove EVERY documents/records on the given collection/table.
+     *
+     * @param string $collection the name of the collection that will be affected
+     * @throw \InvalidArgumentException the given collection name is not a valid collection name
+     *
+     * @throws DatabaseException the error occurred while removing data from the database
+     *
+     * @return int the number of removed documents/records
+     */
+    public function deleteAll($collection);
 
     /**
      * Fetch documents/records matching the given criteria.
-     * 
+     *
      * @param string            $collection the name of the collection that will be searched
      * @param SelectionCriteria $where      the criteria used to select documents/records to fetch
+     * @param ResultModifier    $mod        the modifier to be applied to the result set
      * @throw \InvalidArgumentException the given collection name is not a valid collection name
      *
      * @throws DatabaseException the error occurred while fetching data from the database
      *
-     * @return GenericCollection the search result expressed as a collection of \Gishiki\Database\Record
+     * @return array the search result expressed as an array of associative arrays
      */
-    public function Fetch($collection, SelectionCriteria $where);
+    public function read($collection, SelectionCriteria $where, ResultModifier $mod);
 }

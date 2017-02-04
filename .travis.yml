@@ -1,31 +1,32 @@
 language: php
 sudo: required
 php:
+  - '7.1'
   - '7.0'
   - '5.6'
   - '5.5'
-  - '5.4'
-#  - hhvm
-
+  
 before_script:
-    - curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.8.tgz
-    - tar -zxvf mongodb-linux-x86_64-3.2.8.tgz
-    - sudo mkdir -p /data/db && sudo chmod 0777 -R /data/db
-    - chmod +x mongodb-linux-x86_64-3.2.8/bin/mongod
-    - chmod +x mongodb-linux-x86_64-3.2.8/bin/mongo
+    - if [[ "$TRAVIS_OS_NAME" == 'linux' ]] ; then sudo apt-get install rsync ; fi
     - touch travis.php.ini
     - sudo chmod 0777 travis.php.ini
     - pecl config-set php_ini travis.php.ini
     - pear config-set php_ini travis.php.ini
-    - pecl install -f mongodb-1.1.8
     - phpenv config-add travis.php.ini
     - composer self-update
     - composer install
     
 script:
-    - touch mongodb.log
-    - sudo chmod 0777 mongodb.log
-    - mongodb-linux-x86_64-3.2.8/bin/mongod --port 27017 > mongodb.log &
-    - sleep 5m
-    - mongodb-linux-x86_64-3.2.8/bin/mongo localhost:27017/gishiki tests/SetupTestingMongo.js
-    - phpunit --configuration phpunit.xml
+    - mkdir build && mkdir build/logs
+    - phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml
+    
+after_script:
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then vendor/bin/test-reporter ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then wget http://apigen.org/apigen.phar && sudo chmod 0777 apigen.phar ;fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then sudo rm -rf vendor && php apigen.phar generate --source . --destination Documentation/docs/API --title Gishiki --charset UTF-8 --exclude tests,Gishiki/CLI/Utils --access-levels public --access-levels protected --php --tree  ;fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then curl -O https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py && sudo pip install mkdocs ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then cd Documentation && mkdocs build && cd ../ ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then cd Documentation && git clone -b gh-pages $GIT_REMOTE ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then rsync -avh --progress ./site/ ./Gishiki ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then git config --global user.email "benato.denis96@gmail.com" && git config --global user.name "Denis Benato" && git config --global push.default matching  ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then cd Gishiki &&  git add * && git commit -m "deploy doc from commit $TRAVIS_BRANCH ( $TRAVIS_COMMIT ) " && git push ; fi

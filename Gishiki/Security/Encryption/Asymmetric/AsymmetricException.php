@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-  Copyright 2016 Benato Denis
+  Copyright 2017 Benato Denis
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 namespace Gishiki\Security\Encryption\Asymmetric;
 
 /**
- * The asymmetric encryption exception thrown by Gishiki 
+ * The asymmetric encryption exception thrown by Gishiki
  * when a cryptographic operation results is bad.
  *
  * @author Benato Denis <benato.denis96@gmail.com>

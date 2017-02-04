@@ -7,6 +7,7 @@
  * @copyright Copyright (c) 2011-2015 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
  */
+
 namespace Gishiki\HttpKernel;
 
 use InvalidArgumentException;
@@ -139,12 +140,18 @@ class Response extends Message implements ResponseInterface
             }
         }
 
+        $headers->add('Date', gmstrftime('%a, %d %b %Y %H:%M:%S GMT', time()));
+        $headers->add('X-Powered-By', phpversion());
+        $headers->add('X-Runtime', 'Gishiki');
+
         //build and return the response
         return new self(200, $headers);
     }
 
     /**
      * Sends the given HTTP response to the client.
+     *
+     * You MUST AVOID calls to this function!
      *
      * Note: This method is not part of the PSR-7 standard.
      *
@@ -218,9 +225,9 @@ class Response extends Message implements ResponseInterface
     /**
      * Create new HTTP response.
      *
-     * @param int                   $status  The response status code.
-     * @param HeadersInterface|null $headers The response headers.
-     * @param StreamInterface|null  $body    The response body.
+     * @param int                   $status  The response status code
+     * @param HeadersInterface|null $headers The response headers
+     * @param StreamInterface|null  $body    The response body
      */
     public function __construct($status = 200, HeadersInterface $headers = null, StreamInterface $body = null)
     {
@@ -251,7 +258,7 @@ class Response extends Message implements ResponseInterface
      * The status code is a 3-digit integer result code of the server's attempt
      * to understand and satisfy the request.
      *
-     * @return int Status code.
+     * @return int Status code
      */
     public function getStatusCode()
     {
@@ -272,14 +279,14 @@ class Response extends Message implements ResponseInterface
      * @link http://tools.ietf.org/html/rfc7231#section-6
      * @link http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
      *
-     * @param int    $code         The 3-digit integer result code to set.
+     * @param int    $code         The 3-digit integer result code to set
      * @param string $reasonPhrase The reason phrase to use with the
      *                             provided status code; if none is provided, implementations MAY
-     *                             use the defaults as suggested in the HTTP specification.
+     *                             use the defaults as suggested in the HTTP specification
      *
      * @return self
      *
-     * @throws \InvalidArgumentException For invalid status code arguments.
+     * @throws \InvalidArgumentException For invalid status code arguments
      */
     public function withStatus($code, $reasonPhrase = '')
     {
@@ -307,11 +314,11 @@ class Response extends Message implements ResponseInterface
     /**
      * Filter HTTP status code.
      *
-     * @param int $status HTTP status code.
+     * @param int $status HTTP status code
      *
      * @return int
      *
-     * @throws \InvalidArgumentException If an invalid HTTP status code is provided.
+     * @throws \InvalidArgumentException If an invalid HTTP status code is provided
      */
     protected function filterStatus($status)
     {
@@ -334,7 +341,7 @@ class Response extends Message implements ResponseInterface
      * @link http://tools.ietf.org/html/rfc7231#section-6
      * @link http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
      *
-     * @return string Reason phrase; must return an empty string if none present.
+     * @return string Reason phrase; must return an empty string if none present
      */
     public function getReasonPhrase()
     {
@@ -377,12 +384,12 @@ class Response extends Message implements ResponseInterface
     /**
      * Serialize the given serializable collection using the better serialization
      * for the current 'Content-Type' header.
-     * 
+     *
      * The serialization result is written to the reponse body.
-     * 
+     *
      * If none or an invalid 'Content-Type' header is provided the default one
      * will be used (which is 'application/json').
-     * 
+     *
      * @param SerializableCollection $data the serializable collection
      *
      * @return Response the current response (after update)
@@ -401,7 +408,8 @@ class Response extends Message implements ResponseInterface
         $this->headers->set('Content-Type', $mediaType.';charset=utf8');
 
         switch ($mediaType) {
-            case 'application/json' :
+            case 'application/json':
+            case 'text/json':
                 $format = SerializableCollection::JSON;
                 break;
 
@@ -416,8 +424,10 @@ class Response extends Message implements ResponseInterface
             case 'text/xml':
                 $format = SerializableCollection::XML;
                 break;
-            default:
 
+            // entering this case is prevented by the first 3 lines of the function
+            default:
+                $format = SerializableCollection::JSON;
                 break;
         }
 
@@ -444,8 +454,8 @@ class Response extends Message implements ResponseInterface
      * This method prepares the response object to return an HTTP Redirect
      * response to the client.
      *
-     * @param string|UriInterface $url    The redirect destination.
-     * @param int                 $status The redirect HTTP status code.
+     * @param string|UriInterface $url    The redirect destination
+     * @param int                 $status The redirect HTTP status code
      *
      * @return self
      */
@@ -456,18 +466,18 @@ class Response extends Message implements ResponseInterface
 
     /**
      * Directly write the serialized json to the output.
-     * 
+     *
      * @deprecated deprecated since the first release (kept for Slim compatibility)
      *
      * Note: This method is not part of the PSR-7 standard.
      *
      * This method prepares the response object to return an HTTP Json
      * response to the client from an associative array.
-     * 
+     *
      * This method is dangerous because no error checks are performed
-     * 
+     *
      * @param mixed $data            The data
-     * @param int   $status          The HTTP status code.
+     * @param int   $status          The HTTP status code
      * @param int   $encodingOptions Json encoding options
      *
      * @return self

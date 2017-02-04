@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2016 Benato Denis
+Copyright 2017 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -24,17 +24,17 @@ use Gishiki\Algorithms\Collections\GenericCollection;
 
 /**
  * The Gishiki base controller.
- * 
- * Every controller (controllers used to generate an application for the 
+ *
+ * Every controller (controllers used to generate an application for the
  * client) inherits from this class
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 class Controller
 {
     /**
      * Execute the given controller.
-     * 
+     *
      * @param string            $action    the name of the controller and action to be used
      * @param Request           $request   the request to serve
      * @param Response          $response  the response to the given request
@@ -107,28 +107,28 @@ class Controller
 
     /**
      * This is a clone of the request the client have send to this server.
-     * 
+     *
      * @var Request the request the controller must fulfill
      */
     protected $Request;
 
     /**
      * This is the respone that will be sent back to the client from this server.
-     * 
+     *
      * @var Response the response the controller must generate
      */
     protected $Response;
 
     /**
      * This is the collection of arguments passed to the URI.
-     * 
-     * @var GenericCollection the collection of arguments passed to the URI 
+     *
+     * @var GenericCollection the collection of arguments passed to the URI
      */
     protected $Arguments;
 
     /**
      * Create a new controller that will fulfill the given request filling the given response.
-     * 
+     *
      * @param Request           $request   the request arrived from the client
      * @param Response          $response  the response to be given to the client
      * @param GenericCollection $arguments the collection of catched URI params

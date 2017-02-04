@@ -1,6 +1,6 @@
 <?php
 /****************************************************************************
-  Copyright 2016 Benato Denis
+  Copyright 2017 Benato Denis
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@ use Gishiki\Algorithms\Manipulation;
 
 /**
  * An helper class for storing logs of what happens on the server.
- * 
- * This is the Stream version of the logger 
+ *
+ * This is the Stream version of the logger
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
@@ -33,11 +33,11 @@ class StreamAdapter extends \Psr\Log\AbstractLogger
 
     /**
      * Setup a logger that works on streams.
-     * 
+     *
      * Allowed streams are: 'stderr', 'stdout' and 'stdmem'.
-     * 
+     *
      * Default on stderr
-     * 
+     *
      * @param string $stream the name of the application
      */
     public function __construct($stream = '')

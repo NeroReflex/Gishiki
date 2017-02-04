@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2016 Benato Denis
+Copyright 2017 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ abstract class Manipulation
 {
     /**
      * Convenient function that behave exactly like str_replace for the first occurrence only.
-     * 
+     *
      * @param string $pattern     the pattern to be replaced
      * @param string $replacement the string to replace the first matched pattern
      * @param string $string      the string to search the pattern into
@@ -46,7 +46,7 @@ abstract class Manipulation
 
     /**
      * Convenient function that behave exactly like str_replace for the first occurrence only.
-     * 
+     *
      * @param array  $patterns    the list of pattern to be replaced
      * @param string $replacement the string to replace the first matched pattern
      * @param string $string      the string to search the pattern into
@@ -64,7 +64,7 @@ abstract class Manipulation
 
     /**
      * Get the string between two substrings.
-     * 
+     *
      * @param string $string the string to be analyzed
      * @param string $start  the first substring
      * @param string $end    the second substring
@@ -86,9 +86,9 @@ abstract class Manipulation
     /**
      * Interpolate a PHP string:
      * perform a sobstitution of {{name}} with the value of the $params['name'].
-     * 
+     *
      * Note: $params['name'] can be an object that implements __toString()
-     * 
+     *
      * @param string $string
      * @param array  $params
      *

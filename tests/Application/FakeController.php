@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2016 Benato Denis
+Copyright 2017 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ use Gishiki\Algorithms\Collections\GenericCollection;
 
 /**
  * A controller that is not recognised as a test by PHPUnit.
- * 
+ *
  * used to test some features of the framework
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 class FakeController extends \Gishiki\Core\MVC\Controller
@@ -35,7 +35,7 @@ class FakeController extends \Gishiki\Core\MVC\Controller
         $this->Response->write('My email is: '.$this->Arguments->mail);
     }
 
-    public static function quickAction(Request &$request, Response &$response,  GenericCollection &$collection)
+    public static function quickAction(Request &$request, Response &$response, GenericCollection &$collection)
     {
         $response->write('should I send an email to '.$collection->mail.'?');
     }

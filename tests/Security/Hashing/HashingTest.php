@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2016 Benato Denis
+Copyright 2017 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -24,8 +24,35 @@ use Gishiki\Security\Hashing\Algorithms;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class HashingTest  extends \PHPUnit_Framework_TestCase
+class HashingTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidBinaryUnsafe()
+    {
+        //test hash compatibility
+        $rot_ed = Algorithms::hash('hash me if U can!!1!', Algorithms::SHA512, 'OMG!');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidMessage()
+    {
+        //test hash compatibility
+        $rot_ed = Algorithms::hash('', Algorithms::SHA512);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidAlgorithm()
+    {
+        //test hash compatibility
+        $rot_ed = Algorithms::hash('my message', null);
+    }
+
     public function testROT13()
     {
         $message = 'this is a small>example<to/test rot-13';
@@ -47,7 +74,7 @@ class HashingTest  extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Gishiki\Security\Hashing\HashingException
+     * @expectedException \Gishiki\Security\Hashing\HashingException
      */
     public function testBadAlgorithm()
     {
@@ -57,11 +84,19 @@ class HashingTest  extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Gishiki\Security\Hashing\HashingException
+     * @expectedException \Gishiki\Security\Hashing\HashingException
      */
     public function testBadHashPbkdf2()
     {
         Algorithms::pbkdf2('password', 'salt', 512, 3, 'bad-algo');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBadAlgorithmPbkdf2()
+    {
+        Algorithms::pbkdf2('message', 'salt', 512, 3, '');
     }
 
     /**

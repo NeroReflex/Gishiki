@@ -1,6 +1,6 @@
 <?php
 /****************************************************************************
-  Copyright 2016 Benato Denis
+  Copyright 2017 Benato Denis
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -27,14 +27,16 @@ use Psr\Log\LogLevel;
  */
 class SyslogAdapter extends \Psr\Log\AbstractLogger
 {
-    //this is the program that is generating the log:
+    /**
+     * @var string The name of the program that is generating log entries
+     */
     private $identity = null;
 
     /**
      * Setup a logger for an application or a component.
-     * 
-     * This is the syslog version of the logger 
-     * 
+     *
+     * This is the syslog version of the logger
+     *
      * @param string $identity the name of the application
      */
     public function __construct($identity = '')
@@ -49,7 +51,7 @@ class SyslogAdapter extends \Psr\Log\AbstractLogger
         //get the urgency level:
         $syslog_level = LOG_EMERG;
         switch ($level) {
-            case LogLevel::EMERGENCY :
+            case LogLevel::EMERGENCY:
                 $syslog_level = LOG_EMERG;
                 break;
 

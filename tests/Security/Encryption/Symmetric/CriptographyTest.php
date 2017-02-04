@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2016 Benato Denis
+Copyright 2017 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
     public function testAES128Encryption()
     {
         //generate the key
-        $key = new SecretKey(SecretKey::generate('testing/key'));
+        $key = new SecretKey(SecretKey::Generate('testing/key'));
 
         $message = 'you should hide this, lol!';
 
@@ -47,7 +47,7 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
     public function testAES128LongEncryption()
     {
         //generate the key
-        $key = new SecretKey(SecretKey::generate('testing/key'));
+        $key = new SecretKey(SecretKey::Generate('testing/key'));
 
         $message = base64_encode(openssl_random_pseudo_bytes(515));
 
@@ -64,7 +64,7 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
     public function testAES192Encryption()
     {
         //generate the key
-        $key = new SecretKey(SecretKey::generate('T3st1n9/k3y <3', 24));
+        $key = new SecretKey(SecretKey::Generate('T3st1n9/k3y <3', 24));
 
         $message = base64_encode(openssl_random_pseudo_bytes(512));
 
@@ -81,7 +81,7 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
     public function testAES256Encryption()
     {
         //generate the key
-        $key = new SecretKey(SecretKey::generate('T3st1n9/k3y <3', 32));
+        $key = new SecretKey(SecretKey::Generate('T3st1n9/k3y <3', 32));
 
         $message = base64_encode(openssl_random_pseudo_bytes(512));
 
@@ -101,7 +101,7 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
     public function testInvalidKey()
     {
         //generate the key
-        $key = new SecretKey(SecretKey::generate('T3st1n9/k3y <3', 1));
+        $key = new SecretKey(SecretKey::Generate('T3st1n9/k3y <3', 1));
 
         $message = base64_encode(openssl_random_pseudo_bytes(512));
 
@@ -110,12 +110,12 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Gishiki\Security\Encryption\Symmetric\SymmetricException
+     * @expectedException \Gishiki\Security\Encryption\Symmetric\SymmetricException
      */
     public function testAES128BadKey()
     {
         //generate the key
-        $key = new SecretKey(SecretKey::generate('T3st1n9/k3y <3', 2));
+        $key = new SecretKey(SecretKey::Generate('T3st1n9/k3y <3', 2));
 
         $message = base64_encode(openssl_random_pseudo_bytes(512));
 
@@ -124,12 +124,12 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Gishiki\Security\Encryption\Symmetric\SymmetricException
+     * @expectedException \Gishiki\Security\Encryption\Symmetric\SymmetricException
      */
     public function testAES192BadKey()
     {
         //generate the key
-        $key = new SecretKey(SecretKey::generate('T3st1n9/k3y <3', 40));
+        $key = new SecretKey(SecretKey::Generate('T3st1n9/k3y <3', 40));
 
         $message = base64_encode(openssl_random_pseudo_bytes(512));
 
@@ -138,12 +138,12 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Gishiki\Security\Encryption\Symmetric\SymmetricException
+     * @expectedException \Gishiki\Security\Encryption\Symmetric\SymmetricException
      */
     public function testAES256BadKey()
     {
         //generate the key
-        $key = new SecretKey(SecretKey::generate('T3st1n9/k3y <3', 12));
+        $key = new SecretKey(SecretKey::Generate('T3st1n9/k3y <3', 12));
 
         $message = base64_encode(openssl_random_pseudo_bytes(512));
 

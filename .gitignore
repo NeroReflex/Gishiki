@@ -10,5 +10,15 @@ composer.lock
 composer.phar
 vagrant.xml
 .DS_Store
+.php_cs.cache
 *.original~
 *~
+
+# Vagrant
+acceptance_config.yml
+boxes/*
+/.vagrant
+/website/.vagrant
+/website/build
+/vagrant-spec.config.rb
+

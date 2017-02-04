@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2016 Benato Denis
+Copyright 2017 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ namespace Gishiki\Security\Encryption\Asymmetric;
  * This class represents a public key for the asymmetric encryption engine.
  *
  * Note: This class uses OpenSSL for strong encryption
- * 
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 final class PublicKey
@@ -58,7 +58,7 @@ final class PublicKey
             throw new \InvalidArgumentException('The serialized public key must be a string');
         }
 
-        //load the public key 
+        //load the public key
         $this->key = openssl_pkey_get_public($serialized_key);
 
         //check for errors
@@ -79,7 +79,7 @@ final class PublicKey
 
     /**
      * Check if the key has been loaded.
-     * 
+     *
      * @return bool true if the key has been loaded
      */
     public function isLoaded()
@@ -89,7 +89,7 @@ final class PublicKey
 
     /**
      * Export a reference to the native private key and its length in bits.
-     * 
+     *
      * @return array the array that contains the key and its legth (in bytes)
      *
      * @throws AsymmetricException the key cannot be exported

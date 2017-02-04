@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2016 Benato Denis
+Copyright 2017 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -15,14 +15,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-//include the base application and perform basic operations
-if (file_exists(__DIR__.'/vendor/autoload.php')) {
-    require __DIR__.'/vendor/autoload.php';
-} else {
-    die("You have to run 'php composer.phar install' to complete the installation!");
+namespace Gishiki\Database\Schema;
+
+/**
+ * A collection of data types that a column can store.
+ *
+ * @author Benato Denis <benato.denis96@gmail.com>
+ */
+abstract class ColumnType
+{
+    const INTEGER = 0;
+    const TEXT = 1;
+    const REAL = 2;
+    const DATETIME = 3;
 }
-
-use Gishiki\Gishiki;
-
-//run an instance of the application
-Gishiki::Run();

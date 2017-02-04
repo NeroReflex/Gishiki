@@ -1,6 +1,6 @@
 <?php
 /**************************************************************************
-Copyright 2016 Benato Denis
+Copyright 2017 Benato Denis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ limitations under the License.
 date_default_timezone_set('America/New_York');
 // Prevent session cookies
 ini_set('session.use_cookies', 0);
+
+define('TESTING', 'YES');
 
 // Enable Composer autoloader
 /** @var \Composer\Autoload\ClassLoader $autoloader */

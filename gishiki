@@ -35,8 +35,19 @@ Gishiki::Initialize();
 
 if ($argc > 1) {
     switch ($argv[1]) {
-        case 'setup':
-            Setup();
+        case 'new':
+            $bootstrap = new \Gishiki\CLI\Utils\Bootstrapper();
+            if (strcmp($argv[2], "application") == 0) {
+                try {
+                    $bootstrap->application();
+                    \Gishiki\CLI\Console::WriteLine("The new application has been created");
+                } catch (\Exception $ex) {
+                    \Gishiki\CLI\Console::WriteLine($ex->getMessage());
+                }
+            } else {
+                
+            }
+            
             break;
             
         case 'help':

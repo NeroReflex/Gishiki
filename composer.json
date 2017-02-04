@@ -49,10 +49,7 @@
     "autoload": {
         "psr-4": {
             "Gishiki\\": "Gishiki/"
-        },
-        "files": [
-            "Gishiki/CLI/Setup.php"
-        ]
+        }
     },
     
     "provide": {

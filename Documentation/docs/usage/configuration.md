@@ -4,8 +4,7 @@ Gishiki is a bit tricky to configure, but don't worry: you just need to edit
 what you don't like as the [gishiki CLI](../cli/index.md) takes care of bootstrapping
 a fully-working configuration.
 
-the real configuration file and application descriptor is stored inside the application
-directory and is called settings.json
+the real configuration file is stored inside the application root directory and is called settings.json
 
 It has a fixed (minumum) structure:
 ```json

@@ -37,28 +37,34 @@ if ($argc > 1) {
     switch ($argv[1]) {
         case 'new':
             $bootstrap = new \Gishiki\CLI\Utils\Bootstrapper();
-            if (strcmp($argv[2], "application") == 0) {
-                try {
-                    $bootstrap->application();
-                    \Gishiki\CLI\Console::WriteLine("The new application has been created");
-                } catch (\Exception $ex) {
-                    \Gishiki\CLI\Console::WriteLine($ex->getMessage());
+            
+            if ($argc > 2) {
+                if (strcmp($argv[2], "application") == 0) {
+                    try {
+                        $bootstrap->application();
+                        \Gishiki\CLI\Console::WriteLine("The new application has been created");
+                    } catch (\Exception $ex) {
+                        \Gishiki\CLI\Console::WriteLine($ex->getMessage());
+                    }
+                } else {
+                    \Gishiki\CLI\Console::WriteLine("Invalid parameter after new");
                 }
             } else {
-                
+                \Gishiki\CLI\Console::WriteLine("new what?");
             }
             
             break;
             
         case 'help':
-            printf("The following is a list of arguments that can be passed to the gishiki CLI\n\n");
-            printf("setup: generate an empty application\n");
+            \Gishiki\CLI\Console::WriteLine("The following is a list of arguments that can be passed to the gishiki CLI");
+            \Gishiki\CLI\Console::WriteLine("");
+            \Gishiki\CLI\Console::WriteLine("new application: generate an empty application");
             break;
             
         default:
-            printf("invalid command: use gishiki help for a list of available commands\n");
+            \Gishiki\CLI\Console::WriteLine("invalid command: use gishiki help for a list of available commands");
             break;
     }
 } else {
-    printf("use gishiki help for a list of available commands\n");
+    \Gishiki\CLI\Console::WriteLine("use gishiki help for a list of available commands");
 }

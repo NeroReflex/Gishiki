@@ -265,13 +265,12 @@
             <div class="section">
               
                 <h1 id="composer">Composer</h1>
-<p>As promised Gishiki is not meant to replace your favourite tools: you can still use all of them!</p>
+<p>As promised Gishiki is not meant to replace your favourite tools:
+you can still use all of them!</p>
 <p>Doctrine? Propel? Zend framework components? Symfony components? No problem!</p>
 <p>You have to install them and you do that using composer! If you don't have composer run:</p>
-<pre><code class="shell">php -r &quot;readfile('https://getcomposer.org/installer');&quot; &gt; composer-setup.php
-php -r &quot;if (hash('SHA384', file_get_contents('composer-setup.php')) === '7228c001f88bee97506740ef0888240bd8a760b046ee16db8f4095c0d8d525f2367663f22a46b48d072c816e7fe19959') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;&quot;
-php composer-setup.php
-php -r &quot;unlink('composer-setup.php');&quot;
+<pre><code class="shell">sudo wget https://getcomposer.org/composer.phar
+sudo chmod +x composer.phar
 sudo mv composer.phar /usr/local/bin/composer
 </code></pre>
 
@@ -282,10 +281,10 @@ entire framework, manages its dependencies and keep updated the framework!</p>
 <p>You will have to use composer to start up your new project!</p>
 <pre><code class="shell">composer init # remember to specify neroreflex/gishiki
 composer install --no-dev
-./vendor/bin/gishiki setup
+./vendor/bin/gishiki new application
 </code></pre>
 
-<p>nice and easy! Good work!</p>
+<p>nice and easy! Good work.</p>
               
             </div>
           </div>

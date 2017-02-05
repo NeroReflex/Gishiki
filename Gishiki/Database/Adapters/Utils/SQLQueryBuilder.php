@@ -189,29 +189,31 @@ class SQLQueryBuilder
         //execute the private function 'export'
         $exportMethod = new \ReflectionMethod($where, 'export');
         $exportMethod->setAccessible(true);
-        $resultModifierExported = $exportMethod->invoke($where);
+        $resultExported = $exportMethod->invoke($where);
 
-        if (count($resultModifierExported['historic']) > 0) {
+        if (count($resultExported['historic']) > 0) {
             $this->appendToQuery('WHERE ');
 
             $first = true;
-            foreach ($resultModifierExported['historic'] as $current) {
+            foreach ($resultExported['historic'] as $current) {
                 $conjunction = '';
 
                 $arrayIndex = $current & (~SelectionCriteria::AND_Historic_Marker);
                 $arrayConjunction = '';
 
+                //default is an OR
+                $conjunction = (!$first) ? ' OR ' : ' ';
+                $arrayConjunction = 'or';
+                
+                //change to AND where necessary
                 if (($current & (SelectionCriteria::AND_Historic_Marker)) != 0) {
                     $conjunction = (!$first) ? ' AND ' : ' ';
                     $arrayConjunction = 'and';
-                } else {
-                    $conjunction = (!$first) ? ' OR ' : ' ';
-                    $arrayConjunction = 'or';
                 }
 
-                $fieldName = $resultModifierExported['criteria'][$arrayConjunction][$arrayIndex][0];
-                $fieldRelation = $resultModifierExported['criteria'][$arrayConjunction][$arrayIndex][1];
-                $fieldValue = $resultModifierExported['criteria'][$arrayConjunction][$arrayIndex][2];
+                $fieldName = $resultExported['criteria'][$arrayConjunction][$arrayIndex][0];
+                $fieldRelation = $resultExported['criteria'][$arrayConjunction][$arrayIndex][1];
+                $fieldValue = $resultExported['criteria'][$arrayConjunction][$arrayIndex][2];
 
                 //assemble the query
                 $qmarks = '';
@@ -288,23 +290,23 @@ class SQLQueryBuilder
         //execute the private function 'export'
         $exportMethod = new \ReflectionMethod($mod, 'export');
         $exportMethod->setAccessible(true);
-        $resultModifierExported = $exportMethod->invoke($mod);
+        $resultExported = $exportMethod->invoke($mod);
 
         //append limit if needed
-        if ($resultModifierExported['limit'] > 0) {
-            $this->appendToQuery('LIMIT '.$resultModifierExported['limit'].' ');
+        if ($resultExported['limit'] > 0) {
+            $this->appendToQuery('LIMIT '.$resultExported['limit'].' ');
         }
 
         //append offset if needed
-        if ($resultModifierExported['skip'] > 0) {
-            $this->appendToQuery('OFFSET '.$resultModifierExported['skip'].' ');
+        if ($resultExported['skip'] > 0) {
+            $this->appendToQuery('OFFSET '.$resultExported['skip'].' ');
         }
 
         //append order if needed
-        if (count($resultModifierExported['order']) > 0) {
+        if (count($resultExported['order']) > 0) {
             $this->appendToQuery('ORDER BY ');
             $first = true;
-            foreach ($resultModifierExported['order'] as $column => $order) {
+            foreach ($resultExported['order'] as $column => $order) {
                 if (!$first) {
                     $this->appendToQuery(', ');
                 }

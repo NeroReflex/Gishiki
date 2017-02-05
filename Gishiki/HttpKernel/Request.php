@@ -1009,7 +1009,7 @@ class Request extends Message implements ServerRequestInterface
     /**
      * @var null|SerializableCollection the deserialized request content
      */
-    protected $cachedDeserializedBody = null;
+    protected $cachedDeserBody = null;
 
     /**
      * Deserialize the content passed as the request.
@@ -1030,8 +1030,8 @@ class Request extends Message implements ServerRequestInterface
      */
     public function getDeserializedBody()
     {
-        if ($this->cachedDeserializedBody) {
-            return $this->cachedDeserializedBody;
+        if ($this->cachedDeserBody) {
+            return $this->cachedDeserBody;
         }
 
         //get the media type that gives the serializator to be used
@@ -1077,7 +1077,7 @@ class Request extends Message implements ServerRequestInterface
 
         //return the serialization result
         try {
-            return $this->cachedDeserializedBody = SerializableCollection::deserialize($data, $serializer);
+            return $this->cachedDeserBody = SerializableCollection::deserialize($data, $serializer);
         } catch (Gishiki\Algorithms\Collections\DeserializationException $ex) {
             throw new RuntimeException('The HTTP request is malformed');
         }

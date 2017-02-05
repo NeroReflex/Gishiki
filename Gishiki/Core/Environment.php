@@ -127,10 +127,10 @@ namespace Gishiki\Core {
             $appConfiguration = SerializableCollection::deserialize($config)->all();
 
             //complete settings
-            $appCompletedConfiguration = self::getValueFromEnvironment($appConfiguration);
+            $appComplConfig = self::getValueFromEnvironment($appConfiguration);
 
             //return the application configuration
-            return $appCompletedConfiguration;
+            return $appComplConfig;
         }
 
         /**

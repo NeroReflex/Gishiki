@@ -43,9 +43,11 @@ abstract class Gishiki
 
         //get directory separator
         if (!defined('DS')) {
+            //if php has a directory separator.....
             if (defined('DIRECTORY_SEPARATOR')) {
                 define('DS', DIRECTORY_SEPARATOR);
             } else {
+                //this is the universal separator
                 define('DS', '/');
             }
         }
@@ -84,13 +86,11 @@ abstract class Gishiki
         if (Environment::applicationExists()) {
             //fulfill the client request
             Environment::GetCurrentEnvironment()->FulfillRequest();
-        } else {
-            if (!defined('CLI_TOOLKIT')) {
-                //show the no application page!
-                echo file_get_contents(__DIR__.DS.'no_application.html');
-            }
+        } elseif (!defined('CLI_TOOLKIT')) {
+            //show the no application page!
+            echo file_get_contents(__DIR__.DS.'no_application.html');
         }
-
+        
         //the framework execution is complete
         self::$executed = true;
     }

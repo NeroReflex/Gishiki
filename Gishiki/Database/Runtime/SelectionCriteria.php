@@ -57,28 +57,28 @@ final class SelectionCriteria
      * Create a sub-clause and append it to the where clause using an and as conjunction.
      *
      * @param string $field    the name of the field/column to be related with the data
-     * @param int    $Relation the Relation between the field and the data
+     * @param int    $relation the Relation between the field and the data
      * @param mixed  $data     the data to be related with the field
      *
      * @return \Gishiki\Database\Runtime\SelectionCriteria the updated selection criteria
      *
      * @throws \InvalidArgumentException one parameter has a wrong type
      */
-    public function and_where($field, $Relation, $data)
+    public function and_where($field, $relation, $data)
     {
         if (!is_string($field) || (strlen($field) <= 0)) {
             throw new \InvalidArgumentException('the field name must be a string');
         }
-        if (($Relation != FieldRelation::EQUAL) &&
-                ($Relation != FieldRelation::NOT_EQUAL) &&
-                ($Relation != FieldRelation::LESS_THAN) &&
-                ($Relation != FieldRelation::LESS_OR_EQUAL_THAN) &&
-                ($Relation != FieldRelation::GREATER_THAN) &&
-                ($Relation != FieldRelation::GREATER_OR_EQUAL_THAN) &&
-                ($Relation != FieldRelation::IN_RANGE) &&
-                ($Relation != FieldRelation::NOT_IN_RANGE) &&
-                ($Relation != FieldRelation::LIKE) &&
-                ($Relation != FieldRelation::NOT_LIKE)) {
+        if (($relation != FieldRelation::EQUAL) &&
+                ($relation != FieldRelation::NOT_EQUAL) &&
+                ($relation != FieldRelation::LESS_THAN) &&
+                ($relation != FieldRelation::LESS_OR_EQUAL_THAN) &&
+                ($relation != FieldRelation::GREATER_THAN) &&
+                ($relation != FieldRelation::GREATER_OR_EQUAL_THAN) &&
+                ($relation != FieldRelation::IN_RANGE) &&
+                ($relation != FieldRelation::NOT_IN_RANGE) &&
+                ($relation != FieldRelation::LIKE) &&
+                ($relation != FieldRelation::NOT_LIKE)) {
             throw new \InvalidArgumentException('the Relation between a column and its value must be expressed by one of FieldRelation constants');
         }
         if ((is_object($data)) || (is_resource($data))) {
@@ -87,7 +87,7 @@ final class SelectionCriteria
 
         $this->criteria['and'][] = [
             0 => $field,
-            1 => $Relation,
+            1 => $relation,
             2 => $data,
         ];
 
@@ -104,28 +104,28 @@ final class SelectionCriteria
      * Create a sub-clause and append it to the where clause using an or as conjunction.
      *
      * @param string $field    the name of the field/column to be related with the data
-     * @param int    $Relation the Relation between the field and the data
+     * @param int    $relation the Relation between the field and the data
      * @param mixed  $data     the data to be related with the field
      *
      * @return \Gishiki\Database\Runtime\SelectionCriteria the updated selection criteria
      *
      * @throws \InvalidArgumentException one parameter has a wrong type
      */
-    public function or_where($field, $Relation, $data)
+    public function or_where($field, $relation, $data)
     {
         if (!is_string($field)) {
             throw new \InvalidArgumentException('the field name must be a string');
         }
-        if (($Relation != FieldRelation::EQUAL) &&
-                ($Relation != FieldRelation::NOT_EQUAL) &&
-                ($Relation != FieldRelation::LESS_THAN) &&
-                ($Relation != FieldRelation::LESS_OR_EQUAL_THAN) &&
-                ($Relation != FieldRelation::GREATER_THAN) &&
-                ($Relation != FieldRelation::GREATER_OR_EQUAL_THAN) &&
-                ($Relation != FieldRelation::IN_RANGE) &&
-                ($Relation != FieldRelation::NOT_IN_RANGE) &&
-                ($Relation != FieldRelation::LIKE) &&
-                ($Relation != FieldRelation::NOT_LIKE)) {
+        if (($relation != FieldRelation::EQUAL) &&
+                ($relation != FieldRelation::NOT_EQUAL) &&
+                ($relation != FieldRelation::LESS_THAN) &&
+                ($relation != FieldRelation::LESS_OR_EQUAL_THAN) &&
+                ($relation != FieldRelation::GREATER_THAN) &&
+                ($relation != FieldRelation::GREATER_OR_EQUAL_THAN) &&
+                ($relation != FieldRelation::IN_RANGE) &&
+                ($relation != FieldRelation::NOT_IN_RANGE) &&
+                ($relation != FieldRelation::LIKE) &&
+                ($relation != FieldRelation::NOT_LIKE)) {
             throw new \InvalidArgumentException('the Relation between a column and its value must be expressed by one of FieldRelation constants');
         }
         if ((is_object($data)) || (is_resource($data))) {
@@ -134,7 +134,7 @@ final class SelectionCriteria
 
         $this->criteria['or'][] = [
             0 => $field,
-            1 => $Relation,
+            1 => $relation,
             2 => $data,
         ];
 

@@ -304,7 +304,6 @@ verb that you want to be served in that route.</p>
 <h2 id="static-rules">Static Rules</h2>
 <p>Let's see how to create a custom route:</p>
 <pre><code class="php">use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\SerializableCollection;
@@ -327,7 +326,6 @@ and URIs cannot be static URIs every time, in fact sooner or later you will need
 as a parameter with the URL.</p>
 <p>Let's just consider this simple example:</p>
 <pre><code class="php">use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\SerializableCollection;
@@ -357,7 +355,6 @@ Route::get(&quot;/Home/{name}&quot;,
 <p>You might want to catch something more specific than just "everything but '/'",
 say for example an integer or an email address:</p>
 <pre><code class="php">use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\SerializableCollection;
@@ -385,7 +382,6 @@ Route::get(&quot;/Hello/{user_email:email}&quot;,
 <p>Sometimes you may need to register a route that responds to all HTTP verbs, you 
 are allowed to do that by using 'any':</p>
 <pre><code class="php">use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\SerializableCollection;
@@ -403,7 +399,6 @@ to perform the request.</p>
 <p>An interesting feature of the router is how you create a route for two or more
 request methods:</p>
 <pre><code class="php">use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\SerializableCollection;
@@ -421,7 +416,6 @@ Route::match([Route::GET, Route::POST], &quot;/&quot;,
 unexpected circumstances. You do it by setting an error callback, 
 which is nothing more than a bit special routing rule:</p>
 <pre><code class="php">use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\SerializableCollection;
@@ -442,7 +436,6 @@ automatically changed (for example if a Route::NOT_FOUND URI is catched 404 Not 
 is added automatically to the response).</p>
 <p>You cannot change this behaviour, but you can change the status code:</p>
 <pre><code class="php">use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\SerializableCollection;

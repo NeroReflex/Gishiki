@@ -315,11 +315,11 @@
 </span><span id="53" class="l"><a href="#53">53: </a>
 </span><span id="54" class="l"><a href="#54">54: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <span class="php-keyword2">log</span>(<span class="php-var">$level</span>, <span class="php-var">$message</span>, <span class="php-keyword1">array</span> <span class="php-var">$context</span> = <span class="php-keyword1">array</span>())
 </span><span id="55" class="l"><a href="#55">55: </a>    {
-</span><span id="56" class="l"><a href="#56">56: </a>        <span class="php-var">$interpolated_message</span> = Manipulation::interpolate(<span class="php-var">$message</span>, <span class="php-var">$context</span>);
-</span><span id="57" class="l"><a href="#57">57: </a>        <span class="php-var">$interpolated_message</span> = <span class="php-keyword2">trim</span>(<span class="php-var">$interpolated_message</span>, <span class="php-quote">&quot;\n&quot;</span>);
+</span><span id="56" class="l"><a href="#56">56: </a>        <span class="php-var">$interpolatedMsg</span> = Manipulation::interpolate(<span class="php-var">$message</span>, <span class="php-var">$context</span>);
+</span><span id="57" class="l"><a href="#57">57: </a>        <span class="php-var">$interpolatedMsg</span> = <span class="php-keyword2">trim</span>(<span class="php-var">$interpolatedMsg</span>, <span class="php-quote">&quot;\n&quot;</span>);
 </span><span id="58" class="l"><a href="#58">58: </a>
 </span><span id="59" class="l"><a href="#59">59: </a>        <span class="php-comment">//return value isn't documentated because it MUST NOT be used/trusted</span>
-</span><span id="60" class="l"><a href="#60">60: </a>        <span class="php-keyword1">return</span> (<span class="php-var">$this</span>-&gt;stream) ? <span class="php-keyword2">fwrite</span>(<span class="php-var">$this</span>-&gt;stream, <span class="php-quote">'['</span>.<span class="php-var">$level</span>.<span class="php-quote">'] '</span>.<span class="php-var">$interpolated_message</span>.<span class="php-quote">&quot;\n&quot;</span>) : <span class="php-keyword1">null</span>;
+</span><span id="60" class="l"><a href="#60">60: </a>        <span class="php-keyword1">return</span> (<span class="php-var">$this</span>-&gt;stream) ? <span class="php-keyword2">fwrite</span>(<span class="php-var">$this</span>-&gt;stream, <span class="php-quote">'['</span>.<span class="php-var">$level</span>.<span class="php-quote">'] '</span>.<span class="php-var">$interpolatedMsg</span>.<span class="php-quote">&quot;\n&quot;</span>) : <span class="php-keyword1">null</span>;
 </span><span id="61" class="l"><a href="#61">61: </a>    }
 </span><span id="62" class="l"><a href="#62">62: </a>}
 </span><span id="63" class="l"><a href="#63">63: </a></span></code></pre>

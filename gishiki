@@ -22,13 +22,18 @@ global $argv;
 global $argc;
 
 //include the base application and perform basic operations
-if (file_exists(__DIR__.'/../../autoload.php')) {
+if (file_exists(__DIR__.'/../../autoload.php'))
     require __DIR__.'/../../autoload.php';
-} else {
-    die("You have to run 'composer install --no-dev' to complete the installation!");
-}
+else
+    if (file_exists(__DIR__.'/vendor/autoload.php'))
+        require __DIR__.'/vendor/autoload.php';
+    else
+        die("You have to run 'composer install --no-dev' to complete the installation!\n");
+
 
 use Gishiki\Gishiki;
+use Gishiki\Core\Environment;
+use Gishiki\CLI\Console;
 
 //initialize the framework
 Gishiki::Initialize();
@@ -42,29 +47,42 @@ if ($argc > 1) {
                 if (strcmp($argv[2], "application") == 0) {
                     try {
                         $bootstrap->application();
-                        \Gishiki\CLI\Console::WriteLine("The new application has been created");
+                        Console::WriteLine("The new application has been created");
                     } catch (\Exception $ex) {
-                        \Gishiki\CLI\Console::WriteLine($ex->getMessage());
+                        Console::WriteLine($ex->getMessage());
+                    }
+                } elseif (strcmp($argv[2], "controller") == 0) {
+                    if (($argc > 3) && (Environment::applicationExists())) {
+                        try {
+                            $bootstrap->controller($argv[3]);
+                            Console::WriteLine("The new controller has been created, remember to run 'composer update --no-dev' when you're done adding controllers");
+                        } catch (\Exception $ex) {
+                            Console::WriteLine($ex->getMessage());
+                        }
+                    } elseif ($argc <= 3) {
+                        Console::WriteLine("Missing controller name");
+                    } else {
+                        Console::WriteLine("You have to create an application before creating a controller");
                     }
                 } else {
-                    \Gishiki\CLI\Console::WriteLine("Invalid parameter after new");
+                    Console::WriteLine("Invalid parameter after new");
                 }
             } else {
-                \Gishiki\CLI\Console::WriteLine("new what?");
+                Console::WriteLine("new what?");
             }
             
             break;
             
         case 'help':
-            \Gishiki\CLI\Console::WriteLine("The following is a list of arguments that can be passed to the gishiki CLI");
-            \Gishiki\CLI\Console::WriteLine("");
-            \Gishiki\CLI\Console::WriteLine("new application: generate an empty application");
+            Console::WriteLine("The following is a list of arguments that can be passed to the gishiki CLI");
+            Console::WriteLine("");
+            Console::WriteLine("new application: generate an empty application");
             break;
             
         default:
-            \Gishiki\CLI\Console::WriteLine("invalid command: use gishiki help for a list of available commands");
+            Console::WriteLine("invalid command: use gishiki help for a list of available commands");
             break;
     }
 } else {
-    \Gishiki\CLI\Console::WriteLine("use gishiki help for a list of available commands");
+    Console::WriteLine("use gishiki help for a list of available commands");
 }

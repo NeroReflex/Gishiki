@@ -23,10 +23,52 @@ use Gishiki\Security\Encryption\Symmetric\SecretKey;
 
 final class Bootstrapper
 {
+    public function controller($controllerName)
+    {
+        if (!file_exists('Controllers')) {
+            throw new \Exception('The Controllers directory doesn\'t exists');
+        }
+        
+        if (!preg_match('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/', $controllerName)) {
+            throw new \Exception('The controller name is not valid');
+        }
+        
+        if (file_exists('Controllers'.DS.$controllerName.'.php')) {
+            throw new \Exception('A controller with the same name already exists');
+        }
+        
+        $controllerText =
+                '<?php'.PHP_EOL.PHP_EOL.
+                'use Gishiki\Core\MVC\Controller'.PHP_EOL.PHP_EOL.
+                'final class '.$controllerName.' extends Controller'.PHP_EOL.
+                '{'.PHP_EOL.
+                '    function index()'.PHP_EOL.
+                '    {'.PHP_EOL.
+                '    }'.PHP_EOL.
+                '}';
+        
+        if (file_put_contents('Controllers'.DS.$controllerName.'.php', $controllerText) === false) {
+            throw new \Exception('The new controller file cannot be written');
+        }
+    }
+    
     public function application()
     {
         if ((!mkdir('Controllers'))) {
             throw new \Exception('The Controllers directory cannot be created');
+        }
+        
+        if ((!mkdir('Models'))) {
+            throw new \Exception('The Models directory cannot be created');
+        }
+        
+        if (file_exists('composer.json')) {
+            //composer have to autoload Controllers and Models
+            $deserComposer = SerializableCollection::deserialize(file_get_contents('composer.json'), SerializableCollection::JSON);
+            if (!$deserComposer->has('autoload')) {
+                $deserComposer->set('autoload', ['classmap' => [ 'Controllers', 'Models']]);
+                file_put_contents('composer.json', $deserComposer->serialize(SerializableCollection::JSON));
+            }
         }
 
         //generate a new private key

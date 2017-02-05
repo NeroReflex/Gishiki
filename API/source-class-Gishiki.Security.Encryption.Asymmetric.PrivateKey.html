@@ -311,7 +311,7 @@
 </span></span><span id="49" class="l"><a href="#49"> 49: </a><span class="php-comment">     * $filename = APPLICATION_DIR.&quot;newkey.private.pem&quot;;
 </span></span><span id="50" class="l"><a href="#50"> 50: </a><span class="php-comment">     *
 </span></span><span id="51" class="l"><a href="#51"> 51: </a><span class="php-comment">     * //generate the new key
-</span></span><span id="52" class="l"><a href="#52"> 52: </a><span class="php-comment">     * $serailized_key = PrivateKey::Generate(PrivateKey::RSA4096);
+</span></span><span id="52" class="l"><a href="#52"> 52: </a><span class="php-comment">     * $serailized_key = PrivateKey::generate(PrivateKey::RSA4096);
 </span></span><span id="53" class="l"><a href="#53"> 53: </a><span class="php-comment">     *
 </span></span><span id="54" class="l"><a href="#54"> 54: </a><span class="php-comment">     * //export to file the serialized key
 </span></span><span id="55" class="l"><a href="#55"> 55: </a><span class="php-comment">     * file_put_contents($filename, $serailized_key);
@@ -328,7 +328,7 @@
 </span></span><span id="66" class="l"><a href="#66"> 66: </a><span class="php-comment">     * @throws \InvalidArgumentException the given key length is not an integer power of two
 </span></span><span id="67" class="l"><a href="#67"> 67: </a><span class="php-comment">     * @throws AsymmetricException       the error occurred while generating and exporting the new private key
 </span></span><span id="68" class="l"><a href="#68"> 68: </a><span class="php-comment">     */</span>
-</span><span id="69" class="l"><a href="#69"> 69: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> Generate(<span class="php-var">$keyLength</span> = self::RSA4096)
+</span><span id="69" class="l"><a href="#69"> 69: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> generate(<span class="php-var">$keyLength</span> = self::RSA4096)
 </span><span id="70" class="l"><a href="#70"> 70: </a>    {
 </span><span id="71" class="l"><a href="#71"> 71: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword2">is_integer</span>(<span class="php-var">$keyLength</span>)) {
 </span><span id="72" class="l"><a href="#72"> 72: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \InvalidArgumentException(<span class="php-quote">'The key length must be given as an integer number which is a power of two'</span>);
@@ -348,11 +348,11 @@
 </span><span id="86" class="l"><a href="#86"> 86: </a>            <span class="php-quote">'private_key_type'</span> =&gt; OPENSSL_KEYTYPE_RSA,
 </span><span id="87" class="l"><a href="#87"> 87: </a>        ];
 </span><span id="88" class="l"><a href="#88"> 88: </a>        <span class="php-comment">//use the application openssl configuration</span>
-</span><span id="89" class="l"><a href="#89"> 89: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword2">is_null</span>(Environment::GetCurrentEnvironment())) {
+</span><span id="89" class="l"><a href="#89"> 89: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword2">is_null</span>(Environment::getCurrentEnvironment())) {
 </span><span id="90" class="l"><a href="#90"> 90: </a>            <span class="php-var">$config</span> = <span class="php-keyword2">array_merge</span>(
 </span><span id="91" class="l"><a href="#91"> 91: </a>                    <span class="php-var">$config</span>,
-</span><span id="92" class="l"><a href="#92"> 92: </a>                    [<span class="php-quote">'config'</span> =&gt; (<span class="php-keyword2">file_exists</span>(Environment::GetCurrentEnvironment()-&gt;GetConfigurationProperty(<span class="php-quote">'APPLICATION_DIR'</span>).<span class="php-quote">'openssl.cnf'</span>)) ?
-</span><span id="93" class="l"><a href="#93"> 93: </a>                        Environment::GetCurrentEnvironment()-&gt;GetConfigurationProperty(<span class="php-quote">'APPLICATION_DIR'</span>).<span class="php-quote">'openssl.cnf'</span> : <span class="php-keyword1">null</span>, ]);
+</span><span id="92" class="l"><a href="#92"> 92: </a>                    [<span class="php-quote">'config'</span> =&gt; (<span class="php-keyword2">file_exists</span>(Environment::getCurrentEnvironment()-&gt;getConfigurationProperty(<span class="php-quote">'APPLICATION_DIR'</span>).<span class="php-quote">'openssl.cnf'</span>)) ?
+</span><span id="93" class="l"><a href="#93"> 93: </a>                        Environment::getCurrentEnvironment()-&gt;getConfigurationProperty(<span class="php-quote">'APPLICATION_DIR'</span>).<span class="php-quote">'openssl.cnf'</span> : <span class="php-keyword1">null</span>, ]);
 </span><span id="94" class="l"><a href="#94"> 94: </a>        }
 </span><span id="95" class="l"><a href="#95"> 95: </a>
 </span><span id="96" class="l"><a href="#96"> 96: </a>        <span class="php-comment">//create a new private key</span>
@@ -415,7 +415,7 @@
 </span><span id="153" class="l"><a href="#153">153: </a>        <span class="php-comment">//get a string containing a serialized asymmetric key</span>
 </span><span id="154" class="l"><a href="#154">154: </a>        <span class="php-var">$serialized_key</span> = (<span class="php-keyword2">is_string</span>(<span class="php-var">$customKey</span>)) ?
 </span><span id="155" class="l"><a href="#155">155: </a>            <span class="php-var">$serialized_key</span> = <span class="php-var">$customKey</span> :
-</span><span id="156" class="l"><a href="#156">156: </a>            Environment::GetCurrentEnvironment()-&gt;GetConfigurationProperty(<span class="php-quote">'MASTER_ASYMMETRIC_KEY'</span>);
+</span><span id="156" class="l"><a href="#156">156: </a>            Environment::getCurrentEnvironment()-&gt;getConfigurationProperty(<span class="php-quote">'MASTER_ASYMMETRIC_KEY'</span>);
 </span><span id="157" class="l"><a href="#157">157: </a>
 </span><span id="158" class="l"><a href="#158">158: </a>        <span class="php-comment">//get the beginning and ending of a private key (to stip out additional shit and check for key validity)</span>
 </span><span id="159" class="l"><a href="#159">159: </a>        <span class="php-var">$is_encrypted</span> = <span class="php-keyword2">strpos</span>(<span class="php-var">$serialized_key</span>, <span class="php-quote">'ENCRYPTED'</span>) !== <span class="php-keyword1">false</span>;
@@ -494,11 +494,11 @@
 </span><span id="232" class="l"><a href="#232">232: </a>            <span class="php-quote">'private_key_type'</span> =&gt; OPENSSL_KEYTYPE_RSA,
 </span><span id="233" class="l"><a href="#233">233: </a>        ];
 </span><span id="234" class="l"><a href="#234">234: </a>        <span class="php-comment">//use the application openssl configuration</span>
-</span><span id="235" class="l"><a href="#235">235: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword2">is_null</span>(Environment::GetCurrentEnvironment())) {
+</span><span id="235" class="l"><a href="#235">235: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword2">is_null</span>(Environment::getCurrentEnvironment())) {
 </span><span id="236" class="l"><a href="#236">236: </a>            <span class="php-var">$config</span> = <span class="php-keyword2">array_merge</span>(
 </span><span id="237" class="l"><a href="#237">237: </a>                    <span class="php-var">$config</span>,
-</span><span id="238" class="l"><a href="#238">238: </a>                    [<span class="php-quote">'config'</span> =&gt; (<span class="php-keyword2">file_exists</span>(Environment::GetCurrentEnvironment()-&gt;GetConfigurationProperty(<span class="php-quote">'APPLICATION_DIR'</span>).<span class="php-quote">'openssl.cnf'</span>)) ?
-</span><span id="239" class="l"><a href="#239">239: </a>                        Environment::GetCurrentEnvironment()-&gt;GetConfigurationProperty(<span class="php-quote">'APPLICATION_DIR'</span>).<span class="php-quote">'openssl.cnf'</span> : <span class="php-keyword1">null</span>, ]);
+</span><span id="238" class="l"><a href="#238">238: </a>                    [<span class="php-quote">'config'</span> =&gt; (<span class="php-keyword2">file_exists</span>(Environment::getCurrentEnvironment()-&gt;getConfigurationProperty(<span class="php-quote">'APPLICATION_DIR'</span>).<span class="php-quote">'openssl.cnf'</span>)) ?
+</span><span id="239" class="l"><a href="#239">239: </a>                        Environment::getCurrentEnvironment()-&gt;getConfigurationProperty(<span class="php-quote">'APPLICATION_DIR'</span>).<span class="php-quote">'openssl.cnf'</span> : <span class="php-keyword1">null</span>, ]);
 </span><span id="240" class="l"><a href="#240">240: </a>        }
 </span><span id="241" class="l"><a href="#241">241: </a>
 </span><span id="242" class="l"><a href="#242">242: </a>        <span class="php-comment">//serialize the key and encrypt it if requested</span>

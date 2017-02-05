@@ -342,7 +342,7 @@
 </span><span id="80" class="l"><a href="#80"> 80: </a>
 </span><span id="81" class="l"><a href="#81"> 81: </a>            <span class="php-comment">//register the current environment</span>
 </span><span id="82" class="l"><a href="#82"> 82: </a>            <span class="php-keyword1">if</span> (<span class="php-var">$selfRegister</span>) {
-</span><span id="83" class="l"><a href="#83"> 83: </a>                self::RegisterEnvironment(<span class="php-var">$this</span>);
+</span><span id="83" class="l"><a href="#83"> 83: </a>                self::registerEnvironment(<span class="php-var">$this</span>);
 </span><span id="84" class="l"><a href="#84"> 84: </a>            }
 </span><span id="85" class="l"><a href="#85"> 85: </a>
 </span><span id="86" class="l"><a href="#86"> 86: </a>            <span class="php-keyword1">if</span> (<span class="php-var">$loadApplication</span>) {
@@ -412,7 +412,7 @@
 </span></span><span id="150" class="l"><a href="#150">150: </a><span class="php-comment">         *
 </span></span><span id="151" class="l"><a href="#151">151: </a><span class="php-comment">         * @param Environment $env the currently active environment
 </span></span><span id="152" class="l"><a href="#152">152: </a><span class="php-comment">         */</span>
-</span><span id="153" class="l"><a href="#153">153: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> RegisterEnvironment(Environment &amp;<span class="php-var">$env</span>)
+</span><span id="153" class="l"><a href="#153">153: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> registerEnvironment(Environment &amp;<span class="php-var">$env</span>)
 </span><span id="154" class="l"><a href="#154">154: </a>        {
 </span><span id="155" class="l"><a href="#155">155: </a>            <span class="php-comment">//register the currently active environment</span>
 </span><span id="156" class="l"><a href="#156">156: </a>            self::<span class="php-var">$currentEnvironment</span> = <span class="php-var">$env</span>;
@@ -421,7 +421,7 @@
 </span><span id="159" class="l"><a href="#159">159: </a>        <span class="php-comment">/**
 </span></span><span id="160" class="l"><a href="#160">160: </a><span class="php-comment">         * Fullfill the request made by the client.
 </span></span><span id="161" class="l"><a href="#161">161: </a><span class="php-comment">         */</span>
-</span><span id="162" class="l"><a href="#162">162: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> FulfillRequest()
+</span><span id="162" class="l"><a href="#162">162: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> fulfillRequest()
 </span><span id="163" class="l"><a href="#163">163: </a>        {
 </span><span id="164" class="l"><a href="#164">164: </a>            <span class="php-comment">//get current request...</span>
 </span><span id="165" class="l"><a href="#165">165: </a>            <span class="php-var">$currentRequest</span> = Request::createFromEnvironment(self::<span class="php-var">$currentEnvironment</span>);
@@ -449,7 +449,7 @@
 </span></span><span id="187" class="l"><a href="#187">187: </a><span class="php-comment">         *
 </span></span><span id="188" class="l"><a href="#188">188: </a><span class="php-comment">         * @return Environment the current environment
 </span></span><span id="189" class="l"><a href="#189">189: </a><span class="php-comment">         */</span>
-</span><span id="190" class="l"><a href="#190">190: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> GetCurrentEnvironment()
+</span><span id="190" class="l"><a href="#190">190: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> getCurrentEnvironment()
 </span><span id="191" class="l"><a href="#191">191: </a>        {
 </span><span id="192" class="l"><a href="#192">192: </a>            <span class="php-comment">//return the currently active environment</span>
 </span><span id="193" class="l"><a href="#193">193: </a>            <span class="php-keyword1">return</span> self::<span class="php-var">$currentEnvironment</span>;
@@ -492,7 +492,7 @@
 </span><span id="230" class="l"><a href="#230">230: </a>
 </span><span id="231" class="l"><a href="#231">231: </a>            <span class="php-comment">//connect every db connection</span>
 </span><span id="232" class="l"><a href="#232">232: </a>            <span class="php-keyword1">foreach</span> (<span class="php-var">$this</span>-&gt;configuration[<span class="php-quote">'CONNECTIONS'</span>] <span class="php-keyword1">as</span> <span class="php-var">$connection</span>) {
-</span><span id="233" class="l"><a href="#233">233: </a>                \Gishiki\Database\DatabaseManager::Connect(<span class="php-var">$connection</span>[<span class="php-quote">'name'</span>], <span class="php-var">$connection</span>[<span class="php-quote">'query'</span>]);
+</span><span id="233" class="l"><a href="#233">233: </a>                \Gishiki\Database\DatabaseManager::connect(<span class="php-var">$connection</span>[<span class="php-quote">'name'</span>], <span class="php-var">$connection</span>[<span class="php-quote">'query'</span>]);
 </span><span id="234" class="l"><a href="#234">234: </a>            }
 </span><span id="235" class="l"><a href="#235">235: </a>        }
 </span><span id="236" class="l"><a href="#236">236: </a>
@@ -503,7 +503,7 @@
 </span></span><span id="241" class="l"><a href="#241">241: </a><span class="php-comment">         *
 </span></span><span id="242" class="l"><a href="#242">242: </a><span class="php-comment">         * @return the requested configuration property or NULL
 </span></span><span id="243" class="l"><a href="#243">243: </a><span class="php-comment">         */</span>
-</span><span id="244" class="l"><a href="#244">244: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> GetConfigurationProperty(<span class="php-var">$property</span>)
+</span><span id="244" class="l"><a href="#244">244: </a>        <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> getConfigurationProperty(<span class="php-var">$property</span>)
 </span><span id="245" class="l"><a href="#245">245: </a>        {
 </span><span id="246" class="l"><a href="#246">246: </a>            <span class="php-keyword1">switch</span> (<span class="php-keyword2">strtoupper</span>(<span class="php-var">$property</span>)) {
 </span><span id="247" class="l"><a href="#247">247: </a>                <span class="php-keyword1">case</span> <span class="php-quote">'DEVELOPMENT'</span>:

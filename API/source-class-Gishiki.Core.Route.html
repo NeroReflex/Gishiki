@@ -843,7 +843,7 @@
 </span><span id="581" class="l"><a href="#581">581: </a>                <span class="php-keyword2">call_user_func_array</span>(<span class="php-var">$this</span>-&gt;action, [&amp;<span class="php-var">$request</span>, &amp;<span class="php-var">$response</span>, &amp;<span class="php-var">$arguments</span>]);
 </span><span id="582" class="l"><a href="#582">582: </a>            } <span class="php-keyword1">elseif</span> (<span class="php-keyword2">is_string</span>(<span class="php-var">$this</span>-&gt;action)) {
 </span><span id="583" class="l"><a href="#583">583: </a>                <span class="php-comment">//execute the controller</span>
-</span><span id="584" class="l"><a href="#584">584: </a>                Controller::Execute(<span class="php-var">$this</span>-&gt;action, <span class="php-var">$request</span>, <span class="php-var">$response</span>, <span class="php-var">$arguments</span>);
+</span><span id="584" class="l"><a href="#584">584: </a>                Controller::execute(<span class="php-var">$this</span>-&gt;action, <span class="php-var">$request</span>, <span class="php-var">$response</span>, <span class="php-var">$arguments</span>);
 </span><span id="585" class="l"><a href="#585">585: </a>            }
 </span><span id="586" class="l"><a href="#586">586: </a>        }
 </span><span id="587" class="l"><a href="#587">587: </a>    }

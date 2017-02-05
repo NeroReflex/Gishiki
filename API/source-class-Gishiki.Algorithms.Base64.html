@@ -297,7 +297,7 @@
 </span></span><span id="35" class="l"><a href="#35"> 35: </a><span class="php-comment">     * $message = &quot; ... &quot;;
 </span></span><span id="36" class="l"><a href="#36"> 36: </a><span class="php-comment">     *
 </span></span><span id="37" class="l"><a href="#37"> 37: </a><span class="php-comment">     * //print the result
-</span></span><span id="38" class="l"><a href="#38"> 38: </a><span class="php-comment">     * var_dump(Base64::Encode($message));
+</span></span><span id="38" class="l"><a href="#38"> 38: </a><span class="php-comment">     * var_dump(Base64::encode($message));
 </span></span><span id="39" class="l"><a href="#39"> 39: </a><span class="php-comment">     * &lt;/code&gt;
 </span></span><span id="40" class="l"><a href="#40"> 40: </a><span class="php-comment">     *
 </span></span><span id="41" class="l"><a href="#41"> 41: </a><span class="php-comment">     * @param string $message the binary-unsafe message
@@ -307,7 +307,7 @@
 </span></span><span id="45" class="l"><a href="#45"> 45: </a><span class="php-comment">     *
 </span></span><span id="46" class="l"><a href="#46"> 46: </a><span class="php-comment">     * @throws \InvalidArgumentException the given message is not represented as a string
 </span></span><span id="47" class="l"><a href="#47"> 47: </a><span class="php-comment">     */</span>
-</span><span id="48" class="l"><a href="#48"> 48: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> Encode(<span class="php-var">$message</span>, <span class="php-var">$urlSafe</span> = <span class="php-keyword1">true</span>)
+</span><span id="48" class="l"><a href="#48"> 48: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> encode(<span class="php-var">$message</span>, <span class="php-var">$urlSafe</span> = <span class="php-keyword1">true</span>)
 </span><span id="49" class="l"><a href="#49"> 49: </a>    {
 </span><span id="50" class="l"><a href="#50"> 50: </a>        <span class="php-comment">//check for the message type</span>
 </span><span id="51" class="l"><a href="#51"> 51: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword2">is_string</span>(<span class="php-var">$message</span>)) {
@@ -325,7 +325,7 @@
 </span></span><span id="63" class="l"><a href="#63"> 63: </a><span class="php-comment">     * Get the binary-unsafe representation of the given base64-encoded message.
 </span></span><span id="64" class="l"><a href="#64"> 64: </a><span class="php-comment">     *
 </span></span><span id="65" class="l"><a href="#65"> 65: </a><span class="php-comment">     * This function is compatible with the php standard base64_encode and the
-</span></span><span id="66" class="l"><a href="#66"> 66: </a><span class="php-comment">     * framework Base64::Encode( ... ).
+</span></span><span id="66" class="l"><a href="#66"> 66: </a><span class="php-comment">     * framework Base64::encode( ... ).
 </span></span><span id="67" class="l"><a href="#67"> 67: </a><span class="php-comment">     *
 </span></span><span id="68" class="l"><a href="#68"> 68: </a><span class="php-comment">     * Example of usage:
 </span></span><span id="69" class="l"><a href="#69"> 69: </a><span class="php-comment">     * &lt;code&gt;
@@ -333,7 +333,7 @@
 </span></span><span id="71" class="l"><a href="#71"> 71: </a><span class="php-comment">     * $message = &quot; ... &quot;;
 </span></span><span id="72" class="l"><a href="#72"> 72: </a><span class="php-comment">     *
 </span></span><span id="73" class="l"><a href="#73"> 73: </a><span class="php-comment">     * //print the input string (binary unsafe)
-</span></span><span id="74" class="l"><a href="#74"> 74: </a><span class="php-comment">     * var_dump(Base64::Decode(Base64::Encode($message)));
+</span></span><span id="74" class="l"><a href="#74"> 74: </a><span class="php-comment">     * var_dump(Base64::decode(Base64::encode($message)));
 </span></span><span id="75" class="l"><a href="#75"> 75: </a><span class="php-comment">     * &lt;/code&gt;
 </span></span><span id="76" class="l"><a href="#76"> 76: </a><span class="php-comment">     *
 </span></span><span id="77" class="l"><a href="#77"> 77: </a><span class="php-comment">     * @param string $message a message base64 encoded
@@ -342,7 +342,7 @@
 </span></span><span id="80" class="l"><a href="#80"> 80: </a><span class="php-comment">     *
 </span></span><span id="81" class="l"><a href="#81"> 81: </a><span class="php-comment">     * @throws \InvalidArgumentException the given message is not represented as a string
 </span></span><span id="82" class="l"><a href="#82"> 82: </a><span class="php-comment">     */</span>
-</span><span id="83" class="l"><a href="#83"> 83: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> Decode(<span class="php-var">$message</span>)
+</span><span id="83" class="l"><a href="#83"> 83: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> decode(<span class="php-var">$message</span>)
 </span><span id="84" class="l"><a href="#84"> 84: </a>    {
 </span><span id="85" class="l"><a href="#85"> 85: </a>        <span class="php-comment">//check for the message type</span>
 </span><span id="86" class="l"><a href="#86"> 86: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword2">is_string</span>(<span class="php-var">$message</span>)) {

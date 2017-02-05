@@ -223,7 +223,7 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="Generate" id="_Generate">
+	<tr data-order="generate" id="_generate">
 
 		<td class="attributes"><code>
 			 public static
@@ -234,8 +234,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_Generate">#</a>
-		<code><a href="source-class-Gishiki.Security.Encryption.Asymmetric.PrivateKey.html#38-118" title="Go to source code">Generate</a>( <span>integer <var>$keyLength</var> = <code><a href="class-Gishiki.Security.Encryption.Asymmetric.PrivateKey.html#RSA4096">Gishiki\Security\Encryption\Asymmetric\PrivateKey::<b>RSA4096</b></a></code></span> )</code>
+		<a class="anchor" href="#_generate">#</a>
+		<code><a href="source-class-Gishiki.Security.Encryption.Asymmetric.PrivateKey.html#38-118" title="Go to source code">generate</a>( <span>integer <var>$keyLength</var> = <code><a href="class-Gishiki.Security.Encryption.Asymmetric.PrivateKey.html#RSA4096">Gishiki\Security\Encryption\Asymmetric\PrivateKey::<b>RSA4096</b></a></code></span> )</code>
 
 		<div class="description short">
 			<p>Create a random private key of the given length (in bits).</p>
@@ -254,7 +254,7 @@
 <span class="php-var">$filename</span> = APPLICATION_DIR.<span class="php-quote">&quot;newkey.private.pem&quot;</span>;
 
 <span class="php-comment">//generate the new key</span>
-<span class="php-var">$serailized_key</span> = PrivateKey::Generate(PrivateKey::RSA4096);
+<span class="php-var">$serailized_key</span> = PrivateKey::generate(PrivateKey::RSA4096);
 
 <span class="php-comment">//export to file the serialized key</span>
 <span class="php-keyword2">file_put_contents</span>(<span class="php-var">$filename</span>, <span class="php-var">$serailized_key</span>);

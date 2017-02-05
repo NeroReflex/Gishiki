@@ -279,7 +279,7 @@ such as <strong>SerializableCollection</strong> or a native PHP array.</p>
 the <em>table</em>/<em>collection</em> to be affected:</p>
 <pre><code class="php">use Gishiki\Database\DatabaseManager;
 
-$connection = DatabaseManager::Retrieve('connectionName');
+$connection = DatabaseManager::retrieve('connectionName');
 
 $idOfNewDocument = $connection-&gt;create('tbname', new SerializableCollection([
     'name'      =&gt; $name,
@@ -299,9 +299,9 @@ a valid instance of SelectionCriteria:</p>
 use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\FieldRelation;
 
-$connection = DatabaseManager::Retrieve('connectionName');
+$connection = DatabaseManager::retrieve('connectionName');
 
-$connection-&gt;delete('tbname', SelectionCriteria::Select([
+$connection-&gt;delete('tbname', SelectionCriteria::select([
             'nickname' =&gt; $nickname
         ])-&gt;or_where('email', FieldRelation::EQUAL, $email)
     );
@@ -314,7 +314,7 @@ using the <strong>deleteAll</strong> function.</p>
 use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\FieldRelation;
 
-$connection = DatabaseManager::Retrieve('connectionName');
+$connection = DatabaseManager::retrieve('connectionName');
 
 $connection-&gt;deleteAll('tbname');
 </code></pre>

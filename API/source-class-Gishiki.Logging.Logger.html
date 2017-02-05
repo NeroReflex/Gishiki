@@ -314,7 +314,7 @@
 </span><span id="52" class="l"><a href="#52"> 52: </a>            <span class="php-var">$this</span>-&gt;adapter = <span class="php-keyword1">new</span> \Psr\<span class="php-keyword2">Log</span>\NullLogger();
 </span><span id="53" class="l"><a href="#53"> 53: </a>        } <span class="php-keyword1">elseif</span> (<span class="php-keyword2">strpos</span>(<span class="php-var">$connector</span>, <span class="php-quote">'://'</span>) !== <span class="php-keyword1">false</span>) {
 </span><span id="54" class="l"><a href="#54"> 54: </a>            <span class="php-keyword1">if</span> (<span class="php-var">$connector</span> == <span class="php-quote">'default'</span>) {
-</span><span id="55" class="l"><a href="#55"> 55: </a>                <span class="php-var">$connector</span> = Environment::GetCurrentEnvironment()-&gt;GetConfigurationProperty(<span class="php-quote">'LOG_CONNECTION_STRING'</span>);
+</span><span id="55" class="l"><a href="#55"> 55: </a>                <span class="php-var">$connector</span> = Environment::getCurrentEnvironment()-&gt;getConfigurationProperty(<span class="php-quote">'LOG_CONNECTION_STRING'</span>);
 </span><span id="56" class="l"><a href="#56"> 56: </a>            }
 </span><span id="57" class="l"><a href="#57"> 57: </a>
 </span><span id="58" class="l"><a href="#58"> 58: </a>            <span class="php-comment">//separe adapter name from connection info</span>

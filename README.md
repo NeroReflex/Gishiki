@@ -29,7 +29,7 @@ Do you want to have it working in the less time possible? OK!
 ```shell
 composer init # setup your new project
 nano composer.json # or any other text editor to add "neroreflex/gishiki": "dev-development" on "require"
-composer instaall --no-dev
+composer install --no-dev
 ./vendor/bin/gishiki new application
 ```
 

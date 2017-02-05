@@ -389,10 +389,10 @@
 </span><span id="127" class="l"><a href="#127">127: </a>            <span class="php-var">$appConfiguration</span> = SerializableCollection::deserialize(<span class="php-var">$config</span>)-&gt;all();
 </span><span id="128" class="l"><a href="#128">128: </a>
 </span><span id="129" class="l"><a href="#129">129: </a>            <span class="php-comment">//complete settings</span>
-</span><span id="130" class="l"><a href="#130">130: </a>            <span class="php-var">$appCompletedConfiguration</span> = self::getValueFromEnvironment(<span class="php-var">$appConfiguration</span>);
+</span><span id="130" class="l"><a href="#130">130: </a>            <span class="php-var">$appComplConfig</span> = self::getValueFromEnvironment(<span class="php-var">$appConfiguration</span>);
 </span><span id="131" class="l"><a href="#131">131: </a>
 </span><span id="132" class="l"><a href="#132">132: </a>            <span class="php-comment">//return the application configuration</span>
-</span><span id="133" class="l"><a href="#133">133: </a>            <span class="php-keyword1">return</span> <span class="php-var">$appCompletedConfiguration</span>;
+</span><span id="133" class="l"><a href="#133">133: </a>            <span class="php-keyword1">return</span> <span class="php-var">$appComplConfig</span>;
 </span><span id="134" class="l"><a href="#134">134: </a>        }
 </span><span id="135" class="l"><a href="#135">135: </a>
 </span><span id="136" class="l"><a href="#136">136: </a>        <span class="php-comment">/**

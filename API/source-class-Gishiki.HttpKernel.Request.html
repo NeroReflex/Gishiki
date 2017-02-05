@@ -1271,7 +1271,7 @@
 </span><span id="1009" class="l"><a href="#1009">1009: </a>    <span class="php-comment">/**
 </span></span><span id="1010" class="l"><a href="#1010">1010: </a><span class="php-comment">     * @var null|SerializableCollection the deserialized request content
 </span></span><span id="1011" class="l"><a href="#1011">1011: </a><span class="php-comment">     */</span>
-</span><span id="1012" class="l"><a href="#1012">1012: </a>    <span class="php-keyword1">protected</span> <span class="php-var">$cachedDeserializedBody</span> = <span class="php-keyword1">null</span>;
+</span><span id="1012" class="l"><a href="#1012">1012: </a>    <span class="php-keyword1">protected</span> <span class="php-var">$cachedDeserBody</span> = <span class="php-keyword1">null</span>;
 </span><span id="1013" class="l"><a href="#1013">1013: </a>
 </span><span id="1014" class="l"><a href="#1014">1014: </a>    <span class="php-comment">/**
 </span></span><span id="1015" class="l"><a href="#1015">1015: </a><span class="php-comment">     * Deserialize the content passed as the request.
@@ -1292,8 +1292,8 @@
 </span></span><span id="1030" class="l"><a href="#1030">1030: </a><span class="php-comment">     */</span>
 </span><span id="1031" class="l"><a href="#1031">1031: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> getDeserializedBody()
 </span><span id="1032" class="l"><a href="#1032">1032: </a>    {
-</span><span id="1033" class="l"><a href="#1033">1033: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$this</span>-&gt;cachedDeserializedBody) {
-</span><span id="1034" class="l"><a href="#1034">1034: </a>            <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;cachedDeserializedBody;
+</span><span id="1033" class="l"><a href="#1033">1033: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$this</span>-&gt;cachedDeserBody) {
+</span><span id="1034" class="l"><a href="#1034">1034: </a>            <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;cachedDeserBody;
 </span><span id="1035" class="l"><a href="#1035">1035: </a>        }
 </span><span id="1036" class="l"><a href="#1036">1036: </a>
 </span><span id="1037" class="l"><a href="#1037">1037: </a>        <span class="php-comment">//get the media type that gives the serializator to be used</span>
@@ -1339,7 +1339,7 @@
 </span><span id="1077" class="l"><a href="#1077">1077: </a>
 </span><span id="1078" class="l"><a href="#1078">1078: </a>        <span class="php-comment">//return the serialization result</span>
 </span><span id="1079" class="l"><a href="#1079">1079: </a>        <span class="php-keyword1">try</span> {
-</span><span id="1080" class="l"><a href="#1080">1080: </a>            <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;cachedDeserializedBody = SerializableCollection::deserialize(<span class="php-var">$data</span>, <span class="php-var">$serializer</span>);
+</span><span id="1080" class="l"><a href="#1080">1080: </a>            <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;cachedDeserBody = SerializableCollection::deserialize(<span class="php-var">$data</span>, <span class="php-var">$serializer</span>);
 </span><span id="1081" class="l"><a href="#1081">1081: </a>        } <span class="php-keyword1">catch</span> (Gishiki\Algorithms\Collections\DeserializationException <span class="php-var">$ex</span>) {
 </span><span id="1082" class="l"><a href="#1082">1082: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> RuntimeException(<span class="php-quote">'The HTTP request is malformed'</span>);
 </span><span id="1083" class="l"><a href="#1083">1083: </a>        }

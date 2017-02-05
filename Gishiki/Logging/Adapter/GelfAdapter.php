@@ -26,10 +26,12 @@ namespace Gishiki\Logging\Adapter;
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
-class GelfAdapter
+class GelfAdapter extends \Psr\Log\AbstractLogger
 {
-    //this is the managed gelf resource
-    private $gelf_resource = null;
+    /**
+     * @var resource the managed gelf resource
+     */
+    protected $gelfConnection = null;
 
     /**
      * Setup a logger that works on gelf.
@@ -62,15 +64,15 @@ class GelfAdapter
             }
 
             //create the new logger with the build transport
-            $this->gelf_resource = new \Gelf\Logger($transport);
+            $this->gelfConnection = new \Gelf\Logger($transport);
         } else {
-            $this->gelf_resource = new \Gelf\Logger();
+            $this->gelfConnection = new \Gelf\Logger();
         }
     }
 
     public function log($level, $message, array $context = array())
     {
         //return value isn't documentated because it MUST NOT be used/trusted
-        return ($this->gelf_resource) ? $this->gelf_resource->log($level, $message, $context) : null;
+        return ($this->gelfConnection) ? $this->gelfConnection->log($level, $message, $context) : null;
     }
 }

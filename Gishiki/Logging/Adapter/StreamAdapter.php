@@ -53,10 +53,10 @@ class StreamAdapter extends \Psr\Log\AbstractLogger
 
     public function log($level, $message, array $context = array())
     {
-        $interpolated_message = Manipulation::interpolate($message, $context);
-        $interpolated_message = trim($interpolated_message, "\n");
+        $interpolatedMsg = Manipulation::interpolate($message, $context);
+        $interpolatedMsg = trim($interpolatedMsg, "\n");
 
         //return value isn't documentated because it MUST NOT be used/trusted
-        return ($this->stream) ? fwrite($this->stream, '['.$level.'] '.$interpolated_message."\n") : null;
+        return ($this->stream) ? fwrite($this->stream, '['.$level.'] '.$interpolatedMsg."\n") : null;
     }
 }

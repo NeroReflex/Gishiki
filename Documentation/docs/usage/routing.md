@@ -33,7 +33,6 @@ Let's see how to create a custom route:
 
 ```php
 use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\SerializableCollection;
@@ -61,7 +60,6 @@ Let's just consider this simple example:
 
 ```php
 use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\SerializableCollection;
@@ -95,7 +93,6 @@ say for example an integer or an email address:
 
 ```php
 use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\SerializableCollection;
@@ -126,7 +123,6 @@ are allowed to do that by using 'any':
 
 ```php
 use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\SerializableCollection;
@@ -148,7 +144,6 @@ request methods:
 
 ```php
 use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\SerializableCollection;
@@ -170,7 +165,6 @@ which is nothing more than a bit special routing rule:
 
 ```php
 use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\SerializableCollection;
@@ -194,7 +188,6 @@ You cannot change this behaviour, but you can change the status code:
 
 ```php
 use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\SerializableCollection;

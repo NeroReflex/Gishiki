@@ -46,46 +46,46 @@ class SyslogAdapter extends \Psr\Log\AbstractLogger
 
     public function log($level, $message, array $context = array())
     {
-        $interpolated_message = Manipulation::interpolate($message, $context);
+        $interpolatedMsg = Manipulation::interpolate($message, $context);
 
         //get the urgency level:
-        $syslog_level = LOG_EMERG;
+        $syslogLevel = LOG_EMERG;
         switch ($level) {
             case LogLevel::EMERGENCY:
-                $syslog_level = LOG_EMERG;
+                $syslogLevel = LOG_EMERG;
                 break;
 
             case LogLevel::ALERT:
-                $syslog_level = LOG_ALERT;
+                $syslogLevel = LOG_ALERT;
                 break;
 
             case LogLevel::CRITICAL:
-                $syslog_level = LOG_CRIT;
+                $syslogLevel = LOG_CRIT;
                 break;
 
             case LogLevel::ERROR:
-                $syslog_level = LOG_ERR;
+                $syslogLevel = LOG_ERR;
                 break;
 
             case LogLevel::WARNING:
-                $syslog_level = LOG_WARNING;
+                $syslogLevel = LOG_WARNING;
                 break;
 
             case LogLevel::NOTICE:
-                $syslog_level = LOG_NOTICE;
+                $syslogLevel = LOG_NOTICE;
                 break;
 
             case LogLevel::INFO:
-                $syslog_level = LOG_INFO;
+                $syslogLevel = LOG_INFO;
                 break;
 
             default:
-                $syslog_level = LOG_DEBUG;
+                $syslogLevel = LOG_DEBUG;
         }
 
         if (openlog($this->identity, LOG_NDELAY | LOG_PID, LOG_USER)) {
             //save the log using the UNIX standard logging ultility
-            syslog($this->GetLevel(), $interpolated_message);
+            syslog($this->GetLevel(), $interpolatedMsg);
 
             //virtually close the connection to syslogd
             closelog();

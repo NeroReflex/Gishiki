@@ -53,9 +53,9 @@ class FileAdapter extends \Psr\Log\AbstractLogger
 
     public function log($level, $message, array $context = array())
     {
-        $interpolated_message = Manipulation::interpolate($message, $context);
-        $interpolated_message = trim($interpolated_message);
+        $interpolatedMsg = Manipulation::interpolate($message, $context);
+        $interpolatedMsg = trim($interpolatedMsg);
 
-        return ($this->handler) ? fwrite($this->handler, '['.$level.'] '.$interpolated_message."\n") : null;
+        return ($this->handler) ? fwrite($this->handler, '['.$level.'] '.$interpolatedMsg."\n") : null;
     }
 }

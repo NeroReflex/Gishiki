@@ -53,9 +53,12 @@ abstract class Gishiki
         }
 
         //get the root path
-        if ((!defined('ROOT')) || (ROOT == '') || (ROOT == null)) {
-            define('ROOT', filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').DS);
-        }
+        $documentRoot = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
+        
+        (strlen($documentRoot) > 0) ?
+            define('ROOT', filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').DS) :
+            define('ROOT', getcwd().DS);
+        
 
         //the name of the directory that contains model, view and controller (must be placed in the root)
         if (!defined('APPLICATION_DIR')) {

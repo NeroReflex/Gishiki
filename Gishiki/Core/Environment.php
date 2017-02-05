@@ -142,7 +142,7 @@ namespace Gishiki\Core {
         public static function applicationExists()
         {
             //return the existence of an application directory and a configuratio file
-            return (file_exists(APPLICATION_DIR)) && (file_exists(APPLICATION_DIR.'settings.json'));
+            return (file_exists(APPLICATION_DIR.'settings.json'));
         }
 
         /**

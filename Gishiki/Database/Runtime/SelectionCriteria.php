@@ -39,7 +39,7 @@ final class SelectionCriteria
         'or' => [],
     ];
 
-    public static function Select(array $selection)
+    public static function select(array $selection)
     {
         //create an empty selection criteria
         $selectionCriteria = new self();

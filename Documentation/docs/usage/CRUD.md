@@ -16,7 +16,7 @@ the *table*/*collection* to be affected:
 ```php
 use Gishiki\Database\DatabaseManager;
 
-$connection = DatabaseManager::Retrieve('connectionName');
+$connection = DatabaseManager::retrieve('connectionName');
 
 $idOfNewDocument = $connection->create('tbname', new SerializableCollection([
     'name'      => $name,
@@ -40,9 +40,9 @@ use Gishiki\Database\DatabaseManager;
 use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\FieldRelation;
 
-$connection = DatabaseManager::Retrieve('connectionName');
+$connection = DatabaseManager::retrieve('connectionName');
 
-$connection->delete('tbname', SelectionCriteria::Select([
+$connection->delete('tbname', SelectionCriteria::select([
             'nickname' => $nickname
         ])->or_where('email', FieldRelation::EQUAL, $email)
     );
@@ -58,7 +58,7 @@ use Gishiki\Database\DatabaseManager;
 use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\FieldRelation;
 
-$connection = DatabaseManager::Retrieve('connectionName');
+$connection = DatabaseManager::retrieve('connectionName');
 
 $connection->deleteAll('tbname');
 ```

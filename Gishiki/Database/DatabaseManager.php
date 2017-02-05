@@ -41,7 +41,7 @@ abstract class DatabaseManager
      *
      * @return DatabaseInterface the connected database instance
      */
-    public static function Connect($connectionName, $connectionString)
+    public static function connect($connectionName, $connectionString)
     {
         //check for malformed input
         if ((!is_string($connectionName)) || (strlen($connectionName) <= 0) || (!is_string($connectionString)) || (strlen($connectionString) <= 0)) {
@@ -79,7 +79,7 @@ abstract class DatabaseManager
      * @throws \InvalidArgumentException the collection name has not be given as a string
      * @throws DatabaseException         the given connection name is not registered as a valid collection
      */
-    public static function Retrieve($connectionName = 'default')
+    public static function retrieve($connectionName = 'default')
     {
         //check for malformed input
         if ((!is_string($connectionName)) || (strlen($connectionName) <= 0)) {

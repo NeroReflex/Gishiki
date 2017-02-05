@@ -30,7 +30,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
     {
         ob_start();
 
-        Console::Write(false);
+        Console::write(false);
 
         $this->assertEquals('false', ob_get_clean());
     }
@@ -39,7 +39,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
     {
         ob_start();
 
-        Console::Write(true);
+        Console::write(true);
 
         $this->assertEquals('true', ob_get_clean());
     }
@@ -48,7 +48,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
     {
         ob_start();
 
-        Console::Write(null);
+        Console::write(null);
 
         $this->assertEquals('null', ob_get_clean());
     }
@@ -59,7 +59,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 
         ob_start();
 
-        Console::Write($arr);
+        Console::write($arr);
 
         $this->assertEquals(implode('', $arr), ob_get_clean());
     }
@@ -68,7 +68,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
     {
         ob_start();
 
-        Console::WriteLine('The sum is'.': '.(50 + 3));
+        Console::writeLine('The sum is'.': '.(50 + 3));
 
         $this->assertEquals("The sum is: 53\n", ob_get_clean());
     }

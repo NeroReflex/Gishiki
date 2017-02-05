@@ -29,7 +29,7 @@ abstract class Console
      *
      * @param mixed $what what will be printed out
      */
-    public static function Write($what)
+    public static function write($what)
     {
         $str = '';
 
@@ -44,7 +44,7 @@ abstract class Console
 
             case 'array':
                 foreach ($what as $element) {
-                    self::Write($element);
+                    self::write($element);
                 }
                 break;
 
@@ -60,11 +60,11 @@ abstract class Console
      *
      * @param mixed $what what will be printed out
      */
-    public static function WriteLine($what)
+    public static function writeLine($what)
     {
-        self::Write($what);
+        self::write($what);
 
         //print the newline
-        self::Write("\n");
+        self::write("\n");
     }
 }

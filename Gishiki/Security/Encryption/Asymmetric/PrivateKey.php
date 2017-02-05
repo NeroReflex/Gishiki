@@ -49,7 +49,7 @@ final class PrivateKey
      * $filename = APPLICATION_DIR."newkey.private.pem";
      *
      * //generate the new key
-     * $serailized_key = PrivateKey::Generate(PrivateKey::RSA4096);
+     * $serailized_key = PrivateKey::generate(PrivateKey::RSA4096);
      *
      * //export to file the serialized key
      * file_put_contents($filename, $serailized_key);
@@ -66,7 +66,7 @@ final class PrivateKey
      * @throws \InvalidArgumentException the given key length is not an integer power of two
      * @throws AsymmetricException       the error occurred while generating and exporting the new private key
      */
-    public static function Generate($keyLength = self::RSA4096)
+    public static function generate($keyLength = self::RSA4096)
     {
         if (!is_integer($keyLength)) {
             throw new \InvalidArgumentException('The key length must be given as an integer number which is a power of two');
@@ -86,11 +86,11 @@ final class PrivateKey
             'private_key_type' => OPENSSL_KEYTYPE_RSA,
         ];
         //use the application openssl configuration
-        if (!is_null(Environment::GetCurrentEnvironment())) {
+        if (!is_null(Environment::getCurrentEnvironment())) {
             $config = array_merge(
                     $config,
-                    ['config' => (file_exists(Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').'openssl.cnf')) ?
-                        Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').'openssl.cnf' : null, ]);
+                    ['config' => (file_exists(Environment::getCurrentEnvironment()->getConfigurationProperty('APPLICATION_DIR').'openssl.cnf')) ?
+                        Environment::getCurrentEnvironment()->getConfigurationProperty('APPLICATION_DIR').'openssl.cnf' : null, ]);
         }
 
         //create a new private key
@@ -153,7 +153,7 @@ final class PrivateKey
         //get a string containing a serialized asymmetric key
         $serialized_key = (is_string($customKey)) ?
             $serialized_key = $customKey :
-            Environment::GetCurrentEnvironment()->GetConfigurationProperty('MASTER_ASYMMETRIC_KEY');
+            Environment::getCurrentEnvironment()->getConfigurationProperty('MASTER_ASYMMETRIC_KEY');
 
         //get the beginning and ending of a private key (to stip out additional shit and check for key validity)
         $is_encrypted = strpos($serialized_key, 'ENCRYPTED') !== false;
@@ -232,11 +232,11 @@ final class PrivateKey
             'private_key_type' => OPENSSL_KEYTYPE_RSA,
         ];
         //use the application openssl configuration
-        if (!is_null(Environment::GetCurrentEnvironment())) {
+        if (!is_null(Environment::getCurrentEnvironment())) {
             $config = array_merge(
                     $config,
-                    ['config' => (file_exists(Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').'openssl.cnf')) ?
-                        Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').'openssl.cnf' : null, ]);
+                    ['config' => (file_exists(Environment::getCurrentEnvironment()->getConfigurationProperty('APPLICATION_DIR').'openssl.cnf')) ?
+                        Environment::getCurrentEnvironment()->getConfigurationProperty('APPLICATION_DIR').'openssl.cnf' : null, ]);
         }
 
         //serialize the key and encrypt it if requested

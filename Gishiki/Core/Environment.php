@@ -80,7 +80,7 @@ namespace Gishiki\Core {
 
             //register the current environment
             if ($selfRegister) {
-                self::RegisterEnvironment($this);
+                self::registerEnvironment($this);
             }
 
             if ($loadApplication) {
@@ -150,7 +150,7 @@ namespace Gishiki\Core {
          *
          * @param Environment $env the currently active environment
          */
-        public function RegisterEnvironment(Environment &$env)
+        public function registerEnvironment(Environment &$env)
         {
             //register the currently active environment
             self::$currentEnvironment = $env;
@@ -159,7 +159,7 @@ namespace Gishiki\Core {
         /**
          * Fullfill the request made by the client.
          */
-        public function FulfillRequest()
+        public function fulfillRequest()
         {
             //get current request...
             $currentRequest = Request::createFromEnvironment(self::$currentEnvironment);
@@ -187,7 +187,7 @@ namespace Gishiki\Core {
          *
          * @return Environment the current environment
          */
-        public static function GetCurrentEnvironment()
+        public static function getCurrentEnvironment()
         {
             //return the currently active environment
             return self::$currentEnvironment;
@@ -230,7 +230,7 @@ namespace Gishiki\Core {
 
             //connect every db connection
             foreach ($this->configuration['CONNECTIONS'] as $connection) {
-                \Gishiki\Database\DatabaseManager::Connect($connection['name'], $connection['query']);
+                \Gishiki\Database\DatabaseManager::connect($connection['name'], $connection['query']);
             }
         }
 
@@ -241,7 +241,7 @@ namespace Gishiki\Core {
          *
          * @return the requested configuration property or NULL
          */
-        public function GetConfigurationProperty($property)
+        public function getConfigurationProperty($property)
         {
             switch (strtoupper($property)) {
                 case 'DEVELOPMENT':

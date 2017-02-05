@@ -32,7 +32,7 @@ class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadNameAnd()
     {
-        SelectionCriteria::Select(['a' => [3, 5, 6]])->and_where(3, FieldRelation::EQUAL, '');
+        SelectionCriteria::select(['a' => [3, 5, 6]])->and_where(3, FieldRelation::EQUAL, '');
     }
 
     /**
@@ -40,7 +40,7 @@ class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadRelationAnd()
     {
-        SelectionCriteria::Select(['a' => [3, 5, 6]])->and_where('a', 'IDK', '');
+        SelectionCriteria::select(['a' => [3, 5, 6]])->and_where('a', 'IDK', '');
     }
 
     /**
@@ -48,7 +48,7 @@ class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadValueAnd()
     {
-        SelectionCriteria::Select(['a' => [3, 5, 6]])->and_where('a', FieldRelation::EQUAL, new SelectionCriteria());
+        SelectionCriteria::select(['a' => [3, 5, 6]])->and_where('a', FieldRelation::EQUAL, new SelectionCriteria());
     }
 
     /**
@@ -56,7 +56,7 @@ class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadValueOr()
     {
-        SelectionCriteria::Select(['a' => [3, 5, 6]])->or_where('a', FieldRelation::EQUAL, new SelectionCriteria());
+        SelectionCriteria::select(['a' => [3, 5, 6]])->or_where('a', FieldRelation::EQUAL, new SelectionCriteria());
     }
 
     /**
@@ -64,7 +64,7 @@ class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadNameOr()
     {
-        SelectionCriteria::Select(['a' => [3, 5, 6]])->or_where(3, FieldRelation::EQUAL, '');
+        SelectionCriteria::select(['a' => [3, 5, 6]])->or_where(3, FieldRelation::EQUAL, '');
     }
 
     /**
@@ -72,12 +72,12 @@ class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadRelationOr()
     {
-        SelectionCriteria::Select(['a' => [3, 5, 6]])->or_where('a', 'IDK', '');
+        SelectionCriteria::select(['a' => [3, 5, 6]])->or_where('a', 'IDK', '');
     }
 
     public function testInitializerOnly()
     {
-        $sc = SelectionCriteria::Select(['a' => [3, 5, 6], 'b' => 96]);
+        $sc = SelectionCriteria::select(['a' => [3, 5, 6], 'b' => 96]);
 
         $exportMethod = new \ReflectionMethod($sc, 'export');
         $exportMethod->setAccessible(true);
@@ -105,7 +105,7 @@ class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
 
     public function testOrAfterInitializer()
     {
-        $sc = SelectionCriteria::Select(['a' => [3, 5, 6], 'b' => 96])->or_where('c', FieldRelation::LIKE, '%test%');
+        $sc = SelectionCriteria::select(['a' => [3, 5, 6], 'b' => 96])->or_where('c', FieldRelation::LIKE, '%test%');
 
         $exportMethod = new \ReflectionMethod($sc, 'export');
         $exportMethod->setAccessible(true);

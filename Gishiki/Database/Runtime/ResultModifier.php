@@ -43,7 +43,7 @@ final class ResultModifier
      * Initialize a new result modifier using the initializer data.
      *
      * <code>
-     * $resultFilter = ResultModifier::Initialize([
+     * $resultFilter = ResultModifier::initialize([
      *     'limit' => 5,
      *     'skip'  => 8,
      *     'name'  => FieldOrdering::ASC
@@ -56,7 +56,7 @@ final class ResultModifier
      *
      * @throws \InvalidArgumentException the initializer data is not valid
      */
-    public static function Initialize($init = null)
+    public static function initialize($init = null)
     {
         if ((!is_null($init)) && (!is_array($init))) {
             throw new \InvalidArgumentException('The initialization filter con only be null or a valid array');

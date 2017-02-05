@@ -45,7 +45,7 @@ class FileAdapter extends \Psr\Log\AbstractLogger
     public function __construct($file_path = '')
     {
         //get the file path
-        $this->path = ($file_path != '') ? $file_path : Environment::GetCurrentEnvironment()->GetConfigurationProperty('APPLICATION_DIR').'error.log';
+        $this->path = ($file_path != '') ? $file_path : Environment::getCurrentEnvironment()->getConfigurationProperty('APPLICATION_DIR').'error.log';
 
         //open the file
         $this->handler = fopen($file_path, 'a');

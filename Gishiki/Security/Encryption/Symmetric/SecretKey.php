@@ -42,7 +42,7 @@ final class SecretKey
      *
      * @return string an hex representation of the generated key
      */
-    public static function Generate($password, $key_length = 16)
+    public static function generate($password, $key_length = 16)
     {
         //generate some random characters
         $salt = openssl_random_pseudo_bytes(2 * $key_length);
@@ -80,7 +80,7 @@ final class SecretKey
      *
      * <code>
      * //generate a secure pbkdf2-derived key and use it as the encryption key
-     * $my_key = new SecretKey(SecretKey::Generate("mypassword"));
+     * $my_key = new SecretKey(SecretKey::generate("mypassword"));
      *
      * //you MUST save the generated key, because it won't be possible to
      * //generate the same key once again (even using the same password)!
@@ -97,7 +97,7 @@ final class SecretKey
         }
 
         //get the symmetric key to be used
-        $key = (!is_null($key)) ? $key : Environment::GetCurrentEnvironment()->GetConfigurationProperty('MASTER_SYMMETRIC_KEY');
+        $key = (!is_null($key)) ? $key : Environment::getCurrentEnvironment()->getConfigurationProperty('MASTER_SYMMETRIC_KEY');
 
         //get the real encryption key
         $this->keyLength = strlen($key) / 2;

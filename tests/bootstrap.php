@@ -31,4 +31,4 @@ $autoloader->addPsr4('Gishiki\\Tests\\', __DIR__);
 
 include __DIR__.'/Application/FakeController.php';
 
-\Gishiki\Gishiki::Initialize();
+\Gishiki\Gishiki::initialize();

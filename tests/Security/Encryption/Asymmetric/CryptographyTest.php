@@ -33,7 +33,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidMessageEncryption()
     {
-        $privateKey = new PrivateKey(PrivateKey::Generate());
+        $privateKey = new PrivateKey(PrivateKey::generate());
 
         //check if the private key has been loaded correctly
         $this->assertEquals(true, $privateKey->isLoaded());
@@ -48,7 +48,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
     public function testInvalidMessageReverseEncryption()
     {
         //generate a new private key and the associated public key
-        $privKey = new PrivateKey(PrivateKey::Generate());
+        $privKey = new PrivateKey(PrivateKey::generate());
         $pubKey = new PublicKey($privKey->exportPublicKey());
 
         //attempt to reverse encrypt a bad message
@@ -64,7 +64,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         $message = 'mL84hPpR+nmb2UuWDnhiXnpMDxzQT0NMPXT.dY.*?ImTrO86Dt';
 
         //generate two keys
-        $privateKey = new PrivateKey(PrivateKey::Generate());
+        $privateKey = new PrivateKey(PrivateKey::generate());
         $publicKey = new PublicKey($privateKey->exportPublicKey());
 
         //check if the private key has been loaded correctly
@@ -80,7 +80,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
     public function testInvalidMessageReverseDecryption()
     {
         //generate a new private key and the associated public key
-        $privKey = new PrivateKey(PrivateKey::Generate());
+        $privKey = new PrivateKey(PrivateKey::generate());
         $pubKey = new PublicKey($privKey->exportPublicKey());
 
         //attempt to reverse decrypt a bad message
@@ -93,7 +93,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
     public function testInvalidMessageGenerateDigitalSignature()
     {
         //generate a new private key and the associated public key
-        $privKey = new PrivateKey(PrivateKey::Generate());
+        $privKey = new PrivateKey(PrivateKey::generate());
         $pubKey = new PublicKey($privKey->exportPublicKey());
 
         $message = 'who knows if this message will be modified.....';
@@ -108,7 +108,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
     public function testInvalidMessageVerifyDigitalSignature()
     {
         //generate a new private key and the associated public key
-        $privKey = new PrivateKey(PrivateKey::Generate());
+        $privKey = new PrivateKey(PrivateKey::generate());
         $pubKey = new PublicKey($privKey->exportPublicKey());
 
         $message = 'verify me if U can.....';
@@ -124,7 +124,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
     public function testInvalidSignatureVerifyDigitalSignature()
     {
         //generate a new private key and the associated public key
-        $privKey = new PrivateKey(PrivateKey::Generate());
+        $privKey = new PrivateKey(PrivateKey::generate());
         $pubKey = new PublicKey($privKey->exportPublicKey());
 
         $message = 'verify me if U can.....';
@@ -136,7 +136,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
 
     public function testEncryption()
     {
-        $privateKey = new PrivateKey(PrivateKey::Generate());
+        $privateKey = new PrivateKey(PrivateKey::generate());
 
         //check if the private key has been loaded correctly
         $this->assertEquals(true, $privateKey->isLoaded());
@@ -154,7 +154,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         $message = 'mL84hPpR+nmb2UuWDnhiXnpMDxzQT0NMPXT.dY.*?ImTrO86Dt';
 
         //generate two keys
-        $privateKey = new PrivateKey(PrivateKey::Generate());
+        $privateKey = new PrivateKey(PrivateKey::generate());
         $publicKey = new PublicKey($privateKey->exportPublicKey());
 
         //check if the private key has been loaded correctly
@@ -220,7 +220,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
     public function testDigitalSignature()
     {
         //generate a new private key and the associated public key
-        $privKey = new PrivateKey(PrivateKey::Generate());
+        $privKey = new PrivateKey(PrivateKey::generate());
         $pubKey = new PublicKey($privKey->exportPublicKey());
 
         $message = 'who knows if this message will be modified.....';
@@ -235,7 +235,7 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
     public function testReverse()
     {
         //generate a new private key and the associated public key
-        $privKey = new PrivateKey(PrivateKey::Generate());
+        $privKey = new PrivateKey(PrivateKey::generate());
         $pubKey = new PublicKey($privKey->exportPublicKey());
 
         //generate a very long example message

@@ -36,7 +36,7 @@ use Gishiki\Core\Environment;
 use Gishiki\CLI\Console;
 
 //initialize the framework
-Gishiki::Initialize();
+Gishiki::initialize();
 
 if ($argc > 1) {
     switch ($argv[1]) {
@@ -47,42 +47,42 @@ if ($argc > 1) {
                 if (strcmp($argv[2], "application") == 0) {
                     try {
                         $bootstrap->application();
-                        Console::WriteLine("The new application has been created");
+                        Console::writeLine("The new application has been created");
                     } catch (\Exception $ex) {
-                        Console::WriteLine($ex->getMessage());
+                        Console::writeLine($ex->getMessage());
                     }
                 } elseif (strcmp($argv[2], "controller") == 0) {
                     if (($argc > 3) && (Environment::applicationExists())) {
                         try {
                             $bootstrap->controller($argv[3]);
-                            Console::WriteLine("The new controller has been created, remember to run 'composer update --no-dev' when you're done adding controllers");
+                            Console::writeLine("The new controller has been created, remember to run 'composer update --no-dev' when you're done adding controllers");
                         } catch (\Exception $ex) {
-                            Console::WriteLine($ex->getMessage());
+                            Console::writeLine($ex->getMessage());
                         }
                     } elseif ($argc <= 3) {
-                        Console::WriteLine("Missing controller name");
+                        Console::writeLine("Missing controller name");
                     } else {
-                        Console::WriteLine("You have to create an application before creating a controller");
+                        Console::writeLine("You have to create an application before creating a controller");
                     }
                 } else {
-                    Console::WriteLine("Invalid parameter after new");
+                    Console::writeLine("Invalid parameter after new");
                 }
             } else {
-                Console::WriteLine("new what?");
+                Console::writeLine("new what?");
             }
             
             break;
             
         case 'help':
-            Console::WriteLine("The following is a list of arguments that can be passed to the gishiki CLI");
-            Console::WriteLine("");
-            Console::WriteLine("new application: generate an empty application");
+            Console::writeLine("The following is a list of arguments that can be passed to the gishiki CLI");
+            Console::writeLine("");
+            Console::writeLine("new application: generate an empty application");
             break;
             
         default:
-            Console::WriteLine("invalid command: use gishiki help for a list of available commands");
+            Console::writeLine("invalid command: use gishiki help for a list of available commands");
             break;
     }
 } else {
-    Console::WriteLine("use gishiki help for a list of available commands");
+    Console::writeLine("use gishiki help for a list of available commands");
 }

@@ -61,7 +61,7 @@ class SQLQueryBuilder
      *
      * @param string $query the ugly SQL query
      */
-    public static function Beautify($query)
+    public static function beautify($query)
     {
         $count = 1;
         while ($count > 0) {
@@ -375,7 +375,7 @@ class SQLQueryBuilder
      */
     public function exportQuery()
     {
-        return self::Beautify($this->sql);
+        return self::beautify($this->sql);
     }
 
     /**

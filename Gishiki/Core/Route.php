@@ -581,7 +581,7 @@ namespace Gishiki\Core {
                 call_user_func_array($this->action, [&$request, &$response, &$arguments]);
             } elseif (is_string($this->action)) {
                 //execute the controller
-                Controller::Execute($this->action, $request, $response, $arguments);
+                Controller::execute($this->action, $request, $response, $arguments);
             }
         }
     }

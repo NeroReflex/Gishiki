@@ -36,7 +36,7 @@ abstract class Gishiki
      * Initialize the Gishiki engine and prepare for
      * the execution of a framework instance.
      */
-    public static function Initialize()
+    public static function initialize()
     {
         //remove default execution time
         set_time_limit(0);
@@ -69,7 +69,7 @@ abstract class Gishiki
     /**
      * Execute the requested operation.
      */
-    public static function Run()
+    public static function run()
     {
         //avoid double executions
         if (self::$executed) {
@@ -77,7 +77,7 @@ abstract class Gishiki
         }
 
         //initialize the framework
-        self::Initialize();
+        self::initialize();
 
         //each Gishiki instance is binded with a newly created Environment
         if (!is_object(self::$executionEnvironment)) {
@@ -88,7 +88,7 @@ abstract class Gishiki
         //if the framework needs to be installed.....
         if (Environment::applicationExists()) {
             //fulfill the client request
-            Environment::GetCurrentEnvironment()->FulfillRequest();
+            Environment::getCurrentEnvironment()->fulfillRequest();
         } elseif (!defined('CLI_TOOLKIT')) {
             //show the no application page!
             echo file_get_contents(__DIR__.DS.'no_application.html');

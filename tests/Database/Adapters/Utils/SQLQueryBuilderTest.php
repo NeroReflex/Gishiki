@@ -32,7 +32,7 @@ class SQLQueryBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBeautify()
     {
-        $this->assertEquals('SELECT * FROM "test0" WHERE id = ? OR name = ? ORDER BY id DESC', SQLQueryBuilder::Beautify('SELECT  *  FROM  "test0" WHERE id   = ? OR name = ? ORDER BY id DESC'));
+        $this->assertEquals('SELECT * FROM "test0" WHERE id = ? OR name = ? ORDER BY id DESC', SQLQueryBuilder::beautify('SELECT  *  FROM  "test0" WHERE id   = ? OR name = ? ORDER BY id DESC'));
     }
 
     public function testSelectAllFrom()
@@ -40,18 +40,18 @@ class SQLQueryBuilderTest extends \PHPUnit_Framework_TestCase
         $query = new SQLQueryBuilder();
         $query->selectAllFrom('test1');
 
-        $this->assertEquals(SQLQueryBuilder::Beautify('SELECT * FROM "test1"'), SQLQueryBuilder::Beautify($query->exportQuery()));
+        $this->assertEquals(SQLQueryBuilder::beautify('SELECT * FROM "test1"'), SQLQueryBuilder::beautify($query->exportQuery()));
         $this->assertEquals([], $query->exportParams());
     }
 
     public function testSelectAllFromWhere()
     {
         $query = new SQLQueryBuilder();
-        $query->selectAllFrom('test1')->where(SelectionCriteria::Select([
+        $query->selectAllFrom('test1')->where(SelectionCriteria::select([
             'id' => [5, 6, 7],
         ])->or_where('name', FieldRelation::NOT_LIKE, '%inv%'));
 
-        $this->assertEquals(SQLQueryBuilder::Beautify('SELECT * FROM "test1" WHERE id IN (?,?,?) OR name NOT LIKE ?'), SQLQueryBuilder::Beautify($query->exportQuery()));
+        $this->assertEquals(SQLQueryBuilder::beautify('SELECT * FROM "test1" WHERE id IN (?,?,?) OR name NOT LIKE ?'), SQLQueryBuilder::beautify($query->exportQuery()));
         $this->assertEquals([5, 6, 7, '%inv%'], $query->exportParams());
     }
 
@@ -59,16 +59,16 @@ class SQLQueryBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $query = new SQLQueryBuilder();
         $query->selectAllFrom('test1')
-                ->where(SelectionCriteria::Select([
+                ->where(SelectionCriteria::select([
                         'id' => [5, 6, 7],
                     ])->or_where('price', FieldRelation::GREATER_THAN, 1.25))
-                ->limitOffsetOrderBy(ResultModifier::Initialize([
+                ->limitOffsetOrderBy(ResultModifier::initialize([
                     'limit' => 1024,
                     'skip' => 100,
                     'name' => FieldOrdering::ASC,
                 ]));
 
-        $this->assertEquals(SQLQueryBuilder::Beautify('SELECT * FROM "test1" WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC'), SQLQueryBuilder::Beautify($query->exportQuery()));
+        $this->assertEquals(SQLQueryBuilder::beautify('SELECT * FROM "test1" WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC'), SQLQueryBuilder::beautify($query->exportQuery()));
         $this->assertEquals([5, 6, 7, 1.25], $query->exportParams());
     }
 
@@ -76,17 +76,17 @@ class SQLQueryBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $query = new SQLQueryBuilder();
         $query->selectFrom('test1', ['name', 'surname'])
-                ->where(SelectionCriteria::Select([
+                ->where(SelectionCriteria::select([
                         'id' => [5, 6, 7],
                     ])->or_where('price', FieldRelation::GREATER_THAN, 1.25))
-                ->limitOffsetOrderBy(ResultModifier::Initialize([
+                ->limitOffsetOrderBy(ResultModifier::initialize([
                     'limit' => 1024,
                     'skip' => 100,
                     'name' => FieldOrdering::ASC,
                     'surname' => FieldOrdering::DESC,
                 ]));
 
-        $this->assertEquals(SQLQueryBuilder::Beautify('SELECT name, surname FROM "test1" WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC, surname DESC'), SQLQueryBuilder::Beautify($query->exportQuery()));
+        $this->assertEquals(SQLQueryBuilder::beautify('SELECT name, surname FROM "test1" WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC, surname DESC'), SQLQueryBuilder::beautify($query->exportQuery()));
         $this->assertEquals([5, 6, 7, 1.25], $query->exportParams());
     }
 
@@ -100,7 +100,7 @@ class SQLQueryBuilderTest extends \PHPUnit_Framework_TestCase
             'time' => 56.04,
         ]);
 
-        $this->assertEquals(SQLQueryBuilder::Beautify('INSERT INTO "users" (name, surname, age, time) VALUES (?,?,?,?)'), SQLQueryBuilder::Beautify($query->exportQuery()));
+        $this->assertEquals(SQLQueryBuilder::beautify('INSERT INTO "users" (name, surname, age, time) VALUES (?,?,?,?)'), SQLQueryBuilder::beautify($query->exportQuery()));
         $this->assertEquals(['Mario', 'Rossi', 25, 56.04], $query->exportParams());
     }
 
@@ -109,16 +109,16 @@ class SQLQueryBuilderTest extends \PHPUnit_Framework_TestCase
         $query = new SQLQueryBuilder();
         $query->deleteFrom('users');
 
-        $this->assertEquals(SQLQueryBuilder::Beautify('DELETE FROM "users"'), SQLQueryBuilder::Beautify($query->exportQuery()));
+        $this->assertEquals(SQLQueryBuilder::beautify('DELETE FROM "users"'), SQLQueryBuilder::beautify($query->exportQuery()));
         $this->assertEquals([], $query->exportParams());
     }
 
     public function testUpdateSetWhere()
     {
         $query = new SQLQueryBuilder();
-        $query->update('users')->set(['name' => 'Gianni', 'surname' => 'Pinotto'])->where(SelectionCriteria::Select(['id' => 200]));
+        $query->update('users')->set(['name' => 'Gianni', 'surname' => 'Pinotto'])->where(SelectionCriteria::select(['id' => 200]));
 
-        $this->assertEquals(SQLQueryBuilder::Beautify('UPDATE "users" SET name = ?, surname = ? WHERE id = ?'), SQLQueryBuilder::Beautify($query->exportQuery()));
+        $this->assertEquals(SQLQueryBuilder::beautify('UPDATE "users" SET name = ?, surname = ? WHERE id = ?'), SQLQueryBuilder::beautify($query->exportQuery()));
         $this->assertEquals(['Gianni', 'Pinotto', 200], $query->exportParams());
     }
 }

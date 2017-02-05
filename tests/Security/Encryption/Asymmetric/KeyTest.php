@@ -134,7 +134,7 @@ cf1zSJX0I5GEo9EIBb2r7cFNdOLa02qTL/IO4a3c5NbHqmDBqyfh9lpU6Do=
     public function testKeyGeneration()
     {
         //generate a new serialized key
-        $serialized_private_key = PrivateKey::Generate();
+        $serialized_private_key = PrivateKey::generate();
 
         $this->assertEquals(true, strlen($serialized_private_key) > 1);
 

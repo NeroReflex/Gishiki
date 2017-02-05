@@ -32,7 +32,7 @@ class ResultModifierTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadInitializer()
     {
-        ResultModifier::Initialize('only array and null are allowed here!');
+        ResultModifier::initialize('only array and null are allowed here!');
     }
 
     /**
@@ -40,7 +40,7 @@ class ResultModifierTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadLimit()
     {
-        $resMod = ResultModifier::Initialize([
+        $resMod = ResultModifier::initialize([
             'limit' => 5,
             'skip' => 8,
         ])->limit('bad')->skip(5);
@@ -51,7 +51,7 @@ class ResultModifierTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadOffset()
     {
-        $resMod = ResultModifier::Initialize([
+        $resMod = ResultModifier::initialize([
             'limit' => 5,
             'skip' => 8,
         ])->limit(10)->skip('bad');
@@ -62,7 +62,7 @@ class ResultModifierTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadNameOrdering()
     {
-        $resMod = ResultModifier::Initialize([
+        $resMod = ResultModifier::initialize([
             'limit' => 5,
             'skip' => 8,
         ])->order(null, FieldOrdering::ASC);
@@ -73,7 +73,7 @@ class ResultModifierTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadOrderOrdering()
     {
-        $resMod = ResultModifier::Initialize([
+        $resMod = ResultModifier::initialize([
             'limit' => 5,
             'skip' => 8,
         ])->order('name', null);
@@ -87,7 +87,7 @@ class ResultModifierTest extends \PHPUnit_Framework_TestCase
             'order' => [],
         ];
 
-        $resMod = ResultModifier::Initialize([
+        $resMod = ResultModifier::initialize([
             'limit' => 5,
             'skip' => 8,
         ])->limit(8)->skip(5);
@@ -110,7 +110,7 @@ class ResultModifierTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $resMod = ResultModifier::Initialize([])
+        $resMod = ResultModifier::initialize([])
                 ->order('name', FieldOrdering::ASC)
                 ->order('surname', FieldOrdering::ASC)
                 ->order('year', FieldOrdering::DESC);
@@ -133,7 +133,7 @@ class ResultModifierTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $resMod = ResultModifier::Initialize([
+        $resMod = ResultModifier::initialize([
             'name' => FieldOrdering::ASC,
             'surname' => FieldOrdering::ASC,
             'year' => FieldOrdering::DESC,

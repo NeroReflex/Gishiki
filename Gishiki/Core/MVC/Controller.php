@@ -42,7 +42,7 @@ class Controller
      *
      * @throws \InvalidArgumentException the given action identifier does not identify a valid action
      */
-    public static function Execute($action, Request &$request, Response &$response, GenericCollection &$arguments)
+    public static function execute($action, Request &$request, Response &$response, GenericCollection &$arguments)
     {
         //check for bad action
         if ((!is_string($action)) || ((strpos($action, '@') === false) && (strpos($action, '->') === false))) {

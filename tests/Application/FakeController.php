@@ -32,7 +32,7 @@ class FakeController extends \Gishiki\Core\MVC\Controller
 {
     public function myAction()
     {
-        $this->Response->write('My email is: '.$this->Arguments->mail);
+        $this->response->write('My email is: '.$this->arguments->mail);
     }
 
     public static function quickAction(Request &$request, Response &$response, GenericCollection &$collection)

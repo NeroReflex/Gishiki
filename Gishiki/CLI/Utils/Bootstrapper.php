@@ -73,7 +73,7 @@ final class Bootstrapper
 
         //generate a new private key
         try {
-            if (file_put_contents('private_key.pem', PrivateKey::Generate(PrivateKey::RSA4096)) === false) {
+            if (file_put_contents('private_key.pem', PrivateKey::generate(PrivateKey::RSA4096)) === false) {
                 throw new \Exception('The application private key cannot be written');
             }
         } catch (\Gishiki\Exception $ex) {
@@ -89,7 +89,7 @@ final class Bootstrapper
                 ],
                 'security' => [
                     'serverKey' => 'file://private_key.pem',
-                    'serverPassword' => SecretKey::Generate(openssl_random_pseudo_bytes(32), 32),
+                    'serverPassword' => SecretKey::generate(openssl_random_pseudo_bytes(32), 32),
                 ],
                 'connections' => [
                     [
@@ -134,7 +134,7 @@ final class Bootstrapper
         '    $response->setSerializedBody($result);'.PHP_EOL.
         '});'.PHP_EOL.PHP_EOL.
         '//this triggers the framework execution'.PHP_EOL.
-        'Gishiki::Run();'.PHP_EOL;
+        'Gishiki::run();'.PHP_EOL;
 
         if (file_put_contents('index.php', $router_file) === false) {
             throw new \Exception('The application router file cannot be written');

@@ -35,7 +35,7 @@ class SQLiteQueryBuilderTest extends \PHPUnit_Framework_TestCase
         $query = new SQLiteQueryBuilder();
         $query->dropTable(__FUNCTION__);
 
-        $this->assertEquals(SQLiteQueryBuilder::Beautify('DROP TABLE IF EXISTS '.__FUNCTION__), SQLiteQueryBuilder::Beautify($query->exportQuery()));
+        $this->assertEquals(SQLiteQueryBuilder::beautify('DROP TABLE IF EXISTS '.__FUNCTION__), SQLiteQueryBuilder::beautify($query->exportQuery()));
     }
 
     public function testCreateTableWithNoForeignKey()
@@ -59,12 +59,12 @@ class SQLiteQueryBuilderTest extends \PHPUnit_Framework_TestCase
         $query = new SQLiteQueryBuilder();
         $query->createTable($table->getName())->definedAs($table->getColumns());
 
-        $this->assertEquals(SQLiteQueryBuilder::Beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
+        $this->assertEquals(SQLiteQueryBuilder::beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
                 .'id INT PRIMARY KEY NOT NULL, '
                 .'name TEXT NOT NULL, '
                 .'credit REAL NOT NULL, '
                 .'registered TEXT'
-                .')'), SQLiteQueryBuilder::Beautify($query->exportQuery()));
+                .')'), SQLiteQueryBuilder::beautify($query->exportQuery()));
     }
 
     public function testCreateTableWithForeignKey()
@@ -97,12 +97,12 @@ class SQLiteQueryBuilderTest extends \PHPUnit_Framework_TestCase
         $query = new SQLiteQueryBuilder();
         $query->createTable($table->getName())->definedAs($table->getColumns());
 
-        $this->assertEquals(SQLiteQueryBuilder::Beautify('CREATE TABLE IF NOT EXISTS orders ('
+        $this->assertEquals(SQLiteQueryBuilder::beautify('CREATE TABLE IF NOT EXISTS orders ('
                 .'id INT PRIMARY KEY NOT NULL, '
                 .'customer_id INT NOT NULL, '
                 .'FOREIGN KEY (customer_id) REFERENCES users(id), '
                 .'spent REAL NOT NULL, '
                 .'ship_date TEXT'
-                .')'), SQLiteQueryBuilder::Beautify($query->exportQuery()));
+                .')'), SQLiteQueryBuilder::beautify($query->exportQuery()));
     }
 }

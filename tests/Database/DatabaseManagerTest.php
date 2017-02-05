@@ -31,7 +31,7 @@ class DatabaseManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadConnectionQuery()
     {
-        DatabaseManager::Connect(3, 'unknown_db_adapter://user:pass@host:port/db');
+        DatabaseManager::connect(3, 'unknown_db_adapter://user:pass@host:port/db');
     }
 
     /**
@@ -39,7 +39,7 @@ class DatabaseManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testConnectionQuery()
     {
-        DatabaseManager::Connect('default', 'unknown_db_adapter://user:pass@host:port/db');
+        DatabaseManager::connect('default', 'unknown_db_adapter://user:pass@host:port/db');
     }
 
     /**
@@ -47,7 +47,7 @@ class DatabaseManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testVoidConnection()
     {
-        DatabaseManager::Retrieve('testing_bad_db (unconnected)');
+        DatabaseManager::retrieve('testing_bad_db (unconnected)');
     }
 
     /**
@@ -55,16 +55,16 @@ class DatabaseManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidNameConnection()
     {
-        DatabaseManager::Retrieve(3);
+        DatabaseManager::retrieve(3);
     }
 
     public function testValidConnection()
     {
         //connect an empty-memory bounded database
-        DatabaseManager::Connect('temp_db', 'sqlite://:memory:');
+        DatabaseManager::connect('temp_db', 'sqlite://:memory:');
 
         //retrieve the connected database
-        $connection = DatabaseManager::Retrieve('temp_db');
+        $connection = DatabaseManager::retrieve('temp_db');
 
         //test for a successful retrieve operation
         $this->assertEquals(true, $connection->connected());

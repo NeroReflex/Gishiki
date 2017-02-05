@@ -107,7 +107,21 @@ class SQLQueryBuilder
      */
     protected function appendToParams($newParams)
     {
-        $this->params[] = (is_array($newParams)) ? array_merge($this->params, $newParams) : $newParams;
+        //this is used to recreate an array that doesn't conflicts with the $this->params when merging them
+        if (gettype($newParams) == "array") {
+            $temp = [];
+            
+            foreach ($newParams as $currentKey => $currentValue) {
+                $temp[$currentKey + count($this->params)] = $currentValue;
+            }
+            
+            $newParams = $temp;
+        }
+        //the result will be something like:
+        // [0] => x1, [1] => x2
+        // [5] => x1, [6] => x2
+        
+        (is_array($newParams)) ? $this->params = array_merge($this->params, $newParams) : array_push($this->params, $newParams);
     }
 
     /**

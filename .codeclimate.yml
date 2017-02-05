@@ -22,6 +22,8 @@ engines:
         enabled: false
       CleanCode/StaticAccess:
         enabled: false
+      Design/TooManyPublicMethods:
+        enabled: false
     exclude_fingerprints:
     - 784c39986d25550b82c5c4a4c2ae9def
     - 19e8758306fba7a8cd0d647a7667030e

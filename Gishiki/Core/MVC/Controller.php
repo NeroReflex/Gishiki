@@ -66,23 +66,9 @@ class Controller
         $controllerName = $controller[1];
         $controllerAction = $controller[0];
 
-        //and check for a class with the given name
-        if ((!class_exists($controllerName)) && (!is_null(Environment::GetCurrentEnvironment()))) {
-            //get the name of the controller file
-            $controllerFilepath = Environment::GetCurrentEnvironment()->GetConfigurationProperty('CONTROLLER_DIR')
-                    .$controllerName.'.php';
-
-            if (!file_exists($controllerFilepath)) {
-                throw new \InvalidArgumentException('The given controller cannot be found on your application directory');
-            }
-
-            //include the controller file
-            include $controllerFilepath;
-        }
-
         //and re-check for the given controller name
         if (!class_exists($controllerName)) {
-            throw new \InvalidArgumentException('The given controller ('.$controllerName.') does NOT identify a valid controller');
+            throw new \InvalidArgumentException('The given controller ('.$controllerName.') doesn\'t identify a valid controller');
         }
 
         //reflect the given controller class
@@ -110,38 +96,38 @@ class Controller
      *
      * @var Request the request the controller must fulfill
      */
-    protected $Request;
+    protected $request;
 
     /**
      * This is the respone that will be sent back to the client from this server.
      *
      * @var Response the response the controller must generate
      */
-    protected $Response;
+    protected $response;
 
     /**
      * This is the collection of arguments passed to the URI.
      *
      * @var GenericCollection the collection of arguments passed to the URI
      */
-    protected $Arguments;
+    protected $arguments;
 
     /**
      * Create a new controller that will fulfill the given request filling the given response.
      *
-     * @param Request           $request   the request arrived from the client
-     * @param Response          $response  the response to be given to the client
-     * @param GenericCollection $arguments the collection of catched URI params
+     * @param Request           $controllerRequest   the request arrived from the client
+     * @param Response          $controllerResponse  the response to be given to the client
+     * @param GenericCollection $controllerArguments the collection of catched URI params
      */
-    public function __construct(Request &$request, Response &$response, GenericCollection &$arguments)
+    public function __construct(Request &$controllerRequest, Response &$controllerResponse, GenericCollection &$controllerArguments)
     {
         //save the request
-        $this->Request = $request;
+        $this->request = $controllerRequest;
 
         //save the response
-        $this->Response = $response;
+        $this->response = $controllerResponse;
 
         //save the arguments collection
-        $this->Arguments = $arguments;
+        $this->arguments = $controllerArguments;
     }
 }

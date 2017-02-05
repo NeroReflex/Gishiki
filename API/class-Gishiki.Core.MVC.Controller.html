@@ -210,7 +210,7 @@ client) inherits from this class</p>
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Core.MVC.Controller.html#25-147" title="Go to source code">Gishiki/Core/MVC/Controller.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Core.MVC.Controller.html#25-133" title="Go to source code">Gishiki/Core/MVC/Controller.php</a>
 		<br>
 	</div>
 
@@ -230,7 +230,7 @@ client) inherits from this class</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_Execute">#</a>
-		<code><a href="source-class-Gishiki.Core.MVC.Controller.html#35-100" title="Go to source code">Execute</a>( <span>string <var>$action</var></span>, <span><code><a href="class-Gishiki.HttpKernel.Request.html">Gishiki\HttpKernel\Request</a></code> <var>&amp; $request</var></span>, <span><code><a href="class-Gishiki.HttpKernel.Response.html">Gishiki\HttpKernel\Response</a></code> <var>&amp; $response</var></span>, <span><code><a href="class-Gishiki.Algorithms.Collections.GenericCollection.html">Gishiki\Algorithms\Collections\GenericCollection</a></code> <var>&amp; $arguments</var></span> )</code>
+		<code><a href="source-class-Gishiki.Core.MVC.Controller.html#35-86" title="Go to source code">Execute</a>( <span>string <var>$action</var></span>, <span><code><a href="class-Gishiki.HttpKernel.Request.html">Gishiki\HttpKernel\Request</a></code> <var>&amp; $request</var></span>, <span><code><a href="class-Gishiki.HttpKernel.Response.html">Gishiki\HttpKernel\Response</a></code> <var>&amp; $response</var></span>, <span><code><a href="class-Gishiki.Algorithms.Collections.GenericCollection.html">Gishiki\Algorithms\Collections\GenericCollection</a></code> <var>&amp; $arguments</var></span> )</code>
 
 		<div class="description short">
 			<p>Execute the given controller.</p>
@@ -275,7 +275,7 @@ client) inherits from this class</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.Core.MVC.Controller.html#129-146" title="Go to source code">__construct</a>( <span><code><a href="class-Gishiki.HttpKernel.Request.html">Gishiki\HttpKernel\Request</a></code> <var>&amp; $request</var></span>, <span><code><a href="class-Gishiki.HttpKernel.Response.html">Gishiki\HttpKernel\Response</a></code> <var>&amp; $response</var></span>, <span><code><a href="class-Gishiki.Algorithms.Collections.GenericCollection.html">Gishiki\Algorithms\Collections\GenericCollection</a></code> <var>&amp; $arguments</var></span> )</code>
+		<code><a href="source-class-Gishiki.Core.MVC.Controller.html#115-132" title="Go to source code">__construct</a>( <span><code><a href="class-Gishiki.HttpKernel.Request.html">Gishiki\HttpKernel\Request</a></code> <var>&amp; $controllerRequest</var></span>, <span><code><a href="class-Gishiki.HttpKernel.Response.html">Gishiki\HttpKernel\Response</a></code> <var>&amp; $controllerResponse</var></span>, <span><code><a href="class-Gishiki.Algorithms.Collections.GenericCollection.html">Gishiki\Algorithms\Collections\GenericCollection</a></code> <var>&amp; $controllerArguments</var></span> )</code>
 
 		<div class="description short">
 			<p>Create a new controller that will fulfill the given request filling the given response.</p>
@@ -287,11 +287,11 @@ client) inherits from this class</p>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$request</var></dt>
+					<dt><var>$controllerRequest</var></dt>
 					<dd>the request arrived from the client</dd>
-					<dt><var>$response</var></dt>
+					<dt><var>$controllerResponse</var></dt>
 					<dd>the response to be given to the client</dd>
-					<dt><var>$arguments</var></dt>
+					<dt><var>$controllerArguments</var></dt>
 					<dd>the collection of catched URI params</dd>
 				</dl></div>
 
@@ -317,14 +317,14 @@ client) inherits from this class</p>
 
 	<table class="summary properties" id="properties">
 	<caption>Properties summary</caption>
-	<tr data-order="Request" id="$Request">
+	<tr data-order="request" id="$request">
 		<td class="attributes"><code>
 			protected  
 			<code><a href="class-Gishiki.HttpKernel.Request.html">Gishiki\HttpKernel\Request</a></code>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.Core.MVC.Controller.html#108-113" title="Go to source code"><var>$Request</var></a>
+				<a href="source-class-Gishiki.Core.MVC.Controller.html#94-99" title="Go to source code"><var>$request</var></a>
 
 			<div class="description short">
 				<p>This is a clone of the request the client have send to this server.</p>
@@ -337,19 +337,19 @@ client) inherits from this class</p>
 		</td>
 		<td class="value">
 			<div>
-				<a href="#$Request" class="anchor">#</a>
+				<a href="#$request" class="anchor">#</a>
 				<code></code>
 			</div>
 		</td>
 	</tr>
-	<tr data-order="Response" id="$Response">
+	<tr data-order="response" id="$response">
 		<td class="attributes"><code>
 			protected  
 			<code><a href="class-Gishiki.HttpKernel.Response.html">Gishiki\HttpKernel\Response</a></code>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.Core.MVC.Controller.html#115-120" title="Go to source code"><var>$Response</var></a>
+				<a href="source-class-Gishiki.Core.MVC.Controller.html#101-106" title="Go to source code"><var>$response</var></a>
 
 			<div class="description short">
 				<p>This is the respone that will be sent back to the client from this server.</p>
@@ -362,19 +362,19 @@ client) inherits from this class</p>
 		</td>
 		<td class="value">
 			<div>
-				<a href="#$Response" class="anchor">#</a>
+				<a href="#$response" class="anchor">#</a>
 				<code></code>
 			</div>
 		</td>
 	</tr>
-	<tr data-order="Arguments" id="$Arguments">
+	<tr data-order="arguments" id="$arguments">
 		<td class="attributes"><code>
 			protected  
 			<code><a href="class-Gishiki.Algorithms.Collections.GenericCollection.html">Gishiki\Algorithms\Collections\GenericCollection</a></code>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.Core.MVC.Controller.html#122-127" title="Go to source code"><var>$Arguments</var></a>
+				<a href="source-class-Gishiki.Core.MVC.Controller.html#108-113" title="Go to source code"><var>$arguments</var></a>
 
 			<div class="description short">
 				<p>This is the collection of arguments passed to the URI.</p>
@@ -387,7 +387,7 @@ client) inherits from this class</p>
 		</td>
 		<td class="value">
 			<div>
-				<a href="#$Arguments" class="anchor">#</a>
+				<a href="#$arguments" class="anchor">#</a>
 				<code></code>
 			</div>
 		</td>

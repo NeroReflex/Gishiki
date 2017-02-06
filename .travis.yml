@@ -21,6 +21,7 @@ script:
     - phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml
     
 after_script:
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; php vendor/bin/codacycoverage clover build/logs/clover.xml ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then vendor/bin/test-reporter ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then wget http://apigen.org/apigen.phar && sudo chmod 0777 apigen.phar ;fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then sudo rm -rf vendor && php apigen.phar generate --source . --destination Documentation/docs/API --title Gishiki --charset UTF-8 --exclude tests,Gishiki/CLI/Utils --access-levels public --access-levels protected --php --tree  ;fi

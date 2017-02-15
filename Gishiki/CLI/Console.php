@@ -25,6 +25,16 @@ namespace Gishiki\CLI;
 abstract class Console
 {
     /**
+     * @var integer the color of the text, look at ConsoleTextColor
+     */
+    protected static $foregroundColor = ConsoleTextColor::off;
+    
+    /**
+     * @var integer the color of the background, look at ConsoleBackgroundColor
+     */
+    protected static $backgroundColor = ConsoleBackgroundColor::off;
+    
+    /**
      * Write to the standard output without printing a newline.
      *
      * @param mixed $what what will be printed out
@@ -52,7 +62,7 @@ abstract class Console
                 $str = ''.$what;
         }
 
-        printf($str);
+        printf("\033[" . self::$backgroundColor . "m\033[" . self::$foregroundColor . "m" . $str . "\033[0m");
     }
 
     /**
@@ -66,5 +76,37 @@ abstract class Console
 
         //print the newline
         self::write("\n");
+    }
+    
+    /**
+     * Change the text color/style of the console.
+     * Look at the class ConsoleTextColor for a list ov available colors.
+     *
+     * @param integer $color the console color code to be used
+     */
+    public static function setForegroundColor($color)
+    {
+        self::$foregroundColor = $color;
+    }
+    
+    /**
+     * Change the background color of the console.
+     * Look at the class ConsoleBackgroundColor for a list ov available colors.
+     * 
+     * @param integer $color the console color code to be used
+     */
+    public static function setBackgroundColor($color)
+    {
+        self::$backgroundColor = $color;    
+    }
+    
+    /**
+     * Reset the foreground and background colors
+     * of the console to default values.
+     */
+    public static function resetColors()
+    {
+        self::$foregroundColor = self::setForegroundColor(ConsoleTextColor::off);
+        self::$backgroundColor = self::setBackgroundColor(ConsoleBackgroundColor::off);
     }
 }

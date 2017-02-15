@@ -8,7 +8,7 @@ Installation depends on your system, so read the PHP manual (or google for instr
 You will be provided with Ubuntu 16.04 instructions:
 
 ```shell
-sudo apt-get install nginx php7.0 php7.0-dev php7.0-xml php7.0-fpm php7.0-mysql php7.0-sqlite php7.0-pgsql php7.0-curl
+sudo apt-get install nginx php7.0 php7.0-dev php7.0-mbstring php7.0-xml php7.0-fpm php7.0-mysql php7.0-sqlite php7.0-pgsql php7.0-curl
 ```
 
 When you are done with the configuration file (/etc/nginx/sites-enabled/default), 

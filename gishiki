@@ -34,9 +34,14 @@ else
 use Gishiki\Gishiki;
 use Gishiki\Core\Environment;
 use Gishiki\CLI\Console;
+use Gishiki\CLI\ConsoleBackgroundColor;
+use Gishiki\CLI\ConsoleTextColor;
 
 //initialize the framework
 Gishiki::initialize();
+
+Console::resetColors();
+Console::writeLine("");
 
 if ($argc > 1) {
     switch ($argv[1]) {
@@ -47,42 +52,67 @@ if ($argc > 1) {
                 if (strcmp($argv[2], "application") == 0) {
                     try {
                         $bootstrap->application();
+                        Console::setForegroundColor(ConsoleTextColor::green);
+                        Console::setBackgroundColor(ConsoleBackgroundColor::white);
                         Console::writeLine("The new application has been created");
                     } catch (\Exception $ex) {
+                        Console::setForegroundColor(ConsoleTextColor::red);
+                        Console::setBackgroundColor(ConsoleBackgroundColor::white);
                         Console::writeLine($ex->getMessage());
                     }
                 } elseif (strcmp($argv[2], "controller") == 0) {
                     if (($argc > 3) && (Environment::applicationExists())) {
                         try {
                             $bootstrap->controller($argv[3]);
+                            Console::setForegroundColor(ConsoleTextColor::green);
+                            Console::setBackgroundColor(ConsoleBackgroundColor::white);
                             Console::writeLine("The new controller has been created, remember to run 'composer update --no-dev' when you're done adding controllers");
                         } catch (\Exception $ex) {
+                            Console::setForegroundColor(ConsoleTextColor::red);
+                            Console::setBackgroundColor(ConsoleBackgroundColor::white);
                             Console::writeLine($ex->getMessage());
                         }
                     } elseif ($argc <= 3) {
+                        Console::setForegroundColor(ConsoleTextColor::red);
+                        Console::setBackgroundColor(ConsoleBackgroundColor::white);
                         Console::writeLine("Missing controller name");
                     } else {
+                        Console::setForegroundColor(ConsoleTextColor::red);
+                        Console::setBackgroundColor(ConsoleBackgroundColor::white);
                         Console::writeLine("You have to create an application before creating a controller");
                     }
                 } else {
+                    Console::setForegroundColor(ConsoleTextColor::red);
+                    Console::setBackgroundColor(ConsoleBackgroundColor::white);
                     Console::writeLine("Invalid parameter after new");
                 }
             } else {
+                Console::setForegroundColor(ConsoleTextColor::red);
+                Console::setBackgroundColor(ConsoleBackgroundColor::white);
                 Console::writeLine("new what?");
             }
             
             break;
             
         case 'help':
+            Console::setForegroundColor(ConsoleTextColor::black);
+            Console::setBackgroundColor(ConsoleBackgroundColor::white);
             Console::writeLine("The following is a list of arguments that can be passed to the gishiki CLI");
             Console::writeLine("");
             Console::writeLine("new application: generate an empty application");
             break;
             
         default:
+            Console::setForegroundColor(ConsoleTextColor::red);
+            Console::setBackgroundColor(ConsoleBackgroundColor::white);
             Console::writeLine("invalid command: use gishiki help for a list of available commands");
             break;
     }
 } else {
+    Console::setForegroundColor(ConsoleTextColor::blue);
+    Console::setBackgroundColor(ConsoleBackgroundColor::white);
     Console::writeLine("use gishiki help for a list of available commands");
 }
+
+Console::resetColors();
+Console::writeLine("");

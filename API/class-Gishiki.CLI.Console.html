@@ -143,6 +143,8 @@
 			<h3>Classes</h3>
 			<ul>
 				<li class="active"><a href="class-Gishiki.CLI.Console.html">Console</a></li>
+				<li><a href="class-Gishiki.CLI.ConsoleBackgroundColor.html">ConsoleBackgroundColor</a></li>
+				<li><a href="class-Gishiki.CLI.ConsoleTextColor.html">ConsoleTextColor</a></li>
 			</ul>
 
 
@@ -207,7 +209,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.CLI.Console.html#20-70" title="Go to source code">Gishiki/CLI/Console.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.CLI.Console.html#20-112" title="Go to source code">Gishiki/CLI/Console.php</a>
 		<br>
 	</div>
 
@@ -227,7 +229,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_write">#</a>
-		<code><a href="source-class-Gishiki.CLI.Console.html#27-56" title="Go to source code">write</a>( <span>mixed <var>$what</var></span> )</code>
+		<code><a href="source-class-Gishiki.CLI.Console.html#37-66" title="Go to source code">write</a>( <span>mixed <var>$what</var></span> )</code>
 
 		<div class="description short">
 			<p>Write to the standard output without printing a newline.</p>
@@ -262,7 +264,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_writeLine">#</a>
-		<code><a href="source-class-Gishiki.CLI.Console.html#58-69" title="Go to source code">writeLine</a>( <span>mixed <var>$what</var></span> )</code>
+		<code><a href="source-class-Gishiki.CLI.Console.html#68-79" title="Go to source code">writeLine</a>( <span>mixed <var>$what</var></span> )</code>
 
 		<div class="description short">
 			<p>Write to the standard output printing a newline afterward.</p>
@@ -285,6 +287,112 @@
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="setForegroundColor" id="_setForegroundColor">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setForegroundColor">#</a>
+		<code><a href="source-class-Gishiki.CLI.Console.html#81-90" title="Go to source code">setForegroundColor</a>( <span>integer <var>$color</var></span> )</code>
+
+		<div class="description short">
+			<p>Change the text color/style of the console.
+Look at the class ConsoleTextColor for a list ov available colors.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Change the text color/style of the console.
+Look at the class ConsoleTextColor for a list ov available colors.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$color</var></dt>
+					<dd>the console color code to be used</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setBackgroundColor" id="_setBackgroundColor">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setBackgroundColor">#</a>
+		<code><a href="source-class-Gishiki.CLI.Console.html#92-101" title="Go to source code">setBackgroundColor</a>( <span>integer <var>$color</var></span> )</code>
+
+		<div class="description short">
+			<p>Change the background color of the console.
+Look at the class ConsoleBackgroundColor for a list ov available colors.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Change the background color of the console.
+Look at the class ConsoleBackgroundColor for a list ov available colors.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$color</var></dt>
+					<dd>the console color code to be used</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="resetColors" id="_resetColors">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_resetColors">#</a>
+		<code><a href="source-class-Gishiki.CLI.Console.html#103-111" title="Go to source code">resetColors</a>( )</code>
+
+		<div class="description short">
+			<p>Reset the foreground and background colors
+of the console to default values.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Reset the foreground and background colors
+of the console to default values.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	</table>
 
 
@@ -298,6 +406,59 @@
 
 
 
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="foregroundColor" id="$foregroundColor">
+		<td class="attributes"><code>
+			protected static 
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.CLI.Console.html#27-30" title="Go to source code"><var>$foregroundColor</var></a>
+
+			<div class="description short">
+				<p>the color of the text, look at ConsoleTextColor</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>the color of the text, look at ConsoleTextColor</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$foregroundColor" class="anchor">#</a>
+				<code><code><a href="class-Gishiki.CLI.ConsoleTextColor.html#off">Gishiki\CLI\ConsoleTextColor::<b>off</b></a></code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="backgroundColor" id="$backgroundColor">
+		<td class="attributes"><code>
+			protected static 
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.CLI.Console.html#32-35" title="Go to source code"><var>$backgroundColor</var></a>
+
+			<div class="description short">
+				<p>the color of the background, look at ConsoleBackgroundColor</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>the color of the background, look at ConsoleBackgroundColor</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$backgroundColor" class="anchor">#</a>
+				<code><code><a href="class-Gishiki.CLI.ConsoleBackgroundColor.html#off">Gishiki\CLI\ConsoleBackgroundColor::<b>off</b></a></code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 
 

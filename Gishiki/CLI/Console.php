@@ -25,15 +25,40 @@ namespace Gishiki\CLI;
 abstract class Console
 {
     /**
-     * @var integer the color of the text, look at ConsoleTextColor
+     * @var int the color of the text, look at ConsoleColor
      */
-    protected static $foregroundColor = ConsoleTextColor::off;
-    
+    protected static $foregroundColor = ConsoleColor::OFF;
+
     /**
-     * @var integer the color of the background, look at ConsoleBackgroundColor
+     * @var int the color of the background, look at ConsoleColor
      */
-    protected static $backgroundColor = ConsoleBackgroundColor::off;
-    
+    protected static $backgroundColor = ConsoleColor::OFF;
+
+    /**
+     * @var bool TRUE only if colors have to be enabled
+     */
+    protected static $enableColors = false;
+
+    /**
+     * Enable or disable colors support.
+     *
+     * @param bool $enable TRUE enable colors, FALSE disable them
+     */
+    public static function colorsEnable($enable)
+    {
+        $this->enableColors = boolval($enable);
+    }
+
+    /**
+     * Check whether colors support is enabled.
+     *
+     * @return bool TRUE with colors enabled, FALSE otherwise
+     */
+    public static function colorsEnabled()
+    {
+        return $this->enableColors;
+    }
+
     /**
      * Write to the standard output without printing a newline.
      *
@@ -62,7 +87,33 @@ abstract class Console
                 $str = ''.$what;
         }
 
-        printf("\033[" . self::$backgroundColor . "m\033[" . self::$foregroundColor . "m" . $str . "\033[0m");
+        //do not paint newlines
+        $lines = explode("\n", $str);
+
+        for ($lineIndex = 0; $lineIndex < count($lines); ++$lineIndex) {
+            //color the text if necessary
+            if ($this->colorsEnabled()) {
+                printf("\033[".self::$backgroundColor."m\033[".self::$foregroundColor.'m');
+            }
+
+            //write the plain-text string
+            printf($lines[$lineIndex]);
+
+            //color the text if necessary
+            if ($this->colorsEnabled()) {
+                printf("\033[0m");
+            }
+
+            //print the newline without colors
+            if ($lineIndex != count($lines) - 1) {
+                printf("\n");
+            }
+        }
+
+        //if the given string ended with a newline just print it
+        if (substr($str, -1)) {
+            printf("\n");
+        }
     }
 
     /**
@@ -74,39 +125,50 @@ abstract class Console
     {
         self::write($what);
 
-        //print the newline
         self::write("\n");
     }
-    
+
     /**
      * Change the text color/style of the console.
-     * Look at the class ConsoleTextColor for a list ov available colors.
+     * Look at the class ConsoleColor for a list ov available colors.
      *
-     * @param integer $color the console color code to be used
+     * @param int $color the console color code to be used
+     *
+     * @throws \InvalidArgumentException the given color is not valid
      */
     public static function setForegroundColor($color)
     {
+        if ((!is_int($color)) || (($color != ConsoleColor::OFF) && (($color < 1) || ($color > 8)) && (($color < 30) || ($color > 37)))) {
+            throw new \InvalidArgumentException('Invalid text color');
+        }
+
         self::$foregroundColor = $color;
     }
-    
+
     /**
      * Change the background color of the console.
-     * Look at the class ConsoleBackgroundColor for a list ov available colors.
-     * 
-     * @param integer $color the console color code to be used
+     * Look at the class ConsoleColor for a list ov available colors.
+     *
+     * @param int $color the console color code to be used
+     *
+     * @throws \InvalidArgumentException the given color is not valid
      */
     public static function setBackgroundColor($color)
     {
-        self::$backgroundColor = $color;    
+        if ((!is_int($color)) || (($color != ConsoleColor::OFF) && (($color < 40) || ($color > 47)))) {
+            throw new \InvalidArgumentException('Invalid text color');
+        }
+
+        self::$backgroundColor = $color;
     }
-    
+
     /**
      * Reset the foreground and background colors
      * of the console to default values.
      */
     public static function resetColors()
     {
-        self::$foregroundColor = self::setForegroundColor(ConsoleTextColor::off);
-        self::$backgroundColor = self::setBackgroundColor(ConsoleBackgroundColor::off);
+        self::$foregroundColor = self::setForegroundColor(ConsoleColor::OFF);
+        self::$backgroundColor = self::setBackgroundColor(ConsoleColor::OFF);
     }
 }

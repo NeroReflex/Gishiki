@@ -18,19 +18,36 @@ limitations under the License.
 namespace Gishiki\CLI;
 
 /**
- * The collection of console background colors.
+ * The collection of console text colors.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-abstract class ConsoleBackgroundColor {
-    const off     = 0;
-    
-    const black   = 40;
-    const red     = 41;
-    const green   = 42;
-    const yellow  = 43;
-    const blue    = 44;
-    const magenta = 45;
-    const cyan    = 46;
-    const white   = 47;
+abstract class ConsoleColor
+{
+    const OFF = 0;
+
+    const TEXT_BOLD = 1;
+    const TEXT_ITALIC = 3;
+    const TEXT_UNDERLINE = 4;
+    const TEXT_BLINK = 5;
+    const TEXT_INVERSE = 7;
+    const TEXT_HIDDEN = 8;
+
+    const TEXT_BLACK = 30;
+    const TEXT_RED = 31;
+    const TEXT_GREEN = 32;
+    const TEXT_YELLOW = 33;
+    const TEXT_BLUE = 34;
+    const TEXT_MAGENTA = 35;
+    const TEXT_CYAN = 36;
+    const TEXT_WHITE = 37;
+
+    const BACKGROUND_BLACK = 40;
+    const BACKGROUND_RED = 41;
+    const BACKGROUND_GREEN = 42;
+    const BACKGROUND_YELLOW = 43;
+    const BACKGROUND_BLUE = 44;
+    const BACKGROUND_MAGENTA = 45;
+    const BACKGROUND_CYAN = 46;
+    const BACKGROUND_WHITE = 47;
 }

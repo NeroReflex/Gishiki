@@ -26,8 +26,10 @@ use Gishiki\CLI\Console;
  */
 class ConsoleTest extends \PHPUnit_Framework_TestCase
 {
-    public function testWriteBooleanFalse()
+    public function testUncoloredWriteBooleanFalse()
     {
+        Console::enableColors(false);
+
         ob_start();
 
         Console::write(false);
@@ -35,8 +37,10 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('false', ob_get_clean());
     }
 
-    public function testWriteBooleanTrue()
+    public function testUncoloredWriteBooleanTrue()
     {
+        Console::enableColors(false);
+
         ob_start();
 
         Console::write(true);
@@ -44,8 +48,10 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('true', ob_get_clean());
     }
 
-    public function testWriteNull()
+    public function testUncoloredWriteNull()
     {
+        Console::enableColors(false);
+
         ob_start();
 
         Console::write(null);
@@ -53,8 +59,10 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('null', ob_get_clean());
     }
 
-    public function testWriteArray()
+    public function testUncoloredWriteArray()
     {
+        Console::enableColors(false);
+
         $arr = ['Hello, ', 'World!', "It's ", time(), ' Already'];
 
         ob_start();
@@ -64,12 +72,26 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(implode('', $arr), ob_get_clean());
     }
 
-    public function testWriteLine()
+    public function testUncoloredWriteLine()
     {
+        Console::enableColors(false);
+
         ob_start();
 
         Console::writeLine('The sum is'.': '.(50 + 3));
 
         $this->assertEquals("The sum is: 53\n", ob_get_clean());
+    }
+
+    public function testColorsSupportChange()
+    {
+        Console::colorsEnable(false);
+        $this->assertEquals(false, Console::colorsEnabled());
+
+        Console::colorsEnable(true);
+        $this->assertEquals(true, Console::colorsEnabled());
+
+        Console::colorsEnable(false);
+        $this->assertEquals(false, Console::colorsEnabled());
     }
 }

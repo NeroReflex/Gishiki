@@ -108,19 +108,19 @@ class SQLQueryBuilder
     protected function appendToParams($newParams)
     {
         //this is used to recreate an array that doesn't conflicts with the $this->params when merging them
-        if (gettype($newParams) == "array") {
+        if (gettype($newParams) == 'array') {
             $temp = [];
-            
+
             foreach ($newParams as $currentKey => $currentValue) {
                 $temp[$currentKey + count($this->params)] = $currentValue;
             }
-            
+
             $newParams = $temp;
         }
         //the result will be something like:
         // [0] => x1, [1] => x2
         // [5] => x1, [6] => x2
-        
+
         (is_array($newParams)) ? $this->params = array_merge($this->params, $newParams) : array_push($this->params, $newParams);
     }
 
@@ -204,7 +204,7 @@ class SQLQueryBuilder
                 //default is an OR
                 $conjunction = (!$first) ? ' OR ' : ' ';
                 $arrayConjunction = 'or';
-                
+
                 //change to AND where necessary
                 if (($current & (SelectionCriteria::AND_Historic_Marker)) != 0) {
                     $conjunction = (!$first) ? ' AND ' : ' ';

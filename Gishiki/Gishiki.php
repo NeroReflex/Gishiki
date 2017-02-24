@@ -54,11 +54,10 @@ abstract class Gishiki
 
         //get the root path
         $documentRoot = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
-        
+
         (strlen($documentRoot) > 0) ?
             define('ROOT', filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').DS) :
             define('ROOT', getcwd().DS);
-        
 
         //the name of the directory that contains model, view and controller (must be placed in the root)
         if (!defined('APPLICATION_DIR')) {
@@ -93,7 +92,7 @@ abstract class Gishiki
             //show the no application page!
             echo file_get_contents(__DIR__.DS.'no_application.html');
         }
-        
+
         //the framework execution is complete
         self::$executed = true;
     }

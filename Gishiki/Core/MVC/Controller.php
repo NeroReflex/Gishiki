@@ -17,7 +17,6 @@ limitations under the License.
 
 namespace Gishiki\Core\MVC;
 
-use Gishiki\Core\Environment;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\GenericCollection;

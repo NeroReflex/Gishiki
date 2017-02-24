@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Gishiki\n\n\nGishiki\n: a modern and elegant MVC framework for PHP \n= 5.5 and HHVM.\n\n\nGishiki means 'ritual' in japanese, this name was chosen because this framework will help you to perform the\nritual of creation and deployment of web digital contents.\n\n\nDue to its design this framework won't force you to use its features: you are completely free of using it as you wish,\neven if that breaks up MVC principles and/or uses a custom ORM.\n\n\nGishiki is so fast to deploy that you don't even need to configure it to get started!\n\n\nGive it a shot!\n\n\nYou want to try it, just to see if it really works, don't you?\n\n\nWell, to test it you need to \ninstall\n it!\n\n\nLicense\n\n\nGishiki is released under Apache-2.0 license terms, read the \nLICENSE\n to find out more!", 
+            "text": "Gishiki\n\n\nGishiki\n: a modern and elegant MVC framework for PHP 7 and later versions.\n\n\nGishiki means 'ritual' in japanese, this name was chosen because this framework will help you to perform the\nritual of creation and deployment of web digital contents.\n\n\nDue to its design this framework won't force you to use its features: you are completely free of using it as you wish,\neven if that breaks up MVC principles and/or uses a custom ORM.\n\n\nGishiki is so fast to deploy that you don't even need to configure it to get started!\n\n\nGive it a shot!\n\n\nYou want to try it, just to see if it really works, don't you?\n\n\nWell, to test it you need to \ninstall\n it!\n\n\nLicense\n\n\nGishiki is released under Apache-2.0 license terms, read the \nLICENSE\n to find out more!", 
             "title": "Home"
         }, 
         {
             "location": "/#gishiki", 
-            "text": "Gishiki : a modern and elegant MVC framework for PHP  = 5.5 and HHVM.  Gishiki means 'ritual' in japanese, this name was chosen because this framework will help you to perform the\nritual of creation and deployment of web digital contents.  Due to its design this framework won't force you to use its features: you are completely free of using it as you wish,\neven if that breaks up MVC principles and/or uses a custom ORM.  Gishiki is so fast to deploy that you don't even need to configure it to get started!", 
+            "text": "Gishiki : a modern and elegant MVC framework for PHP 7 and later versions.  Gishiki means 'ritual' in japanese, this name was chosen because this framework will help you to perform the\nritual of creation and deployment of web digital contents.  Due to its design this framework won't force you to use its features: you are completely free of using it as you wish,\neven if that breaks up MVC principles and/or uses a custom ORM.  Gishiki is so fast to deploy that you don't even need to configure it to get started!", 
             "title": "Gishiki"
         }, 
         {

@@ -143,8 +143,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li class="active"><a href="class-Gishiki.CLI.Console.html">Console</a></li>
-				<li><a href="class-Gishiki.CLI.ConsoleBackgroundColor.html">ConsoleBackgroundColor</a></li>
-				<li><a href="class-Gishiki.CLI.ConsoleTextColor.html">ConsoleTextColor</a></li>
+				<li><a href="class-Gishiki.CLI.ConsoleColor.html">ConsoleColor</a></li>
 			</ul>
 
 
@@ -209,7 +208,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.CLI.Console.html#20-112" title="Go to source code">Gishiki/CLI/Console.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.CLI.Console.html#20-174" title="Go to source code">Gishiki/CLI/Console.php</a>
 		<br>
 	</div>
 
@@ -217,6 +216,75 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
+	<tr data-order="colorsEnable" id="_colorsEnable">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_colorsEnable">#</a>
+		<code><a href="source-class-Gishiki.CLI.Console.html#42-50" title="Go to source code">colorsEnable</a>( <span>boolean <var>$enable</var></span> )</code>
+
+		<div class="description short">
+			<p>Enable or disable colors support.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Enable or disable colors support.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$enable</var></dt>
+					<dd>TRUE enable colors, FALSE disable them</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="colorsEnabled" id="_colorsEnabled">
+
+		<td class="attributes"><code>
+			 public static
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_colorsEnabled">#</a>
+		<code><a href="source-class-Gishiki.CLI.Console.html#52-60" title="Go to source code">colorsEnabled</a>( )</code>
+
+		<div class="description short">
+			<p>Check whether colors support is enabled.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Check whether colors support is enabled.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>TRUE with colors enabled, FALSE otherwise
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="write" id="_write">
 
 		<td class="attributes"><code>
@@ -229,7 +297,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_write">#</a>
-		<code><a href="source-class-Gishiki.CLI.Console.html#37-66" title="Go to source code">write</a>( <span>mixed <var>$what</var></span> )</code>
+		<code><a href="source-class-Gishiki.CLI.Console.html#62-117" title="Go to source code">write</a>( <span>mixed <var>$what</var></span> )</code>
 
 		<div class="description short">
 			<p>Write to the standard output without printing a newline.</p>
@@ -264,7 +332,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_writeLine">#</a>
-		<code><a href="source-class-Gishiki.CLI.Console.html#68-79" title="Go to source code">writeLine</a>( <span>mixed <var>$what</var></span> )</code>
+		<code><a href="source-class-Gishiki.CLI.Console.html#119-129" title="Go to source code">writeLine</a>( <span>mixed <var>$what</var></span> )</code>
 
 		<div class="description short">
 			<p>Write to the standard output printing a newline afterward.</p>
@@ -299,16 +367,16 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setForegroundColor">#</a>
-		<code><a href="source-class-Gishiki.CLI.Console.html#81-90" title="Go to source code">setForegroundColor</a>( <span>integer <var>$color</var></span> )</code>
+		<code><a href="source-class-Gishiki.CLI.Console.html#131-146" title="Go to source code">setForegroundColor</a>( <span>integer <var>$color</var></span> )</code>
 
 		<div class="description short">
 			<p>Change the text color/style of the console.
-Look at the class ConsoleTextColor for a list ov available colors.</p>
+Look at the class ConsoleColor for a list ov available colors.</p>
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Change the text color/style of the console.
-Look at the class ConsoleTextColor for a list ov available colors.</p>
+Look at the class ConsoleColor for a list ov available colors.</p>
 
 
 				<h4>Parameters</h4>
@@ -318,6 +386,10 @@ Look at the class ConsoleTextColor for a list ov available colors.</p>
 				</dl></div>
 
 
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>the given color is not valid
+				</div>
 
 
 
@@ -336,16 +408,16 @@ Look at the class ConsoleTextColor for a list ov available colors.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setBackgroundColor">#</a>
-		<code><a href="source-class-Gishiki.CLI.Console.html#92-101" title="Go to source code">setBackgroundColor</a>( <span>integer <var>$color</var></span> )</code>
+		<code><a href="source-class-Gishiki.CLI.Console.html#148-163" title="Go to source code">setBackgroundColor</a>( <span>integer <var>$color</var></span> )</code>
 
 		<div class="description short">
 			<p>Change the background color of the console.
-Look at the class ConsoleBackgroundColor for a list ov available colors.</p>
+Look at the class ConsoleColor for a list ov available colors.</p>
 		</div>
 
 		<div class="description detailed hidden">
 			<p>Change the background color of the console.
-Look at the class ConsoleBackgroundColor for a list ov available colors.</p>
+Look at the class ConsoleColor for a list ov available colors.</p>
 
 
 				<h4>Parameters</h4>
@@ -355,6 +427,10 @@ Look at the class ConsoleBackgroundColor for a list ov available colors.</p>
 				</dl></div>
 
 
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>the given color is not valid
+				</div>
 
 
 
@@ -373,7 +449,7 @@ Look at the class ConsoleBackgroundColor for a list ov available colors.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_resetColors">#</a>
-		<code><a href="source-class-Gishiki.CLI.Console.html#103-111" title="Go to source code">resetColors</a>( )</code>
+		<code><a href="source-class-Gishiki.CLI.Console.html#165-173" title="Go to source code">resetColors</a>( )</code>
 
 		<div class="description short">
 			<p>Reset the foreground and background colors
@@ -418,18 +494,18 @@ of the console to default values.</p>
 				<a href="source-class-Gishiki.CLI.Console.html#27-30" title="Go to source code"><var>$foregroundColor</var></a>
 
 			<div class="description short">
-				<p>the color of the text, look at ConsoleTextColor</p>
+				<p>the color of the text, look at ConsoleColor</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>the color of the text, look at ConsoleTextColor</p>
+				<p>the color of the text, look at ConsoleColor</p>
 
 			</div>
 		</td>
 		<td class="value">
 			<div>
 				<a href="#$foregroundColor" class="anchor">#</a>
-				<code><code><a href="class-Gishiki.CLI.ConsoleTextColor.html#off">Gishiki\CLI\ConsoleTextColor::<b>off</b></a></code></code>
+				<code><code><a href="class-Gishiki.CLI.ConsoleColor.html#OFF">Gishiki\CLI\ConsoleColor::<b>OFF</b></a></code></code>
 			</div>
 		</td>
 	</tr>
@@ -443,18 +519,43 @@ of the console to default values.</p>
 				<a href="source-class-Gishiki.CLI.Console.html#32-35" title="Go to source code"><var>$backgroundColor</var></a>
 
 			<div class="description short">
-				<p>the color of the background, look at ConsoleBackgroundColor</p>
+				<p>the color of the background, look at ConsoleColor</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>the color of the background, look at ConsoleBackgroundColor</p>
+				<p>the color of the background, look at ConsoleColor</p>
 
 			</div>
 		</td>
 		<td class="value">
 			<div>
 				<a href="#$backgroundColor" class="anchor">#</a>
-				<code><code><a href="class-Gishiki.CLI.ConsoleBackgroundColor.html#off">Gishiki\CLI\ConsoleBackgroundColor::<b>off</b></a></code></code>
+				<code><code><a href="class-Gishiki.CLI.ConsoleColor.html#OFF">Gishiki\CLI\ConsoleColor::<b>OFF</b></a></code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="enableColors" id="$enableColors">
+		<td class="attributes"><code>
+			protected static 
+			boolean
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.CLI.Console.html#37-40" title="Go to source code"><var>$enableColors</var></a>
+
+			<div class="description short">
+				<p>TRUE only if colors have to be enabled</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>TRUE only if colors have to be enabled</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$enableColors" class="anchor">#</a>
+				<code><span class="php-keyword1">false</span></code>
 			</div>
 		</td>
 	</tr>

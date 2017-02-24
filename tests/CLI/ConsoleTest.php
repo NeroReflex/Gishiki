@@ -28,7 +28,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 {
     public function testUncoloredWriteBooleanFalse()
     {
-        Console::enableColors(false);
+        Console::colorsEnable(false);
 
         ob_start();
 
@@ -39,7 +39,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 
     public function testUncoloredWriteBooleanTrue()
     {
-        Console::enableColors(false);
+        Console::colorsEnable(false);
 
         ob_start();
 
@@ -50,7 +50,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 
     public function testUncoloredWriteNull()
     {
-        Console::enableColors(false);
+        Console::colorsEnable(false);
 
         ob_start();
 
@@ -61,7 +61,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 
     public function testUncoloredWriteArray()
     {
-        Console::enableColors(false);
+        Console::colorsEnable(false);
 
         $arr = ['Hello, ', 'World!', "It's ", time(), ' Already'];
 
@@ -74,7 +74,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 
     public function testUncoloredWriteLine()
     {
-        Console::enableColors(false);
+        Console::colorsEnable(false);
 
         ob_start();
 

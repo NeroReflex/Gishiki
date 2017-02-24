@@ -10,13 +10,15 @@
 
 namespace Gishiki\tests\Http;
 
+use PHPUnit\Framework\TestCase;
+
 use ReflectionProperty;
 use Gishiki\HttpKernel\Body;
 use Gishiki\HttpKernel\Headers;
 use Gishiki\HttpKernel\Response;
 use Gishiki\Algorithms\Collections\SerializableCollection;
 
-class ResponseTest extends \PHPUnit_Framework_TestCase
+class ResponseTest extends TestCase
 {
     /*******************************************************************************
      * Create
@@ -85,21 +87,18 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEquals(302, 'status', $clone);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testWithStatusInvalidStatusCodeThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         $response = new Response();
         $response->withStatus(800);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage ReasonPhrase must be a string
-     */
     public function testWithStatusInvalidReasonPhraseThrowsException()
     {
+        $this->expectExceptionMessage("ReasonPhrase must be a string");
+        
         $response = new Response();
         $response->withStatus(200, null);
     }
@@ -124,12 +123,10 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Not Found', $response->getReasonPhrase());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage ReasonPhrase must be supplied for this code
-     */
     public function testMustSetReasonPhraseForUnrecognisedCode()
     {
+        $this->expectExceptionMessage("ReasonPhrase must be supplied for this code");
+        
         $response = new Response();
         $response = $response->withStatus(499);
     }

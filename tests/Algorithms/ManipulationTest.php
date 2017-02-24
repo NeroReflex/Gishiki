@@ -17,9 +17,11 @@ limitations under the License.
 
 namespace Gishiki\tests\Algorithms;
 
+use PHPUnit\Framework\TestCase;
+
 use Gishiki\Algorithms\Manipulation;
 
-class ManipulationTest extends \PHPUnit_Framework_TestCase
+class ManipulationTest extends TestCase
 {
     public function testInterpolation()
     {

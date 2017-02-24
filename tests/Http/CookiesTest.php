@@ -10,10 +10,12 @@
 
 namespace Gishiki\tests\Http;
 
+use PHPUnit\Framework\TestCase;
+
 use ReflectionProperty;
 use Gishiki\HttpKernel\Cookies;
 
-class CookiesTest extends \PHPUnit_Framework_TestCase
+class CookiesTest extends TestCase
 {
     public function testSetDefaults()
     {

@@ -10,9 +10,11 @@
 
 namespace Gishiki\tests\Http;
 
+use PHPUnit\Framework\TestCase;
+
 use Gishiki\Core\Environment;
 
-class EnvironmentTest extends \PHPUnit_Framework_TestCase
+class EnvironmentTest extends TestCase
 {
     /**
      * Server settings for the default HTTP request

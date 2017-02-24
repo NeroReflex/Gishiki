@@ -15,23 +15,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
+namespace Gishiki\tests\Database\Schema;
+
+use PHPUnit\Framework\TestCase;
+
 use Gishiki\Database\Schema\Column;
 use Gishiki\Database\Schema\ColumnRelation;
 use Gishiki\Database\Schema\ColumnType;
 use Gishiki\Database\Schema\Table;
+use Gishiki\Database\DatabaseException;
 
 /**
  * The tester for the Table class.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class TableTest extends \PHPUnit_Framework_TestCase
+class TableTest extends TestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testTableBadName()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $table = new Table('');
     }
 
@@ -42,11 +45,10 @@ class TableTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(__FUNCTION__, $table->getName());
     }
 
-    /**
-     * @expectedException \Gishiki\Database\DatabaseException
-     */
     public function testTableDuplicateColumns()
     {
+        $this->expectException(DatabaseException::class);
+        
         $table = new Table(__FUNCTION__);
 
         $columnOne = new Column('id', ColumnType::INTEGER);

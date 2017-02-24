@@ -17,10 +17,14 @@ limitations under the License.
 
 namespace Gishiki\tests\Algorithms\Collections;
 
+use PHPUnit\Framework\TestCase;
+
+use Gishiki\Algorithms\Collections\DeserializationException;
+use Gishiki\Algorithms\Collections\SerializationException;
 use Gishiki\Algorithms\Collections\SerializableCollection;
 use Gishiki\Algorithms\Collections\GenericCollection;
 
-class SerializationCollectionTest extends \PHPUnit_Framework_TestCase
+class SerializationCollectionTest extends TestCase
 {
     public function testCollectionDeserialization()
     {
@@ -245,43 +249,33 @@ EOD;
         $this->assertEquals($collection->all(), (new SerializableCollection($collection))->all());
     }
 
-    /**
-     * @expectedException \Gishiki\Algorithms\Collections\DeserializationException
-     */
     public function testNotStringJsonDeserialization()
     {
+        $this->expectException(DeserializationException::class);
         SerializableCollection::deserialize(9.70, SerializableCollection::JSON);
     }
 
-    /**
-     * @expectedException \Gishiki\Algorithms\Collections\DeserializationException
-     */
     public function testNotStringXmlDeserialization()
     {
+        $this->expectException(DeserializationException::class);
         SerializableCollection::deserialize(new \stdClass(), SerializableCollection::XML);
     }
 
-    /**
-     * @expectedException \Gishiki\Algorithms\Collections\DeserializationException
-     */
     public function testNotStringYamlDeserialization()
     {
+        $this->expectException(DeserializationException::class);
         SerializableCollection::deserialize(false, SerializableCollection::YAML);
     }
 
-    /**
-     * @expectedException \Gishiki\Algorithms\Collections\DeserializationException
-     */
     public function testBadDeserializator()
     {
+        $this->expectException(DeserializationException::class);
         SerializableCollection::deserialize('{---', 'this cannot be a valid deserializator!');
     }
 
-    /**
-     * @expectedException \Gishiki\Algorithms\Collections\DeserializationException
-     */
     public function testBadYamlDeserialization()
     {
+        $this->expectException(DeserializationException::class);
         $badYaml =
 'x
 language:';
@@ -289,11 +283,9 @@ language:';
         SerializableCollection::deserialize($badYaml, SerializableCollection::YAML);
     }
 
-    /**
-     * @expectedException \Gishiki\Algorithms\Collections\DeserializationException
-     */
     public function testBadXmlDeserialization()
     {
+        $this->expectException(DeserializationException::class);
         $badXml = <<<'XML'
 <root>probl<em>
                 </root>
@@ -303,19 +295,15 @@ XML;
         SerializableCollection::deserialize($badXml, SerializableCollection::XML);
     }
 
-    /**
-     * @expectedException \Gishiki\Algorithms\Collections\DeserializationException
-     */
     public function testBadJsonDeserialization()
     {
+        $this->expectException(DeserializationException::class);
         SerializableCollection::deserialize('bad json', SerializableCollection::JSON);
     }
 
-    /**
-     * @expectedException \Gishiki\Algorithms\Collections\SerializationException
-     */
     public function testUnknownSerializationException()
     {
+        $this->expectException(SerializationException::class);
         (new SerializableCollection([
             'a' => 1,
             'b' => 5.50,
@@ -325,11 +313,9 @@ XML;
         ]))->serialize(255);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidSerializationException()
     {
+        $this->expectException(\InvalidArgumentException::class);
         (new SerializableCollection([
             'a' => 1,
             'b' => 5.50,
@@ -338,12 +324,10 @@ XML;
             'f' => [1, 2, 3, 4],
         ]))->serialize('WTF?!?');
     }
-
-    /**
-     * @expectedException \Gishiki\Algorithms\Collections\SerializationException
-     */
+    
     public function testBadSerializationException()
     {
+        $this->expectException(SerializationException::class);
         $obj = (new SerializableCollection([
             'a' => 1,
             'b' => 5.50,

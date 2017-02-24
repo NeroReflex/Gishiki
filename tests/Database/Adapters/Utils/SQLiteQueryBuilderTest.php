@@ -17,6 +17,8 @@ limitations under the License.
 
 namespace Gishiki\tests\Database\Adapters\Utils;
 
+use PHPUnit\Framework\TestCase;
+
 use Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder;
 use Gishiki\Database\Schema\Table;
 use Gishiki\Database\Schema\Column;
@@ -28,7 +30,7 @@ use Gishiki\Database\Schema\ColumnRelation;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class SQLiteQueryBuilderTest extends \PHPUnit_Framework_TestCase
+class SQLiteQueryBuilderTest extends TestCase
 {
     public function testDropTable()
     {

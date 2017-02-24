@@ -17,6 +17,9 @@ limitations under the License.
 
 namespace Gishiki\tests\Security\Encryption\Asymmetric;
 
+use PHPUnit\Framework\TestCase;
+
+use Gishiki\Security\Encryption\Asymmetric\AsymmetricException;
 use Gishiki\Security\Encryption\Asymmetric\PrivateKey;
 use Gishiki\Security\Encryption\Asymmetric\PublicKey;
 
@@ -25,7 +28,7 @@ use Gishiki\Security\Encryption\Asymmetric\PublicKey;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class KeyTest extends \PHPUnit_Framework_TestCase
+class KeyTest extends TestCase
 {
     public static function getTestRSAPublicKey()
     {
@@ -116,13 +119,10 @@ cf1zSJX0I5GEo9EIBb2r7cFNdOLa02qTL/IO4a3c5NbHqmDBqyfh9lpU6Do=
         $this->assertEquals(true, $loadedKey->isLoaded());
     }
 
-    /**
-     * @expectedException \Gishiki\Security\Encryption\Asymmetric\AsymmetricException
-     */
     public function testFakePrivateKeyload()
     {
         //the load of a bad key results in an exception
-        //$this->expectException('Gishiki\Security\Encryption\Asymmetric\AsymmetricException');
+        $this->expectException(AsymmetricException::class);
 
         //try load an invalid key
         $loadedKey = new PrivateKey('th1s is s0m3 Sh1t th4t, obviously, is NOT an RSA pr1v4t3 k3y!');

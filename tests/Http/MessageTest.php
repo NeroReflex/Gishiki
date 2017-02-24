@@ -10,10 +10,12 @@
 
 namespace Gishiki\tests\Http;
 
+use PHPUnit\Framework\TestCase;
+
 use Gishiki\HttpKernel\Headers;
 use Gishiki\Tests\Http\Mocks\MessageStub;
 
-class MessageTest extends \PHPUnit_Framework_TestCase
+class MessageTest extends TestCase
 {
     /*******************************************************************************
      * Protocol
@@ -43,10 +45,11 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Gishiki\HttpKernel\Message::withProtocolVersion
-     * @expectedException \InvalidArgumentException
      */
     public function testWithProtocolVersionInvalidThrowsException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         $message = new MessageStub();
         $message->withProtocolVersion('3.0');
     }

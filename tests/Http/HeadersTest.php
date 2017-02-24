@@ -10,11 +10,13 @@
 
 namespace Gishiki\tests\Http;
 
+use PHPUnit\Framework\TestCase;
+
 use ReflectionProperty;
 use Gishiki\Core\Environment;
 use Gishiki\HttpKernel\Headers;
 
-class HeadersTest extends \PHPUnit_Framework_TestCase
+class HeadersTest extends TestCase
 {
     public function testCreateFromEnvironment()
     {

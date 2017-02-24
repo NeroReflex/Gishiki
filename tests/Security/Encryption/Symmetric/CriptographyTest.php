@@ -17,6 +17,9 @@ limitations under the License.
 
 namespace Gishiki\tests\Security\Encryption\Symmetric;
 
+use PHPUnit\Framework\TestCase;
+
+use Gishiki\Security\Encryption\Symmetric\SymmetricException;
 use Gishiki\Security\Encryption\Symmetric\SecretKey;
 use Gishiki\Security\Encryption\Symmetric\Cryptography;
 
@@ -25,7 +28,7 @@ use Gishiki\Security\Encryption\Symmetric\Cryptography;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class CriptographyTest extends \PHPUnit_Framework_TestCase
+class CriptographyTest extends TestCase
 {
     public function testAES128Encryption()
     {
@@ -95,11 +98,10 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($message, $result);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidKey()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         //generate the key
         $key = new SecretKey(SecretKey::generate('T3st1n9/k3y <3', 1));
 
@@ -109,11 +111,10 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
         Cryptography::encrypt($key, $message, null, Cryptography::AES_CBC_128);
     }
 
-    /**
-     * @expectedException \Gishiki\Security\Encryption\Symmetric\SymmetricException
-     */
     public function testAES128BadKey()
     {
+        $this->expectException(SymmetricException::class);
+        
         //generate the key
         $key = new SecretKey(SecretKey::generate('T3st1n9/k3y <3', 2));
 
@@ -123,11 +124,10 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
         Cryptography::encrypt($key, $message, null, Cryptography::AES_CBC_128);
     }
 
-    /**
-     * @expectedException \Gishiki\Security\Encryption\Symmetric\SymmetricException
-     */
     public function testAES192BadKey()
     {
+        $this->expectException(SymmetricException::class);
+        
         //generate the key
         $key = new SecretKey(SecretKey::generate('T3st1n9/k3y <3', 40));
 
@@ -137,11 +137,10 @@ class CriptographyTest extends \PHPUnit_Framework_TestCase
         Cryptography::encrypt($key, $message, null, Cryptography::AES_CBC_192);
     }
 
-    /**
-     * @expectedException \Gishiki\Security\Encryption\Symmetric\SymmetricException
-     */
     public function testAES256BadKey()
     {
+        $this->expectException(SymmetricException::class);
+        
         //generate the key
         $key = new SecretKey(SecretKey::generate('T3st1n9/k3y <3', 12));
 

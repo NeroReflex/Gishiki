@@ -17,6 +17,9 @@ limitations under the License.
 
 namespace Gishiki\tests\Security\Encryption\Asymmetric;
 
+use PHPUnit\Framework\TestCase;
+
+use Gishiki\Security\Encryption\Asymmetric\AsymmetricException;
 use Gishiki\Security\Encryption\Asymmetric\PrivateKey;
 use Gishiki\Security\Encryption\Asymmetric\PublicKey;
 use Gishiki\Security\Encryption\Asymmetric\Cryptography;
@@ -26,13 +29,12 @@ use Gishiki\Security\Encryption\Asymmetric\Cryptography;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class CryptographyTest extends \PHPUnit_Framework_TestCase
+class CryptographyTest extends TestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidMessageEncryption()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         $privateKey = new PrivateKey(PrivateKey::generate());
 
         //check if the private key has been loaded correctly
@@ -42,11 +44,10 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         Cryptography::encrypt($privateKey, 73);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidMessageReverseEncryption()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         //generate a new private key and the associated public key
         $privKey = new PrivateKey(PrivateKey::generate());
         $pubKey = new PublicKey($privKey->exportPublicKey());
@@ -55,11 +56,10 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         Cryptography::encryptReverse($pubKey, '');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidMessageDecryption()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         //this is the test example message
         $message = 'mL84hPpR+nmb2UuWDnhiXnpMDxzQT0NMPXT.dY.*?ImTrO86Dt';
 
@@ -74,11 +74,10 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         $decryption_result = Cryptography::decrypt($publicKey, '');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidMessageReverseDecryption()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         //generate a new private key and the associated public key
         $privKey = new PrivateKey(PrivateKey::generate());
         $pubKey = new PublicKey($privKey->exportPublicKey());
@@ -87,11 +86,10 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
          Cryptography::decryptReverse($privKey, '');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidMessageGenerateDigitalSignature()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         //generate a new private key and the associated public key
         $privKey = new PrivateKey(PrivateKey::generate());
         $pubKey = new PublicKey($privKey->exportPublicKey());
@@ -102,11 +100,10 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         Cryptography::generateDigitalSignature($privKey, '');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidMessageVerifyDigitalSignature()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         //generate a new private key and the associated public key
         $privKey = new PrivateKey(PrivateKey::generate());
         $pubKey = new PublicKey($privKey->exportPublicKey());
@@ -118,11 +115,10 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         Cryptography::verifyDigitalSignature($pubKey, '', $signature);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidSignatureVerifyDigitalSignature()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         //generate a new private key and the associated public key
         $privKey = new PrivateKey(PrivateKey::generate());
         $pubKey = new PublicKey($privKey->exportPublicKey());
@@ -187,12 +183,11 @@ class CryptographyTest extends \PHPUnit_Framework_TestCase
         //test the return value
         $this->assertEquals($message, $decryption_result);
     }
-
-    /**
-     * @expectedException \Gishiki\Security\Encryption\Asymmetric\AsymmetricException
-     */
+    
     public function testBadDecryption()
     {
+        $this->expectException(AsymmetricException::class);
+        
         //generate two keys
         $privateKey = new PrivateKey(KeyTest::getTestRSAPrivateKey());
         $publicKey = new PublicKey($privateKey->exportPublicKey());

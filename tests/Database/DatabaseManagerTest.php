@@ -17,6 +17,9 @@ limitations under the License.
 
 namespace Gishiki\tests\Database;
 
+use PHPUnit\Framework\TestCase;
+
+use Gishiki\Database\DatabaseException;
 use Gishiki\Database\DatabaseManager;
 
 /**
@@ -24,37 +27,29 @@ use Gishiki\Database\DatabaseManager;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class DatabaseManagerTest extends \PHPUnit_Framework_TestCase
+class DatabaseManagerTest extends TestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testBadConnectionQuery()
     {
+        $this->expectException(\InvalidArgumentException::class);
         DatabaseManager::connect(3, 'unknown_db_adapter://user:pass@host:port/db');
     }
 
-    /**
-     * @expectedException \Gishiki\Database\DatabaseException
-     */
     public function testConnectionQuery()
     {
+        $this->expectException(DatabaseException::class);
         DatabaseManager::connect('default', 'unknown_db_adapter://user:pass@host:port/db');
     }
 
-    /**
-     * @expectedException \Gishiki\Database\DatabaseException
-     */
     public function testVoidConnection()
     {
+        $this->expectException(DatabaseException::class);
         DatabaseManager::retrieve('testing_bad_db (unconnected)');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidNameConnection()
     {
+        $this->expectException(\InvalidArgumentException::class);
         DatabaseManager::retrieve(3);
     }
 

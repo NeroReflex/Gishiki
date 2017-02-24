@@ -15,6 +15,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
+namespace Gishiki\tests\Database\Schema;
+
+use PHPUnit\Framework\TestCase;
+
 use Gishiki\Database\Schema\Column;
 use Gishiki\Database\Schema\ColumnType;
 use Gishiki\Database\Schema\Table;
@@ -24,13 +28,12 @@ use Gishiki\Database\Schema\Table;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class ColumnTest extends \PHPUnit_Framework_TestCase
+class ColumnTest extends TestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testColumnBadNaming()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         //create a testing column
         $col = new Column('', ColumnType::INTEGER);
     }
@@ -58,21 +61,19 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(true, $col->getPrimaryKey());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testColumnBadPrimaryKey()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         //create a testing column
         $col = new Column('id', ColumnType::INTEGER);
         $col->setPrimaryKey(null);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testColumnBadNotNull()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         //create a testing column
         $col = new Column('id', ColumnType::INTEGER);
         $col->setNotNull(null);
@@ -90,11 +91,10 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(true, $col->getNotNull());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testColumnBadType()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         //create a testing column
         $col = new Column('id', null);
         $col->setNotNull(null);

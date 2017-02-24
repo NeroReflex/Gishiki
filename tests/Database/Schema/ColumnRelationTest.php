@@ -15,23 +15,27 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
+namespace Gishiki\tests\Database\Schema;
+
+use PHPUnit\Framework\TestCase;
+
 use Gishiki\Database\Schema\Column;
 use Gishiki\Database\Schema\ColumnRelation;
 use Gishiki\Database\Schema\ColumnType;
 use Gishiki\Database\Schema\Table;
+use Gishiki\Database\DatabaseException;
 
 /**
  * The tester for the ColumnRelation class.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class ColumnRelationTest extends \PHPUnit_Framework_TestCase
+class ColumnRelationTest extends TestCase
 {
-    /**
-     * @expectedException \Gishiki\Database\DatabaseException
-     */
     public function testColumnRelationNotPrimaryKey()
     {
+        $this->expectException(DatabaseException::class);
+        
         $externTable = new Table(__FUNCTION__);
 
         $externColumn = new Column('id', ColumnType::INTEGER);
@@ -42,12 +46,11 @@ class ColumnRelationTest extends \PHPUnit_Framework_TestCase
 
         $relation = new ColumnRelation($externTable, $externColumn);
     }
-
-    /**
-     * @expectedException \Gishiki\Database\DatabaseException
-     */
+    
     public function testColumnRelationUnbindedColumn()
     {
+        $this->expectException(DatabaseException::class);
+        
         $externTable = new Table(__FUNCTION__);
 
         $externColumn = new Column('id', ColumnType::INTEGER);

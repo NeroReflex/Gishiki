@@ -17,6 +17,8 @@ limitations under the License.
 
 namespace Gishiki\tests\Database\Runtime;
 
+use PHPUnit\Framework\TestCase;
+
 use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\FieldRelation;
 
@@ -25,53 +27,42 @@ use Gishiki\Database\Runtime\FieldRelation;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class SelectionCriteriaTest extends \PHPUnit_Framework_TestCase
+class SelectionCriteriaTest extends TestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     */
+    
     public function testBadNameAnd()
     {
+        $this->expectException(\InvalidArgumentException::class);
         SelectionCriteria::select(['a' => [3, 5, 6]])->and_where(3, FieldRelation::EQUAL, '');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testBadRelationAnd()
     {
+        $this->expectException(\InvalidArgumentException::class);
         SelectionCriteria::select(['a' => [3, 5, 6]])->and_where('a', 'IDK', '');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testBadValueAnd()
     {
+        $this->expectException(\InvalidArgumentException::class);
         SelectionCriteria::select(['a' => [3, 5, 6]])->and_where('a', FieldRelation::EQUAL, new SelectionCriteria());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testBadValueOr()
     {
+        $this->expectException(\InvalidArgumentException::class);
         SelectionCriteria::select(['a' => [3, 5, 6]])->or_where('a', FieldRelation::EQUAL, new SelectionCriteria());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testBadNameOr()
     {
+        $this->expectException(\InvalidArgumentException::class);
         SelectionCriteria::select(['a' => [3, 5, 6]])->or_where(3, FieldRelation::EQUAL, '');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testBadRelationOr()
     {
+        $this->expectException(\InvalidArgumentException::class);
         SelectionCriteria::select(['a' => [3, 5, 6]])->or_where('a', 'IDK', '');
     }
 

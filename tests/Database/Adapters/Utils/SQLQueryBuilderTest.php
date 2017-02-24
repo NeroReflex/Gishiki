@@ -17,6 +17,8 @@ limitations under the License.
 
 namespace Gishiki\tests\Database\Adapters\Utils;
 
+use PHPUnit\Framework\TestCase;
+
 use Gishiki\Database\Adapters\Utils\SQLQueryBuilder;
 use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\FieldRelation;
@@ -28,7 +30,7 @@ use Gishiki\Database\Runtime\FieldOrdering;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class SQLQueryBuilderTest extends \PHPUnit_Framework_TestCase
+class SQLQueryBuilderTest extends TestCase
 {
     public function testBeautify()
     {

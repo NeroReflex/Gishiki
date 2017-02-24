@@ -17,70 +17,63 @@ limitations under the License.
 
 namespace Gishiki\tests\CLI;
 
-use Gishiki\CLI\Console;
+use \PHPUnit\Framework\TestCase;
+
+use \Gishiki\CLI\Console;
+
 
 /**
  * The tester for the Console class.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class ConsoleTest extends \PHPUnit_Framework_TestCase
+class ConsoleTest extends TestCase
 {
     public function testUncoloredWriteBooleanFalse()
     {
+        $this->expectOutputString('false');
+        
         Console::colorsEnable(false);
 
-        ob_start();
-
         Console::write(false);
-
-        $this->assertEquals('false', ob_get_clean());
     }
 
     public function testUncoloredWriteBooleanTrue()
     {
+        $this->expectOutputString('true');
+        
         Console::colorsEnable(false);
 
-        ob_start();
-
         Console::write(true);
-
-        $this->assertEquals('true', ob_get_clean());
     }
 
     public function testUncoloredWriteNull()
     {
+        $this->expectOutputString('null');
+        
         Console::colorsEnable(false);
 
-        ob_start();
-
         Console::write(null);
-
-        $this->assertEquals('null', ob_get_clean());
     }
 
     public function testUncoloredWriteArray()
     {
+        $arr = ['Hello, ', 'World!', "It's ", time(), ' Already'];
+        
+        $this->expectOutputString(implode('', $arr));
+        
         Console::colorsEnable(false);
 
-        $arr = ['Hello, ', 'World!', "It's ", time(), ' Already'];
-
-        ob_start();
-
         Console::write($arr);
-
-        $this->assertEquals(implode('', $arr), ob_get_clean());
     }
 
     public function testUncoloredWriteLine()
     {
+        $this->expectOutputString("The sum is: 53\n");
+        
         Console::colorsEnable(false);
 
-        ob_start();
-
         Console::writeLine('The sum is'.': '.(50 + 3));
-
-        $this->assertEquals("The sum is: 53\n", ob_get_clean());
     }
 
     public function testColorsSupportChange()

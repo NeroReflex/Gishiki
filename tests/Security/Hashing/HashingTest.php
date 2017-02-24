@@ -17,6 +17,9 @@ limitations under the License.
 
 namespace Gishiki\tests\Security\Hashing;
 
+use PHPUnit\Framework\TestCase;
+
+use Gishiki\Security\Hashing\HashingException;
 use Gishiki\Security\Hashing\Algorithms;
 
 /**
@@ -24,31 +27,28 @@ use Gishiki\Security\Hashing\Algorithms;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class HashingTest extends \PHPUnit_Framework_TestCase
+class HashingTest extends TestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidBinaryUnsafe()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         //test hash compatibility
         $rot_ed = Algorithms::hash('hash me if U can!!1!', Algorithms::SHA512, 'OMG!');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidMessage()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         //test hash compatibility
         $rot_ed = Algorithms::hash('', Algorithms::SHA512);
     }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
+    
     public function testInvalidAlgorithm()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         //test hash compatibility
         $rot_ed = Algorithms::hash('my message', null);
     }
@@ -73,45 +73,40 @@ class HashingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(sha1($message), Algorithms::hash($message, Algorithms::SHA1));
     }
 
-    /**
-     * @expectedException \Gishiki\Security\Hashing\HashingException
-     */
     public function testBadAlgorithm()
     {
+        $this->expectException(HashingException::class);
+        
         $message = 'fake message';
 
         Algorithms::hash($message, 'fake algorithm');
     }
 
-    /**
-     * @expectedException \Gishiki\Security\Hashing\HashingException
-     */
     public function testBadHashPbkdf2()
     {
+        $this->expectException(HashingException::class);
+        
         Algorithms::pbkdf2('password', 'salt', 512, 3, 'bad-algo');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testBadAlgorithmPbkdf2()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         Algorithms::pbkdf2('message', 'salt', 512, 3, '');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testBadCountHashPbkdf2()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         Algorithms::pbkdf2('password', 'salt', 512, '3', Algorithms::SHA256);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testBadKeylengthHashPbkdf2()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         Algorithms::pbkdf2('password', 'salt', '512', 3, Algorithms::SHA256);
     }
 

@@ -10,10 +10,12 @@
 
 namespace Gishiki\tests\Http;
 
+use PHPUnit\Framework\TestCase;
+
 use Gishiki\Core\Environment;
 use Gishiki\HttpKernel\Uri;
 
-class UriTest extends \PHPUnit_Framework_TestCase
+class UriTest extends TestCase
 {
     /**
      * @var resource
@@ -64,21 +66,17 @@ class UriTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEquals('', 'scheme', $uri);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Uri scheme must be one of: "", "https", "http"
-     */
     public function testWithSchemeInvalid()
     {
+        $this->expectExceptionMessage('Uri scheme must be one of: "", "https", "http"');
+        
         $this->uriFactory()->withScheme('ftp');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Uri scheme must be a string
-     */
     public function testWithSchemeInvalidType()
     {
+        $this->expectExceptionMessage('Uri scheme must be a string');
+        
         $this->uriFactory()->withScheme([]);
     }
 
@@ -252,20 +250,16 @@ class UriTest extends \PHPUnit_Framework_TestCase
 
         $this->assertAttributeEquals(null, 'port', $uri);
     }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
+    
     public function testWithPortInvalidInt()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->uriFactory()->withPort(70000);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testWithPortInvalidString()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->uriFactory()->withPort('Foo');
     }
 
@@ -287,11 +281,11 @@ class UriTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Gishiki\HttpKernel\Uri::withBasePath
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Uri path must be a string
      */
     public function testWithBasePathInvalidType()
     {
+        $this->expectExceptionMessage('Uri path must be a string');
+        
         $this->uriFactory()->withBasePath(['foo']);
     }
 
@@ -351,11 +345,11 @@ class UriTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Gishiki\HttpKernel\Uri::withPath
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Uri path must be a string
      */
     public function testWithPathInvalidType()
     {
+        $this->expectExceptionMessage('Uri path must be a string');
+        
         $this->uriFactory()->withPath(['foo']);
     }
 
@@ -391,11 +385,11 @@ class UriTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Gishiki\HttpKernel\Uri::withQuery
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Uri query must be a string
      */
     public function testWithQueryInvalidType()
     {
+        $this->expectExceptionMessage('Uri query must be a string');
+        
         $this->uriFactory()->withQuery(['foo']);
     }
 
@@ -431,11 +425,11 @@ class UriTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Gishiki\HttpKernel\Uri::withFragment
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Uri fragment must be a string
      */
     public function testWithFragmentInvalidType()
     {
+        $this->expectExceptionMessage('Uri fragment must be a string');
+        
         $this->uriFactory()->withFragment(['foo']);
     }
 
@@ -485,11 +479,11 @@ class UriTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Gishiki\HttpKernel\Uri::createFromString
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Uri must be a string
      */
     public function testCreateFromStringWithInvalidType()
     {
+        $this->expectExceptionMessage('Uri must be a string');
+        
         Uri::createFromString(['https://example.com:8080/foo/bar?abc=123']);
     }
 

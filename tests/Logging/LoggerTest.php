@@ -17,6 +17,8 @@ limitations under the License.
 
 namespace Gishiki\tests\Logging;
 
+use PHPUnit\Framework\TestCase;
+
 use Gishiki\Logging\Logger;
 
 /**
@@ -24,7 +26,7 @@ use Gishiki\Logging\Logger;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class LoggerTest extends \PHPUnit_Framework_TestCase
+class LoggerTest extends TestCase
 {
     public function testConnection()
     {

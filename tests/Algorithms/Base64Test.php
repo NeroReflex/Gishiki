@@ -17,23 +17,21 @@ limitations under the License.
 
 namespace Gishiki\tests\Algorithms;
 
+use PHPUnit\Framework\TestCase;
+
 use Gishiki\Algorithms\Base64;
 
-class Base64Test extends \PHPUnit_Framework_TestCase
+class Base64Test extends TestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testEncodeBadMessage()
     {
+        $this->expectException(\InvalidArgumentException::class);
         Base64::encode(1);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testDecodeBadMessage()
     {
+        $this->expectException(\InvalidArgumentException::class);
         Base64::decode(1);
     }
 

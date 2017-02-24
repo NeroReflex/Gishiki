@@ -10,6 +10,8 @@
 
 namespace Gishiki\tests\Http;
 
+use PHPUnit\Framework\TestCase;
+
 use ReflectionProperty;
 use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Core\Environment;
@@ -19,7 +21,7 @@ use Gishiki\HttpKernel\RequestBody;
 use Gishiki\HttpKernel\UploadedFile;
 use Gishiki\HttpKernel\Uri;
 
-class RequestTest extends \PHPUnit_Framework_TestCase
+class RequestTest extends TestCase
 {
     public function requestFactory()
     {
@@ -75,11 +77,10 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEquals('PUT', 'originalMethod', $request);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testWithMethodInvalid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         $this->requestFactory()->withMethod('FOO');
     }
 
@@ -200,11 +201,10 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('PUT', $request->getMethod());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testCreateRequestWithInvalidMethodString()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         $uri = Uri::createFromString('https://example.com:443/foo/bar?abc=123');
         $headers = new Headers();
         $cookies = [];
@@ -213,11 +213,10 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $request = new Request('FOO', $uri, $headers, $cookies, $serverParams, $body);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testCreateRequestWithInvalidMethodOther()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         $uri = Uri::createFromString('https://example.com:443/foo/bar?abc=123');
         $headers = new Headers();
         $cookies = [];
@@ -347,11 +346,10 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEquals('/test?user=1', 'requestTarget', $clone);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testWithRequestTargetThatHasSpaces()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         $this->requestFactory()->withRequestTarget('/test/m ore/stuff?user=1');
     }
 
@@ -764,11 +762,10 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($request->getParsedBody());
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testGetParsedBodyAsArray()
     {
+        $this->expectException(\RuntimeException::class);
+        
         $uri = Uri::createFromString('https://example.com:443/foo/bar?abc=123');
         $headers = new Headers([
             'Content-Type' => 'application/json;charset=utf8',
@@ -792,11 +789,10 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEquals(['xyz' => '123'], 'bodyParsed', $clone);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testWithParsedBodyInvalid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         $this->requestFactory()->withParsedBody(2);
     }
 

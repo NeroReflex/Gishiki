@@ -10,6 +10,8 @@
 
 namespace Gishiki\tests\Http;
 
+use PHPUnit\Framework\TestCase;
+
 use Gishiki\Core\Environment;
 use Gishiki\HttpKernel\Headers;
 use Gishiki\HttpKernel\Request;
@@ -18,7 +20,7 @@ use Gishiki\HttpKernel\Stream;
 use Gishiki\HttpKernel\UploadedFile;
 use Gishiki\HttpKernel\Uri;
 
-class UploadedFilesTest extends \PHPUnit_Framework_TestCase
+class UploadedFilesTest extends TestCase
 {
     private static $filename = './phpUxcOty';
     /**

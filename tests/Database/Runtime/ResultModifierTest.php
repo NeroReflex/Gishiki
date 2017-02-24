@@ -17,6 +17,8 @@ limitations under the License.
 
 namespace Gishiki\tests\Database\Runtime;
 
+use PHPUnit\Framework\TestCase;
+
 use Gishiki\Database\Runtime\ResultModifier;
 use Gishiki\Database\Runtime\FieldOrdering;
 
@@ -25,54 +27,44 @@ use Gishiki\Database\Runtime\FieldOrdering;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class ResultModifierTest extends \PHPUnit_Framework_TestCase
+class ResultModifierTest extends TestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testBadInitializer()
     {
+        $this->expectException(\InvalidArgumentException::class);
         ResultModifier::initialize('only array and null are allowed here!');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testBadLimit()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $resMod = ResultModifier::initialize([
             'limit' => 5,
             'skip' => 8,
         ])->limit('bad')->skip(5);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testBadOffset()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $resMod = ResultModifier::initialize([
             'limit' => 5,
             'skip' => 8,
         ])->limit(10)->skip('bad');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testBadNameOrdering()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $resMod = ResultModifier::initialize([
             'limit' => 5,
             'skip' => 8,
         ])->order(null, FieldOrdering::ASC);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testBadOrderOrdering()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $resMod = ResultModifier::initialize([
             'limit' => 5,
             'skip' => 8,

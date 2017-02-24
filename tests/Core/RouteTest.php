@@ -17,6 +17,8 @@ limitations under the License.
 
 namespace Gishiki\tests\Core;
 
+use PHPUnit\Framework\TestCase;
+
 use Gishiki\Core\Route;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
@@ -31,7 +33,7 @@ use Gishiki\Algorithms\Collections\GenericCollection;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class RouteTest extends \PHPUnit_Framework_TestCase
+class RouteTest extends TestCase
 {
     public function testRegexRouter()
     {
@@ -227,11 +229,10 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Searched post testing by user 23', $data);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
+    
     public function testBadMatchParams()
     {
+        $this->expectException(\InvalidArgumentException::class);
         Route::match(Route::GET, '/{user_id:number}/post/{postname}', function (Request &$request, Response &$response, SerializableCollection &$collection) {
             $response->write('Searched post '.$collection->postname.' by user '.$collection->user_id);
         });
@@ -319,11 +320,10 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('My email is: benato.denis96@gmail.com', $data);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testNonexistentControllerRouting()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         $this->setUp();
 
         $env = Environment::mock([
@@ -338,11 +338,10 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         Route::run($reqestToFulfill);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testBadNameControllerRouting()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         $this->setUp();
 
         $env = Environment::mock([
@@ -357,11 +356,10 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         Route::run($reqestToFulfill);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testBadControllerIdentifierRouting()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        
         $this->setUp();
 
         $env = Environment::mock([

@@ -17,9 +17,11 @@ limitations under the License.
 
 namespace Gishiki\tests\Algorithms\Collections;
 
+use PHPUnit\Framework\TestCase;
+
 use Gishiki\Algorithms\Collections\GenericCollection;
 
-class GenericCollectionTest extends \PHPUnit_Framework_TestCase
+class GenericCollectionTest extends TestCase
 {
     public function testGenericCollectionIteration()
     {

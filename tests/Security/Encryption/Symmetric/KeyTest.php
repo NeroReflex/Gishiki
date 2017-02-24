@@ -17,6 +17,8 @@ limitations under the License.
 
 namespace Gishiki\tests\Security\Encryption\Symmetric;
 
+use PHPUnit\Framework\TestCase;
+
 use Gishiki\Security\Encryption\Symmetric\SecretKey;
 
 /**
@@ -24,7 +26,7 @@ use Gishiki\Security\Encryption\Symmetric\SecretKey;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class KeyTest extends \PHPUnit_Framework_TestCase
+class KeyTest extends TestCase
 {
     public function testKeyExport()
     {

@@ -29,7 +29,7 @@ use \Gishiki\CLI\Console;
  */
 class ConsoleTest extends TestCase
 {
-    public function testUncoloredWriteBooleanFalse()
+    public function testWriteBooleanFalse()
     {
         $this->expectOutputString('false');
         
@@ -38,7 +38,7 @@ class ConsoleTest extends TestCase
         Console::write(false);
     }
 
-    public function testUncoloredWriteBooleanTrue()
+    public function testWriteBooleanTrue()
     {
         $this->expectOutputString('true');
         
@@ -47,7 +47,7 @@ class ConsoleTest extends TestCase
         Console::write(true);
     }
 
-    public function testUncoloredWriteNull()
+    public function testWriteNull()
     {
         $this->expectOutputString('null');
         
@@ -56,7 +56,7 @@ class ConsoleTest extends TestCase
         Console::write(null);
     }
 
-    public function testUncoloredWriteArray()
+    public function testWriteArray()
     {
         $arr = ['Hello, ', 'World!', "It's ", time(), ' Already'];
         
@@ -67,7 +67,7 @@ class ConsoleTest extends TestCase
         Console::write($arr);
     }
 
-    public function testUncoloredWriteLine()
+    public function testWriteLine()
     {
         $this->expectOutputString("The sum is: 53\n");
         

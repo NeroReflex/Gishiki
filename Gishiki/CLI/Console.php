@@ -46,7 +46,7 @@ abstract class Console
      */
     public static function colorsEnable($enable)
     {
-        $this->enableColors = boolval($enable);
+        self::$enableColors = boolval($enable);
     }
 
     /**
@@ -56,7 +56,7 @@ abstract class Console
      */
     public static function colorsEnabled()
     {
-        return $this->enableColors;
+        return self::$enableColors;
     }
 
     /**
@@ -88,11 +88,16 @@ abstract class Console
         }
 
         //do not paint newlines
-        $lines = explode("\n", $str);
+        $lines = explode("\n", trim($str, "\t\r\0\x0B"));
 
+        //remove a possible empty string
+        if (strlen($lines[count($lines) - 1]) == 0) {
+            unset($lines[count($lines) - 1]);
+        }
+        
         for ($lineIndex = 0; $lineIndex < count($lines); ++$lineIndex) {
             //color the text if necessary
-            if ($this->colorsEnabled()) {
+            if (self::colorsEnabled()) {
                 printf("\033[".self::$backgroundColor."m\033[".self::$foregroundColor.'m');
             }
 
@@ -100,19 +105,14 @@ abstract class Console
             printf($lines[$lineIndex]);
 
             //color the text if necessary
-            if ($this->colorsEnabled()) {
+            if (self::colorsEnabled()) {
                 printf("\033[0m");
             }
 
             //print the newline without colors
-            if ($lineIndex != count($lines) - 1) {
+            if (($lineIndex != count($lines) - 1) || (substr($str, -1) == "\n")) {
                 printf("\n");
             }
-        }
-
-        //if the given string ended with a newline just print it
-        if (substr($str, -1)) {
-            printf("\n");
         }
     }
 

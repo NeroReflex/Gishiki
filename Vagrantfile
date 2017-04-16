@@ -39,7 +39,7 @@ Vagrant.configure(2) do |config|
    config.vm.provision "shell", inline: <<-SHELL
      printf "\n\nInstalling software\n"
      sudo apt-get update && sudo apt-get upgrade -y
-     sudo apt-get -y install curl git openssl pkg-config libssl-dev python wget zlib1g-dev unzip openssh-client php7.0 php7.0-cli php7.0-curl php7.0-json php7.0-xml php7.0-dev
+     sudo apt-get -y install curl git openssl pkg-config libssl-dev python wget zlib1g-dev unzip openssh-client php7.0 php7.0-cli php7.0-curl php7.0-json php7.0-xml php7.0-sqlite php7.0-dev
      
      printf "\n\nInstalling MongoDB\n"
      sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6

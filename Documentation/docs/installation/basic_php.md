@@ -2,8 +2,7 @@
 You may not want to install a webserver in you development machine, but you might
 want to test your products by yourself and locally before performing the push/deploy.
 
-If your php version is greather or equal than 5.6 you can test your products by
-starting the PHP built-in webserver:
+You can test your products by starting the PHP built-in webserver (inside the project directory):
 
 ```shell
 php -S localhost:8080 -t ./

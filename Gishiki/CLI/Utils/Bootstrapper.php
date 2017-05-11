@@ -54,7 +54,7 @@ final class Bootstrapper
 
     public function application()
     {
-        if (file_esists('settings.json')) {
+        if (file_exists('settings.json')) {
             throw new Exception('An application already exists in the current directory');
         }
 

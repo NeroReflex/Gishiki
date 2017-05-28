@@ -464,7 +464,7 @@
 </span><span id="201" class="l"><a href="#201">201: </a>            <span class="php-var">$stmt</span>-&gt;execute(<span class="php-var">$queryBuilder</span>-&gt;exportParams());
 </span><span id="202" class="l"><a href="#202">202: </a>
 </span><span id="203" class="l"><a href="#203">203: </a>            <span class="php-comment">//return the number of affected rows</span>
-</span><span id="204" class="l"><a href="#204">204: </a>            <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;connection-&gt;rowCount();
+</span><span id="204" class="l"><a href="#204">204: </a>            <span class="php-keyword1">return</span> <span class="php-var">$stmt</span>-&gt;rowCount();
 </span><span id="205" class="l"><a href="#205">205: </a>        } <span class="php-keyword1">catch</span> (\PDOException <span class="php-var">$ex</span>) {
 </span><span id="206" class="l"><a href="#206">206: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> DatabaseException(<span class="php-quote">'Error while performing the update operation: '</span>.<span class="php-var">$ex</span>-&gt;getMessage(), <span class="php-num">4</span>);
 </span><span id="207" class="l"><a href="#207">207: </a>        }
@@ -498,7 +498,7 @@
 </span><span id="235" class="l"><a href="#235">235: </a>            <span class="php-var">$stmt</span>-&gt;execute(<span class="php-var">$queryBuilder</span>-&gt;exportParams());
 </span><span id="236" class="l"><a href="#236">236: </a>
 </span><span id="237" class="l"><a href="#237">237: </a>            <span class="php-comment">//return the number of affected rows</span>
-</span><span id="238" class="l"><a href="#238">238: </a>            <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;connection-&gt;rowCount();
+</span><span id="238" class="l"><a href="#238">238: </a>            <span class="php-keyword1">return</span> <span class="php-var">$stmt</span>-&gt;rowCount();
 </span><span id="239" class="l"><a href="#239">239: </a>        } <span class="php-keyword1">catch</span> (\PDOException <span class="php-var">$ex</span>) {
 </span><span id="240" class="l"><a href="#240">240: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> DatabaseException(<span class="php-quote">'Error while performing the delete operation: '</span>.<span class="php-var">$ex</span>-&gt;getMessage(), <span class="php-num">5</span>);
 </span><span id="241" class="l"><a href="#241">241: </a>        }
@@ -532,7 +532,7 @@
 </span><span id="269" class="l"><a href="#269">269: </a>            <span class="php-var">$stmt</span>-&gt;execute(<span class="php-var">$queryBuilder</span>-&gt;exportParams());
 </span><span id="270" class="l"><a href="#270">270: </a>
 </span><span id="271" class="l"><a href="#271">271: </a>            <span class="php-comment">//return the number of affected rows</span>
-</span><span id="272" class="l"><a href="#272">272: </a>            <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;connection-&gt;rowCount();
+</span><span id="272" class="l"><a href="#272">272: </a>            <span class="php-keyword1">return</span> <span class="php-var">$stmt</span>-&gt;rowCount();
 </span><span id="273" class="l"><a href="#273">273: </a>        } <span class="php-keyword1">catch</span> (\PDOException <span class="php-var">$ex</span>) {
 </span><span id="274" class="l"><a href="#274">274: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> DatabaseException(<span class="php-quote">'Error while performing the delete operation: '</span>.<span class="php-var">$ex</span>-&gt;getMessage(), <span class="php-num">5</span>);
 </span><span id="275" class="l"><a href="#275">275: </a>        }

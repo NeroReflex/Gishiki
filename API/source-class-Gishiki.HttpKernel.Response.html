@@ -459,7 +459,7 @@
 </span><span id="196" class="l"><a href="#196">196: </a>
 </span><span id="197" class="l"><a href="#197">197: </a>        <span class="php-comment">//send the result and count sent bytes</span>
 </span><span id="198" class="l"><a href="#198">198: </a>        <span class="php-var">$sent</span> = <span class="php-num">0</span>;
-</span><span id="199" class="l"><a href="#199">199: </a>        <span class="php-var">$defContLength</span> = <span class="php-keyword1">isset</span>(<span class="php-var">$contentLength</span>);
+</span><span id="199" class="l"><a href="#199">199: </a>        <span class="php-comment">//$defContLength = isset($contentLength);</span>
 </span><span id="200" class="l"><a href="#200">200: </a>
 </span><span id="201" class="l"><a href="#201">201: </a>        <span class="php-var">$amountToRead</span> = (<span class="php-var">$contentLength</span>) ? <span class="php-keyword2">intval</span>(<span class="php-var">$contentLength</span>) : <span class="php-var">$bodySize</span>;
 </span><span id="202" class="l"><a href="#202">202: </a>        <span class="php-keyword1">while</span> (<span class="php-var">$amountToRead</span> &gt; <span class="php-num">0</span> &amp;&amp; !<span class="php-var">$body</span>-&gt;eof()) {

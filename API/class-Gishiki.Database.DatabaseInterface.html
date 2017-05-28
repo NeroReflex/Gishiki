@@ -224,7 +224,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.DatabaseInterface.html#23-122" title="Go to source code">Gishiki/Database/DatabaseInterface.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.DatabaseInterface.html#23-129" title="Go to source code">Gishiki/Database/DatabaseInterface.php</a>
 		<br>
 	</div>
 
@@ -312,6 +312,36 @@
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="close" id="_close">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_close">#</a>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#50-55" title="Go to source code">close</a>( )</code>
+
+		<div class="description short">
+			<p>Close the connection to the database</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Close the connection to the database</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="connected" id="_connected">
 
 		<td class="attributes"><code>
@@ -324,7 +354,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_connected">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#50-55" title="Go to source code">connected</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#57-62" title="Go to source code">connected</a>( )</code>
 
 		<div class="description short">
 			<p>Check if the database handler is connected with a real database.</p>
@@ -358,7 +388,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_create">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#57-68" title="Go to source code">create</a>( <span>string <var>$collection</var></span>, <span>array|CollectionInterface <var>$data</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#64-75" title="Go to source code">create</a>( <span>string <var>$collection</var></span>, <span>array|CollectionInterface <var>$data</var></span> )</code>
 
 		<div class="description short">
 			<p>Write data to the database on the given collection/table.</p>
@@ -407,7 +437,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_update">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#70-82" title="Go to source code">update</a>( <span>string <var>$collection</var></span>, <span>array|CollectionInterface <var>$data</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></code> <var>$where</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#77-89" title="Go to source code">update</a>( <span>string <var>$collection</var></span>, <span>array|CollectionInterface <var>$data</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></code> <var>$where</var></span> )</code>
 
 		<div class="description short">
 			<p>Update values of documents/records matching the given criteria.</p>
@@ -458,7 +488,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_delete">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#84-95" title="Go to source code">delete</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></code> <var>$where</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#91-102" title="Go to source code">delete</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></code> <var>$where</var></span> )</code>
 
 		<div class="description short">
 			<p>Remove documents/records matching the given criteria.</p>
@@ -507,7 +537,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteAll">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#97-107" title="Go to source code">deleteAll</a>( <span>string <var>$collection</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#104-114" title="Go to source code">deleteAll</a>( <span>string <var>$collection</var></span> )</code>
 
 		<div class="description short">
 			<p>Remove EVERY documents/records on the given collection/table.</p>
@@ -554,7 +584,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_read">#</a>
-		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#109-121" title="Go to source code">read</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.ResultModifier.html">Gishiki\Database\Runtime\ResultModifier</a></code> <var>$mod</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.DatabaseInterface.html#116-128" title="Go to source code">read</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.ResultModifier.html">Gishiki\Database\Runtime\ResultModifier</a></code> <var>$mod</var></span> )</code>
 
 		<div class="description short">
 			<p>Fetch documents/records matching the given criteria.</p>

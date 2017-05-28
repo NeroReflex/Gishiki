@@ -210,7 +210,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.Schema.Column.html#20-211" title="Go to source code">Gishiki/Database/Schema/Column.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.Schema.Column.html#20-240" title="Go to source code">Gishiki/Database/Schema/Column.php</a>
 		<br>
 	</div>
 
@@ -230,7 +230,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Column.html#52-69" title="Go to source code">__construct</a>( <span>string <var>$name</var></span>, <span>integer <var>$type</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#57-75" title="Go to source code">__construct</a>( <span>string <var>$name</var></span>, <span>integer <var>$type</var></span> )</code>
 
 		<div class="description short">
 			<p>Initialize a column with the given name.
@@ -259,19 +259,92 @@ exceptions thrown by that function.</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="setNotNull" id="_setNotNull">
+	<tr data-order="setAutoIncrement" id="_setAutoIncrement">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code>
+			&amp;
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setAutoIncrement">#</a>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#77-93" title="Go to source code">setAutoIncrement</a>( <span>boolean <var>$enable</var></span> )</code>
+
+		<div class="description short">
+			<p>Change the auto increment flag on the column.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Change the auto increment flag on the column.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$enable</var></dt>
+					<dd>TRUE is used to flag an auto increment column as such</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code><br>a reference to the modified Column
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>the new status is invalid
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getAutoIncrement" id="_getAutoIncrement">
 
 		<td class="attributes"><code>
 			 public 
 
 			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getAutoIncrement">#</a>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#95-98" title="Go to source code">getAutoIncrement</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setNotNull" id="_setNotNull">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code>
 			&amp;
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setNotNull">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Column.html#71-87" title="Go to source code">setNotNull</a>( <span>boolean <var>$enable</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#100-116" title="Go to source code">setNotNull</a>( <span>boolean <var>$enable</var></span> )</code>
 
 		<div class="description short">
 			<p>Change the primary key flag on the column.</p>
@@ -287,6 +360,10 @@ exceptions thrown by that function.</p>
 					<dd>TRUE is used to flag a not null column as such</dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code><br>a reference to the modified Column
+				</div>
 
 				<h4>Throws</h4>
 				<div class="list">
@@ -303,14 +380,14 @@ exceptions thrown by that function.</p>
 		<td class="attributes"><code>
 			 public 
 
-			
+			boolean
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getNotNull">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Column.html#89-97" title="Go to source code">getNotNull</a>( <span>boolean <var>$enable</var>,…</span> )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#118-126" title="Go to source code">getNotNull</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve the not null flag on the column.</p>
@@ -320,12 +397,11 @@ exceptions thrown by that function.</p>
 			<p>Retrieve the not null flag on the column.</p>
 
 
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$enable</var>,…</dt>
-					<dd>TRUE if the column cannot contains null</dd>
-				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>$enable TRUE if the column cannot contains null
+				</div>
 
 
 
@@ -338,14 +414,14 @@ exceptions thrown by that function.</p>
 		<td class="attributes"><code>
 			 public 
 
-			
+			<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code>
 			&amp;
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setPrimaryKey">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Column.html#99-115" title="Go to source code">setPrimaryKey</a>( <span>boolean <var>$enable</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#128-144" title="Go to source code">setPrimaryKey</a>( <span>boolean <var>$enable</var></span> )</code>
 
 		<div class="description short">
 			<p>Change the primary key flag on the column.</p>
@@ -361,6 +437,10 @@ exceptions thrown by that function.</p>
 					<dd>TRUE is used to flag a primary key column as such</dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code><br>a reference to the modified Column
+				</div>
 
 				<h4>Throws</h4>
 				<div class="list">
@@ -377,14 +457,14 @@ exceptions thrown by that function.</p>
 		<td class="attributes"><code>
 			 public 
 
-			
+			boolean
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPrimaryKey">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Column.html#117-125" title="Go to source code">getPrimaryKey</a>( <span>boolean <var>$enable</var>,…</span> )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#146-154" title="Go to source code">getPrimaryKey</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve the auto increment flag on the column.</p>
@@ -394,12 +474,11 @@ exceptions thrown by that function.</p>
 			<p>Retrieve the auto increment flag on the column.</p>
 
 
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$enable</var>,…</dt>
-					<dd>TRUE if the column is a primary key</dd>
-				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>$enable TRUE if the column is a primary key
+				</div>
 
 
 
@@ -412,14 +491,14 @@ exceptions thrown by that function.</p>
 		<td class="attributes"><code>
 			 public 
 
-			
+			<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code>
 			&amp;
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setRelation">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Column.html#127-139" title="Go to source code">setRelation</a>( <span><code><a href="class-Gishiki.Database.Schema.ColumnRelation.html">Gishiki\Database\Schema\ColumnRelation</a></code> <var>&amp; $rel</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#156-168" title="Go to source code">setRelation</a>( <span><code><a href="class-Gishiki.Database.Schema.ColumnRelation.html">Gishiki\Database\Schema\ColumnRelation</a></code> <var>&amp; $rel</var></span> )</code>
 
 		<div class="description short">
 			<p>Change the relation of the current column.</p>
@@ -435,6 +514,10 @@ exceptions thrown by that function.</p>
 					<dd>the column relation</dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code><br>a reference to the modified Column
+				</div>
 
 				<h4>Throws</h4>
 				<div class="list">
@@ -458,7 +541,7 @@ exceptions thrown by that function.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRelation">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Column.html#141-149" title="Go to source code">getRelation</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#170-178" title="Go to source code">getRelation</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve the relation of the column.</p>
@@ -485,14 +568,14 @@ exceptions thrown by that function.</p>
 		<td class="attributes"><code>
 			 public 
 
-			
+			<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code>
 			&amp;
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setName">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Column.html#151-168" title="Go to source code">setName</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#180-197" title="Go to source code">setName</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			<p>Change the name of the current column.</p>
@@ -508,6 +591,10 @@ exceptions thrown by that function.</p>
 					<dd>the name of the column</dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code><br>a reference to the modified Column
+				</div>
 
 				<h4>Throws</h4>
 				<div class="list">
@@ -531,7 +618,7 @@ exceptions thrown by that function.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getName">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Column.html#170-178" title="Go to source code">getName</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#199-207" title="Go to source code">getName</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve the name of the column.</p>
@@ -558,14 +645,14 @@ exceptions thrown by that function.</p>
 		<td class="attributes"><code>
 			 public 
 
-			
+			<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code>
 			&amp;
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_settype">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Column.html#180-200" title="Go to source code">settype</a>( <span>string <var>$type</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#209-229" title="Go to source code">settype</a>( <span>string <var>$type</var></span> )</code>
 
 		<div class="description short">
 			<p>Change the type of the current table passing as argument one
@@ -583,6 +670,10 @@ of the ColumnType contants.</p>
 					<dd>the type of the column</dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></code><br>a reference to the modified Column
+				</div>
 
 				<h4>Throws</h4>
 				<div class="list">
@@ -606,7 +697,7 @@ of the ColumnType contants.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getType">#</a>
-		<code><a href="source-class-Gishiki.Database.Schema.Column.html#202-210" title="Go to source code">getType</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Schema.Column.html#231-239" title="Go to source code">getType</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve the type of the column.</p>
@@ -718,6 +809,31 @@ of the ColumnType contants.</p>
 			</div>
 		</td>
 	</tr>
+	<tr data-order="autoIncrement" id="$autoIncrement">
+		<td class="attributes"><code>
+			protected  
+			boolean
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Gishiki.Database.Schema.Column.html#42-45" title="Go to source code"><var>$autoIncrement</var></a>
+
+			<div class="description short">
+				<p>TRUE if the column is autoincrement</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>TRUE if the column is autoincrement</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$autoIncrement" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
 	<tr data-order="pkey" id="$pkey">
 		<td class="attributes"><code>
 			protected  
@@ -725,7 +841,7 @@ of the ColumnType contants.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.Database.Schema.Column.html#42-45" title="Go to source code"><var>$pkey</var></a>
+				<a href="source-class-Gishiki.Database.Schema.Column.html#47-50" title="Go to source code"><var>$pkey</var></a>
 
 			<div class="description short">
 				<p>TRUE if the column is a primary key</p>
@@ -750,7 +866,7 @@ of the ColumnType contants.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Gishiki.Database.Schema.Column.html#47-50" title="Go to source code"><var>$relation</var></a>
+				<a href="source-class-Gishiki.Database.Schema.Column.html#52-55" title="Go to source code"><var>$relation</var></a>
 
 			<div class="description short">
 				<p>the relation to an external table or null</p>

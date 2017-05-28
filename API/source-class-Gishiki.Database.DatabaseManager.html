@@ -322,7 +322,7 @@
 </span><span id="59" class="l"><a href="#59">59: </a>            <span class="php-comment">//reflect the adapter</span>
 </span><span id="60" class="l"><a href="#60">60: </a>            <span class="php-var">$reflectedAdapter</span> = <span class="php-keyword1">new</span> \ReflectionClass(<span class="php-quote">'Gishiki\\Database\\Adapters\\'</span>.<span class="php-var">$adapter</span>);
 </span><span id="61" class="l"><a href="#61">61: </a>
-</span><span id="62" class="l"><a href="#62">62: </a>            <span class="php-comment">//and use the adapter to enstabilish the database connection and return the connection handler</span>
+</span><span id="62" class="l"><a href="#62">62: </a>            <span class="php-comment">//and use the adapter to estabilish the database connection and return the connection handler</span>
 </span><span id="63" class="l"><a href="#63">63: </a>            self::<span class="php-var">$connections</span>[<span class="php-var">$connectionName</span>] = <span class="php-var">$reflectedAdapter</span>-&gt;newInstance(<span class="php-var">$connectionQuery</span>);
 </span><span id="64" class="l"><a href="#64">64: </a>
 </span><span id="65" class="l"><a href="#65">65: </a>            <span class="php-keyword1">return</span> self::<span class="php-var">$connections</span>[<span class="php-var">$connectionName</span>];

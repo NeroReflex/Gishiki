@@ -19,6 +19,7 @@ namespace Gishiki\Database;
 
 use Gishiki\Database\Runtime\ResultModifier;
 use Gishiki\Database\Runtime\SelectionCriteria;
+use Gishiki\Database\Schema\Table;
 
 /**
  * Represent how a relational database connection must be implemented.
@@ -42,5 +43,12 @@ interface RelationalDatabaseInterface extends DatabaseInterface
      */
     public function readSelective($collection, $fields, SelectionCriteria $where, ResultModifier $mod);
 
-    public function createTable($tbName);
+    /**
+     * Create the given table schema.
+     *
+     * @param Schema\Table $tb the table to be created on the database
+     *
+     * @throws DatabaseException the error occurred while creating the table
+     */
+    public function createTable(Table $tb);
 }

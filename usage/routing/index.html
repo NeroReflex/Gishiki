@@ -226,7 +226,7 @@
 <p>When a request arrives the framework must fulfill it.</p>
 <p>The framework automatically maps a request to a resource located at "https://site.com/Home" into "/Home" (GET request).</p>
 <p>The /Home string is the URI of the requested resource, the GET request is the HTTP method used to query that resource...
-the question is.... </p>
+the question is....</p>
 <p>How do I route that request to what I want to serve? The answer is: using the router!</p>
 <p>The router is that fantastic component empowering your user-friendly URLs!</p>
 <h2 id="different-methods">Different methods</h2>
@@ -240,7 +240,7 @@ the question is.... </p>
 <li>PATCH identified as Route::PATCH</li>
 <li>OPTIONS identified as Route::OPTIONS</li>
 </ul>
-<p>When you set a routing rule (either static or dynamic) you have to select the 
+<p>When you set a routing rule (either static or dynamic) you have to select the
 verb that you want to be served in that route.</p>
 <p>This is particulary handy when creating a RESTful service.</p>
 <h2 id="static-rules">Static Rules</h2>
@@ -260,11 +260,11 @@ Route::get(&quot;/&quot;,
 });
 </code></pre>
 
-<p>To try this rule out you have to open rules.php and paste the provided code into 
+<p>To try this rule out you have to open index.php and paste the provided code into 
 it and direct your browser to: https://site.com (the trailing / is automatically added).</p>
 <h2 id="dynamic-rules">Dynamic Rules</h2>
-<p>This route is really simple: just an URI check... but you are creating a dynamic application, 
-and URIs cannot be static URIs every time, in fact sooner or later you will need to capture a parameter passed 
+<p>This route is really simple: just an URI check... but you are creating a dynamic application,
+and URIs cannot be static URIs every time, in fact sooner or later you will need to capture a parameter passed
 as a parameter with the URL.</p>
 <p>Let's just consider this simple example:</p>
 <pre><code class="php">use Gishiki\Core\Route;
@@ -321,7 +321,7 @@ Route::get(&quot;/Hello/{user_email:email}&quot;,
 <li>'integer' an integer number</li>
 </ul>
 <h2 id="all-request-methods">All request methods</h2>
-<p>Sometimes you may need to register a route that responds to all HTTP verbs, you 
+<p>Sometimes you may need to register a route that responds to all HTTP verbs, you
 are allowed to do that by using 'any':</p>
 <pre><code class="php">use Gishiki\Core\Route;
 use Gishiki\HttpKernel\Request;
@@ -335,7 +335,7 @@ Route::any(&quot;/&quot;,
 });
 </code></pre>
 
-<p>the action is taken if that URI is hit, regardless of the method the client used 
+<p>the action is taken if that URI is hit, regardless of the method the client used
 to perform the request.</p>
 <h2 id="two-or-more-request-methods">Two or more request methods</h2>
 <p>An interesting feature of the router is how you create a route for two or more
@@ -352,10 +352,10 @@ Route::match([Route::GET, Route::POST], &quot;/&quot;,
 });
 </code></pre>
 
-<p>the action is taken if that URI is hit only when using get or post request method. </p>
+<p>the action is taken if that URI is hit only when using get or post request method.</p>
 <h2 id="error-catching">Error catching</h2>
-<p>You know, things doesn't always go as you want: it is necessary to think about 
-unexpected circumstances. You do it by setting an error callback, 
+<p>You know, things doesn't always go as you want: it is necessary to think about
+unexpected circumstances. You do it by setting an error callback,
 which is nothing more than a bit special routing rule:</p>
 <pre><code class="php">use Gishiki\Core\Route;
 use Gishiki\HttpKernel\Request;
@@ -399,7 +399,7 @@ resource, but nothing stops you from doing that.</p>
 <p>You cannot route URIs that start with /api/ or /service/ because they are reserved for web services (explained in a different chapter).</p>
 <p>You cannot match something that has a slash '/' character using a dynamic placeholder: {name} cannot capture something like "mario/rossi".</p>
 <h2 id="conclusions">Conclusions</h2>
-<p>The router is the fastest and easiest component within Gishiki, 
+<p>The router is the fastest and easiest component within Gishiki,
 because it is the first component that is used and the only one you <strong>REALLY HAVE TO</strong> use.</p>
 <p>This means that you are now good to go... Everything you <em>MUST</em> know in order to use Gishiki ends here.</p>
 <p>Everything else is a plus you may need to accelerate the development of your projects,

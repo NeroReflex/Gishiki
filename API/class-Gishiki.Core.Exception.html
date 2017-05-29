@@ -211,9 +211,6 @@
 			<img src="resources/inherit.png" alt="Extended by">
 <b><span>Gishiki\Core\Exception</span></b>			
 			
-			 uses 
-					Psr\Log\LoggerAwareTrait (not available)
-
 			
 		</dd>
 	</dl>
@@ -240,7 +237,7 @@
 		<b>Namespace:</b> <a href="namespace-Gishiki.html">Gishiki</a>\<a href="namespace-Gishiki.Core.html">Core</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Gishiki.Core.Exception.html#23-71" title="Go to source code">Gishiki/Core/Exception.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Core.Exception.html#22-64" title="Go to source code">Gishiki/Core/Exception.php</a>
 		<br>
 	</div>
 
@@ -260,7 +257,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.Core.Exception.html#32-53" title="Go to source code">__construct</a>( <span>string <var>$message</var></span>, <span>integer <var>$errorCode</var></span> )</code>
+		<code><a href="source-class-Gishiki.Core.Exception.html#29-45" title="Go to source code">__construct</a>( <span>string <var>$message</var></span>, <span>integer <var>$errorCode</var></span> )</code>
 
 		<div class="description short">
 			<p>Create a base exception and save the log of what's happening.</p>
@@ -287,10 +284,10 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="writeLog" id="_writeLog">
+	<tr data-order="reportOnLog" id="_reportOnLog">
 
 		<td class="attributes"><code>
-			 public 
+			 protected 
 
 			
 			
@@ -298,17 +295,22 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_writeLog">#</a>
-		<code><a href="source-class-Gishiki.Core.Exception.html#55-70" title="Go to source code">writeLog</a>( )</code>
+		<a class="anchor" href="#_reportOnLog">#</a>
+		<code><a href="source-class-Gishiki.Core.Exception.html#47-63" title="Go to source code">reportOnLog</a>( <span> <var>$logger</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
-			<p>Write the log message using the attached logger.</p>
+			<p>Write the log message using the passed logger.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Write the log message using the attached logger.</p>
+			<p>Write the log message using the passed logger.</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$logger</var></dt>
+					<dd>PSR-3 logger instance to be used</dd>
+				</dl></div>
 
 
 

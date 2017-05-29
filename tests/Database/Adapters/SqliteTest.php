@@ -17,6 +17,7 @@ limitations under the License.
 
 namespace Gishiki\tests\Database\Adapters;
 
+use Gishiki\Database\DatabaseException;
 use PHPUnit\Framework\TestCase;
 
 use Gishiki\Database\Adapters\Utils\SQLQueryBuilder;
@@ -24,6 +25,11 @@ use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\FieldRelation;
 use Gishiki\Database\Runtime\ResultModifier;
 use Gishiki\Database\Runtime\FieldOrdering;
+use Gishiki\Database\Schema\Table;
+use Gishiki\Database\Schema\Column;
+use Gishiki\Database\Schema\ColumnType;
+use Gishiki\Database\Schema\ColumnRelation;
+use Gishiki\Database\DatabaseManager;
 
 /**
  * The tester for the SQLQueryBuilder class.
@@ -33,5 +39,60 @@ use Gishiki\Database\Runtime\FieldOrdering;
 
 class SqliteTest extends TestCase
 {
+    private static function getDatabase()
+    {
+        $connection = null;
 
+        try {
+            $connection = DatabaseManager::retrieve("sqliteTest");
+        } catch (DatabaseException $ex) {
+            $connection = DatabaseManager::connect("sqliteTest", "sqlite://sqliteTest.sqlite");
+        }
+
+        return $connection;
+    }
+
+    function testNoRelationsAndNoID()
+    {
+        $table = new Table("User".__FUNCTION__);
+
+        $idColumn = new Column('id', ColumnType::INTEGER);
+        $idColumn->setNotNull(true);
+        $idColumn->setAutoIncrement(true);
+        $idColumn->setPrimaryKey(true);
+        $table->addColumn($idColumn);
+        $nameColumn = new Column('name', ColumnType::TEXT);
+        $nameColumn->setNotNull(true);
+        $table->addColumn($nameColumn);
+        $surnameColumn = new Column('surname', ColumnType::TEXT);
+        $surnameColumn->setNotNull(true);
+        $table->addColumn($surnameColumn);
+        $passwordColumn = new Column('password', ColumnType::TEXT);
+        $passwordColumn->setNotNull(true);
+        $table->addColumn($passwordColumn);
+        $creditColumn = new Column('credit', ColumnType::REAL);
+        $creditColumn->setNotNull(true);
+        $table->addColumn($creditColumn);
+        $registeredColumn = new Column('registered', ColumnType::DATETIME);
+        $registeredColumn->setNotNull(false);
+        $table->addColumn($registeredColumn);
+
+        $connection = self::getDatabase();
+        $connection->createTable($table);
+
+        $connection->create("User".__FUNCTION__, [
+            "name" => "Mario",
+            "surname" => "Rossi",
+            "password" => sha1("asdf"),
+            "credit" => 15.68,
+            "registered" => time()
+        ]);
+
+
+        $readResult = $connection->readSelective("User".__FUNCTION__, ["name", "surname"], SelectionCriteria::select(["name" => "Mario"]), ResultModifier::initialize());
+
+        $this->assertEquals([[
+            "name" => "Mario",
+            "surname" => "Rossi"]], $readResult);
+    }
 }

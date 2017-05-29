@@ -40,6 +40,11 @@ final class Column
     protected $notNull;
 
     /**
+     * @var bool TRUE if the column is autoincrement
+     */
+    protected $autoIncrement;
+
+    /**
      * @var bool TRUE if the column is a primary key
      */
     protected $pkey;
@@ -64,21 +69,45 @@ final class Column
         $this->pkey = false;
         $this->notNull = false;
         $this->relation = null;
+        $this->autoIncrement = null;
         $this->setName($name);
         $this->setType($type);
+    }
+
+    /**
+     * Change the auto increment flag on the column.
+     *
+     * @param bool $enable TRUE is used to flag an auto increment column as such
+     * @return Column a reference to the modified Column
+     * @throws \InvalidArgumentException the new status is invalid
+     */
+    public function &setAutoIncrement($enable)
+    {
+        if (!is_bool($enable)) {
+            throw new \InvalidArgumentException('The auto-increment flag of a column must be given as a boolean value');
+        }
+
+        $this->autoIncrement = $enable;
+
+        return $this;
+    }
+
+    public function getAutoIncrement()
+    {
+        return $this->autoIncrement;
     }
 
     /**
      * Change the primary key flag on the column.
      *
      * @param bool $enable TRUE is used to flag a not null column as such
-     *
+     * @return Column a reference to the modified Column
      * @throws \InvalidArgumentException the new status is invalid
      */
     public function &setNotNull($enable)
     {
         if (!is_bool($enable)) {
-            throw new \InvalidArgumentException('The auto-increment flag of a column must be given as a boolean value');
+            throw new \InvalidArgumentException('The not null flag of a column must be given as a boolean value');
         }
 
         $this->notNull = $enable;
@@ -89,7 +118,7 @@ final class Column
     /**
      * Retrieve the not null flag on the column.
      *
-     * @param bool $enable TRUE if the column cannot contains null
+     * @return bool $enable TRUE if the column cannot contains null
      */
     public function getNotNull()
     {
@@ -100,13 +129,13 @@ final class Column
      * Change the primary key flag on the column.
      *
      * @param bool $enable TRUE is used to flag a primary key column as such
-     *
+     * @return Column a reference to the modified Column
      * @throws \InvalidArgumentException the new status is invalid
      */
     public function &setPrimaryKey($enable)
     {
         if (!is_bool($enable)) {
-            throw new \InvalidArgumentException('The auto-increment flag of a column must be given as a boolean value');
+            throw new \InvalidArgumentException('The primary key flag of a column must be given as a boolean value');
         }
 
         $this->pkey = $enable;
@@ -117,7 +146,7 @@ final class Column
     /**
      * Retrieve the auto increment flag on the column.
      *
-     * @param bool $enable TRUE if the column is a primary key
+     * @return bool $enable TRUE if the column is a primary key
      */
     public function getPrimaryKey()
     {
@@ -128,7 +157,7 @@ final class Column
      * Change the relation of the current column.
      *
      * @param ColumnRelation $rel the column relation
-     *
+     * @return Column a reference to the modified Column
      * @throws \InvalidArgumentException the column name is invalid
      */
     public function &setRelation(ColumnRelation &$rel)
@@ -152,7 +181,7 @@ final class Column
      * Change the name of the current column.
      *
      * @param string $name the name of the column
-     *
+     * @return Column a reference to the modified Column
      * @throws \InvalidArgumentException the column name is invalid
      */
     public function &setName($name)
@@ -182,7 +211,7 @@ final class Column
      * of the ColumnType contants.
      *
      * @param string $type the type of the column
-     *
+     * @return Column a reference to the modified Column
      * @throws \InvalidArgumentException the column name is invalid
      */
     public function &settype($type)

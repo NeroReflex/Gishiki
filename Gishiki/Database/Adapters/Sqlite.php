@@ -90,6 +90,11 @@ final class Sqlite implements RelationalDatabaseInterface
      */
     public function createTable(Table $tb)
     {
+        //check for closed database connection
+        if (!$this->connected()) {
+            throw new DatabaseException('The database connection must be opened before executing any operation', 2);
+        }
+
         //build the sql query
         $queryBuilder = new SQLiteQueryBuilder();
         $queryBuilder->createTable($tb->getName())->definedAs($tb->getColumns());

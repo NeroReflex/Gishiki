@@ -59,7 +59,7 @@ abstract class DatabaseManager
             //reflect the adapter
             $reflectedAdapter = new \ReflectionClass('Gishiki\\Database\\Adapters\\'.$adapter);
 
-            //and use the adapter to enstabilish the database connection and return the connection handler
+            //and use the adapter to estabilish the database connection and return the connection handler
             self::$connections[$connectionName] = $reflectedAdapter->newInstance($connectionQuery);
 
             return self::$connections[$connectionName];

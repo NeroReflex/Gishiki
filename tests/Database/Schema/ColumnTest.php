@@ -70,6 +70,30 @@ class ColumnTest extends TestCase
         $col->setPrimaryKey(null);
     }
 
+    public function testColumnAutoIncrement()
+    {
+        //create the table for this test
+        $table = new Table(__FUNCTION__);
+
+        //create a testing column (by default a new column is NOT a primary key)
+        $col = new Column('id', ColumnType::INTEGER);
+
+        $this->assertEquals(false, $col->getAutoIncrement());
+
+        $col->setAutoIncrement(true);
+
+        $this->assertEquals(true, $col->getAutoIncrement());
+    }
+
+    public function testColumnBadAutoIncrement()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        //create a testing column
+        $col = new Column('id', ColumnType::INTEGER);
+        $col->setAutoIncrement(null);
+    }
+
     public function testColumnBadNotNull()
     {
         $this->expectException(\InvalidArgumentException::class);

@@ -62,10 +62,10 @@ class SQLiteQueryBuilderTest extends TestCase
         $query->createTable($table->getName())->definedAs($table->getColumns());
 
         $this->assertEquals(SQLiteQueryBuilder::beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
-                .'id INT PRIMARY KEY NOT NULL, '
+                .'id INTEGER PRIMARY KEY NOT NULL, '
                 .'name TEXT NOT NULL, '
                 .'credit REAL NOT NULL, '
-                .'registered TEXT'
+                .'registered INTEGER'
                 .')'), SQLiteQueryBuilder::beautify($query->exportQuery()));
     }
 
@@ -100,11 +100,41 @@ class SQLiteQueryBuilderTest extends TestCase
         $query->createTable($table->getName())->definedAs($table->getColumns());
 
         $this->assertEquals(SQLiteQueryBuilder::beautify('CREATE TABLE IF NOT EXISTS orders ('
-                .'id INT PRIMARY KEY NOT NULL, '
-                .'customer_id INT NOT NULL, '
+                .'id INTEGER PRIMARY KEY NOT NULL, '
+                .'customer_id INTEGER NOT NULL, '
                 .'FOREIGN KEY (customer_id) REFERENCES users(id), '
                 .'spent REAL NOT NULL, '
-                .'ship_date TEXT'
+                .'ship_date INTEGER'
                 .')'), SQLiteQueryBuilder::beautify($query->exportQuery()));
+    }
+
+    public function testCreateTableWithAutoIncrementAndNoForeignKey()
+    {
+        $table = new Table(__FUNCTION__);
+
+        $idColumn = new Column('id', ColumnType::INTEGER);
+        $idColumn->setAutoIncrement(true);
+        $idColumn->setNotNull(true);
+        $idColumn->setPrimaryKey(true);
+        $table->addColumn($idColumn);
+        $nameColumn = new Column('name', ColumnType::TEXT);
+        $nameColumn->setNotNull(true);
+        $table->addColumn($nameColumn);
+        $creditColumn = new Column('credit', ColumnType::REAL);
+        $creditColumn->setNotNull(true);
+        $table->addColumn($creditColumn);
+        $registeredColumn = new Column('registered', ColumnType::DATETIME);
+        $registeredColumn->setNotNull(false);
+        $table->addColumn($registeredColumn);
+
+        $query = new SQLiteQueryBuilder();
+        $query->createTable($table->getName())->definedAs($table->getColumns());
+
+        $this->assertEquals(SQLiteQueryBuilder::beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
+            .'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, '
+            .'name TEXT NOT NULL, '
+            .'credit REAL NOT NULL, '
+            .'registered INTEGER'
+            .')'), SQLiteQueryBuilder::beautify($query->exportQuery()));
     }
 }

@@ -45,7 +45,7 @@ class SQLiteQueryBuilder extends SQLQueryBuilder
     }
 
     /**
-     * Add (id INT PRIMARY KEY NUT NULL, name TEXT NOT NULL, ... ) to the SQL query.
+     * Add (id INTEGER PRIMARY KEY NUT NULL, name TEXT NOT NULL, ... ) to the SQL query.
      *
      * @param array $columns a collection of Gishiki\Database\Schema\Column
      *
@@ -66,13 +66,13 @@ class SQLiteQueryBuilder extends SQLQueryBuilder
             $typename = '';
             switch ($column->getType()) {
 
-                case ColumnType::DATETIME:
                 case ColumnType::TEXT:
                     $typename = 'TEXT';
                     break;
 
+                case ColumnType::DATETIME:
                 case ColumnType::INTEGER:
-                    $typename = 'INT';
+                    $typename = 'INTEGER';
                     break;
 
                 case ColumnType::REAL:
@@ -86,6 +86,10 @@ class SQLiteQueryBuilder extends SQLQueryBuilder
 
             if ($column->getPrimaryKey()) {
                 $this->appendToQuery('PRIMARY KEY ');
+            }
+
+            if ($column->getAutoIncrement()) {
+                $this->appendToQuery('AUTOINCREMENT ');
             }
 
             if ($column->getNotNull()) {

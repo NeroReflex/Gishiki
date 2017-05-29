@@ -194,7 +194,69 @@ class SqliteTest extends TestCase
 
         $connection = self::getDatabase();
 
-        $connection->update(null, ["status" => "lol"], SelectionCriteria::select(["status" => "unwanted"]));
+        $connection->delete(null, SelectionCriteria::select(["status" => "unwanted"]));
+    }
+
+    public function testDeleteAllOnClosedConnection()
+    {
+        $this->expectException(DatabaseException::class);
+
+        $closedConnection = null;
+        try {
+            $closedConnection = new Sqlite(":memory:");
+            $closedConnection->close();
+        } catch (\InvalidArgumentException $ex) { }
+
+        $closedConnection->deleteAll(__FUNCTION__);
+    }
+
+    public function testDeleteAllBadCollectionName()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $connection = self::getDatabase();
+
+        $connection->deleteAll(null);
+    }
+
+    public function testCreateOnClosedConnection()
+    {
+        $this->expectException(DatabaseException::class);
+
+        $closedConnection = null;
+        try {
+            $closedConnection = new Sqlite(":memory:");
+            $closedConnection->close();
+        } catch (\InvalidArgumentException $ex) { }
+
+        $closedConnection->create(__FUNCTION__, ["status" => "unwanted"]);
+    }
+
+    public function testCreateBadCollectionName()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $connection = self::getDatabase();
+
+        $connection->create(null, ["status" => "lol"]);
+    }
+
+    public function testCreateBadCollectionValue()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $connection = self::getDatabase();
+
+        $connection->create(__FUNCTION__, 69);
+    }
+
+    public function testBadCreate()
+    {
+        $this->expectException(DatabaseException::class);
+
+        $connection = self::getDatabase();
+
+        $connection->create(__FUNCTION__, ["status" => "unwanted"]);
     }
 
     public function testDeleteNoRelationNoID()

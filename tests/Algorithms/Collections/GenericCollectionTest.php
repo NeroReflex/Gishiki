@@ -154,6 +154,16 @@ class GenericCollectionTest extends TestCase
         $rebuilt_collection = $collection_to_test();
 
         //test if the collection rebuild process has given the right result
-        $this->assertEquals($rebuilt_collection, $native_collection);
+        $this->assertEquals($native_collection, $rebuilt_collection);
+
+        $this->assertEquals(true, $collection_to_test->offsetExists('test1'));
+
+        $collection_to_test->offsetUnset('test1');
+
+        $this->assertEquals(false, $collection_to_test->offsetExists('test1'));
+
+        $collection_to_test->offsetSet('test1', false);
+
+        $this->assertEquals(true, $collection_to_test->offsetExists('test1'));
     }
 }

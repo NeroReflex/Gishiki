@@ -26,9 +26,9 @@ abstract class DatabaseManager
 {
     private static $connections = array();
 
-    //used to give a sencond name to an adapter
+    //used to give a second name to an adapter
     private static $adaptersMap = [
-        // 'Firstname' => 'Secondname'
+         'Sqlite3' => 'Sqlite'
     ];
 
     /**
@@ -38,7 +38,7 @@ abstract class DatabaseManager
      * @param string $connectionString the connection string
      *
      * @throws \InvalidArgumentException invalid name or connection string
-     *
+     * @throws DatabaseException         a database adapter with the given name doesn't exists
      * @return DatabaseInterface the connected database instance
      */
     public static function connect($connectionName, $connectionString)
@@ -52,7 +52,7 @@ abstract class DatabaseManager
         $temp = explode('://', $connectionString);
         $adapterTemp = ucfirst($temp[0]);
         $adapter = (array_key_exists($adapterTemp, self::$adaptersMap)) ?
-            self::$adaptersMap[$adapter] : $adapterTemp;
+            self::$adaptersMap[$adapterTemp] : $adapterTemp;
         $connectionQuery = $temp[1];
 
         try {

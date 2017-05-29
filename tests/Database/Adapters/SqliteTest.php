@@ -46,7 +46,7 @@ class SqliteTest extends TestCase
         try {
             $connection = DatabaseManager::retrieve("sqliteTest");
         } catch (DatabaseException $ex) {
-            $connection = DatabaseManager::connect("sqliteTest", "sqlite://sqliteTest.sqlite");
+            $connection = DatabaseManager::connect("sqliteTest", "sqlite3://sqliteTest.sqlite");
         }
 
         return $connection;

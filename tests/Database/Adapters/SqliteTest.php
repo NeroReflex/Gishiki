@@ -148,11 +148,8 @@ class SqliteTest extends TestCase
     {
         $this->expectException(DatabaseException::class);
 
-        $closedConnection = null;
-        try {
-            $closedConnection = new Sqlite(":memory:");
-            $closedConnection->close();
-        } catch (\InvalidArgumentException $ex) { }
+        $closedConnection = new Sqlite(":memory:");
+        $closedConnection->close();
 
         $closedConnection->update(__FUNCTION__, ["status" => "lol"], SelectionCriteria::select());
     }
@@ -179,11 +176,8 @@ class SqliteTest extends TestCase
     {
         $this->expectException(DatabaseException::class);
 
-        $closedConnection = null;
-        try {
-            $closedConnection = new Sqlite(":memory:");
-            $closedConnection->close();
-        } catch (\InvalidArgumentException $ex) { }
+        $closedConnection = new Sqlite(":memory:");
+        $closedConnection->close();
 
         $closedConnection->delete(__FUNCTION__, SelectionCriteria::select(["status" => "unwanted"]));
     }
@@ -201,11 +195,8 @@ class SqliteTest extends TestCase
     {
         $this->expectException(DatabaseException::class);
 
-        $closedConnection = null;
-        try {
-            $closedConnection = new Sqlite(":memory:");
-            $closedConnection->close();
-        } catch (\InvalidArgumentException $ex) { }
+        $closedConnection = new Sqlite(":memory:");
+        $closedConnection->close();
 
         $closedConnection->deleteAll(__FUNCTION__);
     }
@@ -223,11 +214,8 @@ class SqliteTest extends TestCase
     {
         $this->expectException(DatabaseException::class);
 
-        $closedConnection = null;
-        try {
-            $closedConnection = new Sqlite(":memory:");
-            $closedConnection->close();
-        } catch (\InvalidArgumentException $ex) { }
+        $closedConnection = new Sqlite(":memory:");
+        $closedConnection->close();
 
         $closedConnection->create(__FUNCTION__, ["status" => "unwanted"]);
     }
@@ -257,6 +245,71 @@ class SqliteTest extends TestCase
         $connection = self::getDatabase();
 
         $connection->create(__FUNCTION__, ["status" => "unwanted"]);
+    }
+
+    public function testBadDelete()
+    {
+        $this->expectException(DatabaseException::class);
+
+        $connection = self::getDatabase();
+
+        $connection->delete(__FUNCTION__, SelectionCriteria::select(["id" => 10]));
+    }
+
+    public function testBadDeleteAll()
+    {
+        $this->expectException(DatabaseException::class);
+
+        $connection = self::getDatabase();
+
+        $connection->deleteAll(__FUNCTION__);
+    }
+
+    public function testReadBadCollectionName()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $connection = self::getDatabase();
+
+        $connection->read(null, SelectionCriteria::select(['id' => 7]), ResultModifier::initialize());
+    }
+
+    public function testReadSelectiveBadCollectionName()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $connection = self::getDatabase();
+
+        $connection->readSelective(null, ['id'],SelectionCriteria::select(['id' => 7]), ResultModifier::initialize());
+    }
+
+    public function testReadSelectiveOnClosedConnection()
+    {
+        $this->expectException(DatabaseException::class);
+
+        $closedConnection = new Sqlite(":memory:");
+        $closedConnection->close();
+
+        $closedConnection->readSelective(__FUNCTION__, ['id'],SelectionCriteria::select(['id' => 7]), ResultModifier::initialize());
+    }
+
+    public function testReadOnClosedConnection()
+    {
+        $this->expectException(DatabaseException::class);
+
+        $closedConnection = new Sqlite(":memory:");
+        $closedConnection->close();
+
+        $closedConnection->read(__FUNCTION__, SelectionCriteria::select(['id' => 7]), ResultModifier::initialize());
+    }
+
+    public function testBadUpdate()
+    {
+        $this->expectException(DatabaseException::class);
+
+        $connection = self::getDatabase();
+
+        $connection->update(__FUNCTION__, ["price" => 9.00], SelectionCriteria::select());
     }
 
     public function testDeleteNoRelationNoID()

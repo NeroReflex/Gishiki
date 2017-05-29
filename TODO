@@ -1,9 +1,6 @@
 - review and add documentation
-- add more tests for EVERYTHING!
+- increase code coverage!
 - review the Database namespace
-- rething to a fast ORM
+- rethink to a fast ORM
 - think about implementing a good templating engine
-- check for empty SelectionCriteria (breaks the where condition....)
-- remove the application folder
-- remove the need of a router.php
 - have a better router......

@@ -77,7 +77,7 @@ common cryptographic operations.
 
 ## Requirements
 
-Everything you need is php >= 5.5 and composer!
+Everything you need is php 7 and composer!
 
 Gishiki runs better while using a dedicated http webserver, but you can use the
 one bundled with PHP!

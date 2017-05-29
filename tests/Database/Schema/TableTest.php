@@ -35,7 +35,8 @@ class TableTest extends TestCase
     public function testTableBadName()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $table = new Table('');
+
+        new Table('');
     }
 
     public function testTableName()

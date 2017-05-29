@@ -76,7 +76,7 @@ class Headers extends GenericCollection implements HeadersInterface
     {
         $all = parent::all();
         $out = [];
-        foreach ($all as $key => $props) {
+        foreach ($all as $props) {
             $out[$props['originalKey']] = $props['value'];
         }
 

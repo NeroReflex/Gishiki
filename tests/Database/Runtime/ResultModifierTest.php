@@ -38,7 +38,7 @@ class ResultModifierTest extends TestCase
     public function testBadLimit()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $resMod = ResultModifier::initialize([
+        ResultModifier::initialize([
             'limit' => 5,
             'skip' => 8,
         ])->limit('bad')->skip(5);
@@ -47,7 +47,7 @@ class ResultModifierTest extends TestCase
     public function testBadOffset()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $resMod = ResultModifier::initialize([
+        ResultModifier::initialize([
             'limit' => 5,
             'skip' => 8,
         ])->limit(10)->skip('bad');
@@ -56,7 +56,7 @@ class ResultModifierTest extends TestCase
     public function testBadNameOrdering()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $resMod = ResultModifier::initialize([
+        ResultModifier::initialize([
             'limit' => 5,
             'skip' => 8,
         ])->order(null, FieldOrdering::ASC);
@@ -65,7 +65,7 @@ class ResultModifierTest extends TestCase
     public function testBadOrderOrdering()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $resMod = ResultModifier::initialize([
+        ResultModifier::initialize([
             'limit' => 5,
             'skip' => 8,
         ])->order('name', null);

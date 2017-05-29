@@ -61,6 +61,9 @@ class SqliteTest extends TestCase
         $idColumn->setAutoIncrement(true);
         $idColumn->setPrimaryKey(true);
         $table->addColumn($idColumn);
+        $newColumn = new Column('new', ColumnType::INTEGER);
+        $newColumn->setNotNull(true);
+        $table->addColumn($newColumn);
         $nameColumn = new Column('name', ColumnType::TEXT);
         $nameColumn->setNotNull(true);
         $table->addColumn($nameColumn);
@@ -81,18 +84,35 @@ class SqliteTest extends TestCase
         $connection->createTable($table);
 
         $connection->create("User".__FUNCTION__, [
+            "new" => 1,
             "name" => "Mario",
             "surname" => "Rossi",
-            "password" => sha1("asdf"),
+            "password" => sha1("asdfgh"),
             "credit" => 15.68,
             "registered" => time()
         ]);
 
-
-        $readResult = $connection->readSelective("User".__FUNCTION__, ["name", "surname"], SelectionCriteria::select(["name" => "Mario"]), ResultModifier::initialize());
+        $readResult = $connection->readSelective("User".__FUNCTION__, ["name", "surname"],
+            SelectionCriteria::select(["name" => "Mario"])->and_where("new", FieldRelation::GREATER_OR_EQUAL_THAN, 1),
+            ResultModifier::initialize());
 
         $this->assertEquals([[
             "name" => "Mario",
             "surname" => "Rossi"]], $readResult);
+
+        /*$ancientRecords = count(
+            $connection->read(
+                "User".__FUNCTION__,
+                SelectionCriteria::select([])->and_where("new", FieldRelation::GREATER_OR_EQUAL_THAN, 1),
+                ResultModifier::initialize())
+        );*/
+
+        $newlyAncientRecords = $connection->update(
+            "User".__FUNCTION__,
+            ["new" => 0],
+            SelectionCriteria::select([])->and_where("new", FieldRelation::GREATER_OR_EQUAL_THAN, 1)
+        );
+
+        $this->assertEquals(1, $newlyAncientRecords);
     }
 }

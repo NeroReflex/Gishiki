@@ -119,7 +119,7 @@ class GenericCollectionTest extends TestCase
 
         $collection = new GenericCollection($arr);
 
-        foreach ($arr as $key => &$current) {
+        foreach ($arr as &$current) {
             $current += 1.25;
         }
 

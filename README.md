@@ -61,7 +61,7 @@ another service, a Desktop program or the website for your service.
 
 Gishiki deploy an MVC pattern that is a bit special to help you building any digital servie you want with just one framework.
 
-In order to help you achieving your goals Gishiki provides helpers to help you with most common operations,
+In order to help you achieving your goals Gishiki provides helpers for a lot of common operations,
 but let you free of doing things the way you want.
 
 

@@ -201,7 +201,7 @@ final class Sqlite implements RelationalDatabaseInterface
             $stmt->execute($queryBuilder->exportParams());
 
             //return the number of affected rows
-            return $this->connection->rowCount();
+            return $stmt->rowCount();
         } catch (\PDOException $ex) {
             throw new DatabaseException('Error while performing the update operation: '.$ex->getMessage(), 4);
         }
@@ -235,7 +235,7 @@ final class Sqlite implements RelationalDatabaseInterface
             $stmt->execute($queryBuilder->exportParams());
 
             //return the number of affected rows
-            return $this->connection->rowCount();
+            return $stmt->rowCount();
         } catch (\PDOException $ex) {
             throw new DatabaseException('Error while performing the delete operation: '.$ex->getMessage(), 5);
         }
@@ -269,7 +269,7 @@ final class Sqlite implements RelationalDatabaseInterface
             $stmt->execute($queryBuilder->exportParams());
 
             //return the number of affected rows
-            return $this->connection->rowCount();
+            return $stmt->rowCount();
         } catch (\PDOException $ex) {
             throw new DatabaseException('Error while performing the delete operation: '.$ex->getMessage(), 5);
         }

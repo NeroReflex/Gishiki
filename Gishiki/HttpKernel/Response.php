@@ -196,7 +196,7 @@ class Response extends Message implements ResponseInterface
 
         //send the result and count sent bytes
         $sent = 0;
-        $defContLength = isset($contentLength);
+        //$defContLength = isset($contentLength);
 
         $amountToRead = ($contentLength) ? intval($contentLength) : $bodySize;
         while ($amountToRead > 0 && !$body->eof()) {

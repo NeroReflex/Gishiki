@@ -22,3 +22,5 @@ boxes/*
 /website/build
 /vagrant-spec.config.rb
 
+# Database
+sqliteTest.sqlite

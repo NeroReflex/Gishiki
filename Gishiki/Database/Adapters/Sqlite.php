@@ -51,7 +51,7 @@ final class Sqlite implements RelationalDatabaseInterface
      */
     public function __construct($details)
     {
-        $this->connection = array();
+        $this->connection = [];
         $this->connected = false;
 
         //connect to the database
@@ -83,6 +83,15 @@ final class Sqlite implements RelationalDatabaseInterface
         } catch (\PDOException $ex) {
             throw new DatabaseException('Error while opening the database connection:'.$ex->getMessage(), 1);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function close()
+    {
+        $this->connection = [];
+        $this->connected = false;
     }
 
     /**

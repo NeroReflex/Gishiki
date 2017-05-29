@@ -78,8 +78,6 @@ class SQLiteQueryBuilder extends SQLQueryBuilder
                 case ColumnType::REAL:
                     $typename = 'REAL';
                     break;
-
-                default:
             }
 
             $this->appendToQuery($typename.' ');

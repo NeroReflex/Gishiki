@@ -19,7 +19,7 @@ you are completely free to use it as you wish to,
 even if that breaks up MVC principles!
 
 What are you waiting for?
-Installing is as simple as cloning the repository and in 2 minutes you are up in
+Installing is as simple as editing your composer file and in 2 minutes you are up in
 experimenting its features!
 
 
@@ -29,7 +29,7 @@ Do you want to have it working in the less time possible? OK!
 
 ```shell
 composer init # setup your new project
-nano composer.json # or any other text editor to add "neroreflex/gishiki": "dev-development" on "require"
+nano composer.json # or any other text editor to add "neroreflex/gishiki": "dev-master" on "require"
 composer install --no-dev
 ./vendor/bin/gishiki new application
 ```

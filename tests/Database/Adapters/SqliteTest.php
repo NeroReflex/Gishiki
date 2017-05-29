@@ -17,6 +17,7 @@ limitations under the License.
 
 namespace Gishiki\tests\Database\Adapters;
 
+use Gishiki\Database\Adapters\Sqlite;
 use Gishiki\Database\DatabaseException;
 use PHPUnit\Framework\TestCase;
 
@@ -46,13 +47,57 @@ class SqliteTest extends TestCase
         try {
             $connection = DatabaseManager::retrieve("sqliteTest");
         } catch (DatabaseException $ex) {
-            $connection = DatabaseManager::connect("sqliteTest", "sqlite3://sqliteTest.sqlite");
+            $connection = DatabaseManager::connect("sqliteTest", "sqlite3://:memory:");
         }
 
         return $connection;
     }
 
-    function testNoRelationsAndNoID()
+    public function testBadConnectionParam()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        new Sqlite(null);
+    }
+
+    public function testCreateTableOnClosedDatabase()
+    {
+        $this->expectException(DatabaseException::class);
+
+        $closedConnection = null;
+        try {
+            $closedConnection = new Sqlite(":memory:");
+            $closedConnection->close();
+        } catch (\InvalidArgumentException $ex) { }
+
+        $table = new Table(__FUNCTION__);
+
+        $idColumn = new Column('id', ColumnType::INTEGER);
+        $idColumn->setNotNull(true);
+        $idColumn->setAutoIncrement(true);
+        $idColumn->setPrimaryKey(true);
+        $table->addColumn($idColumn);
+
+        $closedConnection->createTable($table);
+    }
+
+    public function testBadCreateTable()
+    {
+        $this->expectException(DatabaseException::class);
+
+        $table = new Table("from");
+
+        $idColumn = new Column('where', ColumnType::INTEGER);
+        $idColumn->setNotNull(true);
+        $idColumn->setAutoIncrement(true);
+        $idColumn->setPrimaryKey(true);
+        $table->addColumn($idColumn);
+
+        $connection = self::getDatabase();
+        $connection->createTable($table);
+    }
+
+    public function testNoRelationsAndNoID()
     {
         $table = new Table("User".__FUNCTION__);
 
@@ -61,9 +106,6 @@ class SqliteTest extends TestCase
         $idColumn->setAutoIncrement(true);
         $idColumn->setPrimaryKey(true);
         $table->addColumn($idColumn);
-        $newColumn = new Column('new', ColumnType::INTEGER);
-        $newColumn->setNotNull(true);
-        $table->addColumn($newColumn);
         $nameColumn = new Column('name', ColumnType::TEXT);
         $nameColumn->setNotNull(true);
         $table->addColumn($nameColumn);
@@ -83,29 +125,147 @@ class SqliteTest extends TestCase
         $connection = self::getDatabase();
         $connection->createTable($table);
 
-        $connection->create("User".__FUNCTION__, [
-            "new" => 1,
-            "name" => "Mario",
-            "surname" => "Rossi",
-            "password" => sha1("asdfgh"),
-            "credit" => 15.68,
-            "registered" => time()
-        ]);
+        $connection->create(
+            "User".__FUNCTION__,
+            [
+                "name" => "Mario",
+                "surname" => "Rossi",
+                "password" => sha1("asdfgh"),
+                "credit" => 15.68,
+                "registered" => time()
+            ]);
 
         $readResult = $connection->readSelective("User".__FUNCTION__, ["name", "surname"],
-            SelectionCriteria::select(["name" => "Mario"])->AndWhere("new", FieldRelation::GREATER_OR_EQUAL_THAN, 1),
+            SelectionCriteria::select(["name" => "Mario"]),
             ResultModifier::initialize());
 
         $this->assertEquals([[
             "name" => "Mario",
             "surname" => "Rossi"]], $readResult);
+    }
 
-        $newlyAncientRecords = $connection->update(
-            "User".__FUNCTION__,
-            ["new" => 0],
-            SelectionCriteria::select([])->AndWhere("new", FieldRelation::GREATER_OR_EQUAL_THAN, 1)
-        );
+    public function testUpdateOnClosedConnection()
+    {
+        $this->expectException(DatabaseException::class);
 
-        $this->assertEquals(1, $newlyAncientRecords);
+        $closedConnection = null;
+        try {
+            $closedConnection = new Sqlite(":memory:");
+            $closedConnection->close();
+        } catch (\InvalidArgumentException $ex) { }
+
+        $closedConnection->update(__FUNCTION__, ["status" => "lol"], SelectionCriteria::select());
+    }
+
+    public function testUpdateBadCollectionName()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $connection = self::getDatabase();
+
+        $connection->update(null, ["status" => "lol"], SelectionCriteria::select());
+    }
+
+    public function testUpdateBadCollectionData()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $connection = self::getDatabase();
+
+        $connection->update(__FUNCTION__, "nonsense :)", SelectionCriteria::select());
+    }
+
+    public function testUpdateNoRelationNoID()
+    {
+        $table = new Table("Books_".__FUNCTION__);
+
+        $idColumn = new Column('id', ColumnType::INTEGER);
+        $idColumn->setNotNull(true);
+        $idColumn->setAutoIncrement(true);
+        $idColumn->setPrimaryKey(true);
+        $table->addColumn($idColumn);
+        $nameColumn = new Column('title', ColumnType::TEXT);
+        $nameColumn->setNotNull(true);
+        $table->addColumn($nameColumn);
+        $authorColumn = new Column('author', ColumnType::TEXT);
+        $table->addColumn($authorColumn);
+        $priceColumn = new Column('price', ColumnType::REAL);
+        $priceColumn->setNotNull(true);
+        $table->addColumn($priceColumn);
+
+        $connection = self::getDatabase();
+        $connection->createTable($table);
+
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'Compilers: Principles, Techniques, and Tools',
+                'author' => 'Alfred V. Aho, Monica S. Lam, Ravi Sethi, and Jeffrey D. Ullman',
+                'price' => 50.99
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'Bible',
+                'price' => 12.99
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => '1984',
+                'author' => 'George Orwell',
+                'price' => 13.40
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'Animal Farm',
+                'author' => 'George Orwell',
+                'price' => 25.99
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'Programming in ANSI C Deluxe Revised',
+                'price' => 8.71
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'C Programming Language, 2nd Edition',
+                'price' => 14.46
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'Modern Operating Systems',
+                'author' => 'Andrew S. Tanenbaum',
+                'price' => 70.89
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'Embedded C Coding Standard',
+                'price' => 5.38
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'C Programming for Embedded Microcontrollers',
+                'price' => 20.00
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'ARM Assembly Language',
+                'price' => 17.89
+            ]);
+
+
+        $this->assertEquals(5, $connection->update("Books_".__FUNCTION__, ['price' => 10.00],
+            SelectionCriteria::select()
+                ->AndWhere('price', FieldRelation::LESS_THAN, 20.99)
+                ->AndWhere('price', FieldRelation::GREATER_OR_EQUAL_THAN, 10.50)
+            ));
     }
 }

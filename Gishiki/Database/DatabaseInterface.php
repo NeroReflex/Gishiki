@@ -48,6 +48,13 @@ interface DatabaseInterface
     public function connect($details);
 
     /**
+     * Close the connection to the database
+     *
+     * @return void
+     */
+    public function close();
+
+    /**
      * Check if the database handler is connected with a real database.
      *
      * @return bool TRUE only if the database connection is alive

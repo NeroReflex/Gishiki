@@ -175,6 +175,122 @@ class SqliteTest extends TestCase
         $connection->update(__FUNCTION__, "nonsense :)", SelectionCriteria::select());
     }
 
+    public function testDeleteOnClosedConnection()
+    {
+        $this->expectException(DatabaseException::class);
+
+        $closedConnection = null;
+        try {
+            $closedConnection = new Sqlite(":memory:");
+            $closedConnection->close();
+        } catch (\InvalidArgumentException $ex) { }
+
+        $closedConnection->delete(__FUNCTION__, SelectionCriteria::select(["status" => "unwanted"]));
+    }
+
+    public function testDeleteBadCollectionName()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $connection = self::getDatabase();
+
+        $connection->update(null, ["status" => "lol"], SelectionCriteria::select(["status" => "unwanted"]));
+    }
+
+    public function testDeleteNoRelationNoID()
+    {
+        $table = new Table("Books_".__FUNCTION__);
+
+        $idColumn = new Column('id', ColumnType::INTEGER);
+        $idColumn->setNotNull(true);
+        $idColumn->setAutoIncrement(true);
+        $idColumn->setPrimaryKey(true);
+        $table->addColumn($idColumn);
+        $nameColumn = new Column('title', ColumnType::TEXT);
+        $nameColumn->setNotNull(true);
+        $table->addColumn($nameColumn);
+        $authorColumn = new Column('author', ColumnType::TEXT);
+        $table->addColumn($authorColumn);
+        $priceColumn = new Column('price', ColumnType::REAL);
+        $priceColumn->setNotNull(true);
+        $table->addColumn($priceColumn);
+
+        $connection = self::getDatabase();
+        $connection->createTable($table);
+
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'Compilers: Principles, Techniques, and Tools',
+                'author' => 'Alfred V. Aho, Monica S. Lam, Ravi Sethi, and Jeffrey D. Ullman',
+                'price' => 50.99
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'Bible',
+                'price' => 12.99
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => '1984',
+                'author' => 'George Orwell',
+                'price' => 13.40
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'Animal Farm',
+                'author' => 'George Orwell',
+                'price' => 25.99
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'Programming in ANSI C Deluxe Revised',
+                'price' => 8.71
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'C Programming Language, 2nd Edition',
+                'price' => 14.46
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'Modern Operating Systems',
+                'author' => 'Andrew S. Tanenbaum',
+                'price' => 70.89
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'Embedded C Coding Standard',
+                'price' => 5.38
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'C Programming for Embedded Microcontrollers',
+                'price' => 20.00
+            ]);
+        $connection->create(
+            "Books_".__FUNCTION__,
+            [
+                'title' => 'ARM Assembly Language',
+                'price' => 17.89
+            ]);
+
+
+        $this->assertEquals(7, $connection->delete("Books_".__FUNCTION__,
+            SelectionCriteria::select()->AndWhere('price', FieldRelation::LESS_THAN, 20.99)
+        ));
+
+        $this->assertEquals(3, $connection->deleteAll("Books_".__FUNCTION__));
+    }
+
     public function testUpdateNoRelationNoID()
     {
         $table = new Table("Books_".__FUNCTION__);

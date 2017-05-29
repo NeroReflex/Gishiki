@@ -33,37 +33,37 @@ class SelectionCriteriaTest extends TestCase
     public function testBadNameAnd()
     {
         $this->expectException(\InvalidArgumentException::class);
-        SelectionCriteria::select(['a' => [3, 5, 6]])->and_where(3, FieldRelation::EQUAL, '');
+        SelectionCriteria::select(['a' => [3, 5, 6]])->AndWhere(3, FieldRelation::EQUAL, '');
     }
 
     public function testBadRelationAnd()
     {
         $this->expectException(\InvalidArgumentException::class);
-        SelectionCriteria::select(['a' => [3, 5, 6]])->and_where('a', 'IDK', '');
+        SelectionCriteria::select(['a' => [3, 5, 6]])->AndWhere('a', 'IDK', '');
     }
 
     public function testBadValueAnd()
     {
         $this->expectException(\InvalidArgumentException::class);
-        SelectionCriteria::select(['a' => [3, 5, 6]])->and_where('a', FieldRelation::EQUAL, new SelectionCriteria());
+        SelectionCriteria::select(['a' => [3, 5, 6]])->AndWhere('a', FieldRelation::EQUAL, new SelectionCriteria());
     }
 
     public function testBadValueOr()
     {
         $this->expectException(\InvalidArgumentException::class);
-        SelectionCriteria::select(['a' => [3, 5, 6]])->or_where('a', FieldRelation::EQUAL, new SelectionCriteria());
+        SelectionCriteria::select(['a' => [3, 5, 6]])->OrWhere('a', FieldRelation::EQUAL, new SelectionCriteria());
     }
 
     public function testBadNameOr()
     {
         $this->expectException(\InvalidArgumentException::class);
-        SelectionCriteria::select(['a' => [3, 5, 6]])->or_where(3, FieldRelation::EQUAL, '');
+        SelectionCriteria::select(['a' => [3, 5, 6]])->OrWhere(3, FieldRelation::EQUAL, '');
     }
 
     public function testBadRelationOr()
     {
         $this->expectException(\InvalidArgumentException::class);
-        SelectionCriteria::select(['a' => [3, 5, 6]])->or_where('a', 'IDK', '');
+        SelectionCriteria::select(['a' => [3, 5, 6]])->OrWhere('a', 'IDK', '');
     }
 
     public function testInitializerOnly()
@@ -96,7 +96,7 @@ class SelectionCriteriaTest extends TestCase
 
     public function testOrAfterInitializer()
     {
-        $sc = SelectionCriteria::select(['a' => [3, 5, 6], 'b' => 96])->or_where('c', FieldRelation::LIKE, '%test%');
+        $sc = SelectionCriteria::select(['a' => [3, 5, 6], 'b' => 96])->OrWhere('c', FieldRelation::LIKE, '%test%');
 
         $exportMethod = new \ReflectionMethod($sc, 'export');
         $exportMethod->setAccessible(true);

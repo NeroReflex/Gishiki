@@ -90,7 +90,7 @@ class TableTest extends TestCase
         $relation = new ColumnRelation($externTable, $externColumn);
 
         //at the beginning no relation
-        $this->assertEquals(null,  $localColumn->getRelation());
+        $this->assertEquals(null, $localColumn->getRelation());
 
         $localColumn->setRelation($relation);
 

@@ -32,25 +32,25 @@ class GenericCollectionTest extends TestCase
     public function testIteration()
     {
         //this is the native collection
-        $native_collection = array(
+        $native_collection = [
             'test1' => 7,
             'test2' => 'my string',
             0 => 'first',
             1 => 'third',
             'test3' => json_encode(
-                    array(
+                    [
                         'author' => 'Benato Denis',
                         'title' => 'Example Book',
-                        'tags' => array(
+                        'tags' => [
                             'development', 'PHP', 'framework', 'Gishiki',
-                        ),
-                )), );
+                        ],
+                ]), ];
 
         //build a managed collection from the native one
         $collection_to_test = new GenericCollection($native_collection);
 
         //try rebuilding the collection iterating over each element
-        $rebuilt_collection = array();
+        $rebuilt_collection = [];
         foreach ($collection_to_test->getIterator() as $key => $value) {
             $rebuilt_collection[$key] = $value;
         }
@@ -133,19 +133,19 @@ class GenericCollectionTest extends TestCase
     public function testNativeAsClassCall()
     {
         //this is the native collection
-        $native_collection = array(
+        $native_collection = [
             'test1' => 7,
             'test2' => 'my string',
             'test3' => json_encode(
-                    array(
+                    [
                         'author' => 'Benato Denis',
                         'title' => 'Example Book',
-                        'tags' => array(
+                        'tags' => [
                             'development', 'PHP', 'framework', 'Gishiki',
-                        ),
-                )),
+                        ],
+                ]),
             20 => 'testkey',
-            );
+            ];
 
         //build a managed collection from the native one
         $collection_to_test = new GenericCollection($native_collection);

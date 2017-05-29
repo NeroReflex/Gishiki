@@ -39,15 +39,15 @@ final class SelectionCriteria
         'or' => [],
     ];
 
-    public static function select(array $selection)
+    public static function select(array $selection = [])
     {
         //create an empty selection criteria
         $selectionCriteria = new self();
 
         foreach ($selection as $fieldName => $fieldValue) {
             (!is_array($fieldValue)) ?
-                $selectionCriteria->and_where($fieldName, FieldRelation::EQUAL, $fieldValue)
-                    : $selectionCriteria->and_where($fieldName, FieldRelation::IN_RANGE, $fieldValue);
+                $selectionCriteria->AndWhere($fieldName, FieldRelation::EQUAL, $fieldValue)
+                    : $selectionCriteria->AndWhere($fieldName, FieldRelation::IN_RANGE, $fieldValue);
         }
 
         return $selectionCriteria;
@@ -64,7 +64,7 @@ final class SelectionCriteria
      *
      * @throws \InvalidArgumentException one parameter has a wrong type
      */
-    public function and_where($field, $relation, $data)
+    public function AndWhere($field, $relation, $data)
     {
         if (!is_string($field) || (strlen($field) <= 0)) {
             throw new \InvalidArgumentException('the field name must be a string');
@@ -111,7 +111,7 @@ final class SelectionCriteria
      *
      * @throws \InvalidArgumentException one parameter has a wrong type
      */
-    public function or_where($field, $relation, $data)
+    public function OrWhere($field, $relation, $data)
     {
         if (!is_string($field)) {
             throw new \InvalidArgumentException('the field name must be a string');

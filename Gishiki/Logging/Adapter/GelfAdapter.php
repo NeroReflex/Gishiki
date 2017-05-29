@@ -17,6 +17,8 @@
 
 namespace Gishiki\Logging\Adapter;
 
+use Psr\Log\AbstractLogger;
+
 /**
  * An helper class for storing logs of what happens on the server.
  *
@@ -26,7 +28,7 @@ namespace Gishiki\Logging\Adapter;
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
-class GelfAdapter extends \Psr\Log\AbstractLogger
+class GelfAdapter extends AbstractLogger
 {
     /**
      * @var resource the managed gelf resource
@@ -70,7 +72,7 @@ class GelfAdapter extends \Psr\Log\AbstractLogger
         }
     }
 
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = [])
     {
         //return value isn't documentated because it MUST NOT be used/trusted
         return ($this->gelfConnection) ? $this->gelfConnection->log($level, $message, $context) : null;

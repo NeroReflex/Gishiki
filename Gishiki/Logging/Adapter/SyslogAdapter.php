@@ -19,13 +19,14 @@ namespace Gishiki\Logging\Adapter;
 
 use Gishiki\Algorithms\Manipulation;
 use Psr\Log\LogLevel;
+use Psr\Log\AbstractLogger;
 
 /**
  * An helper class for storing logs of what happens on the server.
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
-class SyslogAdapter extends \Psr\Log\AbstractLogger
+class SyslogAdapter extends AbstractLogger
 {
     /**
      * @var string The name of the program that is generating log entries
@@ -44,7 +45,7 @@ class SyslogAdapter extends \Psr\Log\AbstractLogger
         (strlen($identity) > 0) ? $this->identity = $identity : 'Gishiki';
     }
 
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = [])
     {
         $interpolatedMsg = Manipulation::interpolate($message, $context);
 

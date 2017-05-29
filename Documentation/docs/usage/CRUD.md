@@ -44,7 +44,7 @@ $connection = DatabaseManager::retrieve('connectionName');
 
 $connection->delete('tbname', SelectionCriteria::select([
             'nickname' => $nickname
-        ])->or_where('email', FieldRelation::EQUAL, $email)
+        ])->OrWhere('email', FieldRelation::EQUAL, $email)
     );
 ```
 

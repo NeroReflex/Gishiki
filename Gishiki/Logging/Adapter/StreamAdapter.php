@@ -18,6 +18,7 @@
 namespace Gishiki\Logging\Adapter;
 
 use Gishiki\Algorithms\Manipulation;
+use Psr\Log\AbstractLogger;
 
 /**
  * An helper class for storing logs of what happens on the server.
@@ -26,7 +27,7 @@ use Gishiki\Algorithms\Manipulation;
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
-class StreamAdapter extends \Psr\Log\AbstractLogger
+class StreamAdapter extends AbstractLogger
 {
     //this is the program that is generating the log:
     private $stream;
@@ -51,12 +52,12 @@ class StreamAdapter extends \Psr\Log\AbstractLogger
         }
     }
 
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = [])
     {
         $interpolatedMsg = Manipulation::interpolate($message, $context);
         $interpolatedMsg = trim($interpolatedMsg, "\n");
 
-        //return value isn't documentated because it MUST NOT be used/trusted
+        //return value isn't documented because it MUST NOT be used/trusted
         return ($this->stream) ? fwrite($this->stream, '['.$level.'] '.$interpolatedMsg."\n") : null;
     }
 }

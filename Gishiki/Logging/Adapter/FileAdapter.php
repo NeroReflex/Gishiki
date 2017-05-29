@@ -19,6 +19,7 @@ namespace Gishiki\Logging\Adapter;
 
 use Gishiki\Core\Environment;
 use Gishiki\Algorithms\Manipulation;
+use Psr\Log\AbstractLogger;
 
 /**
  * An helper class for storing logs of what happens on the server.
@@ -27,7 +28,7 @@ use Gishiki\Algorithms\Manipulation;
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
-class FileAdapter extends \Psr\Log\AbstractLogger
+class FileAdapter extends AbstractLogger
 {
     //this is the path of the log file
     private $path = null;
@@ -51,7 +52,7 @@ class FileAdapter extends \Psr\Log\AbstractLogger
         $this->handler = fopen($file_path, 'a');
     }
 
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = [])
     {
         $interpolatedMsg = Manipulation::interpolate($message, $context);
         $interpolatedMsg = trim($interpolatedMsg);

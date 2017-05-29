@@ -93,7 +93,7 @@ class SqliteTest extends TestCase
         ]);
 
         $readResult = $connection->readSelective("User".__FUNCTION__, ["name", "surname"],
-            SelectionCriteria::select(["name" => "Mario"])->and_where("new", FieldRelation::GREATER_OR_EQUAL_THAN, 1),
+            SelectionCriteria::select(["name" => "Mario"])->AndWhere("new", FieldRelation::GREATER_OR_EQUAL_THAN, 1),
             ResultModifier::initialize());
 
         $this->assertEquals([[
@@ -103,7 +103,7 @@ class SqliteTest extends TestCase
         $newlyAncientRecords = $connection->update(
             "User".__FUNCTION__,
             ["new" => 0],
-            SelectionCriteria::select([])->and_where("new", FieldRelation::GREATER_OR_EQUAL_THAN, 1)
+            SelectionCriteria::select([])->AndWhere("new", FieldRelation::GREATER_OR_EQUAL_THAN, 1)
         );
 
         $this->assertEquals(1, $newlyAncientRecords);

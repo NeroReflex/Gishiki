@@ -34,7 +34,7 @@ class HashingTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         
         //test hash compatibility
-        $rot_ed = Algorithms::hash('hash me if U can!!1!', Algorithms::SHA512, 'OMG!');
+        Algorithms::hash('hash me if U can!!1!', Algorithms::SHA512, 'OMG!');
     }
 
     public function testInvalidMessage()
@@ -50,7 +50,7 @@ class HashingTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         
         //test hash compatibility
-        $rot_ed = Algorithms::hash('my message', null);
+        Algorithms::hash('my message', null);
     }
 
     public function testROT13()

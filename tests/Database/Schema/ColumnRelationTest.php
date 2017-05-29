@@ -44,7 +44,7 @@ class ColumnRelationTest extends TestCase
 
         $externTable->addColumn($externColumn);
 
-        $relation = new ColumnRelation($externTable, $externColumn);
+        new ColumnRelation($externTable, $externColumn);
     }
     
     public function testColumnRelationUnbindedColumn()

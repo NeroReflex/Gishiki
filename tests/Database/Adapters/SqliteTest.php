@@ -100,13 +100,6 @@ class SqliteTest extends TestCase
             "name" => "Mario",
             "surname" => "Rossi"]], $readResult);
 
-        /*$ancientRecords = count(
-            $connection->read(
-                "User".__FUNCTION__,
-                SelectionCriteria::select([])->and_where("new", FieldRelation::GREATER_OR_EQUAL_THAN, 1),
-                ResultModifier::initialize())
-        );*/
-
         $newlyAncientRecords = $connection->update(
             "User".__FUNCTION__,
             ["new" => 0],

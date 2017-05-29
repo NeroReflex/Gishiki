@@ -35,7 +35,7 @@ class ColumnTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         
         //create a testing column
-        $col = new Column('', ColumnType::INTEGER);
+        new Column('', ColumnType::INTEGER);
     }
 
     public function testColumnNaming()
@@ -48,9 +48,6 @@ class ColumnTest extends TestCase
 
     public function testColumnPrimaryKey()
     {
-        //create the table for this test
-        $table = new Table(__FUNCTION__);
-
         //create a testing column (by default a new column is NOT a primary key)
         $col = new Column('id', ColumnType::INTEGER);
 
@@ -72,9 +69,6 @@ class ColumnTest extends TestCase
 
     public function testColumnAutoIncrement()
     {
-        //create the table for this test
-        $table = new Table(__FUNCTION__);
-
         //create a testing column (by default a new column is NOT a primary key)
         $col = new Column('id', ColumnType::INTEGER);
 

@@ -42,15 +42,7 @@ class SqliteTest extends TestCase
 {
     private static function getDatabase()
     {
-        $connection = null;
-
-        try {
-            $connection = DatabaseManager::retrieve("sqliteTest");
-        } catch (DatabaseException $ex) {
-            $connection = DatabaseManager::connect("sqliteTest", "sqlite3://:memory:");
-        }
-
-        return $connection;
+        return new Sqlite(":memory:");
     }
 
     public function testBadConnectionParam()
@@ -125,23 +117,32 @@ class SqliteTest extends TestCase
         $connection = self::getDatabase();
         $connection->createTable($table);
 
+        $userExample = [
+            "name" => "Mario",
+            "surname" => "Rossi",
+            "password" => sha1("asdfgh"),
+            "credit" => 15.68,
+            "registered" => time()
+        ];
+
         $connection->create(
             "User".__FUNCTION__,
-            [
-                "name" => "Mario",
-                "surname" => "Rossi",
-                "password" => sha1("asdfgh"),
-                "credit" => 15.68,
-                "registered" => time()
-            ]);
+            $userExample);
 
-        $readResult = $connection->readSelective("User".__FUNCTION__, ["name", "surname"],
+        $readSelectiveResult = $connection->readSelective("User".__FUNCTION__, ["name", "surname"],
             SelectionCriteria::select(["name" => "Mario"]),
             ResultModifier::initialize());
 
         $this->assertEquals([[
             "name" => "Mario",
-            "surname" => "Rossi"]], $readResult);
+            "surname" => "Rossi"]], $readSelectiveResult);
+
+        $readResult = $connection->read(
+            "User".__FUNCTION__,
+            SelectionCriteria::select(["name" => "Mario"]),
+            ResultModifier::initialize());
+
+        $this->assertEquals([array_merge($userExample, ['id' => 1])], $readResult);
     }
 
     public function testUpdateOnClosedConnection()
@@ -245,6 +246,24 @@ class SqliteTest extends TestCase
         $connection = self::getDatabase();
 
         $connection->create(__FUNCTION__, ["status" => "unwanted"]);
+    }
+
+    public function testBadReadSelective()
+    {
+        $this->expectException(DatabaseException::class);
+
+        $connection = self::getDatabase();
+
+        $connection->readSelective(__FUNCTION__, ['id' => 7], SelectionCriteria::select(), ResultModifier::initialize());
+    }
+
+    public function testBadRead()
+    {
+        $this->expectException(DatabaseException::class);
+
+        $connection = self::getDatabase();
+
+        $connection->read(__FUNCTION__, SelectionCriteria::select(), ResultModifier::initialize());
     }
 
     public function testBadDelete()

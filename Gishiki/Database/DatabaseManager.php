@@ -24,7 +24,10 @@ namespace Gishiki\Database;
  */
 abstract class DatabaseManager
 {
-    private static $connections = array();
+    /**
+     * @var array the list of database connections as an associative array
+     */
+    private static $connections = [];
 
     //used to give a second name to an adapter
     private static $adaptersMap = [
@@ -34,12 +37,11 @@ abstract class DatabaseManager
     /**
      * Create a new database connection and store the newly generated connection.
      *
-     * @param string $connectionName   the name of the database connection
-     * @param string $connectionString the connection string
-     *
+     * @param string $connectionName     the name of the database connection
+     * @param string $connectionString   the connection string
      * @throws \InvalidArgumentException invalid name or connection string
      * @throws DatabaseException         a database adapter with the given name doesn't exists
-     * @return DatabaseInterface the connected database instance
+     * @return DatabaseInterface         the connected database instance
      */
     public static function connect($connectionName, $connectionString)
     {
@@ -60,9 +62,9 @@ abstract class DatabaseManager
             $reflectedAdapter = new \ReflectionClass('Gishiki\\Database\\Adapters\\'.$adapter);
 
             //and use the adapter to estabilish the database connection and return the connection handler
-            self::$connections[$connectionName] = $reflectedAdapter->newInstance($connectionQuery);
+            self::$connections[sha1($connectionName)] = $reflectedAdapter->newInstance($connectionQuery);
 
-            return self::$connections[$connectionName];
+            return self::$connections[sha1($connectionName)];
         } catch (\ReflectionException $ex) {
             throw new DatabaseException('The given connection query requires an nonexistent adapter', 0);
         }
@@ -86,12 +88,12 @@ abstract class DatabaseManager
             throw new \InvalidArgumentException('The name of the connection to be retrieved must be given as a string');
         }
 
-        //check if the connection was enstabilished
-        if (!array_key_exists($connectionName, self::$connections)) {
+        //check if the connection was estabilish
+        if (!array_key_exists(sha1($connectionName), self::$connections)) {
             throw new DatabaseException("The given connection doesn't exists", 1);
         }
 
-        //return the enstabilished conenction
-        return self::$connections[$connectionName];
+        //return the estabilish connection
+        return self::$connections[sha1($connectionName)];
     }
 }

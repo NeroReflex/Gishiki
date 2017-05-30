@@ -15,6 +15,9 @@ vagrant.xml
 *.original~
 *~
 
+# test files
+testLog.log
+
 # Vagrant
 acceptance_config.yml
 boxes/*

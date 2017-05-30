@@ -39,16 +39,29 @@ final class Bootstrapper
 
         $controllerText =
                 '<?php'.PHP_EOL.PHP_EOL.
-                'use Gishiki\Core\MVC\Controller'.PHP_EOL.PHP_EOL.
+                'use Gishiki\Core\MVC\Controller;'.
+                'use Gishiki\HttpKernel\Request;'.PHP_EOL.
+                'use Gishiki\HttpKernel\Response;'.PHP_EOL.
+                'use Gishiki\Algorithms\Collections\SerializableCollection;'.PHP_EOL.
+                'use Gishiki\Gishiki;'.PHP_EOL.
+                PHP_EOL.PHP_EOL.
                 'final class '.$controllerName.' extends Controller'.PHP_EOL.
                 '{'.PHP_EOL.
-                '    function index()'.PHP_EOL.
+                '    public function index()'.PHP_EOL.
                 '    {'.PHP_EOL.
+                '        $this->response->time = time();'.PHP_EOL.
                 '    }'.PHP_EOL.
                 '}';
 
         if (file_put_contents('Controllers'.DS.$controllerName.'.php', $controllerText) === false) {
             throw new \Exception('The new controller file cannot be written');
+        }
+
+        if (file_exists('index.php')) {
+            $routeSettings = file_get_contents('index.php');
+            $exampleCall = PHP_EOL.'Route::get("/"'. $controllerName .', '. $controllerName .'"->index");';
+            $newRouteSettings = str_replace($routeSettings, $exampleCall.PHP_EOL.'//this triggers the framework execution', '//this triggers the framework execution');
+            file_put_contents('index.php', $newRouteSettings);
         }
     }
 
@@ -89,7 +102,15 @@ final class Bootstrapper
             $settings = new SerializableCollection([
                 'general' => [
                     'development' => true,
-                    'autolog' => 'stream://error',
+                    'autolog' => 'default',
+                ],
+                'loggers' => [
+                    'default' => [
+                        [
+                            'class' => 'StreamHandler',
+                            'connection' => ['customLog.log', 0]
+                        ],
+                    ]
                 ],
                 'security' => [
                     'serverKey' => 'file://private_key.pem',

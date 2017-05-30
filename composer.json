@@ -22,11 +22,10 @@
         "ext-libxml": "*",
         "ext-curl": "*",
         "ext-SimpleXML": "*",
-        "graylog2/gelf-php": "~1.2",
         "psr/http-message": "^1.0",
-        "psr/log": "^1.0.0",
         "ext-Reflection": "*",
-        "symfony/yaml": "v2.8.6"
+        "symfony/yaml": "v2.8.6",
+        "monolog/monolog": "^1.22"
     },
 
     "require-dev": {
@@ -54,7 +53,6 @@
     },
     
     "provide": {
-        "psr/log-implementation": "1.0.0",
         "psr/http-message-implementation": "1.0.0"
     },
     

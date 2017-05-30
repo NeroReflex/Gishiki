@@ -20,8 +20,6 @@ namespace Gishiki\tests\Database\Adapters;
 use Gishiki\Database\Adapters\Sqlite;
 use Gishiki\Database\DatabaseException;
 use PHPUnit\Framework\TestCase;
-
-use Gishiki\Database\Adapters\Utils\SQLQueryBuilder;
 use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\FieldRelation;
 use Gishiki\Database\Runtime\ResultModifier;

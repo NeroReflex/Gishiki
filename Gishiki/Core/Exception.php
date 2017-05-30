@@ -17,8 +17,7 @@
 
 namespace Gishiki\Core;
 
-use Gishiki\Logging\Logger;
-use Psr\Log\LoggerAwareTrait;
+use Gishiki\Logging\LoggerManager;
 
 /**
  * The base class of an exception related with the framework.
@@ -27,8 +26,6 @@ use Psr\Log\LoggerAwareTrait;
  */
 class Exception extends \Exception
 {
-    use LoggerAwareTrait;
-
     /**
      * Create a base exception and save the log of what's happening.
      *
@@ -40,32 +37,28 @@ class Exception extends \Exception
         //perform a basic Exception constructor call
         parent::__construct($message, $errorCode, null);
 
-        //setup an empty logger
-        $this->logger = null;
+        //retrieve the default logger instance
+        $logger = (!is_null(Environment::getCurrentEnvironment())) ? LoggerManager::retrieve() : null;
 
-        $logger = (!is_null(Environment::getCurrentEnvironment())) ? new Logger() : new Logger('null');
-
-        //build the new log entry
-        $this->setLogger($logger);
-
-        //and use it to transmit the log entry
-        $this->writeLog();
+        //write the log of the exception
+        $this->reportOnLog($logger);
     }
 
     /**
-     * Write the log message using the attached logger.
+     * Write the log message using the passed logger.
+     *
+     * @param $logger the PSR-3 logger instance to be used
      */
-    public function writeLog()
+    protected function reportOnLog($logger = null)
     {
-        if (!is_null($this->logger)) {
+        if (!is_null($logger)) {
             //log the exception
-            $this->logger->error('{{exception_type}} thrown at: {{file}}: {{line}} with message({{code}}): {{message}}', [
-                'exception_type' => get_called_class(),
-                'file' => $this->getFile(),
-                'line' => $this->getLine(),
-                'code' => $this->getCode(),
-                'message' => $this->getMessage(),
-            ]);
+            $logger->error(get_called_class().
+                    ' thrown at: '.$this->getFile().
+                    ': '.$this->getLine().
+                    ' with message('.$this->getCode().
+                    '): '.$this->getMessage()
+                );
         }
     }
 }

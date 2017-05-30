@@ -19,9 +19,11 @@ namespace Gishiki\Core {
 
     use Gishiki\Algorithms\Collections\GenericCollection;
     use Gishiki\Algorithms\Collections\SerializableCollection;
+    use Gishiki\Database\DatabaseManager;
     use Gishiki\HttpKernel\Request;
     use Gishiki\HttpKernel\Response;
     use Gishiki\Algorithms\Manipulation;
+    use Gishiki\Logging\LoggerManager;
 
     /**
      * Represent the environment used to run controllers.
@@ -207,7 +209,7 @@ namespace Gishiki\Core {
                 $this->configuration = [
                     //get general environment configuration
                     'DEVELOPMENT_ENVIRONMENT' => (isset($config['general']['development'])) ? $config['general']['development'] : false,
-                    'AUTOLOG_URL' => (isset($config['general']['autolog'])) ? $config['general']['autolog'] : 'null',
+                    'LOG_DEFAULT' => (isset($config['general']['autolog'])) ? $config['general']['autolog'] : null,
 
                     //Security Settings
                     'SECURITY' => [
@@ -215,7 +217,11 @@ namespace Gishiki\Core {
                         'MASTER_ASYMMETRIC_KEY' => $config['security']['serverKey'],
                     ],
 
-                    'CONNECTIONS' => (array_key_exists('connections', $config)) ? $config['connections'] : array(),
+                    //Logger connections
+                    'LOGGERS' => (array_key_exists('loggers', $config)) ? $config['loggers'] : [],
+
+                    //Database connection
+                    'CONNECTIONS' => (array_key_exists('connections', $config)) ? $config['connections'] : [],
                 ];
             }
 
@@ -228,9 +234,17 @@ namespace Gishiki\Core {
                 error_reporting(0);
             }
 
+            //connect every logger instance
+            foreach ($this->configuration['LOGGERS'] as $connectionName => &$connectionDetails) {
+                LoggerManager::connect($connectionName, $connectionDetails);
+            }
+
+            //set the default logger connection
+            LoggerManager::setDefault($this->configuration['LOG_DEFAULT']);
+
             //connect every db connection
             foreach ($this->configuration['CONNECTIONS'] as $connection) {
-                \Gishiki\Database\DatabaseManager::connect($connection['name'], $connection['query']);
+                DatabaseManager::connect($connection['name'], $connection['query']);
             }
         }
 
@@ -248,7 +262,7 @@ namespace Gishiki\Core {
                     return $this->configuration['DEVELOPMENT_ENVIRONMENT'];
 
                 case 'LOG_CONNECTION_STRING':
-                    return $this->configuration['AUTOLOG_URL'];
+                    return $this->configuration['LOG_DEFAULT'];
 
                 case 'DATA_CONNECTIONS':
                     return $this->configuration['DATABASE_CONNECTIONS'];

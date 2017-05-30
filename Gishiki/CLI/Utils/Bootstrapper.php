@@ -20,6 +20,7 @@ namespace Gishiki\CLI\Utils;
 use Gishiki\Algorithms\Collections\SerializableCollection;
 use Gishiki\Security\Encryption\Asymmetric\PrivateKey;
 use Gishiki\Security\Encryption\Symmetric\SecretKey;
+use Gishiki\Exception;
 
 final class Bootstrapper
 {
@@ -39,7 +40,7 @@ final class Bootstrapper
 
         $controllerText =
                 '<?php'.PHP_EOL.PHP_EOL.
-                'use Gishiki\Core\MVC\Controller;'.
+                'use Gishiki\Core\MVC\Controller;'.PHP_EOL.
                 'use Gishiki\HttpKernel\Request;'.PHP_EOL.
                 'use Gishiki\HttpKernel\Response;'.PHP_EOL.
                 'use Gishiki\Algorithms\Collections\SerializableCollection;'.PHP_EOL.
@@ -60,7 +61,7 @@ final class Bootstrapper
         if (file_exists('index.php')) {
             $routeSettings = file_get_contents('index.php');
             $exampleCall = PHP_EOL.'Route::get("/"'. $controllerName .', '. $controllerName .'"->index");';
-            $newRouteSettings = str_replace($routeSettings, $exampleCall.PHP_EOL.'//this triggers the framework execution', '//this triggers the framework execution');
+            $newRouteSettings = str_replace('//this triggers the framework execution',$exampleCall.PHP_EOL.'//this triggers the framework execution', $routeSettings);
             file_put_contents('index.php', $newRouteSettings);
         }
     }
@@ -93,7 +94,7 @@ final class Bootstrapper
             if (file_put_contents('private_key.pem', PrivateKey::generate(PrivateKey::RSA4096)) === false) {
                 throw new \Exception('The application private key cannot be written');
             }
-        } catch (\Gishiki\Exception $ex) {
+        } catch (Exception $ex) {
             throw new \Exception('The private key cannot be generated');
         }
 
@@ -108,7 +109,7 @@ final class Bootstrapper
                     'default' => [
                         [
                             'class' => 'StreamHandler',
-                            'connection' => ['customLog.log', 0]
+                            'connection' => ['customLog.log', \Monolog\Logger::ERROR]
                         ],
                     ]
                 ],
@@ -127,7 +128,7 @@ final class Bootstrapper
             if (file_put_contents('settings.json', $settings->serialize(SerializableCollection::JSON)) === false) {
                 throw new \Exception('The application configuration cannot be written');
             }
-        } catch (\Gishiki\Exception $ex) {
+        } catch (Exception $ex) {
             throw new \Exception('The application configuration cannot be generated');
         }
 

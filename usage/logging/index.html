@@ -134,9 +134,7 @@
         
             <li><a class="toctree-l4" href="#connection">Connection</a></li>
         
-            <li><a class="toctree-l4" href="#writing-a-log-entry">Writing a log entry</a></li>
-        
-            <li><a class="toctree-l4" href="#specialized-writers">Specialized Writers</a></li>
+            <li><a class="toctree-l4" href="#usage">Usage</a></li>
         
         </ul>
     
@@ -213,127 +211,45 @@
             <div class="section">
               
                 <h1 id="logging">Logging</h1>
-<p>Gishiki comes with a simple and small logging library that may use different logging
-technologies like the UNIX logging daemon (and its emulation on Windows).</p>
-<p>The logger included in Gishiki is PSR-3 compilant and is super-simple to setup and use!</p>
+<p>Gishiki comes with <a href="https://github.com/Seldaek/monolog">monolog</a> and uses it as its logging engine.</p>
+<p>Every PSR-3 compatible logger can be used and the integration is monolog own business. </p>
 <h2 id="getting-a-logger">Getting a logger</h2>
 <p>Within Gishiki each time you want to store a log entry a logger object is required.</p>
-<p>The logger object is derived from the Gishiki\Logging\Logger class.</p>
-<p>When creating a new instance of the logger class you may and may not pass
-(to the class constructor) a string that identify the method used to store log entries.</p>
-<p>If you don't pass an URL to the newly created Logger instance than the default one
-will be used (see <a href="../configuration/">configuration</a> for an example of configuration
-with "autolog" set to null).</p>
+<p>The logger object is defined in the application configuration.</p>
+<p>Using a logger is trivial: you call LoggerManager::retrieve() to retrieve the PSR-3
+compatible logger instance.</p>
+<p>If you pass null to LoggerManager::retrieve() than the default one
+will be returned (see <a href="../configuration/">configuration</a> for an example of configuration).</p>
 <h2 id="connection">Connection</h2>
-<p>The connection string is an URL with the following structure:</p>
-<pre><code>adapter://resource
-</code></pre>
-
-<p>When the adapter is the adapter used to access the resource and the resource is specific
-with one adapter.</p>
-<p>At the moment supported adapters are:</p>
+<p>Defining a logger instance, also erroneously called "connection" depends on the logger class to be used.</p>
+<p>Each connection in the connection pool is expressed as "connection name": [{ ...attributes... }, { ...attributes... }].</p>
+<p>There are two attributes to be used: "class" and "connection", where:</p>
 <ul>
-<li>file</li>
-<li>gelf</li>
-<li>stream</li>
-<li>syslog</li>
-<li>null</li>
+<li>class is the name for the PSR-3 logger class</li>
+<li>connection is an array of values to be passed to that class constructor</li>
 </ul>
-<p>A valid example can be:</p>
-<pre><code class="php">$logger = new Gishiki\Logger\Logging(&quot;file://logs.txt&quot;);
+<p>An example can be Monolog\Handler\StreamHandler: the class constructor accept the log file path
+and the log level (standard PSR-3 integer).</p>
+<pre><code class="json">&quot;default&quot;: [
+  {
+    &quot;class&quot;: &quot;StreamHandler&quot;,
+    &quot;connection&quot;: [
+      &quot;customLog.log&quot;,
+      400
+    ]
+  }
+]      
 </code></pre>
 
-<p>You need to read the correct sub-character of the page to understand how to identify the
-resource to be used.</p>
-<h3 id="file">File</h3>
-<p>If a file is used to register log entries the resource is given as a path to the file.</p>
-<p>The file MUST be accessible with write permissions to php.</p>
-<p>The file path can either be given as a relative path or an absolute file.</p>
-<pre><code>file:///var/logs/myApp.log
+<p>In the above example a logger instance called "default" is created.
+That logger wrapper is bind to a StreamHandler logger instance that will be used for errors (400 code).</p>
+<h2 id="usage">Usage</h2>
+<p>The most trivial operation will be something like</p>
+<pre><code class="php">$logger = LoggerManager::retrieve(&quot;default&quot;);
+$logger-&gt;error(&quot;something bad happened!&quot;);
 </code></pre>
 
-<p>this will store the log in the /var/logs/myApp.log file.</p>
-<h3 id="syslog">Syslog</h3>
-<p>If you want the Unix syslogd service to be responsible for log management than the
-configuration string must be something like:</p>
-<pre><code>syslog://myAppName
-</code></pre>
-
-<p>Where myAppName is the name of your application.</p>
-<p>This is particularly useful if you want to be able to entirely customize the 
-log management process or avoid file-write permission problems.</p>
-<h3 id="stream">Stream</h3>
-<p>Sometimes, due to the system configuration, you may want to save your logs on stdout,
-stderr or a memory stream.</p>
-<pre><code>stream://&lt;stream_name&gt;
-</code></pre>
-
-<p>The <em>stream name</em> can be one of the following:</p>
-<ul>
-<li>stdout</li>
-<li>stderr</li>
-<li>stdmem</li>
-</ul>
-<h3 id="graylog">Graylog</h3>
-<p>If you have an active graylog server you can send log entries to that server by
-enstabilishing a connection using a query like:</p>
-<pre><code>gelf://&lt;protocol&gt;:&lt;hostname&gt;:&lt;port&gt;
-</code></pre>
-
-<p>Where <em>protocol</em> can be either <strong>UDP</strong> or <strong>TCP</strong>.</p>
-<h2 id="writing-a-log-entry">Writing a log entry</h2>
-<p>To send a log entry you must call the <strong>log</strong> function.</p>
-<p>The first argument is the level of severity, it can be one of the following:</p>
-<ul>
-<li>\Psr\Log\LogLevel::EMERGENCY -&gt; 'emergency'</li>
-<li>\Psr\Log\LogLevel::ALERT -&gt; 'alert'</li>
-<li>\Psr\Log\LogLevel::CRITICAL -&gt; 'critical'</li>
-<li>\Psr\Log\LogLevel::ERROR -&gt; 'error'</li>
-<li>\Psr\Log\LogLevel::WARNING -&gt; 'warning'</li>
-<li>\Psr\Log\LogLevel::NOTICE -&gt; 'notice'</li>
-<li>\Psr\Log\LogLevel::INFO -&gt; 'info'</li>
-<li>\Psr\Log\LogLevel::DEBUG -&gt; 'debug'</li>
-</ul>
-<p>you can use either the string or the contant provided by the psr package (suggested).</p>
-<p>The second argument is the message, and the third argument is a collection of
-details as a simple PHP array:</p>
-<pre><code class="php">$logger = new Logger(&quot;gelf://&lt;protocol&gt;:&lt;hostname&gt;:&lt;port&gt;&quot;);
-$logger-&gt;log(\Psr\Log\LogLevel::EMERGENCY, &quot;Environmental temperature too high&quot;, [
-        'temperature' =&gt; 56.7,
-    ]);
-</code></pre>
-
-<p>With stream and file adapters the collection of values are a sobstitution mask
-for the message:</p>
-<pre><code class="php">$logger = new Logger(&quot;stream://stdout&quot;);
-$logger-&gt;log(\Psr\Log\LogLevel::EMERGENCY, &quot;Environmental temperature too high: {{temperature}} °C&quot;, [
-        'temperature' =&gt; 56.7,
-    ]);
-</code></pre>
-
-<p>That code will print out the string "Environmental temperature too high: 56.7 °C"
-as a result.</p>
-<h2 id="specialized-writers">Specialized Writers</h2>
-<p>It is possible (permitted by the PSR-3 standard) to call a specialized function
-that identify itselfs the severity of the log entry, those functions are called
-like the severity to be used:</p>
-<pre><code class="php">$logger = new Logger(&quot;stream://stdout&quot;);
-$logger-&gt;emergency(&quot;Environmental temperature too high: {{temperature}} °C&quot;, [
-        'temperature' =&gt; 56.7,
-    ]);
-</code></pre>
-
-<p>The complete list of those functions is:</p>
-<ul>
-<li>emergency</li>
-<li>alert</li>
-<li>critical</li>
-<li>error</li>
-<li>warning</li>
-<li>notice</li>
-<li>info</li>
-<li>debug</li>
-</ul>
+<p>For more, read the <a href="http://www.php-fig.org/psr/psr-3/">PSR-3</a> specification.</p>
               
             </div>
           </div>

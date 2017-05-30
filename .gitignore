@@ -1,4 +1,5 @@
 /application/
+/build/
 /nbproject/
 /Documentation/site
 /Documentation/.couscous
@@ -21,6 +22,7 @@ boxes/*
 /website/.vagrant
 /website/build
 /vagrant-spec.config.rb
+ubuntu-xenial-16.04-cloudimg-console.log
 
 # Database
 sqliteTest.sqlite

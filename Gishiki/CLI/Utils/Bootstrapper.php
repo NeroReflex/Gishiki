@@ -50,7 +50,10 @@ final class Bootstrapper
                 '{'.PHP_EOL.
                 '    public function index()'.PHP_EOL.
                 '    {'.PHP_EOL.
-                '        $this->response->time = time();'.PHP_EOL.
+                '        $serializableResponse = new SerializableCollection(['.PHP_EOL.
+                '            "time" => time()'.PHP_EOL.
+                '        ]);'.PHP_EOL.
+                '        $this->response->setSerializedBody($serializableResponse);'.PHP_EOL.
                 '    }'.PHP_EOL.
                 '}';
 
@@ -60,7 +63,7 @@ final class Bootstrapper
 
         if (file_exists('index.php')) {
             $routeSettings = file_get_contents('index.php');
-            $exampleCall = PHP_EOL.'Route::get("/"'. $controllerName .', '. $controllerName .'"->index");';
+            $exampleCall = PHP_EOL.'Route::get("/'.$controllerName.'", "'.$controllerName.'->index");';
             $newRouteSettings = str_replace('//this triggers the framework execution',$exampleCall.PHP_EOL.'//this triggers the framework execution', $routeSettings);
             file_put_contents('index.php', $newRouteSettings);
         }

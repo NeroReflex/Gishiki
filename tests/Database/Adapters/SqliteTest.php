@@ -123,7 +123,7 @@ class SqliteTest extends TestCase
             "registered" => time()
         ];
 
-        $connection->create(
+        $currentID = $connection->create(
             "User".__FUNCTION__,
             $userExample);
 
@@ -140,7 +140,7 @@ class SqliteTest extends TestCase
             SelectionCriteria::select(["name" => "Mario"]),
             ResultModifier::initialize());
 
-        $this->assertEquals([array_merge($userExample, ['id' => 1])], $readResult);
+        $this->assertEquals([array_merge($userExample, ['id' => $currentID])], $readResult);
     }
 
     public function testUpdateOnClosedConnection()

@@ -220,9 +220,11 @@ sudo service apache2 restart
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 
-        # globally allow .htaccess
+     # globally allow .htaccess
     &lt;Directory &quot;/var/www/html&quot;&gt;
+        Options Indexes FollowSymLinks MultiViews
         AllowOverride All
+        Require all granted
     &lt;/Directory&gt;
 &lt;/VirtualHost&gt;
 
@@ -240,7 +242,7 @@ application root, here I am reporting it:</p>
 &lt;/IfModule&gt;
 </code></pre>
 
-<p>You can even be more aggressive here:</p>
+<p>You can even be more aggressive if you install mod_headers:</p>
 <pre><code class="apache">&lt;IfModule mod_rewrite.c&gt;
     RewriteEngine On
     RewriteRule ^ index.php [QSA,L]

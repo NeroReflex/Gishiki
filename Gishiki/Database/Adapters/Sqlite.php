@@ -17,6 +17,7 @@ limitations under the License.
 
 namespace Gishiki\Database\Adapters;
 
+use Gishiki\Algorithms\Collections\CollectionInterface;
 use Gishiki\Database\RelationalDatabaseInterface;
 use Gishiki\Database\DatabaseException;
 use Gishiki\Database\Runtime\SelectionCriteria;

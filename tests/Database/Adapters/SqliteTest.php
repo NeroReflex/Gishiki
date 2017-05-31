@@ -17,6 +17,7 @@ limitations under the License.
 
 namespace Gishiki\tests\Database\Adapters;
 
+use Gishiki\Algorithms\Collections\SerializableCollection;
 use Gishiki\Database\Adapters\Sqlite;
 use Gishiki\Database\DatabaseException;
 use PHPUnit\Framework\TestCase;
@@ -125,7 +126,7 @@ class SqliteTest extends TestCase
 
         $currentID = $connection->create(
             "User".__FUNCTION__,
-            $userExample);
+            new SerializableCollection($userExample));
 
         $readSelectiveResult = $connection->readSelective("User".__FUNCTION__, ["name", "surname"],
             SelectionCriteria::select(["name" => "Mario"]),

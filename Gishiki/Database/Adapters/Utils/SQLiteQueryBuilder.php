@@ -21,28 +21,14 @@ use Gishiki\Database\Schema\Table;
 use Gishiki\Database\Schema\ColumnType;
 
 /**
- * This utility is useful to create sql queries for SQLite ONLY.
+ * This utility is useful to create sql queries for SQLite.
  *
  * It extends the SQLQueryBuilder and add SQLite-specific support.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class SQLiteQueryBuilder extends SQLQueryBuilder
+final class SQLiteQueryBuilder extends SQLQueryBuilder
 {
-    /**
-     * Add CREATE TABLE IF NOT EXISTS %tablename% to the SQL query.
-     *
-     * @param string $tableName the name of the table
-     *
-     * @return \Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder the updated sql builder
-     */
-    public function &createTable($tableName)
-    {
-        $this->appendToQuery('CREATE TABLE IF NOT EXISTS '.$tableName.' ');
-
-        //chain functions calls
-        return $this;
-    }
 
     /**
      * Add (id INTEGER PRIMARY KEY NUT NULL, name TEXT NOT NULL, ... ) to the SQL query.
@@ -107,18 +93,4 @@ class SQLiteQueryBuilder extends SQLQueryBuilder
         return $this;
     }
 
-    /**
-     * Add DROP TABLE IF EXISTS %tablename% to the SQL query.
-     *
-     * @param string $tableName the name of the table
-     *
-     * @return \Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder the updated sql builder
-     */
-    public function &dropTable($tableName)
-    {
-        $this->appendToQuery('DROP TABLE IF EXISTS '.$tableName.' ');
-
-        //chain functions calls
-        return $this;
-    }
 }

@@ -38,9 +38,24 @@ Vagrant.configure(2) do |config|
   ###############################################################
    config.vm.provision "shell", inline: <<-SHELL
      printf "\n\nInstalling software\n"
-     sudo apt-get update && sudo apt-get upgrade -y
+     sudo apt-get update
+     # uncomment to update every package
+     # sudo apt-get upgrade -y
      sudo DEBIAN_FRONTEND=noninteractive
-     sudo apt-get -y install curl git openssl pkg-config libssl-dev python wget zlib1g-dev unzip openssh-client php7.0 php7.0-mbstring php7.0-cli php7.0-curl php7.0-json php7.0-xml php7.0-sqlite php7.0-pgsql php7.0-mysql php7.0-dev
+     sudo apt-get -y install curl git openssl pkg-config libssl-dev python wget zlib1g-dev unzip openssh-client
+
+     # Installing PHP
+     sudo apt-get -y install php7.0 php7.0-mbstring php7.0-cli php7.0-curl php7.0-json php7.0-xml php7.0-sqlite php7.0-pgsql php7.0-mysql php7.0-dev
+
+     # Install PostgreSQL
+     printf "\n\nInstalling PostgreSQL\n"
+     sudo apt-get -y install postgresql-9.5 postgresql-contrib-9.5 postgresql-client-9.5 postgresql-client-common postgresql-common
+     sudo sed -i "s/#listen_address.*/listen_addresses '*'/" /etc/postgresql/9.5/main/postgresql.conf
+     # This was necessary on my development machine
+     sudo chmod 777 /etc/postgresql/9.5/main/pg_hba.conf
+     #sudo cat >> /etc/postgresql/9.5/main/pg_hba.conf << "host    all         all         0.0.0.0/0             md5"
+     sudo su postgres -c "psql -c \"CREATE ROLE vagrant SUPERUSER LOGIN PASSWORD 'vagrant'\" "
+     sudo su postgres -c "createdb -E UTF8 -T template0 --locale=en_US.utf8 -O vagrant wtm"
 
      printf "\n\nInstalling MongoDB\n"
      sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6

@@ -37,6 +37,14 @@ class SQLQueryBuilderTest extends TestCase
         $this->assertEquals('SELECT * FROM "test0" WHERE id = ? OR name = ? ORDER BY id DESC', SQLQueryBuilder::beautify('SELECT  *  FROM  "test0" WHERE id   = ? OR name = ? ORDER BY id DESC'));
     }
 
+    public function testDropTable()
+    {
+        $query = new SQLQueryBuilder();
+        $query->dropTable(__FUNCTION__);
+
+        $this->assertEquals(SQLQueryBuilder::beautify('DROP TABLE IF EXISTS '.__FUNCTION__), SQLQueryBuilder::beautify($query->exportQuery()));
+    }
+
     public function testSelectAllFrom()
     {
         $query = new SQLQueryBuilder();

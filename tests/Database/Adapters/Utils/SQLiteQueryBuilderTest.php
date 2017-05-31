@@ -32,13 +32,7 @@ use Gishiki\Database\Schema\ColumnRelation;
  */
 class SQLiteQueryBuilderTest extends TestCase
 {
-    public function testDropTable()
-    {
-        $query = new SQLiteQueryBuilder();
-        $query->dropTable(__FUNCTION__);
 
-        $this->assertEquals(SQLiteQueryBuilder::beautify('DROP TABLE IF EXISTS '.__FUNCTION__), SQLiteQueryBuilder::beautify($query->exportQuery()));
-    }
 
     public function testCreateTableWithNoForeignKey()
     {

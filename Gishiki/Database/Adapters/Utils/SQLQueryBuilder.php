@@ -59,7 +59,8 @@ class SQLQueryBuilder
     /**
      * Beautify an SQL query.
      *
-     * @param string $query the ugly SQL query
+     * @param  string $query your ugly SQL query
+     * @return string        your beautiful SQL query
      */
     public static function beautify($query)
     {
@@ -172,6 +173,36 @@ class SQLQueryBuilder
         }
 
         $this->appendToQuery(' ');
+
+        //chain functions calls
+        return $this;
+    }
+
+    /**
+     * Add CREATE TABLE IF NOT EXISTS %tablename% to the SQL query.
+     *
+     * @param string $tableName the name of the table
+     *
+     * @return \Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder the updated sql builder
+     */
+    public function &createTable($tableName)
+    {
+        $this->appendToQuery('CREATE TABLE IF NOT EXISTS '.$tableName.' ');
+
+        //chain functions calls
+        return $this;
+    }
+
+    /**
+     * Add DROP TABLE IF EXISTS %tablename% to the SQL query.
+     *
+     * @param string $tableName the name of the table
+     *
+     * @return \Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder the updated sql builder
+     */
+    public function &dropTable($tableName)
+    {
+        $this->appendToQuery('DROP TABLE IF EXISTS '.$tableName.' ');
 
         //chain functions calls
         return $this;

@@ -17,339 +17,40 @@ limitations under the License.
 
 namespace Gishiki\Database\Adapters;
 
-use Gishiki\Algorithms\Collections\CollectionInterface;
-use Gishiki\Database\RelationalDatabaseInterface;
-use Gishiki\Database\DatabaseException;
-use Gishiki\Database\Runtime\SelectionCriteria;
-use Gishiki\Database\Runtime\ResultModifier;
-use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder;
-use Gishiki\Database\Schema\Table;
+
 
 /**
  * Represent an sqlite database.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class Sqlite implements RelationalDatabaseInterface
+final class Sqlite extends PDODatabase
 {
-    /**
-     * @var bool TRUE only if the connection is alive
-     */
-    private $connected;
-
-    /**
-     * @var \PDO the native pdo sqlite connection
-     */
-    private $connection;
-
-    /**
-     * Create a new SQLite database connection using the given connection string.
-     *
-     * The connect function is automatically called.
-     *
-     * @param string $details the connection string
-     */
-    public function __construct($details)
+    protected function getPDODriverName()
     {
-        $this->connection = [];
-        $this->connected = false;
-
-        //connect to the database
-        $this->connect($details);
+        return 'sqlite';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function connect($details)
+    protected function generateConnectionQuery($details)
     {
-        //check for argument type
-        if ((!is_string($details)) || (strlen($details) <= 0)) {
-            throw new \InvalidArgumentException('The connection query must be given as a non-empty string');
+        if (!is_string($details)) {
+            throw new \InvalidArgumentException("connection information provided are invalid");
         }
 
-        //check for the pdo driver
-        if (!in_array('sqlite', \PDO::getAvailableDrivers())) {
-            throw new DatabaseException('No SQLite PDO driver', 0);
-        }
-
-        //open the connection
-        try {
-            $this->connection = new \PDO('sqlite:'.$details);
-            $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-
-            //the connection is opened
-            $this->connected = true;
-        } catch (\PDOException $ex) {
-            throw new DatabaseException('Error while opening the database connection:'.$ex->getMessage(), 1);
-        }
+        return 'sqlite:'.$details;
     }
 
     /**
-     * {@inheritdoc}
+     * @return SQLiteQueryBuilder the SQLite specialized query builder
      */
-    public function close()
+    protected function getQueryBuilder()
     {
-        $this->connection = [];
-        $this->connected = false;
+        return new SQLiteQueryBuilder();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function createTable(Table $tb)
-    {
-        //check for closed database connection
-        if (!$this->connected()) {
-            throw new DatabaseException('The database connection must be opened before executing any operation', 2);
-        }
 
-        //build the sql query
-        $queryBuilder = new SQLiteQueryBuilder();
-        $queryBuilder->createTable($tb->getName())->definedAs($tb->getColumns());
-
-        //open a new statement and execute it
-        try {
-            //prepare a statement with that safe sql string
-            $stmt = $this->connection->prepare($queryBuilder->exportQuery());
-
-            //execute the statement resolving placeholders
-            $stmt->execute($queryBuilder->exportParams());
-
-            //as per documentation return the id of the last inserted row
-            return $this->connection->lastInsertId();
-        } catch (\PDOException $ex) {
-            throw new DatabaseException('Error while performing the table creation operation: '.$ex->getMessage(), 7);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function connected()
-    {
-        return $this->connected;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function create($collection, $data)
-    {
-        //check for invalid database name
-        if ((!is_string($collection)) || (strlen($collection) <= 0)) {
-            throw new \InvalidArgumentException('The name of the table must be given as a non-empty string');
-        }
-
-        //check for invalid data collection
-        if ((!is_array($data)) && (!($data instanceof CollectionInterface))) {
-            throw new \InvalidArgumentException('The data to be written on the database must be given as a collection');
-        }
-
-        //check for closed database connection
-        if (!$this->connected()) {
-            throw new DatabaseException('The database connection must be opened before executing any operation', 2);
-        }
-
-        //get an associative array of the input data
-        $adaptedData = ($data instanceof GenericCollection) ? $data->all() : $data;
-
-        //build the sql query
-        $queryBuilder = new SQLiteQueryBuilder();
-        $queryBuilder->insertInto($collection)->values($adaptedData);
-
-        //open a new statement and execute it
-        try {
-            //prepare a statement with that safe sql string
-            $stmt = $this->connection->prepare($queryBuilder->exportQuery());
-
-            //execute the statement resolving placeholders
-            $stmt->execute($queryBuilder->exportParams());
-
-            //as per documentation return the id of the last inserted row
-            return $this->connection->lastInsertId();
-        } catch (\PDOException $ex) {
-            throw new DatabaseException('Error while performing the creation operation: '.$ex->getMessage(), 3);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function update($collection, $data, SelectionCriteria $where)
-    {
-        //check for invalid database name
-        if ((!is_string($collection)) || (strlen($collection) <= 0)) {
-            throw new \InvalidArgumentException('The name of the table must be given as a non-empty string');
-        }
-
-        //check for invalid data collection
-        if ((!is_array($data)) && (!($data instanceof CollectionInterface))) {
-            throw new \InvalidArgumentException('The data to be written on the database must be given as a collection');
-        }
-
-        //check for closed database connection
-        if (!$this->connected()) {
-            throw new DatabaseException('The database connection must be opened before executing any operation', 2);
-        }
-
-        //get an associative array of the input data
-        $adaptedData = ($data instanceof GenericCollection) ? $data->all() : $data;
-
-        //build the sql query
-        $queryBuilder = new SQLiteQueryBuilder();
-        $queryBuilder->update($collection)->set($adaptedData)->where($where);
-
-        //open a new statement and execute it
-        try {
-            //prepare a statement with that safe sql string
-            $sql = $queryBuilder->exportQuery();
-            $stmt = $this->connection->prepare($sql);
-
-            //execute the statement resolving placeholders
-            $stmt->execute($queryBuilder->exportParams());
-
-            //return the number of affected rows
-            return $stmt->rowCount();
-        } catch (\PDOException $ex) {
-            throw new DatabaseException('Error while performing the update operation: '.$ex->getMessage(), 4);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function delete($collection, SelectionCriteria $where)
-    {
-        //check for invalid database name
-        if ((!is_string($collection)) || (strlen($collection) <= 0)) {
-            throw new \InvalidArgumentException('The name of the table must be given as a non-empty string');
-        }
-
-        //check for closed database connection
-        if (!$this->connected()) {
-            throw new DatabaseException('The database connection must be opened before executing any operation', 2);
-        }
-
-        //build the sql query
-        $queryBuilder = new SQLiteQueryBuilder();
-        $queryBuilder->deleteFrom($collection)->where($where);
-
-        //open a new statement and execute it
-        try {
-            //prepare a statement with that safe sql string
-            $stmt = $this->connection->prepare($queryBuilder->exportQuery());
-
-            //execute the statement resolving placeholders
-            $stmt->execute($queryBuilder->exportParams());
-
-            //return the number of affected rows
-            return $stmt->rowCount();
-        } catch (\PDOException $ex) {
-            throw new DatabaseException('Error while performing the delete operation: '.$ex->getMessage(), 5);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function deleteAll($collection)
-    {
-        //check for invalid database name
-        if ((!is_string($collection)) || (strlen($collection) <= 0)) {
-            throw new \InvalidArgumentException('The name of the table must be given as a non-empty string');
-        }
-
-        //check for closed database connection
-        if (!$this->connected()) {
-            throw new DatabaseException('The database connection must be opened before executing any operation', 2);
-        }
-
-        //build the sql query
-        $queryBuilder = new SQLiteQueryBuilder();
-        $queryBuilder->deleteFrom($collection);
-
-        //open a new statement and execute it
-        try {
-            //prepare a statement with that safe sql string
-            $stmt = $this->connection->prepare($queryBuilder->exportQuery());
-
-            //execute the statement resolving placeholders
-            $stmt->execute($queryBuilder->exportParams());
-
-            //return the number of affected rows
-            return $stmt->rowCount();
-        } catch (\PDOException $ex) {
-            throw new DatabaseException('Error while performing the delete operation: '.$ex->getMessage(), 5);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function read($collection, SelectionCriteria $where, ResultModifier $mod)
-    {
-        //check for invalid database name
-        if ((!is_string($collection)) || (strlen($collection) <= 0)) {
-            throw new \InvalidArgumentException('The name of the table must be given as a non-empty string');
-        }
-
-        //check for closed database connection
-        if (!$this->connected()) {
-            throw new DatabaseException('The database connection must be opened before executing any operation', 2);
-        }
-
-        //build the sql query
-        $queryBuilder = new SQLiteQueryBuilder();
-        $queryBuilder->selectAllFrom($collection)->where($where)->limitOffsetOrderBy($mod);
-
-        //open a new statement and execute it
-        try {
-            //prepare a statement with that safe sql string
-            $stmt = $this->connection->prepare($queryBuilder->exportQuery());
-
-            //execute the statement resolving placeholders
-            $stmt->execute($queryBuilder->exportParams());
-
-            //return an associative array of data
-            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        } catch (\PDOException $ex) {
-            throw new DatabaseException('Error while performing the read operation: '.$ex->getMessage(), 6);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function readSelective($collection, $fields, SelectionCriteria $where, ResultModifier $mod)
-    {
-        //check for invalid database name
-        if ((!is_string($collection)) || (strlen($collection) <= 0)) {
-            throw new \InvalidArgumentException('The name of the table must be given as a non-empty string');
-        }
-
-        //check for closed database connection
-        if (!$this->connected()) {
-            throw new DatabaseException('The database connection must be opened before executing any operation', 2);
-        }
-
-        //build the sql query
-        $queryBuilder = new SQLiteQueryBuilder();
-        $queryBuilder->selectFrom($collection, $fields)->where($where)->limitOffsetOrderBy($mod);
-
-        //open a new statement and execute it
-        try {
-            //prepare a statement with that safe sql string
-            $stmt = $this->connection->prepare($queryBuilder->exportQuery());
-
-            //execute the statement resolving placeholders
-            $stmt->execute($queryBuilder->exportParams());
-
-            //return the fetch result
-            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        } catch (\PDOException $ex) {
-            throw new DatabaseException('Error while performing the read operation: '.$ex->getMessage(), 6);
-        }
-    }
 }

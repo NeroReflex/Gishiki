@@ -19,6 +19,7 @@ namespace Gishiki\tests\Logging;
 
 use PHPUnit\Framework\TestCase;
 use Gishiki\Logging\LoggerManager;
+use Monolog\Handler\StreamHandler;
 
 /**
  * The tester for the Logger PSR-3 class.
@@ -125,7 +126,7 @@ class LoggerManagerTest extends TestCase
 
         LoggerManager::connect(__FUNCTION__, [
             [
-                'class' => 'StreamHandler',
+                'class' => StreamHandler::class,
                 'connection' => ['testLog.log', \Monolog\Logger::NOTICE ]
             ]
         ]);

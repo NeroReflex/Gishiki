@@ -87,9 +87,12 @@ abstract class LoggerManager
             }
 
             try {
-                //reflect the adapter
-                $reflectedAdapter = new \ReflectionClass('Monolog\\Handler\\' . $handlerCollection->get('class'));
+                $adapterClassName = (strpos($handlerCollection->get('class'), "\\") === false) ?
+                    'Monolog\\Handler\\'.$handlerCollection->get('class') :
+                    $handlerCollection->get('class');
 
+                //reflect the adapter
+                $reflectedAdapter = new \ReflectionClass($adapterClassName);
 
                 //bind the handler to the current logger
                 self::$connections[sha1($name)]->pushHandler(

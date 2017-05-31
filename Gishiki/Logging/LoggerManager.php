@@ -110,7 +110,7 @@ abstract class LoggerManager
     /**
      * Retrieve the PSR-3 logger instance with the given name
      *
-     * @param string|null $name          the name of the logger instance or NULL for the default one
+     * @param  string|null $name         the name of the logger instance or NULL for the default one
      * @throws \InvalidArgumentException invalid name or inexistent logger instance
      * @return \Monolog\Logger           the logger instance
      */

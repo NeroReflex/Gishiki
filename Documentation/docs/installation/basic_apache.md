@@ -24,9 +24,11 @@ You can simply cut 'n' paste this configuration:
 	ErrorLog ${APACHE_LOG_DIR}/error.log
 	CustomLog ${APACHE_LOG_DIR}/access.log combined
 
-        # globally allow .htaccess
+     # globally allow .htaccess
 	<Directory "/var/www/html">
-		AllowOverride All
+		Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Require all granted
 	</Directory>
 </VirtualHost>
 
@@ -46,7 +48,7 @@ application root, here I am reporting it:
 </IfModule>
 ```
 
-You can even be more aggressive here:
+You can even be more aggressive if you install mod_headers:
 
 ```apache
 <IfModule mod_rewrite.c>

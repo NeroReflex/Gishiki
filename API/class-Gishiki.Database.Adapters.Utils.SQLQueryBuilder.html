@@ -135,6 +135,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Gishiki.Database.Adapters.Utils.PostgreSQLQueryBuilder.html">PostgreSQLQueryBuilder</a></li>
 				<li><a href="class-Gishiki.Database.Adapters.Utils.SQLiteQueryBuilder.html">SQLiteQueryBuilder</a></li>
 				<li class="active"><a href="class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html">SQLQueryBuilder</a></li>
 			</ul>
@@ -206,6 +207,7 @@
 
 	<div>
 		<h4>Direct known subclasses</h4>
+			<a href="class-Gishiki.Database.Adapters.Utils.PostgreSQLQueryBuilder.html">Gishiki\Database\Adapters\Utils\PostgreSQLQueryBuilder</a>, 
 			<a href="class-Gishiki.Database.Adapters.Utils.SQLiteQueryBuilder.html">Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder</a>
 	</div>
 
@@ -222,7 +224,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#24-390" title="Go to source code">Gishiki/Database/Adapters/Utils/SQLQueryBuilder.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#24-421" title="Go to source code">Gishiki/Database/Adapters/Utils/SQLQueryBuilder.php</a>
 		<br>
 	</div>
 
@@ -235,14 +237,14 @@
 		<td class="attributes"><code>
 			 public static
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_beautify">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#59-87" title="Go to source code">beautify</a>( <span>string <var>$query</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#59-88" title="Go to source code">beautify</a>( <span>string <var>$query</var></span> )</code>
 
 		<div class="description short">
 			<p>Beautify an SQL query.</p>
@@ -255,9 +257,13 @@
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$query</var></dt>
-					<dd>the ugly SQL query</dd>
+					<dd>your ugly SQL query</dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>your beautiful SQL query
+				</div>
 
 
 
@@ -277,7 +283,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_appendToQuery">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#89-100" title="Go to source code">appendToQuery</a>( <span>string <var>$sql</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#90-101" title="Go to source code">appendToQuery</a>( <span>string <var>$sql</var></span> )</code>
 
 		<div class="description short">
 			<p>Append to the current SQL the given text.</p>
@@ -315,7 +321,7 @@ the appendToParams function.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_appendToParams">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#102-125" title="Go to source code">appendToParams</a>( <span>mixed <var>$newParams</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#103-126" title="Go to source code">appendToParams</a>( <span>mixed <var>$newParams</var></span> )</code>
 
 		<div class="description short">
 			<p>This is a collection of raw values that the PDO will replace to ?
@@ -352,7 +358,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#127-134" title="Go to source code">__construct</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#128-135" title="Go to source code">__construct</a>( )</code>
 
 		<div class="description short">
 			<p>Initialize an empty SQL query.</p>
@@ -382,7 +388,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_update">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#136-149" title="Go to source code">update</a>( <span>string <var>$table</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#137-150" title="Go to source code">update</a>( <span>string <var>$table</var></span> )</code>
 
 		<div class="description short">
 			<p>Add UPDATE %tablename% to the SQL query.</p>
@@ -421,7 +427,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_set">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#151-178" title="Go to source code">set</a>( <span>array <var>$values</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#152-179" title="Go to source code">set</a>( <span>array <var>$values</var></span> )</code>
 
 		<div class="description short">
 			<p>Add SET col1 = ?, col2 = ?, col3 = ? to the SQL query.</p>
@@ -448,6 +454,84 @@ on the SQL query.</p>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="createTable" id="_createTable">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Gishiki.Database.Adapters.Utils.SQLiteQueryBuilder.html">Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder</a></code>
+			&amp;
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createTable">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#181-194" title="Go to source code">createTable</a>( <span>string <var>$tableName</var></span> )</code>
+
+		<div class="description short">
+			<p>Add CREATE TABLE IF NOT EXISTS %tablename% to the SQL query.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Add CREATE TABLE IF NOT EXISTS %tablename% to the SQL query.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$tableName</var></dt>
+					<dd>the name of the table</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.Adapters.Utils.SQLiteQueryBuilder.html">Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder</a></code><br>the updated sql builder
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="dropTable" id="_dropTable">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Gishiki.Database.Adapters.Utils.SQLiteQueryBuilder.html">Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder</a></code>
+			&amp;
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_dropTable">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#196-209" title="Go to source code">dropTable</a>( <span>string <var>$tableName</var></span> )</code>
+
+		<div class="description short">
+			<p>Add DROP TABLE IF EXISTS %tablename% to the SQL query.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Add DROP TABLE IF EXISTS %tablename% to the SQL query.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$tableName</var></dt>
+					<dd>the name of the table</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Gishiki.Database.Adapters.Utils.SQLiteQueryBuilder.html">Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder</a></code><br>the updated sql builder
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="where" id="_where">
 
 		<td class="attributes"><code>
@@ -460,7 +544,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_where">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#180-236" title="Go to source code">where</a>( <span><code><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></code> <var>$where</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#211-267" title="Go to source code">where</a>( <span><code><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></code> <var>$where</var></span> )</code>
 
 		<div class="description short">
 			<p>Add WHERE col1 = ? OR col2 &lt;= ? ....... to the SQL query.</p>
@@ -499,7 +583,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_insertInto">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#238-251" title="Go to source code">insertInto</a>( <span>string <var>$table</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#269-282" title="Go to source code">insertInto</a>( <span>string <var>$table</var></span> )</code>
 
 		<div class="description short">
 			<p>Add INSERT INTO %tablename% to the SQL query.</p>
@@ -538,7 +622,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_values">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#253-279" title="Go to source code">values</a>( <span>array <var>$values</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#284-310" title="Go to source code">values</a>( <span>array <var>$values</var></span> )</code>
 
 		<div class="description short">
 			<p>Add (col1, col2, col3) VALUES (?, ?, ?, ?) to the SQL query.</p>
@@ -577,7 +661,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_limitOffsetOrderBy">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#281-323" title="Go to source code">limitOffsetOrderBy</a>( <span><code><a href="class-Gishiki.Database.Runtime.ResultModifier.html">Gishiki\Database\Runtime\ResultModifier</a></code> <var>$mod</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#312-354" title="Go to source code">limitOffsetOrderBy</a>( <span><code><a href="class-Gishiki.Database.Runtime.ResultModifier.html">Gishiki\Database\Runtime\ResultModifier</a></code> <var>$mod</var></span> )</code>
 
 		<div class="description short">
 			<p>Add LIMIT ? OFFSET ? ORDER BY ..... to the SQL query wheter they are needed.</p>
@@ -616,7 +700,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_selectAllFrom">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#325-338" title="Go to source code">selectAllFrom</a>( <span>string <var>$table</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#356-369" title="Go to source code">selectAllFrom</a>( <span>string <var>$table</var></span> )</code>
 
 		<div class="description short">
 			<p>Add SELECT * FROM  %tablename% to the SQL query.</p>
@@ -655,7 +739,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_selectFrom">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#340-354" title="Go to source code">selectFrom</a>( <span>string <var>$table</var></span>, <span>array <var>$fields</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#371-385" title="Go to source code">selectFrom</a>( <span>string <var>$table</var></span>, <span>array <var>$fields</var></span> )</code>
 
 		<div class="description short">
 			<p>Add SELECT col1, col2, col3 FROM %tablename% to the SQL query.</p>
@@ -696,7 +780,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteFrom">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#356-369" title="Go to source code">deleteFrom</a>( <span>string <var>$table</var></span> )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#387-400" title="Go to source code">deleteFrom</a>( <span>string <var>$table</var></span> )</code>
 
 		<div class="description short">
 			<p>Add DELETE FROM  %tablename% to the SQL query.</p>
@@ -735,7 +819,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_exportQuery">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#371-379" title="Go to source code">exportQuery</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#402-410" title="Go to source code">exportQuery</a>( )</code>
 
 		<div class="description short">
 			<p>Export the SQL query string with ? in place of actual parameters.</p>
@@ -769,7 +853,7 @@ on the SQL query.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_exportParams">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#381-389" title="Go to source code">exportParams</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.SQLQueryBuilder.html#412-420" title="Go to source code">exportParams</a>( )</code>
 
 		<div class="description short">
 			<p>Export the list of parameters that will replace ? in the SQL query.</p>

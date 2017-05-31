@@ -135,6 +135,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Gishiki.Database.Adapters.PDODatabase.html">PDODatabase</a></li>
 				<li class="active"><a href="class-Gishiki.Database.Adapters.Sqlite.html">Sqlite</a></li>
 			</ul>
 
@@ -186,9 +187,16 @@
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-<b><span>Gishiki\Database\Adapters\Sqlite</span></b>			
+			<a href="class-Gishiki.Database.Adapters.PDODatabase.html"><span>Gishiki\Database\Adapters\PDODatabase</span></a>
+			
 			 implements 
 				<a href="class-Gishiki.Database.RelationalDatabaseInterface.html"><span>Gishiki\Database\RelationalDatabaseInterface</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>Gishiki\Database\Adapters\Sqlite</span></b>			
 			
 			
 		</dd>
@@ -209,7 +217,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.Adapters.Sqlite.html#29-355" title="Go to source code">Gishiki/Database/Adapters/Sqlite.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.Adapters.Sqlite.html#23-56" title="Go to source code">Gishiki/Database/Adapters/Sqlite.php</a>
 		<br>
 	</div>
 
@@ -217,10 +225,10 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="__construct" id="___construct">
+	<tr data-order="getPDODriverName" id="_getPDODriverName">
 
 		<td class="attributes"><code>
-			 public 
+			 protected 
 
 			
 			
@@ -228,477 +236,126 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#46-60" title="Go to source code">__construct</a>( <span>string <var>$details</var></span> )</code>
+		<a class="anchor" href="#_getPDODriverName">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#30-33" title="Go to source code">getPDODriverName</a>( )</code>
 
 		<div class="description short">
-			<p>Create a new SQLite database connection using the given connection string.</p>
+			
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Create a new SQLite database connection using the given connection string.</p>
+			
 
-<p>The connect function is automatically called.</p>
+
+
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Gishiki.Database.Adapters.PDODatabase.html#_getPDODriverName">Gishiki\Database\Adapters\PDODatabase::getPDODriverName()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="generateConnectionQuery" id="_generateConnectionQuery">
+
+		<td class="attributes"><code>
+			 protected 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_generateConnectionQuery">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#35-45" title="Go to source code">generateConnectionQuery</a>( <span>mixed <var>$details</var></span> )</code>
+
+		<div class="description short">
+			<p>Generate a PDO connection string that will be used to connect a database.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Generate a PDO connection string that will be used to connect a database.</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$details</var></dt>
-					<dd>the connection string</dd>
+					<dd>information used to open a database connection with PDO</dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the string to be passed to the PDO driver
+				</div>
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></code><br>the error occurred while connecting to the database<br>
-					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>given details are invalid
+					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>invalid connection details
 				</div>
 
 
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Gishiki.Database.Adapters.PDODatabase.html#_generateConnectionQuery">Gishiki\Database\Adapters\PDODatabase::generateConnectionQuery()</a></code></div>
 
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Gishiki.Database.DatabaseInterface.html#___construct">Gishiki\Database\DatabaseInterface::__construct()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="connect" id="_connect">
+	<tr data-order="getQueryBuilder" id="_getQueryBuilder">
 
 		<td class="attributes"><code>
-			 public 
+			 protected 
 
-			
+			<code><a href="class-Gishiki.Database.Adapters.Utils.SQLiteQueryBuilder.html">Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_connect">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#62-87" title="Go to source code">connect</a>( <span>string <var>$details</var></span> )</code>
+		<a class="anchor" href="#_getQueryBuilder">#</a>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#47-53" title="Go to source code">getQueryBuilder</a>( )</code>
 
 		<div class="description short">
-			<p>Logically connect the given database.</p>
+			
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Logically connect the given database.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$details</var></dt>
-					<dd>the connection string</dd>
-				</dl></div>
-
-
-				<h4>Throws</h4>
-				<div class="list">
-					<code><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></code><br>the error occurred while connecting to the database<br>
-					<code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code><br>given details are invalid
-				</div>
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Gishiki.Database.DatabaseInterface.html#_connect">Gishiki\Database\DatabaseInterface::connect()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="close" id="_close">
-
-		<td class="attributes"><code>
-			 public 
-
 			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_close">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#89-96" title="Go to source code">close</a>( )</code>
-
-		<div class="description short">
-			<p>Close the connection to the database</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Close the connection to the database</p>
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Gishiki.Database.DatabaseInterface.html#_close">Gishiki\Database\DatabaseInterface::close()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="createTable" id="_createTable">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_createTable">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#98-125" title="Go to source code">createTable</a>( <span><code><a href="class-Gishiki.Database.Schema.Table.html">Gishiki\Database\Schema\Table</a></code> <var>$tb</var></span> )</code>
-
-		<div class="description short">
-			<p>Create the given table schema.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Create the given table schema.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$tb</var></dt>
-					<dd>the table to be created on the database</dd>
-				</dl></div>
-
-
-				<h4>Throws</h4>
-				<div class="list">
-					<code><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></code><br>the error occurred while creating the table
-				</div>
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Gishiki.Database.RelationalDatabaseInterface.html#_createTable">Gishiki\Database\RelationalDatabaseInterface::createTable()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="connected" id="_connected">
-
-		<td class="attributes"><code>
-			 public 
-
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_connected">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#127-133" title="Go to source code">connected</a>( )</code>
-
-		<div class="description short">
-			<p>Check if the database handler is connected with a real database.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Check if the database handler is connected with a real database.</p>
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					boolean<br>TRUE only if the database connection is alive
+					<code><a href="class-Gishiki.Database.Adapters.Utils.SQLiteQueryBuilder.html">Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder</a></code><br>the SQLite specialized query builder
 				</div>
 
 
 
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Gishiki.Database.Adapters.PDODatabase.html#_getQueryBuilder">Gishiki\Database\Adapters\PDODatabase::getQueryBuilder()</a></code></div>
 
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Gishiki.Database.DatabaseInterface.html#_connected">Gishiki\Database\DatabaseInterface::connected()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="create" id="_create">
-
-		<td class="attributes"><code>
-			 public 
-
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_create">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#135-175" title="Go to source code">create</a>( <span>string <var>$collection</var></span>, <span>array|<code><a href="class-Gishiki.Algorithms.Collections.CollectionInterface.html">Gishiki\Algorithms\Collections\CollectionInterface</a></code> <var>$data</var></span> )</code>
-
-		<div class="description short">
-			<p>Write data to the database on the given collection/table.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Write data to the database on the given collection/table.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$collection</var></dt>
-					<dd>the name of the collection that will hold the data</dd>
-					<dt><var>$data</var></dt>
-					<dd>the collection of data to be written</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					mixed<br>the unique ID of the inserted data
-				</div>
-
-				<h4>Throws</h4>
-				<div class="list">
-					<code><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></code><br>the error occurred while inserting data to the database
-				</div>
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Gishiki.Database.DatabaseInterface.html#_create">Gishiki\Database\DatabaseInterface::create()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="update" id="_update">
-
-		<td class="attributes"><code>
-			 public 
-
-			integer
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_update">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#177-218" title="Go to source code">update</a>( <span>string <var>$collection</var></span>, <span>array|<code><a href="class-Gishiki.Algorithms.Collections.CollectionInterface.html">Gishiki\Algorithms\Collections\CollectionInterface</a></code> <var>$data</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></code> <var>$where</var></span> )</code>
-
-		<div class="description short">
-			<p>Update values of documents/records matching the given criteria.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Update values of documents/records matching the given criteria.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$collection</var></dt>
-					<dd>the name of the collection that will hold the changed data</dd>
-					<dt><var>$data</var></dt>
-					<dd>the new data of selected documents/records</dd>
-					<dt><var>$where</var></dt>
-					<dd>the criteria used to select documents/records to update</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					integer<br>the number of affected documents/records
-				</div>
-
-				<h4>Throws</h4>
-				<div class="list">
-					<code><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></code><br>the error occurred while updating data on the database
-				</div>
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Gishiki.Database.DatabaseInterface.html#_update">Gishiki\Database\DatabaseInterface::update()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="delete" id="_delete">
-
-		<td class="attributes"><code>
-			 public 
-
-			integer
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_delete">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#220-252" title="Go to source code">delete</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></code> <var>$where</var></span> )</code>
-
-		<div class="description short">
-			<p>Remove documents/records matching the given criteria.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Remove documents/records matching the given criteria.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$collection</var></dt>
-					<dd>the name of the collection that will be affected</dd>
-					<dt><var>$where</var></dt>
-					<dd>the criteria used to select documents/records to update</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					integer<br>the number of removed documents/records
-				</div>
-
-				<h4>Throws</h4>
-				<div class="list">
-					<code><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></code><br>the error occurred while removing data from the database
-				</div>
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Gishiki.Database.DatabaseInterface.html#_delete">Gishiki\Database\DatabaseInterface::delete()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="deleteAll" id="_deleteAll">
-
-		<td class="attributes"><code>
-			 public 
-
-			integer
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_deleteAll">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#254-286" title="Go to source code">deleteAll</a>( <span>string <var>$collection</var></span> )</code>
-
-		<div class="description short">
-			<p>Remove EVERY documents/records on the given collection/table.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Remove EVERY documents/records on the given collection/table.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$collection</var></dt>
-					<dd>the name of the collection that will be affected</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					integer<br>the number of removed documents/records
-				</div>
-
-				<h4>Throws</h4>
-				<div class="list">
-					<code><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></code><br>the error occurred while removing data from the database
-				</div>
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Gishiki.Database.DatabaseInterface.html#_deleteAll">Gishiki\Database\DatabaseInterface::deleteAll()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="read" id="_read">
-
-		<td class="attributes"><code>
-			 public 
-
-			array
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_read">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#288-320" title="Go to source code">read</a>( <span>string <var>$collection</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.ResultModifier.html">Gishiki\Database\Runtime\ResultModifier</a></code> <var>$mod</var></span> )</code>
-
-		<div class="description short">
-			<p>Fetch documents/records matching the given criteria.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Fetch documents/records matching the given criteria.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$collection</var></dt>
-					<dd>the name of the collection that will be searched</dd>
-					<dt><var>$where</var></dt>
-					<dd>the criteria used to select documents/records to fetch</dd>
-					<dt><var>$mod</var></dt>
-					<dd>the modifier to be applied to the result set</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					array<br>the search result expressed as an array of associative arrays
-				</div>
-
-				<h4>Throws</h4>
-				<div class="list">
-					<code><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></code><br>the error occurred while fetching data from the database
-				</div>
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Gishiki.Database.DatabaseInterface.html#_read">Gishiki\Database\DatabaseInterface::read()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="readSelective" id="_readSelective">
-
-		<td class="attributes"><code>
-			 public 
-
-			array
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_readSelective">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#322-354" title="Go to source code">readSelective</a>( <span>string <var>$collection</var></span>, <span>array <var>$fields</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></code> <var>$where</var></span>, <span><code><a href="class-Gishiki.Database.Runtime.ResultModifier.html">Gishiki\Database\Runtime\ResultModifier</a></code> <var>$mod</var></span> )</code>
-
-		<div class="description short">
-			<p>Fetch documents/records matching the given criteria, but retrieve only the specified columns.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Fetch documents/records matching the given criteria, but retrieve only the specified columns.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$collection</var></dt>
-					<dd>the name of the collection that will be searched</dd>
-					<dt><var>$fields</var></dt>
-					<dd>the list containing names of columns to be fetched</dd>
-					<dt><var>$where</var></dt>
-					<dd>the criteria used to select documents/records to fetch</dd>
-					<dt><var>$mod</var></dt>
-					<dd>the modifier to be applied to the result set</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					array<br>the search result expressed as an array of associative arrays
-				</div>
-
-				<h4>Throws</h4>
-				<div class="list">
-					<code><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></code><br>the error occurred while fetching data from the database
-				</div>
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Gishiki.Database.RelationalDatabaseInterface.html#_readSelective">Gishiki\Database\RelationalDatabaseInterface::readSelective()</a></code></div>
-		</div>
-		</div></td>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-Gishiki.Database.Adapters.PDODatabase.html#methods">Gishiki\Database\Adapters\PDODatabase</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Gishiki.Database.Adapters.PDODatabase.html#___construct">__construct()</a>, 
+			<a href="class-Gishiki.Database.Adapters.PDODatabase.html#_close">close()</a>, 
+			<a href="class-Gishiki.Database.Adapters.PDODatabase.html#_connect">connect()</a>, 
+			<a href="class-Gishiki.Database.Adapters.PDODatabase.html#_connected">connected()</a>, 
+			<a href="class-Gishiki.Database.Adapters.PDODatabase.html#_create">create()</a>, 
+			<a href="class-Gishiki.Database.Adapters.PDODatabase.html#_createTable">createTable()</a>, 
+			<a href="class-Gishiki.Database.Adapters.PDODatabase.html#_delete">delete()</a>, 
+			<a href="class-Gishiki.Database.Adapters.PDODatabase.html#_deleteAll">deleteAll()</a>, 
+			<a href="class-Gishiki.Database.Adapters.PDODatabase.html#_read">read()</a>, 
+			<a href="class-Gishiki.Database.Adapters.PDODatabase.html#_readSelective">readSelective()</a>, 
+			<a href="class-Gishiki.Database.Adapters.PDODatabase.html#_update">update()</a>
+		</code></td>
 	</tr>
 	</table>
 
@@ -713,7 +370,15 @@
 
 
 
-
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-Gishiki.Database.Adapters.PDODatabase.html#properties">Gishiki\Database\Adapters\PDODatabase</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Gishiki.Database.Adapters.PDODatabase.html#$connected"><var>$connected</var></a>, 
+			<a href="class-Gishiki.Database.Adapters.PDODatabase.html#$connection"><var>$connection</var></a>
+		</code></td>
+	</tr>
+	</table>
 
 
 

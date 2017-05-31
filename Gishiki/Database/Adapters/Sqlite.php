@@ -27,21 +27,12 @@ use Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder;
  */
 final class Sqlite extends PDODatabase
 {
-    protected function getPDODriverName()
-    {
-        return 'sqlite';
-    }
-
     /**
      * {@inheritdoc}
      */
-    protected function generateConnectionQuery($details)
+    protected function getPDODriverName()
     {
-        if (!is_string($details)) {
-            throw new \InvalidArgumentException("connection information provided are invalid");
-        }
-
-        return 'sqlite:'.$details;
+        return 'sqlite';
     }
 
     /**
@@ -51,6 +42,4 @@ final class Sqlite extends PDODatabase
     {
         return new SQLiteQueryBuilder();
     }
-
-
 }

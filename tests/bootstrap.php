@@ -31,4 +31,6 @@ $autoloader->addPsr4('Gishiki\\Tests\\', __DIR__);
 
 include __DIR__.'/Application/FakeController.php';
 
+file_put_contents("tests/db_test.sqlite", "");
+
 \Gishiki\Gishiki::initialize();

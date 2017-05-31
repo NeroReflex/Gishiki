@@ -20,13 +20,13 @@ Vagrant.configure(2) do |config|
 
      vb.name = "Gishiki"
      # Customize the amount of memory on the VM:
-     vb.memory = "512"
+     vb.memory = "1024"
 
      # Avoid ubuntu network problems at boot
      vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
 
      # Limit CPU usage
-     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "65"]
+     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
    end
 
   # Enable USB Controller on VirtualBox

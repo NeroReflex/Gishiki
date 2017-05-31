@@ -28,4 +28,4 @@ boxes/*
 ubuntu-xenial-16.04-cloudimg-console.log
 
 # Database
-sqliteTest.sqlite
+/tests/*.sqlite

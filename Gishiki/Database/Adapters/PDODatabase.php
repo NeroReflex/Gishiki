@@ -51,7 +51,7 @@ class PDODatabase implements RelationalDatabaseInterface
             throw new \InvalidArgumentException("connection information provided are invalid");
         }
 
-        return ''.$details;
+        return $this->getPDODriverName().':'.$details;
     }
 
     /**

@@ -4,3 +4,4 @@
 - rethink to a fast ORM
 - think about implementing a good templating engine
 - have a better router......
+- better datatypes for RDBMS

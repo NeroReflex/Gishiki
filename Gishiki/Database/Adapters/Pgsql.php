@@ -15,26 +15,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-namespace Gishiki\tests\Database\Adapters;
+namespace Gishiki\Database\Adapters;
 
-use Gishiki\Database\Adapters\Sqlite;
+use Gishiki\Database\Adapters\Utils\PostgreSQLQueryBuilder;
 
-/**
- * The tester for the Sqlite class.
- *
- * @author Benato Denis <benato.denis96@gmail.com>
- */
-class SqliteTest extends DatabaseTest
+final class Pgsql extends PDODatabase
 {
-    protected function getDatabase()
+    /**
+     * {@inheritdoc}
+     */
+    protected function getPDODriverName()
     {
-        return new Sqlite("tests/db_test.sqlite");
+        return 'pgsql';
     }
 
-    public function testBadConnectionParam()
+    /**
+     * @return PostgreSQLQueryBuilder the SQLite specialized query builder
+     */
+    protected function getQueryBuilder()
     {
-        $this->expectException(\InvalidArgumentException::class);
-
-        new Sqlite(null);
+        return new PostgreSQLQueryBuilder();
     }
 }

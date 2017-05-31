@@ -17,24 +17,19 @@ limitations under the License.
 
 namespace Gishiki\tests\Database\Adapters;
 
-use Gishiki\Database\Adapters\Sqlite;
+use Gishiki\Database\Adapters\Pgsql;
 
 /**
- * The tester for the Sqlite class.
+ * The tester for the Pgsql class.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class SqliteTest extends DatabaseTest
+class PgsqlTest extends DatabaseTest
 {
-    protected function getDatabase()
-    {
-        return new Sqlite("tests/db_test.sqlite");
-    }
-
     public function testBadConnectionParam()
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        new Sqlite(null);
+        new Pgsql(null);
     }
 }

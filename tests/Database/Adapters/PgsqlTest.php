@@ -30,7 +30,7 @@ class PgsqlTest extends DatabaseTest
 
     protected function getDatabase()
     {
-        $postgreConnectionStr = (getenv("PG_CONN") === false) ? "host=localhost;port=5432;dbname=travis;user=vagrant;password=vagrant" : getenv("PG_CONN");
+        $postgreConnectionStr = (!getenv("POSTGRE_CONNECTION")) ? "host=localhost;port=5432;dbname=travis;user=vagrant;password=vagrant" : getenv("POSTGRE_CONNECTION");
 
         return new Pgsql($postgreConnectionStr);
     }

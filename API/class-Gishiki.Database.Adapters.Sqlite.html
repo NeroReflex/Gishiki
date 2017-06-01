@@ -67,10 +67,21 @@
 						<ul>
 				<li>
 					<a href="namespace-Gishiki.Database.Adapters.Utils.html">
-						Utils					</a>
+						Utils<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Gishiki.Database.Adapters.Utils.QueryBuilder.html">
+						QueryBuilder					</a>
 
 						</li>
-							</ul></li>
+				<li>
+					<a href="namespace-Gishiki.Database.Adapters.Utils.SQLGenerator.html">
+						SQLGenerator					</a>
+
+						</li>
+							</ul></li></ul></li>
 				<li>
 					<a href="namespace-Gishiki.Database.Runtime.html">
 						Runtime					</a>
@@ -183,7 +194,7 @@
 
 
 	<div class="description">
-	<p>Represent an sqlite database.</p>
+	<p>Represent a SQLite database.</p>
 	</div>
 
 	<dl class="tree">
@@ -218,7 +229,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.Adapters.Sqlite.html#23-45" title="Go to source code">Gishiki/Database/Adapters/Sqlite.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.Adapters.Sqlite.html#23-48" title="Go to source code">Gishiki/Database/Adapters/Sqlite.php</a>
 		<br>
 	</div>
 
@@ -231,7 +242,7 @@
 		<td class="attributes"><code>
 			 protected 
 
-			
+			string
 			
 			</code>
 		</td>
@@ -241,14 +252,18 @@
 		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#30-36" title="Go to source code">getPDODriverName</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Return the name of the PDO driver to be used for this database type.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Return the name of the PDO driver to be used for this database type.</p>
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>the PDO driver name
+				</div>
 
 
 
@@ -263,27 +278,27 @@
 		<td class="attributes"><code>
 			 protected 
 
-			<code><a href="class-Gishiki.Database.Adapters.Utils.SQLiteQueryBuilder.html">Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder</a></code>
+			<code><a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.SQLiteQueryBuilder.html">Gishiki\Database\Adapters\Utils\QueryBuilder\SQLiteQueryBuilder</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getQueryBuilder">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#38-44" title="Go to source code">getQueryBuilder</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Sqlite.html#38-46" title="Go to source code">getQueryBuilder</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Get the query builder for SQLite.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Get the query builder for SQLite.</p>
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><a href="class-Gishiki.Database.Adapters.Utils.SQLiteQueryBuilder.html">Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder</a></code><br>the SQLite specialized query builder
+					<code><a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.SQLiteQueryBuilder.html">Gishiki\Database\Adapters\Utils\QueryBuilder\SQLiteQueryBuilder</a></code><br>the query builder for the used pdo adapter
 				</div>
 
 

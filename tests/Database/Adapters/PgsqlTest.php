@@ -46,6 +46,6 @@ class PgsqlTest extends DatabaseTest
     {
         $this->expectException(DatabaseException::class);
 
-        new Pgsql("database=doesntExists");
+        new Pgsql("database=doesntExists;user=postgres");
     }
 }

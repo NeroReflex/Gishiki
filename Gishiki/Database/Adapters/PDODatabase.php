@@ -21,10 +21,9 @@ use Gishiki\Algorithms\Collections\CollectionInterface;
 use Gishiki\Database\DatabaseException;
 use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\ResultModifier;
-use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Database\RelationalDatabaseInterface;
-use Gishiki\Database\Adapters\Utils\SQLQueryBuilder;
 use Gishiki\Database\Schema\Table;
+use Gishiki\Database\Adapters\Utils\QueryBuilder\SQLQueryBuilder;
 
 /**
  * Represent an generic database.
@@ -33,6 +32,11 @@ use Gishiki\Database\Schema\Table;
  */
 class PDODatabase implements RelationalDatabaseInterface
 {
+    /**
+     * Return the name of the PDO driver to be used for this database type.
+     *
+     * @return string the PDO driver name
+     */
     protected function getPDODriverName()
     {
         return '';
@@ -55,9 +59,9 @@ class PDODatabase implements RelationalDatabaseInterface
     }
 
     /**
-     * Return the SQLQueryBuilder specialized for the current database
+     * Get the query builder for the current RDBMS.
      *
-     * @return SQLQueryBuilder the specialized SQLQueryBuilder
+     * @return SQLQueryBuilder the query builder for the used pdo adapter
      */
     protected function getQueryBuilder()
     {
@@ -137,8 +141,7 @@ class PDODatabase implements RelationalDatabaseInterface
         }
 
         //build the sql query
-        $queryBuilder = $this->getQueryBuilder();
-        $queryBuilder->createTable($tb->getName())->definedAs($tb->getColumns());
+        $queryBuilder = $this->getQueryBuilder()->createTableQuery($tb);
 
         //open a new statement and execute it
         try {
@@ -147,9 +150,6 @@ class PDODatabase implements RelationalDatabaseInterface
 
             //execute the statement resolving placeholders
             $stmt->execute($queryBuilder->exportParams());
-
-            //as per documentation return the id of the last inserted row
-            return $this->connection->lastInsertId();
         } catch (\PDOException $ex) {
             throw new DatabaseException('Error while performing the table creation operation: '.$ex->getMessage(), 7);
         }
@@ -184,11 +184,10 @@ class PDODatabase implements RelationalDatabaseInterface
         }
 
         //get an associative array of the input data
-        $adaptedData = ($data instanceof GenericCollection) ? $data->all() : $data;
+        $adaptedData = ($data instanceof CollectionInterface) ? $data->all() : $data;
 
         //build the sql query
-        $queryBuilder = $this->getQueryBuilder();
-        $queryBuilder->insertInto($collection)->values($adaptedData);
+        $queryBuilder = $this->getQueryBuilder()->insertQuery($collection, $adaptedData);
 
         //open a new statement and execute it
         try {
@@ -226,11 +225,10 @@ class PDODatabase implements RelationalDatabaseInterface
         }
 
         //get an associative array of the input data
-        $adaptedData = ($data instanceof GenericCollection) ? $data->all() : $data;
+        $adaptedData = ($data instanceof CollectionInterface) ? $data->all() : $data;
 
         //build the sql query
-        $queryBuilder = $this->getQueryBuilder();
-        $queryBuilder->update($collection)->set($adaptedData)->where($where);
+        $queryBuilder = $this->getQueryBuilder()->updateQuery($collection, $adaptedData, $where);
 
         //open a new statement and execute it
         try {
@@ -264,8 +262,7 @@ class PDODatabase implements RelationalDatabaseInterface
         }
 
         //build the sql query
-        $queryBuilder = $this->getQueryBuilder();
-        $queryBuilder->deleteFrom($collection)->where($where);
+        $queryBuilder = $this->getQueryBuilder()->deleteQuery($collection, $where);
 
         //open a new statement and execute it
         try {
@@ -298,8 +295,7 @@ class PDODatabase implements RelationalDatabaseInterface
         }
 
         //build the sql query
-        $queryBuilder = $this->getQueryBuilder();
-        $queryBuilder->deleteFrom($collection);
+        $queryBuilder = $this->getQueryBuilder()->deleteAllQuery($collection);
 
         //open a new statement and execute it
         try {
@@ -332,8 +328,7 @@ class PDODatabase implements RelationalDatabaseInterface
         }
 
         //build the sql query
-        $queryBuilder = $this->getQueryBuilder();
-        $queryBuilder->selectAllFrom($collection)->where($where)->limitOffsetOrderBy($mod);
+        $queryBuilder = $this->getQueryBuilder()->readQuery($collection, $where, $mod);
 
         //open a new statement and execute it
         try {
@@ -366,8 +361,7 @@ class PDODatabase implements RelationalDatabaseInterface
         }
 
         //build the sql query
-        $queryBuilder = $this->getQueryBuilder();
-        $queryBuilder->selectFrom($collection, $fields)->where($where)->limitOffsetOrderBy($mod);
+        $queryBuilder = $this->getQueryBuilder()->selectiveReadQuery($collection, $fields, $where, $mod);
 
         //open a new statement and execute it
         try {

@@ -19,7 +19,7 @@ namespace Gishiki\tests\Database\Adapters\Utils;
 
 use PHPUnit\Framework\TestCase;
 
-use Gishiki\Database\Adapters\Utils\SQLQueryBuilder;
+use Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL;
 use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\FieldRelation;
 use Gishiki\Database\Runtime\ResultModifier;
@@ -34,40 +34,42 @@ class SQLQueryBuilderTest extends TestCase
 {
     public function testBeautify()
     {
-        $this->assertEquals('SELECT * FROM "test0" WHERE id = ? OR name = ? ORDER BY id DESC', SQLQueryBuilder::beautify('SELECT  *  FROM  "test0" WHERE id   = ? OR name = ? ORDER BY id DESC'));
+        $this->assertEquals(
+            'SELECT * FROM test0 WHERE id = ? OR name = ? ORDER BY id DESC',
+            GenericSQL::beautify('SELECT  *  FROM  test0 WHERE id   = ? OR name = ? ORDER BY id DESC'));
     }
 
     public function testDropTable()
     {
-        $query = new SQLQueryBuilder();
+        $query = new GenericSQL();
         $query->dropTable(__FUNCTION__);
 
-        $this->assertEquals(SQLQueryBuilder::beautify('DROP TABLE IF EXISTS '.__FUNCTION__), SQLQueryBuilder::beautify($query->exportQuery()));
+        $this->assertEquals(GenericSQL::beautify('DROP TABLE IF EXISTS '.__FUNCTION__), GenericSQL::beautify($query->exportQuery()));
     }
 
     public function testSelectAllFrom()
     {
-        $query = new SQLQueryBuilder();
+        $query = new GenericSQL();
         $query->selectAllFrom('test1');
 
-        $this->assertEquals(SQLQueryBuilder::beautify('SELECT * FROM "test1"'), SQLQueryBuilder::beautify($query->exportQuery()));
+        $this->assertEquals(GenericSQL::beautify('SELECT * FROM test1'), GenericSQL::beautify($query->exportQuery()));
         $this->assertEquals([], $query->exportParams());
     }
 
     public function testSelectAllFromWhere()
     {
-        $query = new SQLQueryBuilder();
+        $query = new GenericSQL();
         $query->selectAllFrom('test1')->where(SelectionCriteria::select([
             'id' => [5, 6, 7],
         ])->OrWhere('name', FieldRelation::NOT_LIKE, '%inv%'));
 
-        $this->assertEquals(SQLQueryBuilder::beautify('SELECT * FROM "test1" WHERE id IN (?,?,?) OR name NOT LIKE ?'), SQLQueryBuilder::beautify($query->exportQuery()));
+        $this->assertEquals(GenericSQL::beautify('SELECT * FROM test1 WHERE id IN (?,?,?) OR name NOT LIKE ?'), GenericSQL::beautify($query->exportQuery()));
         $this->assertEquals([5, 6, 7, '%inv%'], $query->exportParams());
     }
 
     public function testSelectAllFromWhereLimitOffsetOrderBy()
     {
-        $query = new SQLQueryBuilder();
+        $query = new GenericSQL();
         $query->selectAllFrom('test1')
                 ->where(SelectionCriteria::select([
                         'id' => [5, 6, 7],
@@ -78,13 +80,13 @@ class SQLQueryBuilderTest extends TestCase
                     'name' => FieldOrdering::ASC,
                 ]));
 
-        $this->assertEquals(SQLQueryBuilder::beautify('SELECT * FROM "test1" WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC'), SQLQueryBuilder::beautify($query->exportQuery()));
+        $this->assertEquals(GenericSQL::beautify('SELECT * FROM test1 WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC'), GenericSQL::beautify($query->exportQuery()));
         $this->assertEquals([5, 6, 7, 1.25], $query->exportParams());
     }
 
     public function testSelectFromWhereLimitOffsetOrderBy()
     {
-        $query = new SQLQueryBuilder();
+        $query = new GenericSQL();
         $query->selectFrom('test1', ['name', 'surname'])
                 ->where(SelectionCriteria::select([
                         'id' => [5, 6, 7],
@@ -96,13 +98,13 @@ class SQLQueryBuilderTest extends TestCase
                     'surname' => FieldOrdering::DESC,
                 ]));
 
-        $this->assertEquals(SQLQueryBuilder::beautify('SELECT name, surname FROM "test1" WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC, surname DESC'), SQLQueryBuilder::beautify($query->exportQuery()));
+        $this->assertEquals(GenericSQL::beautify('SELECT name, surname FROM test1 WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC, surname DESC'), GenericSQL::beautify($query->exportQuery()));
         $this->assertEquals([5, 6, 7, 1.25], $query->exportParams());
     }
 
     public function testInsertIntoValues()
     {
-        $query = new SQLQueryBuilder();
+        $query = new GenericSQL();
         $query->insertInto('users')->values([
             'name' => 'Mario',
             'surname' => 'Rossi',
@@ -110,25 +112,25 @@ class SQLQueryBuilderTest extends TestCase
             'time' => 56.04,
         ]);
 
-        $this->assertEquals(SQLQueryBuilder::beautify('INSERT INTO "users" (name, surname, age, time) VALUES (?,?,?,?)'), SQLQueryBuilder::beautify($query->exportQuery()));
+        $this->assertEquals(GenericSQL::beautify('INSERT INTO users (name, surname, age, time) VALUES (?,?,?,?)'), GenericSQL::beautify($query->exportQuery()));
         $this->assertEquals(['Mario', 'Rossi', 25, 56.04], $query->exportParams());
     }
 
     public function testDeleteFrom()
     {
-        $query = new SQLQueryBuilder();
+        $query = new GenericSQL();
         $query->deleteFrom('users');
 
-        $this->assertEquals(SQLQueryBuilder::beautify('DELETE FROM "users"'), SQLQueryBuilder::beautify($query->exportQuery()));
+        $this->assertEquals(GenericSQL::beautify('DELETE FROM users'), GenericSQL::beautify($query->exportQuery()));
         $this->assertEquals([], $query->exportParams());
     }
 
     public function testUpdateSetWhere()
     {
-        $query = new SQLQueryBuilder();
+        $query = new GenericSQL();
         $query->update('users')->set(['name' => 'Gianni', 'surname' => 'Pinotto'])->where(SelectionCriteria::select(['id' => 200]));
 
-        $this->assertEquals(SQLQueryBuilder::beautify('UPDATE "users" SET name = ?, surname = ? WHERE id = ?'), SQLQueryBuilder::beautify($query->exportQuery()));
+        $this->assertEquals(GenericSQL::beautify('UPDATE users SET name = ?, surname = ? WHERE id = ?'), GenericSQL::beautify($query->exportQuery()));
         $this->assertEquals(['Gianni', 'Pinotto', 200], $query->exportParams());
     }
 }

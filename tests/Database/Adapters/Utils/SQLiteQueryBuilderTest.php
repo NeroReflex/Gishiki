@@ -19,7 +19,7 @@ namespace Gishiki\tests\Database\Adapters\Utils;
 
 use PHPUnit\Framework\TestCase;
 
-use Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder;
+use Gishiki\Database\Adapters\Utils\SQLGenerator\SQLiteWrapper;
 use Gishiki\Database\Schema\Table;
 use Gishiki\Database\Schema\Column;
 use Gishiki\Database\Schema\ColumnType;
@@ -52,15 +52,15 @@ class SQLiteQueryBuilderTest extends TestCase
         $registeredColumn->setNotNull(false);
         $table->addColumn($registeredColumn);
 
-        $query = new SQLiteQueryBuilder();
+        $query = new SQLiteWrapper();
         $query->createTable($table->getName())->definedAs($table->getColumns());
 
-        $this->assertEquals(SQLiteQueryBuilder::beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
+        $this->assertEquals(SQLiteWrapper::beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
                 .'id INTEGER PRIMARY KEY NOT NULL, '
                 .'name TEXT NOT NULL, '
                 .'credit REAL NOT NULL, '
                 .'registered INTEGER'
-                .')'), SQLiteQueryBuilder::beautify($query->exportQuery()));
+                .')'), SQLiteWrapper::beautify($query->exportQuery()));
     }
 
     public function testCreateTableWithForeignKey()
@@ -90,16 +90,16 @@ class SQLiteQueryBuilderTest extends TestCase
         $registeredColumn->setNotNull(false);
         $table->addColumn($registeredColumn);
 
-        $query = new SQLiteQueryBuilder();
+        $query = new SQLiteWrapper();
         $query->createTable($table->getName())->definedAs($table->getColumns());
 
-        $this->assertEquals(SQLiteQueryBuilder::beautify('CREATE TABLE IF NOT EXISTS orders ('
+        $this->assertEquals(SQLiteWrapper::beautify('CREATE TABLE IF NOT EXISTS orders ('
                 .'id INTEGER PRIMARY KEY NOT NULL, '
                 .'customer_id INTEGER NOT NULL, '
                 .'FOREIGN KEY (customer_id) REFERENCES users(id), '
                 .'spent REAL NOT NULL, '
                 .'ship_date INTEGER'
-                .')'), SQLiteQueryBuilder::beautify($query->exportQuery()));
+                .')'), SQLiteWrapper::beautify($query->exportQuery()));
     }
 
     public function testCreateTableWithAutoIncrementAndNoForeignKey()
@@ -121,14 +121,14 @@ class SQLiteQueryBuilderTest extends TestCase
         $registeredColumn->setNotNull(false);
         $table->addColumn($registeredColumn);
 
-        $query = new SQLiteQueryBuilder();
+        $query = new SQLiteWrapper();
         $query->createTable($table->getName())->definedAs($table->getColumns());
 
-        $this->assertEquals(SQLiteQueryBuilder::beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
+        $this->assertEquals(SQLiteWrapper::beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
             .'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, '
             .'name TEXT NOT NULL, '
             .'credit REAL NOT NULL, '
             .'registered INTEGER'
-            .')'), SQLiteQueryBuilder::beautify($query->exportQuery()));
+            .')'), SQLiteWrapper::beautify($query->exportQuery()));
     }
 }

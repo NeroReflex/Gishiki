@@ -134,6 +134,8 @@ class DatabaseTest extends TestCase
             ResultModifier::initialize());
 
         $this->assertEquals([array_merge($userExample, ['id' => $currentID])], $readResult);
+
+        $this->assertEquals(1, $connection->deleteAll("User".__FUNCTION__));
     }
 
     public function testUpdateOnClosedConnection()
@@ -324,7 +326,7 @@ class DatabaseTest extends TestCase
 
     public function testDeleteNoRelationNoID()
     {
-        $table = new Table("Books_".__FUNCTION__);
+        $table = new Table("Books".__FUNCTION__);
 
         $idColumn = new Column('id', ColumnType::INTEGER);
         $idColumn->setNotNull(true);
@@ -344,81 +346,81 @@ class DatabaseTest extends TestCase
         $connection->createTable($table);
 
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'Compilers: Principles, Techniques, and Tools',
                 'author' => 'Alfred V. Aho, Monica S. Lam, Ravi Sethi, and Jeffrey D. Ullman',
                 'price' => 50.99
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'Bible',
                 'price' => 12.99
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => '1984',
                 'author' => 'George Orwell',
                 'price' => 13.40
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'Animal Farm',
                 'author' => 'George Orwell',
                 'price' => 25.99
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'Programming in ANSI C Deluxe Revised',
                 'price' => 8.71
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'C Programming Language, 2nd Edition',
                 'price' => 14.46
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'Modern Operating Systems',
                 'author' => 'Andrew S. Tanenbaum',
                 'price' => 70.89
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'Embedded C Coding Standard',
                 'price' => 5.38
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'C Programming for Embedded Microcontrollers',
                 'price' => 20.00
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'ARM Assembly Language',
                 'price' => 17.89
             ]);
 
 
-        $this->assertEquals(7, $connection->delete("Books_".__FUNCTION__,
+        $this->assertEquals(7, $connection->delete("Books".__FUNCTION__,
             SelectionCriteria::select()->AndWhere('price', FieldRelation::LESS_THAN, 20.99)
         ));
 
-        $this->assertEquals(3, $connection->deleteAll("Books_".__FUNCTION__));
+        $this->assertEquals(3, $connection->deleteAll("Books".__FUNCTION__));
     }
 
     public function testUpdateNoRelationNoID()
     {
-        $table = new Table("Books_".__FUNCTION__);
+        $table = new Table("Books".__FUNCTION__);
 
         $idColumn = new Column('id', ColumnType::INTEGER);
         $idColumn->setNotNull(true);
@@ -438,72 +440,72 @@ class DatabaseTest extends TestCase
         $connection->createTable($table);
 
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'Compilers: Principles, Techniques, and Tools',
                 'author' => 'Alfred V. Aho, Monica S. Lam, Ravi Sethi, and Jeffrey D. Ullman',
                 'price' => 50.99
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'Bible',
                 'price' => 12.99
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => '1984',
                 'author' => 'George Orwell',
                 'price' => 13.40
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'Animal Farm',
                 'author' => 'George Orwell',
                 'price' => 25.99
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'Programming in ANSI C Deluxe Revised',
                 'price' => 8.71
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'C Programming Language, 2nd Edition',
                 'price' => 14.46
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'Modern Operating Systems',
                 'author' => 'Andrew S. Tanenbaum',
                 'price' => 70.89
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'Embedded C Coding Standard',
                 'price' => 5.38
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'C Programming for Embedded Microcontrollers',
                 'price' => 20.00
             ]);
         $connection->create(
-            "Books_".__FUNCTION__,
+            "Books".__FUNCTION__,
             [
                 'title' => 'ARM Assembly Language',
                 'price' => 17.89
             ]);
 
 
-        $this->assertEquals(5, $connection->update("Books_".__FUNCTION__, ['price' => 10.00],
+        $this->assertEquals(5, $connection->update("Books".__FUNCTION__, ['price' => 10.00],
             SelectionCriteria::select()
                 ->AndWhere('price', FieldRelation::LESS_THAN, 20.99)
                 ->AndWhere('price', FieldRelation::GREATER_OR_EQUAL_THAN, 10.50)

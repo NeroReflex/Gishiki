@@ -6,32 +6,36 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+    http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
- *****************************************************************************/
+*****************************************************************************/
 
-namespace Gishiki\Database\Adapters\Utils;
+namespace Gishiki\Database\Adapters\Utils\SQLGenerator;
+
+use Gishiki\Database\Schema\Table;
+use Gishiki\Database\Schema\ColumnType;
 
 /**
- * This utility is useful to create sql queries for PostgreSQL.
+ * This utility is useful to create sql queries for SQLite.
  *
- * It extends the SQLQueryBuilder and add PostgreSQL-specific support.
+ * It extends the SQLQueryBuilder and add SQLite-specific support.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class PostgreSQLQueryBuilder extends SQLQueryBuilder
+final class SQLiteWrapper extends GenericSQL
 {
+
     /**
-     * Add (id SEQUENCE PRIMARY KEY NUT NULL, name TEXT NOT NULL, ... ) to the SQL query.
+     * Add (id INTEGER PRIMARY KEY NUT NULL, name TEXT NOT NULL, ... ) to the SQL query.
      *
      * @param array $columns a collection of Gishiki\Database\Schema\Column
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLiteWrapper the updated sql builder
      */
     public function &definedAs(array $columns)
     {
@@ -54,7 +58,7 @@ final class PostgreSQLQueryBuilder extends SQLQueryBuilder
 
                 case ColumnType::DATETIME:
                 case ColumnType::INTEGER:
-                    $typename = ($column->getAutoIncrement()) ? 'SERIAL' : 'INTEGER';
+                    $typename = 'INTEGER';
                     break;
 
                 case ColumnType::REAL:
@@ -68,12 +72,16 @@ final class PostgreSQLQueryBuilder extends SQLQueryBuilder
                 $this->appendToQuery('PRIMARY KEY ');
             }
 
+            if ($column->getAutoIncrement()) {
+                $this->appendToQuery('AUTOINCREMENT ');
+            }
+
             if ($column->getNotNull()) {
                 $this->appendToQuery('NOT NULL');
             }
 
             if (($relation = $column->getRelation()) != null) {
-                $this->appendToQuery(' REFERENCES '.$relation->getForeignTable()->getName().'('.$relation->getForeignKey()->getName().')');
+                $this->appendToQuery(', FOREIGN KEY ('.$column->getName().') REFERENCES '.$relation->getForeignTable()->getName().'('.$relation->getForeignKey()->getName().')');
             }
 
             $first = false;
@@ -84,4 +92,5 @@ final class PostgreSQLQueryBuilder extends SQLQueryBuilder
         //chain functions calls
         return $this;
     }
+
 }

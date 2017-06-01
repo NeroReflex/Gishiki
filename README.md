@@ -75,14 +75,6 @@ cryptographic utilities based on the OpenSSL ones and abstract away most
 common cryptographic operations.
 
 
-## Requirements
-
-Everything you need is php 7 and composer!
-
-Gishiki runs better while using a dedicated http webserver, but you can use the
-one bundled with PHP!
-
-
 ## License
 
 Gishiki is released under Apache-2.0 license terms,

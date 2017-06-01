@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\Database\Adapters\Utils;
+namespace Gishiki\Database\Adapters\Utils\SQLGenerator;
 
 use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\ResultModifier;
@@ -44,7 +44,7 @@ use Gishiki\Database\Runtime\FieldOrdering;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class SQLQueryBuilder
+class GenericSQL
 {
     /**
      * @var string the SQL query that contains placeholders
@@ -139,11 +139,11 @@ class SQLQueryBuilder
      *
      * @param string $table the name of the table to be updated
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLQueryBuilder the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
      */
     public function &update($table)
     {
-        $this->appendToQuery('UPDATE "'.$table.'" ');
+        $this->appendToQuery('UPDATE '.$table.' ');
 
         //chain functions calls
         return $this;
@@ -154,7 +154,7 @@ class SQLQueryBuilder
      *
      * @param array $values an associative array of columns => value to be changed
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLQueryBuilder the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
      */
     public function &set(array $values)
     {
@@ -183,7 +183,7 @@ class SQLQueryBuilder
      *
      * @param string $tableName the name of the table
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLiteWrapper the updated sql builder
      */
     public function &createTable($tableName)
     {
@@ -198,7 +198,7 @@ class SQLQueryBuilder
      *
      * @param string $tableName the name of the table
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLiteQueryBuilder the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLiteWrapper the updated sql builder
      */
     public function &dropTable($tableName)
     {
@@ -213,7 +213,7 @@ class SQLQueryBuilder
      *
      * @param SelectionCriteria $where the selection criteria
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLQueryBuilder the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
      */
     public function &where(SelectionCriteria $where)
     {
@@ -271,11 +271,11 @@ class SQLQueryBuilder
      *
      * @param string $table the name of the table to be affected
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLQueryBuilder the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
      */
     public function &insertInto($table)
     {
-        $this->appendToQuery('INSERT INTO "'.$table.'" ');
+        $this->appendToQuery('INSERT INTO '.$table.' ');
 
         //chain functions calls
         return $this;
@@ -286,7 +286,7 @@ class SQLQueryBuilder
      *
      * @param array $values an associative array of columnName => rowValue
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLQueryBuilder the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
      */
     public function &values(array $values)
     {
@@ -314,7 +314,7 @@ class SQLQueryBuilder
      *
      * @param ResultModifier $mod the result modifier
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLQueryBuilder the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
      */
     public function &limitOffsetOrderBy(ResultModifier $mod)
     {
@@ -358,11 +358,11 @@ class SQLQueryBuilder
      *
      * @param string $table the name of the table to be affected
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLQueryBuilder the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
      */
     public function &selectAllFrom($table)
     {
-        $this->appendToQuery('SELECT * FROM "'.$table.'" ');
+        $this->appendToQuery('SELECT * FROM '.$table.' ');
 
         //chain functions calls
         return $this;
@@ -374,11 +374,11 @@ class SQLQueryBuilder
      * @param string $table  the name of the table to be affected
      * @param array  $fields the list containing names of columns to be selected
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLQueryBuilder the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
      */
     public function &selectFrom($table, array $fields)
     {
-        $this->appendToQuery('SELECT '.implode(', ', $fields).' FROM "'.$table.'" ');
+        $this->appendToQuery('SELECT '.implode(', ', $fields).' FROM '.$table.' ');
 
         //chain functions calls
         return $this;
@@ -389,11 +389,11 @@ class SQLQueryBuilder
      *
      * @param string $table the name of the table to be affected
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLQueryBuilder the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
      */
     public function &deleteFrom($table)
     {
-        $this->appendToQuery('DELETE FROM "'.$table.'" ');
+        $this->appendToQuery('DELETE FROM '.$table.' ');
 
         //chain functions calls
         return $this;

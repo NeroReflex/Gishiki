@@ -1,0 +1,5 @@
+test:
+  adapter: postgresql
+  database: travis
+  username: postgres
+  timeout: 20

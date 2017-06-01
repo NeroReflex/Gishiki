@@ -31,7 +31,9 @@ abstract class DatabaseManager
 
     //used to give a second name to an adapter
     private static $adaptersMap = [
-         'Sqlite3' => 'Sqlite'
+        'Sqlite3' => 'Sqlite',
+        'Postgres' => 'Pgsql',
+        'Postgre' => 'Pgsql',
     ];
 
     /**

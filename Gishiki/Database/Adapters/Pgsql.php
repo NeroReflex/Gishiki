@@ -17,8 +17,13 @@ limitations under the License.
 
 namespace Gishiki\Database\Adapters;
 
-use Gishiki\Database\Adapters\Utils\PostgreSQLQueryBuilder;
+use Gishiki\Database\Adapters\Utils\QueryBuilder\PostgreSQLQueryBuilder;
 
+/**
+ * Represent a PostgreSQL database.
+ *
+ * @author Benato Denis <benato.denis96@gmail.com>
+ */
 final class Pgsql extends PDODatabase
 {
     /**
@@ -30,10 +35,13 @@ final class Pgsql extends PDODatabase
     }
 
     /**
-     * @return PostgreSQLQueryBuilder the SQLite specialized query builder
+     * Get the query builder for PostgreSQL.
+     *
+     * @return PostgreSQLQueryBuilder the query builder for the used pdo adapter
      */
     protected function getQueryBuilder()
     {
         return new PostgreSQLQueryBuilder();
     }
+
 }

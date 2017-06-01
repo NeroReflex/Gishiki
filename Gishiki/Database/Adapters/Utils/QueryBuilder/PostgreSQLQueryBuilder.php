@@ -15,37 +15,31 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-namespace Gishiki\tests\Database\Adapters;
+namespace Gishiki\Database\Adapters\Utils\QueryBuilder;
 
-use Gishiki\Database\Adapters\Pgsql;
-use Gishiki\Database\DatabaseException;
+use Gishiki\Database\Adapters\Utils\SQLGenerator\PostgreSQLWrapper;
 
 /**
- * The tester for the Pgsql class.
+ * Uses SQL generators to generate valid SQL queries for PostgreSQL.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class PgsqlTest extends DatabaseTest
+final class PostgreSQLQueryBuilder extends SQLQueryBuilder
 {
-
-    protected function getDatabase()
+    /**
+     * @return PostgreSQLWrapper the SQLite specialized query builder
+     */
+    protected function getQueryBuilder()
     {
-        $postgreConnectionStr = (getenv("PG_CONN") === false) ? "host=localhost;port=5432;dbname=travis;user=vagrant;password=vagrant" : getenv("PG_CONN");
-
-        return new Pgsql($postgreConnectionStr);
+        return new PostgreSQLWrapper();
     }
 
-    public function testBadConnectionParam()
+    public function insertQuery($collection, array $adaptedData)
     {
-        $this->expectException(\InvalidArgumentException::class);
+        //build the sql query
+        $queryBuilder = $this->getQueryBuilder();
+        $queryBuilder->insertInto($collection)->values($adaptedData)->returning('id');
 
-        new Pgsql(null);
-    }
-
-    public function testBadConnection()
-    {
-        $this->expectException(DatabaseException::class);
-
-        new Pgsql("database=doesntExists");
+        return $queryBuilder;
     }
 }

@@ -12,8 +12,6 @@ env:
    - POSTGRE_CONNECTION="host=localhost;port=5432;dbname=travis_ci_test;user=postgres;password="
 
 before_script:
-    - sleep 15
-    - mongo localhost:27017/gishiki ./tests/SetupTestingMongo.js
     - psql -c 'create database travis_ci_test;' -U postgres
     - if [[ "$TRAVIS_OS_NAME" == 'linux' ]] ; then sudo apt-get install rsync ; fi
     - touch travis.php.ini
@@ -23,6 +21,8 @@ before_script:
     - phpenv config-add travis.php.ini
     - composer self-update
     - composer install
+#    - sleep 15
+    - mongo localhost:27017/gishiki ./tests/SetupTestingMongo.js
 
 script:
     - mkdir build && mkdir build/logs

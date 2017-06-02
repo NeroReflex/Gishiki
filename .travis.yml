@@ -6,7 +6,9 @@ php:
 
 addons:
    - postgresql: "9.5"
-   - mongodb: "3.4"
+
+#services:
+#   - mongodb
 
 env:
    - POSTGRE_CONNECTION="host=localhost;port=5432;dbname=travis_ci_test;user=postgres;password="
@@ -21,8 +23,8 @@ before_script:
     - phpenv config-add travis.php.ini
     - composer self-update
     - composer install
-    - sleep 15
-    - mongo localhost:27017/gishiki ./tests/SetupTestingMongo.js
+ #   - sleep 15
+ #   - mongo localhost:27017/gishiki ./tests/SetupTestingMongo.js
 
 script:
     - mkdir build && mkdir build/logs

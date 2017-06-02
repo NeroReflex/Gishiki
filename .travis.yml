@@ -21,7 +21,7 @@ before_script:
     - phpenv config-add travis.php.ini
     - composer self-update
     - composer install
-#    - sleep 15
+    - sleep 15
     - mongo localhost:27017/gishiki ./tests/SetupTestingMongo.js
 
 script:

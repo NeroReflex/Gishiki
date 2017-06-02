@@ -15,10 +15,10 @@ limitations under the License.
 *****************************************************************************/
 
 //create a root user
-db.createUser({user:"MongoDB_testing", pwd:"45Jfh4oe8E",roles:["readWrite","dbAdmin"]});
+db.createUser({user:"gishiki", pwd:"45Jfh4oeF63:380xE",roles:["readWrite","dbAdmin"]});
 
 //auth the new user
-db.auth("MongoDB_testing", "45Jfh4oe8E");
+db.auth("gishiki", "45Jfh4oeF63:380xE");
 
 //and use it to create a new database
-db.getSiblingDB("testing");
+db.getSiblingDB("travis");

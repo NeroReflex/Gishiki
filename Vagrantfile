@@ -40,8 +40,8 @@ Vagrant.configure(2) do |config|
 
      printf "\n\nPreparing MongoDB\n"
      sudo service mongod start
-     sleep(60);
-     #mongo localhost:27017/gishiki /vagrant/tests/SetupTestingMongo.js
+     sleep 15;
+     mongo localhost:27017/gishiki /vagrant/tests/SetupTestingMongo.js
 
      # link volume to home user folder
      ln -s /vagrant Gishiki

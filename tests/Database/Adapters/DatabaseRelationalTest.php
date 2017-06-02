@@ -32,15 +32,70 @@ use Gishiki\Database\Schema\ColumnRelation;
 
 
 /**
- * The base tester for every database wrapper.
+ * The base tester for every relational database wrapper.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class DatabaseTest extends TestCase
+class DatabaseRelationalTest extends TestCase
 {
     protected function getDatabase()
     {
         return new Sqlite(":memory:");
+    }
+
+    public function testMultipleOperationsWithRelations()
+    {
+        // build the author table
+        $authorTable = new Table('authors');
+        $idColumn = new Column('id', ColumnType::INTEGER);
+        $idColumn->setAutoIncrement(true);
+        $idColumn->setPrimaryKey(true);
+        $idColumn->setNotNull(true);
+        $authorTable->addColumn($idColumn);
+        $nameColumn = new Column('names', ColumnType::TEXT);
+        $nameColumn->setNotNull(true);
+        $authorTable->addColumn($nameColumn);
+
+        // build the book table
+        $bookTable = new Table('books');
+        $bookIdColumn = new Column('id', ColumnType::INTEGER);
+        $bookIdColumn->setPrimaryKey(true);
+        $bookIdColumn->setNotNull(true);
+        $bookTable->addColumn($bookIdColumn);
+        $authorIdColumn = new Column('author_id', ColumnType::INTEGER);
+        $authorIdColumn->getRelation(new ColumnRelation($authorTable, $idColumn));
+        $authorIdColumn->setNotNull(true);
+        $bookTable->addColumn($authorIdColumn);
+        $bookTitleColumn = new Column('title', ColumnType::TEXT);
+        $bookTitleColumn->setNotNull(true);
+        $bookTable->addColumn($bookTitleColumn);
+        $bookDateColumn = new Column('publication_date', ColumnType::TEXT);
+        $bookDateColumn->setNotNull(false);
+        $bookTable->addColumn($bookDateColumn);
+        $bookPriceColumn = new Column('price', ColumnType::REAL);
+        $bookPriceColumn->setNotNull(true);
+        $bookTable->addColumn($bookPriceColumn);
+
+        // create tables
+        $connection = $this->getDatabase();
+        $connection->createTable($authorTable);
+        $connection->createTable($bookTable);
+
+        $ARMBookId = $connection->create(
+            'books',
+            [
+                'id' => 1,
+                'author_id' => $connection->create('authors', [ 'names' => 'Stephen B. Furber' ]),
+                'title' => 'ARM System-On-Chip Architecture',
+                'publication_date' => '2000',
+                'price' => 68.52
+            ]
+        );
+
+        $ARMBookAuthorId = $connection->readSelective('books', ['author_id'], SelectionCriteria::select(['title' => 'ARM System-On-Chip Architecture']), ResultModifier::initialize()->limit(1))[0]['author_id'];
+
+        $this->assertEquals(1, $connection->delete('books', SelectionCriteria::select(['author_id' => $ARMBookAuthorId])));
+        $this->assertEquals(1, $connection->delete('authors', SelectionCriteria::select(['id' => $ARMBookAuthorId])));
     }
 
     public function testCreateTableOnClosedDatabase()

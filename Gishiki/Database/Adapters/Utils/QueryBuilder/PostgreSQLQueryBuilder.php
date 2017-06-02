@@ -36,9 +36,17 @@ final class PostgreSQLQueryBuilder extends SQLQueryBuilder
 
     public function insertQuery($collection, array $adaptedData)
     {
+        $returning = 'id';
+        $returning =  (in_array('rowid', array_keys($adaptedData))) ? 'rowid' : $returning;
+        $returning =  (in_array('_rowid', array_keys($adaptedData))) ? '_rowid' : $returning;
+        $returning =  (in_array('id', array_keys($adaptedData))) ? 'id' : $returning;
+        $returning =  (in_array('ID', array_keys($adaptedData))) ? 'ID' : $returning;
+        $returning =  (in_array('_id', array_keys($adaptedData))) ? '_id' : $returning;
+        $returning =  (in_array($collection.'_id', array_keys($adaptedData))) ? $collection.'_id' : $returning;
+
         //build the sql query
         $queryBuilder = $this->getQueryBuilder();
-        $queryBuilder->insertInto($collection)->values($adaptedData)->returning('id');
+        $queryBuilder->insertInto($collection)->values($adaptedData)->returning($returning);
 
         return $queryBuilder;
     }

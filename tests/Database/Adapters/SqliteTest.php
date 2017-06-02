@@ -24,7 +24,7 @@ use Gishiki\Database\Adapters\Sqlite;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class SqliteTest extends DatabaseTest
+class SqliteTest extends DatabaseRelationalTest
 {
     protected function getDatabase()
     {

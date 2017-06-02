@@ -19,13 +19,14 @@ namespace Gishiki\tests\Database\Adapters;
 
 use Gishiki\Database\Adapters\Pgsql;
 use Gishiki\Database\DatabaseException;
+use Gishiki\tests\Database\Adapters\DatabaseRelationalTest;
 
 /**
  * The tester for the Pgsql class.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class PgsqlTest extends DatabaseTest
+class PgsqlTest extends DatabaseRelationalTest
 {
 
     protected function getDatabase()

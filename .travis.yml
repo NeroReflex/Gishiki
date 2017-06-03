@@ -8,13 +8,6 @@ addons:
    - postgresql: "9.5"
    - mariadb: '10.0'
 
-#services:
-#   - mongodb
-
-env:
-   - POSTGRE_CONNECTION="host=localhost;port=5432;dbname=travis_ci_test;user=postgres;password="
-   - MYSQL_CONN="host=localhost;dbname=travis_ci_test;user=root;password="
-
 before_script:
     - mysql -e 'CREATE DATABASE travis_ci_test;'
     - psql -c 'create database travis_ci_test;' -U postgres

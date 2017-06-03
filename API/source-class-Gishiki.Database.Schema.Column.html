@@ -487,28 +487,26 @@
 </span><span id="217" class="l"><a href="#217">217: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> &amp;<span class="php-keyword2">settype</span>(<span class="php-var">$type</span>)
 </span><span id="218" class="l"><a href="#218">218: </a>    {
 </span><span id="219" class="l"><a href="#219">219: </a>        <span class="php-comment">//avoid bad names</span>
-</span><span id="220" class="l"><a href="#220">220: </a>        <span class="php-keyword1">if</span> ((!<span class="php-keyword2">is_integer</span>(<span class="php-var">$type</span>)) || (
-</span><span id="221" class="l"><a href="#221">221: </a>                (<span class="php-var">$type</span> != ColumnType::INTEGER) &amp;&amp; (<span class="php-var">$type</span> != ColumnType::TEXT)
-</span><span id="222" class="l"><a href="#222">222: </a>                &amp;&amp; (<span class="php-var">$type</span> != ColumnType::REAL) &amp;&amp; (<span class="php-var">$type</span> != ColumnType::DATETIME))) {
-</span><span id="223" class="l"><a href="#223">223: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \InvalidArgumentException(<span class="php-quote">'The type of the column is invalid.'</span>);
-</span><span id="224" class="l"><a href="#224">224: </a>        }
+</span><span id="220" class="l"><a href="#220">220: </a>        <span class="php-keyword1">if</span> ((!<span class="php-keyword2">is_integer</span>(<span class="php-var">$type</span>)) || (<span class="php-var">$type</span> &gt;= ColumnType::UNKNOWN) || (<span class="php-var">$type</span> &lt; <span class="php-num">0</span>)) {
+</span><span id="221" class="l"><a href="#221">221: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> \InvalidArgumentException(<span class="php-quote">'The type of the column is invalid.'</span>);
+</span><span id="222" class="l"><a href="#222">222: </a>        }
+</span><span id="223" class="l"><a href="#223">223: </a>
+</span><span id="224" class="l"><a href="#224">224: </a>        <span class="php-var">$this</span>-&gt;type = <span class="php-var">$type</span>;
 </span><span id="225" class="l"><a href="#225">225: </a>
-</span><span id="226" class="l"><a href="#226">226: </a>        <span class="php-var">$this</span>-&gt;type = <span class="php-var">$type</span>;
-</span><span id="227" class="l"><a href="#227">227: </a>
-</span><span id="228" class="l"><a href="#228">228: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>;
-</span><span id="229" class="l"><a href="#229">229: </a>    }
-</span><span id="230" class="l"><a href="#230">230: </a>
-</span><span id="231" class="l"><a href="#231">231: </a>    <span class="php-comment">/**
-</span></span><span id="232" class="l"><a href="#232">232: </a><span class="php-comment">     * Retrieve the type of the column.
-</span></span><span id="233" class="l"><a href="#233">233: </a><span class="php-comment">     *
-</span></span><span id="234" class="l"><a href="#234">234: </a><span class="php-comment">     * @return int the column name
-</span></span><span id="235" class="l"><a href="#235">235: </a><span class="php-comment">     */</span>
-</span><span id="236" class="l"><a href="#236">236: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <span class="php-keyword2">getType</span>()
-</span><span id="237" class="l"><a href="#237">237: </a>    {
-</span><span id="238" class="l"><a href="#238">238: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;type;
-</span><span id="239" class="l"><a href="#239">239: </a>    }
-</span><span id="240" class="l"><a href="#240">240: </a>}
-</span><span id="241" class="l"><a href="#241">241: </a></span></code></pre>
+</span><span id="226" class="l"><a href="#226">226: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>;
+</span><span id="227" class="l"><a href="#227">227: </a>    }
+</span><span id="228" class="l"><a href="#228">228: </a>
+</span><span id="229" class="l"><a href="#229">229: </a>    <span class="php-comment">/**
+</span></span><span id="230" class="l"><a href="#230">230: </a><span class="php-comment">     * Retrieve the type of the column.
+</span></span><span id="231" class="l"><a href="#231">231: </a><span class="php-comment">     *
+</span></span><span id="232" class="l"><a href="#232">232: </a><span class="php-comment">     * @return int the column name
+</span></span><span id="233" class="l"><a href="#233">233: </a><span class="php-comment">     */</span>
+</span><span id="234" class="l"><a href="#234">234: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <span class="php-keyword2">getType</span>()
+</span><span id="235" class="l"><a href="#235">235: </a>    {
+</span><span id="236" class="l"><a href="#236">236: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;type;
+</span><span id="237" class="l"><a href="#237">237: </a>    }
+</span><span id="238" class="l"><a href="#238">238: </a>}
+</span><span id="239" class="l"><a href="#239">239: </a></span></code></pre>
 
 	<div id="footer">
 		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>

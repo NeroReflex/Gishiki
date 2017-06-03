@@ -35,6 +35,47 @@ final class Mysql extends PDODatabase
         return 'mysql';
     }
 
+    protected function generateConnectionQuery($details)
+    {
+        if (!is_string($details)) {
+            throw new \InvalidArgumentException("connection information provided are invalid");
+        }
+
+        $user = null;
+        $password = null;
+
+        $userPosition = strpos($details, 'user=');
+        if ($userPosition !== false) {
+            $firstUserCharPosition = $userPosition + strlen('user=');
+            $endingUserCharPosition = strpos($details, ';', $firstUserCharPosition);
+            $lasUserCharPosition = ($endingUserCharPosition !== false) ?
+                $endingUserCharPosition : strlen($details);
+            $user = substr($details, $firstUserCharPosition, $lasUserCharPosition - $firstUserCharPosition);
+            $details = ($endingUserCharPosition !== false) ?
+                str_replace('user=' . $user . ';', '', $details) :
+                str_replace('user=' . $user, '', $details);
+        }
+
+        $passwordPosition = strpos($details, 'password=');
+        if ($passwordPosition !== false) {
+            $firstPassCharPosition = $passwordPosition + strlen('password=');
+            $endingPassCharPosition = strpos($details, ';', $firstPassCharPosition);
+            $lasPassCharPosition = ($endingPassCharPosition !== false) ?
+                $endingPassCharPosition : strlen($details);
+            $password = substr($details, $firstPassCharPosition, $lasPassCharPosition - $firstPassCharPosition);
+            $details = ($endingPassCharPosition !== false) ?
+                str_replace('password=' . $password . ';', '', $details) :
+                str_replace('password=' . $password, '', $details);
+        }
+
+        return [
+            $this->getPDODriverName().':'.$details,
+            $user,
+            $password,
+            null
+        ];
+    }
+
     /**
      * Get the query builder for SQLite.
      *

@@ -153,7 +153,7 @@ class DatabaseRelationalTest extends TestCase
         $passwordColumn = new Column('password', ColumnType::TEXT);
         $passwordColumn->setNotNull(true);
         $table->addColumn($passwordColumn);
-        $creditColumn = new Column('credit', ColumnType::NUMERIC);
+        $creditColumn = new Column('credit', ColumnType::MONEY);
         $creditColumn->setNotNull(true);
         $table->addColumn($creditColumn);
         $registeredColumn = new Column('registered', ColumnType::DATETIME);
@@ -487,7 +487,7 @@ class DatabaseRelationalTest extends TestCase
         $table->addColumn($nameColumn);
         $authorColumn = new Column('author', ColumnType::TEXT);
         $table->addColumn($authorColumn);
-        $priceColumn = new Column('price', ColumnType::NUMERIC);
+        $priceColumn = new Column('price', ColumnType::MONEY);
         $priceColumn->setNotNull(true);
         $table->addColumn($priceColumn);
 

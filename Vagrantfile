@@ -26,6 +26,9 @@ Vagrant.configure(2) do |config|
 
      # Limit CPU usage
      vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
+
+     # Open and forward port for admin tools
+     config.vm.network "forwarded_port", guest: 88, host: 8088
    end
 
   # Enable USB Controller on VirtualBox
@@ -37,11 +40,6 @@ Vagrant.configure(2) do |config|
   ###############################################################
    config.vm.provision "shell", inline: <<-SHELL
      composer self-update
-
-     printf "\n\nPreparing MongoDB\n"
-     sudo service mongod start
-     sleep 15;
-     mongo localhost:27017/gishiki /vagrant/tests/SetupTestingMongo.js
 
      # link volume to home user folder
      ln -s /vagrant Gishiki

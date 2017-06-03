@@ -17,41 +17,30 @@ limitations under the License.
 
 namespace Gishiki\Database\Adapters\Utils\SQLGenerator;
 
+use Gishiki\Database\Schema\Table;
 use Gishiki\Database\Schema\ColumnType;
 
 /**
- * This utility is useful to create sql queries for PostgreSQL.
+ * This utility is useful to create sql queries for MySQL.
  *
- * It extends the SQLQueryBuilder and add PostgreSQL-specific support.
+ * It extends the SQLQueryBuilder and add MySQL-specific support.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class PostgreSQLWrapper extends GenericSQL
+final class MySQLWrapper extends GenericSQL
 {
     /**
-     * Add RETURNING %id% to the SQL query.
-     *
-     * @param string $idFieldName the name of the table primary key
-     *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\PostgreSQLWrapper the updated sql builder
-     */
-    public function &returning($idFieldName)
-    {
-        $this->appendToQuery(' RETURNING "'.$idFieldName.'" ');
-
-        //chain functions calls
-        return $this;
-    }
-
-    /**
-     * Add (id sequence PRIMARY KEY, name text NOT NULL, ... ) to the SQL query.
+     * Add (id INTEGER PRIMARY KEY NUT NULL, name TEXT NOT NULL, ... ) to the SQL query.
      *
      * @param array $columns a collection of Gishiki\Database\Schema\Column
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\PostgreSQLWrapper the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\MySQLWrapper the updated sql builder
      */
     public function &definedAs(array $columns)
     {
+        //mysql wants PRIMARY KEY(...) after column definitions
+        $primaryKeyName = '';
+
         $this->appendToQuery('(');
 
         $first = true;
@@ -66,54 +55,62 @@ final class PostgreSQLWrapper extends GenericSQL
             switch ($column->getType()) {
 
                 case ColumnType::TEXT:
-                    $typename = 'text';
-                    break;
-
-                case ColumnType::SMALLINT:
-                    $typename = ($column->getAutoIncrement()) ? 'serial' : 'smallint';
+                    $typename = 'TEXT';
                     break;
 
                 case ColumnType::DATETIME:
-                case ColumnType::INTEGER:
-                    $typename = ($column->getAutoIncrement()) ? 'serial' : 'integer';
+                    $typename = 'INTEGER';
                     break;
 
-                case ColumnType::BIGINT:
-                    $typename = ($column->getAutoIncrement()) ? 'serial' : 'bigint';
+                case ColumnType::SMALLINT:
+                    $typename = 'SMALLINT';
+                    break;
+
+                case ColumnType::INTEGER:
+                    $typename = 'INTEGER';
+                    break;
+
+                case ColumnType::BIGINT;
+                    $typename = 'BIGINT';
                     break;
 
                 case ColumnType::FLOAT:
-                    $typename = 'float';
+                    $typename = 'FLOAT';
                     break;
 
                 case ColumnType::DOUBLE:
-                    $typename = 'double';
+                    $typename = 'DOUBLE';
                     break;
 
                 case ColumnType::NUMERIC:
-                    $typename = 'numeric';
-                    break;
-
                 case ColumnType::MONEY:
-                    $typename = 'money';
+                    $typename = 'NUMERIC';
                     break;
             }
 
             $this->appendToQuery($typename.' ');
 
             if ($column->getPrimaryKey()) {
-                $this->appendToQuery('PRIMARY KEY ');
+                $primaryKeyName = $column->getName();
             }
 
-            if (($column->getNotNull()) && ($typename != 'serial')){
+            if ($column->getAutoIncrement()) {
+                $this->appendToQuery('AUTO_INCREMENT ');
+            }
+
+            if ($column->getNotNull()) {
                 $this->appendToQuery('NOT NULL');
             }
 
             if (($relation = $column->getRelation()) != null) {
-                $this->appendToQuery(' REFERENCES '.$relation->getForeignTable()->getName().'('.$relation->getForeignKey()->getName().')');
+                $this->appendToQuery(', FOREIGN KEY ('.$column->getName().') REFERENCES '.$relation->getForeignTable()->getName().'('.$relation->getForeignKey()->getName().')');
             }
 
             $first = false;
+        }
+
+        if (strlen($primaryKeyName) > 0) {
+            $this->appendToQuery(', PRIMARY KEY ('.$primaryKeyName.')');
         }
 
         $this->appendToQuery(')');

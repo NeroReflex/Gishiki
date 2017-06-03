@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex">
 
-	<title>File Gishiki/Algorithms/Collections/SerializationException.php | Gishiki</title>
+	<title>File Gishiki/Database/Adapters/Utils/QueryBuilder/MySQLQueryBuilder.php | Gishiki</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -272,43 +272,41 @@
 	</div>
 
 <pre><code><span id="1" class="l"><a href="#1"> 1: </a><span class="xlang">&lt;?php</span>
-</span><span id="2" class="l"><a href="#2"> 2: </a><span class="php-comment">/****************************************************************************
-</span></span><span id="3" class="l"><a href="#3"> 3: </a><span class="php-comment">Copyright 2016 Benato Denis
-</span></span><span id="4" class="l"><a href="#4"> 4: </a><span class="php-comment">Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
-</span></span><span id="5" class="l"><a href="#5"> 5: </a><span class="php-comment">you may not use this file except in compliance with the License.
-</span></span><span id="6" class="l"><a href="#6"> 6: </a><span class="php-comment">You may obtain a copy of the License at
-</span></span><span id="7" class="l"><a href="#7"> 7: </a><span class="php-comment">http://www.apache.org/licenses/LICENSE-2.0
-</span></span><span id="8" class="l"><a href="#8"> 8: </a><span class="php-comment">Unless required by applicable law or agreed to in writing, software
-</span></span><span id="9" class="l"><a href="#9"> 9: </a><span class="php-comment">distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
-</span></span><span id="10" class="l"><a href="#10">10: </a><span class="php-comment">WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-</span></span><span id="11" class="l"><a href="#11">11: </a><span class="php-comment">See the License for the specific language governing permissions and
-</span></span><span id="12" class="l"><a href="#12">12: </a><span class="php-comment">limitations under the License.
-</span></span><span id="13" class="l"><a href="#13">13: </a><span class="php-comment"> *****************************************************************************/</span>
-</span><span id="14" class="l"><a href="#14">14: </a>
-</span><span id="15" class="l"><a href="#15">15: </a><span class="php-keyword1">namespace</span> Gishiki\Algorithms\Collections;
-</span><span id="16" class="l"><a href="#16">16: </a>
-</span><span id="17" class="l"><a href="#17">17: </a><span class="php-comment">/**
-</span></span><span id="18" class="l"><a href="#18">18: </a><span class="php-comment"> * The serialization exception thrown by Gishiki
-</span></span><span id="19" class="l"><a href="#19">19: </a><span class="php-comment"> * when a bad serialization operation takes place.
-</span></span><span id="20" class="l"><a href="#20">20: </a><span class="php-comment"> *
-</span></span><span id="21" class="l"><a href="#21">21: </a><span class="php-comment"> * Data is probably malformed/unconformant or damaged!
-</span></span><span id="22" class="l"><a href="#22">22: </a><span class="php-comment"> *
-</span></span><span id="23" class="l"><a href="#23">23: </a><span class="php-comment"> * @author Benato Denis &lt;benato.denis96@gmail.com&gt;
-</span></span><span id="24" class="l"><a href="#24">24: </a><span class="php-comment"> */</span>
-</span><span id="25" class="l"><a href="#25">25: </a><span class="php-keyword1">class</span> SerializationException <span class="php-keyword1">extends</span> \Gishiki\Core\Exception
-</span><span id="26" class="l"><a href="#26">26: </a>{
-</span><span id="27" class="l"><a href="#27">27: </a>    <span class="php-comment">/**
-</span></span><span id="28" class="l"><a href="#28">28: </a><span class="php-comment">     * Create the serialization-related exception.
-</span></span><span id="29" class="l"><a href="#29">29: </a><span class="php-comment">     *
-</span></span><span id="30" class="l"><a href="#30">30: </a><span class="php-comment">     * @param string $message   the error message
-</span></span><span id="31" class="l"><a href="#31">31: </a><span class="php-comment">     * @param int    $errorCode the json error code
-</span></span><span id="32" class="l"><a href="#32">32: </a><span class="php-comment">     */</span>
-</span><span id="33" class="l"><a href="#33">33: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __construct(<span class="php-var">$message</span>, <span class="php-var">$errorCode</span>)
-</span><span id="34" class="l"><a href="#34">34: </a>    {
-</span><span id="35" class="l"><a href="#35">35: </a>        parent::__construct(<span class="php-var">$message</span>, <span class="php-var">$errorCode</span>);
-</span><span id="36" class="l"><a href="#36">36: </a>    }
-</span><span id="37" class="l"><a href="#37">37: </a>}
-</span><span id="38" class="l"><a href="#38">38: </a></span></code></pre>
+</span><span id="2" class="l"><a href="#2"> 2: </a><span class="php-comment">/**************************************************************************
+</span></span><span id="3" class="l"><a href="#3"> 3: </a><span class="php-comment">Copyright 2017 Benato Denis
+</span></span><span id="4" class="l"><a href="#4"> 4: </a><span class="php-comment">
+</span></span><span id="5" class="l"><a href="#5"> 5: </a><span class="php-comment">Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+</span></span><span id="6" class="l"><a href="#6"> 6: </a><span class="php-comment">you may not use this file except in compliance with the License.
+</span></span><span id="7" class="l"><a href="#7"> 7: </a><span class="php-comment">You may obtain a copy of the License at
+</span></span><span id="8" class="l"><a href="#8"> 8: </a><span class="php-comment">
+</span></span><span id="9" class="l"><a href="#9"> 9: </a><span class="php-comment">http://www.apache.org/licenses/LICENSE-2.0
+</span></span><span id="10" class="l"><a href="#10">10: </a><span class="php-comment">
+</span></span><span id="11" class="l"><a href="#11">11: </a><span class="php-comment">Unless required by applicable law or agreed to in writing, software
+</span></span><span id="12" class="l"><a href="#12">12: </a><span class="php-comment">distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+</span></span><span id="13" class="l"><a href="#13">13: </a><span class="php-comment">WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+</span></span><span id="14" class="l"><a href="#14">14: </a><span class="php-comment">See the License for the specific language governing permissions and
+</span></span><span id="15" class="l"><a href="#15">15: </a><span class="php-comment">limitations under the License.
+</span></span><span id="16" class="l"><a href="#16">16: </a><span class="php-comment"> *****************************************************************************/</span>
+</span><span id="17" class="l"><a href="#17">17: </a>
+</span><span id="18" class="l"><a href="#18">18: </a><span class="php-keyword1">namespace</span> Gishiki\Database\Adapters\Utils\QueryBuilder;
+</span><span id="19" class="l"><a href="#19">19: </a>
+</span><span id="20" class="l"><a href="#20">20: </a><span class="php-keyword1">use</span> Gishiki\Database\Adapters\Utils\SQLGenerator\MySQLWrapper;
+</span><span id="21" class="l"><a href="#21">21: </a>
+</span><span id="22" class="l"><a href="#22">22: </a><span class="php-comment">/**
+</span></span><span id="23" class="l"><a href="#23">23: </a><span class="php-comment"> * Uses SQL generators to generate valid SQL queries for MySQL.
+</span></span><span id="24" class="l"><a href="#24">24: </a><span class="php-comment"> *
+</span></span><span id="25" class="l"><a href="#25">25: </a><span class="php-comment"> * @author Benato Denis &lt;benato.denis96@gmail.com&gt;
+</span></span><span id="26" class="l"><a href="#26">26: </a><span class="php-comment"> */</span>
+</span><span id="27" class="l"><a href="#27">27: </a><span class="php-keyword1">final</span> <span class="php-keyword1">class</span> MySQLQueryBuilder <span class="php-keyword1">extends</span> SQLQueryBuilder
+</span><span id="28" class="l"><a href="#28">28: </a>{
+</span><span id="29" class="l"><a href="#29">29: </a>    <span class="php-comment">/**
+</span></span><span id="30" class="l"><a href="#30">30: </a><span class="php-comment">     * @return MySQLWrapper the MySQL specialized query builder
+</span></span><span id="31" class="l"><a href="#31">31: </a><span class="php-comment">     */</span>
+</span><span id="32" class="l"><a href="#32">32: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> getQueryBuilder()
+</span><span id="33" class="l"><a href="#33">33: </a>    {
+</span><span id="34" class="l"><a href="#34">34: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> MySQLWrapper();
+</span><span id="35" class="l"><a href="#35">35: </a>    }
+</span><span id="36" class="l"><a href="#36">36: </a>}</span></code></pre>
 
 	<div id="footer">
 		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>

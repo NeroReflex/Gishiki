@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Gishiki\Database\Adapters\Utils\QueryBuilder\PostgreSQLQueryBuilder | Gishiki</title>
+	<title>Class Gishiki\Database\Adapters\Utils\QueryBuilder\MySQLQueryBuilder | Gishiki</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -146,8 +146,8 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.MySQLQueryBuilder.html">MySQLQueryBuilder</a></li>
-				<li class="active"><a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.PostgreSQLQueryBuilder.html">PostgreSQLQueryBuilder</a></li>
+				<li class="active"><a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.MySQLQueryBuilder.html">MySQLQueryBuilder</a></li>
+				<li><a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.PostgreSQLQueryBuilder.html">PostgreSQLQueryBuilder</a></li>
 				<li><a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.SQLiteQueryBuilder.html">SQLiteQueryBuilder</a></li>
 				<li><a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.SQLQueryBuilder.html">SQLQueryBuilder</a></li>
 			</ul>
@@ -191,11 +191,11 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class PostgreSQLQueryBuilder</h1>
+	<h1>Class MySQLQueryBuilder</h1>
 
 
 	<div class="description">
-	<p>Uses SQL generators to generate valid SQL queries for PostgreSQL.</p>
+	<p>Uses SQL generators to generate valid SQL queries for MySQL.</p>
 	</div>
 
 	<dl class="tree">
@@ -207,7 +207,7 @@
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>Gishiki\Database\Adapters\Utils\QueryBuilder\PostgreSQLQueryBuilder</span></b>			
+<b><span>Gishiki\Database\Adapters\Utils\QueryBuilder\MySQLQueryBuilder</span></b>			
 			
 			
 		</dd>
@@ -228,7 +228,7 @@
 
 				<b>Author:</b>
 				Benato Denis <a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;">&#x62;&#x65;&#110;&#97;&#116;&#111;&#46;&#x64;&#x65;&#x6e;&#x69;s&#57;&#54;&#64;&#103;&#x6d;&#x61;&#x69;&#x6c;.&#99;&#111;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Gishiki.Database.Adapters.Utils.QueryBuilder.PostgreSQLQueryBuilder.html#22-53" title="Go to source code">Gishiki/Database/Adapters/Utils/QueryBuilder/PostgreSQLQueryBuilder.php</a>
+			<b>Located at</b> <a href="source-class-Gishiki.Database.Adapters.Utils.QueryBuilder.MySQLQueryBuilder.html#22-36" title="Go to source code">Gishiki/Database/Adapters/Utils/QueryBuilder/MySQLQueryBuilder.php</a>
 		<br>
 	</div>
 
@@ -241,14 +241,14 @@
 		<td class="attributes"><code>
 			 protected 
 
-			<code><a href="class-Gishiki.Database.Adapters.Utils.SQLGenerator.PostgreSQLWrapper.html">Gishiki\Database\Adapters\Utils\SQLGenerator\PostgreSQLWrapper</a></code>
+			<code><a href="class-Gishiki.Database.Adapters.Utils.SQLGenerator.MySQLWrapper.html">Gishiki\Database\Adapters\Utils\SQLGenerator\MySQLWrapper</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getQueryBuilder">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.QueryBuilder.PostgreSQLQueryBuilder.html#29-35" title="Go to source code">getQueryBuilder</a>( )</code>
+		<code><a href="source-class-Gishiki.Database.Adapters.Utils.QueryBuilder.MySQLQueryBuilder.html#29-35" title="Go to source code">getQueryBuilder</a>( )</code>
 
 		<div class="description short">
 			
@@ -261,45 +261,13 @@
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><a href="class-Gishiki.Database.Adapters.Utils.SQLGenerator.PostgreSQLWrapper.html">Gishiki\Database\Adapters\Utils\SQLGenerator\PostgreSQLWrapper</a></code><br>the SQLite specialized query builder
+					<code><a href="class-Gishiki.Database.Adapters.Utils.SQLGenerator.MySQLWrapper.html">Gishiki\Database\Adapters\Utils\SQLGenerator\MySQLWrapper</a></code><br>the MySQL specialized query builder
 				</div>
 
 
 
 				<h4>Overrides</h4>
 				<div class="list"><code><a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.SQLQueryBuilder.html#_getQueryBuilder">Gishiki\Database\Adapters\Utils\QueryBuilder\SQLQueryBuilder::getQueryBuilder()</a></code></div>
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="insertQuery" id="_insertQuery">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_insertQuery">#</a>
-		<code><a href="source-class-Gishiki.Database.Adapters.Utils.QueryBuilder.PostgreSQLQueryBuilder.html#37-52" title="Go to source code">insertQuery</a>( <span> <var>$collection</var></span>, <span>array <var>$adaptedData</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-				<h4>Overrides</h4>
-				<div class="list"><code><a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.SQLQueryBuilder.html#_insertQuery">Gishiki\Database\Adapters\Utils\QueryBuilder\SQLQueryBuilder::insertQuery()</a></code></div>
 
 		</div>
 		</div></td>
@@ -313,6 +281,7 @@
 			<a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.SQLQueryBuilder.html#_createTableQuery">createTableQuery()</a>, 
 			<a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.SQLQueryBuilder.html#_deleteAllQuery">deleteAllQuery()</a>, 
 			<a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.SQLQueryBuilder.html#_deleteQuery">deleteQuery()</a>, 
+			<a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.SQLQueryBuilder.html#_insertQuery">insertQuery()</a>, 
 			<a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.SQLQueryBuilder.html#_readQuery">readQuery()</a>, 
 			<a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.SQLQueryBuilder.html#_selectiveReadQuery">selectiveReadQuery()</a>, 
 			<a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.SQLQueryBuilder.html#_updateQuery">updateQuery()</a>

@@ -24,8 +24,18 @@ namespace Gishiki\Database\Schema;
  */
 abstract class ColumnType
 {
-    const INTEGER = 0;
-    const TEXT = 1;
-    const REAL = 2;
-    const DATETIME = 3;
+    const SMALLINT = 0;
+    const INTEGER = 1;
+    const BIGINT = 2;
+    const TEXT = 3;
+    const FLOAT = 4;
+    const DOUBLE= 5;
+    const DATETIME = 6;
+    const NUMERIC = 7;
+    const MONEY = 8;
+
+    /**
+     * This is NOT a type and MUST NOT be used!
+     */
+    const UNKNOWN = 9;
 }

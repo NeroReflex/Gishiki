@@ -6,31 +6,30 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-*****************************************************************************/
+ *****************************************************************************/
 
 namespace Gishiki\tests\Database\Adapters\Utils;
 
 use PHPUnit\Framework\TestCase;
-
-use Gishiki\Database\Adapters\Utils\SQLGenerator\SQLiteWrapper;
+use Gishiki\Database\Adapters\Utils\SQLGenerator\PostgreSQLWrapper;
 use Gishiki\Database\Schema\Table;
 use Gishiki\Database\Schema\Column;
 use Gishiki\Database\Schema\ColumnType;
 use Gishiki\Database\Schema\ColumnRelation;
 
 /**
- * The tester for the SQLiteQueryBuilder class.
+ * The tester for the PostgreSQLQueryBuilder class.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class SQLiteQueryBuilderTest extends TestCase
+class PostgreSQLQueryBuilderTest extends TestCase
 {
     public function testCreateTableWithNoForeignKey()
     {
@@ -50,15 +49,15 @@ class SQLiteQueryBuilderTest extends TestCase
         $registeredColumn->setNotNull(false);
         $table->addColumn($registeredColumn);
 
-        $query = new SQLiteWrapper();
+        $query = new PostgreSQLWrapper();
         $query->createTable($table->getName())->definedAs($table->getColumns());
 
-        $this->assertEquals(SQLiteWrapper::beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
-                .'id INTEGER PRIMARY KEY NOT NULL, '
-                .'name TEXT NOT NULL, '
-                .'credit REAL NOT NULL, '
-                .'registered INTEGER'
-                .')'), SQLiteWrapper::beautify($query->exportQuery()));
+        $this->assertEquals(PostgreSQLWrapper::beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
+            .'id integer PRIMARY KEY NOT NULL, '
+            .'name text NOT NULL, '
+            .'credit numeric NOT NULL, '
+            .'registered integer'
+            .')'), PostgreSQLWrapper::beautify($query->exportQuery()));
     }
 
     public function testCreateTableWithForeignKey()
@@ -77,7 +76,7 @@ class SQLiteQueryBuilderTest extends TestCase
         $idColumn->setNotNull(true);
         $idColumn->setPrimaryKey(true);
         $table->addColumn($idColumn);
-        $nameColumn = new Column('customer_id', ColumnType::INTEGER);
+        $nameColumn = new Column('customer_id', ColumnType::BIGINT);
         $nameColumn->setNotNull(true);
         $nameColumn->setRelation($relation);
         $table->addColumn($nameColumn);
@@ -88,16 +87,15 @@ class SQLiteQueryBuilderTest extends TestCase
         $registeredColumn->setNotNull(false);
         $table->addColumn($registeredColumn);
 
-        $query = new SQLiteWrapper();
+        $query = new PostgreSQLWrapper();
         $query->createTable($table->getName())->definedAs($table->getColumns());
 
-        $this->assertEquals(SQLiteWrapper::beautify('CREATE TABLE IF NOT EXISTS orders ('
-                .'id INTEGER PRIMARY KEY NOT NULL, '
-                .'customer_id INTEGER NOT NULL, '
-                .'FOREIGN KEY (customer_id) REFERENCES users(id), '
-                .'spent REAL NOT NULL, '
-                .'ship_date INTEGER'
-                .')'), SQLiteWrapper::beautify($query->exportQuery()));
+        $this->assertEquals(PostgreSQLWrapper::beautify('CREATE TABLE IF NOT EXISTS orders ('
+            .'id integer PRIMARY KEY NOT NULL, '
+            .'customer_id bigint NOT NULL REFERENCES users(id), '
+            .'spent float NOT NULL, '
+            .'ship_date integer'
+            .')'), PostgreSQLWrapper::beautify($query->exportQuery()));
     }
 
     public function testCreateTableWithAutoIncrementAndNoForeignKey()
@@ -119,14 +117,14 @@ class SQLiteQueryBuilderTest extends TestCase
         $registeredColumn->setNotNull(false);
         $table->addColumn($registeredColumn);
 
-        $query = new SQLiteWrapper();
+        $query = new PostgreSQLWrapper();
         $query->createTable($table->getName())->definedAs($table->getColumns());
 
-        $this->assertEquals(SQLiteWrapper::beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
-            .'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, '
-            .'name TEXT NOT NULL, '
-            .'credit REAL NOT NULL, '
-            .'registered INTEGER'
-            .')'), SQLiteWrapper::beautify($query->exportQuery()));
+        $this->assertEquals(PostgreSQLWrapper::beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
+            .'id serial PRIMARY KEY, '
+            .'name text NOT NULL, '
+            .'credit numeric NOT NULL, '
+            .'registered integer'
+            .')'), PostgreSQLWrapper::beautify($query->exportQuery()));
     }
 }

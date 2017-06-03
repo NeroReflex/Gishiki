@@ -217,9 +217,7 @@ final class Column
     public function &settype($type)
     {
         //avoid bad names
-        if ((!is_integer($type)) || (
-                ($type != ColumnType::INTEGER) && ($type != ColumnType::TEXT)
-                && ($type != ColumnType::REAL) && ($type != ColumnType::DATETIME))) {
+        if ((!is_integer($type)) || ($type >= ColumnType::UNKNOWN) || ($type < 0)) {
             throw new \InvalidArgumentException('The type of the column is invalid.');
         }
 

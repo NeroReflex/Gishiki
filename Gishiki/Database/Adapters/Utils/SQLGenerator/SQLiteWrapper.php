@@ -57,11 +57,16 @@ final class SQLiteWrapper extends GenericSQL
                     break;
 
                 case ColumnType::DATETIME:
+                case ColumnType::SMALLINT:
                 case ColumnType::INTEGER:
+                case ColumnType::BIGINT;
                     $typename = 'INTEGER';
                     break;
 
-                case ColumnType::REAL:
+                case ColumnType::FLOAT:
+                case ColumnType::DOUBLE:
+                case ColumnType::NUMERIC:
+                case ColumnType::MONEY:
                     $typename = 'REAL';
                     break;
             }

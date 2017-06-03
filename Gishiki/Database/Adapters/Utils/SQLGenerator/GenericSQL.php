@@ -84,6 +84,8 @@ class GenericSQL
             $query = str_replace('?, ?', '?,?', $query, $count);
         }
 
+        $query = str_replace(' ,', ',', $query, $count);
+
         return trim($query);
     }
 

@@ -128,8 +128,8 @@ class ColumnTest extends TestCase
         $col->setType(ColumnType::TEXT);
         $this->assertEquals(ColumnType::TEXT, $col->getType());
 
-        $col->setType(ColumnType::REAL);
-        $this->assertEquals(ColumnType::REAL, $col->getType());
+        $col->setType(ColumnType::DOUBLE);
+        $this->assertEquals(ColumnType::DOUBLE, $col->getType());
 
         $col->setType(ColumnType::DATETIME);
         $this->assertEquals(ColumnType::DATETIME, $col->getType());

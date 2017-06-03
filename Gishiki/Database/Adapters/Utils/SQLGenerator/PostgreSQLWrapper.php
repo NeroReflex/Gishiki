@@ -69,13 +69,33 @@ final class PostgreSQLWrapper extends GenericSQL
                     $typename = 'text';
                     break;
 
+                case ColumnType::SMALLINT:
+                    $typename = ($column->getAutoIncrement()) ? 'serial' : 'smallint';
+                    break;
+
                 case ColumnType::DATETIME:
                 case ColumnType::INTEGER:
                     $typename = ($column->getAutoIncrement()) ? 'serial' : 'integer';
                     break;
 
-                case ColumnType::REAL:
+                case ColumnType::BIGINT:
+                    $typename = ($column->getAutoIncrement()) ? 'serial' : 'bigint';
+                    break;
+
+                case ColumnType::FLOAT:
                     $typename = 'float';
+                    break;
+
+                case ColumnType::DOUBLE:
+                    $typename = 'double';
+                    break;
+
+                case ColumnType::NUMERIC:
+                    $typename = 'numeric';
+                    break;
+
+                case ColumnType::MONEY:
+                    $typename = 'money';
                     break;
             }
 
@@ -86,7 +106,7 @@ final class PostgreSQLWrapper extends GenericSQL
             }
 
             if (($column->getNotNull()) && ($typename != 'serial')){
-                $this->appendToQuery('not null');
+                $this->appendToQuery('NOT NULL');
             }
 
             if (($relation = $column->getRelation()) != null) {

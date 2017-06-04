@@ -1,6 +1,6 @@
 <?php
 /****************************************************************************
-Copyright 2017 Benato Denis
+Copyright 2016 Benato Denis
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -17,17 +17,14 @@ namespace Gishiki\Algorithms\Collections;
 use Gishiki\Core\Exception;
 
 /**
- * The deserialization exception thrown by Gishiki
- * when a bad deserialization operation takes place.
- *
- * Data is probably malformed/unconformant or damaged!
+ * The stack collection exception thrown by Gishiki.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class DeserializationException extends Exception
+final class StackException extends Exception
 {
     /**
-     * Create the deserialization-related exception.
+     * Create the stack-related exception.
      *
      * @param string $message   the error message
      * @param int    $errorCode the json error code

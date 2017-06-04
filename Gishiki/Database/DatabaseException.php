@@ -17,12 +17,14 @@
 
 namespace Gishiki\Database;
 
+use Gishiki\Core\Exception;
+
 /**
  * An exception related to the database.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class DatabaseException extends \Gishiki\Core\Exception
+final class DatabaseException extends Exception
 {
     /**
      * Create the database exception.

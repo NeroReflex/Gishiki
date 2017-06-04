@@ -83,4 +83,11 @@ interface CollectionInterface extends \ArrayAccess, \Countable
      * @return array The collection's source data keys
      */
     public function keys();
+
+    /**
+     * Check if the collection contains elements.
+     *
+     * @return bool true if the collection is empty
+     */
+    public function empty();
 }

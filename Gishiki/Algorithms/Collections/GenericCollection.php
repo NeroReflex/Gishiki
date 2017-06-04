@@ -18,23 +18,21 @@ limitations under the License.
 namespace Gishiki\Algorithms\Collections;
 
 /**
- * This is a Generic Collection Implementation modificed from the Slim's one.
+ * This is a Generic Collection Implementation modified from the Slim's one.
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
 class GenericCollection implements CollectionInterface, \IteratorAggregate
 {
     /**
-     * The source data.
-     *
-     * @var array
+     * @var array The source data.
      */
     protected $data = [];
 
     /**
      * Create new collection from the given properties collection.
      *
-     * @param array $items Pre-populate collection with this key-value array
+     * @param array $items Pre-populate collection of key => value
      *
      * @throws \InvalidArgumentException an invalid collection was given
      */
@@ -116,24 +114,44 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
         return $this->data;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function keys()
     {
         return array_keys($this->data);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function has($key)
     {
         return array_key_exists($key, $this->data);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function remove($key)
     {
         unset($this->data[$key]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function clear()
     {
         $this->data = [];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function empty()
+    {
+        return empty($this->data);
     }
 
     /***************************************************************************

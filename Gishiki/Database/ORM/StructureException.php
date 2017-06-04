@@ -1,6 +1,6 @@
 <?php
 /****************************************************************************
-Copyright 2017 Benato Denis
+Copyright 2016 Benato Denis
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -12,25 +12,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-namespace Gishiki\Algorithms\Collections;
+namespace Gishiki\Database\ORM;
 
 use Gishiki\Core\Exception;
 
 /**
- * The deserialization exception thrown by Gishiki
- * when a bad deserialization operation takes place.
+ * The database structure exception thrown by Gishiki
+ * when a parse operation of bad data takes place.
  *
  * Data is probably malformed/unconformant or damaged!
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class DeserializationException extends Exception
+class StructureException extends Exception
 {
     /**
-     * Create the deserialization-related exception.
+     * Create the serialization-related exception.
      *
      * @param string $message   the error message
-     * @param int    $errorCode the json error code
+     * @param int    $errorCode the error code
      */
     public function __construct($message, $errorCode)
     {

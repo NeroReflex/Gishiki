@@ -29,6 +29,17 @@ class GenericCollectionTest extends TestCase
         new GenericCollection(null);
     }
 
+    public function testEmpty()
+    {
+        $collection = new GenericCollection([
+           5, 6, 'ciao', [true, false, true, true]
+        ]);
+
+        $this->assertEquals(false, $collection->empty());
+        $collection->clear();
+        $this->assertEquals(true, $collection->empty());
+    }
+
     public function testIteration()
     {
         //this is the native collection

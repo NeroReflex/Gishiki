@@ -14,6 +14,8 @@ limitations under the License.
 
 namespace Gishiki\Algorithms\Collections;
 
+use Gishiki\Core\Exception;
+
 /**
  * The serialization exception thrown by Gishiki
  * when a bad serialization operation takes place.
@@ -22,7 +24,7 @@ namespace Gishiki\Algorithms\Collections;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class SerializationException extends \Gishiki\Core\Exception
+final class SerializationException extends Exception
 {
     /**
      * Create the serialization-related exception.

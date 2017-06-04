@@ -55,7 +55,7 @@ class MySQLQueryBuilderTest extends TestCase
         $this->assertEquals(MySQLWrapper::beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
             .'id INTEGER NOT NULL, '
             .'name TEXT NOT NULL, '
-            .'credit NUMERIC NOT NULL, '
+            .'credit DOUBLE NOT NULL, '
             .'registered INTEGER, '
             .'PRIMARY KEY (id)'
             .')'), MySQLWrapper::beautify($query->exportQuery()));
@@ -126,7 +126,7 @@ class MySQLQueryBuilderTest extends TestCase
         $this->assertEquals(MySQLWrapper::beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
             .'id INTEGER AUTO_INCREMENT NOT NULL, '
             .'name TEXT NOT NULL, '
-            .'credit NUMERIC NOT NULL, '
+            .'credit DOUBLE NOT NULL, '
             .'registered INTEGER, '
             .'PRIMARY KEY (id)'
             .')'), MySQLWrapper::beautify($query->exportQuery()));

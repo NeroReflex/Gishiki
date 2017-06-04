@@ -31,11 +31,11 @@ class MysqlTest extends DatabaseRelationalTest
 
     protected function getDatabase()
     {
-        $postgreConnectionStr = (getenv("CI")) ?
+        $mysqlConnectionStr = (getenv("CI")) ?
             getenv("MYSQL_CONN") :
             "host=localhost;dbname=travis;user=root;password=";
 
-        return new Mysql($postgreConnectionStr);
+        return new Mysql($mysqlConnectionStr);
     }
 
     public function testBadConnectionParam()

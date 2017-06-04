@@ -80,11 +80,8 @@ final class MySQLWrapper extends GenericSQL
 
                 case ColumnType::DOUBLE:
                 case ColumnType::MONEY:
-                    $typename = 'DOUBLE';
-                    break;
-
                 case ColumnType::NUMERIC:
-                    $typename = 'NUMERIC';
+                    $typename = 'DOUBLE';
                     break;
             }
 

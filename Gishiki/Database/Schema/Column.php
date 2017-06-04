@@ -214,7 +214,7 @@ final class Column
      * @return Column a reference to the modified Column
      * @throws \InvalidArgumentException the column name is invalid
      */
-    public function &settype($type)
+    public function &setType($type)
     {
         //avoid bad names
         if ((!is_integer($type)) || ($type >= ColumnType::UNKNOWN) || ($type < 0)) {

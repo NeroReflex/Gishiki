@@ -35,6 +35,22 @@ class StackCollectionTest extends TestCase
         $this->assertEquals('Hello, World!', $collection->pop());
     }
 
+    public function testUnderflow()
+    {
+        $this->expectException(StackException::class);
+
+        $collection = new StackCollection();
+        $collection->pop();
+    }
+
+    public function testOverflow()
+    {
+        $this->expectException(StackException::class);
+
+        $collection = new StackCollection([1], 1);
+        $collection->push(2);
+    }
+
     public function testInvalidSet()
     {
         $this->expectException(StackException::class);

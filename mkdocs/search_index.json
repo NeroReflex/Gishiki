@@ -377,7 +377,7 @@
         }, 
         {
             "location": "/cli/", 
-            "text": "CLI Toolkit\n\n\nGishiki uses a CLI toolkit to speed up development and code generation.\n\n\nThe executable resides under the ./vendor/bin/ directory, and is called\ngishiki.\n\n\nIt accept an arbitrary number of arguments, but the first one is the action\nyou want to perform:\n\n\n./vendor/bin/gishiki \naction\n [param 1] [param2] [param3] #and so on.....\n\n\n\n\nThe number of parameters following the action depends on the action you want to\nperform.\n\n\nApplication Creation\n\n\nTo bootstrap a new application the command is fixed:\n\n\n./vendor/bin/gishiki new application\n\n\n\n\nThis will create a basic and empty application that uses an sqlite3 database,\nhas a randomly-generated RSA private key, and is ready to be executed.\n\n\nController Creation\n\n\nTo bootstrap a new controller the command requires controller name:\n\n\n./vendor/bin/gishiki new controller ControllerName\n\n\n\n\nThis will create a basic controller with a small example piece of code.", 
+            "text": "CLI Toolkit\n\n\nGishiki uses a CLI toolkit to speed up development and code generation.\n\n\nThe executable resides under the ./vendor/bin/ directory, and is called\ngishiki.\n\n\nIt accept an arbitrary number of arguments, but the first one is the action\nyou want to perform:\n\n\n./vendor/bin/gishiki \naction\n [param 1] [param2] [param3] #and so on.....\n\n\n\n\nThe number of parameters following the action depends on the action you want to\nperform.\n\n\nApplication Creation\n\n\nTo bootstrap a new application the command is fixed:\n\n\n./vendor/bin/gishiki init\n\n\n\n\nThis will create a basic and empty application that uses an sqlite3 database,\nhas a randomly-generated RSA private key, and an empty SQLite3 database.\n\n\nThe application can be executed immediately if ext-pdo_sqlite is installed.\n\n\nController Creation\n\n\nTo bootstrap a new controller the command requires controller name:\n\n\n./vendor/bin/gishiki new-controller ControllerName\n\n\n\n\nThis will create a basic controller with a small example piece of code.", 
             "title": "CLI Toolkit"
         }, 
         {
@@ -387,12 +387,12 @@
         }, 
         {
             "location": "/cli/#application-creation", 
-            "text": "To bootstrap a new application the command is fixed:  ./vendor/bin/gishiki new application  This will create a basic and empty application that uses an sqlite3 database,\nhas a randomly-generated RSA private key, and is ready to be executed.", 
+            "text": "To bootstrap a new application the command is fixed:  ./vendor/bin/gishiki init  This will create a basic and empty application that uses an sqlite3 database,\nhas a randomly-generated RSA private key, and an empty SQLite3 database.  The application can be executed immediately if ext-pdo_sqlite is installed.", 
             "title": "Application Creation"
         }, 
         {
             "location": "/cli/#controller-creation", 
-            "text": "To bootstrap a new controller the command requires controller name:  ./vendor/bin/gishiki new controller ControllerName  This will create a basic controller with a small example piece of code.", 
+            "text": "To bootstrap a new controller the command requires controller name:  ./vendor/bin/gishiki new-controller ControllerName  This will create a basic controller with a small example piece of code.", 
             "title": "Controller Creation"
         }, 
         {

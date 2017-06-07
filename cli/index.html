@@ -220,14 +220,15 @@ you want to perform:</p>
 perform.</p>
 <h2 id="application-creation">Application Creation</h2>
 <p>To bootstrap a new application the command is fixed:</p>
-<pre><code class="sh">./vendor/bin/gishiki new application
+<pre><code class="sh">./vendor/bin/gishiki init
 </code></pre>
 
 <p>This will create a basic and empty application that uses an sqlite3 database,
-has a randomly-generated RSA private key, and is ready to be executed.</p>
+has a randomly-generated RSA private key, and an empty SQLite3 database.</p>
+<p>The application can be executed immediately if ext-pdo_sqlite is installed.</p>
 <h2 id="controller-creation">Controller Creation</h2>
 <p>To bootstrap a new controller the command requires controller name:</p>
-<pre><code class="sh">./vendor/bin/gishiki new controller ControllerName
+<pre><code class="sh">./vendor/bin/gishiki new-controller ControllerName
 </code></pre>
 
 <p>This will create a basic controller with a small example piece of code.</p>

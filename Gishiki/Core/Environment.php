@@ -275,23 +275,23 @@ namespace Gishiki\Core {
 
                 case 'RESOURCE_DIR':
                 case 'RESOURCE_DIRECTORY':
-                    return APPLICATION_DIR.'Resources'.DS;
+                    return APPLICATION_DIR.'Resources'.DIRECTORY_SEPARATOR;
 
                 case 'MODEL_DIR':
                     return APPLICATION_DIR.'Models';
 
                 case 'VIEW_DIR':
                 case 'VIEW_DIRECTORY':
-                    return APPLICATION_DIR.'Views'.DS;
+                    return APPLICATION_DIR.'Views'.DIRECTORY_SEPARATOR;
 
                 case 'CONTROLLER_DIR':
                 case 'CONTROLLER_DIRECTORY':
-                    return APPLICATION_DIR.'Controllers'.DS;
+                    return APPLICATION_DIR.'Controllers'.DIRECTORY_SEPARATOR;
 
                 case 'KEYS_DIR':
                 case 'KEYS_DIRECTORY':
                 case 'ASYMMETRIC_KEYS':
-                    return APPLICATION_DIR.'Keyring'.DS;
+                    return APPLICATION_DIR.'Keyring'.DIRECTORY_SEPARATOR;
 
                 case 'APPLICATION_DIR':
                 case 'APPLICATION_DIRECTORY':

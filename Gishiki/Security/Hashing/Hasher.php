@@ -34,7 +34,7 @@ final class Hasher
     /**
      * @var bool true if the algorithm name has to be passed
      */
-    private $algorithmRequired;
+    private $algorithmRequired = false;
 
     /**
      * @var string the name of the function to be called to produce a message digest
@@ -66,6 +66,7 @@ final class Hasher
         }
         else if ((in_array($algorithm, openssl_get_md_methods())) && (in_array($algorithm, hash_algos()))) {
             $this->algorithm = $algorithm;
+            $this->algorithmRequired = true;
             $this->hashCallback = Algorithm::class."::opensslHash";
             $this->verifyCallback = Algorithm::class."::opensslVerify";
         }

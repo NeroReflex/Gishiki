@@ -88,7 +88,7 @@ final class Hasher
     public function hash($message) {
         $callbackParams = ($this->algorithmRequired) ? [$message, $this->algorithm] : [$message];
 
-        return call_user_func_array($this->callback, $callbackParams);
+        return call_user_func_array($this->hashCallback, $callbackParams);
     }
 
     /**
@@ -105,6 +105,6 @@ final class Hasher
     public function verify($message, $digest) {
         $callbackParams = ($this->algorithmRequired) ? [$message, $digest, $this->algorithm] : [$message, $digest];
 
-        return call_user_func_array($this->callback, $callbackParams);
+        return call_user_func_array($this->verifyCallback, $callbackParams);
     }
 }

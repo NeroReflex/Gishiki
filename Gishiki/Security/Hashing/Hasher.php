@@ -27,9 +27,9 @@ namespace Gishiki\Security\Hashing;
 final class Hasher
 {
     /**
-     * @var integer the hashing algorithm
+     * @var integer|null the hashing algorithm, or null on error
      */
-    private $algo;
+    private $algorithm = null;
 
     /**
      * @var bool true if the algorithm name has to be passed
@@ -54,23 +54,25 @@ final class Hasher
      */
     public function __construct($algorithm = Algorithm::BCRYPT) {
         //check if the hashing algorithm is supported
-        if ($algorithm == Algorithm::BCRYPT) {
-            $this->algo = $algorithm;
+        if (strcmp($algorithm, Algorithm::BCRYPT) == 0) {
+            $this->algorithm = $algorithm;
             $this->hashCallback = Algorithm::class."::".Algorithm::BCRYPT."Hash";
             $this->verifyCallback = Algorithm::class."::".Algorithm::BCRYPT."Verify";
         }
-        else if ($algorithm == Algorithm::ROT13) {
-            $this->algo = $algorithm;
+        else if (strcmp($algorithm, Algorithm::ROT13) == 0) {
+            $this->algorithm = $algorithm;
             $this->hashCallback = Algorithm::class."::".Algorithm::BCRYPT."Hash";
             $this->verifyCallback = Algorithm::class."::".Algorithm::BCRYPT."Verify";
         }
         else if ((in_array($algorithm, openssl_get_md_methods())) && (in_array($algorithm, hash_algos()))) {
-            $this->algo = $algorithm;
+            $this->algorithm = $algorithm;
             $this->hashCallback = Algorithm::class."::opensslHash";
             $this->verifyCallback = Algorithm::class."::opensslVerify";
         }
 
-        throw new HashingException('Unsupported hashing algorithm', 0);
+        if (is_null($this->algorithm)) {
+            throw new HashingException('Unsupported hashing algorithm', 0);
+        }
     }
 
     /**
@@ -84,7 +86,7 @@ final class Hasher
      * @throws HashingException          the error occurred while generating the hash for the given message
      */
     public function hash($message) {
-        $callbackParams = ($this->algorithmRequired) ? [$message, $this->algo] : [$message];
+        $callbackParams = ($this->algorithmRequired) ? [$message, $this->algorithm] : [$message];
 
         return call_user_func_array($this->callback, $callbackParams);
     }
@@ -101,7 +103,7 @@ final class Hasher
      * @throws HashingException          the error occurred while generating the hash for the given message
      */
     public function verify($message, $digest) {
-        $callbackParams = ($this->algorithmRequired) ? [$message, $digest, $this->algo] : [$message, $digest];
+        $callbackParams = ($this->algorithmRequired) ? [$message, $digest, $this->algorithm] : [$message, $digest];
 
         return call_user_func_array($this->callback, $callbackParams);
     }

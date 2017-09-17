@@ -59,6 +59,11 @@ final class Hasher
             $this->hashCallback = Algorithm::class."::".Algorithm::BCRYPT."Hash";
             $this->verifyCallback = Algorithm::class."::".Algorithm::BCRYPT."Verify";
         }
+        else if (strcmp($algorithm, Algorithm::PBKDF2) == 0) {
+            $this->algorithm = $algorithm;
+            $this->hashCallback = Algorithm::class."::".Algorithm::BCRYPT."Hash";
+            $this->verifyCallback = Algorithm::class."::".Algorithm::BCRYPT."Verify";
+        }
         else if (strcmp($algorithm, Algorithm::ROT13) == 0) {
             $this->algorithm = $algorithm;
             $this->hashCallback = Algorithm::class."::".Algorithm::BCRYPT."Hash";

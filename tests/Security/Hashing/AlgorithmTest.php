@@ -117,7 +117,7 @@ class AlgorithmTest extends TestCase
         $random = openssl_random_pseudo_bytes(25);
 
         //test hash compatibility
-        $hash = Algorithm::opensslHash($random);
+        $hash = Algorithm::rot13Hash($random);
         $this->assertEquals(true, Algorithm::rot13Hash($random, $hash));
 
         $this->assertEquals(false, Algorithm::rot13Verify($random, 'any other thing'));
@@ -128,18 +128,10 @@ class AlgorithmTest extends TestCase
         $random = openssl_random_pseudo_bytes(25);
 
         //test hash compatibility
-        $hash = Algorithm::opensslHash($random);
+        $hash = Algorithm::bcryptHash($random);
         $this->assertEquals(true, Algorithm::bcryptHash($random, $hash));
 
         $this->assertEquals(false, Algorithm::bcryptVerify($random, 'any other thing'));
-    }
-
-    public function testInvalidAlgorithm()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        //test hash compatibility
-        Algorithm::opensslHash('my message', null);
     }
 
     public function testROT13()
@@ -150,7 +142,7 @@ class AlgorithmTest extends TestCase
         //test hash compatibility
         $rot_ed = Algorithm::rot13Hash($message, Algorithm::ROT13);
         $this->assertEquals($message_rot13, $rot_ed);
-        $this->assertEquals($message, Algorithm::hash($rot_ed, Algorithm::ROT13));
+        $this->assertEquals($message, Algorithm::rot13Hash($rot_ed, Algorithm::ROT13));
 
         $this->assertEquals(true, Algorithm::rot13Verify($message, $rot_ed));
     }

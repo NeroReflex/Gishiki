@@ -154,7 +154,7 @@ abstract class Algorithm
             throw new \InvalidArgumentException('The message digest to be checked must be given as a valid non-empty string');
         }
 
-        return (str_rot13($digest) == $message);
+        return (strcmp(str_rot13($digest), $message) == 0);
     }
 
     /**
@@ -229,7 +229,7 @@ abstract class Algorithm
      * @throws \InvalidArgumentException invalid arguments have been passed
      * @throws HashingException          the error occurred while generating the requested hashing algorithm
      */
-    public static function pbkdf2Hash($password, $salt, $keyLength, $count, $algorithm = self::SHA1)
+    public static function pbkdf2($password, $salt, $keyLength, $count, $algorithm = self::SHA1)
     {
         if ((!is_integer($count)) || ($count <= 0)) {
             throw new \InvalidArgumentException('The iteration number for the PBKDF2 function must be a positive non-zero integer', 2);

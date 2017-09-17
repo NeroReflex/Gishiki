@@ -49,8 +49,7 @@ class AlgorithmTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        //test hash compatibility
-        Algorithm::bryptHash('');
+        Algorithm::bcryptHash('');
     }
 
     public function testInvalidMessageForOpensslVerify()
@@ -103,7 +102,7 @@ class AlgorithmTest extends TestCase
 
     public function testOpensslVerify()
     {
-        $random = openssl_random_pseudo_bytes(25);
+        $random = bin2hex(openssl_random_pseudo_bytes(25));
 
         //test hash compatibility
         $hash = Algorithm::opensslHash($random, Algorithm::SHA512);
@@ -114,7 +113,7 @@ class AlgorithmTest extends TestCase
 
     public function testRot13Verify()
     {
-        $random = openssl_random_pseudo_bytes(25);
+        $random = bin2hex(openssl_random_pseudo_bytes(25));
 
         //test hash compatibility
         $hash = Algorithm::rot13Hash($random);
@@ -125,7 +124,7 @@ class AlgorithmTest extends TestCase
 
     public function testBCryptVerify()
     {
-        $random = openssl_random_pseudo_bytes(25);
+        $random = bin2hex(openssl_random_pseudo_bytes(25));
 
         //test hash compatibility
         $hash = Algorithm::bcryptHash($random);

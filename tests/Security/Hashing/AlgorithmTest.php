@@ -117,7 +117,7 @@ class AlgorithmTest extends TestCase
 
         //test hash compatibility
         $hash = Algorithm::rot13Hash($random);
-        $this->assertEquals(true, Algorithm::rot13Hash($random, $hash));
+        $this->assertEquals(true, Algorithm::rot13Verify($random, $hash));
 
         $this->assertEquals(false, Algorithm::rot13Verify($random, 'any other thing'));
     }
@@ -128,7 +128,7 @@ class AlgorithmTest extends TestCase
 
         //test hash compatibility
         $hash = Algorithm::bcryptHash($random);
-        $this->assertEquals(true, Algorithm::bcryptHash($random, $hash));
+        $this->assertEquals(true, Algorithm::bcryptVerify($random, $hash));
 
         $this->assertEquals(false, Algorithm::bcryptVerify($random, 'any other thing'));
     }

@@ -23,7 +23,7 @@ use Gishiki\Security\Hashing\HashingException;
 use Gishiki\Security\Hashing\Algorithm;
 
 /**
- * Tests for the Hasher class.
+ * Tests for the Algorithm class.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */

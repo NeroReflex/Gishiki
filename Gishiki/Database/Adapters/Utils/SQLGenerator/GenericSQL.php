@@ -26,11 +26,13 @@ use Gishiki\Database\Runtime\FieldOrdering;
  *
  * An example of usage can be:
  * <code>
+ * $passwordHasher = new Hashing\Hasher(Hashing\Algorithm::BCRYPT);
+ *
  * $queryBuilder = new SQLQueryBuilder();
  * $queryBuilder->insertInto("users")->values([
  *      "name" => "Mario",
  *      "surname" => "Rossi",
- *      "password" => Hashing\Algorithms::hash(" __= N0 r4inb0w t4bl3 ==__" . "Mario's password", Hashing\Algorithms::SHA512);
+ *      "password" => $passwordHasher->hash("Mario's password"); // good bye rainbow tables!
  *      "sex" => 0,
  *      "height" => 1.70
  * ]);

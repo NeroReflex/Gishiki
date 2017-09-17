@@ -17,7 +17,7 @@ limitations under the License.
 
 namespace Gishiki\Security\Encryption\Symmetric;
 
-use Gishiki\Security\Hashing\Algorithms;
+use Gishiki\Security\Hashing\Algorithm;
 use Gishiki\Core\Environment;
 
 /**
@@ -35,7 +35,7 @@ final class SecretKey
      * given password.
      *
      * Note: this function MAY throw exceptions
-     * (the same exceptions Algorithms::pbkdf2() can throw)
+     * (the same exceptions Algorithm::pbkdf2() can throw)
      *
      * @param string $password   the password to be derived
      * @param int    $key_length the final length of the key (in bytes)
@@ -48,7 +48,7 @@ final class SecretKey
         $salt = openssl_random_pseudo_bytes(2 * $key_length);
 
         //generate the pbkdf2 key
-        return Algorithms::pbkdf2($password, $salt, $key_length, 20000, Algorithms::SHA256);
+        return Algorithm::pbkdf2($password, $salt, $key_length, 20000, Algorithm::SHA256);
     }
 
     /**************************************************************************

@@ -1,7 +1,8 @@
 - review and add documentation
+- map an URL that can be used by authenticated clients to issue commands to the server! - cryptography and strong security must be in place!!!
+- rewrite the Router class (too mush shitty code in one place - nned to be rewritten almost from scratch) - a route should be able to become an extension of another one!
+- authentication OAuth2.0 should be part of the framework, somehow....
 - increase code coverage!
-- review the Database namespace
-- rethink to a fast ORM
-- think about implementing a good templating engine
-- have a better router......
+- implement a fast ORM
+- implement a fast templating engine
 - better datatypes for RDBMS

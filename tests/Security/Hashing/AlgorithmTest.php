@@ -20,37 +20,126 @@ namespace Gishiki\tests\Security\Hashing;
 use PHPUnit\Framework\TestCase;
 
 use Gishiki\Security\Hashing\HashingException;
-use Gishiki\Security\Hashing\Algorithms;
+use Gishiki\Security\Hashing\Algorithm;
 
 /**
- * Tests for the hashing function.
+ * Tests for the Hasher class.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class HashingTest extends TestCase
+class AlgorithmTest extends TestCase
 {
-    public function testInvalidBinaryUnsafe()
+    public function testInvalidMessageForOpensslHash()
     {
         $this->expectException(\InvalidArgumentException::class);
-        
+
         //test hash compatibility
-        Algorithms::hash('hash me if U can!!1!', Algorithms::SHA512, 'OMG!');
+        Algorithm::opensslHash('', Algorithm::SHA512);
     }
 
-    public function testInvalidMessage()
+    public function testInvalidMessageForRot13Hash()
     {
         $this->expectException(\InvalidArgumentException::class);
-        
+
         //test hash compatibility
-        $rot_ed = Algorithms::hash('', Algorithms::SHA512);
+        Algorithm::rot13Hash('');
     }
-    
+
+    public function testInvalidMessageForBcryptHash()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        //test hash compatibility
+        Algorithm::bryptHash('');
+    }
+
+    public function testInvalidMessageForOpensslVerify()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        //test hash compatibility
+        Algorithm::opensslVerify('', ':)', Algorithm::SHA512);
+    }
+
+    public function testInvalidMessageForRot13Verify()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        //test hash compatibility
+        Algorithm::rot13Verify('', ':)');
+    }
+
+    public function testInvalidMessageForBcryptVerify()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        //test hash compatibility
+        Algorithm::bcryptVerify('', ':)');
+    }
+
+    public function testInvalidMessageDigestForOpensslVerify()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        //test hash compatibility
+        Algorithm::opensslVerify('My message', '', Algorithm::SHA512);
+    }
+
+    public function testInvalidMessageDigestForRot13Verify()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        //test hash compatibility
+        Algorithm::rot13Verify('My message', '');
+    }
+
+    public function testInvalidMessageDigestForBcryptVerify()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        //test hash compatibility
+        Algorithm::bcryptVerify('My message', '');
+    }
+
+    public function testOpensslVerify()
+    {
+        $random = openssl_random_pseudo_bytes(25);
+
+        //test hash compatibility
+        $hash = Algorithm::opensslHash($random, Algorithm::SHA512);
+        $this->assertEquals(true, Algorithm::opensslVerify($random, $hash, Algorithm::SHA512));
+
+        $this->assertEquals(false, Algorithm::opensslVerify($random, 'any other thing', Algorithm::SHA512));
+    }
+
+    public function testRot13Verify()
+    {
+        $random = openssl_random_pseudo_bytes(25);
+
+        //test hash compatibility
+        $hash = Algorithm::opensslHash($random);
+        $this->assertEquals(true, Algorithm::rot13Hash($random, $hash));
+
+        $this->assertEquals(false, Algorithm::rot13Verify($random, 'any other thing'));
+    }
+
+    public function testBCryptVerify()
+    {
+        $random = openssl_random_pseudo_bytes(25);
+
+        //test hash compatibility
+        $hash = Algorithm::opensslHash($random);
+        $this->assertEquals(true, Algorithm::bcryptHash($random, $hash));
+
+        $this->assertEquals(false, Algorithm::bcryptVerify($random, 'any other thing'));
+    }
+
     public function testInvalidAlgorithm()
     {
         $this->expectException(\InvalidArgumentException::class);
-        
+
         //test hash compatibility
-        Algorithms::hash('my message', null);
+        Algorithm::opensslHash('my message', null);
     }
 
     public function testROT13()
@@ -59,9 +148,11 @@ class HashingTest extends TestCase
         $message_rot13 = 'guvf vf n fznyy>rknzcyr<gb/grfg ebg-13';
 
         //test hash compatibility
-        $rot_ed = Algorithms::hash($message, Algorithms::ROT13);
+        $rot_ed = Algorithm::rot13Hash($message, Algorithm::ROT13);
         $this->assertEquals($message_rot13, $rot_ed);
-        $this->assertEquals($message, Algorithms::hash($rot_ed, Algorithms::ROT13));
+        $this->assertEquals($message, Algorithm::hash($rot_ed, Algorithm::ROT13));
+
+        $this->assertEquals(true, Algorithm::rot13Verify($message, $rot_ed));
     }
 
     public function testHashCompatibility()
@@ -69,45 +160,36 @@ class HashingTest extends TestCase
         $message = openssl_random_pseudo_bytes(128);
 
         //test hash compatibility
-        $this->assertEquals(md5($message), Algorithms::hash($message, Algorithms::MD5));
-        $this->assertEquals(sha1($message), Algorithms::hash($message, Algorithms::SHA1));
-    }
-
-    public function testBadAlgorithm()
-    {
-        $this->expectException(HashingException::class);
-        
-        $message = 'fake message';
-
-        Algorithms::hash($message, 'fake algorithm');
+        $this->assertEquals(md5($message), Algorithm::opensslHash($message, Algorithm::MD5));
+        $this->assertEquals(sha1($message), Algorithm::opensslHash($message, Algorithm::SHA1));
     }
 
     public function testBadHashPbkdf2()
     {
         $this->expectException(HashingException::class);
         
-        Algorithms::pbkdf2('password', 'salt', 512, 3, 'bad-algo');
+        Algorithm::pbkdf2('password', 'salt', 512, 3, 'bad-algo');
     }
 
     public function testBadAlgorithmPbkdf2()
     {
         $this->expectException(\InvalidArgumentException::class);
         
-        Algorithms::pbkdf2('message', 'salt', 512, 3, '');
+        Algorithm::pbkdf2('message', 'salt', 512, 3, '');
     }
 
     public function testBadCountHashPbkdf2()
     {
         $this->expectException(\InvalidArgumentException::class);
         
-        Algorithms::pbkdf2('password', 'salt', 512, '3', Algorithms::SHA256);
+        Algorithm::pbkdf2('password', 'salt', 512, '3', Algorithm::SHA256);
     }
 
     public function testBadKeylengthHashPbkdf2()
     {
         $this->expectException(\InvalidArgumentException::class);
         
-        Algorithms::pbkdf2('password', 'salt', '512', 3, Algorithms::SHA256);
+        Algorithm::pbkdf2('password', 'salt', '512', 3, Algorithm::SHA256);
     }
 
     public function testHashPbkdf2()
@@ -132,7 +214,7 @@ class HashingTest extends TestCase
 
         foreach ($testVector as $testIndex => $testValue) {
             //run the vector test allowing openssl hashing
-            $this->assertEquals($resultsVector[$testIndex], Algorithms::pbkdf2($testValue[0], $testValue[1], $testValue[2], $testValue[3], $testValue[4], false, false));
+            $this->assertEquals($resultsVector[$testIndex], Algorithm::pbkdf2($testValue[0], $testValue[1], $testValue[2], $testValue[3], $testValue[4], false, false));
         }
     }
 
@@ -158,7 +240,7 @@ class HashingTest extends TestCase
 
         foreach ($testVector as $testIndex => $testValue) {
             //run the vector test forcing the hash library hashing
-            $this->assertEquals($resultsVector[$testIndex], Algorithms::pbkdf2($testValue[0], $testValue[1], $testValue[2], $testValue[3], $testValue[4], false, true));
+            $this->assertEquals($resultsVector[$testIndex], Algorithm::pbkdf2($testValue[0], $testValue[1], $testValue[2], $testValue[3], $testValue[4], false, true));
         }
     }
 }

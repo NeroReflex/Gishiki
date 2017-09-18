@@ -7,7 +7,9 @@
 | Code Metrics | [![Code Climate](https://codeclimate.com/github/NeroReflex/Gishiki/badges/gpa.svg)](https://codeclimate.com/github/NeroReflex/Gishiki)     |
 | Coverage     | [![Test Coverage](https://codeclimate.com/github/NeroReflex/Gishiki/badges/coverage.svg)](https://codeclimate.com/github/NeroReflex/Gishiki/coverage) |
 | Test         | [![Build Status](https://travis-ci.org/NeroReflex/Gishiki.svg?branch=master)](https://travis-ci.org/NeroReflex/Gishiki)  |
-
+| Stable       | [![Latest Stable Version](https://poser.pugx.org/neroreflex/gishiki/v/stable)](https://packagist.org/packages/neroreflex/gishiki) |
+| Downloads    | [![Total Downloads](https://poser.pugx.org/neroreflex/gishiki/downloads)](https://packagist.org/packages/neroreflex/gishiki) |
+| License      | [![License](https://poser.pugx.org/neroreflex/gishiki/license)](https://packagist.org/packages/neroreflex/gishiki) |
 
 _*Gishiki*_: a modern and elegant MVC framework for modern versions of PHP.
 
@@ -29,8 +31,7 @@ Do you want to have it working in the less time possible? OK!
 
 ```shell
 composer init # setup your new project
-nano composer.json # or any other text editor to add "neroreflex/gishiki": "dev-master" on "require"
-composer install --no-dev
+composer require neroreflex/gishiki
 ./vendor/bin/gishiki new application
 ```
 

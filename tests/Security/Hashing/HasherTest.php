@@ -71,5 +71,10 @@ class HasherTest extends TestCase
 
         $this->assertEquals(true, $hasher->verify($random, $digest));
         $this->assertEquals(false, $hasher->verify($random, 'anything else'));
+
+        $explosion = explode('%', $digest);
+        $explosion[4][7] = '9';
+
+        $this->assertEquals(false, $hasher->verify($random, implode('%', $explosion)));
     }
 }

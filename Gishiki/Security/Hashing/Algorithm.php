@@ -234,9 +234,9 @@ abstract class Algorithm
     public static function pbkdf2Hash($message)
     {
         $it = 16777216;
-        $hashingAlgorithm = 'sha256';
+        $hashingAlgorithm = 'sha512';
 
-        $salt = Base64::encode(openssl_random_pseudo_bytes(100));
+        $salt = Base64::encode(openssl_random_pseudo_bytes(64));
 
         $hash = Base64::encode(self::pbkdf2($message, $salt, 64, $it, $hashingAlgorithm));
 

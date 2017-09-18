@@ -74,7 +74,8 @@ class HasherTest extends TestCase
 
         $explosion = explode('%', $digest);
         $explosion[4][7] = '9';
+        $badHash = implode('%', $explosion);
 
-        $this->assertEquals(false, $hasher->verify($random, implode('%', $explosion)));
+        $this->assertEquals(false, $hasher->verify($random, $badHash));
     }
 }

@@ -34,4 +34,31 @@ class SimpleLexerTest extends TestCase
         $this->assertEquals(true, SimpleLexer::isEmail("\".example\"@example.com"));
         $this->assertEquals(true, SimpleLexer::isEmail("++example@exm.com"));
     }
+
+    public function testFloat()
+    {
+        $this->assertEquals(false, SimpleLexer::isFloat(null));
+        $this->assertEquals(false, SimpleLexer::isFloat("0.0.1"));
+        $this->assertEquals(false, SimpleLexer::isFloat("+0a5"));
+        $this->assertEquals(false, SimpleLexer::isFloat("-45."));
+
+        $this->assertEquals(true, SimpleLexer::isFloat("+1"));
+        $this->assertEquals(true, SimpleLexer::isFloat("2"));
+        $this->assertEquals(true, SimpleLexer::isFloat("0.5"));
+        $this->assertEquals(true, SimpleLexer::isFloat("-50.75"));
+    }
+
+    public function testSignedInteger()
+    {
+        $this->assertEquals(false, SimpleLexer::isSignedInteger(null));
+        $this->assertEquals(false, SimpleLexer::isSignedInteger("0.0"));
+        $this->assertEquals(false, SimpleLexer::isSignedInteger("+0a5"));
+        $this->assertEquals(false, SimpleLexer::isSignedInteger("-45."));
+
+        $this->assertEquals(true, SimpleLexer::isSignedInteger("8"));
+        $this->assertEquals(true, SimpleLexer::isSignedInteger("+1"));
+        $this->assertEquals(true, SimpleLexer::isSignedInteger("-2"));
+        $this->assertEquals(true, SimpleLexer::isSignedInteger("-57"));
+        $this->assertEquals(true, SimpleLexer::isSignedInteger("+50"));
+    }
 }

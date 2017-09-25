@@ -26,13 +26,14 @@ use Gishiki\HttpKernel\RequestBody;
 use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
+use Gishiki\Core\Router\Route;
+
 use PHPUnit\Framework\TestCase;
 
-use Gishiki\Core\Router\Route;
 /**
  * The tester for the Route class.
  *
- * Used to test every feature of the router
+ * Used to test every feature of the route component
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */

@@ -66,7 +66,7 @@ abstract class SimpleLexer
                 return false;
             } else if (($str[$i] == '.') && ($fountDot == true)) {
                 return false;
-            } if (strpos("+-.0123456789", $str[$i]) === false) {
+            } else if (strpos("+-.0123456789", $str[$i]) === false) {
                 return false;
             }
 
@@ -74,7 +74,7 @@ abstract class SimpleLexer
             $fountDot =  ($str[$i] == '.') ? true : $fountDot;
         }
 
-        return true;
+        return $str[strlen($str) - 1] != '.';
     }
 
     /**

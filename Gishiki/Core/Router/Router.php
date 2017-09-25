@@ -136,16 +136,16 @@ final class Router
     /**
      * Check weather a piece of an URL matches the corresponding piece of URI
      *
-     * @param  array $uriSplit the slice of URI to be checked
-     * @param  array $urlSplit the slice of URL to be checked
+     * @param  string $uriSplit the slice of URI to be checked
+     * @param  string $urlSplit the slice of URL to be checked
      * @param  array $params   used to register the correspondence (if any)
      * @return bool  true if the URL slice matches the URI slice, false otherwise
      */
-    private function matchCheck(array $uriSplit, array $urlSplit, array &$params) : bool
+    private function matchCheck($uriSplit, $urlSplit, array &$params) : bool
     {
         $result = false;
 
-        if (($uriSplit[0] == '{') && ($uriSplit[strlen($uriSplit - 1)] == '}')) {
+        if ((strlen($urlSplit) >= 3) && (strlen($uriSplit) >= 3) && ($uriSplit[0] == '{') && ($uriSplit[strlen($uriSplit - 1)] == '}')) {
             $uriSplitRev = substr($uriSplit, 1, -1);
             $uriSplitExploded = explode(':', $uriSplitRev);
             $uriParamType = strtolower($uriSplitExploded[1]);
@@ -194,6 +194,14 @@ final class Router
      */
     public function matches($uri, $url, &$matchedExpr) : bool
     {
+        if ((!is_string($url)) || (strlen($url) <= 0)) {
+            throw new \InvalidArgumentException("The URL must be given as a non-empty string");
+        }
+
+        if ((!is_string($uri)) || (strlen($uri) <= 0)) {
+            throw new \InvalidArgumentException("The URI must be given as a non-empty string");
+        }
+
         $matchedExpr = [];
         $result = true;
 

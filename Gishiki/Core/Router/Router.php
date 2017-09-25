@@ -77,7 +77,7 @@ final class Router
             $params = null;
 
             //if the current URL matches the current URI
-            if ($this->matches($currentRoute->getURI(), $decodedUri, $params)) {
+            if (self::matches($currentRoute->getURI(), $decodedUri, $params)) {
                 //derive the response from the current request
                 $response = Response::deriveFromRequest($requestToFulfill);
 
@@ -109,7 +109,7 @@ final class Router
      *
      * @return bool true on success, false otherwise
      */
-    private function paramCheck($urlSplit, $type) : bool
+    private static function paramCheck($urlSplit, $type) : bool
     {
         switch ($type)
         {
@@ -141,7 +141,7 @@ final class Router
      * @param  array $params   used to register the correspondence (if any)
      * @return bool  true if the URL slice matches the URI slice, false otherwise
      */
-    private function matchCheck($uriSplit, $urlSplit, array &$params) : bool
+    private static function matchCheck($uriSplit, $urlSplit, array &$params) : bool
     {
         $result = false;
 
@@ -156,7 +156,7 @@ final class Router
                 $type = 0;
             } else if (strcmp($uriParamType, 'int') == 0) {
                 $type = 1;
-            } else if (strcmp($uriParamType, 'str') == 0) {
+            } else if ((strcmp($uriParamType, 'str') == 0) || (strcmp($uriParamType, 'string') == 0)) {
                 $type = 3;
             } else if (strcmp($uriParamType, 'float') == 0) {
                 $type = 2;
@@ -165,7 +165,7 @@ final class Router
             }
 
             //check the url piece against one of the given model
-            if ($this->paramCheck($urlSplit, $type)) {
+            if (self::paramCheck($urlSplit, $type)) {
                 //matched url piece with the correct type: "1" checked against a string has to become 1
                 $urlSplitCType = $urlSplit;
                 $urlSplitCType = (($type == 0) || ($type == 1)) ? intval($urlSplit) : $urlSplitCType;
@@ -190,7 +190,7 @@ final class Router
      * @param mixed  $matchedExpr an *empty* array
      * @return bool true if the URL matches the URI, false otherwise
      */
-    public function matches($uri, $url, &$matchedExpr) : bool
+    public static function matches($uri, $url, &$matchedExpr) : bool
     {
         if ((!is_string($url)) || (strlen($url) <= 0)) {
             throw new \InvalidArgumentException("The URL must be given as a non-empty string");
@@ -213,7 +213,7 @@ final class Router
 
         for ($i = 0; ($i < $slicesCount) && ($result); $i++) {
             //try matching the current URL slice with the current URI slice
-            $result = $this->matchCheck($uriSlices[$i], $urlSlices[$i], $matchedExpr);
+            $result = self::matchCheck($uriSlices[$i], $urlSlices[$i], $matchedExpr);
         }
 
         return $result;

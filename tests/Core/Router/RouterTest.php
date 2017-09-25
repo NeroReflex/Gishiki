@@ -33,51 +33,41 @@ class RouterTest extends TestCase
 {
     public function testStrangeMatch()
     {
-        $router = new Router();
-
         $expr = null;
 
-        $result = $router->matches("/home", "/", $expr);
+        $result = Router::matches("/home", "/", $expr);
 
         $this->assertEquals(false, $result);
     }
 
     public function testBadUrl()
     {
-        $router = new Router();
-
         $expr = null;
 
         $this->expectException(\InvalidArgumentException::class);
-        $router->matches(null, "/", $expr);
+        Router::matches(null, "/", $expr);
     }
 
     public function testBadUri()
     {
-        $router = new Router();
-
         $expr = null;
 
         $this->expectException(\InvalidArgumentException::class);
-        $router->matches("/home", null, $expr);
+        Router::matches("/home", null, $expr);
     }
 
     public function testStatic()
     {
-        $router = new Router();
-
         $expr = null;
 
-        $this->assertEquals(true, $router->matches("/home/hello/test", "/home/hello/test", $expr));
+        $this->assertEquals(true, Router::matches("/home/hello/test", "/home/hello/test", $expr));
     }
 
     public function testDynamicEmail()
     {
-        $router = new Router();
-
         $expr = null;
 
-        $this->assertEquals(true, $router->matches("/email/{address:email}", "/email/example@gmail.com", $expr));
+        $this->assertEquals(true, Router::matches("/email/{address:email}", "/email/example@gmail.com", $expr));
         $this->assertEquals([
             "address" => "example@gmail.com"
         ], $expr);
@@ -85,11 +75,9 @@ class RouterTest extends TestCase
 
     public function testDynamicUint()
     {
-        $router = new Router();
-
         $expr = null;
 
-        $this->assertEquals(true, $router->matches("/uint/{number:uint}", "/uint/54", $expr));
+        $this->assertEquals(true, Router::matches("/uint/{number:uint}", "/uint/54", $expr));
         $this->assertEquals([
             "number" => 54
         ], $expr);
@@ -97,11 +85,9 @@ class RouterTest extends TestCase
 
     public function testDynamicSint()
     {
-        $router = new Router();
-
         $expr = null;
 
-        $this->assertEquals(true, $router->matches("/uint/{number:int}", "/uint/-55", $expr));
+        $this->assertEquals(true, Router::matches("/sint/{number:int}", "/sint/-55", $expr));
         $this->assertEquals([
             "number" => -55
         ], $expr);
@@ -109,13 +95,29 @@ class RouterTest extends TestCase
 
     public function testDynamicFloat()
     {
-        $router = new Router();
-
         $expr = null;
 
-        $this->assertEquals(true, $router->matches("/uint/{number:float}", "/uint/-55.25", $expr));
+        $this->assertEquals(true, Router::matches("/float/{number:float}", "/float/-55.25", $expr));
         $this->assertEquals([
             "number" => -55.25
         ], $expr);
+    }
+
+    public function testDynamicComplex()
+    {
+        $expr = null;
+
+        $this->assertEquals(true, Router::matches("/cplx/{id:uint}/{mail:email}/set", "/cplx/9/example@xmpl.com/set", $expr));
+        $this->assertEquals([
+            "id" => 9,
+            "mail" => "example@xmpl.com"
+        ], $expr);
+    }
+
+    public function testDynamicBadSplitNumber()
+    {
+        $expr = null;
+
+        $this->assertEquals(false, Router::matches("/cplx/{id:uint}", "/cplx", $expr));
     }
 }

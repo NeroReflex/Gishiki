@@ -145,12 +145,12 @@ final class Router
     {
         $result = false;
 
-        if ((strlen($urlSplit) >= 3) && (strlen($uriSplit) >= 3) && ($uriSplit[0] == '{') && ($uriSplit[strlen($uriSplit - 1)] == '}')) {
-            $uriSplitRev = substr($uriSplit, 1, -1);
+        if ((strlen($uriSplit) >= 7) && ($uriSplit[0] == '{') && ($uriSplit[strlen($uriSplit) - 1] == '}')) {
+            $uriSplitRev = substr($uriSplit, 1, strlen($uriSplit) - 2);
             $uriSplitExploded = explode(':', $uriSplitRev);
             $uriParamType = strtolower($uriSplitExploded[1]);
 
-            $type = 3;
+            $type = null;
 
             if (strcmp($uriParamType, 'uint') == 0) {
                 $type = 0;
@@ -160,14 +160,12 @@ final class Router
                 $type = 3;
             } else if (strcmp($uriParamType, 'float') == 0) {
                 $type = 2;
-            } else if (strcmp($uriParamType, 'email') == 0) {
+            } else if ((strcmp($uriParamType, 'email') == 0) || (strcmp($uriParamType, 'mail') == 0)) {
                 $type = 4;
             }
 
-            //check the url piece against one of the given models
-            $matchResult = $this->paramCheck($urlSplit, $type);
-
-            if ($matchResult["result"]) {
+            //check the url piece against one of the given model
+            if ($this->paramCheck($urlSplit, $type)) {
                 //matched url piece with the correct type: "1" checked against a string has to become 1
                 $urlSplitCType = $urlSplit;
                 $urlSplitCType = (($type == 0) || ($type == 1)) ? intval($urlSplit) : $urlSplitCType;
@@ -209,11 +207,13 @@ final class Router
         $uriSlices = explode('/', $uri);
 
         $slicesCount = count($uriSlices);
-        if ($slicesCount == count($urlSlices)) {
-            for ($i = 0; ($i < $slicesCount) && ($result); $i++) {
-                //try matching the current URL slice with the current URI slice
-                $result = $this->matchCheck($uriSlices[$i], $urlSlices[$i], $matchedExpr);
-            }
+        if ($slicesCount != count($urlSlices)) {
+            return false;
+        }
+
+        for ($i = 0; ($i < $slicesCount) && ($result); $i++) {
+            //try matching the current URL slice with the current URI slice
+            $result = $this->matchCheck($uriSlices[$i], $urlSlices[$i], $matchedExpr);
         }
 
         return $result;

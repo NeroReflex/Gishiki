@@ -70,4 +70,52 @@ class RouterTest extends TestCase
 
         $this->assertEquals(true, $router->matches("/home/hello/test", "/home/hello/test", $expr));
     }
+
+    public function testDynamicEmail()
+    {
+        $router = new Router();
+
+        $expr = null;
+
+        $this->assertEquals(true, $router->matches("/email/{address:email}", "/email/example@gmail.com", $expr));
+        $this->assertEquals([
+            "address" => "example@gmail.com"
+        ], $expr);
+    }
+
+    public function testDynamicUint()
+    {
+        $router = new Router();
+
+        $expr = null;
+
+        $this->assertEquals(true, $router->matches("/uint/{number:uint}", "/uint/54", $expr));
+        $this->assertEquals([
+            "number" => 54
+        ], $expr);
+    }
+
+    public function testDynamicSint()
+    {
+        $router = new Router();
+
+        $expr = null;
+
+        $this->assertEquals(true, $router->matches("/uint/{number:int}", "/uint/-55", $expr));
+        $this->assertEquals([
+            "number" => -55
+        ], $expr);
+    }
+
+    public function testDynamicFloat()
+    {
+        $router = new Router();
+
+        $expr = null;
+
+        $this->assertEquals(true, $router->matches("/uint/{number:float}", "/uint/-55.25", $expr));
+        $this->assertEquals([
+            "number" => -55.25
+        ], $expr);
+    }
 }

@@ -44,8 +44,8 @@ class FakeController extends Controller
         $this->response->write('My email is: '.$this->arguments->mail);
     }
 
-    public static function quickAction(Request &$request, Response &$response, GenericCollection &$collection)
+    public function quickAction()
     {
-        $response->write('should I send an email to '.$collection->mail.'?');
+        $this->response->write('should I send an email to '.$this->arguments->mail.'?');
     }
 }

@@ -19,6 +19,12 @@ namespace Gishiki\tests\Core\Router;
 
 use Gishiki\Core\Router\Router;
 use Gishiki\Core\Router\Route;
+use Gishiki\Core\Environment;
+use Gishiki\HttpKernel\Headers;
+use Gishiki\HttpKernel\Request;
+use Gishiki\HttpKernel\RequestBody;
+use Gishiki\HttpKernel\UploadedFile;
+use Gishiki\HttpKernel\Uri;
 
 use PHPUnit\Framework\TestCase;
 
@@ -31,6 +37,48 @@ use PHPUnit\Framework\TestCase;
  */
 class RouterTest extends TestCase
 {
+    protected static function requestFactory($url)
+    {
+        $env = Environment::mock();
+
+        $uri = Uri::createFromString($url);
+        $headers = Headers::createFromEnvironment($env);
+        $cookies = [
+            'user' => 'john',
+            'id' => '123',
+        ];
+        $serverParams = $env->all();
+        $body = new RequestBody();
+        $uploadedFiles = UploadedFile::createFromEnvironment($env);
+        $request = new Request('GET', $uri, $headers, $cookies, $serverParams, $body, $uploadedFiles);
+
+        return $request;
+    }
+
+    public function testCompleteRouting()
+    {
+        $route = new Route([
+            "verbs" => [
+                Route::GET, Route::POST
+            ],
+            "uri" => "/email/{mail:email}",
+            "status" => Route::OK,
+            "controller" => "FakeController",
+            "action" => "quickAction"
+        ]);
+
+        $router = new Router();
+        $router->register($route);
+
+        $request = self::requestFactory('https://example.com:443/email/nicemail@live.com');
+
+        $response = $router->run($request);
+        $body = $response->getBody();
+        $body->rewind();
+
+        $this->assertEquals('should I send an email to nicemail@live.com?', $body->getContents());
+    }
+
     public function testStrangeMatch()
     {
         $expr = null;

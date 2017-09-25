@@ -19,10 +19,8 @@ namespace Gishiki\Core\Router;
 
 use Gishiki\HttpKernel\Request;
 use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Manipulation;
+use Gishiki\Algorithms\Strings\SimpleLexer;
 use Gishiki\Algorithms\Collections\GenericCollection;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-use Gishiki\Core\MVC\Controller;
 
 /**
  * This component represents the application as a set of HTTP rules.
@@ -113,7 +111,26 @@ final class Router
      */
     private function paramCheck($urlSplit, $type) : bool
     {
+        switch ($type)
+        {
+            case 0:
+                return SimpleLexer::isUnsignedInteger($urlSplit);
 
+            case 1:
+                return SimpleLexer::isSignedInteger($urlSplit);
+
+            case 2:
+                return SimpleLexer::isFloat($urlSplit);
+
+            case 3:
+                return SimpleLexer::isString($urlSplit);
+
+            case 4:
+                return SimpleLexer::isEmail($urlSplit);
+
+            default:
+                return false;
+        }
     }
 
     /**

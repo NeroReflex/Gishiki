@@ -173,4 +173,49 @@ class RouteTest extends TestCase
 
         $this->assertEquals('Th1s 1s 4 t3st', $output);
     }
+
+    public function testRouteInvokeWithParam()
+    {
+        $value = "example.mail@gmail.com";
+
+        $route = new Route([
+            "verbs" => [
+                Route::GET, Route::POST
+            ],
+            "uri" => "/mail",
+            "status" => Route::OK,
+            "controller" => \FakeController::class,
+            "action" => 'myAction',
+        ]);
+
+        $this->assertEquals([  Route::GET, Route::POST ], $route->getMethods());
+        $this->assertEquals("/mail", $route->getURI());
+        $this->assertEquals(Route::OK, $route->getStatus());
+
+        //generate a request to be passed
+        $env = Environment::mock();
+        $uri = Uri::createFromString('https://example.com:443/main/'.$value);
+        $headers = Headers::createFromEnvironment($env);
+        $cookies = [];
+        $serverParams = $env->all();
+        $body = new RequestBody();
+        $uploadedFiles = UploadedFile::createFromEnvironment($env);
+        $request = new Request('GET', $uri, $headers, $cookies, $serverParams, $body, $uploadedFiles);
+
+        //generate a response that will be changed
+        $response = new Response();
+
+        //generate a meaningless collection to be passed
+        $coll = new GenericCollection([
+            "mail" => $value
+        ]);
+
+        $route($request, $response, $coll);
+
+        $body = $response->getBody();
+        $body->rewind();
+        $this->assertEquals("My email is: ".$value, $body->getContents());
+
+        $this->assertEquals(200, $response->getStatusCode());
+    }
 }

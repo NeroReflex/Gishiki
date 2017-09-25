@@ -22,7 +22,7 @@ namespace Gishiki\Core {
     use Gishiki\Database\DatabaseManager;
     use Gishiki\HttpKernel\Request;
     use Gishiki\HttpKernel\Response;
-    use Gishiki\Algorithms\Manipulation;
+    use Gishiki\Algorithms\Strings\Manipulation;
     use Gishiki\Logging\LoggerManager;
     use Gishiki\Core\Router\Router;
 

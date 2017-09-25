@@ -5,4 +5,5 @@
 - increase code coverage!
 - implement a fast ORM
 - implement a fast templating engine
+- write an input validator
 - better datatypes for RDBMS

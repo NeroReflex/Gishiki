@@ -29,6 +29,9 @@ use Gishiki\tests\Database\Adapters\DatabaseRelationalTest;
 class MysqlTest extends DatabaseRelationalTest
 {
 
+    /**
+     * @return Mysql the valid database connection
+     */
     protected function getDatabase()
     {
         $mysqlConnectionStr = (getenv("CI")) ?

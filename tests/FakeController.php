@@ -15,34 +15,37 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-namespace Gishiki\Database\Adapters;
-
-use Gishiki\Database\Adapters\Utils\QueryBuilder\SQLiteQueryBuilder;
-
+use Gishiki\Core\MVC\Controller;
+use Gishiki\HttpKernel\Response;
+use Gishiki\HttpKernel\Request;
+use Gishiki\Algorithms\Collections\GenericCollection;
 
 /**
- * Represent a SQLite database.
+ * A controller that is not recognised as a test by PHPUnit.
+ *
+ * used to test some features of the framework
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class Sqlite extends PDODatabase
+class FakeController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getPDODriverName()
+    public function none()
     {
-        return 'sqlite';
+
     }
 
-    /**
-     * Get the query builder for SQLite.
-     *
-     * @return SQLiteQueryBuilder the query builder for the used pdo adapter
-     */
-    protected function getQueryBuilder()
+    public function do()
     {
-        return new SQLiteQueryBuilder();
+        $this->response->write('Th1s 1s 4 t3st');
     }
 
+    public function myAction()
+    {
+        $this->response->write('My email is: '.$this->arguments->mail);
+    }
+
+    public static function quickAction(Request &$request, Response &$response, GenericCollection &$collection)
+    {
+        $response->write('should I send an email to '.$collection->mail.'?');
+    }
 }

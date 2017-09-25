@@ -18,6 +18,7 @@ limitations under the License.
 namespace Gishiki;
 
 use Gishiki\Core\Environment;
+use Gishiki\Core\Router\Router;
 
 /**
  * The Gishiki action starter and framework entry point.
@@ -56,8 +57,10 @@ abstract class Gishiki
 
     /**
      * Execute the requested operation.
+     *
+     * @param $application Router
      */
-    public static function run()
+    public static function run(Router &$application)
     {
         //avoid double executions
         if (self::$executed) {

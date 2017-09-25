@@ -24,6 +24,7 @@ namespace Gishiki\Core {
     use Gishiki\HttpKernel\Response;
     use Gishiki\Algorithms\Manipulation;
     use Gishiki\Logging\LoggerManager;
+    use Gishiki\Core\Router\Router;
 
     /**
      * Represent the environment used to run controllers.
@@ -64,10 +65,14 @@ namespace Gishiki\Core {
             return new self($data, $selfRegister, $loadApplication);
         }
 
-        /** each environment has its configuration */
+        /**
+         * @var mixed each environment has its configuration
+         */
         private $configuration;
 
-        /** this is the currently active environment */
+        /**
+         * @var Environment this is the currently active environment
+         */
         private static $currentEnvironment;
 
         /**
@@ -159,9 +164,9 @@ namespace Gishiki\Core {
         }
 
         /**
-         * Fullfill the request made by the client.
+         * Fulfill the request made by the client.
          */
-        public function fulfillRequest()
+        public function fulfillRequest(Router &$application)
         {
             //get current request...
             $currentRequest = Request::createFromEnvironment(self::$currentEnvironment);
@@ -174,7 +179,7 @@ namespace Gishiki\Core {
                 $currentRequest->getDeserializedBody();
 
                 //...and serve it
-                $response = Route::run($currentRequest);
+                $application->run($currentRequest);
             } catch (\RuntimeException $ex) {
                 $response = $response->withStatus(400);
                 $response = $response->write($ex->getMessage());

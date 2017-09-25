@@ -32,10 +32,10 @@ Vagrant.configure(2) do |config|
    end
 
   # Enable USB Controller on VirtualBox
-  config.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--usb", "on"]
-    vb.customize ["modifyvm", :id, "--usbehci", "on"]
-  end
+  #config.vm.provider "virtualbox" do |vb|
+  #  vb.customize ["modifyvm", :id, "--usb", "on"]
+  #  vb.customize ["modifyvm", :id, "--usbehci", "on"]
+  #end
 
   ###############################################################
    config.vm.provision "shell", inline: <<-SHELL

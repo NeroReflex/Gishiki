@@ -19,12 +19,7 @@ namespace Gishiki\tests\Core\Router;
 
 use Gishiki\Core\Router\Router;
 use Gishiki\Core\Router\Route;
-use Gishiki\Core\Environment;
-use Gishiki\HttpKernel\Headers;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\RequestBody;
-use Gishiki\HttpKernel\UploadedFile;
-use Gishiki\HttpKernel\Uri;
+use Zend\Diactoros\Request;
 
 use PHPUnit\Framework\TestCase;
 
@@ -37,24 +32,6 @@ use PHPUnit\Framework\TestCase;
  */
 class RouterTest extends TestCase
 {
-    protected static function requestFactory($url)
-    {
-        $env = Environment::mock();
-
-        $uri = Uri::createFromString($url);
-        $headers = Headers::createFromEnvironment($env);
-        $cookies = [
-            'user' => 'john',
-            'id' => '123',
-        ];
-        $serverParams = $env->all();
-        $body = new RequestBody();
-        $uploadedFiles = UploadedFile::createFromEnvironment($env);
-        $request = new Request('GET', $uri, $headers, $cookies, $serverParams, $body, $uploadedFiles);
-
-        return $request;
-    }
-
     public function testCompleteRouting()
     {
         $route = new Route([
@@ -70,7 +47,12 @@ class RouterTest extends TestCase
         $router = new Router();
         $router->register($route);
 
-        $request = self::requestFactory('https://example.com:443/email/nicemail@live.com');
+        $request = new Request(
+            'https://example.com:443/email/nicemail@live.com',
+            'GET',
+            'php://memory',
+            []
+        );
 
         $response = $router->run($request);
         $body = $response->getBody();

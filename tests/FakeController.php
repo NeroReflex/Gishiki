@@ -36,16 +36,16 @@ class FakeController extends Controller
 
     public function do()
     {
-        $this->response->write('Th1s 1s 4 t3st');
+        $this->response->getBody()->write('Th1s 1s 4 t3st');
     }
 
     public function myAction()
     {
-        $this->response->write('My email is: '.$this->arguments->mail);
+        $this->response->getBody()->write('My email is: '.$this->arguments->mail);
     }
 
     public function quickAction()
     {
-        $this->response->write('should I send an email to '.$this->arguments->mail.'?');
+        $this->response->getBody()->write('should I send an email to '.$this->arguments->mail.'?');
     }
 }

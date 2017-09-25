@@ -22,9 +22,9 @@
         "ext-libxml": "*",
         "ext-curl": "*",
         "ext-SimpleXML": "*",
-        "psr/http-message": "^1.0",
         "ext-Reflection": "*",
-        "symfony/yaml": "v2.8.6",
+        "zendframework/zend-diactoros": ">=1.6.0",
+        "symfony/yaml": "^3.3.0",
         "monolog/monolog": "^1.22"
     },
 

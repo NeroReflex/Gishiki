@@ -17,15 +17,10 @@ limitations under the License.
 
 namespace Gishiki\tests\Core\Router;
 
-use Gishiki\Core\Environment;
 use Gishiki\Core\Router\RouterException;
-use Gishiki\HttpKernel\Uri;
-use Gishiki\HttpKernel\Headers;
-use Gishiki\HttpKernel\UploadedFile;
-use Gishiki\HttpKernel\RequestBody;
 use Gishiki\Algorithms\Collections\GenericCollection;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
+use Zend\Diactoros\Request;
+use Zend\Diactoros\Response;
 use Gishiki\Core\Router\Route;
 
 use PHPUnit\Framework\TestCase;
@@ -147,17 +142,12 @@ class RouteTest extends TestCase
         $this->assertEquals($status, $route->getStatus());
 
         //generate a request to be passed
-        $env = Environment::mock();
-        $uri = Uri::createFromString('https://example.com:443/'.$uri);
-        $headers = Headers::createFromEnvironment($env);
-        $cookies = [
-            'user' => 'john',
-            'id' => '123',
-        ];
-        $serverParams = $env->all();
-        $body = new RequestBody();
-        $uploadedFiles = UploadedFile::createFromEnvironment($env);
-        $request = new Request('GET', $uri, $headers, $cookies, $serverParams, $body, $uploadedFiles);
+        $request = new Request(
+            $uri,
+            'GET',
+            'php://memory',
+            []
+        );
 
         //generate a response that will be changed
         $response = new Response();
@@ -194,14 +184,12 @@ class RouteTest extends TestCase
         $this->assertEquals(Route::OK, $route->getStatus());
 
         //generate a request to be passed
-        $env = Environment::mock();
-        $uri = Uri::createFromString('https://example.com:443/main/'.$value);
-        $headers = Headers::createFromEnvironment($env);
-        $cookies = [];
-        $serverParams = $env->all();
-        $body = new RequestBody();
-        $uploadedFiles = UploadedFile::createFromEnvironment($env);
-        $request = new Request('GET', $uri, $headers, $cookies, $serverParams, $body, $uploadedFiles);
+        $request = new Request(
+            'https://example.com:443/main/',
+            'GET',
+            'php://memory',
+            []
+        );
 
         //generate a response that will be changed
         $response = new Response();

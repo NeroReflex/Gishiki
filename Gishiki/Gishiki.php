@@ -79,7 +79,7 @@ abstract class Gishiki
         //if the framework needs to be installed.....
         if (Environment::applicationExists()) {
             //fulfill the client request
-            Environment::getCurrentEnvironment()->fulfillRequest();
+            Environment::getCurrentEnvironment()->fulfillRequest($application);
         } elseif (!defined('CLI_TOOLKIT')) {
             //show the no application page!
             echo file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'no_application.html');

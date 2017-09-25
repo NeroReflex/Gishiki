@@ -17,8 +17,8 @@ limitations under the License.
 
 namespace Gishiki\Core\Router;
 
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
+use Zend\Diactoros\Request;
+use Zend\Diactoros\Response;
 use Gishiki\Algorithms\Collections\GenericCollection;
 
 /**

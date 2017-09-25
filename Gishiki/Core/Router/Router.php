@@ -17,8 +17,8 @@ limitations under the License.
 
 namespace Gishiki\Core\Router;
 
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
+use Zend\Diactoros\Request;
+use Zend\Diactoros\Response;
 use Gishiki\Algorithms\Strings\SimpleLexer;
 use Gishiki\Algorithms\Collections\GenericCollection;
 
@@ -79,7 +79,7 @@ final class Router
             //if the current URL matches the current URI
             if (self::matches($currentRoute->getURI(), $decodedUri, $params)) {
                 //derive the response from the current request
-                $response = Response::deriveFromRequest($requestToFulfill);
+                $response = new Response();
 
                 //execute the router call
                 $request = clone $requestToFulfill;

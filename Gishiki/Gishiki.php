@@ -45,7 +45,7 @@ abstract class Gishiki
         //get the root path
         $documentRoot = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
 
-        (strlen($documentRoot) > 0) ?
+        ((!defined('ROOT')) && (strlen($documentRoot) > 0)) ?
             define('ROOT', filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').DIRECTORY_SEPARATOR) :
             define('ROOT', getcwd().DIRECTORY_SEPARATOR);
 

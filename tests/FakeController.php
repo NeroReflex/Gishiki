@@ -15,9 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
-use Gishiki\Core\MVC\Controller;
-use Gishiki\HttpKernel\Response;
-use Gishiki\HttpKernel\Request;
+use Gishiki\Core\MVC\Controller\Controller;
 use Gishiki\Algorithms\Collections\GenericCollection;
 
 /**
@@ -46,6 +44,10 @@ class FakeController extends Controller
 
     public function quickAction()
     {
+        if (!($this->arguments instanceof GenericCollection)) {
+            throw new \RuntimeException("something went wrong");
+        }
+
         $this->response->getBody()->write('should I send an email to '.$this->arguments->mail.'?');
     }
 }

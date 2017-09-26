@@ -17,8 +17,8 @@ limitations under the License.
 
 namespace Gishiki\Core\Router;
 
-use Zend\Diactoros\Request;
-use Zend\Diactoros\Response;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Gishiki\Algorithms\Collections\GenericCollection;
 
 /**
@@ -137,11 +137,11 @@ final class Route
      * This function is called __AUTOMATICALLY__ by the framework when the
      * route can be used to fulfill the given request.
      *
-     * @param Request           $request   a copy of the request made to the application
-     * @param Response          $response  the action must fille, and what will be returned to the client
+     * @param RequestInterface  $request   a copy of the request made to the application
+     * @param ResponseInterface $response  the action must fille, and what will be returned to the client
      * @param GenericCollection $arguments a list of reversed URI parameters
      */
-    public function __invoke(Request &$request, Response &$response, GenericCollection &$arguments)
+    public function __invoke(RequestInterface &$request, ResponseInterface &$response, GenericCollection &$arguments)
     {
         $response = $response->withStatus($this->getStatus());
 

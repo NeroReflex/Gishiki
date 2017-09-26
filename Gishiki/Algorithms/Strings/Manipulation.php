@@ -20,7 +20,7 @@ namespace Gishiki\Algorithms\Strings;
 /**
  * An helper class for string manipulation.
  *
- * Benato Denis <benato.denis96@gmail.com>
+ * @author Benato Denis <benato.denis96@gmail.com>
  */
 abstract class Manipulation
 {

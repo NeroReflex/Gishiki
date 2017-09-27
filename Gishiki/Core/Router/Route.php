@@ -155,7 +155,7 @@ final class Route
     public function __invoke(RequestInterface &$request, ResponseInterface &$response, GenericCollection &$arguments)
     {
         //import middleware
-        $middleware = $this->route["middleware"];
+        $plugins = $this->route["plugins"];
 
         //start filling the response with the default status code
         $response = $response->withStatus($this->getStatus());
@@ -168,7 +168,7 @@ final class Route
         $reflectedController = new \ReflectionClass($controllerName);
 
         //and create a new instance of it
-        $controllerMethod = $reflectedController->newInstanceArgs([&$request, &$response, &$arguments, &$middleware]);
+        $controllerMethod = $reflectedController->newInstanceArgs([&$request, &$response, &$arguments, &$plugins]);
 
         //reflect the requested action
         $reflected_action = new \ReflectionMethod($controllerName, $controllerAction);

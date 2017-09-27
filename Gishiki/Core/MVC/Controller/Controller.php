@@ -81,7 +81,7 @@ abstract class Controller
         $this->plugins = [];
         foreach ($plugins as $pluginKey => &$pluginValue) {
             $reflectedMiddleware = new \ReflectionClass($pluginValue);
-            $this->plugins[$pluginKey] = $reflectedMiddleware->newInstance($this->request);
+            $this->plugins[$pluginKey] = $reflectedMiddleware->newInstanceArgs([&$this->request, &$this->response]);
         }
     }
 

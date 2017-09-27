@@ -79,6 +79,7 @@ final class RequestDeserializer extends Plugin
 
         $this->registerMediaTypeParser([
             'application/json',
+            'text/json',
         ], function ($input) : SerializableCollection {
             return SerializableCollection::deserialize($input, SerializableCollection::JSON);
         });
@@ -107,7 +108,7 @@ final class RequestDeserializer extends Plugin
      *
      * @return string|null The request content type, if known
      */
-    public function getContentType()
+    public function getRequestContentType()
     {
         $result = $this->getRequest()->getHeader('Content-Type');
         return $result ? $result[0] : null;
@@ -120,9 +121,9 @@ final class RequestDeserializer extends Plugin
      *
      * @return string|null The request media type, minus content-type params
      */
-    public function getMediaType()
+    public function getRequestMediaType()
     {
-        $contentType = $this->getContentType();
+        $contentType = $this->getRequestContentType();
         if ($contentType) {
             $contentTypeParts = preg_split('/\s*[;,]\s*/', $contentType);
             return strtolower($contentTypeParts[0]);
@@ -146,10 +147,10 @@ final class RequestDeserializer extends Plugin
      *
      * @throws DeserializationException if the request body is invalid
      */
-    public function getDeserializedRequest() : SerializableCollection
+    public function getRequestDeserialized() : SerializableCollection
     {
         $body = (string)$this->getRequest()->getBody();
-        $mediaType = $this->getMediaType();
+        $mediaType = $this->getRequestMediaType();
 
         $bodyParsed = null;
 

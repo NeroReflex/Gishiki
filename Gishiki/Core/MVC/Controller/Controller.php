@@ -104,7 +104,7 @@ abstract class Controller
     {
         return $this->request;
     }
-    
+
     /**
      * Execute a function of any plugin that has been bind to this controller:
      *
@@ -119,10 +119,12 @@ abstract class Controller
      * $this->doSomethingSpecial($name, $surname);
      * </code>
      *
+     * @param string $name      the name of the called function
+     * @param array  $arguments the list of passed arguments as an array
      * @return mixed the value returned from the function
      * @throws ControllerException the function doesn't exists in any plugin
      */
-    public function __call($name, $arguments)
+    public function __call($name, array $arguments)
     {
         $returnValue = null;
         $executed = false;

@@ -29,6 +29,19 @@ use Psr\Http\Message\ResponseInterface;
  */
 final class ResponseSerializer extends Plugin
 {
+    const ALLOWED_TYPES = [
+        'text/yaml' => SerializableCollection::YAML,
+        'text/x-yaml' => SerializableCollection::YAML,
+        'application/yaml' => SerializableCollection::YAML,
+        'application/x-yaml' => SerializableCollection::YAML,
+        'application/json' => SerializableCollection::JSON,
+        'text/json' => SerializableCollection::JSON,
+        'text/xml' => SerializableCollection::XML,
+        'application/xml' => SerializableCollection::XML,
+    ];
+
+    const DEFAULT_TYPE = 'application/json';
+
     /**
      * Serializer constructor:
      * setup the plugin importing serializers
@@ -42,22 +55,63 @@ final class ResponseSerializer extends Plugin
         parent::__construct($request, $response);
     }
 
-    public function getAcceptedType()
+    /**
+     * Get the best accepted serialization format.
+     *
+     * If a compatible one is not provided than the default one is returned.
+     *
+     * @return string the accepted content type OR the default one
+     */
+    public function getRequestAcceptedType() : string
     {
+        $candidates = $this->getRequest()->getHeader('Accepted');
 
+        foreach ($candidates as $candidate) {
+            $contentTypeParts = preg_split('/\s*[;,]\s*/', $candidate);
+            $candidateMimeType = strtolower($contentTypeParts[0]);
+
+            if (array_key_exists($candidateMimeType, self::ALLOWED_TYPES)) {
+                return $candidateMimeType;
+            }
+        }
+
+        return self::DEFAULT_TYPE;
     }
 
-    public function setContentType($type)
+    /**
+     * Set the used serialization format.
+     *
+     * This function should be called only once by setResponseSerialized().
+     *
+     * @param string $type the used serialization format
+     */
+    public function setResponseContentType($type)
     {
-
+        $this->getResponse()->withHeader('Content-Type', $type);
     }
 
-    public function setSerializedResponse(SerializableCollection $data)
+    /**
+     * Serialize given data using the best suitable serialization format.
+     *
+     * Write the result to the response body and place the format into the
+     * Content-Type HTTP header.
+     *
+     * @param SerializableCollection $data the data to be serialized
+     */
+    public function setResponseSerialized(SerializableCollection $data)
     {
-        $format = SerializableCollection::JSON;
+        //get a valid accepted format
+        $encodedType = $this->getRequestAcceptedType();
 
+        //get the serialization format
+        $format = self::ALLOWED_TYPES[$encodedType];
+
+        //serialize and send response....
         $this->getResponse()->getBody()->write(
             $data->serialize($format)
         );
+
+        //...telling the client bout the used serialization format
+        $this->setResponseContentType($encodedType);
     }
 }

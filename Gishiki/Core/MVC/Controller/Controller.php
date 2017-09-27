@@ -61,10 +61,11 @@ abstract class Controller
      * __Warning:__ you should *never* attempt to use another construction in your controllers,
      * unless it calls parent::__construct(), and it doesn't accept arguments
      *
-     * @param RequestInterface  $controllerRequest   the request arrived from the client
-     * @param ResponseInterface $controllerResponse  the response to be given to the client
-     * @param GenericCollection $controllerArguments the collection of matched URI params
-     * @param array             $plugins             the array containing passed plugins
+     * @param  RequestInterface  $controllerRequest   the request arrived from the client
+     * @param  ResponseInterface $controllerResponse  the response to be given to the client
+     * @param  GenericCollection $controllerArguments the collection of matched URI params
+     * @param  array             $plugins             the array containing passed plugins
+     * @throws ControllerException the error preventing the controller creation
      */
     public function __construct(RequestInterface &$controllerRequest, ResponseInterface &$controllerResponse, GenericCollection &$controllerArguments, array &$plugins)
     {
@@ -80,8 +81,12 @@ abstract class Controller
         //load middleware collection
         $this->plugins = [];
         foreach ($plugins as $pluginKey => &$pluginValue) {
-            $reflectedMiddleware = new \ReflectionClass($pluginValue);
-            $this->plugins[$pluginKey] = $reflectedMiddleware->newInstanceArgs([&$this->request, &$this->response]);
+            try {
+                $reflectedMiddleware = new \ReflectionClass($pluginValue);
+                $this->plugins[$pluginKey] = $reflectedMiddleware->newInstanceArgs([&$this->request, &$this->response]);
+            } catch (\ReflectionException $ex) {
+                throw new ControllerException("Invalid plugin class", 1);
+            }
         }
     }
 

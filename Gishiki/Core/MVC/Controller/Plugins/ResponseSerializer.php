@@ -15,43 +15,36 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-namespace Gishiki\Core\MVC\Controller;
+namespace Gishiki\Core\MVC\Controller\Plugins;
 
 use Gishiki\Algorithms\Collections\SerializableCollection;
+use Gishiki\Core\MVC\Controller\Plugin;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
- * This class represents a component
- * that will be used by many controllers to generate
- * a complete response.
- *
- * The task of a single component is to generate a piece of
- * the response in a serialized format.
+ * This is a plugin used to generate data to be transported by the HTTP response.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-abstract class ControllerComponent
+final class ResponseSerializer extends Plugin
 {
     /**
-     * @var SerializableCollection the data to be filled
+     * Serializer constructor:
+     * setup the plugin importing serializers
+     *
+     * @param RequestInterface  $request  the HTTP request
+     * @param ResponseInterface $response the HTTP response
      */
-    protected $data = null;
-
-    /**
-     * Setup a controller component.
-     */
-    public function __construct()
+    public function __construct(RequestInterface &$request, ResponseInterface &$response)
     {
-        $this->data = new SerializableCollection();
+        //this is important, NEVER forget!
+        parent::__construct($request, $response);
+
     }
 
-    /**
-     * Get the reference to the data that will be (or already was)
-     * managed by the component object.
-     *
-     * @return SerializableCollection the data within the current component
-     */
-    public function &getData() : SerializableCollection
+    public function setSerializedResponse(SerializableCollection $data)
     {
-        return $this->data;
+        
     }
 }

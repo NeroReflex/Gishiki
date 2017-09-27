@@ -51,14 +51,9 @@ abstract class Controller
     protected $arguments;
 
     /**
-     * @var ControllerResponse the helper used to build the response
+     * @var array an array containing specified plugin collection as instantiated objects
      */
-    protected $generator;
-
-    /**
-     * @var array an array containing specified middleware collection as instantiated objects
-     */
-    protected $middleware;
+    protected $plugins;
 
     /**
      * Create a new controller that will fulfill the given request filling the given response.
@@ -69,9 +64,9 @@ abstract class Controller
      * @param RequestInterface  $controllerRequest   the request arrived from the client
      * @param ResponseInterface $controllerResponse  the response to be given to the client
      * @param GenericCollection $controllerArguments the collection of matched URI params
-     * @param array             $middleware          the array containing passed middleware
+     * @param array             $plugins             the array containing passed plugins
      */
-    public function __construct(RequestInterface &$controllerRequest, ResponseInterface &$controllerResponse, GenericCollection &$controllerArguments, array &$middleware)
+    public function __construct(RequestInterface &$controllerRequest, ResponseInterface &$controllerResponse, GenericCollection &$controllerArguments, array &$plugins)
     {
         //save the request
         $this->request = $controllerRequest;
@@ -82,49 +77,52 @@ abstract class Controller
         //save the arguments collection
         $this->arguments = $controllerArguments;
 
-        //setup the response generator helper
-        $this->generator = new ControllerResponse();
-
         //load middleware collection
-        foreach ($middleware as $middlewareKey => &$middlewareValue) {
-            $reflectedMiddleware = new \ReflectionClass($middlewareValue);
-            $this->middleware[$middlewareKey] = $reflectedMiddleware->newInstance($this->request);
+        $this->plugins = [];
+        foreach ($plugins as $pluginKey => &$pluginValue) {
+            $reflectedMiddleware = new \ReflectionClass($pluginValue);
+            $this->plugins[$pluginKey] = $reflectedMiddleware->newInstance($this->request);
         }
     }
 
     /**
-     * Use a component function to complete the controller response.
-     *
-     * @param  string $componentName     the name of the component to be used
-     * @param  string $componentFunction the name of the action to be performed
-     * @param  array  $args              the list of parameters to be passed to the action
-     * @throws ControllerException the error preventing the body to be written
-     */
-    public function appendToResponse($componentName, $componentFunction, array $args = [])
-    {
-        $this->generator->import($componentName, $componentFunction, $args);
-    }
-
-    /**
-     * Generate the response automatically from the controller response generator:
+     * Execute a function of any plugin that has been bind to this controller:
      *
      * <code>
-     * class MyController extends Controller
-     * {
-     *     public function myAction()
-     *     {
-     *         $this->appendToResponse(TimeComponent::class, 'getTime');
-     *         $this->appendToResponse(AuthComponent::class, 'getUserInfo');
+     * class MyPlugin extends Plugin {
+     *    public function doSomethingSpecial($arg1, $arg2) {
      *
-     *         $this->generateResponse();
-     *     }
+     *    }
      * }
+     *
+     * //inside the controller:
+     * $this->doSomethingSpecial($name, $surname);
      * </code>
-     * @param string|null $template the file name for the template or null
-     * @throws ControllerException the error preventing the body to be written
+     *
+     * @return mixed the value returned from the function
+     * @throws ControllerException the function doesn't exists in any plugin
      */
-    public function generateResponse($template = null)
+    public function __call($name, $arguments)
     {
-        $this->generator->compile($this->response, $template);
+        $returnValue = null;
+        $executed = false;
+
+        foreach($this->plugins as &$plugin) {
+            try {
+                $reflectedFunction = new \ReflectionMethod($plugin, $name);
+                $reflectedFunction->setAccessible(true);
+                $returnValue = $reflectedFunction->invokeArgs($plugin, $arguments);
+
+                $executed = true;
+            } catch (\ReflectionException $ex) {
+
+            }
+        }
+
+        if (!$executed) {
+            throw new ControllerException('None of loaded plugins implements '.$name.' function', 0);
+        }
+
+        return $returnValue;
     }
 }

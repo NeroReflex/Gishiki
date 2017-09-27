@@ -15,34 +15,51 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-namespace Gishiki\Core\Router;
+namespace Gishiki\Core\MVC\Controller;
 
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * This is the base class for a middleware.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-abstract class Middleware
+abstract class Plugin
 {
     /**
-     * @var RequestInterface copy of the HTTP request
+     * @var RequestInterface reference to the HTTP request
      */
     protected $request;
 
     /**
+     * @var ResponseInterface reference to the HTTP response
+     */
+    protected $response;
+
+    /**
      * Middleware constructor.
      *
-     * __Warning:__ you should *never* attempt to use another construction in your middleware,
+     * __Warning:__ you should *never* attempt to use another construction in your plugin,
      * unless it calls parent::__construct()
      *
-     * @param RequestInterface $request the HTTP request
-     *
+     * @param RequestInterface  $request  the HTTP request
+     * @param ResponseInterface $response the HTTP response
      */
-    public function __construct(RequestInterface &$request)
+    public function __construct(RequestInterface &$request, ResponseInterface &$response)
     {
-        $this->request = clone $request;
+        $this->request = $request;
+        $this->response = $response;
+    }
+
+    /**
+     * Get the HTTP response
+     *
+     * @return ResponseInterface the HTTP response
+     */
+    public function &getResponse() : ResponseInterface
+    {
+        return $this->response;
     }
 
     /**

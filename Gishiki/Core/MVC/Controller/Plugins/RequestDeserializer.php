@@ -15,18 +15,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-namespace Gishiki\Core\Router\Middleware;
+namespace Gishiki\Core\MVC\Controller\Plugins;
 
-use Gishiki\Core\Router\Middleware;
+use Gishiki\Algorithms\Collections\DeserializationException;
+use Gishiki\Core\MVC\Controller\Plugin;
 use Gishiki\Algorithms\Collections\SerializableCollection;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
- * This is a middleware used to parse data transported by the HTTP request.
+ * This is a plugin used to parse data transported by the HTTP request.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class Deserializer extends Middleware
+final class RequestDeserializer extends Plugin
 {
     /**
      * List of request body parsers (e.g., url-encoded, JSON, XML, multipart).
@@ -36,46 +38,35 @@ final class Deserializer extends Middleware
     protected $bodyParsers = [];
 
     /**
-     * Get request content type.
+     * Register media type parser.
      *
-     * Note: This method is not part of the PSR-7 standard.
-     *
-     * @return string|null The request content type, if known
+     * @param string[] $mediaTypes A HTTP media type (excluding content-type
+     *                             params)
+     * @param callable $callable   A callable that returns parsed contents for
+     *                             media type
      */
-    public function getContentType()
+    public function registerMediaTypeParser(array $mediaTypes, callable $callable)
     {
-        $result = $this->getRequest()->getHeader('Content-Type');
-        return $result ? $result[0] : null;
-    }
-
-    /**
-     * Get request media type, if known.
-     *
-     * Note: This method is not part of the PSR-7 standard.
-     *
-     * @return string|null The request media type, minus content-type params
-     */
-    public function getMediaType()
-    {
-        $contentType = $this->getContentType();
-        if ($contentType) {
-            $contentTypeParts = preg_split('/\s*[;,]\s*/', $contentType);
-            return strtolower($contentTypeParts[0]);
+        if ($callable instanceof \Closure) {
+            $callable = $callable->bindTo($this);
         }
 
-        return null;
+        foreach ($mediaTypes as $mediaType) {
+            $this->bodyParsers[(string)$mediaType] = &$callable;
+        }
     }
 
     /**
      * Deserializer constructor:
      * setup the middleware importing deserializers
      *
-     * @param RequestInterface $request the HTTP request
+     * @param RequestInterface  $request  the HTTP request
+     * @param ResponseInterface $response the HTTP response
      */
-    public function __construct(RequestInterface $request)
+    public function __construct(RequestInterface &$request, ResponseInterface &$response)
     {
         //this is important, NEVER forget!
-        parent::__construct($request);
+        parent::__construct($request, $response);
 
         $this->registerMediaTypeParser([
             'text/yaml',
@@ -110,6 +101,37 @@ final class Deserializer extends Middleware
     }
 
     /**
+     * Get request content type.
+     *
+     * Note: This method is not part of the PSR-7 standard.
+     *
+     * @return string|null The request content type, if known
+     */
+    public function getContentType()
+    {
+        $result = $this->getRequest()->getHeader('Content-Type');
+        return $result ? $result[0] : null;
+    }
+
+    /**
+     * Get request media type, if known.
+     *
+     * Note: This method is not part of the PSR-7 standard.
+     *
+     * @return string|null The request media type, minus content-type params
+     */
+    public function getMediaType()
+    {
+        $contentType = $this->getContentType();
+        if ($contentType) {
+            $contentTypeParts = preg_split('/\s*[;,]\s*/', $contentType);
+            return strtolower($contentTypeParts[0]);
+        }
+
+        return null;
+    }
+
+    /**
      * Retrieve any parameters provided in the request body.
      *
      * If the request Content-Type is either application/x-www-form-urlencoded
@@ -122,41 +144,23 @@ final class Deserializer extends Middleware
      * @return SerializableCollection The deserialized body parameters, if any.
      *                                These will typically be an array or object
      *
-     * @throws \RuntimeException if the request body media type parser returns an invalid value
+     * @throws DeserializationException if the request body is invalid
      */
-    public function deserialize() : SerializableCollection
+    public function getDeserializedRequest() : SerializableCollection
     {
         $body = (string)$this->getRequest()->getBody();
         $mediaType = $this->getMediaType();
 
         $bodyParsed = null;
 
-        if (isset($this->bodyParsers[$mediaType]) === true) {
+        if ((strlen($mediaType) > 0) && (array_key_exists($mediaType, $this->bodyParsers))) {
             $bodyParsed = $this->bodyParsers[$mediaType]($body);
-            if (!is_null($bodyParsed) && !is_object($bodyParsed) && !is_array($bodyParsed)) {
-                throw new \RuntimeException('Request body media type parser return value must be an array, an object, or null');
-            }
+        }
+
+        if (!($bodyParsed instanceof SerializableCollection)) {
+            throw new DeserializationException("Malformed data", 100);
         }
 
         return $bodyParsed;
-    }
-
-    /**
-     * Register media type parser.
-     *
-     * @param string[] $mediaTypes A HTTP media type (excluding content-type
-     *                             params)
-     * @param callable $callable   A callable that returns parsed contents for
-     *                             media type
-     */
-    public function registerMediaTypeParser(array $mediaTypes, callable $callable)
-    {
-        if ($callable instanceof \Closure) {
-            $callable = $callable->bindTo($this);
-        }
-
-        foreach ($mediaTypes as $mediaType) {
-            $this->bodyParsers[(string)$mediaType] = &$callable;
-        }
     }
 }

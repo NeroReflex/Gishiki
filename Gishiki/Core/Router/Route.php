@@ -20,6 +20,9 @@ namespace Gishiki\Core\Router;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Core\MVC\Controller\Plugin;
+use Gishiki\Core\MVC\Controller\Plugins\RequestDeserializer as DeserializerPlugin;
+use Gishiki\Core\MVC\Controller\Plugins\ResponseSerializer as SerializerPlugin;
 
 /**
  * This class is used to provide a small layer of Laravel-compatibility
@@ -47,9 +50,9 @@ final class Route
      * @var array the route definition
      */
     private $route = [
-        "middleware" => [
-            "deserializer" => Middleware\Deserializer::class,
-
+        "plugins" => [
+            "deserializer" => DeserializerPlugin::class,
+            "serializer" => SerializerPlugin::class,
         ]
     ];
 
@@ -91,8 +94,8 @@ final class Route
                     $this->route["controller"] = $value;
                 } else if (strcmp(strtolower($key), "action") == 0) {
                     $this->route["action"] = $value;
-                } else if (strcmp(strtolower($key), "middleware") == 0) {
-                    $this->route["middleware"] = $value;
+                } else if (strcmp(strtolower($key), "plugins") == 0) {
+                    $this->route["plugins"] = $value;
                 }
             }
         }
@@ -125,13 +128,13 @@ final class Route
             throw new RouterException("Invalid Action: ".$this->route["action"]." is not a valid function of the ".$this->route["controller"]." class", 6);
         }
 
-        if (!is_array($this->route["middleware"])) {
-            throw new RouterException("Invalid Middleware", 7);
+        if (!is_array($this->route["plugins"])) {
+            throw new RouterException("Invalid plugin", 7);
         }
 
-        foreach ($this->route["middleware"] as $id => &$middleware) {
-            if ((!is_string($middleware)) || (!class_exists($middleware)) || (!is_subclass_of($middleware, Middleware::class))) {
-                throw new RouterException("The ".$id." middleware is not valid", 8);
+        foreach ($this->route["plugins"] as $id => &$middleware) {
+            if ((!is_string($middleware)) || (!class_exists($middleware)) || (!is_subclass_of($middleware, Plugin::class))) {
+                throw new RouterException("The ".$id." plugin is not valid", 8);
             }
         }
     }

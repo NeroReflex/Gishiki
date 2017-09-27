@@ -38,7 +38,7 @@ abstract class Plugin
     protected $response;
 
     /**
-     * Middleware constructor.
+     * Plugin constructor.
      *
      * __Warning:__ you should *never* attempt to use another construction in your plugin,
      * unless it calls parent::__construct()
@@ -53,7 +53,7 @@ abstract class Plugin
     }
 
     /**
-     * Get the HTTP response
+     * Get the HTTP response.
      *
      * @return ResponseInterface the HTTP response
      */
@@ -63,7 +63,7 @@ abstract class Plugin
     }
 
     /**
-     * Get the HTTP request
+     * Get the HTTP request.
      *
      * @return RequestInterface the HTTP request
      */

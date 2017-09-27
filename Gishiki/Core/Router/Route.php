@@ -23,6 +23,7 @@ use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Core\MVC\Controller\Plugin;
 use Gishiki\Core\MVC\Controller\Plugins\RequestDeserializer as DeserializerPlugin;
 use Gishiki\Core\MVC\Controller\Plugins\ResponseSerializer as SerializerPlugin;
+use Gishiki\Core\MVC\Controller\Plugins\ResponseAssembler as AssemblerPlugin;
 
 /**
  * This class is used to provide a small layer of Laravel-compatibility
@@ -53,6 +54,7 @@ final class Route
         "plugins" => [
             "deserializer" => DeserializerPlugin::class,
             "serializer" => SerializerPlugin::class,
+            "assembler" => AssemblerPlugin::class,
         ]
     ];
 

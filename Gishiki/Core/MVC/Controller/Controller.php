@@ -86,6 +86,26 @@ abstract class Controller
     }
 
     /**
+     * Get the HTTP response.
+     *
+     * @return ResponseInterface the HTTP response
+     */
+    public function &getResponse() : ResponseInterface
+    {
+        return $this->response;
+    }
+
+    /**
+     * Get the HTTP request.
+     *
+     * @return RequestInterface the HTTP request
+     */
+    public function &getRequest() : RequestInterface
+    {
+        return $this->request;
+    }
+    
+    /**
      * Execute a function of any plugin that has been bind to this controller:
      *
      * <code>

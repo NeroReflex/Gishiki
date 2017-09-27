@@ -40,11 +40,24 @@ final class ResponseSerializer extends Plugin
     {
         //this is important, NEVER forget!
         parent::__construct($request, $response);
+    }
+
+    public function getAcceptedType()
+    {
+
+    }
+
+    public function setContentType($type)
+    {
 
     }
 
     public function setSerializedResponse(SerializableCollection $data)
     {
+        $format = SerializableCollection::JSON;
 
+        $this->getResponse()->getBody()->write(
+            $data->serialize($format)
+        );
     }
 }

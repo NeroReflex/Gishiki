@@ -45,6 +45,6 @@ final class ResponseSerializer extends Plugin
 
     public function setSerializedResponse(SerializableCollection $data)
     {
-        
+
     }
 }

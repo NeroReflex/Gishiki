@@ -20,8 +20,8 @@ namespace Gishiki\Core\Router;
 use Gishiki\Core\Exception;
 
 /**
- * The hashing exception thrown by Gishiki
- * when a problem occurs in the Router.
+ * The router exception thrown by Gishiki
+ * when a problem occurs in the Router or Route class.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */

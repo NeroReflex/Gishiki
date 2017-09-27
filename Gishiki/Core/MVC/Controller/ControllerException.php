@@ -20,18 +20,17 @@ namespace Gishiki\Core\MVC\Controller;
 use Gishiki\Core\Exception;
 
 /**
- * The hashing exception thrown by Gishiki
- * when a problem occurs in the Router.
+ * The controller exception thrown by Gishiki.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 class ControllerException extends Exception
 {
     /**
-     * Create the router-related exception.
+     * Create the controller-related exception.
      *
      * @param string $message   the error message
-     * @param int    $errorCode the router error code
+     * @param int    $errorCode the controller error code
      */
     public function __construct($message, $errorCode)
     {

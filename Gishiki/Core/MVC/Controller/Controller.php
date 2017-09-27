@@ -32,14 +32,14 @@ abstract class Controller
     /**
      * This is a clone of the request the client have send to this server.
      *
-     * @var Request the request the controller must fulfill
+     * @var RequestInterface the request the controller must fulfill
      */
     protected $request;
 
     /**
      * This is the response that will be sent back to the client from this server.
      *
-     * @var Response the response the controller must generate
+     * @var ResponseInterface the response the controller must generate
      */
     protected $response;
 
@@ -56,16 +56,22 @@ abstract class Controller
     protected $generator;
 
     /**
+     * @var array an array containing specified middleware collection as instantiated objects
+     */
+    protected $middleware;
+
+    /**
      * Create a new controller that will fulfill the given request filling the given response.
      *
      * __Warning:__ you should *never* attempt to use another construction in your controllers,
-     * unless it calls parent::__contruct(), and it doesn't accept arguments!
+     * unless it calls parent::__construct(), and it doesn't accept arguments
      *
      * @param RequestInterface  $controllerRequest   the request arrived from the client
      * @param ResponseInterface $controllerResponse  the response to be given to the client
      * @param GenericCollection $controllerArguments the collection of matched URI params
+     * @param array             $middleware          the array containing passed middleware
      */
-    public function __construct(RequestInterface &$controllerRequest, ResponseInterface &$controllerResponse, GenericCollection &$controllerArguments)
+    public function __construct(RequestInterface &$controllerRequest, ResponseInterface &$controllerResponse, GenericCollection &$controllerArguments, array &$middleware)
     {
         //save the request
         $this->request = $controllerRequest;
@@ -78,6 +84,12 @@ abstract class Controller
 
         //setup the response generator helper
         $this->generator = new ControllerResponse();
+
+        //load middleware collection
+        foreach ($middleware as $middlewareKey => &$middlewareValue) {
+            $reflectedMiddleware = new \ReflectionClass($middlewareValue);
+            $this->middleware[$middlewareKey] = $reflectedMiddleware->newInstance($this->request);
+        }
     }
 
     /**

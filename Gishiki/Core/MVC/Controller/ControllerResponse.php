@@ -17,6 +17,7 @@ limitations under the License.
 
 namespace Gishiki\Core\MVC\Controller;
 
+use Gishiki\Algorithms\Collections\SerializableCollection;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -37,6 +38,7 @@ final class ControllerResponse extends ControllerComponent
      * @param  string $componentName     the name of the component to be used
      * @param  string $componentFunction the name of the action to be performed
      * @param  array  $args              the list of parameters to be passed to the action
+     * @return mixed  the value returned by the component action
      * @throws ControllerException the error preventing the body to be written
      */
     public function import($componentName, $componentFunction, array $args = [])
@@ -72,12 +74,14 @@ final class ControllerResponse extends ControllerComponent
 
         //call the component action
         $reflectedAction->setAccessible(true);
-        $reflectedAction->invokeArgs($component, $args);
+        $result = $reflectedAction->invokeArgs($component, $args);
 
         //import the component result
         foreach ($component->getData()->getIterator() as $key => $value) {
             $this->getData()->set($key, $value);
         }
+
+        return $result;
     }
 
     /**
@@ -95,14 +99,20 @@ final class ControllerResponse extends ControllerComponent
         }
 
         if (is_null($fromTemplate)) {
+            $format = SerializableCollection::JSON;
+            $formatValue = 'application/json;';
+
+
             //append the result of serialization to the given request
             $response->getBody()->write(
-                $this->getData()->serialize()
+                $this->getData()->serialize($format)
             );
+
+            $response = $response->withAddedHeader('Content-Type', $formatValue);
 
             return;
         }
 
-
+        $response = $response->withAddedHeader('Content-Type', 'text/html;');
     }
 }

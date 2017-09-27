@@ -30,9 +30,6 @@ use Gishiki\Algorithms\Collections\GenericCollection;
 final class Route
 {
 
-    /*
-     * Commonly used requests methods (aka HTTP/HTTPS verbs)
-     */
     const GET = 'GET';
     const POST = 'POST';
     const DELETE = 'DELETE';
@@ -41,10 +38,7 @@ final class Route
     const PATCH = 'PATCH';
     const OPTIONS = 'OPTIONS';
 
-    /*
-     * Used when the router were unable to route the request to a suitable
-     * controller/action because the URI couldn't be matched.
-     */
+
     const OK = 200;
     const NOT_FOUND = 404;
     const NOT_ALLOWED = 405;
@@ -52,7 +46,12 @@ final class Route
     /**
      * @var array the route definition
      */
-    private $route = [];
+    private $route = [
+        "middleware" => [
+            "deserializer" => Middleware\Deserializer::class,
+
+        ]
+    ];
 
     /**
      * Build a new route to be registered within a Gishiki\Core\Router instance.
@@ -82,21 +81,18 @@ final class Route
             {
                 if (strcmp(strtolower($key), "verbs") == 0) {
                     $this->route["verbs"] = $value;
-                }
-                else if (strcmp(strtolower($key), "uri") == 0) {
+                } else if (strcmp(strtolower($key), "uri") == 0) {
                     $this->route["uri"] = $value;
-                }
-                else if (strcmp(strtolower($key), "action") == 0) {
+                } else if (strcmp(strtolower($key), "action") == 0) {
                     $this->route["action"] = $value;
-                }
-                else if (strcmp(strtolower($key), "status") == 0) {
+                } else if (strcmp(strtolower($key), "status") == 0) {
                     $this->route["status"] = $value;
-                }
-                else if (strcmp(strtolower($key), "controller") == 0) {
+                } else if (strcmp(strtolower($key), "controller") == 0) {
                     $this->route["controller"] = $value;
-                }
-                else if (strcmp(strtolower($key), "action") == 0) {
+                } else if (strcmp(strtolower($key), "action") == 0) {
                     $this->route["action"] = $value;
+                } else if (strcmp(strtolower($key), "middleware") == 0) {
+                    $this->route["middleware"] = $value;
                 }
             }
         }
@@ -126,7 +122,17 @@ final class Route
         }
 
         if (!method_exists($this->route["controller"], $this->route["action"])) {
-            throw new RouterException("Invalid Action: ".$this->route["action"]." is not a valid function of the ".$this->route["controller"]." class", 5);
+            throw new RouterException("Invalid Action: ".$this->route["action"]." is not a valid function of the ".$this->route["controller"]." class", 6);
+        }
+
+        if (!is_array($this->route["middleware"])) {
+            throw new RouterException("Invalid Middleware", 7);
+        }
+
+        foreach ($this->route["middleware"] as $id => &$middleware) {
+            if ((!is_string($middleware)) || (!class_exists($middleware)) || (!is_subclass_of($middleware, Middleware::class))) {
+                throw new RouterException("The ".$id." middleware is not valid", 8);
+            }
         }
     }
 
@@ -143,6 +149,10 @@ final class Route
      */
     public function __invoke(RequestInterface &$request, ResponseInterface &$response, GenericCollection &$arguments)
     {
+        //import middleware
+        $middleware = $this->route["middleware"];
+
+        //start filling the response with the default status code
         $response = $response->withStatus($this->getStatus());
 
         //import controller name and action
@@ -153,7 +163,7 @@ final class Route
         $reflectedController = new \ReflectionClass($controllerName);
 
         //and create a new instance of it
-        $controllerMethod = $reflectedController->newInstanceArgs([&$request, &$response, &$arguments]);
+        $controllerMethod = $reflectedController->newInstanceArgs([&$request, &$response, &$arguments, &$middleware]);
 
         //reflect the requested action
         $reflected_action = new \ReflectionMethod($controllerName, $controllerAction);

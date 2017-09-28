@@ -7,7 +7,7 @@ namespace Gishiki\Algorithms;
  * - From: http://www.devexp.eu/2009/04/11/php-domdocument-convert-array-to-xml/
  * - `parent::` See http://www.php.net/manual/en/class.domdocument.php.
  *
- * @throws DOMException http://www.php.net/manual/en/class.domexception.php
+ * @throws \DOMException http://www.php.net/manual/en/class.domexception.php
  *
  * @author Toni Van de Voorde
  */
@@ -50,8 +50,8 @@ class XmlDomConstructor extends \DOMDocument
      );
      \endverbatim
      *
-     * @param mixed      $mixed      An array or string
-     * @param DOMElement $domElement the element from where the array will be construct to
+     * @param array|string $mixed      An array or string
+     * @param \DOMElement   $domElement the element from where the array will be construct to
      */
     public function fromMixed($mixed, \DOMElement $domElement = null)
     {

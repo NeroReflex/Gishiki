@@ -142,7 +142,7 @@ abstract class Controller
 
                 $executed = true;
             } catch (\ReflectionException $ex) {
-
+                //there is nothing to be catched. Invoked method is not in this plugin
             }
         }
 

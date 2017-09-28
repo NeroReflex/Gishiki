@@ -48,4 +48,28 @@ class ControllerTest extends TestCase
 
         new \FakeController($request, $response, $collection, $plugins);
     }
+
+    public function testGetRequest()
+    {
+        $request = new Request();
+        $request = $request->withHeader('Testing-Header', 'Active');
+        $response = new Response();
+        $collection = new GenericCollection([]);
+        $plugins = [];
+
+        $controller = new \FakeController($request, $response, $collection, $plugins);
+        $this->assertEquals('Active', $controller->getRequest()->getHeader('Testing-Header')[0]);
+    }
+
+    public function testGetResponse()
+    {
+        $request = new Request();
+        $response = new Response();
+        $response = $response->withHeader('Testing-Header', 'Active');
+        $collection = new GenericCollection([]);
+        $plugins = [];
+
+        $controller = new \FakeController($request, $response, $collection, $plugins);
+        $this->assertEquals('Active', $controller->getResponse()->getHeader('Testing-Header')[0]);
+    }
 }

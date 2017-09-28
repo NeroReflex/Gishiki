@@ -54,15 +54,16 @@ class ResponseAssembler extends Plugin
     /**
      * Execute the given task in order to fulfill the given request
      *
-     * @param \Closure $callable the task to be ran
+     * @param  mixed    $input    input value for generating the response
+     * @param  \Closure $callable the task to be ran
      * @return mixed the value returned from the task
      * @throws ControllerException the error preventing function execution
      */
-    public function assemblyWith(\Closure $callable)
+    public function assemblyWith(\Closure $callable, $input)
     {
         if (is_callable($callable)) {
             try {
-                return $callable($this->getRequest(), $this->getResponse(), $this->assembly());
+                return $callable($input, $this->assembly());
             } catch (\Error $ex) {
                 throw new ControllerException("The given function doesn't accept passed parameters", 103);
             }

@@ -21,8 +21,6 @@ use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Algorithms\Collections\SerializableCollection;
 use Gishiki\Core\MVC\Controller\ControllerException;
 use Gishiki\Core\MVC\Controller\Plugins\ResponseAssembler;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Request;
 use Zend\Diactoros\Response;
 
@@ -45,12 +43,12 @@ class ResponseAssemblerTest extends TestCase
         ];
 
         $controller = new \FakeController($request, $response, $collection, $plugins);
-        $controller->assemblyWith(function (RequestInterface &$request, ResponseInterface &$response, SerializableCollection &$collection) {
-            $collection->set('test1', 2);
-        });
-        $controller->assemblyWith(function (RequestInterface &$request, ResponseInterface &$response, SerializableCollection &$collection) {
-            $collection->set('test2', 10.5);
-        });
+        $controller->assemblyWith(function ($input, SerializableCollection &$collection) {
+            $collection->set('test1', $input);
+        }, 2);
+        $controller->assemblyWith(function ($input, SerializableCollection &$collection) {
+            $collection->set('test2', $input);
+        }, 10.5);
         $this->assertEquals([
             "test1" => 2,
             "test2" => 10.5,
@@ -69,8 +67,8 @@ class ResponseAssemblerTest extends TestCase
         $this->expectException(ControllerException::class);
 
         $controller = new \FakeController($request, $response, $collection, $plugins);
-        $controller->assemblyWith(function (RequestInterface &$request, RequestInterface &$response) {
+        $controller->assemblyWith(function (SerializableCollection &$collection, array $arr) {
 
-        });
+        }, 2);
     }
 }

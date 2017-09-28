@@ -18,6 +18,7 @@ limitations under the License.
 namespace Gishiki\Core\MVC\Controller\Plugins;
 
 use Gishiki\Algorithms\Collections\SerializableCollection;
+use Gishiki\Core\MVC\Controller\ControllerException;
 use Gishiki\Core\MVC\Controller\Plugin;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -55,10 +56,19 @@ class ResponseAssembler extends Plugin
      *
      * @param \Closure $callable the task to be ran
      * @return mixed the value returned from the task
+     * @throws ControllerException the error preventing function execution
      */
     public function assemblyWith(\Closure $callable)
     {
-        return $callable($this->getRequest(), $this->getResponse(), $this->assembly());
+        if (is_callable($callable)) {
+            try {
+                return $callable($this->getRequest(), $this->getResponse(), $this->assembly());
+            } catch (\Error $ex) {
+                throw new ControllerException("The given function doesn't accept passed parameters", 103);
+            }
+        }
+
+        throw new ControllerException("The given function cannot be executed", 102);
     }
 
     /**

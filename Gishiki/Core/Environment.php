@@ -20,10 +20,12 @@ namespace Gishiki\Core {
     use Gishiki\Algorithms\Collections\GenericCollection;
     use Gishiki\Algorithms\Collections\SerializableCollection;
     use Gishiki\Database\DatabaseManager;
-    use Gishiki\HttpKernel\Request;
-    use Gishiki\HttpKernel\Response;
-    use Gishiki\Algorithms\Manipulation;
+    use Zend\Diactoros\Response\SapiStreamEmitter;
+    use Zend\Diactoros\Response;
+    use Zend\Diactoros\ServerRequestFactory;
+    use Gishiki\Algorithms\Strings\Manipulation;
     use Gishiki\Logging\LoggerManager;
+    use Gishiki\Core\Router\Router;
 
     /**
      * Represent the environment used to run controllers.
@@ -33,47 +35,21 @@ namespace Gishiki\Core {
     final class Environment extends GenericCollection
     {
         /**
-         * Create a mock / fake environment from the given data.
-         *
-         * The given data is organized as the $_SERVER variable is
-         *
-         * @param array $userData Array of custom environment keys and values
-         *
-         * @return Environment
+         * @var mixed each environment has its configuration
          */
-        public static function mock(array $userData = [], $selfRegister = false, $loadApplication = false)
-        {
-            $data = array_merge([
-                'SERVER_PROTOCOL' => 'HTTP/1.1',
-                'REQUEST_METHOD' => 'GET',
-                'SCRIPT_NAME' => '',
-                'REQUEST_URI' => '',
-                'QUERY_STRING' => '',
-                'SERVER_NAME' => 'localhost',
-                'SERVER_PORT' => 80,
-                'HTTP_HOST' => 'localhost',
-                'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-                'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.8',
-                'HTTP_ACCEPT_CHARSET' => 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-                'HTTP_USER_AGENT' => 'Unknown',
-                'REMOTE_ADDR' => '127.0.0.1',
-                'REQUEST_TIME' => time(),
-                'REQUEST_TIME_FLOAT' => microtime(true),
-            ], $userData);
-
-            return new self($data, $selfRegister, $loadApplication);
-        }
-
-        /** each environment has its configuration */
         private $configuration;
 
-        /** this is the currently active environment */
+        /**
+         * @var Environment this is the currently active environment
+         */
         private static $currentEnvironment;
 
         /**
          * Setup a new environment instance used to fulfill the client request.
          *
-         * @param bool $selfRegister TRUE if the environment must be assigned as the currently valid one
+         * @param array $userData        the filtered $_SERVER array
+         * @param bool  $selfRegister    TRUE if the environment must be assigned as the currently valid one
+         * @param bool  $loadApplication loads the entire application configuration if TRUE
          */
         public function __construct(array $userData = [], $selfRegister = false, $loadApplication = false)
         {
@@ -94,7 +70,7 @@ namespace Gishiki\Core {
         public static function getValueFromEnvironment(array $collection)
         {
             foreach ($collection as &$value) {
-                //check for sobstitution
+                //check for substitution
                 if ((is_string($value)) && ((strpos($value, '{{@') === 0) && (strpos($value, '}}') !== false))) {
                     if (($toReplace = Manipulation::getBetween($value, '{{@', '}}')) != '') {
                         $value = getenv($toReplace);
@@ -159,33 +135,35 @@ namespace Gishiki\Core {
         }
 
         /**
-         * Fullfill the request made by the client.
+         * Fulfill the request made by the client.
          */
-        public function fulfillRequest()
+        public function fulfillRequest(Router &$application)
         {
             //get current request...
-            $currentRequest = Request::createFromEnvironment(self::$currentEnvironment);
+            $currentRequest = ServerRequestFactory::fromGlobals(
+                $_SERVER,
+                $_GET,
+                $_POST,
+                $_COOKIE,
+                $_FILES
+            );
 
-            //...and serve it
-            $response = new Response();
-
+            //...generate the response
             try {
-                //trigger the exception if data is malformed!
-                $currentRequest->getDeserializedBody();
-
-                //...and serve it
-                $response = Route::run($currentRequest);
-            } catch (\RuntimeException $ex) {
+                $response = $application->run($currentRequest);
+            } catch (\Exception $ex) {
+                $response = new Response();
                 $response = $response->withStatus(400);
                 $response = $response->write($ex->getMessage());
             }
 
-            //send response to the client
-            $response->send();
+            //...and serve it
+            $emitter = new SapiStreamEmitter();
+            $emitter->emit($response);
         }
 
         /**
-         * Return the currenlty active environment used to run the controller.
+         * Return the currently active environment used to run the controller.
          *
          * @return Environment the current environment
          */
@@ -197,7 +175,7 @@ namespace Gishiki\Core {
 
         /**
          * Load the framework configuration from the config file and return it in an
-         * format kwnown to the framework.
+         * format known to the framework.
          */
         private function loadConfiguration()
         {

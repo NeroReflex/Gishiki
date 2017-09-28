@@ -17,13 +17,15 @@
 
 namespace Gishiki\Security\Hashing;
 
+use Gishiki\Core\Exception;
+
 /**
  * The hashing exception thrown by Gishiki
  * when an hash operation results is bad.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class HashingException extends \Gishiki\Core\Exception
+class HashingException extends Exception
 {
     /**
      * Create the hashing-related exception.

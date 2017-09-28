@@ -17,6 +17,8 @@ limitations under the License.
 
 namespace Gishiki\Security\Hashing;
 
+use Gishiki\Algorithms\Base64;
+
 /**
  * This class is a collection of supported algorithms.
  *
@@ -38,6 +40,7 @@ abstract class Algorithm
     const SHA512 = 'sha512';
     const ROT13 = 'rot13';
     const BCRYPT = 'bcrypt';
+    const PBKDF2 = 'pbkdf2';
 
     /**
      * Generate the message digest for the given message using the OpenSSL library
@@ -92,7 +95,8 @@ abstract class Algorithm
      *
      * @throws \InvalidArgumentException the message or the message digest is given as a non-string or an empty string
      */
-    public static function opensslVerify($message, $digest, $algorithm) {
+    public static function opensslVerify($message, $digest, $algorithm)
+    {
         //check for the message
         if ((!is_string($message)) || (strlen($message) <= 0)) {
             throw new \InvalidArgumentException('The message to be hashed must be given as a valid non-empty string');
@@ -123,7 +127,8 @@ abstract class Algorithm
      *
      * @throws \InvalidArgumentException the message is given as a non-string or an empty string
      */
-    public static function rot13Hash($message) {
+    public static function rot13Hash($message)
+    {
         //check for the message
         if ((!is_string($message)) || (strlen($message) <= 0)) {
             throw new \InvalidArgumentException('The message to be hashed must be given as a valid non-empty string');
@@ -143,7 +148,8 @@ abstract class Algorithm
      *
      * @throws \InvalidArgumentException the message or the message digest is given as a non-string or an empty string
      */
-    public static function rot13Verify($message, $digest) {
+    public static function rot13Verify($message, $digest)
+    {
         //check for the message
         if ((!is_string($message)) || (strlen($message) <= 0)) {
             throw new \InvalidArgumentException('The message to be hashed must be given as a valid non-empty string');
@@ -170,7 +176,8 @@ abstract class Algorithm
      * @throws \InvalidArgumentException the message is given as a non-string or an empty string
      * @throws HashingException          the error occurred while generating the hash for the given message
      */
-    public static function bcryptHash($message) {
+    public static function bcryptHash($message)
+    {
         //check for the message
         if ((!is_string($message)) || (strlen($message) <= 0)) {
             throw new \InvalidArgumentException('The message to be hashed must be given as a valid non-empty string');
@@ -196,7 +203,8 @@ abstract class Algorithm
      *
      * @throws \InvalidArgumentException the message or the message digest is given as a non-string or an empty string
      */
-    public static function bcryptVerify($message, $digest) {
+    public static function bcryptVerify($message, $digest)
+    {
         //check for the message
         if ((!is_string($message)) || (strlen($message) <= 0)) {
             throw new \InvalidArgumentException('The message to be hashed must be given as a valid non-empty string');
@@ -208,6 +216,73 @@ abstract class Algorithm
         }
 
         return password_verify($message, $digest);
+    }
+
+    /**
+     * Generate the message digest for the given message using the pbkdf2 algorithm.
+     *
+     * The pbkdf2 algorithm is thought to be slow and produce an hash.
+     * This function should be *NEVER* called directly: use an instance of the Hasher class!
+     *
+     * @param string $message      the string to be hashed
+     *
+     * @return string the result of the hash algorithm
+     *
+     * @throws \InvalidArgumentException the message is given as a non-string or an empty string
+     * @throws HashingException          the error occurred while generating the hash for the given message
+     */
+    public static function pbkdf2Hash($message)
+    {
+        $it = 16777216;
+        $hashingAlgorithm = 'sha512';
+
+        $salt = Base64::encode(openssl_random_pseudo_bytes(64));
+
+        $hash = Base64::encode(self::pbkdf2($message, $salt, 64, $it, $hashingAlgorithm));
+
+        return '|pbkdf2%'.$hashingAlgorithm.'%'.$it.'%'.$salt.'%'.$hash;
+    }
+
+    /**
+     * Check if the digest is the pbkdf2 hash of the given message.
+     *
+     * This function should be called from an Hasher object.
+     *
+     * @param string $message      the string to be checked against the message digest
+     * @param string $digest       the message digest to be checked
+     * @return string the result of the hash algorithm
+     *
+     * @throws \InvalidArgumentException the message or the message digest is given as a non-string or an empty string
+     */
+    public static function pbkdf2Verify($message, $digest)
+    {
+        //check for the message
+        if ((!is_string($message)) || (strlen($message) <= 0)) {
+            throw new \InvalidArgumentException('The message to be hashed must be given as a valid non-empty string');
+        }
+
+        //check for the digest
+        if ((!is_string($digest)) || (strlen($digest) <= 0)) {
+            throw new \InvalidArgumentException('The message digest to be checked must be given as a valid non-empty string');
+        }
+
+        $params = explode('%', $digest);
+
+        if (count($params) < 5) {
+            return false;
+        }
+
+        if (strcmp($params[0], "|pbkdf2") != 0) {
+            return false;
+        }
+
+        $hashingAlgorithm = $params[1];
+        $it = intval($params[2]);
+        $salt = $params[3];
+
+        $hashRecalc = Base64::encode(self::pbkdf2($message, $salt, 64, $it, $hashingAlgorithm));
+
+        return (strcmp($digest, $hashRecalc) == 0);
     }
 
     /**
@@ -229,7 +304,7 @@ abstract class Algorithm
      * @throws \InvalidArgumentException invalid arguments have been passed
      * @throws HashingException          the error occurred while generating the requested hashing algorithm
      */
-    public static function pbkdf2($password, $salt, $keyLength, $count, $algorithm = self::SHA1)
+    public static function pbkdf2($password, $salt, $keyLength, $count, $algorithm = self::SHA256)
     {
         if ((!is_integer($count)) || ($count <= 0)) {
             throw new \InvalidArgumentException('The iteration number for the PBKDF2 function must be a positive non-zero integer', 2);
@@ -246,7 +321,7 @@ abstract class Algorithm
         //an algorithm is represented as a string of only lowercase chars
         $algorithm = strtolower($algorithm);
 
-        //the raw output of the max legth (beyond the $keyLength algorithm)
+        //the raw output of the max length (beyond the $keyLength algorithm)
         $output = '';
 
         /*          execute the native openssl_pbkdf2                   */

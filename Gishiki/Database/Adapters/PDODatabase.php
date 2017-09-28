@@ -51,10 +51,6 @@ class PDODatabase implements RelationalDatabaseInterface
      */
     protected function generateConnectionQuery($details)
     {
-        if (!is_string($details)) {
-            throw new \InvalidArgumentException("connection information provided are invalid");
-        }
-
         return [
             $this->getPDODriverName().':'.$details,
             null,

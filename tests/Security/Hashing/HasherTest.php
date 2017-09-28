@@ -60,4 +60,21 @@ class HasherTest extends TestCase
         $this->assertEquals(true, $hasher->verify($random, $digest));
         $this->assertEquals(false, $hasher->verify($random, 'anything else'));
     }
+
+    public function testPbkdf2()
+    {
+        $random = bin2hex(openssl_random_pseudo_bytes(128));
+
+        $hasher = new Hasher(Algorithm::PBKDF2);
+
+        $digest = $hasher->hash($random);
+
+        $this->assertEquals(true, $hasher->verify($random, $digest));
+        $this->assertEquals(false, $hasher->verify($random, 'anything else'));
+
+        $badHash = $digest;
+        $badHash[strlen($badHash) - 2] = 'a';
+
+        $this->assertEquals(false, $hasher->verify($random, $badHash));
+    }
 }

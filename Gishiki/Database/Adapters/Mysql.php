@@ -37,10 +37,6 @@ final class Mysql extends PDODatabase
 
     protected function generateConnectionQuery($details)
     {
-        if (!is_string($details)) {
-            throw new \InvalidArgumentException("connection information provided are invalid");
-        }
-
         $user = null;
         $password = null;
 

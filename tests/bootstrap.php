@@ -29,7 +29,7 @@ $autoloader = require dirname(__DIR__).'/vendor/autoload.php';
 // Register test classes
 $autoloader->addPsr4('Gishiki\\Tests\\', __DIR__);
 
-include __DIR__.'/Application/FakeController.php';
+require dirname(__DIR__).'/tests/FakeController.php';
 
 file_put_contents("tests/db_test.sqlite", "");
 

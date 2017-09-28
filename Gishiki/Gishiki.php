@@ -18,6 +18,7 @@ limitations under the License.
 namespace Gishiki;
 
 use Gishiki\Core\Environment;
+use Gishiki\Core\Router\Router;
 
 /**
  * The Gishiki action starter and framework entry point.
@@ -44,7 +45,7 @@ abstract class Gishiki
         //get the root path
         $documentRoot = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
 
-        (strlen($documentRoot) > 0) ?
+        ((!defined('ROOT')) && (strlen($documentRoot) > 0)) ?
             define('ROOT', filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').DIRECTORY_SEPARATOR) :
             define('ROOT', getcwd().DIRECTORY_SEPARATOR);
 
@@ -56,8 +57,10 @@ abstract class Gishiki
 
     /**
      * Execute the requested operation.
+     *
+     * @param $application Router
      */
-    public static function run()
+    public static function run(Router &$application)
     {
         //avoid double executions
         if (self::$executed) {
@@ -76,7 +79,7 @@ abstract class Gishiki
         //if the framework needs to be installed.....
         if (Environment::applicationExists()) {
             //fulfill the client request
-            Environment::getCurrentEnvironment()->fulfillRequest();
+            Environment::getCurrentEnvironment()->fulfillRequest($application);
         } elseif (!defined('CLI_TOOLKIT')) {
             //show the no application page!
             echo file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'no_application.html');

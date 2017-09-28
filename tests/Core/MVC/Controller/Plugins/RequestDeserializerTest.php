@@ -124,4 +124,55 @@ class RequestDeserializerTest extends TestCase
 
         $this->assertEquals($data, $controller->getRequestDeserialized()->all());
     }
+
+    public function testMultipartDeserialization()
+    {
+        $request = new Request();
+        $request = $request->withHeader('Content-Type', 'application/x-www-form-urlencoded');
+        $request->getBody()->write(
+            "id=3&test_str=fdaffe+ccco"
+        );
+        $request->getBody()->rewind();
+
+        $response = new Response();
+
+        $collection = new GenericCollection([]);
+        $plugins = [
+            0 => \Gishiki\Core\MVC\Controller\Plugins\RequestDeserializer::class
+        ];
+
+        $controller = new \FakeController($request, $response, $collection, $plugins);
+
+        $this->assertEquals([
+            "id" => 3,
+            "test_str" => "fdaffe ccco"
+        ], $controller->getRequestDeserialized()->all());
+    }
+
+    public function testBadDeserialization()
+    {
+        $data = self::generateTestingData();
+
+        $xml = new SerializableCollection($data);
+
+        $request = new Request();
+        $request = $request->withHeader('Content-Type', 'text/json');
+        $request->getBody()->write(
+            $xml->serialize(SerializableCollection::XML)
+        );
+        $request->getBody()->rewind();
+
+        $response = new Response();
+
+        $collection = new GenericCollection([]);
+        $plugins = [
+            0 => \Gishiki\Core\MVC\Controller\Plugins\RequestDeserializer::class
+        ];
+
+        $controller = new \FakeController($request, $response, $collection, $plugins);
+
+        $this->expectException(ControllerException::class);
+
+        $controller->getRequestDeserialized();
+    }
 }

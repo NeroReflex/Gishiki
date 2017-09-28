@@ -19,6 +19,7 @@ namespace Gishiki\Core\MVC\Controller\Plugins;
 
 use Gishiki\Algorithms\Collections\DeserializationException;
 use Gishiki\Core\MVC\Controller\Plugin;
+use Gishiki\Core\MVC\Controller\ControllerException;
 use Gishiki\Algorithms\Collections\SerializableCollection;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -145,7 +146,7 @@ final class RequestDeserializer extends Plugin
      * @return SerializableCollection The deserialized body parameters, if any.
      *                                These will typically be an array or object
      *
-     * @throws DeserializationException if the request body is invalid
+     * @throws ControllerException    if the request body is invalid
      */
     public function getRequestDeserialized() : SerializableCollection
     {
@@ -154,12 +155,16 @@ final class RequestDeserializer extends Plugin
 
         $bodyParsed = null;
 
-        if ((strlen($mediaType) > 0) && (array_key_exists($mediaType, $this->bodyParsers))) {
-            $bodyParsed = $this->bodyParsers[$mediaType]($body);
+        if ((is_string($mediaType)) && (strlen($mediaType) > 0) && (array_key_exists($mediaType, $this->bodyParsers))) {
+            try {
+                $bodyParsed = $this->bodyParsers[$mediaType]($body);
+            } catch (DeserializationException $ex) {
+                throw new ControllerException("Malformed data", 100);
+            }
         }
 
         if (!($bodyParsed instanceof SerializableCollection)) {
-            throw new DeserializationException("Malformed data", 100);
+            throw new ControllerException("Invalid format", 101);
         }
 
         return $bodyParsed;

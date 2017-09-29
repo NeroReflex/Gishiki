@@ -32,34 +32,39 @@ class DatabaseManagerTest extends TestCase
     public function testBadConnectionQuery()
     {
         $this->expectException(\InvalidArgumentException::class);
-        DatabaseManager::connect(3, 'unknown_db_adapter://user:pass@host:port/db');
+        $dbManager = new DatabaseManager();
+        $dbManager->connect(3, 'unknown_db_adapter://user:pass@host:port/db');
     }
 
     public function testConnectionQuery()
     {
         $this->expectException(DatabaseException::class);
-        DatabaseManager::connect('default', 'unknown_db_adapter://user:pass@host:port/db');
+        $dbManager = new DatabaseManager();
+        $dbManager->connect('default', 'unknown_db_adapter://user:pass@host:port/db');
     }
 
     public function testVoidConnection()
     {
         $this->expectException(DatabaseException::class);
-        DatabaseManager::retrieve('testing_bad_db (unconnected)');
+        $dbManager = new DatabaseManager();
+        $dbManager->retrieve('testing_bad_db (unconnected)');
     }
 
     public function testInvalidNameConnection()
     {
         $this->expectException(\InvalidArgumentException::class);
-        DatabaseManager::retrieve(3);
+        $dbManager = new DatabaseManager();
+        $dbManager->retrieve(3);
     }
 
     public function testValidConnection()
     {
         //connect an empty-memory bounded database
-        DatabaseManager::connect('temp_db', 'sqlite://:memory:');
+        $dbManager = new DatabaseManager();
+        $dbManager->connect('temp_db', 'sqlite://:memory:');
 
         //retrieve the connected database
-        $connection = DatabaseManager::retrieve('temp_db');
+        $connection = $dbManager->retrieve('temp_db');
 
         //test for a successful retrieve operation
         $this->assertEquals(true, $connection->connected());

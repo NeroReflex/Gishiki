@@ -58,7 +58,7 @@ class FakeController extends Controller
 
     public function myAction()
     {
-        $this->response->getBody()->write('My email is: '.$this->arguments->mail);
+        $this->response->getBody()->write('My email is: '.$this->arguments->get('mail'));
     }
 
     public function quickAction()
@@ -67,6 +67,11 @@ class FakeController extends Controller
             throw new \RuntimeException("something went wrong");
         }
 
-        $this->response->getBody()->write('should I send an email to '.$this->arguments->mail.'?');
+        $this->response->getBody()->write('should I send an email to '.$this->arguments->get('mail').'?');
+    }
+
+    public function completeTest()
+    {
+        $this->getResponse()->getBody()->write("bye bye ".$this->arguments->get('name'));
     }
 }

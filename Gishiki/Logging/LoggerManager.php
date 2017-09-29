@@ -25,41 +25,12 @@ use Gishiki\Algorithms\Collections\GenericCollection;
  *
  * Benato Denis <benato.denis96@gmail.com>
  */
-abstract class LoggerManager
+final class LoggerManager
 {
     /**
      * @var array the list of logger instances as an associative array
      */
-    protected static $connections = [];
-
-    /**
-     * @var string the sha1 hash of the default connection
-     */
-    protected static $hashOfDefault = null;
-
-    /**
-     * Set as default the PSR-3 logger instance with the given name
-     *
-     * @param string $name               the name of the logger instance to be set as the default one
-     * @throws \InvalidArgumentException invalid name or inexistent logger instance
-     * @return \Monolog\Logger           the logger instance
-     */
-    public static function setDefault($name)
-    {
-        //check for the logger name
-        if ((!is_string($name)) || (strlen($name) <= 0)) {
-            throw new \InvalidArgumentException('The logger name must be given as a valid non-empty string');
-        }
-
-        if (!array_key_exists(sha1($name), self::$connections)) {
-            throw new \InvalidArgumentException('The given logger name is not valid');
-        }
-
-        self::$hashOfDefault = sha1($name);
-
-        //return the selected connection
-        return self::$connections[sha1($name)];
-    }
+    protected $connections = [];
 
     /**
      * Create a new logger instance.
@@ -69,7 +40,7 @@ abstract class LoggerManager
      * @throws \InvalidArgumentException invalid name or connection details
      * @return \Monolog\Logger           the new logger instance
      */
-    public static function connect($name, array $details)
+    public function connect($name, array $details)
     {
         //check for the logger name
         if ((!is_string($name)) || (strlen($name) <= 0)) {
@@ -77,7 +48,7 @@ abstract class LoggerManager
         }
 
         //create the new logger instance
-        self::$connections[sha1($name)] = new Logger($name);
+        $this->connections[sha1($name)] = new Logger($name);
 
         foreach ($details as $handler) {
             $handlerCollection = new GenericCollection($handler);
@@ -95,7 +66,7 @@ abstract class LoggerManager
                 $reflectedAdapter = new \ReflectionClass($adapterClassName);
 
                 //bind the handler to the current logger
-                self::$connections[sha1($name)]->pushHandler(
+                $this->connections[sha1($name)]->pushHandler(
                     $reflectedAdapter->newInstanceArgs($handlerCollection->get('connection'))
                 );
             } catch (\ReflectionException $ex) {
@@ -104,7 +75,7 @@ abstract class LoggerManager
         }
 
         //return the newly created logger
-        return self::$connections[sha1($name)];
+        return $this->connections[sha1($name)];
     }
 
     /**
@@ -114,19 +85,10 @@ abstract class LoggerManager
      * @throws \InvalidArgumentException invalid name or inexistent logger instance
      * @return \Monolog\Logger           the logger instance
      */
-    public static function retrieve($name = null)
+    public function retrieve($name = null)
     {
-        if (!is_null($name) && (!is_string($name))) {
+        if (!is_string($name)) {
             throw new \InvalidArgumentException('The logger instance to be retrieved must be given as a valid, non-empty string or NULL');
-        }
-
-        //is the default one requested?
-        if (is_null($name)) {
-            if (is_null(self::$hashOfDefault)) {
-                throw new \InvalidArgumentException('A default logger instance doesn\'t exists');
-            }
-
-            return self::$connections[self::$hashOfDefault];
         }
 
         //check for bad logger name
@@ -134,11 +96,11 @@ abstract class LoggerManager
             throw new \InvalidArgumentException('The logger name must be given as a valid non-empty string');
         }
 
-        if (!array_key_exists(sha1($name), self::$connections)) {
+        if (!array_key_exists(sha1($name), $this->connections)) {
             throw new \InvalidArgumentException('The given logger name is not valid');
         }
 
         //return the requested connection
-        return self::$connections[sha1($name)];
+        return $this->connections[sha1($name)];
     }
 }

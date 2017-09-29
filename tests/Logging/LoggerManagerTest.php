@@ -32,14 +32,16 @@ class LoggerManagerTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        LoggerManager::connect(6, []);
+        $loggers = new LoggerManager();
+        $loggers->connect(6, []);
     }
 
     public function testConnectBadValue()
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        LoggerManager::connect(__FUNCTION__, [
+        $loggers = new LoggerManager();
+        $loggers->connect(__FUNCTION__, [
             [
                 'connection' => ['testLog.log', 0]
             ]
@@ -50,7 +52,8 @@ class LoggerManagerTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        LoggerManager::connect(__FUNCTION__, [
+        $loggers = new LoggerManager();
+        $loggers->connect(__FUNCTION__, [
             [
                 'class' => 'lol',
                 'connection' => ['testLog.log', 0]
@@ -58,65 +61,20 @@ class LoggerManagerTest extends TestCase
         ]);
     }
 
-    public function testSetDefaultBadConnectionName()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        LoggerManager::setDefault(null);
-    }
-
-    public function testSetDefaultInexistentConnectionName()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        LoggerManager::setDefault("what a lol");
-    }
-
     public function testRetrieveBadConnectionName()
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        LoggerManager::retrieve(100.05);
+        $loggers = new LoggerManager();
+        $loggers->retrieve(100.05);
     }
 
     public function testRetrieveInexistentConnectionName()
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        LoggerManager::retrieve("what a lol");
-    }
-
-    public function testRetrieveUnsetDefaultConnection()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        //set to null the default connection
-        $reflectionClass = new \ReflectionClass(LoggerManager::class);
-        $reflectionProperty = $reflectionClass->getProperty('hashOfDefault');
-        $reflectionProperty->setAccessible(true);
-        $reflectionProperty->setValue(null);
-
-        LoggerManager::retrieve(null);
-    }
-
-    public function testSetDefaultLogger()
-    {
-        //empty the error testing file
-        file_put_contents('testLog.log', '');
-
-        LoggerManager::connect(__FUNCTION__, [
-            [
-                'class' => 'StreamHandler',
-                'connection' => ['testLog.log', \Monolog\Logger::ERROR ]
-            ]
-        ]);
-
-        LoggerManager::setDefault(__FUNCTION__);
-
-        $logger = LoggerManager::retrieve(null);
-        $logger->error("testing error");
-
-        $this->assertGreaterThanOrEqual(strlen('testing error'), strlen(file_get_contents('testLog.log')));
+        $loggers = new LoggerManager();
+        $loggers->retrieve("what a lol");
     }
 
     public function testRetrieveLogger()
@@ -124,14 +82,15 @@ class LoggerManagerTest extends TestCase
         //empty the error testing file
         file_put_contents('testLog.log', '');
 
-        LoggerManager::connect(__FUNCTION__, [
+        $loggers = new LoggerManager();
+        $loggers->connect(__FUNCTION__, [
             [
                 'class' => StreamHandler::class,
                 'connection' => ['testLog.log', \Monolog\Logger::NOTICE ]
             ]
         ]);
 
-        $logger = LoggerManager::retrieve(__FUNCTION__);
+        $logger = $loggers->retrieve(__FUNCTION__);
         $logger->notice("testing notice");
 
         $this->assertGreaterThanOrEqual(strlen('testing notice'), strlen(file_get_contents('testLog.log')));

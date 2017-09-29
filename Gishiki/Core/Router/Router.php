@@ -19,7 +19,6 @@ namespace Gishiki\Core\Router;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Zend\Diactoros\Response;
 use Gishiki\Algorithms\Strings\SimpleLexer;
 use Gishiki\Algorithms\Collections\GenericCollection;
 
@@ -71,11 +70,11 @@ final class Router
      * This function is __CALLED INTERNALLY__ and, therefore
      * it __MUST NOT__ be called by the user!
      *
-     * @param RequestInterface $requestToFulfill the request to be served/fulfilled
-     *
-     * @return ResponseInterface the result
+     * @param  RequestInterface  $requestToFulfill the request to be served/fulfilled
+     * @param  ResponseInterface $response         the response to be filled
+     * @param  array             $controllerArgs   an associative array with more parameters to be passed to the called controller
      */
-    public function run(RequestInterface &$requestToFulfill)
+    public function run(RequestInterface &$requestToFulfill, ResponseInterface &$response, array $controllerArgs = [])
     {
         foreach ($this->routes[$requestToFulfill->getMethod()] as $currentRoute) {
             $decodedUri = urldecode($requestToFulfill->getUri()->getPath());
@@ -84,8 +83,6 @@ final class Router
 
             //if the current URL matches the current URI
             if (self::matches($currentRoute->getURI(), $decodedUri, $params)) {
-                //derive the response from the current request
-                $response = new Response();
 
                 //execute the router call
                 $request = clone $requestToFulfill;
@@ -93,10 +90,10 @@ final class Router
                 //this will hold the parameters passed on the URL
                 $deductedParams = new GenericCollection($params);
 
-                $currentRoute($request, $response, $deductedParams);
+                $currentRoute($request, $response, $deductedParams, $controllerArgs);
 
-                //this function have to return a response
-                return $response;
+                //useless to continue
+                break;
             }
         }
     }

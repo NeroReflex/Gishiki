@@ -22,6 +22,7 @@ use Gishiki\Core\Router\Route;
 use Zend\Diactoros\Request;
 
 use PHPUnit\Framework\TestCase;
+use Zend\Diactoros\Response;
 
 /**
  * The tester for the Router class.
@@ -53,8 +54,9 @@ class RouterTest extends TestCase
             'php://memory',
             []
         );
+        $response = new Response();
 
-        $response = $router->run($request);
+        $router->run($request, $response);
         $body = $response->getBody();
         $body->rewind();
 

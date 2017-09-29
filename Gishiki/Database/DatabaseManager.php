@@ -22,19 +22,19 @@ namespace Gishiki\Database;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-abstract class DatabaseManager
+final class DatabaseManager
 {
-    /**
-     * @var array the list of database connections as an associative array
-     */
-    private static $connections = [];
-
     //used to give a second name to an adapter
-    private static $adaptersMap = [
+    const ADAPTERS_MAP = [
         'Sqlite3' => 'Sqlite',
         'Postgres' => 'Pgsql',
         'Postgre' => 'Pgsql',
     ];
+
+    /**
+     * @var array the list of database connections as an associative array
+     */
+    protected $connections = [];
 
     /**
      * Create a new database connection and store the newly generated connection.
@@ -45,7 +45,7 @@ abstract class DatabaseManager
      * @throws DatabaseException         a database adapter with the given name doesn't exists
      * @return DatabaseInterface         the connected database instance
      */
-    public static function connect($connectionName, $connectionString)
+    public function connect($connectionName, $connectionString)
     {
         //check for malformed input
         if ((!is_string($connectionName)) || (strlen($connectionName) <= 0) || (!is_string($connectionString)) || (strlen($connectionString) <= 0)) {
@@ -55,18 +55,18 @@ abstract class DatabaseManager
         //get the adapter name
         $temp = explode('://', $connectionString);
         $adapterTemp = ucfirst($temp[0]);
-        $adapter = (array_key_exists($adapterTemp, self::$adaptersMap)) ?
-            self::$adaptersMap[$adapterTemp] : $adapterTemp;
+        $adapter = (array_key_exists($adapterTemp, self::ADAPTERS_MAP)) ?
+            $this->adaptersMap[$adapterTemp] : $adapterTemp;
         $connectionQuery = $temp[1];
 
         try {
             //reflect the adapter
             $reflectedAdapter = new \ReflectionClass('Gishiki\\Database\\Adapters\\'.$adapter);
 
-            //and use the adapter to estabilish the database connection and return the connection handler
-            self::$connections[sha1($connectionName)] = $reflectedAdapter->newInstance($connectionQuery);
+            //and use the adapter to establish the database connection and return the connection handler
+            $this->connections[sha1($connectionName)] = $reflectedAdapter->newInstance($connectionQuery);
 
-            return self::$connections[sha1($connectionName)];
+            return $this->connections[sha1($connectionName)];
         } catch (\ReflectionException $ex) {
             throw new DatabaseException('The given connection query requires an nonexistent adapter', 0);
         }
@@ -83,19 +83,19 @@ abstract class DatabaseManager
      * @throws \InvalidArgumentException the collection name has not be given as a string
      * @throws DatabaseException         the given connection name is not registered as a valid collection
      */
-    public static function retrieve($connectionName = 'default')
+    public function retrieve($connectionName = 'default')
     {
         //check for malformed input
         if ((!is_string($connectionName)) || (strlen($connectionName) <= 0)) {
             throw new \InvalidArgumentException('The name of the connection to be retrieved must be given as a string');
         }
 
-        //check if the connection was estabilish
-        if (!array_key_exists(sha1($connectionName), self::$connections)) {
+        //check if the connection was established
+        if (!array_key_exists(sha1($connectionName), $this->connections)) {
             throw new DatabaseException("The given connection doesn't exists", 1);
         }
 
-        //return the estabilish connection
-        return self::$connections[sha1($connectionName)];
+        //return the establish connection
+        return $this->connections[sha1($connectionName)];
     }
 }

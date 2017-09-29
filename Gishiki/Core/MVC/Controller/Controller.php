@@ -17,6 +17,7 @@ limitations under the License.
 
 namespace Gishiki\Core\MVC\Controller;
 
+use Gishiki\Database\DatabaseManager;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Gishiki\Algorithms\Collections\GenericCollection;
@@ -56,6 +57,11 @@ abstract class Controller
     protected $plugins;
 
     /**
+     * @var DatabaseManager a container for alive database connections
+     */
+    protected $connections;
+
+    /**
      * Create a new controller that will fulfill the given request filling the given response.
      *
      * __Warning:__ you should *never* attempt to use another construction in your controllers,
@@ -69,6 +75,8 @@ abstract class Controller
      */
     public function __construct(RequestInterface &$controllerRequest, ResponseInterface &$controllerResponse, GenericCollection &$controllerArguments, array &$plugins)
     {
+        $this->connections = new DatabaseManager();
+
         //save the request
         $this->request = $controllerRequest;
 
@@ -88,6 +96,23 @@ abstract class Controller
                 throw new ControllerException("Invalid plugin class", 1);
             }
         }
+    }
+
+    /**
+     * Load additional information inside the current controller.
+     *
+     * *Note:* this function is designed to be called *only* by
+     * the Route class!
+     *
+     * @param array $args additional parameters
+     */
+    public function loadDependencies(array $args = [])
+    {
+        if ((array_key_exists('connections', $args)) && ($args['connections'] instanceof DatabaseManager)) {
+            $this->connections = $args['connections'];
+        }
+
+
     }
 
     /**

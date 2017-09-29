@@ -37,35 +37,5 @@ class Exception extends \Exception
     {
         //perform a basic Exception constructor call
         parent::__construct($message, $errorCode, null);
-
-        try {
-            //retrieve the default logger instance
-            $logger = LoggerManager::retrieve();
-
-            if ($logger instanceof LoggerInterface) {
-                //write the log of the exception
-                $this->reportOnLog($logger);
-            }
-        } catch (\InvalidArgumentException $ex) {
-
-        }
-    }
-
-    /**
-     * Write the log message using the passed logger.
-     *
-     * @param $logger LoggerInterface the PSR-3 logger instance to be used
-     */
-    protected function reportOnLog(LoggerInterface &$logger)
-    {
-        if (!is_null($logger)) {
-            //log the exception
-            $logger->error(get_called_class().
-                    ' thrown at: '.$this->getFile().
-                    ': '.$this->getLine().
-                    ' with message('.$this->getCode().
-                    '): '.$this->getMessage()
-                );
-        }
     }
 }

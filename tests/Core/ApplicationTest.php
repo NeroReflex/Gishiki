@@ -17,11 +17,14 @@ limitations under the License.
 
 namespace Gishiki\tests\Core\Router;
 
-use Gishiki\Algorithms\Collections\SerializableCollection as Serializable;
-
 use Gishiki\Core\Application;
 
+use Gishiki\Core\Router\Route;
+use Gishiki\Core\Router\Router;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
+use Zend\Diactoros\Request;
+use Zend\Diactoros\Uri;
 
 /**
  * The tester for the Application class.
@@ -30,13 +33,55 @@ use PHPUnit\Framework\TestCase;
  */
 class ApplicationTest extends TestCase
 {
-    public function testInit()
+    public function testDirectory()
     {
         $app = new Application();
 
         $directory = new \ReflectionProperty($app, 'currentDirectory');
         $directory->setAccessible(true);
 
+        //appending ../../ because the test MUST be launched at the project root
         $this->assertEquals(realpath(__DIR__.'/../../'), realpath($directory->getValue($app)));
+    }
+
+    public function testCompleteApplication()
+    {
+        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
+        $app = new Application();
+        unlink(__DIR__."/../../settings.json");
+
+        $router = new Router();
+        $router->register(new Route([
+            "verbs" => [
+                Route::DELETE
+            ],
+            "uri" => "/bye/{name:str}",
+            "status" => Route::OK,
+            "controller" => "FakeController",
+            "action" => "completeTest"
+        ]));
+
+        $request = new \ReflectionProperty($app, 'request');
+        $request->setAccessible(true);
+
+        $testRequest = new Request();
+        $testRequest = $testRequest->withMethod('DELETE');
+        $uri = new Uri();
+        $uri = $uri->withHost('www.testingsite.com');
+        $uri = $uri->withPort(80);
+        $uri = $uri->withPath('/bye/Mario');
+        $testRequest = $testRequest->withUri($uri);
+
+        $request->setValue($app, $testRequest);
+
+        $response = new \ReflectionProperty($app, 'response');
+        $response->setAccessible(true);
+
+        $app->run($router);
+
+        $responseObj = $response->getValue($app);
+
+        $this->assertEquals(true, $responseObj instanceof ResponseInterface);
+        $this->assertEquals('bye bye Mario', (string)$responseObj->getBody());
     }
 }

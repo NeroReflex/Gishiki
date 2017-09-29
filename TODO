@@ -9,3 +9,4 @@
 - better datatypes for RDBMS
 - Include a date+time library
 - put settings.json content into a cache to speed up page loading
+- add a profiler

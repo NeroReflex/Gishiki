@@ -148,7 +148,7 @@ final class Route
      * @param ResponseInterface $response  the action must fille, and what will be returned to the client
      * @param GenericCollection $arguments a list of reversed URI parameters
      */
-    public function __invoke(RequestInterface &$request, ResponseInterface &$response, GenericCollection &$arguments)
+    public function __invoke(RequestInterface &$request, ResponseInterface &$response, GenericCollection &$arguments, array $controllerArgs = [])
     {
         //import middleware
         $plugins = $this->route["plugins"];
@@ -164,14 +164,17 @@ final class Route
         $reflectedController = new \ReflectionClass($controllerName);
 
         //and create a new instance of it
-        $controllerMethod = $reflectedController->newInstanceArgs([&$request, &$response, &$arguments, &$plugins]);
+        $controller = $reflectedController->newInstanceArgs([&$request, &$response, &$arguments, &$plugins]);
+
+        //register additional arguments
+        $controller->loadDependencies($controllerArgs);
 
         //reflect the requested action
-        $reflected_action = new \ReflectionMethod($controllerName, $controllerAction);
-        $reflected_action->setAccessible(true); //can invoke private methods :)
+        $reflectedAction = new \ReflectionMethod($controllerName, $controllerAction);
+        $reflectedAction->setAccessible(true); //can invoke private methods :)
 
         //and execute it
-        $reflected_action->invoke($controllerMethod);
+        $reflectedAction->invoke($controller);
     }
 
     /**

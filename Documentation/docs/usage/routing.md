@@ -76,6 +76,7 @@ In order to use the router you have to:
   1. create one or more rules: those rules are represented as a __Route__ instance
   1. register wanted rules within a __Router__ instance
   1. run the framework by calling $app->run(router)
+  1. send back the response to the client by running $app->emit()
 
 A Route instance is created by passing an associative array containing:
   - 'controller' the name of the target controller

@@ -1,0 +1,24 @@
+{
+  "general": {
+    "development": true,
+    "timelimit": true,
+    "autolog": "default"
+  },
+  "loggers": {
+    "default": [
+      {
+        "class": "StreamHandler",
+        "connection": [
+          "tests/customLog.log",
+          400
+        ]
+      }
+    ]
+  },
+  "connections": [
+    {
+      "name": "default",
+      "query": "sqlite:\/\/tests\/default.sqlite"
+    }
+  ]
+}

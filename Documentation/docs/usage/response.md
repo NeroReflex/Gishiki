@@ -1,13 +1,12 @@
 # Response
 
-The __Gishiki\HttpKernel\Response__ class is used to fully represent an HTTP response.
+The Response object passed to a controller implements __ResponseInterface__ defined on the
+[PSR-7 sheet](http://www.php-fig.org/psr/psr-7/) and follows that specification sheet.
 
-The Response class is PSR-7 conformant and follows that specification sheet.
-
-Each [Request](request.md) triggers the generation of a response.
+Each [Request](request.md) sent to the web server triggers the generation of a [Response](response.md).
 
 That response is automatically sent back to the client at the end of the
-application lifetime.
+application lifecycle.
 
 The main target of an application is __editing__ that response before the departure
 of that response.
@@ -31,20 +30,11 @@ Since each status code have its own predefined status phrase (like 404 not found
 500 internal server error, 200 OK and so on) when the status code is changed the
 status phrase is automatically changed by the framework.
 
-That can be done calling the __withStatus__ function:
+That can be done calling the __withStatus()__ function:
 
 ```php
-use Gishiki\Core\Route;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-
-Route::any(Route::NOT_FOUND,
-    function (Request $request, Response &$response, SerializableCollection &$arguments)
-{
-    //the response code - phrase will be 404 - Not Found
-    $response->withStatus(404);
-});
+//the response code - phrase will be 404 - Not Found
+$response->withStatus(404);
 ```
 
 You can manually change the status phrase, but you are discouraged from doing such
@@ -53,23 +43,14 @@ thing with standard status code!
 What you can do is using it to send a strong signal to a bad client:
 
 ```php
-use Gishiki\Core\Route;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-
-Route::any("/complex",
-    function (Request $request, Response &$response, SerializableCollection &$arguments)
-{
-    //numberOfRequests is the number of requests that a client has sent today
-    if ($numberOfRequests > 5) {
-        //perform the complex operation (may stress the system)
-        action();
-    } else {
-        //stop flooding my servers!
-        $response->withStatus(666, 'FUCK YOU!');
-    }
-});
+//numberOfRequests is the number of requests that a client has sent within 60 minutes
+if ($numberOfRequests > 50) {
+    //perform the complex operation (may stress the system)
+    action();
+} else {
+    //stop flooding my servers!
+    $response = $response->withStatus(666, 'FUCK YOU!');
+}
 ```
 
 Sorry for the bad language, that was only intended to help me to give you a (real :D)
@@ -78,25 +59,13 @@ example of usage.
 
 ## Response Header Details
 
-Each response can contains a lot of details about itselfs like the length of the
+Each response can contains a lot of details about itself like the length of the
 content or the type of the content.
 
-Each 'response detail' is a collection of values binded to a key which is the name
-of the property.
-
-In order to edit the value of a property you have to use the __withHeader__ function:
+In order to edit the value of a property you have to use the __withHeader()__ function:
 
 ```php
-use Gishiki\Core\Route;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-
-Route::any("/complex",
-    function (Request $request, Response &$response, SerializableCollection &$arguments)
-{
-    $request->withHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
-});
+$request = $request->withHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
 ```
 
 If you are unsure on how to use this feature you should read more about http response [header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers).
@@ -110,18 +79,11 @@ response.
 For example if the response is an html content the response body is what the
 user calls *the webpage*.
 
-To directly modify the response body you can use the __write__ function:
+To directly modify the response body you can use the __write()__ function on the
+stream reference returned by the __getBody__ function:
 
 ```php
-use Gishiki\Core\Route;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-
-Route::any("/",
-    function (Request $request, Response &$response, SerializableCollection &$arguments)
-{
-    $content = <<<EOT
+$content = <<<EOT
 <html>
     <head>
         <title>My webpage</title>
@@ -133,57 +95,20 @@ Route::any("/",
 </html>
 EOT;
 
-    //write the response
-    $response->withHeader('Content-Type', 'text/html');
-    $response->write($content);
-});
+//write the response
+$response = $response->withHeader('Content-Type', 'text/html');
+$response->getBody()->write($content);
 ```
 
-This is a simple example to Gishiki used to generate an html response,
-however since Gishiki is built to be used as the foundation of RESTful services
-the response body shoild be a JSON, XML, YAML etc... content.
+Keep in mind that you can provide your __OWN__ Stream by calling the *withBody()* function.
 
-To generate a response body from a serializable data collection Gishiki provides
-a function that automate this process: this function is called __setSerializedBody__
-and does more than just converting a collection to a fixed format:
+To adhere to PSR-7 standard the body stream __MUST__ implement StreamInterface.
 
-```php
-use Gishiki\Core\Route;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
 
-Route::any("/factorial/{int:integer}",
-    function (Request $request, Response &$response, SerializableCollection &$arguments)
-{
-    $x = $arguments->int;
-    $factorial = fact($x);
+## More about Response
 
-    $data = new SerializableCollection([
-        'timestamp' => time(),
-        'result'    => $factorial,
-    ]);
+This is only a brief introduction to general PSR-7 programming.
 
-    $response->setSerializedBody($data);
-});
-```
+Actually Gishiki uses Zend [Diactoros](https://github.com/zendframework/zend-diactoros).
 
-The given collection may be serialized to a JSON content, XML content or YAML content.
-You may decide the content type by setting the header 'Content-Type' __BUT THAT IS A WASTE OF TIME__:
-Gishiki __AUTOMAGICALLY__ uses the content type listening for client preferences.
-
-This means that a client is not enforced to be able to deserialize a specific
-content type, but can choose the preferred content-type including it on the
-http request header using the 'Accept' property!
-
-Following accept values are used to request a specific data serialization format:
-
-   - 'text/yaml'            -> YAML
-   - 'text/x-yaml'          -> YAML
-   - 'application/yaml'     -> YAML
-   - 'application/x-yaml'   -> XML
-   - 'application/xml'      -> XML
-   - 'text/xml'             -> XML
-   - 'application/json'     -> JSON
-
-Anything else triggers the default serialization format, which is JSON!
+Read more about Zend Diactoros [here](https://docs.zendframework.com/zend-diactoros/overview/).

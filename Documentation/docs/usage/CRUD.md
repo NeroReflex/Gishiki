@@ -4,7 +4,8 @@ of main operations you will be allowed (directly or indirectly) to perform on
 databases that are supporting your application.
 
 __Notice that:__ if you only need read permissions from a database such as
-PostgreSQL or MySQL, you do __NOT__ need to use an user with full access.
+PostgreSQL or MySQL, you do __SHOULD NOT__ to use an user with full access.
+
 
 ## Create
 The creation of a new *document*/*row* either starts from a __CollectionInterface__,
@@ -27,6 +28,7 @@ $idOfNewDocument = $connection->create('tbname', new SerializableCollection([
 ```
 
 Where the name of the connection is the same name in the application [configuration](configuration.md).
+
 
 ## Delete
 To delete a restricted set of *documents*/*rows* from a *table*/*collection*

@@ -1,5 +1,4 @@
 # Database
-
 Gishiki is developed to reflect the MVC pattern: this means that the data lifecycle
 is a foundamental characteristic within the framework!
 
@@ -12,7 +11,6 @@ have a name, and there __CANNOT__ be two connections with the same name.
 
 
 ## Connecting Database
-
 A database connection have the following form:
 
 ```
@@ -35,7 +33,6 @@ mongodb://username:password@host:port/dbname
 
 
 ## Differences between databases
-
 Each database manager has different characteristics: Gishiki aims to preserve
 strong points of each one, but miracles are not possibles: everything comes to
 a price.
@@ -48,6 +45,5 @@ Following are __RULES__ you __MUST__ follow when designing database tables.
 
 
 ## Operations on Databases
-
 To understand how to interact with the database you have to read the [CRUD](CRUD.md)
 chapter of this tutorial.

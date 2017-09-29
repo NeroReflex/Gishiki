@@ -7,6 +7,7 @@ but you will need to know how to use Gishiki before understanding that documenta
 The API Documentation is perfect to have an overview of what you can do using Gishiki and 
 how Gishiki is organized internally.
 
+
 ## Accessing the docs
 You can access the API Documentation from [here](API/index.html).
 

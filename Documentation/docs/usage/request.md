@@ -1,9 +1,10 @@
 # Request
-The __Gishiki\HttpKernel\Request__ class is used to fully represent an HTTP request.
 
-The Request class is PSR-7 conformant and follows that specification sheet.
+The Request object passed to a controller implements __RequestInterface__ defined on the
+[PSR-7 sheet](http://www.php-fig.org/psr/psr-7/) and follows that specification sheet.
 
- 
+Each [Request](request.md) sent to the web server triggers the generation of a [Response](response.md).
+
 ## Request Method
 When an HTTP request is sent to the server the client has to specify the type of the
 request, that request type is called 'method'.
@@ -18,72 +19,8 @@ Usually you work with following methods:
   - PATCH
   - OPTIONS
 
-but your application can also support your own methods!
-
 You can inspect the HTTP request’s method with the Request object method
 appropriately named getMethod()
-
-```php
-use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-
-Route::any("/method_test",
-    function (Request $request, Response &$response, SerializableCollection &$arguments)
-{
-    $method = $request->getMethod();
-
-    //this is what will be executed when the client asks for an unrouted URI
-    $response->withStatus(200);
-
-    //error message!
-    $response->write("You have used the ".$method." method to fetch this page!");
-});
-```
-
-However you can override the standard HTTP method including in the header an
-X-Http-Method-Override property, for example:
-
-```
-POST /path HTTP/1.1
-Host: example.com
-Content-type: application/json
-X-Http-Method-Override: PUT
-```
-
-And the code before will return the string "PUT", and not the string "POST".
-
-If you want to retrive the real HTTP method used (non-overridden) you can do it
-using another function which is called getOriginalMethod():
-
-```php
-use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-
-Route::any("/method_test",
-    function (Request $request, Response &$response, SerializableCollection &$arguments)
-{
-    $method = $request->getMethod();
-    $origin_method = $request->getOriginalMethod();
-
-    //this is what will be executed when the client asks for an unrouted URI
-    $response->withStatus(200);
-
-    //error message!
-    $response->write("You have used the ".$method." method to fetch this page!\n");
-    
-    if ($method != $origin_method) 
-        $response->write("However the request used the ".$origin_method." method to fetch this page!\n");
-});
-```
-
-If you try overriding the HTTP method you will see the you will be found cheating :D
-
 
 ## Request URI
 Every HTTP request has a URI that identifies the requested application resource.
@@ -98,91 +35,61 @@ The HTTP request URI is composite of several parts:
 You can fetch the Request object’s URI using its getUri() method:
 
 ```php
-use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-
-Route::any("/method_test",
-    function (Request $request, Response &$response, SerializableCollection &$arguments)
-{
-    //get the URI of the current request
-    $uri = $request->getUri();
+//get the URI of the current request
+$uri = $request->getUri();
     
-    //do something with this URI
-});
+//do something with this URI
 ```
 
 Operation allowed on an URI are:
 
-   - getScheme()
-   - getAuthority()
-   - getUserInfo()
-   - getHost()
-   - getPort()
-   - getPath()
-   - getBasePath()
-   - getQuery()
-   - getFragment()
-   - getBaseUrl()
-   - getQueryParams()
+   - *getScheme()*
+   - *getAuthority()*
+   - *getUserInfo()*
+   - *getHost()*
+   - *getPort()*
+   - *getPath()*
+   - *getBasePath()*
+   - *getQuery()*
+   - *getFragment()*
+   - *getBaseUrl()*
+   - *getQueryParams()*
 
-where getQueryParams() returns an associative array, getQuery() returns the complete
-query string and getBaseUrl() the complete URL of the request.
+where *getQueryParams()* returns an associative array, *getQuery()* returns the complete
+query string and *getBaseUrl(*) the complete URL of the request.
 
 
 ## Request Headers
 Headers are metadata that describe the HTTP request but are not visible in the
 request’s body.
 
-Each header can contain more values: this is why the velue of a single header is
+Each header can contain more values: this is why the value of a single header is
 represented as a non-associative array.
 
 You can have the complete list of headers, in form of an associative array by
-calling the getHeaders() function the interested request.
+calling the *getHeaders()* function the interested request.
 
 A simple example can be:
 
 ```php
-use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-
-Route::any("/",
-    function (Request $request, Response &$response, SerializableCollection &$arguments)
-{
-    foreach ($request->getHeaders() as $name => $values) {
-        $response->write("name: ". $name . " => values:" . implode(", ", $values));
-    }
-});
+foreach ($request->getHeaders() as $name => $values) {
+    $response->write("name: ". $name . " => values:" . implode(", ", $values));
+}
 ```
 
-separing each value of the request with a comma is equal is equal to calling the
+joining each value of the request with a comma is equal is equal to calling the
 getHeaderLine('header_name') function on the interested request.
 
 The previous example can be rewritten as:
 
 ```php
-use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-
-Route::any("/",
-    function (Request $request, Response &$response, SerializableCollection &$arguments)
-{
-    foreach (array_keys($request->getHeaders()) as $name) {
-        $response->write("name: ". $name . " => values:" . $request->getHeaderLine($name);
-    }
-});
+foreach (array_keys($request->getHeaders()) as $name) {
+    $response->write("name: ". $name . " => values:" . $request->getHeaderLine($name);
+}
 ```
 
-You can test the existance of a given header calling the hasHeader('header_name')
-function.
+You can test whether a given header exists by calling the *hasHeader()*
+function by passing the header name as its argument.
 
 If the result is true you can safely call the getHeader('header_name') function
 that will return the non-associative array representing the header values.
@@ -194,42 +101,28 @@ An HTTP request may have a body following its header.
 That body is useful when creating a RESTful service, because it may contains lots
 of information about the requested action.
 
-Within Gishiki you can access the body of the interested request as a stream
-PSR-7 compilant. You can obtain that stream calling the getBody() function.
+Within Gishiki you can access the body of the interested request as a stream,
+as defined in PSR-7. You can obtain a reference to that stream by calling the *getBody()* function.
 
 Let's look into an example:
 
 ```php
-use Gishiki\Core\Route;
-use Gishiki\Logging\Logger;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
+//get the body stream
+$bodyStream = $request->getBody();
 
-Route::any("/",
-    function (Request $request, Response &$response, SerializableCollection &$arguments)
-{
-    //get the body stream
-    $body = $request->getBody();
+//rewind the stream (aka reset the cursor at the beginning of the stream)
+$bodyStream->rewind();
 
-    //rewind the stream (aka reset the cursor at the beginning of the stream)
-    $body->rewind();
+//read the entire request body
+$request = (string)$bodyStream;
 
-    //read the entire request body
-    $request = "";
-    while (!$body->eof()) {
-        $request .= read(1);
-    }
-
-    //have fun with your request body!
-});
+//have fun with your request body!
 ```
 
-I know what you are thinking... You could parse that request body to obtain
-something like an array or a class that you can use within your application....
 
-Well, if that's the case you may appreciate the fact that Gishiki does this
-in your place!
+## More about Requests
+This is only a brief introduction to general PSR-7 programming.
 
-To trigger the request body automatic parsing you can use the getParsedBody()
-function that triggers the better parser for the given 'Content-type' header!
+Actually Gishiki uses Zend [Diactoros](https://github.com/zendframework/zend-diactoros).
+
+Read more about Zend Diactoros [here](https://docs.zendframework.com/zend-diactoros/overview/).

@@ -70,6 +70,15 @@ class GenericCollectionTest extends TestCase
         $this->assertEquals($rebuilt_collection, $native_collection);
     }
 
+    public function testOffsetGet()
+    {
+        $collection = new GenericCollection([
+            "test" => 5
+        ]);
+
+        $this->assertEquals(5, $collection->offsetGet('test'));
+    }
+
     public function testObjectNotation()
     {
         $collection = new GenericCollection([

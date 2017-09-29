@@ -34,6 +34,50 @@ use PHPUnit\Framework\TestCase;
  */
 class RouteTest extends TestCase
 {
+    public function testBadController()
+    {
+        $this->expectException(RouterException::class);
+
+        new Route([
+            "verbs" => [
+                Route::GET, Route::POST
+            ],
+            "uri" => "/email/{mail:email}",
+            "status" => Route::OK,
+            "controller" => 6,
+            "action" => "quickAction"
+        ]);
+    }
+
+    public function testBadAction()
+    {
+        $this->expectException(RouterException::class);
+
+        new Route([
+            "verbs" => [
+                Route::GET, Route::POST
+            ],
+            "uri" => "/email/{mail:email}",
+            "status" => Route::OK,
+            "controller" => "FakeController",
+            "action" => null
+        ]);
+    }
+
+    public function testUnknownAction()
+    {
+        $this->expectException(RouterException::class);
+
+        new Route([
+            "verbs" => [
+                Route::GET, Route::POST
+            ],
+            "uri" => "/email/{mail:email}",
+            "status" => Route::OK,
+            "controller" => "FakeController",
+            "action" => "doSomething... PLS!"
+        ]);
+    }
 
     public function testRoute()
     {

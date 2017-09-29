@@ -1,12 +1,10 @@
 # Logging
-
 Gishiki comes with [monolog](https://github.com/Seldaek/monolog) and uses it as its logging engine.
 
 Every PSR-3 compatible logger can be used and the integration is monolog own business. 
 
 
 ## Getting a logger
-
 Within Gishiki each time you want to store a log entry a logger object is required.
 
 The logger object is defined in the application configuration.
@@ -19,7 +17,6 @@ will be returned (see [configuration](configuration.md) for an example of config
 
 
 ## Connection
-
 Defining a logger instance, also erroneously called "connection" depends on the logger class to be used.
 
 Each connection in the connection pool is expressed as "connection name": [{ ...attributes... }, { ...attributes... }].
@@ -49,7 +46,6 @@ That logger wrapper is bind to a StreamHandler logger instance that will be used
 
 
 ## Usage
-
 The most trivial operation will be something like
 
 ```php

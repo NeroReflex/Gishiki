@@ -80,7 +80,7 @@ final class Route
      */
     public function __construct(array $options)
     {
-        foreach ($options as $key => $value)
+        foreach ($options as $key => &$value)
         {
             if (is_string($key))
             {
@@ -96,8 +96,8 @@ final class Route
                     $this->route["controller"] = $value;
                 } else if (strcmp(strtolower($key), "action") == 0) {
                     $this->route["action"] = $value;
-                } else if (strcmp(strtolower($key), "plugins") == 0) {
-                    $this->route["plugins"] = $value;
+                } else if ((strcmp(strtolower($key), "plugins") == 0) && (is_array($value))) {
+                    $this->route["plugins"] = array_merge($this->route["plugins"], $value);
                 }
             }
         }
@@ -128,10 +128,6 @@ final class Route
 
         if (!method_exists($this->route["controller"], $this->route["action"])) {
             throw new RouterException("Invalid Action: ".$this->route["action"]." is not a valid function of the ".$this->route["controller"]." class", 6);
-        }
-
-        if (!is_array($this->route["plugins"])) {
-            throw new RouterException("Invalid plugin", 7);
         }
 
         foreach ($this->route["plugins"] as $id => &$middleware) {

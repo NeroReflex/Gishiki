@@ -40,6 +40,7 @@ class SimpleLexerTest extends TestCase
         $this->assertEquals(false, SimpleLexer::isFloat(null));
         $this->assertEquals(false, SimpleLexer::isFloat("0.0.1"));
         $this->assertEquals(false, SimpleLexer::isFloat("+0a5"));
+        $this->assertEquals(false, SimpleLexer::isFloat("+0-5"));
         $this->assertEquals(false, SimpleLexer::isFloat("-45."));
 
         $this->assertEquals(true, SimpleLexer::isFloat("+1"));
@@ -54,6 +55,22 @@ class SimpleLexerTest extends TestCase
         $this->assertEquals(false, SimpleLexer::isSignedInteger("0.0"));
         $this->assertEquals(false, SimpleLexer::isSignedInteger("+0a5"));
         $this->assertEquals(false, SimpleLexer::isSignedInteger("-45."));
+        $this->assertEquals(false, SimpleLexer::isSignedInteger("n45"));
+        $this->assertEquals(false, SimpleLexer::isSignedInteger(8));
+
+        $this->assertEquals(true, SimpleLexer::isSignedInteger("8"));
+        $this->assertEquals(true, SimpleLexer::isSignedInteger("+1"));
+        $this->assertEquals(true, SimpleLexer::isSignedInteger("-2"));
+        $this->assertEquals(true, SimpleLexer::isSignedInteger("-57"));
+        $this->assertEquals(true, SimpleLexer::isSignedInteger("+50"));
+    }
+
+    public function testUnsignedInteger()
+    {
+        $this->assertEquals(false, SimpleLexer::isSignedInteger(null));
+        $this->assertEquals(false, SimpleLexer::isSignedInteger("0.0"));
+        $this->assertEquals(false, SimpleLexer::isSignedInteger("0a5"));
+        $this->assertEquals(false, SimpleLexer::isSignedInteger(5));
 
         $this->assertEquals(true, SimpleLexer::isSignedInteger("8"));
         $this->assertEquals(true, SimpleLexer::isSignedInteger("+1"));

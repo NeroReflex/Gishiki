@@ -123,6 +123,16 @@ class RouterTest extends TestCase
         ], $expr);
     }
 
+    public function testDynamicString()
+    {
+        $expr = null;
+
+        $this->assertEquals(true, Router::matches("/hello/{name:str}", "/hello/John", $expr));
+        $this->assertEquals([
+            "name" => "John",
+        ], $expr);
+    }
+
     public function testDynamicFloat()
     {
         $expr = null;

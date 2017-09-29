@@ -155,4 +155,27 @@ class RequestDeserializerTest extends TestCase
 
         $controller->getRequestDeserialized();
     }
+
+    public function testUnknownFormatDeserialization()
+    {
+        $request = new Request();
+        $request = $request->withHeader('Content-Type', 'unknownw/nonw');
+        $request->getBody()->write(
+            "hello=>7"
+        );
+        $request->getBody()->rewind();
+
+        $response = new Response();
+
+        $collection = new GenericCollection([]);
+        $plugins = [
+            RequestDeserializer::class
+        ];
+
+        $controller = new \FakeController($request, $response, $collection, $plugins);
+
+        $this->expectException(ControllerException::class);
+
+        $controller->getRequestDeserialized();
+    }
 }

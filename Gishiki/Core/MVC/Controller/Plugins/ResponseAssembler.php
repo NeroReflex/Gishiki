@@ -61,15 +61,14 @@ class ResponseAssembler extends Plugin
      */
     public function assemblyWith(\Closure $callable, $input)
     {
-        if (is_callable($callable)) {
-            try {
-                return $callable($input, $this->assembly());
-            } catch (\Error $ex) {
-                throw new ControllerException("The given function doesn't accept passed parameters", 103);
-            }
+        $return = null;
+        try {
+             $return = $callable($input, $this->assembly());
+        } catch (\Error $ex) {
+            throw new ControllerException("The given function doesn't accept passed parameters", 103);
         }
 
-        throw new ControllerException("The given function cannot be executed", 102);
+        return $return;
     }
 
     /**

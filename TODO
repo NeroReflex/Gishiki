@@ -1,3 +1,4 @@
+- manage router errors
 - review and add documentation
 - map an URL that can be used by authenticated clients to issue commands to the server! - cryptography and strong security must be in place!!!
 - authentication OAuth2.0 should be part of the framework, somehow....

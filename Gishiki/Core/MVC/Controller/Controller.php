@@ -140,6 +140,9 @@ abstract class Controller
                 $reflectedFunction->setAccessible(true);
                 $returnValue = $reflectedFunction->invokeArgs($plugin, $arguments);
 
+                //update response
+                $this->response = $plugin->getResponse();
+
                 $executed = true;
             } catch (\ReflectionException $ex) {
                 //there is nothing to be catched. Invoked method is not in this plugin

@@ -87,7 +87,7 @@ final class ResponseSerializer extends Plugin
      */
     public function setResponseContentType($type)
     {
-        $this->getResponse()->withHeader('Content-Type', $type);
+        $this->response = $this->getResponse()->withHeader('Content-Type', $type);
     }
 
     /**

@@ -18,7 +18,7 @@ limitations under the License.
 namespace Gishiki\Security\Encryption\Symmetric;
 
 use Gishiki\Security\Hashing\Algorithm;
-use Gishiki\Core\Environment;
+use Gishiki\Security\Hashing\HashingException;
 
 /**
  * This class represents a secret key for the symmetric encryption engine.
@@ -31,15 +31,16 @@ final class SecretKey
 {
     /**
      * Generate the hexadecimal representation of a secure key
-     * using the pbkdf2 algorithm in order to derive it from the
+     * using a salt algorithm in order to derive it from the
      * given password.
      *
-     * Note: this function MAY throw exceptions
-     * (the same exceptions Algorithm::pbkdf2() can throw)
+     * *Note*: once generated the key cannot be retrieved...
+     * you __MUST__ save the key for future usage.
      *
      * @param string $password   the password to be derived
      * @param int    $key_length the final length of the key (in bytes)
-     *
+     * @throws \InvalidArgumentException invalid arguments have been passed
+     * @throws HashingException          the error occurred while generating the requested hashing algorithm
      * @return string an hex representation of the generated key
      */
     public static function generate($password, $key_length = 16)
@@ -50,12 +51,6 @@ final class SecretKey
         //generate the pbkdf2 key
         return Algorithm::pbkdf2($password, $salt, $key_length, 20000, Algorithm::SHA256);
     }
-
-    /**************************************************************************
-     *                                                                        *
-     *                          NON-static properties                         *
-     *                                                                        *
-     **************************************************************************/
 
     /**
      * @var string the key in the native format
@@ -89,15 +84,12 @@ final class SecretKey
      *
      * @param string $key the password to be used in a HEX encoded format
      */
-    public function __construct($key = null)
+    public function __construct($key)
     {
         //check for the input
-        if (((!is_string($key)) || (strlen($key) <= 2)) && (!is_null($key))) {
+        if ((!is_string($key)) || (strlen($key) <= 2)) {
             throw new \InvalidArgumentException('The secure key must be given as a non-empty string that is the hex representation of the real key');
         }
-
-        //get the symmetric key to be used
-        $key = (!is_null($key)) ? $key : Environment::getCurrentEnvironment()->getConfigurationProperty('MASTER_SYMMETRIC_KEY');
 
         //get the real encryption key
         $this->keyLength = strlen($key) / 2;

@@ -17,42 +17,139 @@ limitations under the License.
 
 namespace Gishiki;
 
-use Gishiki\Core\Environment;
+use Gishiki\Core\Config;
 use Gishiki\Core\Router\Router;
+use Gishiki\Database\DatabaseManager;
+use Gishiki\Logging\LoggerManager;
+use Gishiki\Security\Encryption\Asymmetric\PrivateKey;
+use Zend\Diactoros\Response\SapiStreamEmitter;
+use Zend\Diactoros\Response;
+use Zend\Diactoros\ServerRequestFactory;
 
 /**
  * The Gishiki action starter and framework entry point.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-abstract class Gishiki
+final class Gishiki
 {
-    //this is the environment used to fulfill the incoming request
-    public static $executionEnvironment = null;
+    /**
+     * @var Config the application configuration
+     */
+    protected $configuration;
 
-    //was the Run function already being executed?
-    private static $executed = false;
+    /**
+     * @var string the path of the current directory
+     */
+    protected $currentDirectory;
 
     /**
      * Initialize the Gishiki engine and prepare for
      * the execution of a framework instance.
      */
-    public static function initialize()
+    public function __construct()
     {
-        //remove default execution time
-        set_time_limit(0);
-
         //get the root path
         $documentRoot = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
 
-        ((!defined('ROOT')) && (strlen($documentRoot) > 0)) ?
-            define('ROOT', filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').DIRECTORY_SEPARATOR) :
-            define('ROOT', getcwd().DIRECTORY_SEPARATOR);
+        $this->currentDirectory = (strlen($documentRoot) > 0) ?
+            filter_input(INPUT_SERVER, 'DOCUMENT_ROOT') : getcwd();
 
-        //the name of the directory that contains model, view and controller (must be placed in the root)
-        if (!defined('APPLICATION_DIR')) {
-            define('APPLICATION_DIR', ROOT.DIRECTORY_SEPARATOR);
+        $this->currentDirectory .= DIRECTORY_SEPARATOR;
+
+        if ($this->currentDirectory.'openssl.cnf') {
+            PrivateKey::$openSSLConf = $this->currentDirectory.'openssl.cnf';
         }
+
+        //load application configuration
+        $this->configuration = new Config($this->currentDirectory."settings.json");
+
+        $this->applyConfiguration();
+    }
+
+    /**
+     * Apply the application configuration.
+     */
+    protected function applyConfiguration()
+    {
+        $this->setDevelopmentEnv($this->configuration->getConfiguration()->get('general')['development']);
+        $this->setTimeLimit($this->configuration->getConfiguration()->get('general')['timelimit']);
+
+        $connections = $this->configuration->getConfiguration()->get('connections');
+        if (is_array($connections)) {
+            $this->connectDatabase($connections);
+        }
+
+        $loggers = $this->configuration->getConfiguration()->get('loggers');
+        if (is_array($loggers)) {
+            $this->connectLogger($loggers, $this->configuration->getConfiguration()->get('general')['autolog']);
+        }
+    }
+
+    /**
+     * Prepare every logger instance setting the default one.
+     *
+     * If the default logger name is given it will be set as the default one.
+     *
+     * @param array  $connections the array of connections
+     * @param string $default     the name of the default connection
+     */
+    protected function connectLogger(array $connections, $default)
+    {
+        //connect every logger instance
+        foreach ($connections as $connectionName => &$connectionDetails) {
+            LoggerManager::connect($connectionName, $connectionDetails);
+        }
+
+        //set the default logger connection
+        if (is_string($default) && (strlen($default) > 0) && (array_key_exists($default, $connections))) {
+            LoggerManager::setDefault($default);
+        }
+    }
+
+    /**
+     * Prepare connections to databases.
+     *
+     * @param array $connections the array of connections
+     */
+    protected function connectDatabase(array $connections)
+    {
+        //connect every db connection
+        foreach ($connections as $connection) {
+            DatabaseManager::connect($connection['name'], $connection['query']);
+        }
+    }
+
+    /**
+     * Remove the PHP time limit for a request on false.
+     *
+     * @param $val bool if false remove the time limit
+     */
+    protected function setTimeLimit($val)
+    {
+        if (!$val) {
+            //remove default execution time
+            set_time_limit(0);
+            return;
+        }
+    }
+
+    /**
+     * Set all development output on true.
+     *
+     * @param $val bool if true development enabled
+     */
+    protected function setDevelopmentEnv($val)
+    {
+        //development configuration
+        if ($val) {
+            ini_set('display_errors', 1);
+            error_reporting(E_ALL);
+            return;
+        }
+
+        ini_set('display_errors', 0);
+        error_reporting(0);
     }
 
     /**
@@ -60,32 +157,28 @@ abstract class Gishiki
      *
      * @param $application Router
      */
-    public static function run(Router &$application)
+    public function run(Router &$application)
     {
-        //avoid double executions
-        if (self::$executed) {
-            return;
+        //get current request...
+        $currentRequest = ServerRequestFactory::fromGlobals(
+            $_SERVER,
+            $_GET,
+            $_POST,
+            $_COOKIE,
+            $_FILES
+        );
+
+        //...generate the response
+        try {
+            $response = $application->run($currentRequest);
+        } catch (\Exception $ex) {
+            $response = new Response();
+            $response = $response->withStatus(400);
+            $response = $response->getBody()->write($ex->getMessage());
         }
 
-        //initialize the framework
-        self::initialize();
-
-        //each Gishiki instance is binded with a newly created Environment
-        if (!is_object(self::$executionEnvironment)) {
-            self::$executionEnvironment = new Environment(
-                filter_input_array(INPUT_SERVER), true, true);
-        }
-
-        //if the framework needs to be installed.....
-        if (Environment::applicationExists()) {
-            //fulfill the client request
-            Environment::getCurrentEnvironment()->fulfillRequest($application);
-        } elseif (!defined('CLI_TOOLKIT')) {
-            //show the no application page!
-            echo file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'no_application.html');
-        }
-
-        //the framework execution is complete
-        self::$executed = true;
+        //...and serve it
+        $emitter = new SapiStreamEmitter();
+        $emitter->emit($response);
     }
 }

@@ -34,7 +34,7 @@ class HasherTest extends TestCase
     {
         $this->expectException(HashingException::class);
 
-        $hasher = new Hasher('bad algo');
+        new Hasher('bad algo');
     }
 
     public function testBCrypt()
@@ -73,6 +73,7 @@ class HasherTest extends TestCase
         $this->assertEquals(false, $hasher->verify($random, 'anything else'));
 
         $badHash = $digest;
+        $badHash[2] = 'k';
         $badHash[strlen($badHash) - 2] = 'a';
 
         $this->assertEquals(false, $hasher->verify($random, $badHash));

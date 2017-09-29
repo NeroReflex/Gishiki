@@ -27,6 +27,25 @@ use Gishiki\Algorithms\Collections\GenericCollection;
  */
 class FakeController extends Controller
 {
+    public static function generateTestingData()
+    {
+        srand(null);
+
+        $data = [
+            "int_test" => rand(0, 150),
+            "str_test" => base64_encode(openssl_random_pseudo_bytes(32)),
+            "float_test" => rand(0, 3200) + (rand(0, 9) / 10),
+            "array_test" => [
+                base64_encode(openssl_random_pseudo_bytes(32)),
+                base64_encode(openssl_random_pseudo_bytes(32)),
+                base64_encode(openssl_random_pseudo_bytes(32)),
+                base64_encode(openssl_random_pseudo_bytes(32))
+            ],
+        ];
+
+        return $data;
+    }
+
     public function none()
     {
 

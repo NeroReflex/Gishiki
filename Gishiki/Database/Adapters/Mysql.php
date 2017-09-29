@@ -42,24 +42,24 @@ final class Mysql extends PDODatabase
 
         $userPosition = strpos($details, 'user=');
         if ($userPosition !== false) {
-            $firstUserCharPosition = $userPosition + strlen('user=');
-            $endingUserCharPosition = strpos($details, ';', $firstUserCharPosition);
-            $lasUserCharPosition = ($endingUserCharPosition !== false) ?
-                $endingUserCharPosition : strlen($details);
-            $user = substr($details, $firstUserCharPosition, $lasUserCharPosition - $firstUserCharPosition);
-            $details = ($endingUserCharPosition !== false) ?
+            $firstUserCharPos = $userPosition + strlen('user=');
+            $endingUserCharPos = strpos($details, ';', $firstUserCharPos);
+            $lastUserCharPos = ($endingUserCharPos !== false) ?
+                $endingUserCharPos : strlen($details);
+            $user = substr($details, $firstUserCharPos, $lastUserCharPos - $firstUserCharPos);
+            $details = ($endingUserCharPos !== false) ?
                 str_replace('user=' . $user . ';', '', $details) :
                 str_replace('user=' . $user, '', $details);
         }
 
-        $passwordPosition = strpos($details, 'password=');
-        if ($passwordPosition !== false) {
-            $firstPassCharPosition = $passwordPosition + strlen('password=');
-            $endingPassCharPosition = strpos($details, ';', $firstPassCharPosition);
-            $lasPassCharPosition = ($endingPassCharPosition !== false) ?
-                $endingPassCharPosition : strlen($details);
-            $password = substr($details, $firstPassCharPosition, $lasPassCharPosition - $firstPassCharPosition);
-            $details = ($endingPassCharPosition !== false) ?
+        $passwordPos = strpos($details, 'password=');
+        if ($passwordPos !== false) {
+            $firstPassCharPos = $passwordPos + strlen('password=');
+            $endingPassCharPos = strpos($details, ';', $firstPassCharPos);
+            $lasPassCharPosition = ($endingPassCharPos !== false) ?
+                $endingPassCharPos : strlen($details);
+            $password = substr($details, $firstPassCharPos, $lasPassCharPosition - $firstPassCharPos);
+            $details = ($endingPassCharPos !== false) ?
                 str_replace('password=' . $password . ';', '', $details) :
                 str_replace('password=' . $password, '', $details);
         }

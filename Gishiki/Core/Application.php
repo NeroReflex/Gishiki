@@ -152,11 +152,17 @@ final class Application
     /**
      * Emit the response generated bu calling the run() function.
      */
-    public function emit()
+    public function emit($emitter = SapiStreamEmitter::class)
     {
-        //serve the response to the client
-        $emitter = new SapiStreamEmitter();
-        $emitter->emit($this->response);
+        try {
+            $reflectedEmitter = new \ReflectionClass($emitter);
+
+            //serve the response to the client
+            $emitter = $reflectedEmitter->newInstance();
+            $emitter->emit($this->response);
+        } catch (\ReflectionException $ex) {
+
+        }
     }
 
     /**

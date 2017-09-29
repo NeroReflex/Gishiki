@@ -39,11 +39,11 @@ class SQLQueryBuilder
         return new GenericSQL();
     }
 
-    public function createTableQuery(Table $tb)
+    public function createTableQuery(Table $table)
     {
         //build the sql query
         $queryBuilder = $this->getQueryBuilder();
-        $queryBuilder->createTable($tb->getName())->definedAs($tb->getColumns());
+        $queryBuilder->createTable($table->getName())->definedAs($table->getColumns());
 
         return $queryBuilder;
     }

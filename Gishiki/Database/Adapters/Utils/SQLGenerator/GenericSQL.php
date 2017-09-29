@@ -233,7 +233,7 @@ class GenericSQL
             foreach ($resultExported['historic'] as $current) {
                 $conjunction = '';
 
-                $arrayIndex = $current & (~SelectionCriteria::AND_Historic_Marker);
+                $arrayIndex = $current & (~SelectionCriteria::AND_HISTORIC_MARKER);
                 $arrayConjunction = '';
 
                 //default is an OR
@@ -241,7 +241,7 @@ class GenericSQL
                 $arrayConjunction = 'or';
 
                 //change to AND where necessary
-                if (($current & (SelectionCriteria::AND_Historic_Marker)) != 0) {
+                if (($current & (SelectionCriteria::AND_HISTORIC_MARKER)) != 0) {
                     $conjunction = (!$first) ? ' AND ' : ' ';
                     $arrayConjunction = 'and';
                 }

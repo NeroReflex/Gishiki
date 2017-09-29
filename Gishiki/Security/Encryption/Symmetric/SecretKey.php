@@ -38,18 +38,18 @@ final class SecretKey
      * you __MUST__ save the key for future usage.
      *
      * @param string $password   the password to be derived
-     * @param int    $key_length the final length of the key (in bytes)
+     * @param int    $keyLength  the final length of the key (in bytes)
      * @throws \InvalidArgumentException invalid arguments have been passed
      * @throws HashingException          the error occurred while generating the requested hashing algorithm
      * @return string an hex representation of the generated key
      */
-    public static function generate($password, $key_length = 16)
+    public static function generate($password, $keyLength = 16)
     {
         //generate some random characters
-        $salt = openssl_random_pseudo_bytes(2 * $key_length);
+        $salt = openssl_random_pseudo_bytes(2 * $keyLength);
 
         //generate the pbkdf2 key
-        return Algorithm::pbkdf2($password, $salt, $key_length, 20000, Algorithm::SHA256);
+        return Algorithm::pbkdf2($password, $salt, $keyLength, 20000, Algorithm::SHA256);
     }
 
     /**

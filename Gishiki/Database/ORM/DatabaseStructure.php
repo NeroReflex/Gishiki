@@ -54,19 +54,19 @@ final class DatabaseStructure
         $this->connectionName = new StackCollection();
 
         //deserialize the json content
-        $deserializedDescription = SerializableCollection::deserialize($description);
+        $deserializedDescr = SerializableCollection::deserialize($description);
 
-        if (!$deserializedDescription->has('connection')) {
+        if (!$deserializedDescr->has('connection')) {
             throw new StructureException('A database description must contains the connection field', 0);
         }
 
-        $this->connectionName = $deserializedDescription->get('connection');
+        $this->connectionName = $deserializedDescr->get('connection');
 
-        if (!$deserializedDescription->has('tables'))  {
+        if (!$deserializedDescr->has('tables'))  {
             throw new StructureException('A database description must contains a tables field', 1);
         }
 
-        foreach ($deserializedDescription->get('tables') as $tb) {
+        foreach ($deserializedDescr->get('tables') as $tb) {
             $table = new GenericCollection($tb);
 
             if (!$table->has('name')) {

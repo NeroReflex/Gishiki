@@ -112,7 +112,7 @@ class StackCollection extends GenericCollection
      */
     public function set($key, $value)
     {
-        throw new StackException('The stack collection cannot be modified calling the set function', 3);
+        throw new StackException('Invalid operation set on a stack, was called with: '.$key."=>".$value, 3);
     }
 
     /**
@@ -120,6 +120,6 @@ class StackCollection extends GenericCollection
      */
     public function get($key, $default = null)
     {
-        throw new StackException('The FIFO stack collection order cannot be violated calling the get function', 3);
+        throw new StackException('Invalid operation get on a stack, was called with: '.$key." default to".$default, 3);
     }
 }

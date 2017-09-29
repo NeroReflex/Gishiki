@@ -70,6 +70,11 @@ class FakeController extends Controller
         $this->response->getBody()->write('should I send an email to '.$this->arguments->get('mail').'?');
     }
 
+    public function exceptionTest()
+    {
+        throw new \Gishiki\Core\Exception("testing exception", 0);
+    }
+
     public function completeTest()
     {
         $this->getResponse()->getBody()->write("bye bye ".$this->arguments->get('name'));

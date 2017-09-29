@@ -46,9 +46,9 @@ interface RelationalDatabaseInterface extends DatabaseInterface
     /**
      * Create the given table schema.
      *
-     * @param Schema\Table $tb the table to be created on the database
+     * @param Schema\Table $table the table to be created on the database
      *
      * @throws DatabaseException the error occurred while creating the table
      */
-    public function createTable(Table $tb);
+    public function createTable(Table $table);
 }

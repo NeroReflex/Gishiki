@@ -141,16 +141,16 @@ final class PrivateKey
         }
 
         //get a string containing a serialized asymmetric key
-        $serialized_key = $customKey;
+        $serializedKey = $customKey;
 
         //get the beginning and ending of a private key (to stip out additional shit and check for key validity)
-        $is_encrypted = strpos($serialized_key, 'ENCRYPTED') !== false;
+        $isEncrypted = strpos($serializedKey, 'ENCRYPTED') !== false;
 
         //get the password of the serialized key
-        $serializedKeyPassword = ($is_encrypted) ? $customKeyPassword : '';
+        $keyPassword = ($isEncrypted) ? $customKeyPassword : '';
 
         //load the private key
-        $this->key = openssl_pkey_get_private($serialized_key, $serializedKeyPassword);
+        $this->key = openssl_pkey_get_private($serializedKey, $keyPassword);
 
         //check for errors
         if (!$this->isLoaded()) {
@@ -176,10 +176,10 @@ final class PrivateKey
     public function exportPublicKey()
     {
         //get details of the current private key
-        $privateKeyDetails = openssl_pkey_get_details($this->key);
+        $pubKeyDetails = openssl_pkey_get_details($this->key);
 
         //return the public key
-        return $privateKeyDetails['key'];
+        return $pubKeyDetails['key'];
     }
 
     /**
@@ -212,7 +212,7 @@ final class PrivateKey
             throw new AsymmetricException('It is impossible to serialize an unloaded private key: '.openssl_error_string(), 1);
         }
 
-        $serialized_key = '';
+        $serializedKey = '';
 
         //build the configuration array
         $config = [
@@ -229,13 +229,13 @@ final class PrivateKey
 
         //serialize the key and encrypt it if requested
         if (strlen($keyPassword) > 0) {
-            openssl_pkey_export($this->key, $serialized_key, $keyPassword, $config);
+            openssl_pkey_export($this->key, $serializedKey, $keyPassword, $config);
         } else {
-            openssl_pkey_export($this->key, $serialized_key, null, $config);
+            openssl_pkey_export($this->key, $serializedKey, null, $config);
         }
 
         //return the serialized key
-        return $serialized_key;
+        return $serializedKey;
     }
 
     /**

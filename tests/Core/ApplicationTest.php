@@ -84,4 +84,44 @@ class ApplicationTest extends TestCase
         $this->assertEquals(true, $responseObj instanceof ResponseInterface);
         $this->assertEquals('bye bye Mario', (string)$responseObj->getBody());
     }
+
+    public function testException()
+    {
+        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
+        $app = new Application();
+        unlink(__DIR__."/../../settings.json");
+
+        $router = new Router();
+        $router->register(new Route([
+            "verbs" => [
+                Route::DELETE
+            ],
+            "uri" => "/test",
+            "status" => Route::OK,
+            "controller" => "FakeController",
+            "action" => "exceptionTest"
+        ]));
+
+        $request = new \ReflectionProperty($app, 'request');
+        $request->setAccessible(true);
+
+        $testRequest = new Request();
+        $testRequest = $testRequest->withMethod('DELETE');
+        $uri = new Uri();
+        $uri = $uri->withHost('www.testingsite.com');
+        $uri = $uri->withPort(80);
+        $uri = $uri->withPath('/test');
+        $testRequest = $testRequest->withUri($uri);
+
+        $request->setValue($app, $testRequest);
+
+        $response = new \ReflectionProperty($app, 'response');
+        $response->setAccessible(true);
+
+        file_put_contents(__DIR__."/../customLog.log", "");
+
+        $app->run($router);
+
+        $this->assertGreaterThan(20, strlen(file_get_contents(__DIR__."/../customLog.log")));
+    }
 }

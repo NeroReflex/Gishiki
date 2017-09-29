@@ -136,7 +136,7 @@ class PDODatabase implements RelationalDatabaseInterface
     /**
      * {@inheritdoc}
      */
-    public function createTable(Table $tb)
+    public function createTable(Table $table)
     {
         //check for closed database connection
         if (!$this->connected()) {
@@ -144,7 +144,7 @@ class PDODatabase implements RelationalDatabaseInterface
         }
 
         //build the sql query
-        $queryBuilder = $this->getQueryBuilder()->createTableQuery($tb);
+        $queryBuilder = $this->getQueryBuilder()->createTableQuery($table);
 
         //open a new statement and execute it
         try {

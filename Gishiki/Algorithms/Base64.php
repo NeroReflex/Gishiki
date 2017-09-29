@@ -88,10 +88,10 @@ abstract class Base64
         }
 
         //is the base64 encoded in an URL safe format?
-        $url_safe = (strlen($message) % 4) || (strpos($message, '_') !== false) || (strpos($message, '~') !== false);
+        $urlSafe = (strlen($message) % 4) || (strpos($message, '_') !== false) || (strpos($message, '~') !== false);
 
         //get the base64 encoded valid string and return the decode result
-        $validBase64 = ($url_safe) ?
+        $validBase64 = ($urlSafe) ?
                 str_pad(strtr($message, '-_~', '+/='), strlen($message) + 4 - (strlen($message) % 4), '=', STR_PAD_RIGHT)
                 : $message;
 

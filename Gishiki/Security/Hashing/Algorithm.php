@@ -233,14 +233,14 @@ abstract class Algorithm
      */
     public static function pbkdf2Hash($message)
     {
-        $it = 16777216;
+        $iteration = 16777216;
         $hashingAlgorithm = 'sha512';
 
         $salt = Base64::encode(openssl_random_pseudo_bytes(64));
 
-        $hash = Base64::encode(self::pbkdf2($message, $salt, 64, $it, $hashingAlgorithm));
+        $hash = Base64::encode(self::pbkdf2($message, $salt, 64, $iteration, $hashingAlgorithm));
 
-        return '|pbkdf2%'.$hashingAlgorithm.'%'.$it.'%'.$salt.'%'.$hash;
+        return '|pbkdf2%'.$hashingAlgorithm.'%'.$iteration.'%'.$salt.'%'.$hash;
     }
 
     /**
@@ -277,10 +277,10 @@ abstract class Algorithm
         }
 
         $hashingAlgorithm = $params[1];
-        $it = intval($params[2]);
+        $iteration = intval($params[2]);
         $salt = $params[3];
 
-        $hashRecalc = Base64::encode(self::pbkdf2($message, $salt, 64, $it, $hashingAlgorithm));
+        $hashRecalc = Base64::encode(self::pbkdf2($message, $salt, 64, $iteration, $hashingAlgorithm));
 
         return (strcmp($digest, $hashRecalc) == 0);
     }

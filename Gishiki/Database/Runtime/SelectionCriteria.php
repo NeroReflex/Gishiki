@@ -24,7 +24,7 @@ namespace Gishiki\Database\Runtime;
  */
 final class SelectionCriteria
 {
-    const AND_Historic_Marker = 0b10000000;
+    const AND_HISTORIC_MARKER = 0b10000000;
 
     /**
      * @var array keeps track of the order clauses were inserted
@@ -91,7 +91,7 @@ final class SelectionCriteria
             2 => $data,
         ];
 
-        $this->historic[] = self::AND_Historic_Marker | (count($this->criteria['and']) - 1);
+        $this->historic[] = self::AND_HISTORIC_MARKER | (count($this->criteria['and']) - 1);
 
         //return the modified filter
         return $this;

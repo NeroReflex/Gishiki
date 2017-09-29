@@ -29,3 +29,6 @@ ubuntu-xenial-16.04-cloudimg-console.log
 
 # Database
 /tests/*.sqlite
+
+# Logs
+/tests/*.log

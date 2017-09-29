@@ -117,23 +117,17 @@
     
         <ul>
         
-            <li><a class="toctree-l4" href="#different-methods">Different methods</a></li>
+            <li><a class="toctree-l4" href="#http-methods">HTTP methods</a></li>
         
             <li><a class="toctree-l4" href="#static-rules">Static Rules</a></li>
         
             <li><a class="toctree-l4" href="#dynamic-rules">Dynamic Rules</a></li>
         
-            <li><a class="toctree-l4" href="#custom-dynamic-rules">Custom Dynamic Rules</a></li>
-        
-            <li><a class="toctree-l4" href="#all-request-methods">All request methods</a></li>
-        
-            <li><a class="toctree-l4" href="#two-or-more-request-methods">Two or more request methods</a></li>
-        
             <li><a class="toctree-l4" href="#error-catching">Error catching</a></li>
         
             <li><a class="toctree-l4" href="#limitation">Limitation</a></li>
         
-            <li><a class="toctree-l4" href="#conclusions">Conclusions</a></li>
+            <li><a class="toctree-l4" href="#using-the-router">Using the router</a></li>
         
         </ul>
     
@@ -222,13 +216,12 @@
             <div class="section">
               
                 <h1 id="routing">Routing</h1>
-<p>When a request arrives the framework must fulfill it.</p>
-<p>The framework automatically maps a request to a resource located at "https://site.com/Home" into "/Home" (GET request).</p>
-<p>The /Home string is the URI of the requested resource, the GET request is the HTTP method used to query that resource...
-the question is....</p>
-<p>How do I route that request to what I want to serve? The answer is: using the router!</p>
-<p>The router is that fantastic component empowering your user-friendly URLs!</p>
-<h2 id="different-methods">Different methods</h2>
+<p>When a request is made to the web server the framework must fulfill it.</p>
+<p>The framework automatically maps a request to a resource located at "https://site.com/Home" into "/Home",
+instantiates the correct <a href="controller.md">Controller</a> to perform the requested action.</p>
+<p>The router is that <strong>fantastic</strong> component empowering your user-friendly URLs by mapping a rule
+to a controller and action withing that controller.</p>
+<h2 id="http-methods">HTTP methods</h2>
 <p>As for HTTP standards a client can perform a resource request using these verbs:</p>
 <ul>
 <li>GET identified as Route::GET</li>
@@ -241,168 +234,48 @@ the question is....</p>
 </ul>
 <p>When you set a routing rule (either static or dynamic) you have to select the
 verb that you want to be served in that route.</p>
-<p>This is particulary handy when creating a RESTful service.</p>
+<p>This is really handy when creating a RESTful service.</p>
 <h2 id="static-rules">Static Rules</h2>
-<p>Let's see how to create a custom route:</p>
-<pre><code class="php">use Gishiki\Core\Route;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-
-Route::get(&quot;/&quot;,
-    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
-{
-    //this is what will be executed when the client asks for &quot;https://site.com/&quot; (the homepage)
-
-    //let's just forget about MVC pattern this time :)
-    echo &quot;Hello, World!&quot;;
-});
-</code></pre>
-
-<p>To try this rule out you have to open index.php and paste the provided code into 
-it and direct your browser to: https://site.com (the trailing / is automatically added).</p>
+<p>A static rule is a rule that maps only to itself.</p>
+<p>The most obvious example can be the <strong>/</strong> rule that is the one called when the user tries to
+direct his browser to www.yoursite.com</p>
+<p>Another example can be the <strong>/Home</strong> rule that is followed when the used address is something like:
+wwww.yoursite.com/Home</p>
 <h2 id="dynamic-rules">Dynamic Rules</h2>
-<p>This route is really simple: just an URI check... but you are creating a dynamic application,
-and URIs cannot be static URIs every time, in fact sooner or later you will need to capture a parameter passed
-as a parameter with the URL.</p>
-<p>Let's just consider this simple example:</p>
-<pre><code class="php">use Gishiki\Core\Route;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-
-Route::get(&quot;/Hello/{name_surname}&quot;,
-    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
-{
-    //this is what will be executed when the client asks for &quot;https://site.com/User/urName+urSurname&quot;
-
-    //nice to meet you!
-    $response-&gt;write(&quot;Hello, &quot;.$arguments-&gt;{&quot;name_surname&quot;}.&quot;!&quot;);
-});
-
-Route::get(&quot;/Home/{name}&quot;,
-    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
-{
-    //this is what will be executed when the client asks for &quot;https://site.com/Home/some_name&quot;
-
-    //nice to meet you!
-    $response-&gt;write(&quot;Hello, &quot;.$arguments-&gt;name.&quot;!&quot;);
-});
-</code></pre>
-
-<p>You already know what you are going to do, right? :D</p>
-<p>https://site.com/Home/your_name and you will see "Hello, your_name!" nothing complex here, right?</p>
-<h2 id="custom-dynamic-rules">Custom Dynamic Rules</h2>
-<p>You might want to catch something more specific than just "everything but '/'",
-say for example an integer or an email address:</p>
-<pre><code class="php">use Gishiki\Core\Route;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-
-Route::get(&quot;/Hello/{user_email:email}&quot;,
-    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
-{
-    //this is what will be executed when the client asks for &quot;https://site.com/Hello/yourEmail%40address.com&quot;
-
-    //send that mail!
-    if (!mail($arguments-&gt;user_email , &quot;Gishiki RESTful test&quot; , &quot;Welcome to my RESTful test service &lt;3&quot;)) {
-        $default_logger = new Logger();
-        $default_logger-&gt;warning(&quot;An e-mail is missing :(&quot;);
-    }
-});
-</code></pre>
-
-<p>That's great isn't it? Actually what you can catch is:</p>
+<p>You may need to catch input from the URL requested by the client.</p>
+<p>This is handy when creating a service with user-friendly URLs.</p>
+<p>The most obvious example would be <strong>/{user}</strong> that will map every URL like
+www.yoursite.com/User1, www.yoursite.com/John www.yoursite.com/45</p>
+<p>If you want to query an user by its ID you would use the <strong>/{ID:uint}</strong> rule,
+that will match www.yoursite.com/45 and every other <em>unsigned</em> integer.</p>
+<p>That's great isn't it? Actually what you can filter is:</p>
 <ul>
-<li>'default' a generic string</li>
+<li>'string' a generic string</li>
 <li>'email' an email address</li>
-<li>'integer' an integer number</li>
+<li>'int' an integer number</li>
+<li>'uint' an integer number</li>
+<li>'float' an integer number</li>
 </ul>
-<h2 id="all-request-methods">All request methods</h2>
-<p>Sometimes you may need to register a route that responds to all HTTP verbs, you
-are allowed to do that by using 'any':</p>
-<pre><code class="php">use Gishiki\Core\Route;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-
-Route::any(&quot;/&quot;,
-    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
-{
-    //do something general with your homepage!
-});
-</code></pre>
-
-<p>the action is taken if that URI is hit, regardless of the method the client used
-to perform the request.</p>
-<h2 id="two-or-more-request-methods">Two or more request methods</h2>
-<p>An interesting feature of the router is how you create a route for two or more
-request methods:</p>
-<pre><code class="php">use Gishiki\Core\Route;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-
-Route::match([Route::GET, Route::POST], &quot;/&quot;,
-    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
-{
-    //you want your homepage to be reached only with get and post
-});
-</code></pre>
-
-<p>the action is taken if that URI is hit only when using get or post request method.</p>
+<p>However keep in mind that you <strong>cannot</strong> match something that has a slash '/'
+character using a dynamic placeholder: {name} cannot capture something like "mario/rossi".</p>
+<p>Also, to keep router simple and fast the opening character <strong>MUST</strong> be used immediately
+after the / character (something like /user/id={id:uint} is <strong>NOT</strong> valid).</p>
 <h2 id="error-catching">Error catching</h2>
-<p>You know, things doesn't always go as you want: it is necessary to think about
-unexpected circumstances. You do it by setting an error callback,
-which is nothing more than a bit special routing rule:</p>
-<pre><code class="php">use Gishiki\Core\Route;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-
-Route::any(Route::NOT_FOUND,
-    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
-{
-    //this is what will be executed when the client asks for an unrouted URI
-
-    //error message!
-    $response-&gt;write(&quot;Sorry man, you are asking for something I can't give you :(&quot;);
-});
-</code></pre>
-
-<p>As you can see an error routing rule (or error callback) is exactly any other URI
-and follows the same exact rules, however for known errors the HTTP status code is
-automatically changed (for example if a Route::NOT_FOUND URI is catched 404 Not Found
-is added automatically to the response).</p>
-<p>You cannot change this behaviour, but you can change the status code:</p>
-<pre><code class="php">use Gishiki\Core\Route;
-use Gishiki\HttpKernel\Request;
-use Gishiki\HttpKernel\Response;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-
-Route::any(Route::NOT_FOUND,
-    function (Request $request, Response &amp;$response, SerializableCollection &amp;$arguments)
-{
-    //this is what will be executed when the client asks for an unrouted URI
-    $response-&gt;withStatus(500);
-
-    //error message!
-    $response-&gt;write(&quot;Sorry man, you are asking for something I can't give you :(&quot;);
-});
-</code></pre>
-
-<p>A bit stange to send to the client a 500 Internal Server Error for a missing
-resource, but nothing stops you from doing that.</p>
+<p>You know, things do not always go as you want: it is necessary to think about
+unexpected circumstances.</p>
 <h2 id="limitation">Limitation</h2>
-<p>You cannot route URIs that start with /api/ or /service/ because they are reserved for web services (explained in a different chapter).</p>
-<p>You cannot match something that has a slash '/' character using a dynamic placeholder: {name} cannot capture something like "mario/rossi".</p>
-<h2 id="conclusions">Conclusions</h2>
-<p>The router is the fastest and easiest component within Gishiki,
-because it is the first component that is used and the only one you <strong>REALLY HAVE TO</strong> use.</p>
-<p>This means that you are now good to go... Everything you <em>MUST</em> know in order to use Gishiki ends here.</p>
-<p>Everything else is a plus you may need to accelerate the development of your projects,
-although you should really learn how to deal with the <a href="../request/">Request</a> and the <a href="../response/">Response</a> objects passed to you.</p>
+<p>You <strong>SHOULD NOT</strong> attempt to route URIs that start with <em>/api</em> or <em>/service</em>
+as those are reserved to framework plugins and core API.</p>
+<h2 id="using-the-router">Using the router</h2>
+<p>In order to use the router you have to:
+  1. create one or more rules: those rules are represented as a <strong>Route</strong> instance
+  1. register wanted rules within a <strong>Router</strong> instance
+  1. run the framework by calling $app-&gt;run(router)
+  1. send back the response to the client by running $app-&gt;emit()</p>
+<p>A Route instance is created by passing an associative array containing:
+  - 'controller' the name of the target controller
+  - 'action' the name of the function of the controller
+  - 'uri' what has been called "rule" above</p>
               
             </div>
           </div>

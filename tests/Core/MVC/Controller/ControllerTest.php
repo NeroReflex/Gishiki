@@ -72,4 +72,18 @@ class ControllerTest extends TestCase
         $controller = new \FakeController($request, $response, $collection, $plugins);
         $this->assertEquals('Active', $controller->getResponse()->getHeader('Testing-Header')[0]);
     }
+
+    public function testUnknownCall()
+    {
+        $request = new Request();
+        $response = new Response();
+        $collection = new GenericCollection([]);
+        $plugins = [];
+
+        $controller = new \FakeController($request, $response, $collection, $plugins);
+
+        $this->expectException(ControllerException::class);
+
+        $controller->thisDoesNotExists();
+    }
 }

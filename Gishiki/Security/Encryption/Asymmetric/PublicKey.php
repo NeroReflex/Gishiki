@@ -34,32 +34,19 @@ final class PublicKey
     /**
      * Used to create a public key from the given string.
      *
-     * If a string containing a serialized public key is
-     * not give, the framework default one will be used
-     *
-     * @param string|null $custom_key the public key serialized as a string
+     * @param string $key the public key serialized as a string
      *
      * @throws \InvalidArgumentException the given key isn't a valid serialized key
      * @throws AsymmetricException       the given key is invalid
      */
-    public function __construct($custom_key = null)
+    public function __construct($key = null)
     {
-        $serialized_key = '';
-
-        if (is_null($custom_key)) {
-            //create the default private key
-            $default_private_key = new PrivateKey();
-
-            //and retrive the public key from the default private key
-            $serialized_key = $default_private_key->retrivePublicKey();
-        } elseif (is_string($custom_key)) {
-            $serialized_key = $custom_key;
-        } else {
+        if (!is_string($key)) {
             throw new \InvalidArgumentException('The serialized public key must be a string');
         }
 
         //load the public key
-        $this->key = openssl_pkey_get_public($serialized_key);
+        $this->key = openssl_pkey_get_public($key);
 
         //check for errors
         if (!$this->isLoaded()) {

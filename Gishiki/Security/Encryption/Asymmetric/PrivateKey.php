@@ -17,8 +17,6 @@ limitations under the License.
 
 namespace Gishiki\Security\Encryption\Asymmetric;
 
-use Gishiki\Core\Environment;
-
 /**
  * This class represents a private key for the asymmetric encryption engine.
  *
@@ -34,6 +32,8 @@ final class PrivateKey
     const RSA2048 = 2048;
     const RSA4096 = 4096;
     const RSAEXTREME = 16384;
+
+    public static $openSSLConf = "";
 
     /**
      * Create a random private key of the given length (in bits).
@@ -86,11 +86,10 @@ final class PrivateKey
             'private_key_type' => OPENSSL_KEYTYPE_RSA,
         ];
         //use the application openssl configuration
-        if (!is_null(Environment::getCurrentEnvironment())) {
+        if (is_string(self::$openSSLConf)) {
             $config = array_merge(
                     $config,
-                    ['config' => (file_exists(Environment::getCurrentEnvironment()->getConfigurationProperty('APPLICATION_DIR').'openssl.cnf')) ?
-                        Environment::getCurrentEnvironment()->getConfigurationProperty('APPLICATION_DIR').'openssl.cnf' : null, ]);
+                    ['config' => (file_exists(self::$openSSLConf)) ? self::$openSSLConf : null]);
         }
 
         //create a new private key
@@ -117,43 +116,32 @@ final class PrivateKey
         return $pKeyEncoded;
     }
 
-    /**************************************************************************
-     *                                                                        *
-     *                          NON-static properties                         *
-     *                                                                        *
-     **************************************************************************/
-
     /**
      * @var resource the private key ready to be used by OpenSSL
      */
     private $key = null;
 
     /**
-     * Used to create a private key from the given string.
+     * Used to create a private key from the given serialized key.
      *
-     * If a string containing a serialized private key is
-     * not give, the framework default one will be used
-     *
-     * @param string|null $customKey         the private key serialized as a string
-     * @param string      $customKeyPassword the password to decrypt the serialized private key (if necessary)
+     * @param string $customKey         the private key serialized as a string
+     * @param string $customKeyPassword the password to decrypt the serialized private key (if necessary)
      *
      * @throws \InvalidArgumentException the given key and/or password isn't a valid string
      * @throws AsymmetricException       the given key is invalid
      */
-    public function __construct($customKey = null, $customKeyPassword = '')
+    public function __construct($customKey, $customKeyPassword = '')
     {
         if (!is_string($customKeyPassword)) {
             throw new \InvalidArgumentException('The private key password cannot be something else than a string');
         }
 
-        if ((!is_string($customKey)) && (!is_null($customKey))) {
+        if (!is_string($customKey)) {
             throw new \InvalidArgumentException('The serialized private key must be a string');
         }
 
         //get a string containing a serialized asymmetric key
-        $serialized_key = (is_string($customKey)) ?
-            $serialized_key = $customKey :
-            Environment::getCurrentEnvironment()->getConfigurationProperty('MASTER_ASYMMETRIC_KEY');
+        $serialized_key = $customKey;
 
         //get the beginning and ending of a private key (to stip out additional shit and check for key validity)
         $is_encrypted = strpos($serialized_key, 'ENCRYPTED') !== false;
@@ -231,12 +219,12 @@ final class PrivateKey
             'digest_alg' => 'sha512',
             'private_key_type' => OPENSSL_KEYTYPE_RSA,
         ];
+
         //use the application openssl configuration
-        if (!is_null(Environment::getCurrentEnvironment())) {
+        if (is_string(self::$openSSLConf)) {
             $config = array_merge(
-                    $config,
-                    ['config' => (file_exists(Environment::getCurrentEnvironment()->getConfigurationProperty('APPLICATION_DIR').'openssl.cnf')) ?
-                        Environment::getCurrentEnvironment()->getConfigurationProperty('APPLICATION_DIR').'openssl.cnf' : null, ]);
+                $config,
+                ['config' => (file_exists(self::$openSSLConf)) ? self::$openSSLConf : null]);
         }
 
         //serialize the key and encrypt it if requested

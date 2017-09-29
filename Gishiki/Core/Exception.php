@@ -18,11 +18,12 @@
 namespace Gishiki\Core;
 
 use Gishiki\Logging\LoggerManager;
+use Psr\Log\LoggerInterface;
 
 /**
  * The base class of an exception related with the framework.
  *
- * Benato Denis <benato.denis96@gmail.com>
+ * @author Benato Denis <benato.denis96@gmail.com>
  */
 class Exception extends \Exception
 {
@@ -37,19 +38,25 @@ class Exception extends \Exception
         //perform a basic Exception constructor call
         parent::__construct($message, $errorCode, null);
 
-        //retrieve the default logger instance
-        $logger = (!is_null(Environment::getCurrentEnvironment())) ? LoggerManager::retrieve() : null;
+        try {
+            //retrieve the default logger instance
+            $logger = LoggerManager::retrieve();
 
-        //write the log of the exception
-        $this->reportOnLog($logger);
+            if ($logger instanceof LoggerInterface) {
+                //write the log of the exception
+                $this->reportOnLog($logger);
+            }
+        } catch (\InvalidArgumentException $ex) {
+
+        }
     }
 
     /**
      * Write the log message using the passed logger.
      *
-     * @param $logger the PSR-3 logger instance to be used
+     * @param $logger LoggerInterface the PSR-3 logger instance to be used
      */
-    protected function reportOnLog($logger = null)
+    protected function reportOnLog(LoggerInterface &$logger)
     {
         if (!is_null($logger)) {
             //log the exception

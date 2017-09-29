@@ -17,13 +17,15 @@
 
 namespace Gishiki\Security\Encryption\Asymmetric;
 
+use Gishiki\Core\Exception;
+
 /**
  * The asymmetric encryption exception thrown by Gishiki
  * when a cryptographic operation results is bad.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class AsymmetricException extends \Gishiki\Core\Exception
+final class AsymmetricException extends Exception
 {
     /**
      * Create the asymmetric-related exception.

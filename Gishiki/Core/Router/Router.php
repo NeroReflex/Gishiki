@@ -17,7 +17,8 @@ limitations under the License.
 
 namespace Gishiki\Core\Router;
 
-use Zend\Diactoros\Request;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response;
 use Gishiki\Algorithms\Strings\SimpleLexer;
 use Gishiki\Algorithms\Collections\GenericCollection;
@@ -42,6 +43,11 @@ final class Router
         Route::PATCH => []
     ];
 
+    /**
+     * Register a route within this router.
+     *
+     * @param Route $route the route to be registered
+     */
     public function register(Route $route)
     {
         //put a reference to the object inside allowed methods for a faster search
@@ -65,11 +71,11 @@ final class Router
      * This function is __CALLED INTERNALLY__ and, therefore
      * it __MUST NOT__ be called by the user!
      *
-     * @param Request $requestToFulfill the request to be served/fulfilled
+     * @param RequestInterface $requestToFulfill the request to be served/fulfilled
      *
-     * @return Response the result
+     * @return ResponseInterface the result
      */
-    public function run(Request &$requestToFulfill)
+    public function run(RequestInterface &$requestToFulfill)
     {
         foreach ($this->routes[$requestToFulfill->getMethod()] as $currentRoute) {
             $decodedUri = urldecode($requestToFulfill->getUri()->getPath());

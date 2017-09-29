@@ -20,6 +20,7 @@ namespace Gishiki\tests\Core\Router;
 use Gishiki\Algorithms\Collections\SerializableCollection as Serializable;
 
 use Gishiki\Core\Config;
+use Gishiki\Core\Exception;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -31,6 +32,16 @@ use PHPUnit\Framework\TestCase;
  */
 class ConfigTest extends TestCase
 {
+
+    public function testBadFileConfig()
+    {
+        $this->expectException(Exception::class);
+
+        $filename = 'tests/config_'.__FUNCTION__.'.json';
+
+        new Config($filename);
+    }
+
     public function testConfig()
     {
         $filename = 'tests/config_'.__FUNCTION__.'.json';
@@ -69,6 +80,29 @@ class ConfigTest extends TestCase
         $config = new Config($filename);
 
         $this->assertEquals($random, $config->getConfiguration()->get("serial"));
+
+        unlink($filename);
+    }
+
+    public function testMacroConfig()
+    {
+        $random = bin2hex(openssl_random_pseudo_bytes(10));
+        define('MACRO', $random);
+
+        $filename = 'tests/config_'.__FUNCTION__.'.json';
+
+        $serializedConf = new Serializable([
+            "general" => [
+                "development" => true
+            ],
+            "macro" => "{{@MACRO}}"
+        ]);
+
+        file_put_contents($filename, $serializedConf->serialize(Serializable::JSON));
+
+        $config = new Config($filename);
+
+        $this->assertEquals($random, $config->getConfiguration()->get("macro"));
 
         unlink($filename);
     }

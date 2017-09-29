@@ -14,11 +14,7 @@ engines:
     checks:
       CleanCode/BooleanArgumentFlag:
         enabled: false
-      Design/NpathComplexity:
-        enabled: false
       Design/WeightedMethodCount:
-        enabled: false
-      CyclomaticComplexity:
         enabled: false
       CleanCode/StaticAccess:
         enabled: false
@@ -26,12 +22,6 @@ engines:
         enabled: false
     exclude_fingerprints:
     - 784c39986d25550b82c5c4a4c2ae9def
-    - 19e8758306fba7a8cd0d647a7667030e
-    - 8b2ad9b25d63813d10e02a67d2f826ee
-    - 0756ba9ddcc34b77785fdc58557a1856
-    - ead9ccdda5c5ec749ddf293073c74028
-    - aa33beb09435477e8b3a523c6d9842da
-    - 8eff0272030675a4480fd582365b9b18
 ratings:
   paths:
   - "**.inc"

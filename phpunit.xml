@@ -23,7 +23,7 @@
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory>./Gishiki/</directory>
+            <directory>./src/</directory>
         </whitelist>
     </filter>
 </phpunit>

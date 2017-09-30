@@ -61,20 +61,21 @@ abstract class SimpleLexer
 
         $fountDot = false;
 
-        for ($i = 0; $i < strlen($str); $i++) {
-            if (($i != 0) && (($str[$i] == '-') || ($str[$i] == '+'))) {
+        $len = strlen($str);
+        for ($counter = 0; $counter < $len; $counter++) {
+            if (($counter != 0) && (($str[$counter] == '-') || ($str[$counter] == '+'))) {
                 return false;
-            } else if (($str[$i] == '.') && ($fountDot === true)) {
+            } else if (($str[$counter] == '.') && ($fountDot === true)) {
                 return false;
-            } else if (strpos("+-.0123456789", $str[$i]) === false) {
+            } else if (strpos("+-.0123456789", $str[$counter]) === false) {
                 return false;
             }
 
             //update $fountDot value
-            $fountDot =  ($str[$i] == '.') ? true : $fountDot;
+            $fountDot =  ($str[$counter] == '.') ? true : $fountDot;
         }
 
-        return $str[strlen($str) - 1] != '.';
+        return $str[$len - 1] != '.';
     }
 
     /**

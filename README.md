@@ -27,15 +27,9 @@ experimenting its features!
 
 ## Quick Start
 
-Do you want to have it working in the less time possible? OK! 
+Do you want to have it working in the less time possible?
 
-```shell
-composer init # setup your new project
-composer require neroreflex/gishiki
-./vendor/bin/gishiki new application
-```
-
-And That's it. Enjoy creating your next application!
+Just fork the [skeleton](https://github.com/NeroReflex/Gishiki-Skeleton) project!
 
 
 ## Documentation

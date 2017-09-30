@@ -82,4 +82,3 @@ A Route instance is created by passing an associative array containing:
   - 'controller' the name of the target controller
   - 'action' the name of the function of the controller
   - 'uri' what has been called "rule" above
-  

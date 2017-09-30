@@ -68,10 +68,9 @@ final class Config
     }
 
     /**
-     * Complete the configuration resolving every string like "{{@KEY}}"
-     * with the associated value.
+     * Complete the configuration resolving every value placeholder.
      *
-     * KEY can either be an environmental variable or a php macro.
+     * Read more on documentation.
      *
      * @param  array $collection the configuration to be finished
      * @return array the completed configuration
@@ -84,7 +83,7 @@ final class Config
                 if (($toReplace = Manipulation::getBetween($value, '{{@', '}}')) != '') {
                     $value = getenv($toReplace);
                     if ($value !== false) {
-                        $value = $value;
+                        continue;
                     } elseif (defined($toReplace)) {
                         $value = constant($toReplace);
                     }

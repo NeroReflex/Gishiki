@@ -49,17 +49,13 @@
 
     "autoload": {
         "psr-4": {
-            "Gishiki\\": "Gishiki/"
+            "Gishiki\\": "src/"
         }
     },
     
     "provide": {
         "psr/http-message-implementation": "1.0.0"
     },
-    
-    "bin": [
-        "gishiki"
-    ],
 
   "scripts": {
     "test": "./vendor/bin/phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml"

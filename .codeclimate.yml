@@ -3,9 +3,6 @@ engines:
     enabled: false
     config:
       languages:
-      - ruby
-      - javascript
-      - python
       - php
   fixme:
     enabled: true
@@ -13,24 +10,17 @@ engines:
     enabled: true
     checks:
       CleanCode/BooleanArgumentFlag:
-        enabled: false
+        enabled: true
       Design/WeightedMethodCount:
-        enabled: false
+        enabled: true
       CleanCode/StaticAccess:
-        enabled: false
+        enabled: true
       Design/TooManyPublicMethods:
-        enabled: false
-    exclude_fingerprints:
-    - 784c39986d25550b82c5c4a4c2ae9def
+        enabled: true
 ratings:
   paths:
   - "**.inc"
-  - "**.js"
-  - "**.jsx"
-  - "**.module"
   - "**.php"
-  - "**.py"
-  - "**.rb"
 exclude_paths:
 - "/tests"
-- "/documentation"
+- "/Documentation"

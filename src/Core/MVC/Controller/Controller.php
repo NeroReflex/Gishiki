@@ -18,6 +18,7 @@ limitations under the License.
 namespace Gishiki\Core\MVC\Controller;
 
 use Gishiki\Database\DatabaseManager;
+use Gishiki\Logging\LoggerManager;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Gishiki\Algorithms\Collections\GenericCollection;
@@ -60,6 +61,11 @@ abstract class Controller
      * @var DatabaseManager a container for alive database connections
      */
     protected $connections;
+
+    /**
+     * @var LoggerManager a container for alive loggers instances
+     */
+    protected $loggers;
 
     /**
      * Create a new controller that will fulfill the given request filling the given response.
@@ -112,7 +118,9 @@ abstract class Controller
             $this->connections = $args['connections'];
         }
 
-
+        if ((array_key_exists('loggers', $args)) && ($args['loggers'] instanceof LoggerManager)) {
+            $this->loggers = $args['loggers'];
+        }
     }
 
     /**

@@ -122,7 +122,8 @@ final class Application
         //...generate the response
         try {
             $router->run($this->request, $this->response, [
-                'connections' => &$this->databaseConnections
+                'connections' => &$this->databaseConnections,
+                'loggers'     => &$this->loggersConnections,
             ]);
         } catch (\Exception $ex) {
             //generate the response

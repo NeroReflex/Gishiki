@@ -35,6 +35,7 @@ after_script:
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then php vendor/bin/codacycoverage clover build/logs/clover.xml ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then ./vendor/bin/test-reporter ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer require roave/better-reflection dev-master#a402048 --dev ;fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer require phpdocumentor/reflection-docblock 4.1.1 --dev ;fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer require apigen/apigen 5.0.0-RC5 --dev ;fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then vendor/bin/apigen generate src --destination Documentation/docs/API ;fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then curl -O https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py && sudo pip install mkdocs ; fi

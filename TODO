@@ -1,5 +1,3 @@
-- manage router errors
-- restore documentation generation
 - review and add documentation
 - map an URL that can be used by authenticated clients to issue commands to the server! - cryptography and strong security must be in place!!!
 - authentication OAuth2.0 should be part of the framework, somehow....
@@ -9,5 +7,4 @@
 - write/implement an input validator
 - better datatypes for RDBMS
 - Include a date+time library
-- put settings.json content into a cache to speed up page loading
 - add a profiler

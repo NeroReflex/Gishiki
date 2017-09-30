@@ -467,7 +467,7 @@ class DatabaseRelationalTest extends TestCase
 
 
         $this->assertEquals(7, $connection->delete("Books".__FUNCTION__,
-            SelectionCriteria::select()->AndWhere('price', FieldRelation::LESS_THAN, 20.99)
+            SelectionCriteria::select()->andWhere('price', FieldRelation::LESS_THAN, 20.99)
         ));
 
         $this->assertEquals(3, $connection->deleteAll("Books".__FUNCTION__));
@@ -562,8 +562,8 @@ class DatabaseRelationalTest extends TestCase
 
         $this->assertEquals(5, $connection->update("Books".__FUNCTION__, ['price' => 10.00],
             SelectionCriteria::select()
-                ->AndWhere('price', FieldRelation::LESS_THAN, 20.99)
-                ->AndWhere('price', FieldRelation::GREATER_OR_EQUAL_THAN, 10.50)
+                ->andWhere('price', FieldRelation::LESS_THAN, 20.99)
+                ->andWhere('price', FieldRelation::GREATER_OR_EQUAL_THAN, 10.50)
         ));
     }
 }

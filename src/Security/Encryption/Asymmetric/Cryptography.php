@@ -255,11 +255,6 @@ abstract class Cryptography
         //get the key in native format and its length
         $managedKey = $key();
 
-        //check if the message can be decrypted
-        if (($completeMsg % $managedKey['byteLength']) != 0) {
-            throw new AsymmetricException('The message decryption cannot take place because the given message is malformed', 6);
-        }
-
         //encrypt the complete message
         $message = '';
         foreach (str_split($completeMsg, $managedKey['byteLength']) as $encryptedChunk) {

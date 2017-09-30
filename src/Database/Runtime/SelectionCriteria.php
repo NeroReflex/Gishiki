@@ -46,8 +46,8 @@ final class SelectionCriteria
 
         foreach ($selection as $fieldName => $fieldValue) {
             (!is_array($fieldValue)) ?
-                $selectionCriteria->AndWhere($fieldName, FieldRelation::EQUAL, $fieldValue)
-                    : $selectionCriteria->AndWhere($fieldName, FieldRelation::IN_RANGE, $fieldValue);
+                $selectionCriteria->andWhere($fieldName, FieldRelation::EQUAL, $fieldValue)
+                    : $selectionCriteria->andWhere($fieldName, FieldRelation::IN_RANGE, $fieldValue);
         }
 
         return $selectionCriteria;
@@ -60,11 +60,11 @@ final class SelectionCriteria
      * @param int    $relation the Relation between the field and the data
      * @param mixed  $data     the data to be related with the field
      *
-     * @return \Gishiki\Database\Runtime\SelectionCriteria the updated selection criteria
+     * @return SelectionCriteria the updated selection criteria
      *
      * @throws \InvalidArgumentException one parameter has a wrong type
      */
-    public function AndWhere($field, $relation, $data)
+    public function andWhere($field, $relation, $data)
     {
         if (!is_string($field) || (strlen($field) <= 0)) {
             throw new \InvalidArgumentException('the field name must be a string');
@@ -107,11 +107,11 @@ final class SelectionCriteria
      * @param int    $relation the Relation between the field and the data
      * @param mixed  $data     the data to be related with the field
      *
-     * @return \Gishiki\Database\Runtime\SelectionCriteria the updated selection criteria
+     * @return SelectionCriteria the updated selection criteria
      *
      * @throws \InvalidArgumentException one parameter has a wrong type
      */
-    public function OrWhere($field, $relation, $data)
+    public function orWhere($field, $relation, $data)
     {
         if (!is_string($field)) {
             throw new \InvalidArgumentException('the field name must be a string');

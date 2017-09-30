@@ -61,7 +61,7 @@ class SQLQueryBuilderTest extends TestCase
         $query = new GenericSQL();
         $query->selectAllFrom('test1')->where(SelectionCriteria::select([
             'id' => [5, 6, 7],
-        ])->OrWhere('name', FieldRelation::NOT_LIKE, '%inv%'));
+        ])->orWhere('name', FieldRelation::NOT_LIKE, '%inv%'));
 
         $this->assertEquals(GenericSQL::beautify('SELECT * FROM test1 WHERE id IN (?,?,?) OR name NOT LIKE ?'), GenericSQL::beautify($query->exportQuery()));
         $this->assertEquals([5, 6, 7, '%inv%'], $query->exportParams());
@@ -73,7 +73,7 @@ class SQLQueryBuilderTest extends TestCase
         $query->selectAllFrom('test1')
                 ->where(SelectionCriteria::select([
                         'id' => [5, 6, 7],
-                    ])->OrWhere('price', FieldRelation::GREATER_THAN, 1.25))
+                    ])->orWhere('price', FieldRelation::GREATER_THAN, 1.25))
                 ->limitOffsetOrderBy(ResultModifier::initialize([
                     'limit' => 1024,
                     'skip' => 100,
@@ -90,7 +90,7 @@ class SQLQueryBuilderTest extends TestCase
         $query->selectFrom('test1', ['name', 'surname'])
                 ->where(SelectionCriteria::select([
                         'id' => [5, 6, 7],
-                    ])->OrWhere('price', FieldRelation::GREATER_THAN, 1.25))
+                    ])->orWhere('price', FieldRelation::GREATER_THAN, 1.25))
                 ->limitOffsetOrderBy(ResultModifier::initialize([
                     'limit' => 1024,
                     'skip' => 100,

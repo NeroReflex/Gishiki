@@ -118,8 +118,9 @@ abstract class SimpleLexer
         }
 
         //check from the 2nd character afterward
-        for ($i = 1; $i < strlen($str); $i++) {
-            if (strpos("0123456789", $str[$i]) === false) {
+        $len = strlen($str);
+        for ($counter = 1; $counter < $len; $counter++) {
+            if (strpos("0123456789", $str[$counter]) === false) {
                 return false;
             }
         }

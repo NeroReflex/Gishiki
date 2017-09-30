@@ -20,7 +20,7 @@ namespace Gishiki\Algorithms\Collections;
 /**
  * This is a Generic Collection Implementation modified from the Slim's one.
  *
- * Benato Denis <benato.denis96@gmail.com>
+ * @author Benato Denis <benato.denis96@gmail.com>
  */
 class GenericCollection implements CollectionInterface, \IteratorAggregate
 {

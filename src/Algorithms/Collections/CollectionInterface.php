@@ -20,7 +20,7 @@ namespace Gishiki\Algorithms\Collections;
 /**
  * Collection Interface extended from Slim's one to better fit Gishiki.
  *
- * Benato Denis <benato.denis96@gmail.com>
+ * @author Benato Denis <benato.denis96@gmail.com>
  */
 interface CollectionInterface extends \ArrayAccess, \Countable
 {

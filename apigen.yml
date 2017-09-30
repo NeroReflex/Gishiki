@@ -1,0 +1,6 @@
+parameters:
+    visibilityLevels: [public, protected] # array
+    annotationGroups: [todo, deprecated] # array
+    title: "Gishiki API" # string
+    baseUrl: "https://neroreflex.github.io/Gishiki/" # string
+    overwrite: false # bool

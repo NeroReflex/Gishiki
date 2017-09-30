@@ -10,7 +10,6 @@ It has a fixed (minimum) structure:
 {
     "general": {
         "development": true,
-        "timelimit": true,
         "autolog": "default"
     },
     "loggers": {
@@ -42,7 +41,7 @@ It has a fixed (minimum) structure:
 ```
 
 As you might have thought those {{@VAR_NAMES}} are replaced with constants defined
-in your environment AND/OR Heroku "Config Variables"!
+in your environment AND/OR Heroku (or similar) "Config Variables"!
 
 This is a *GREAT* feature that keeps *SECRET* your database connection descriptor and
 your master server key while allowing application portability among illimitate environments!

@@ -36,13 +36,15 @@ after_script:
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then ./vendor/bin/test-reporter ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer remove symfony/yaml ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer remove zendframework/zend-diactoros ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer remove monolog/monolog ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer remove psr/http-message ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer remove codacy/coverage --dev ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer remove codeclimate/php-test-reporter --dev  ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer remove squizlabs/php_codesniffer --dev ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer remove phpunit/phpunit --dev ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then rm -rf ./vendor/ composer.lock ;fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer require roave/better-reflection dev-master#a402048 --dev ;fi
-  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer require apigen/apigen 5.0.0-RC5 --dev ;fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer require apigen/apigen v5.0.0-RC5 --dev ;fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then vendor/bin/apigen generate src --destination Documentation/docs/API ;fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then curl -O https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py && sudo pip install mkdocs ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then cd Documentation && mkdocs build && cd ../ ; fi

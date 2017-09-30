@@ -34,6 +34,8 @@ script:
 after_script:
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then php vendor/bin/codacycoverage clover build/logs/clover.xml ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then ./vendor/bin/test-reporter ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer remove symfony/yaml ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer remove zendframework/zend-diactoros ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer remove codacy/coverage --dev ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer remove codeclimate/php-test-reporter --dev  ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer remove squizlabs/php_codesniffer --dev ; fi

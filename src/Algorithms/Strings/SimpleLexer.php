@@ -31,7 +31,7 @@ abstract class SimpleLexer
      * @param  string $str the string to be validated
      * @return bool true if the given string is a valid email address, false otherwise
      */
-    static function isEmail($str) : bool
+    public static function isEmail($str) : bool
     {
         return self::isString($str) && filter_var($str, FILTER_VALIDATE_EMAIL);
     }
@@ -42,7 +42,7 @@ abstract class SimpleLexer
      * @param string $str the parameter to be validated
      * @return bool true if and only if the given parameter is a valid string
      */
-    static function isString($str) : bool
+    public static function isString($str) : bool
     {
         return is_string($str);
     }
@@ -53,7 +53,7 @@ abstract class SimpleLexer
      * @param string $str the string to be validated
      * @return bool true if the given string is a valid float, false otherwise
      */
-    static function isFloat($str) : bool
+    public static function isFloat($str) : bool
     {
         if (!self::isString($str)) {
             return false;
@@ -64,7 +64,7 @@ abstract class SimpleLexer
         for ($i = 0; $i < strlen($str); $i++) {
             if (($i != 0) && (($str[$i] == '-') || ($str[$i] == '+'))) {
                 return false;
-            } else if (($str[$i] == '.') && ($fountDot == true)) {
+            } else if (($str[$i] == '.') && ($fountDot === true)) {
                 return false;
             } else if (strpos("+-.0123456789", $str[$i]) === false) {
                 return false;
@@ -83,7 +83,7 @@ abstract class SimpleLexer
      * @param string $str the string to be validated
      * @return bool true if the given string is a valid unsigned integer, false otherwise
      */
-    static public function isUnsignedInteger($str) : bool
+    public static function isUnsignedInteger($str) : bool
     {
         if (!self::isString($str)) {
             return false;
@@ -105,7 +105,7 @@ abstract class SimpleLexer
      * @param string $str the string to be validated
      * @return bool true if the given string is a valid signed integer, false otherwise
      */
-    static public function isSignedInteger($str) : bool
+    public static function isSignedInteger($str) : bool
     {
         if (!self::isString($str)) {
             return false;

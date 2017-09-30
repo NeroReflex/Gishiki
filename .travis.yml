@@ -34,6 +34,11 @@ script:
 after_script:
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then php vendor/bin/codacycoverage clover build/logs/clover.xml ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then ./vendor/bin/test-reporter ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer remove codacy/coverage ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer remove codeclimate/php-test-reporter ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer remove squizlabs/php_codesniffer ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer remove phpunit/phpunit ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then rm -rf ./vendor/ composer.lock ;fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer require roave/better-reflection dev-master#a402048 --dev ;fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer require apigen/apigen 5.0.0-RC5 --dev ;fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then vendor/bin/apigen generate src --destination Documentation/docs/API ;fi

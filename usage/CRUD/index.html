@@ -244,7 +244,7 @@ $connection = DatabaseManager::retrieve('connectionName');
 
 $connection-&gt;delete('tbname', SelectionCriteria::select([
             'nickname' =&gt; $nickname
-        ])-&gt;OrWhere('email', FieldRelation::EQUAL, $email)
+        ])-&gt;orWhere('email', FieldRelation::EQUAL, $email)
     );
 </code></pre>
 

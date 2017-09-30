@@ -91,8 +91,9 @@ abstract class SimpleLexer
         }
 
         //check the entire string
-        for ($i = 0; $i < strlen($str); $i++) {
-            if (strpos("0123456789", $str[$i]) === false) {
+        $len = strlen($str);
+        for ($count = 0; $count < $len; $count++) {
+            if (strpos("0123456789", $str[$count]) === false) {
                 return false;
             }
         }

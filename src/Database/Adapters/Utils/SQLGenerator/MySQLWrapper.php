@@ -99,7 +99,8 @@ final class MySQLWrapper extends GenericSQL
                 $this->appendToQuery('NOT NULL');
             }
 
-            if (($relation = $column->getRelation()) != null) {
+            $relation = $column->getRelation();
+            if (!is_null($relation)) {
                 $this->appendToQuery(', FOREIGN KEY ('.$column->getName().') REFERENCES '.$relation->getForeignTable()->getName().'('.$relation->getForeignKey()->getName().')');
             }
 

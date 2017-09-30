@@ -155,5 +155,4 @@ final class DatabaseStructure
             }
         }
     }
-
 }

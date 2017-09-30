@@ -17,12 +17,12 @@ entire framework, manages its dependencies and keep updated the framework!
 
 
 ## Bootstrapping an application
-You like digging immediatly into development? No problem!
+You like digging immediately into development? No problem!
 
 You will have to use composer to start up your new project!
 ```shell
-composer init # remember to specify neroreflex/gishiki
-composer install --no-dev
+composer init
+composer require neroreflex/gishiki
 ./vendor/bin/gishiki new application
 ```
 

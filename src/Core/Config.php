@@ -68,7 +68,10 @@ final class Config
     }
 
     /**
-     * Complete the configuration resolving every string like "{{@ENV_VALUE}}".
+     * Complete the configuration resolving every string like "{{@KEY}}"
+     * with the associated value.
+     *
+     * KEY can either be an environmental variable or a php macro.
      *
      * @param  array $collection the configuration to be finished
      * @return array the completed configuration

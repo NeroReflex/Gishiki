@@ -109,7 +109,8 @@ final class PostgreSQLWrapper extends GenericSQL
                 $this->appendToQuery('NOT NULL');
             }
 
-            if (($relation = $column->getRelation()) != null) {
+            $relation = $column->getRelation();
+            if (!is_null($relation)) {
                 $this->appendToQuery(' REFERENCES '.$relation->getForeignTable()->getName().'('.$relation->getForeignKey()->getName().')');
             }
 

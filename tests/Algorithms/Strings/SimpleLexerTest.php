@@ -72,10 +72,12 @@ class SimpleLexerTest extends TestCase
         $this->assertEquals(false, SimpleLexer::isUnsignedInteger("0a5"));
         $this->assertEquals(false, SimpleLexer::isUnsignedInteger(5));
         $this->assertEquals(false, SimpleLexer::isUnsignedInteger("+1"));
+        $this->assertEquals(false, SimpleLexer::isUnsignedInteger("-2"));
+        $this->assertEquals(false, SimpleLexer::isUnsignedInteger("-57"));
+        $this->assertEquals(false, SimpleLexer::isUnsignedInteger("+50"));
 
         $this->assertEquals(true, SimpleLexer::isUnsignedInteger("8"));
-        $this->assertEquals(true, SimpleLexer::isUnsignedInteger("-2"));
-        $this->assertEquals(true, SimpleLexer::isUnsignedInteger("-57"));
-        $this->assertEquals(true, SimpleLexer::isUnsignedInteger("+50"));
+        $this->assertEquals(true, SimpleLexer::isUnsignedInteger("58"));
+        $this->assertEquals(true, SimpleLexer::isUnsignedInteger("00"));
     }
 }

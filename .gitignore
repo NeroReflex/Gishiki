@@ -1,16 +1,13 @@
 /application/
 /build/
-/nbproject/
 /Documentation/site
 /Documentation/.couscous
 /Documentation/docs/API
 /vendor/
-/.idea/
 .env
 composer.lock
 composer.phar
 vagrant.xml
-.DS_Store
 .php_cs.cache
 *.original~
 *~

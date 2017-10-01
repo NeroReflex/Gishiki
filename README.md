@@ -1,6 +1,6 @@
 # Gishiki
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/cfddb152-dca5-4a28-92ec-79f1bf76b973/small.png)](https://insight.sensiolabs.com/projects/cfddb152-dca5-4a28-92ec-79f1bf76b973)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/cfddb152-dca5-4a28-92ec-79f1bf76b973/big.png)](https://insight.sensiolabs.com/projects/cfddb152-dca5-4a28-92ec-79f1bf76b973)
 
 | CI           | Status  |
 |--------------|---------|

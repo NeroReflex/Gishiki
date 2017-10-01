@@ -56,6 +56,46 @@ final class SelectionCriteria
     /**
      * Create a sub-clause and append it to the where clause using an and as conjunction.
      *
+     * @param string $clause   can either be 'and' or 'or'
+     * @param string $field    the name of the field/column to be related with the data
+     * @param int    $relation the Relation between the field and the data
+     * @param mixed  $data     the data to be related with the field
+     *
+     * @return SelectionCriteria the updated selection criteria
+     *
+     * @throws \InvalidArgumentException one parameter has a wrong type
+     */
+    protected function where($clause, $field, $relation, $data)
+    {
+        if (!is_string($field) || (strlen($field) <= 0)) {
+            throw new \InvalidArgumentException('the field name must be a string');
+        }
+        if (($relation != FieldRelation::EQUAL) &&
+            ($relation != FieldRelation::NOT_EQUAL) &&
+            ($relation != FieldRelation::LESS_THAN) &&
+            ($relation != FieldRelation::LESS_OR_EQUAL_THAN) &&
+            ($relation != FieldRelation::GREATER_THAN) &&
+            ($relation != FieldRelation::GREATER_OR_EQUAL_THAN) &&
+            ($relation != FieldRelation::IN_RANGE) &&
+            ($relation != FieldRelation::NOT_IN_RANGE) &&
+            ($relation != FieldRelation::LIKE) &&
+            ($relation != FieldRelation::NOT_LIKE)) {
+            throw new \InvalidArgumentException('the Relation between a column and its value must be expressed by one of FieldRelation constants');
+        }
+        if ((is_object($data)) || (is_resource($data))) {
+            throw new \InvalidArgumentException('the field data cannot be a php object or an extension native resource');
+        }
+
+        $this->criteria[$clause][] = [
+            0 => $field,
+            1 => $relation,
+            2 => $data,
+        ];
+    }
+
+    /**
+     * Create a sub-clause and append it to the where clause using an and as conjunction.
+     *
      * @param string $field    the name of the field/column to be related with the data
      * @param int    $relation the Relation between the field and the data
      * @param mixed  $data     the data to be related with the field
@@ -66,30 +106,7 @@ final class SelectionCriteria
      */
     public function andWhere($field, $relation, $data)
     {
-        if (!is_string($field) || (strlen($field) <= 0)) {
-            throw new \InvalidArgumentException('the field name must be a string');
-        }
-        if (($relation != FieldRelation::EQUAL) &&
-                ($relation != FieldRelation::NOT_EQUAL) &&
-                ($relation != FieldRelation::LESS_THAN) &&
-                ($relation != FieldRelation::LESS_OR_EQUAL_THAN) &&
-                ($relation != FieldRelation::GREATER_THAN) &&
-                ($relation != FieldRelation::GREATER_OR_EQUAL_THAN) &&
-                ($relation != FieldRelation::IN_RANGE) &&
-                ($relation != FieldRelation::NOT_IN_RANGE) &&
-                ($relation != FieldRelation::LIKE) &&
-                ($relation != FieldRelation::NOT_LIKE)) {
-            throw new \InvalidArgumentException('the Relation between a column and its value must be expressed by one of FieldRelation constants');
-        }
-        if ((is_object($data)) || (is_resource($data))) {
-            throw new \InvalidArgumentException('the field data cannot be a php object or an extension native resource');
-        }
-
-        $this->criteria['and'][] = [
-            0 => $field,
-            1 => $relation,
-            2 => $data,
-        ];
+        $this->where('and', $field, $relation, $data);
 
         $this->historic[] = self::AND_HISTORIC_MARKER | (count($this->criteria['and']) - 1);
 
@@ -113,30 +130,7 @@ final class SelectionCriteria
      */
     public function orWhere($field, $relation, $data)
     {
-        if (!is_string($field)) {
-            throw new \InvalidArgumentException('the field name must be a string');
-        }
-        if (($relation != FieldRelation::EQUAL) &&
-                ($relation != FieldRelation::NOT_EQUAL) &&
-                ($relation != FieldRelation::LESS_THAN) &&
-                ($relation != FieldRelation::LESS_OR_EQUAL_THAN) &&
-                ($relation != FieldRelation::GREATER_THAN) &&
-                ($relation != FieldRelation::GREATER_OR_EQUAL_THAN) &&
-                ($relation != FieldRelation::IN_RANGE) &&
-                ($relation != FieldRelation::NOT_IN_RANGE) &&
-                ($relation != FieldRelation::LIKE) &&
-                ($relation != FieldRelation::NOT_LIKE)) {
-            throw new \InvalidArgumentException('the Relation between a column and its value must be expressed by one of FieldRelation constants');
-        }
-        if ((is_object($data)) || (is_resource($data))) {
-            throw new \InvalidArgumentException('the field data cannot be a php object or an extension native resource');
-        }
-
-        $this->criteria['or'][] = [
-            0 => $field,
-            1 => $relation,
-            2 => $data,
-        ];
+        $this->where('or', $field, $relation, $data);
 
         $this->historic[] = count($this->criteria['or']) - 1;
 

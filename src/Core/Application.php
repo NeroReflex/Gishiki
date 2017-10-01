@@ -172,8 +172,6 @@ final class Application
             return $emitter;
         } catch (\ReflectionException $ex) {
             throw new \Exception('Cannot emit response: '.$ex->getMessage());
-
-            return null;
         }
     }
 

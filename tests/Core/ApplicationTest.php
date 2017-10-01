@@ -79,10 +79,9 @@ class ApplicationTest extends TestCase
 
         $app->run($router);
 
-        $responseObj = $response->getValue($app);
+        $emitter = $app->emit('TestingEmitter');
 
-        $this->assertEquals(true, $responseObj instanceof ResponseInterface);
-        $this->assertEquals('bye bye Mario', (string)$responseObj->getBody());
+        $this->assertEquals('bye bye Mario', $emitter->getBodyContent());
     }
 
     public function testException()

@@ -67,15 +67,15 @@ class SimpleLexerTest extends TestCase
 
     public function testUnsignedInteger()
     {
-        $this->assertEquals(false, SimpleLexer::isSignedInteger(null));
-        $this->assertEquals(false, SimpleLexer::isSignedInteger("0.0"));
-        $this->assertEquals(false, SimpleLexer::isSignedInteger("0a5"));
-        $this->assertEquals(false, SimpleLexer::isSignedInteger(5));
+        $this->assertEquals(false, SimpleLexer::isUnsignedInteger(null));
+        $this->assertEquals(false, SimpleLexer::isUnsignedInteger("0.0"));
+        $this->assertEquals(false, SimpleLexer::isUnsignedInteger("0a5"));
+        $this->assertEquals(false, SimpleLexer::isUnsignedInteger(5));
 
-        $this->assertEquals(true, SimpleLexer::isSignedInteger("8"));
-        $this->assertEquals(true, SimpleLexer::isSignedInteger("+1"));
-        $this->assertEquals(true, SimpleLexer::isSignedInteger("-2"));
-        $this->assertEquals(true, SimpleLexer::isSignedInteger("-57"));
-        $this->assertEquals(true, SimpleLexer::isSignedInteger("+50"));
+        $this->assertEquals(true, SimpleLexer::isUnsignedInteger("8"));
+        $this->assertEquals(true, SimpleLexer::isUnsignedInteger("+1"));
+        $this->assertEquals(true, SimpleLexer::isUnsignedInteger("-2"));
+        $this->assertEquals(true, SimpleLexer::isUnsignedInteger("-57"));
+        $this->assertEquals(true, SimpleLexer::isUnsignedInteger("+50"));
     }
 }

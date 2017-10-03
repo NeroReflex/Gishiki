@@ -43,11 +43,21 @@ final class Router
     ];
 
     /**
+     * Equals to call register, accept a value, not only a reference.
+     *
+     * @see Router::register
+     */
+    public function add(Route $route)
+    {
+        return $this->register($route);
+    }
+
+    /**
      * Register a route within this router.
      *
      * @param Route $route the route to be registered
      */
-    public function register(Route $route)
+    public function register(Route &$route)
     {
         //put a reference to the object inside allowed methods for a faster search
         foreach ($route->getMethods() as $method) {
@@ -65,6 +75,29 @@ final class Router
     }
 
     /**
+     * Check if the given url and method match a 200 OK route.
+     *
+     * @param string $method the HTTP used verb
+     * @param string $url    the url decoded string of the called url
+     * @param array  $params will contains matched url slices
+     * @return null|Route the matched route or null
+     */
+    protected function search($method, $url, array &$params)
+    {
+        foreach ($this->routes[$method] as $currentRoute) {
+
+            //if the current URL matches the current URI
+            if (($currentRoute->getStatus() == Route::OK) && (self::matches($currentRoute->getURI(), $url, $params))) {
+
+                //this will hold the parameters passed on the URL
+                return $currentRoute;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Run the router and serve the current request.
      *
      * This function is __CALLED INTERNALLY__ and, therefore
@@ -76,26 +109,20 @@ final class Router
      */
     public function run(RequestInterface &$requestToFulfill, ResponseInterface &$response, array $controllerArgs = [])
     {
-        foreach ($this->routes[$requestToFulfill->getMethod()] as $currentRoute) {
-            $decodedUri = urldecode($requestToFulfill->getUri()->getPath());
+        $params = [];
 
-            $params = null;
+        $matchedRoute = $this->search($requestToFulfill->getMethod(), urldecode($requestToFulfill->getUri()->getPath()), $params);
 
-            //if the current URL matches the current URI
-            if (self::matches($currentRoute->getURI(), $decodedUri, $params)) {
+        if (!is_null($matchedRoute)) {
+            //this will hold the parameters passed on the URL
+            $deductedParams = new GenericCollection($params);
 
-                //execute the router call
-                $request = clone $requestToFulfill;
+            $request = clone $requestToFulfill;
 
-                //this will hold the parameters passed on the URL
-                $deductedParams = new GenericCollection($params);
-
-                $currentRoute($request, $response, $deductedParams, $controllerArgs);
-
-                //useless to continue
-                break;
-            }
+            $matchedRoute($request, $response, $deductedParams, $controllerArgs);
         }
+
+
     }
 
     /**

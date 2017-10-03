@@ -51,7 +51,7 @@ class ApplicationTest extends TestCase
         unlink(__DIR__."/../../settings.json");
 
         $router = new Router();
-        $router->register(new Route([
+        $router->add(new Route([
             "verbs" => [
                 Route::DELETE
             ],
@@ -91,7 +91,7 @@ class ApplicationTest extends TestCase
         unlink(__DIR__."/../../settings.json");
 
         $router = new Router();
-        $router->register(new Route([
+        $router->add(new Route([
             "verbs" => [
                 Route::DELETE
             ],
@@ -131,7 +131,7 @@ class ApplicationTest extends TestCase
         unlink(__DIR__."/../../settings.json");
 
         $router = new Router();
-        $router->register(new Route([
+        $router->add(new Route([
             "verbs" => [
                 Route::DELETE
             ],

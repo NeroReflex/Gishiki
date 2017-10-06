@@ -98,6 +98,29 @@ final class Router
     }
 
     /**
+     * Check if the given URL matches a rule in a HTTP method different
+     * from the one used to perform the request.
+     *
+     * @param  string $requestURL    the HTTP used address
+     * @param  string $requestMethod the HTTP method used to query the resource
+     * @return bool true if the given url is matched in some other methods
+     */
+    protected function checkNotAllowed($requestURL, $requestMethod) : bool
+    {
+        foreach (array_keys($this->routes) as $method) {
+            $matchedRoute = (strcmp($method, $requestMethod) != 0) ?
+                $this->search($method, $requestURL, $params) :
+                false;
+
+            if (!is_null($matchedRoute)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Run the router and serve the current request.
      *
      * This function is __CALLED INTERNALLY__ and, therefore
@@ -120,9 +143,14 @@ final class Router
             $request = clone $requestToFulfill;
 
             $matchedRoute($request, $response, $deductedParams, $controllerArgs);
+
+            return;
         }
 
+        //check if this is a 404 or a 405
+        if ($this->checkNotAllowed(urldecode($requestToFulfill->getUri()->getPath()), $requestToFulfill->getMethod())) {
 
+        }
     }
 
     /**

@@ -75,7 +75,7 @@ final class Router
     }
 
     /**
-     * Check if the given url and method match a 200 OK route.
+     * Check if the given url and method match a route (even a non-200 OK route is allowed).
      *
      * @param string $method the HTTP used verb
      * @param string $url    the url decoded string of the called url
@@ -87,7 +87,7 @@ final class Router
         foreach ($this->routes[$method] as $currentRoute) {
 
             //if the current URL matches the current URI
-            if (($currentRoute->getStatus() == Route::OK) && (self::matches($currentRoute->getURI(), $url, $params))) {
+            if (self::matches($currentRoute->getURI(), $url, $params)) {
 
                 //this will hold the parameters passed on the URL
                 return $currentRoute;
@@ -109,8 +109,7 @@ final class Router
     {
         foreach (array_keys($this->routes) as $method) {
             $matchedRoute = (strcmp($method, $requestMethod) != 0) ?
-                $this->search($method, $requestURL, $params) :
-                false;
+                $this->search($method, $requestURL, $params) : false;
 
             if (!is_null($matchedRoute)) {
                 return true;
@@ -118,6 +117,40 @@ final class Router
         }
 
         return false;
+    }
+
+    /**
+     * Load error-handling routes to be used when
+     * a bad request is sent to the server.
+     *
+     * @param string $method the HTTP verb of the request
+     * @return array the list of error-handling routes
+     */
+    protected function loadErrorHandlers($method) : array
+    {
+        $errorHandlers = [];
+
+        foreach ($this->routes[$method] as &$currentRoute) {
+            if (($currentRoute->getStatus() == Route::NOT_ALLOWED) && (strcmp($currentRoute->getURI(), "") == 0)) {
+                $errorHandlers[Route::NOT_ALLOWED] = $currentRoute;
+            }
+
+            if (($currentRoute->getStatus() == Route::NOT_FOUND) && (strcmp($currentRoute->getURI(), "") == 0)) {
+                $errorHandlers[Route::NOT_ALLOWED] = $currentRoute;
+            }
+        }
+
+        //if any error handler was not loaded use the default one
+        if (!in_array(Route::NOT_FOUND, array_keys($errorHandlers))) {
+            //load the default 404 NOT FOUND handler
+
+        }
+
+        //if any error handler was not loaded use the default one
+        if (!in_array(Route::NOT_ALLOWED, array_keys($errorHandlers))) {
+            //load the default 404 NOT ALLOWED handler
+
+        }
     }
 
     /**
@@ -132,25 +165,41 @@ final class Router
      */
     public function run(RequestInterface &$requestToFulfill, ResponseInterface &$response, array $controllerArgs = [])
     {
+        //clone the request
+        $request = clone $requestToFulfill;
+
         $params = [];
 
-        $matchedRoute = $this->search($requestToFulfill->getMethod(), urldecode($requestToFulfill->getUri()->getPath()), $params);
+        $matchedRoute = $this->search($request->getMethod(), urldecode($request->getUri()->getPath()), $params);
 
         if (!is_null($matchedRoute)) {
             //this will hold the parameters passed on the URL
             $deductedParams = new GenericCollection($params);
-
-            $request = clone $requestToFulfill;
 
             $matchedRoute($request, $response, $deductedParams, $controllerArgs);
 
             return;
         }
 
-        //check if this is a 404 or a 405
-        if ($this->checkNotAllowed(urldecode($requestToFulfill->getUri()->getPath()), $requestToFulfill->getMethod())) {
+        $routeNotFound = null;
+        $routeNotAllowed = null;
 
+        $errorHandlers = $this->loadErrorHandlers($request->getMethod());
+        $routeNotAllowed = $errorHandlers[Route::NOT_ALLOWED];
+        $routeNotFound = $errorHandlers[Route::NOT_FOUND];
+
+        $emptyDeductedParam = new GenericCollection();
+
+        //check if this is a 404 or a 405
+        if ($this->checkNotAllowed(urldecode($request->getUri()->getPath()), $request->getMethod())) {
+            //this is a 405 error and the notAllowed route must be followed
+            $routeNotAllowed($request, $response, $emptyDeductedParam, $controllerArgs);
+
+            return;
         }
+
+        //this is a 404 error and the notFound route must be followed
+        $routeNotFound($request, $response, $emptyDeductedParam, $controllerArgs);
     }
 
     /**

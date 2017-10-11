@@ -15,15 +15,7 @@
 _*Gishiki*_: a modern and elegant MVC framework for modern versions of PHP.
 
 Gishiki means 'ritual' in japanese, this name was chosen because this framework
-will help you to perform the ritual of creation and deployment of web digital contents.
-
-Due to its design this framework won't force you to use its features:
-you are completely free to use it as you wish to,
-even if that breaks up MVC principles!
-
-What are you waiting for?
-Installing is as simple as editing your composer file and in 2 minutes you are up in
-experimenting its features!
+will help you to perform the ritual of creation and deployment of web contents.
 
 
 ## Quick Start
@@ -46,7 +38,7 @@ version matching the last valid development branch.
 
 Gishiki focuses on high-performance cloud computing in an MVC-oriented paradigm.
 
-The majority of cloud application is composite of RESTFul  services.
+The majority of cloud application is composite of *RESTFul*  services.
 
 Gishiki lets you easily create RESTFul services to interact with your
 own service from wherever you want, may it be an Android/iOS application,
@@ -55,10 +47,7 @@ another service, a Desktop program or the website for your service.
 
 ## Websites
 
-Gishiki deploy an MVC pattern that is a bit special to help you building any digital servie you want with just one framework.
-
-In order to help you achieving your goals Gishiki provides helpers for a lot of common operations,
-but let you free of doing things the way you want.
+Gishiki aims to deploy a framework complete and easy to use to build classic websites.
 
 
 ## Security

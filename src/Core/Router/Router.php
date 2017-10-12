@@ -108,9 +108,11 @@ final class Router
      */
     protected function checkNotAllowed($requestURL, $requestMethod) : bool
     {
+        $params = [];
+
         foreach (array_keys($this->routes) as $method) {
             $matchedRoute = (strcmp($method, $requestMethod) != 0) ?
-                $this->search($method, $requestURL, $params) : false;
+                $this->search($method, $requestURL, $params) : null;
 
             if (!is_null($matchedRoute)) {
                 return true;
@@ -156,7 +158,7 @@ final class Router
                     Route::POST
                 ],
                 "uri" => "",
-                "status" => Route::OK,
+                "status" => Route::NOT_FOUND,
                 "controller" => ErrorHandling::class,
                 "action" => "notFound",
             ]);
@@ -177,11 +179,13 @@ final class Router
                     Route::POST
                 ],
                 "uri" => "",
-                "status" => Route::OK,
+                "status" => Route::NOT_ALLOWED,
                 "controller" => ErrorHandling::class,
                 "action" => "notAllowed",
             ]);
         }
+
+        return $errorHandlers;
     }
 
     /**
@@ -212,27 +216,23 @@ final class Router
             return;
         }
 
-        throw new \Exception("test2");
-
         $routeNotFound = null;
         $routeNotAllowed = null;
 
         $errorHandlers = $this->loadErrorHandlers($request->getMethod());
-        $routeNotAllowed = $errorHandlers[Route::NOT_ALLOWED];
-        $routeNotFound = $errorHandlers[Route::NOT_FOUND];
 
         $emptyDeductedParam = new GenericCollection();
 
         //check if this is a 404 or a 405
         if ($this->checkNotAllowed(urldecode($request->getUri()->getPath()), $request->getMethod())) {
             //this is a 405 error and the notAllowed route must be followed
-            $routeNotAllowed($request, $response, $emptyDeductedParam, $controllerArgs);
+            $errorHandlers[Route::NOT_ALLOWED]($request, $response, $emptyDeductedParam, $controllerArgs);
 
             return;
         }
 
         //this is a 404 error and the notFound route must be followed
-        $routeNotFound($request, $response, $emptyDeductedParam, $controllerArgs);
+        $errorHandlers[Route::NOT_FOUND]($request, $response, $emptyDeductedParam, $controllerArgs);
     }
 
     /**

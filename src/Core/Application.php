@@ -118,7 +118,6 @@ final class Application
      */
     public function run(Router &$router)
     {
-
         //...generate the response
         try {
             $router->run($this->request, $this->response, [
@@ -167,7 +166,7 @@ final class Application
 
             $reflectedEmitFunc = new \ReflectionMethod($emitter, "emit");
             $reflectedEmitFunc->setAccessible(true);
-            $reflectedEmitFunc->invokeArgs($emitter, [&$this->response]);
+            $reflectedEmitFunc->invoke($emitter, $this->response);
 
             return $emitter;
         } catch (\ReflectionException $ex) {

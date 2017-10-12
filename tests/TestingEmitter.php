@@ -36,9 +36,9 @@ class TestingEmitter
         return (string)$body;
     }
 
-    public function emit(ResponseInterface &$response)
+    public function emit(ResponseInterface $response)
     {
-        $this->response = &$response;
+        $this->response = clone $response;
     }
 
 

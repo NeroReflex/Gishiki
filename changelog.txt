@@ -1,6 +1,6 @@
 *v2.0.0-alpha* => *v2.0.0*
 - Better Code
 - Fixed almost every bug preventing the framework to work (I'm sorry)
-- Everything is instantiated and a the entire lifecycle is contained within an Application object => I can now perform a full framework test
+- Everything is instantiated and the entire lifecycle is contained within an Application object => I can now perform a full framework test
 - A Controller has a reference to each database and logging connections
 - Every unhandled exception is now logged, not only Gishiki own exceptions

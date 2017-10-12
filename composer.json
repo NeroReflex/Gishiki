@@ -60,6 +60,6 @@
 
   "scripts": {
       "test": "./vendor/bin/phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml",
-      "documentation": "./vendor/bin/phpdoc -d ./src -t ./Documentation/docs/API"
+      "api-gen": "./vendor/bin/phpdoc"
   }
 }

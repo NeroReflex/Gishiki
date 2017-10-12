@@ -84,7 +84,49 @@ class ApplicationTest extends TestCase
         $this->assertEquals('bye bye Mario', $emitter->getBodyContent());
     }
 
-    public function testDefaultNotFound()
+    public function testRouteDefaultNotAllowed()
+    {
+        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
+        $app = new Application();
+        unlink(__DIR__."/../../settings.json");
+
+        $router = new Router();
+
+        $router->add(new Route([
+            "verbs" => [
+                Route::GET
+            ],
+            "uri" => "/notAllowed",
+            "status" => Route::OK,
+            "controller" => "FakeController",
+            "action" => "none"
+        ]));
+
+        $request = new \ReflectionProperty($app, 'request');
+        $request->setAccessible(true);
+
+        $testRequest = new Request();
+        $testRequest = $testRequest->withMethod('PATCH');
+        $uri = new Uri();
+        $uri = $uri->withHost('www.testingsite.com');
+        $uri = $uri->withPort(80);
+        $uri = $uri->withPath('/notAllowed');
+        $testRequest = $testRequest->withUri($uri);
+
+        $request->setValue($app, $testRequest);
+
+        $response = new \ReflectionProperty($app, 'response');
+        $response->setAccessible(true);
+
+        $app->run($router);
+
+        $emitter = $app->emit(\TestingEmitter::class);
+
+        $this->assertEquals('405 - Not Allowed', $emitter->getBodyContent());
+        $this->assertEquals(Route::NOT_ALLOWED, $emitter->getStatusCode());
+    }
+
+    public function testRouteDefaultNotFound()
     {
         copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
         $app = new Application();
@@ -96,7 +138,7 @@ class ApplicationTest extends TestCase
         $request->setAccessible(true);
 
         $testRequest = new Request();
-        $testRequest = $testRequest->withMethod('OPTION');
+        $testRequest = $testRequest->withMethod('OPTIONS');
         $uri = new Uri();
         $uri = $uri->withHost('www.testingsite.com');
         $uri = $uri->withPort(80);
@@ -112,8 +154,8 @@ class ApplicationTest extends TestCase
 
         $emitter = $app->emit(\TestingEmitter::class);
 
-        $this->assertEquals(Route::NOT_FOUND, $emitter->getStatusCode());
         $this->assertEquals('404 - Not Found', $emitter->getBodyContent());
+        $this->assertEquals(Route::NOT_FOUND, $emitter->getStatusCode());
     }
 
     public function testCompleteApplicationBadEmitter()

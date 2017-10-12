@@ -4,3 +4,4 @@
 - Everything is instantiated and the entire lifecycle is contained within an Application object => I can now perform a full framework test
 - A Controller has a reference to each database and logging connections
 - Every unhandled exception is now logged, not only Gishiki own exceptions
+- Completed the Router class

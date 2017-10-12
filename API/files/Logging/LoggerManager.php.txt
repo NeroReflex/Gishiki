@@ -23,7 +23,7 @@ use Gishiki\Algorithms\Collections\GenericCollection;
 /**
  * An helper class for managing monolog logger instances.
  *
- * Benato Denis <benato.denis96@gmail.com>
+ * @author Benato Denis <benato.denis96@gmail.com>
  */
 final class LoggerManager
 {
@@ -33,6 +33,23 @@ final class LoggerManager
     protected $connections = [];
 
     /**
+     * Check if a logger with the given name exists.
+     *
+     * @param  string $name the connection name
+     * @throws \InvalidArgumentException invalid name
+     * @return bool true only if the logger exists
+     */
+    public function isConnected($name) : bool
+    {
+        //check for the logger name
+        if ((!is_string($name)) || (strlen($name) <= 0)) {
+            throw new \InvalidArgumentException('The logger name must be given as a valid non-empty string');
+        }
+
+        return array_key_exists(sha1($name), $this->connections);
+    }
+
+    /**
      * Create a new logger instance.
      *
      * @param string $name               the connection name
@@ -40,7 +57,7 @@ final class LoggerManager
      * @throws \InvalidArgumentException invalid name or connection details
      * @return \Monolog\Logger           the new logger instance
      */
-    public function connect($name, array $details)
+    public function connect($name, array $details) : Logger
     {
         //check for the logger name
         if ((!is_string($name)) || (strlen($name) <= 0)) {
@@ -85,12 +102,8 @@ final class LoggerManager
      * @throws \InvalidArgumentException invalid name or inexistent logger instance
      * @return \Monolog\Logger           the logger instance
      */
-    public function retrieve($name = null)
+    public function retrieve($name) : Logger
     {
-        if (!is_string($name)) {
-            throw new \InvalidArgumentException('The logger instance to be retrieved must be given as a valid, non-empty string or NULL');
-        }
-
         //check for bad logger name
         if ((!is_string($name)) || (strlen($name) <= 0)) {
             throw new \InvalidArgumentException('The logger name must be given as a valid non-empty string');

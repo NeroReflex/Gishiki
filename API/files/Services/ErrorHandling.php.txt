@@ -36,3 +36,4 @@ final class ErrorHandling extends Controller
         $this->getResponse()->getBody()->write("405 - Not Allowed");
     }
 }
+

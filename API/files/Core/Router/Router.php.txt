@@ -216,9 +216,6 @@ final class Router
             return;
         }
 
-        $routeNotFound = null;
-        $routeNotAllowed = null;
-
         $errorHandlers = $this->loadErrorHandlers($request->getMethod());
 
         $emptyDeductedParam = new GenericCollection();

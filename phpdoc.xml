@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+  <title>Gishiki</title>
+  <parser>
+    <target>Documentation/docs/API</target>
+  </parser>
+  <transformer>
+    <target>Documentation/docs/API</target>
+  </transformer>
+  <files>
+    <directory>src</directory>
+  </files>
+</phpdoc>﻿

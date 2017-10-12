@@ -21,6 +21,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Gishiki\Algorithms\Strings\SimpleLexer;
 use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Services\ErrorHandling;
 
 /**
  * This component represents the application as a set of HTTP rules.
@@ -136,20 +137,50 @@ final class Router
             }
 
             if (($currentRoute->getStatus() == Route::NOT_FOUND) && (strcmp($currentRoute->getURI(), "") == 0)) {
-                $errorHandlers[Route::NOT_ALLOWED] = $currentRoute;
+                $errorHandlers[Route::NOT_FOUND] = $currentRoute;
             }
         }
 
         //if any error handler was not loaded use the default one
         if (!in_array(Route::NOT_FOUND, array_keys($errorHandlers))) {
             //load the default 404 NOT FOUND handler
-
+            $errorHandlers[Route::NOT_FOUND] = new Route([
+                "verbs" => [
+                    Route::GET,
+                    Route::DELETE,
+                    Route::PATCH,
+                    Route::OPTIONS,
+                    Route::HEAD,
+                    Route::GET,
+                    Route::PUT,
+                    Route::POST
+                ],
+                "uri" => "",
+                "status" => Route::OK,
+                "controller" => ErrorHandling::class,
+                "action" => "notFound",
+            ]);
         }
 
         //if any error handler was not loaded use the default one
         if (!in_array(Route::NOT_ALLOWED, array_keys($errorHandlers))) {
-            //load the default 404 NOT ALLOWED handler
-
+            //load the default 405 NOT ALLOWED handler
+            $errorHandlers[Route::NOT_ALLOWED] = new Route([
+                "verbs" => [
+                    Route::GET,
+                    Route::DELETE,
+                    Route::PATCH,
+                    Route::OPTIONS,
+                    Route::HEAD,
+                    Route::GET,
+                    Route::PUT,
+                    Route::POST
+                ],
+                "uri" => "",
+                "status" => Route::OK,
+                "controller" => ErrorHandling::class,
+                "action" => "notAllowed",
+            ]);
         }
     }
 
@@ -180,6 +211,8 @@ final class Router
 
             return;
         }
+
+        throw new \Exception("test2");
 
         $routeNotFound = null;
         $routeNotAllowed = null;

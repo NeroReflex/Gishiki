@@ -84,6 +84,38 @@ class ApplicationTest extends TestCase
         $this->assertEquals('bye bye Mario', $emitter->getBodyContent());
     }
 
+    public function testDefaultNotFound()
+    {
+        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
+        $app = new Application();
+        unlink(__DIR__."/../../settings.json");
+
+        $router = new Router();
+
+        $request = new \ReflectionProperty($app, 'request');
+        $request->setAccessible(true);
+
+        $testRequest = new Request();
+        $testRequest = $testRequest->withMethod('OPTION');
+        $uri = new Uri();
+        $uri = $uri->withHost('www.testingsite.com');
+        $uri = $uri->withPort(80);
+        $uri = $uri->withPath('/notFound');
+        $testRequest = $testRequest->withUri($uri);
+
+        $request->setValue($app, $testRequest);
+
+        $response = new \ReflectionProperty($app, 'response');
+        $response->setAccessible(true);
+
+        $app->run($router);
+
+        $emitter = $app->emit(\TestingEmitter::class);
+
+        $this->assertEquals(Route::NOT_FOUND, $emitter->getStatusCode());
+        $this->assertEquals('404 - Not Found', $emitter->getBodyContent());
+    }
+
     public function testCompleteApplicationBadEmitter()
     {
         copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");

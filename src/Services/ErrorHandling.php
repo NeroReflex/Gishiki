@@ -15,31 +15,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-use Psr\Http\Message\ResponseInterface;
+namespace Gishiki\Services;
 
-class TestingEmitter
+use Gishiki\Core\MVC\Controller\Controller;
+
+/**
+ * This component represents the application as a set of HTTP rules.
+ *
+ * @author Benato Denis <benato.denis96@gmail.com>
+ */
+final class ErrorHandling extends Controller
 {
-    /**
-     * @var ResponseInterface the response
-     */
-    private $response;
-
-    public function getStatusCode()
+    public function notFound()
     {
-        return $this->response->getStatusCode();
+        $this->getResponse()->getBody()->write("404 - Not Found");
     }
 
-    public function getBodyContent()
+    public function notAllowed()
     {
-        $body = $this->response->getBody();
-        $body->rewind();
-        return (string)$body;
+        $this->getResponse()->getBody()->write("405 - Not Allowed");
     }
-
-    public function emit(ResponseInterface &$response)
-    {
-        $this->response = &$response;
-    }
-
-
 }

@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Gishiki</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Gishiki</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Gishiki.html">\Gishiki</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">140</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-10894726"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-10894726" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-885310480"></a>
+                                <a href="../namespaces/Gishiki.html" style="margin-left: 30px; padding-left: 0">Gishiki</a>
+            </div>
+            <div id="namespace-885310480" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1415137389"></a>
+                                <a href="../namespaces/Gishiki.Algorithms.html" style="margin-left: 30px; padding-left: 0">Algorithms</a>
+            </div>
+            <div id="namespace-1415137389" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1910732271"></a>
+                                <a href="../namespaces/Gishiki.Algorithms.Collections.html" style="margin-left: 30px; padding-left: 0">Collections</a>
+            </div>
+            <div id="namespace-1910732271" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.Collections.DeserializationException.html">DeserializationException</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.Collections.SerializableCollection.html">SerializableCollection</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.Collections.SerializationException.html">SerializationException</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.Collections.StackCollection.html">StackCollection</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.Collections.StackException.html">StackException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1766346637"></a>
+                                <a href="../namespaces/Gishiki.Algorithms.Strings.html" style="margin-left: 30px; padding-left: 0">Strings</a>
+            </div>
+            <div id="namespace-1766346637" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.Strings.Manipulation.html">Manipulation</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.Strings.SimpleLexer.html">SimpleLexer</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.Base64.html">Base64</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.XmlDomConstructor.html">XmlDomConstructor</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1732346481"></a>
+                                <a href="../namespaces/Gishiki.Core.html" style="margin-left: 30px; padding-left: 0">Core</a>
+            </div>
+            <div id="namespace-1732346481" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-429354260"></a>
+                                <a href="../namespaces/Gishiki.Core.MVC.html" style="margin-left: 30px; padding-left: 0">MVC</a>
+            </div>
+            <div id="namespace-429354260" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-705950781"></a>
+                                <a href="../namespaces/Gishiki.Core.MVC.Controller.html" style="margin-left: 30px; padding-left: 0">Controller</a>
+            </div>
+            <div id="namespace-705950781" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1912622077"></a>
+                                <a href="../namespaces/Gishiki.Core.MVC.Controller.Plugins.html" style="margin-left: 30px; padding-left: 0">Plugins</a>
+            </div>
+            <div id="namespace-1912622077" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Core.MVC.Controller.Plugins.RequestDeserializer.html">RequestDeserializer</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Core.MVC.Controller.Plugins.ResponseAssembler.html">ResponseAssembler</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Core.MVC.Controller.Plugins.ResponseSerializer.html">ResponseSerializer</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Core.MVC.Controller.Controller.html">Controller</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Core.MVC.Controller.ControllerException.html">ControllerException</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Core.MVC.Controller.Plugin.html">Plugin</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1478390691"></a>
+                                <a href="../namespaces/Gishiki.Core.Router.html" style="margin-left: 30px; padding-left: 0">Router</a>
+            </div>
+            <div id="namespace-1478390691" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Core.Router.Route.html">Route</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Core.Router.Router.html">Router</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Core.Router.RouterException.html">RouterException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Core.Application.html">Application</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Core.Config.html">Config</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Core.Exception.html">Exception</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1581565805"></a>
+                                <a href="../namespaces/Gishiki.Database.html" style="margin-left: 30px; padding-left: 0">Database</a>
+            </div>
+            <div id="namespace-1581565805" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-553984568"></a>
+                                <a href="../namespaces/Gishiki.Database.Adapters.html" style="margin-left: 30px; padding-left: 0">Adapters</a>
+            </div>
+            <div id="namespace-553984568" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-116265389"></a>
+                                <a href="../namespaces/Gishiki.Database.Adapters.Utils.html" style="margin-left: 30px; padding-left: 0">Utils</a>
+            </div>
+            <div id="namespace-116265389" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1300245855"></a>
+                                <a href="../namespaces/Gishiki.Database.Adapters.Utils.QueryBuilder.html" style="margin-left: 30px; padding-left: 0">QueryBuilder</a>
+            </div>
+            <div id="namespace-1300245855" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Utils.QueryBuilder.MySQLQueryBuilder.html">MySQLQueryBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Utils.QueryBuilder.PostgreSQLQueryBuilder.html">PostgreSQLQueryBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Utils.QueryBuilder.SQLiteQueryBuilder.html">SQLiteQueryBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Utils.QueryBuilder.SQLQueryBuilder.html">SQLQueryBuilder</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1451335082"></a>
+                                <a href="../namespaces/Gishiki.Database.Adapters.Utils.SQLGenerator.html" style="margin-left: 30px; padding-left: 0">SQLGenerator</a>
+            </div>
+            <div id="namespace-1451335082" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html">GenericSQL</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.MySQLWrapper.html">MySQLWrapper</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.PostgreSQLWrapper.html">PostgreSQLWrapper</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.SQLiteWrapper.html">SQLiteWrapper</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Mysql.html">Mysql</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.PDODatabase.html">PDODatabase</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Pgsql.html">Pgsql</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Sqlite.html">Sqlite</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1117336092"></a>
+                                <a href="../namespaces/Gishiki.Database.ORM.html" style="margin-left: 30px; padding-left: 0">ORM</a>
+            </div>
+            <div id="namespace-1117336092" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Database.ORM.DatabaseStructure.html">DatabaseStructure</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.ORM.StructureException.html">StructureException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1225538253"></a>
+                                <a href="../namespaces/Gishiki.Database.Runtime.html" style="margin-left: 30px; padding-left: 0">Runtime</a>
+            </div>
+            <div id="namespace-1225538253" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Database.Runtime.FieldOrdering.html">FieldOrdering</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Runtime.FieldRelation.html">FieldRelation</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Runtime.ResultModifier.html">ResultModifier</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Runtime.SelectionCriteria.html">SelectionCriteria</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-366635764"></a>
+                                <a href="../namespaces/Gishiki.Database.Schema.html" style="margin-left: 30px; padding-left: 0">Schema</a>
+            </div>
+            <div id="namespace-366635764" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Database.Schema.Column.html">Column</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Schema.ColumnRelation.html">ColumnRelation</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Schema.ColumnType.html">ColumnType</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Schema.Table.html">Table</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Gishiki.Database.DatabaseInterface.html">DatabaseInterface</a></li>
+                                                    <li class="interface"><a href="../classes/Gishiki.Database.RelationalDatabaseInterface.html">RelationalDatabaseInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Database.DatabaseException.html">DatabaseException</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.DatabaseManager.html">DatabaseManager</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1262607032"></a>
+                                <a href="../namespaces/Gishiki.Logging.html" style="margin-left: 30px; padding-left: 0">Logging</a>
+            </div>
+            <div id="namespace-1262607032" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Logging.LoggerManager.html">LoggerManager</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-56186251"></a>
+                                <a href="../namespaces/Gishiki.Security.html" style="margin-left: 30px; padding-left: 0">Security</a>
+            </div>
+            <div id="namespace-56186251" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1066734251"></a>
+                                <a href="../namespaces/Gishiki.Security.Encryption.html" style="margin-left: 30px; padding-left: 0">Encryption</a>
+            </div>
+            <div id="namespace-1066734251" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-942245246"></a>
+                                <a href="../namespaces/Gishiki.Security.Encryption.Asymmetric.html" style="margin-left: 30px; padding-left: 0">Asymmetric</a>
+            </div>
+            <div id="namespace-942245246" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Security.Encryption.Asymmetric.AsymmetricException.html">AsymmetricException</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Security.Encryption.Asymmetric.Cryptography.html">Cryptography</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Security.Encryption.Asymmetric.PrivateKey.html">PrivateKey</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Security.Encryption.Asymmetric.PublicKey.html">PublicKey</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-463958725"></a>
+                                <a href="../namespaces/Gishiki.Security.Encryption.Symmetric.html" style="margin-left: 30px; padding-left: 0">Symmetric</a>
+            </div>
+            <div id="namespace-463958725" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Security.Encryption.Symmetric.Cryptography.html">Cryptography</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Security.Encryption.Symmetric.SecretKey.html">SecretKey</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Security.Encryption.Symmetric.SymmetricException.html">SymmetricException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-785505573"></a>
+                                <a href="../namespaces/Gishiki.Security.Hashing.html" style="margin-left: 30px; padding-left: 0">Hashing</a>
+            </div>
+            <div id="namespace-785505573" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Security.Hashing.Algorithm.html">Algorithm</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Security.Hashing.Hasher.html">Hasher</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Security.Hashing.HashingException.html">HashingException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1465150485"></a>
+                                <a href="../namespaces/Gishiki.Services.html" style="margin-left: 30px; padding-left: 0">Services</a>
+            </div>
+            <div id="namespace-1465150485" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Services.ErrorHandling.html">ErrorHandling</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Gishiki.Database.Adapters.Utils.SQLGenerator.html">\Gishiki\Database\Adapters\Utils\SQLGenerator</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Gishiki\Database\Adapters\Utils\SQLGenerator</small>SQLiteWrapper</h1>
+                    <p><em>This utility is useful to create sql queries for SQLite.</em></p>
+                    <p>It extends the SQLQueryBuilder and add SQLite-specific support.</p>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#method_beautify" class="">beautify()</a><br />
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#method_update" class="">update()</a><br />
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#method_set" class="">set()</a><br />
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#method_createTable" class="">createTable()</a><br />
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#method_dropTable" class="">dropTable()</a><br />
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#method_where" class="">where()</a><br />
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#method_insertInto" class="">insertInto()</a><br />
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#method_values" class="">values()</a><br />
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#method_limitOffsetOrderBy" class="">limitOffsetOrderBy()</a><br />
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#method_selectAllFrom" class="">selectAllFrom()</a><br />
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#method_selectFrom" class="">selectFrom()</a><br />
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#method_deleteFrom" class="">deleteFrom()</a><br />
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#method_exportQuery" class="">exportQuery()</a><br />
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#method_exportParams" class="">exportParams()</a><br />
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.SQLiteWrapper.html#method_definedAs" class="">definedAs()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#method_appendToQuery" class="">appendToQuery()</a><br />
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#method_appendToParams" class="">appendToParams()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#property_sql" class="">$sql</a><br />
+                                                                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html#property_params" class="">$params</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                                                <span class="label label-info">final</span>
+                    
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Database.Adapters.Utils.SQLGenerator.SQLiteWrapper.html"><div class="path-wrapper">Database/Adapters/Utils/SQLGenerator/SQLiteWrapper.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper"><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</a></div>
+                                                                                                    <div class="namespace-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\SQLiteWrapper</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Benato Denis <a href="mailto:benato.denis96@gmail.com">benato.denis96@gmail.com</a></p>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_sql" name="property_sql" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$sql</h3>
+                <pre class="signature">$sql : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; the SQL query that contains placeholders                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_params" name="property_params" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$params</h3>
+                <pre class="signature">$params : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                &mdash; a list of values to be escaped and inserted in place of sql placeholders                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_beautify" name="method_beautify" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">beautify()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">beautify(string  <span class="argument">$query</span>) : string</pre>
+                <p><em>Beautify an SQL query.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$query </td>
+                                <td><p>your ugly SQL query</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>your beautiful SQL query</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct() </pre>
+                <p><em>Initialize an empty SQL query.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_update" name="method_update" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">update()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">update(string  <span class="argument">$table</span>) : \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</pre>
+                <p><em>Add UPDATE %tablename% to the SQL query.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table </td>
+                                <td><p>the name of the table to be updated</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</a>
+                                            &mdash; <p>the updated sql builder</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set" name="method_set" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set(array  <span class="argument">$values</span>) : \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</pre>
+                <p><em>Add SET col1 = ?, col2 = ?, col3 = ? to the SQL query.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$values </td>
+                                <td><p>an associative array of columns =&gt; value to be changed</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</a>
+                                            &mdash; <p>the updated sql builder</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_createTable" name="method_createTable" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">createTable()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">createTable(string  <span class="argument">$tableName</span>) : \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLiteWrapper</pre>
+                <p><em>Add CREATE TABLE IF NOT EXISTS %tablename% to the SQL query.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$tableName </td>
+                                <td><p>the name of the table</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.SQLiteWrapper.html">\Gishiki\Database\Adapters\Utils\SQLGenerator\SQLiteWrapper</a>
+                                            &mdash; <p>the updated sql builder</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_dropTable" name="method_dropTable" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">dropTable()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">dropTable(string  <span class="argument">$tableName</span>) : \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLiteWrapper</pre>
+                <p><em>Add DROP TABLE IF EXISTS %tablename% to the SQL query.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$tableName </td>
+                                <td><p>the name of the table</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.SQLiteWrapper.html">\Gishiki\Database\Adapters\Utils\SQLGenerator\SQLiteWrapper</a>
+                                            &mdash; <p>the updated sql builder</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_where" name="method_where" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">where()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">where(\Gishiki\Database\Runtime\SelectionCriteria  <span class="argument">$where</span>) : \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</pre>
+                <p><em>Add WHERE col1 = ? OR col2 &lt;= ? .</em></p>
+                <p>...... to the SQL query.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Gishiki.Database.Runtime.SelectionCriteria.html">\Gishiki\Database\Runtime\SelectionCriteria</a></td>
+                                <td>$where </td>
+                                <td><p>the selection criteria</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</a>
+                                            &mdash; <p>the updated sql builder</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_insertInto" name="method_insertInto" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">insertInto()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">insertInto(string  <span class="argument">$table</span>) : \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</pre>
+                <p><em>Add INSERT INTO %tablename% to the SQL query.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table </td>
+                                <td><p>the name of the table to be affected</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</a>
+                                            &mdash; <p>the updated sql builder</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_values" name="method_values" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">values()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">values(array  <span class="argument">$values</span>) : \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</pre>
+                <p><em>Add (col1, col2, col3) VALUES (?, ?, ?, ?) to the SQL query.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$values </td>
+                                <td><p>an associative array of columnName =&gt; rowValue</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</a>
+                                            &mdash; <p>the updated sql builder</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_limitOffsetOrderBy" name="method_limitOffsetOrderBy" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">limitOffsetOrderBy()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">limitOffsetOrderBy(\Gishiki\Database\Runtime\ResultModifier  <span class="argument">$mod</span>) : \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</pre>
+                <p><em>Add LIMIT ? OFFSET ? ORDER BY .</em></p>
+                <p>.... to the SQL query wheter they are needed.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Gishiki.Database.Runtime.ResultModifier.html">\Gishiki\Database\Runtime\ResultModifier</a></td>
+                                <td>$mod </td>
+                                <td><p>the result modifier</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</a>
+                                            &mdash; <p>the updated sql builder</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_selectAllFrom" name="method_selectAllFrom" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">selectAllFrom()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">selectAllFrom(string  <span class="argument">$table</span>) : \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</pre>
+                <p><em>Add SELECT * FROM  %tablename% to the SQL query.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table </td>
+                                <td><p>the name of the table to be affected</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</a>
+                                            &mdash; <p>the updated sql builder</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_selectFrom" name="method_selectFrom" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">selectFrom()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">selectFrom(string  <span class="argument">$table</span>, array  <span class="argument">$fields</span>) : \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</pre>
+                <p><em>Add SELECT col1, col2, col3 FROM %tablename% to the SQL query.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table </td>
+                                <td><p>the name of the table to be affected</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$fields </td>
+                                <td><p>the list containing names of columns to be selected</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</a>
+                                            &mdash; <p>the updated sql builder</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_deleteFrom" name="method_deleteFrom" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">deleteFrom()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">deleteFrom(string  <span class="argument">$table</span>) : \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</pre>
+                <p><em>Add DELETE FROM  %tablename% to the SQL query.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table </td>
+                                <td><p>the name of the table to be affected</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</a>
+                                            &mdash; <p>the updated sql builder</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_exportQuery" name="method_exportQuery" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">exportQuery()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">exportQuery() : string</pre>
+                <p><em>Export the SQL query string with ? in place of actual parameters.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>the SQL query without values</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_exportParams" name="method_exportParams" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">exportParams()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">exportParams() : array</pre>
+                <p><em>Export the list of parameters that will replace ? in the SQL query.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>the list of params</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_definedAs" name="method_definedAs" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">definedAs()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">definedAs(array  <span class="argument">$columns</span>) : \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLiteWrapper</pre>
+                <p><em>Add (id INTEGER PRIMARY KEY NUT NULL, name TEXT NOT NULL, .</em></p>
+                <p>.. ) to the SQL query.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$columns </td>
+                                <td><p>a collection of Gishiki\Database\Schema\Column</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.SQLiteWrapper.html">\Gishiki\Database\Adapters\Utils\SQLGenerator\SQLiteWrapper</a>
+                                            &mdash; <p>the updated sql builder</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_appendToQuery" name="method_appendToQuery" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">appendToQuery()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">appendToQuery(string  <span class="argument">$sql</span>) </pre>
+                <p><em>Append to the current SQL the given text.</em></p>
+                <p>Placeholders are question marks: ? and the value must be registered using
+the appendToParams function.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$sql </td>
+                                <td><p>the SQL with '?' placeholders</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_appendToParams" name="method_appendToParams" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">appendToParams()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">appendToParams(mixed  <span class="argument">$newParams</span>) </pre>
+                <p><em>This is a collection of raw values that the PDO will replace to ?
+on the SQL query.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$newParams </td>
+                                <td><p>an array of values or the value to be replaced</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html"><div class="path-wrapper">\Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">SQLiteWrapper.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Database/Adapters/Utils/SQLGenerator/SQLiteWrapper.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Gishiki.html">\Gishiki</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on October 12th, 2017 at 19:50.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

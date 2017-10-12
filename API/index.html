@@ -1,353 +1,662 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Gishiki</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
 
-	<title>Gishiki</title>
-
-	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
-
+    <link href="css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/prism.css" rel="stylesheet" media="all"/>
+    <link href="css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="js/html5.js"></script>
+    <![endif]-->
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.smooth-scroll.js"></script>
+    <script src="js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    
+    <link rel="shortcut icon" href="images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"/>
 </head>
-
 <body>
-<div id="left">
-	<div id="menu">
-<span>Overview</span>
 
-		<div id="groups">
-				<h3>Namespaces</h3>
-			<ul>
-				<li>
-					<a href="namespace-Gishiki.html">
-						Gishiki<span></span>
-					</a>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="index.html">Gishiki</a>
 
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.Algorithms.html">
-						Algorithms<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.Algorithms.Collections.html">
-						Collections					</a>
-
-						</li>
-							</ul></li>
-				<li>
-					<a href="namespace-Gishiki.CLI.html">
-						CLI					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.Core.html">
-						Core<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.Core.MVC.html">
-						MVC					</a>
-
-						</li>
-							</ul></li>
-				<li>
-					<a href="namespace-Gishiki.Database.html">
-						Database<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.Database.Adapters.html">
-						Adapters<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.Database.Adapters.Utils.html">
-						Utils<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.Database.Adapters.Utils.QueryBuilder.html">
-						QueryBuilder					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.Database.Adapters.Utils.SQLGenerator.html">
-						SQLGenerator					</a>
-
-						</li>
-							</ul></li></ul></li>
-				<li>
-					<a href="namespace-Gishiki.Database.Runtime.html">
-						Runtime					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.Database.Schema.html">
-						Schema					</a>
-
-						</li>
-							</ul></li>
-				<li>
-					<a href="namespace-Gishiki.HttpKernel.html">
-						HttpKernel					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.Logging.html">
-						Logging					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.Security.html">
-						Security<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.Security.Encryption.html">
-						Encryption<span></span>
-					</a>
-
-						<ul>
-				<li>
-					<a href="namespace-Gishiki.Security.Encryption.Asymmetric.html">
-						Asymmetric					</a>
-
-						</li>
-				<li>
-					<a href="namespace-Gishiki.Security.Encryption.Symmetric.html">
-						Symmetric					</a>
-
-						</li>
-							</ul></li>
-				<li>
-					<a href="namespace-Gishiki.Security.Hashing.html">
-						Hashing					</a>
-
-						</li>
-							</ul></li></ul></li>
-				<li>
-					<a href="namespace-PHP.html">
-						PHP					</a>
-
-						</li>
-			</ul>
-		</div>
-
-		<hr>
-
-
-		<div id="elements">
-			<h3>Classes</h3>
-			<ul>
-				<li><a href="class-ArrayIterator.html">ArrayIterator</a></li>
-				<li><a href="class-Closure.html">Closure</a></li>
-				<li><a href="class-DOMDocument.html">DOMDocument</a></li>
-				<li><a href="class-DOMElement.html">DOMElement</a></li>
-				<li><a href="class-DOMNode.html">DOMNode</a></li>
-				<li><a href="class-Gishiki.Algorithms.Base64.html">Gishiki\Algorithms\Base64</a></li>
-				<li><a href="class-Gishiki.Algorithms.Collections.GenericCollection.html">Gishiki\Algorithms\Collections\GenericCollection</a></li>
-				<li><a href="class-Gishiki.Algorithms.Collections.SerializableCollection.html">Gishiki\Algorithms\Collections\SerializableCollection</a></li>
-				<li><a href="class-Gishiki.Algorithms.Manipulation.html">Gishiki\Algorithms\Manipulation</a></li>
-				<li><a href="class-Gishiki.Algorithms.XmlDomConstructor.html">Gishiki\Algorithms\XmlDomConstructor</a></li>
-				<li><a href="class-Gishiki.CLI.Console.html">Gishiki\CLI\Console</a></li>
-				<li><a href="class-Gishiki.CLI.ConsoleColor.html">Gishiki\CLI\ConsoleColor</a></li>
-				<li><a href="class-Gishiki.Core.Environment.html">Gishiki\Core\Environment</a></li>
-				<li><a href="class-Gishiki.Core.MVC.Controller.html">Gishiki\Core\MVC\Controller</a></li>
-				<li><a href="class-Gishiki.Core.Route.html">Gishiki\Core\Route</a></li>
-				<li><a href="class-Gishiki.Database.Adapters.Mysql.html">Gishiki\Database\Adapters\Mysql</a></li>
-				<li><a href="class-Gishiki.Database.Adapters.PDODatabase.html">Gishiki\Database\Adapters\PDODatabase</a></li>
-				<li><a href="class-Gishiki.Database.Adapters.Pgsql.html">Gishiki\Database\Adapters\Pgsql</a></li>
-				<li><a href="class-Gishiki.Database.Adapters.Sqlite.html">Gishiki\Database\Adapters\Sqlite</a></li>
-				<li><a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.MySQLQueryBuilder.html">Gishiki\Database\Adapters\Utils\QueryBuilder\MySQLQueryBuilder</a></li>
-				<li><a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.PostgreSQLQueryBuilder.html">Gishiki\Database\Adapters\Utils\QueryBuilder\PostgreSQLQueryBuilder</a></li>
-				<li><a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.SQLiteQueryBuilder.html">Gishiki\Database\Adapters\Utils\QueryBuilder\SQLiteQueryBuilder</a></li>
-				<li><a href="class-Gishiki.Database.Adapters.Utils.QueryBuilder.SQLQueryBuilder.html">Gishiki\Database\Adapters\Utils\QueryBuilder\SQLQueryBuilder</a></li>
-				<li><a href="class-Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html">Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL</a></li>
-				<li><a href="class-Gishiki.Database.Adapters.Utils.SQLGenerator.MySQLWrapper.html">Gishiki\Database\Adapters\Utils\SQLGenerator\MySQLWrapper</a></li>
-				<li><a href="class-Gishiki.Database.Adapters.Utils.SQLGenerator.PostgreSQLWrapper.html">Gishiki\Database\Adapters\Utils\SQLGenerator\PostgreSQLWrapper</a></li>
-				<li><a href="class-Gishiki.Database.Adapters.Utils.SQLGenerator.SQLiteWrapper.html">Gishiki\Database\Adapters\Utils\SQLGenerator\SQLiteWrapper</a></li>
-				<li><a href="class-Gishiki.Database.DatabaseManager.html">Gishiki\Database\DatabaseManager</a></li>
-				<li><a href="class-Gishiki.Database.Runtime.FieldOrdering.html">Gishiki\Database\Runtime\FieldOrdering</a></li>
-				<li><a href="class-Gishiki.Database.Runtime.FieldRelation.html">Gishiki\Database\Runtime\FieldRelation</a></li>
-				<li><a href="class-Gishiki.Database.Runtime.ResultModifier.html">Gishiki\Database\Runtime\ResultModifier</a></li>
-				<li><a href="class-Gishiki.Database.Runtime.SelectionCriteria.html">Gishiki\Database\Runtime\SelectionCriteria</a></li>
-				<li><a href="class-Gishiki.Database.Schema.Column.html">Gishiki\Database\Schema\Column</a></li>
-				<li><a href="class-Gishiki.Database.Schema.ColumnRelation.html">Gishiki\Database\Schema\ColumnRelation</a></li>
-				<li><a href="class-Gishiki.Database.Schema.ColumnType.html">Gishiki\Database\Schema\ColumnType</a></li>
-				<li><a href="class-Gishiki.Database.Schema.Table.html">Gishiki\Database\Schema\Table</a></li>
-				<li><a href="class-Gishiki.Gishiki.html">Gishiki\Gishiki</a></li>
-				<li><a href="class-Gishiki.HttpKernel.Body.html">Gishiki\HttpKernel\Body</a></li>
-				<li><a href="class-Gishiki.HttpKernel.Cookies.html">Gishiki\HttpKernel\Cookies</a></li>
-				<li><a href="class-Gishiki.HttpKernel.Headers.html">Gishiki\HttpKernel\Headers</a></li>
-				<li><a href="class-Gishiki.HttpKernel.Message.html">Gishiki\HttpKernel\Message</a></li>
-				<li><a href="class-Gishiki.HttpKernel.Request.html">Gishiki\HttpKernel\Request</a></li>
-				<li><a href="class-Gishiki.HttpKernel.RequestBody.html">Gishiki\HttpKernel\RequestBody</a></li>
-				<li><a href="class-Gishiki.HttpKernel.Response.html">Gishiki\HttpKernel\Response</a></li>
-				<li><a href="class-Gishiki.HttpKernel.Stream.html">Gishiki\HttpKernel\Stream</a></li>
-				<li><a href="class-Gishiki.HttpKernel.UploadedFile.html">Gishiki\HttpKernel\UploadedFile</a></li>
-				<li><a href="class-Gishiki.HttpKernel.Uri.html">Gishiki\HttpKernel\Uri</a></li>
-				<li><a href="class-Gishiki.Logging.LoggerManager.html">Gishiki\Logging\LoggerManager</a></li>
-				<li><a href="class-Gishiki.Security.Encryption.Asymmetric.Cryptography.html">Gishiki\Security\Encryption\Asymmetric\Cryptography</a></li>
-				<li><a href="class-Gishiki.Security.Encryption.Asymmetric.PrivateKey.html">Gishiki\Security\Encryption\Asymmetric\PrivateKey</a></li>
-				<li><a href="class-Gishiki.Security.Encryption.Asymmetric.PublicKey.html">Gishiki\Security\Encryption\Asymmetric\PublicKey</a></li>
-				<li><a href="class-Gishiki.Security.Encryption.Symmetric.Cryptography.html">Gishiki\Security\Encryption\Symmetric\Cryptography</a></li>
-				<li><a href="class-Gishiki.Security.Encryption.Symmetric.SecretKey.html">Gishiki\Security\Encryption\Symmetric\SecretKey</a></li>
-				<li><a href="class-Gishiki.Security.Hashing.Algorithms.html">Gishiki\Security\Hashing\Algorithms</a></li>
-				<li><a href="class-PDO.html">PDO</a></li>
-			</ul>
-
-			<h3>Interfaces</h3>
-			<ul>
-				<li><a href="class-ArrayAccess.html">ArrayAccess</a></li>
-				<li><a href="class-Countable.html">Countable</a></li>
-				<li><a href="class-Gishiki.Algorithms.Collections.CollectionInterface.html">Gishiki\Algorithms\Collections\CollectionInterface</a></li>
-				<li><a href="class-Gishiki.Database.DatabaseInterface.html">Gishiki\Database\DatabaseInterface</a></li>
-				<li><a href="class-Gishiki.Database.RelationalDatabaseInterface.html">Gishiki\Database\RelationalDatabaseInterface</a></li>
-				<li><a href="class-Gishiki.HttpKernel.CookiesInterface.html">Gishiki\HttpKernel\CookiesInterface</a></li>
-				<li><a href="class-Gishiki.HttpKernel.HeadersInterface.html">Gishiki\HttpKernel\HeadersInterface</a></li>
-				<li><a href="class-Iterator.html">Iterator</a></li>
-				<li><a href="class-IteratorAggregate.html">IteratorAggregate</a></li>
-				<li><a href="class-SeekableIterator.html">SeekableIterator</a></li>
-				<li><a href="class-Serializable.html">Serializable</a></li>
-				<li><a href="class-Throwable.html">Throwable</a></li>
-				<li><a href="class-Traversable.html">Traversable</a></li>
-			</ul>
-
-
-			<h3>Exceptions</h3>
-			<ul>
-				<li><a href="class-Exception.html">Exception</a></li>
-				<li><a href="class-Gishiki.Algorithms.Collections.DeserializationException.html">Gishiki\Algorithms\Collections\DeserializationException</a></li>
-				<li><a href="class-Gishiki.Algorithms.Collections.SerializationException.html">Gishiki\Algorithms\Collections\SerializationException</a></li>
-				<li><a href="class-Gishiki.Core.Exception.html">Gishiki\Core\Exception</a></li>
-				<li><a href="class-Gishiki.Database.DatabaseException.html">Gishiki\Database\DatabaseException</a></li>
-				<li><a href="class-Gishiki.Security.Encryption.Asymmetric.AsymmetricException.html">Gishiki\Security\Encryption\Asymmetric\AsymmetricException</a></li>
-				<li><a href="class-Gishiki.Security.Encryption.Symmetric.SymmetricException.html">Gishiki\Security\Encryption\Symmetric\SymmetricException</a></li>
-				<li><a href="class-Gishiki.Security.Hashing.HashingException.html">Gishiki\Security\Hashing\HashingException</a></li>
-				<li><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></li>
-				<li><a href="class-LogicException.html">LogicException</a></li>
-				<li><a href="class-RuntimeException.html">RuntimeException</a></li>
-			</ul>
-
-
-		</div>
-	</div>
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="namespaces/Gishiki.html">\Gishiki</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">140</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
 </div>
 
-<div id="splitter"></div>
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-857855988"></a>
+                                <a href="namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-857855988" class="accordion-body collapse in">
+                <div class="accordion-inner">
 
-<div id="right">
-<div id="rightInner">
-	<form id="search">
-		<input type="hidden" name="cx" value="">
-		<input type="hidden" name="ie" value="UTF-8">
-		<input type="text" name="q" class="text" placeholder="Search" autofocus>
-	</form>
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1023204242"></a>
+                                <a href="namespaces/Gishiki.html" style="margin-left: 30px; padding-left: 0">Gishiki</a>
+            </div>
+            <div id="namespace-1023204242" class="accordion-body collapse ">
+                <div class="accordion-inner">
 
-	<div id="navigation">
-		<ul>
-			<li class="active">
-<span>Overview</span>			</li>
-			<li>
-<span>Namespace</span>			</li>
-			<li>
-<span>Class</span>			</li>
-		</ul>
-		<ul>
-			<li>
-				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
-			</li>
-		</ul>
-		<ul>
-		</ul>
-	</div>
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1939871960"></a>
+                                <a href="namespaces/Gishiki.Algorithms.html" style="margin-left: 30px; padding-left: 0">Algorithms</a>
+            </div>
+            <div id="namespace-1939871960" class="accordion-body collapse ">
+                <div class="accordion-inner">
 
-<div id="content">
-	<h1>Gishiki</h1>
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1867931547"></a>
+                                <a href="namespaces/Gishiki.Algorithms.Collections.html" style="margin-left: 30px; padding-left: 0">Collections</a>
+            </div>
+            <div id="namespace-1867931547" class="accordion-body collapse ">
+                <div class="accordion-inner">
 
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Algorithms.Collections.DeserializationException.html">DeserializationException</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Algorithms.Collections.SerializableCollection.html">SerializableCollection</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Algorithms.Collections.SerializationException.html">SerializationException</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Algorithms.Collections.StackCollection.html">StackCollection</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Algorithms.Collections.StackException.html">StackException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<table class="summary" id="namespaces">
-		<caption>Namespaces summary</caption>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.html">Gishiki</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.Algorithms.html">Gishiki\Algorithms</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.Algorithms.Collections.html">Gishiki\Algorithms\Collections</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.CLI.html">Gishiki\CLI</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.Core.html">Gishiki\Core</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.Core.MVC.html">Gishiki\Core\MVC</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.Database.html">Gishiki\Database</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.Database.Adapters.html">Gishiki\Database\Adapters</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.Database.Adapters.Utils.html">Gishiki\Database\Adapters\Utils</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.Database.Adapters.Utils.QueryBuilder.html">Gishiki\Database\Adapters\Utils\QueryBuilder</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.Database.Adapters.Utils.SQLGenerator.html">Gishiki\Database\Adapters\Utils\SQLGenerator</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.Database.Runtime.html">Gishiki\Database\Runtime</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.Database.Schema.html">Gishiki\Database\Schema</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.HttpKernel.html">Gishiki\HttpKernel</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.Logging.html">Gishiki\Logging</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.Security.html">Gishiki\Security</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.Security.Encryption.html">Gishiki\Security\Encryption</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.Security.Encryption.Asymmetric.html">Gishiki\Security\Encryption\Asymmetric</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.Security.Encryption.Symmetric.html">Gishiki\Security\Encryption\Symmetric</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-Gishiki.Security.Hashing.html">Gishiki\Security\Hashing</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-PHP.html">PHP</a></td>
-			</tr>
-	</table>
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1789543869"></a>
+                                <a href="namespaces/Gishiki.Algorithms.Strings.html" style="margin-left: 30px; padding-left: 0">Strings</a>
+            </div>
+            <div id="namespace-1789543869" class="accordion-body collapse ">
+                <div class="accordion-inner">
 
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Algorithms.Strings.Manipulation.html">Manipulation</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Algorithms.Strings.SimpleLexer.html">SimpleLexer</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Algorithms.Base64.html">Base64</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Algorithms.XmlDomConstructor.html">XmlDomConstructor</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1235219491"></a>
+                                <a href="namespaces/Gishiki.Core.html" style="margin-left: 30px; padding-left: 0">Core</a>
+            </div>
+            <div id="namespace-1235219491" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-681149706"></a>
+                                <a href="namespaces/Gishiki.Core.MVC.html" style="margin-left: 30px; padding-left: 0">MVC</a>
+            </div>
+            <div id="namespace-681149706" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-306743896"></a>
+                                <a href="namespaces/Gishiki.Core.MVC.Controller.html" style="margin-left: 30px; padding-left: 0">Controller</a>
+            </div>
+            <div id="namespace-306743896" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1357625029"></a>
+                                <a href="namespaces/Gishiki.Core.MVC.Controller.Plugins.html" style="margin-left: 30px; padding-left: 0">Plugins</a>
+            </div>
+            <div id="namespace-1357625029" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Core.MVC.Controller.Plugins.RequestDeserializer.html">RequestDeserializer</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Core.MVC.Controller.Plugins.ResponseAssembler.html">ResponseAssembler</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Core.MVC.Controller.Plugins.ResponseSerializer.html">ResponseSerializer</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Core.MVC.Controller.Controller.html">Controller</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Core.MVC.Controller.ControllerException.html">ControllerException</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Core.MVC.Controller.Plugin.html">Plugin</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-463184206"></a>
+                                <a href="namespaces/Gishiki.Core.Router.html" style="margin-left: 30px; padding-left: 0">Router</a>
+            </div>
+            <div id="namespace-463184206" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Core.Router.Route.html">Route</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Core.Router.Router.html">Router</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Core.Router.RouterException.html">RouterException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Core.Application.html">Application</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Core.Config.html">Config</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Core.Exception.html">Exception</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1771585156"></a>
+                                <a href="namespaces/Gishiki.Database.html" style="margin-left: 30px; padding-left: 0">Database</a>
+            </div>
+            <div id="namespace-1771585156" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1153167847"></a>
+                                <a href="namespaces/Gishiki.Database.Adapters.html" style="margin-left: 30px; padding-left: 0">Adapters</a>
+            </div>
+            <div id="namespace-1153167847" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-860667088"></a>
+                                <a href="namespaces/Gishiki.Database.Adapters.Utils.html" style="margin-left: 30px; padding-left: 0">Utils</a>
+            </div>
+            <div id="namespace-860667088" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1430190111"></a>
+                                <a href="namespaces/Gishiki.Database.Adapters.Utils.QueryBuilder.html" style="margin-left: 30px; padding-left: 0">QueryBuilder</a>
+            </div>
+            <div id="namespace-1430190111" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Database.Adapters.Utils.QueryBuilder.MySQLQueryBuilder.html">MySQLQueryBuilder</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Database.Adapters.Utils.QueryBuilder.PostgreSQLQueryBuilder.html">PostgreSQLQueryBuilder</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Database.Adapters.Utils.QueryBuilder.SQLiteQueryBuilder.html">SQLiteQueryBuilder</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Database.Adapters.Utils.QueryBuilder.SQLQueryBuilder.html">SQLQueryBuilder</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-740308506"></a>
+                                <a href="namespaces/Gishiki.Database.Adapters.Utils.SQLGenerator.html" style="margin-left: 30px; padding-left: 0">SQLGenerator</a>
+            </div>
+            <div id="namespace-740308506" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html">GenericSQL</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Database.Adapters.Utils.SQLGenerator.MySQLWrapper.html">MySQLWrapper</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Database.Adapters.Utils.SQLGenerator.PostgreSQLWrapper.html">PostgreSQLWrapper</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Database.Adapters.Utils.SQLGenerator.SQLiteWrapper.html">SQLiteWrapper</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Database.Adapters.Mysql.html">Mysql</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Database.Adapters.PDODatabase.html">PDODatabase</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Database.Adapters.Pgsql.html">Pgsql</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Database.Adapters.Sqlite.html">Sqlite</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1354669461"></a>
+                                <a href="namespaces/Gishiki.Database.ORM.html" style="margin-left: 30px; padding-left: 0">ORM</a>
+            </div>
+            <div id="namespace-1354669461" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Database.ORM.DatabaseStructure.html">DatabaseStructure</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Database.ORM.StructureException.html">StructureException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1851193656"></a>
+                                <a href="namespaces/Gishiki.Database.Runtime.html" style="margin-left: 30px; padding-left: 0">Runtime</a>
+            </div>
+            <div id="namespace-1851193656" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Database.Runtime.FieldOrdering.html">FieldOrdering</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Database.Runtime.FieldRelation.html">FieldRelation</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Database.Runtime.ResultModifier.html">ResultModifier</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Database.Runtime.SelectionCriteria.html">SelectionCriteria</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-338509844"></a>
+                                <a href="namespaces/Gishiki.Database.Schema.html" style="margin-left: 30px; padding-left: 0">Schema</a>
+            </div>
+            <div id="namespace-338509844" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Database.Schema.Column.html">Column</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Database.Schema.ColumnRelation.html">ColumnRelation</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Database.Schema.ColumnType.html">ColumnType</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Database.Schema.Table.html">Table</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="classes/Gishiki.Database.DatabaseInterface.html">DatabaseInterface</a></li>
+                                                    <li class="interface"><a href="classes/Gishiki.Database.RelationalDatabaseInterface.html">RelationalDatabaseInterface</a></li>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Database.DatabaseException.html">DatabaseException</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Database.DatabaseManager.html">DatabaseManager</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-783867051"></a>
+                                <a href="namespaces/Gishiki.Logging.html" style="margin-left: 30px; padding-left: 0">Logging</a>
+            </div>
+            <div id="namespace-783867051" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Logging.LoggerManager.html">LoggerManager</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-674343719"></a>
+                                <a href="namespaces/Gishiki.Security.html" style="margin-left: 30px; padding-left: 0">Security</a>
+            </div>
+            <div id="namespace-674343719" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2140421939"></a>
+                                <a href="namespaces/Gishiki.Security.Encryption.html" style="margin-left: 30px; padding-left: 0">Encryption</a>
+            </div>
+            <div id="namespace-2140421939" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-661027803"></a>
+                                <a href="namespaces/Gishiki.Security.Encryption.Asymmetric.html" style="margin-left: 30px; padding-left: 0">Asymmetric</a>
+            </div>
+            <div id="namespace-661027803" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Security.Encryption.Asymmetric.AsymmetricException.html">AsymmetricException</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Security.Encryption.Asymmetric.Cryptography.html">Cryptography</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Security.Encryption.Asymmetric.PrivateKey.html">PrivateKey</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Security.Encryption.Asymmetric.PublicKey.html">PublicKey</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1418859900"></a>
+                                <a href="namespaces/Gishiki.Security.Encryption.Symmetric.html" style="margin-left: 30px; padding-left: 0">Symmetric</a>
+            </div>
+            <div id="namespace-1418859900" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Security.Encryption.Symmetric.Cryptography.html">Cryptography</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Security.Encryption.Symmetric.SecretKey.html">SecretKey</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Security.Encryption.Symmetric.SymmetricException.html">SymmetricException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-554926383"></a>
+                                <a href="namespaces/Gishiki.Security.Hashing.html" style="margin-left: 30px; padding-left: 0">Hashing</a>
+            </div>
+            <div id="namespace-554926383" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Security.Hashing.Algorithm.html">Algorithm</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Security.Hashing.Hasher.html">Hasher</a></li>
+                                                    <li class="class"><a href="classes/Gishiki.Security.Hashing.HashingException.html">HashingException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-881197774"></a>
+                                <a href="namespaces/Gishiki.Services.html" style="margin-left: 30px; padding-left: 0">Services</a>
+            </div>
+            <div id="namespace-881197774" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Gishiki.Services.ErrorHandling.html">ErrorHandling</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content namespace">
+                    <nav>
+                                                
+                                            </nav>
+                    <h1><small></small>\</h1>
+
+                                        <h2>Namespaces</h2>
+                    <table class="table table-hover">
+                                                    <tr>
+                                <td><a href="namespaces/Gishiki.html">Gishiki</a></td>
+                            </tr>
+                                            </table>
+                    
+                    
+                    
+                                    </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                        <dt>Namespace hierarchy</dt>
+                        <dd class="hierarchy">
+                                                                                                                                                <div class="namespace-wrapper">\</div>
+                        </dd>
+                    </dl>
+                </aside>
+            </div>
+
+            
+            
+        </div>
+    </section>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="namespaces/Gishiki.html">\Gishiki</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="reports/errors.html">Errors</a></li>
+                                    <li><a href="reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on October 12th, 2017 at 19:50.
+                </section>
+            </section>
+        </section>
+    </footer>
 </div>
 
-	<div id="footer">
-		Gishiki API documentation generated by <a href="http://apigen.org">ApiGen</a>
-	</div>
-</div>
-</div>
-<script src="resources/combined.js?7ec981fd384b70aee7ff5ceda56e0deb9171d900"></script>
-<script src="elementlist.js?c2bbb788e5424019e7574fee36871fc0b5ace7c4"></script>
 </body>
 </html>

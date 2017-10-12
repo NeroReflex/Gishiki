@@ -130,21 +130,19 @@ final class Application
             $this->response = $this->response->getBody()->write("<h1>500 Internal Server Error</h1>");
 
             //write a log entry if necessary
-            try {
+            if ($this->loggersConnections->isConnected($this->exceptionLoggerName)) {
                 //retrieve the default logger instance
                 $logger = $this->loggersConnections->retrieve($this->exceptionLoggerName);
 
                 if ($logger instanceof LoggerInterface) {
                     //write the log of the exception
-                    $logger->error(get_called_class().
+                    $logger->error(get_class($ex).
                         ' thrown at: '.$ex->getFile().
                         ': '.$ex->getLine().
                         ' with message('.$ex->getCode().
                         '): '.$ex->getMessage()
                     );
                 }
-            } catch (\InvalidArgumentException $ex) {
-                $this->response = $this->response->getBody()->write("Can't write a log");
             }
         }
     }

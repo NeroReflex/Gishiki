@@ -94,8 +94,6 @@ final class Route
                     $this->route["status"] = $value;
                 } else if (strcmp(strtolower($key), "controller") == 0) {
                     $this->route["controller"] = $value;
-                } else if (strcmp(strtolower($key), "action") == 0) {
-                    $this->route["action"] = $value;
                 } else if ((strcmp(strtolower($key), "plugins") == 0) && (is_array($value))) {
                     $this->route["plugins"] = array_merge($this->route["plugins"], $value);
                 }

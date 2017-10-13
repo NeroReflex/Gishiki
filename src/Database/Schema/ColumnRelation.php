@@ -46,7 +46,7 @@ final class ColumnRelation
     public function __construct(Table &$externTable, Column &$externColumn)
     {
         //I hope you are not going to reference something that is not a primary key
-        if (!$externColumn->getPrimaryKey()) {
+        if (!$externColumn->isPrimaryKey()) {
             throw new DatabaseException('A Relation can only be created with a foreign primary key', 128);
         }
 

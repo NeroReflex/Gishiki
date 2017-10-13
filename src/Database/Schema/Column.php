@@ -65,11 +65,11 @@ final class Column
     public function __construct($name, $type)
     {
         $this->name = '';
-        $this->dataType = 0;
+        $this->type = 0;
         $this->pkey = false;
         $this->notNull = false;
+        $this->autoIncrement = false;
         $this->relation = null;
-        $this->autoIncrement = null;
         $this->setName($name);
         $this->setType($type);
     }
@@ -81,7 +81,7 @@ final class Column
      * @return Column a reference to the modified Column
      * @throws \InvalidArgumentException the new status is invalid
      */
-    public function &setAutoIncrement($enable)
+    public function &setAutoIncrement($enable) : Column
     {
         if (!is_bool($enable)) {
             throw new \InvalidArgumentException('The auto-increment flag of a column must be given as a boolean value');
@@ -92,7 +92,12 @@ final class Column
         return $this;
     }
 
-    public function getAutoIncrement()
+    /**
+     * Retrieve the auto increment flag on the column.
+     *
+     * @return bool $enable true if the column is autoincrement
+     */
+    public function isAutoIncrement() : bool
     {
         return $this->autoIncrement;
     }
@@ -104,7 +109,7 @@ final class Column
      * @return Column a reference to the modified Column
      * @throws \InvalidArgumentException the new status is invalid
      */
-    public function &setNotNull($enable)
+    public function &setNotNull($enable) : Column
     {
         if (!is_bool($enable)) {
             throw new \InvalidArgumentException('The not null flag of a column must be given as a boolean value');
@@ -118,9 +123,9 @@ final class Column
     /**
      * Retrieve the not null flag on the column.
      *
-     * @return bool $enable TRUE if the column cannot contains null
+     * @return bool $enable true if the column cannot contains null
      */
-    public function getNotNull()
+    public function isNotNull() : bool
     {
         return $this->notNull;
     }
@@ -132,7 +137,7 @@ final class Column
      * @return Column a reference to the modified Column
      * @throws \InvalidArgumentException the new status is invalid
      */
-    public function &setPrimaryKey($enable)
+    public function &setPrimaryKey($enable) : Column
     {
         if (!is_bool($enable)) {
             throw new \InvalidArgumentException('The primary key flag of a column must be given as a boolean value');
@@ -146,9 +151,9 @@ final class Column
     /**
      * Retrieve the auto increment flag on the column.
      *
-     * @return bool $enable TRUE if the column is a primary key
+     * @return bool $enable true if the column is a primary key
      */
-    public function getPrimaryKey()
+    public function isPrimaryKey() : bool
     {
         return $this->pkey;
     }
@@ -160,7 +165,7 @@ final class Column
      * @return Column a reference to the modified Column
      * @throws \InvalidArgumentException the column name is invalid
      */
-    public function &setRelation(ColumnRelation &$rel)
+    public function &setRelation(ColumnRelation &$rel) : Column
     {
         $this->relation = $rel;
 
@@ -184,7 +189,7 @@ final class Column
      * @return Column a reference to the modified Column
      * @throws \InvalidArgumentException the column name is invalid
      */
-    public function &setName($name)
+    public function &setName($name) : Column
     {
         //avoid bad names
         if ((!is_string($name)) || (strlen($name) <= 0)) {
@@ -208,13 +213,13 @@ final class Column
 
     /**
      * Change the type of the current table passing as argument one
-     * of the ColumnType contants.
+     * of the ColumnType constants.
      *
      * @param string $type the type of the column
      * @return Column a reference to the modified Column
      * @throws \InvalidArgumentException the column name is invalid
      */
-    public function &setType($type)
+    public function &setType($type) : Column
     {
         //avoid bad names
         if ((!is_integer($type)) || ($type >= ColumnType::UNKNOWN) || ($type < 0)) {
@@ -231,7 +236,7 @@ final class Column
      *
      * @return int the column name
      */
-    public function getType()
+    public function getType() : int
     {
         return $this->type;
     }

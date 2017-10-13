@@ -38,7 +38,6 @@ script:
 after_script:
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then php vendor/bin/codacycoverage clover build/logs/clover.xml ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then ./vendor/bin/test-reporter ; fi
-  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then cd ./Documentation/docs/API && composer install ;fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer api-gen ;fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then curl -O https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py && sudo pip install mkdocs ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then cd Documentation && mkdocs build && cd ../ ; fi

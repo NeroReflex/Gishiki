@@ -73,15 +73,15 @@ final class SQLiteWrapper extends GenericSQL
 
             $this->appendToQuery($typename.' ');
 
-            if ($column->getPrimaryKey()) {
+            if ($column->isPrimaryKey()) {
                 $this->appendToQuery('PRIMARY KEY ');
             }
 
-            if ($column->getAutoIncrement()) {
+            if ($column->isAutoIncrement()) {
                 $this->appendToQuery('AUTOINCREMENT ');
             }
 
-            if ($column->getNotNull()) {
+            if ($column->isNotNull()) {
                 $this->appendToQuery('NOT NULL');
             }
 

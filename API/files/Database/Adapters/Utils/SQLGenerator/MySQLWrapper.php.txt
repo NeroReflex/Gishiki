@@ -87,15 +87,15 @@ final class MySQLWrapper extends GenericSQL
 
             $this->appendToQuery($typename.' ');
 
-            if ($column->getPrimaryKey()) {
+            if ($column->isPrimaryKey()) {
                 $primaryKeyName = $column->getName();
             }
 
-            if ($column->getAutoIncrement()) {
+            if ($column->isAutoIncrement()) {
                 $this->appendToQuery('AUTO_INCREMENT ');
             }
 
-            if ($column->getNotNull()) {
+            if ($column->isNotNull()) {
                 $this->appendToQuery('NOT NULL');
             }
 

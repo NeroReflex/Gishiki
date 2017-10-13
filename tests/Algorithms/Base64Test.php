@@ -35,6 +35,12 @@ class Base64Test extends TestCase
         Base64::decode(1);
     }
 
+    public function testEncodeBadUrlSafety()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        Base64::encode("", null);
+    }
+
     public function testURLUnsafeEncodes()
     {
         for ($i = 1; $i < 100; ++$i) {

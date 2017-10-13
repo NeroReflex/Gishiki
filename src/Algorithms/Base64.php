@@ -38,25 +38,30 @@ abstract class Base64
      * var_dump(Base64::encode($message));
      * </code>
      *
-     * @param string $message the binary-unsafe message
-     * @param bool   $urlSafe the generated result doesn't contains special characters
+     * @param string $message       the binary-unsafe message
+     * @param bool   $urlCompatible the generated result doesn't contains special characters
      *
      * @return string the binary-safe representation of the given message
      *
-     * @throws \InvalidArgumentException the given message is not represented as a string
+     * @throws \InvalidArgumentException the given message is not represented as a string or the URL safety is not boolean
      */
-    public static function encode($message, $urlSafe = true)
+    public static function encode($message, $urlCompatible = true) : string
     {
         //check for the message type
         if (!is_string($message)) {
-            throw new \InvalidArgumentException('the binary usafe content must be given as a string');
+            throw new \InvalidArgumentException('the binary unsafe content must be given as a string');
+        }
+
+        //check for url safety param
+        if (!is_bool($urlCompatible)) {
+            throw new \InvalidArgumentException('the binary unsafe content must be given as a string');
         }
 
         //get the base64 url unsafe
         $encoded = base64_encode($message);
 
         //return the url safe version if requested
-        return ($urlSafe) ? rtrim(strtr($encoded, '+/=', '-_~'), '~') : $encoded;
+        return ($urlCompatible) ? rtrim(strtr($encoded, '+/=', '-_~'), '~') : $encoded;
     }
 
     /**
@@ -80,7 +85,7 @@ abstract class Base64
      *
      * @throws \InvalidArgumentException the given message is not represented as a string
      */
-    public static function decode($message)
+    public static function decode($message) : string
     {
         //check for the message type
         if (!is_string($message)) {
@@ -88,10 +93,10 @@ abstract class Base64
         }
 
         //is the base64 encoded in an URL safe format?
-        $urlSafe = (strlen($message) % 4) || (strpos($message, '_') !== false) || (strpos($message, '~') !== false);
+        $urlCompatible = (strlen($message) % 4) || (strpos($message, '_') !== false) || (strpos($message, '~') !== false);
 
         //get the base64 encoded valid string and return the decode result
-        $validBase64 = ($urlSafe) ?
+        $validBase64 = ($urlCompatible) ?
                 str_pad(strtr($message, '-_~', '+/='), strlen($message) + 4 - (strlen($message) % 4), '=', STR_PAD_RIGHT)
                 : $message;
 

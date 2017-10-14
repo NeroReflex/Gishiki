@@ -47,20 +47,17 @@ final class Table
     {
         $this->name = '';
         $this->columns = [];
-        $this->foreignKeys = [];
         $this->setName($name);
     }
 
     /**
      * Add a column to the current table.
      *
-     * @param \Gishiki\Database\Schema\Column $col the column to be added
-     *
-     * @return \Gishiki\Database\Schema\Table a reference to the modified table
-     *
+     * @param Column $col the column to be added
+     * @return Table a reference to the modified table
      * @throws DatabaseException A table with the same name already exists
      */
-    public function &addColumn(Column &$col)
+    public function &addColumn(Column &$col) : Table
     {
         foreach ($this->columns as $currentCol) {
             if (strcmp($col->getName(), $currentCol->getName()) == 0) {
@@ -76,9 +73,9 @@ final class Table
     /**
      * Return the list of columns inside the current table.
      *
-     * @return array thelist of columns
+     * @return Column[] the list of columns
      */
-    public function getColumns()
+    public function getColumns() : array
     {
         return $this->columns;
     }
@@ -88,11 +85,11 @@ final class Table
      *
      * @param string $name the name of the table
      *
-     * @return \Gishiki\Database\Schema\Table a reference to the modified table
+     * @return Table a reference to the modified table
      *
      * @throws \InvalidArgumentException the table name is invalid
      */
-    public function &setName($name)
+    public function &setName($name) : Table
     {
         //avoid bad names
         if ((!is_string($name)) || (strlen($name) <= 0)) {
@@ -109,7 +106,7 @@ final class Table
      *
      * @return string the table name
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }

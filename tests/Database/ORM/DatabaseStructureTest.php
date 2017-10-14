@@ -17,22 +17,67 @@ limitations under the License.
 
 namespace Gishiki\tests\Database\ORM;
 
+use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Database\ORM\DatabaseStructure;
 use Gishiki\Database\ORM\StructureException;
+use Gishiki\Algorithms\Collections\SerializableCollection;
 use PHPUnit\Framework\TestCase;
 
 
 class DatabaseStructureTest extends TestCase
 {
+    public function testNoRelation()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                "name" => "users",
+                "fields" => [
+                        [
+                            "name" => "id",
+                            "type" => "int",
+                            "primary_key" => true,
+                            "not_null" => true,
+                            "auto_increment" => true,
+                        ],
+                        [
+                            "name" => "username",
+                            "type" => "string",
+                            "not_null" => true,
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $structure = new DatabaseStructure($description);
+
+        $this->assertEquals("example", $structure->getConnectionName());
+
+        $tables = $structure->getTables();
+
+        $firstTable = $tables->pop();
+
+        $this->assertEquals("users", $firstTable->getName());
+
+        $userColumns = $firstTable->getColumns();
+
+        $this->assertEquals("id", $userColumns[0]->getName());
+        $this->assertEquals(true, $userColumns[0]->isPrimaryKey());
+        $this->assertEquals(true, $userColumns[0]->isNotNull());
+        $this->assertEquals(true, $userColumns[0]->isAutoIncrement());
+    }
+
     public function testNoConnection()
     {
-        $desc = json_encode([
+        $descr = new GenericCollection([
             "columns" => [ ]
         ]);
 
         $this->expectException(StructureException::class);
 
-        new DatabaseStructure($desc);
+        new DatabaseStructure($descr);
     }
 
 

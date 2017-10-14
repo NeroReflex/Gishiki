@@ -17,6 +17,7 @@ limitations under the License.
 
 namespace Gishiki\Database\ORM;
 
+use Gishiki\Algorithms\Collections\CollectionInterface;
 use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Algorithms\Collections\StackCollection;
 use Gishiki\Algorithms\Collections\SerializableCollection;
@@ -46,31 +47,36 @@ final class DatabaseStructure
     /**
      * Build the Database structure from a json text.
      *
-     * @param  string $description the json description of the database
+     * @param  CollectionInterface $description the json description of the database
      * @throws StructureException the error in the description
      */
-    public function __construct($description)
+    public function __construct(CollectionInterface &$description)
     {
-        $this->connectionName = new StackCollection();
+        $this->stackTables = new StackCollection();
 
-        //deserialize the json content
-        $deserializedDescr = SerializableCollection::deserialize($description);
-
-        if (!$deserializedDescr->has('connection')) {
+        if (!$description->has('connection')) {
             throw new StructureException('A database description must contains the connection field', 0);
         }
 
-        $this->connectionName = $deserializedDescr->get('connection');
+        $this->connectionName = $description->get('connection');
 
-        if (!$deserializedDescr->has('tables'))  {
-            throw new StructureException('A database description must contains a tables field', 1);
+        if ((!is_string($this->connectionName)) || (strlen($this->connectionName) <= 0)) {
+            new StructureException('The connection name must be given as a non-empty string', 3);
         }
 
-        foreach ($deserializedDescr->get('tables') as $tb) {
+        if (!$description->has('tables'))  {
+            throw new StructureException("A database description must contains a tables field", 1);
+        }
+
+        foreach ($description->get('tables') as $tb) {
+            if (!is_array($tb)) {
+                throw new StructureException("Wrong structure: the 'tables' filed must contains arrays", 2);
+            }
+
             $table = new GenericCollection($tb);
 
             if (!$table->has('name')) {
-                throw new StructureException('Each table must have a name');
+                throw new StructureException('Each table must have a name', 4);
             }
 
             $currentTable = new Table($table->get('name'));
@@ -79,11 +85,11 @@ final class DatabaseStructure
                 $field = new GenericCollection($fd);
 
                 if (!$field->has('name')) {
-                    throw new StructureException('Each column must have a name');
+                    throw new StructureException('Each column must have a name', 5);
                 }
 
                 if (!$field->has('type')) {
-                    throw new StructureException('Each column must have a type');
+                    throw new StructureException('Each column must have a type', 6);
                 }
 
                 $typeIdentifier = ColumnType::UNKNOWN;
@@ -125,12 +131,15 @@ final class DatabaseStructure
                     case 'datetime':
                         $typeIdentifier = ColumnType::DATETIME;
                         break;
+
+                    default:
+                        throw new StructureException('Invalid data type for column '.$field->get('name'), 7);
                 }
 
                 $currentField = new Column($field->get('name'), $typeIdentifier);
-                $currentField->setPrimaryKey(($field->get('primary key') === true));
-                $currentField->setNotNull(($field->get('not null') === true));
-                $currentField->setAutoIncrement(($field->get('autoincrement') === true));
+                $currentField->setPrimaryKey(($field->get('primary_key') === true));
+                $currentField->setNotNull(($field->get('not_null') === true));
+                $currentField->setAutoIncrement(($field->get('auto_increment') === true));
 
                 $currentTable->addColumn($currentField);
             }
@@ -141,18 +150,30 @@ final class DatabaseStructure
     }
 
     /**
-     * Apply the structure to the database.
+     * Get the name of the database connection that will be used
+     * to create tables and overall structure.
+     *
+     * @return string the name of the database connection
      */
-    public function apply()
+    public function getConnectionName() : string
     {
-        $connection = DatabaseManager::retrieve($this->connectionName);
+        return $this->connectionName;
+    }
 
-        if ($connection instanceof RelationalDatabaseInterface) {
-            $this->stackTables->reverse();
+    /**
+     * Get the collection of tables in a stack where the first table to be popped
+     * is the first that must be created.
+     *
+     * @return StackCollection the collection of tables
+     */
+    public function getTables() : StackCollection
+    {
+        //clone the database structure
+        $tables = clone $this->stackTables;
 
-            while (!$this->stackTables->empty()) {
-                $connection->createTable($this->stackTables->pop());
-            }
-        }
+        //reverse the table order to ease the life of the caller
+        $tables->reverse();
+
+        return $tables;
     }
 }

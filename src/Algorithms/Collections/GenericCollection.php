@@ -32,18 +32,20 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
     /**
      * Create new collection from the given properties collection.
      *
-     * @param array $items Pre-populate collection of key => value
+     * @param array|GenericCollection $collection Pre-populate collection of key => value
      *
      * @throws \InvalidArgumentException an invalid collection was given
      */
-    public function __construct($items = [])
+    public function __construct($collection = [])
     {
+        $items = ($collection instanceof CollectionInterface) ? $collection->all() : $collection;
+
         //check if the given items list is a valid items list
         if (!is_array($items)) {
-            throw new \InvalidArgumentException('The collection of properties and nested data must be expressed as an array');
+            throw new \InvalidArgumentException('The collection of properties and nested data must be expressed as an array: '.gettype($items).' given');
         }
 
-        foreach ($items as $key => $value) {
+        foreach ($items as $key => &$value) {
             $this->set($key, $value);
         }
     }

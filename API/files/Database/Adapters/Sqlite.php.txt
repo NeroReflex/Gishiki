@@ -23,14 +23,15 @@ use Gishiki\Database\Adapters\Utils\QueryBuilder\SQLiteQueryBuilder;
 /**
  * Represent a SQLite database.
  *
+ * The documentation is available on the implemented interfaces (look for see also).
+ *
+ * @see RelationalDatabaseInterface Documentation.
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 final class Sqlite extends PDODatabase
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getPDODriverName()
+    protected function getPDODriverName() : string
     {
         return 'sqlite';
     }
@@ -40,7 +41,7 @@ final class Sqlite extends PDODatabase
      *
      * @return SQLiteQueryBuilder the query builder for the used pdo adapter
      */
-    protected function getQueryBuilder()
+    protected function getQueryBuilder() : SQLiteQueryBuilder
     {
         return new SQLiteQueryBuilder();
     }

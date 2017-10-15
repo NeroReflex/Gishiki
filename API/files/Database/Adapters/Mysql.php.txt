@@ -18,19 +18,21 @@ limitations under the License.
 namespace Gishiki\Database\Adapters;
 
 use Gishiki\Database\Adapters\Utils\QueryBuilder\MySQLQueryBuilder;
+use Gishiki\Database\RelationalDatabaseInterface;
 
 
 /**
  * Represent a MySQL database.
  *
+ * The documentation is available on the implemented interfaces (look for see also).
+ *
+ * @see RelationalDatabaseInterface Documentation.
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 final class Mysql extends PDODatabase
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getPDODriverName()
+    protected function getPDODriverName() : string
     {
         return 'mysql';
     }
@@ -73,11 +75,11 @@ final class Mysql extends PDODatabase
     }
 
     /**
-     * Get the query builder for SQLite.
+     * Get the query builder for MySQL.
      *
-     * @return SQLiteQueryBuilder the query builder for the used pdo adapter
+     * @return MySQLQueryBuilder the query builder for the used pdo adapter
      */
-    protected function getQueryBuilder()
+    protected function getQueryBuilder() : MySQLQueryBuilder
     {
         return new MySQLQueryBuilder();
     }

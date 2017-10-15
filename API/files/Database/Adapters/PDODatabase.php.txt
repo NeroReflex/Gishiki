@@ -26,7 +26,13 @@ use Gishiki\Database\Schema\Table;
 use Gishiki\Database\Adapters\Utils\QueryBuilder\SQLQueryBuilder;
 
 /**
- * Represent an generic database.
+ * Represent a generic relational database.
+ *
+ * This class is not meant to be used by the user as
+ * it contains standard code each database class would use
+ * when using the PHP PDo driver.
+ *
+ * @see RelationalDatabaseInterface Documentation
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
@@ -37,7 +43,7 @@ class PDODatabase implements RelationalDatabaseInterface
      *
      * @return string the PDO driver name
      */
-    protected function getPDODriverName()
+    protected function getPDODriverName() : string
     {
         return '';
     }
@@ -47,7 +53,7 @@ class PDODatabase implements RelationalDatabaseInterface
      *
      * @param  mixed  $details           information used to open a database connection with PDO
      * @throws \InvalidArgumentException invalid connection details
-     * @return string                    the string to be passed to the PDO driver
+     * @return array                     arguments to be passed to the PDO driver
      */
     protected function generateConnectionQuery($details)
     {
@@ -95,9 +101,6 @@ class PDODatabase implements RelationalDatabaseInterface
         $this->connect($details);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function connect($details)
     {
         //check for argument type
@@ -124,18 +127,12 @@ class PDODatabase implements RelationalDatabaseInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function close()
     {
         $this->connection = [];
         $this->connected = false;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createTable(Table $table)
     {
         //check for closed database connection
@@ -158,17 +155,11 @@ class PDODatabase implements RelationalDatabaseInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function connected()
+    public function connected() : bool
     {
         return $this->connected;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create($collection, $data)
     {
         //check for invalid database name
@@ -207,10 +198,7 @@ class PDODatabase implements RelationalDatabaseInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function update($collection, $data, SelectionCriteria $where)
+    public function update($collection, $data, SelectionCriteria $where) : int
     {
         //check for invalid database name
         if ((!is_string($collection)) || (strlen($collection) <= 0)) {
@@ -249,10 +237,7 @@ class PDODatabase implements RelationalDatabaseInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function delete($collection, SelectionCriteria $where)
+    public function delete($collection, SelectionCriteria $where) : int
     {
         //check for invalid database name
         if ((!is_string($collection)) || (strlen($collection) <= 0)) {
@@ -282,10 +267,7 @@ class PDODatabase implements RelationalDatabaseInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function deleteAll($collection)
+    public function deleteAll($collection) : int
     {
         //check for invalid database name
         if ((!is_string($collection)) || (strlen($collection) <= 0)) {
@@ -315,10 +297,7 @@ class PDODatabase implements RelationalDatabaseInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function read($collection, SelectionCriteria $where, ResultModifier $mod)
+    public function read($collection, SelectionCriteria $where, ResultModifier $mod) : array
     {
         //check for invalid database name
         if ((!is_string($collection)) || (strlen($collection) <= 0)) {
@@ -348,9 +327,6 @@ class PDODatabase implements RelationalDatabaseInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function readSelective($collection, $fields, SelectionCriteria $where, ResultModifier $mod)
     {
         //check for invalid database name

@@ -22,14 +22,15 @@ use Gishiki\Database\Adapters\Utils\QueryBuilder\PostgreSQLQueryBuilder;
 /**
  * Represent a PostgreSQL database.
  *
+ * The documentation is available on the implemented interfaces (look for see also).
+ *
+ * @see RelationalDatabaseInterface Documentation.
+ *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 final class Pgsql extends PDODatabase
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getPDODriverName()
+    protected function getPDODriverName() : string
     {
         return 'pgsql';
     }
@@ -39,7 +40,7 @@ final class Pgsql extends PDODatabase
      *
      * @return PostgreSQLQueryBuilder the query builder for the used pdo adapter
      */
-    protected function getQueryBuilder()
+    protected function getQueryBuilder() : PostgreSQLQueryBuilder
     {
         return new PostgreSQLQueryBuilder();
     }

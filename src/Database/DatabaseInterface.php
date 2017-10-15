@@ -17,6 +17,7 @@ limitations under the License.
 
 namespace Gishiki\Database;
 
+use Gishiki\Algorithms\Collections\CollectionInterface;
 use Gishiki\Database\Runtime\ResultModifier;
 use Gishiki\Database\Runtime\SelectionCriteria;
 
@@ -48,7 +49,7 @@ interface DatabaseInterface
     public function connect($details);
 
     /**
-     * Close the connection to the database
+     * Close the connection to the database.
      *
      * @return void
      */
@@ -59,7 +60,7 @@ interface DatabaseInterface
      *
      * @return bool TRUE only if the database connection is alive
      */
-    public function connected();
+    public function connected() : bool;
 
     /**
      * Write data to the database on the given collection/table.
@@ -86,7 +87,7 @@ interface DatabaseInterface
      *
      * @return int the number of affected documents/records
      */
-    public function update($collection, $data, SelectionCriteria $where);
+    public function update($collection, $data, SelectionCriteria $where) : int;
 
     /**
      * Remove documents/records matching the given criteria.
@@ -99,7 +100,7 @@ interface DatabaseInterface
      *
      * @return int the number of removed documents/records
      */
-    public function delete($collection, SelectionCriteria $where);
+    public function delete($collection, SelectionCriteria $where) : int;
 
     /**
      * Remove EVERY documents/records on the given collection/table.
@@ -111,7 +112,7 @@ interface DatabaseInterface
      *
      * @return int the number of removed documents/records
      */
-    public function deleteAll($collection);
+    public function deleteAll($collection) : int;
 
     /**
      * Fetch documents/records matching the given criteria.
@@ -125,5 +126,5 @@ interface DatabaseInterface
      *
      * @return array the search result expressed as an array of associative arrays
      */
-    public function read($collection, SelectionCriteria $where, ResultModifier $mod);
+    public function read($collection, SelectionCriteria $where, ResultModifier $mod) : array;
 }

@@ -20,7 +20,6 @@ namespace Gishiki\Core;
 use Gishiki\Core\Router\Router;
 use Gishiki\Database\DatabaseManager;
 use Gishiki\Logging\LoggerManager;
-use Gishiki\Security\Encryption\Asymmetric\PrivateKey;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -87,10 +86,6 @@ final class Application
             filter_input(INPUT_SERVER, 'DOCUMENT_ROOT') : getcwd();
 
         $this->currentDirectory .= DIRECTORY_SEPARATOR;
-
-        if (file_exists($this->currentDirectory.'openssl.cnf')) {
-            PrivateKey::$openSSLConf = $this->currentDirectory.'openssl.cnf';
-        }
 
         //load application configuration
         if (file_exists($this->currentDirectory . "settings.json")) {
@@ -232,8 +227,8 @@ final class Application
     protected function setDevelopmentEnv($val)
     {
         //development configuration
-        if ($val === true) {
+        /*if ($val === true) {
 
-        }
+        }*/
     }
 }

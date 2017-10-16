@@ -19,7 +19,6 @@ namespace Gishiki\Core\Router;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Gishiki\Algorithms\Strings\SimpleLexer;
 use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Services\ErrorHandling;
 
@@ -34,21 +33,23 @@ final class Router
      * @var array a list of registered Gishiki\Core\Route ordered my method to allow faster search
      */
     private $routes = [
-        Route::GET => [],
-        Route::POST => [],
-        Route::PUT => [],
-        Route::DELETE => [],
-        Route::HEAD => [],
-        Route::OPTIONS => [],
-        Route::PATCH => []
+        RouteInterface::GET => [],
+        RouteInterface::POST => [],
+        RouteInterface::PUT => [],
+        RouteInterface::DELETE => [],
+        RouteInterface::HEAD => [],
+        RouteInterface::OPTIONS => [],
+        RouteInterface::PATCH => []
     ];
 
     /**
-     * Equals to call register, accept a value, not only a reference.
+     * Equals to call register, accepts a value.
      *
      * @see Router::register
+     *
+     * @param RouteInterface $route the route to be added
      */
-    public function add(Route $route)
+    public function add(RouteInterface $route)
     {
         return $this->register($route);
     }
@@ -56,19 +57,19 @@ final class Router
     /**
      * Register a route within this router.
      *
-     * @param Route $route the route to be registered
+     * @param RouteInterface $route the route to be registered
      */
-    public function register(Route &$route)
+    public function register(RouteInterface &$route)
     {
         //put a reference to the object inside allowed methods for a faster search
         foreach ($route->getMethods() as $method) {
-            if ((strcmp($method, Route::GET) == 0) ||
-                (strcmp($method, Route::POST) == 0) ||
-                (strcmp($method, Route::PUT) == 0) ||
-                (strcmp($method, Route::DELETE) == 0) ||
-                (strcmp($method, Route::HEAD) == 0) ||
-                (strcmp($method, Route::OPTIONS) == 0) ||
-                (strcmp($method, Route::PATCH) == 0))
+            if ((strcmp($method, RouteInterface::GET) == 0) ||
+                (strcmp($method, RouteInterface::POST) == 0) ||
+                (strcmp($method, RouteInterface::PUT) == 0) ||
+                (strcmp($method, RouteInterface::DELETE) == 0) ||
+                (strcmp($method, RouteInterface::HEAD) == 0) ||
+                (strcmp($method, RouteInterface::OPTIONS) == 0) ||
+                (strcmp($method, RouteInterface::PATCH) == 0))
             {
                 $this->routes[$method][] = &$route;
             }
@@ -88,7 +89,7 @@ final class Router
         foreach ($this->routes[$method] as $currentRoute) {
 
             //if the current URL matches the current URI
-            if (self::matches($currentRoute->getURI(), $url, $params)) {
+            if ($currentRoute->matches($method, $url, $params)) {
 
                 //this will hold the parameters passed on the URL
                 return $currentRoute;
@@ -134,52 +135,52 @@ final class Router
         $errorHandlers = [];
 
         foreach ($this->routes[$method] as &$currentRoute) {
-            if (($currentRoute->getStatus() == Route::NOT_ALLOWED) && (strcmp($currentRoute->getURI(), "") == 0)) {
-                $errorHandlers[Route::NOT_ALLOWED] = $currentRoute;
+            if (($currentRoute->getStatus() == RouteInterface::NOT_ALLOWED) && (strcmp($currentRoute->getURI(), "") == 0)) {
+                $errorHandlers[RouteInterface::NOT_ALLOWED] = $currentRoute;
             }
 
-            if (($currentRoute->getStatus() == Route::NOT_FOUND) && (strcmp($currentRoute->getURI(), "") == 0)) {
-                $errorHandlers[Route::NOT_FOUND] = $currentRoute;
+            if (($currentRoute->getStatus() == RouteInterface::NOT_FOUND) && (strcmp($currentRoute->getURI(), "") == 0)) {
+                $errorHandlers[RouteInterface::NOT_FOUND] = $currentRoute;
             }
         }
 
         //if any error handler was not loaded use the default one
-        if (!in_array(Route::NOT_FOUND, array_keys($errorHandlers))) {
+        if (!in_array(RouteInterface::NOT_FOUND, array_keys($errorHandlers))) {
             //load the default 404 NOT FOUND handler
-            $errorHandlers[Route::NOT_FOUND] = new Route([
+            $errorHandlers[RouteInterface::NOT_FOUND] = new Route([
                 "verbs" => [
-                    Route::GET,
-                    Route::DELETE,
-                    Route::PATCH,
-                    Route::OPTIONS,
-                    Route::HEAD,
-                    Route::GET,
-                    Route::PUT,
-                    Route::POST
+                    RouteInterface::GET,
+                    RouteInterface::DELETE,
+                    RouteInterface::PATCH,
+                    RouteInterface::OPTIONS,
+                    RouteInterface::HEAD,
+                    RouteInterface::GET,
+                    RouteInterface::PUT,
+                    RouteInterface::POST
                 ],
                 "uri" => "",
-                "status" => Route::NOT_FOUND,
+                "status" => RouteInterface::NOT_FOUND,
                 "controller" => ErrorHandling::class,
                 "action" => "notFound",
             ]);
         }
 
         //if any error handler was not loaded use the default one
-        if (!in_array(Route::NOT_ALLOWED, array_keys($errorHandlers))) {
+        if (!in_array(RouteInterface::NOT_ALLOWED, array_keys($errorHandlers))) {
             //load the default 405 NOT ALLOWED handler
-            $errorHandlers[Route::NOT_ALLOWED] = new Route([
+            $errorHandlers[RouteInterface::NOT_ALLOWED] = new Route([
                 "verbs" => [
-                    Route::GET,
-                    Route::DELETE,
-                    Route::PATCH,
-                    Route::OPTIONS,
-                    Route::HEAD,
-                    Route::GET,
-                    Route::PUT,
-                    Route::POST
+                    RouteInterface::GET,
+                    RouteInterface::DELETE,
+                    RouteInterface::PATCH,
+                    RouteInterface::OPTIONS,
+                    RouteInterface::HEAD,
+                    RouteInterface::GET,
+                    RouteInterface::PUT,
+                    RouteInterface::POST
                 ],
                 "uri" => "",
-                "status" => Route::NOT_ALLOWED,
+                "status" => RouteInterface::NOT_ALLOWED,
                 "controller" => ErrorHandling::class,
                 "action" => "notAllowed",
             ]);
@@ -223,137 +224,13 @@ final class Router
         //check if this is a 404 or a 405
         if ($this->checkNotAllowed(urldecode($request->getUri()->getPath()), $request->getMethod())) {
             //this is a 405 error and the notAllowed route must be followed
-            $errorHandlers[Route::NOT_ALLOWED]($request, $response, $emptyDeductedParam, $controllerArgs);
+            $errorHandlers[RouteInterface::NOT_ALLOWED]($request, $response, $emptyDeductedParam, $controllerArgs);
 
             return;
         }
 
         //this is a 404 error and the notFound route must be followed
-        $errorHandlers[Route::NOT_FOUND]($request, $response, $emptyDeductedParam, $controllerArgs);
-    }
-
-    /**
-     * Check if a piece of URL matches a parameter of the given type.
-     * List of types:
-     *  - 0 unsigned integer
-     *  - 1 signed integer
-     *  - 2 float
-     *  - 3 string
-     *  - 4 email
-     *
-     * @param $urlSplit  string the piece of URL to be checked
-     * @param $type      int    the type of accepted parameter
-     *
-     * @return bool true on success, false otherwise
-     */
-    private static function paramCheck($urlSplit, $type) : bool
-    {
-        switch ($type)
-        {
-            case 0:
-                return SimpleLexer::isUnsignedInteger($urlSplit);
-
-            case 1:
-                return SimpleLexer::isSignedInteger($urlSplit);
-
-            case 2:
-                return SimpleLexer::isFloat($urlSplit);
-
-            case 3:
-                return SimpleLexer::isString($urlSplit);
-
-            case 4:
-                return SimpleLexer::isEmail($urlSplit);
-
-            default:
-                return false;
-        }
-    }
-
-    /**
-     * Check weather a piece of an URL matches the corresponding piece of URI
-     *
-     * @param  string $uriSplit the slice of URI to be checked
-     * @param  string $urlSplit the slice of URL to be checked
-     * @param  array $params   used to register the correspondence (if any)
-     * @return bool  true if the URL slice matches the URI slice, false otherwise
-     */
-    private static function matchCheck($uriSplit, $urlSplit, array &$params) : bool
-    {
-        $result = false;
-
-        if ((strlen($uriSplit) >= 7) && ($uriSplit[0] == '{') && ($uriSplit[strlen($uriSplit) - 1] == '}')) {
-            $uriSplitRev = substr($uriSplit, 1, strlen($uriSplit) - 2);
-            $uriSplitExploded = explode(':', $uriSplitRev);
-            $uriParamType = strtolower($uriSplitExploded[1]);
-
-            $type = null;
-
-            if (strcmp($uriParamType, 'uint') == 0) {
-                $type = 0;
-            } else if (strcmp($uriParamType, 'int') == 0) {
-                $type = 1;
-            } else if ((strcmp($uriParamType, 'str') == 0) || (strcmp($uriParamType, 'string') == 0)) {
-                $type = 3;
-            } else if (strcmp($uriParamType, 'float') == 0) {
-                $type = 2;
-            } else if ((strcmp($uriParamType, 'email') == 0) || (strcmp($uriParamType, 'mail') == 0)) {
-                $type = 4;
-            }
-
-            //check the url piece against one of the given model
-            if (self::paramCheck($urlSplit, $type)) {
-                //matched url piece with the correct type: "1" checked against a string has to become 1
-                $urlSplitCType = $urlSplit;
-                $urlSplitCType = (($type == 0) || ($type == 1)) ? intval($urlSplit) : $urlSplitCType;
-                $urlSplitCType = ($type == 2) ? floatval($urlSplit) : $urlSplitCType;
-
-                $result = true;
-                $params[$uriSplitExploded[0]] = $urlSplitCType;
-            }
-        } else if (strcmp($uriSplit, $urlSplit) == 0) {
-            $result = true;
-        }
-
-        return  $result;
-    }
-
-    /**
-     * Check if the given URL matches the route URI.
-     * $matchedExpr is given as an associative array: name => value
-     *
-     * @param string $uri         the URI to be matched against the given URL
-     * @param string $url         the URL to be matched
-     * @param mixed  $matchedExpr an *empty* array
-     * @return bool true if the URL matches the URI, false otherwise
-     */
-    public static function matches($uri, $url, &$matchedExpr) : bool
-    {
-        if ((!is_string($url)) || (strlen($url) <= 0)) {
-            throw new \InvalidArgumentException("The URL must be given as a non-empty string");
-        }
-
-        if ((!is_string($uri)) || (strlen($uri) <= 0)) {
-            throw new \InvalidArgumentException("The URI must be given as a non-empty string");
-        }
-
-        $matchedExpr = [];
-        $result = true;
-
-        $urlSlices = explode('/', $url);
-        $uriSlices = explode('/', $uri);
-
-        $slicesCount = count($uriSlices);
-        if ($slicesCount != count($urlSlices)) {
-            return false;
-        }
-
-        for ($i = 0; ($i < $slicesCount) && ($result); $i++) {
-            //try matching the current URL slice with the current URI slice
-            $result = self::matchCheck($uriSlices[$i], $urlSlices[$i], $matchedExpr);
-        }
-
-        return $result;
+        $errorHandlers[RouteInterface::NOT_FOUND]($request, $response, $emptyDeductedParam, $controllerArgs);
     }
 }
 

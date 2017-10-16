@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Gishiki</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+        <script type="text/javascript">
+        function loadExternalCodeSnippets() {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+                var src = pre.getAttribute('data-src');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist or is empty';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        $(document).ready(function(){
+            loadExternalCodeSnippets();
+        });
+        $('#source-view').on('shown', function () {
+            loadExternalCodeSnippets();
+        })
+    </script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Gishiki</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Gishiki.html">\Gishiki</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">158</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1159188225"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1159188225" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2127522325"></a>
+                                <a href="../namespaces/Gishiki.html" style="margin-left: 30px; padding-left: 0">Gishiki</a>
+            </div>
+            <div id="namespace-2127522325" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-12025224"></a>
+                                <a href="../namespaces/Gishiki.Algorithms.html" style="margin-left: 30px; padding-left: 0">Algorithms</a>
+            </div>
+            <div id="namespace-12025224" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1083465501"></a>
+                                <a href="../namespaces/Gishiki.Algorithms.Collections.html" style="margin-left: 30px; padding-left: 0">Collections</a>
+            </div>
+            <div id="namespace-1083465501" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.Collections.DeserializationException.html">DeserializationException</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.Collections.SerializableCollection.html">SerializableCollection</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.Collections.SerializationException.html">SerializationException</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.Collections.StackCollection.html">StackCollection</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.Collections.StackException.html">StackException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1243167520"></a>
+                                <a href="../namespaces/Gishiki.Algorithms.Strings.html" style="margin-left: 30px; padding-left: 0">Strings</a>
+            </div>
+            <div id="namespace-1243167520" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.Strings.Manipulation.html">Manipulation</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.Strings.SimpleLexer.html">SimpleLexer</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.Base64.html">Base64</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Algorithms.XmlDomConstructor.html">XmlDomConstructor</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2091695807"></a>
+                                <a href="../namespaces/Gishiki.Core.html" style="margin-left: 30px; padding-left: 0">Core</a>
+            </div>
+            <div id="namespace-2091695807" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1176867419"></a>
+                                <a href="../namespaces/Gishiki.Core.MVC.html" style="margin-left: 30px; padding-left: 0">MVC</a>
+            </div>
+            <div id="namespace-1176867419" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-163819455"></a>
+                                <a href="../namespaces/Gishiki.Core.MVC.Controller.html" style="margin-left: 30px; padding-left: 0">Controller</a>
+            </div>
+            <div id="namespace-163819455" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1543334827"></a>
+                                <a href="../namespaces/Gishiki.Core.MVC.Controller.Plugins.html" style="margin-left: 30px; padding-left: 0">Plugins</a>
+            </div>
+            <div id="namespace-1543334827" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Core.MVC.Controller.Plugins.RequestDeserializer.html">RequestDeserializer</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Core.MVC.Controller.Plugins.ResponseAssembler.html">ResponseAssembler</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Core.MVC.Controller.Plugins.ResponseSerializer.html">ResponseSerializer</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Core.MVC.Controller.Controller.html">Controller</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Core.MVC.Controller.ControllerException.html">ControllerException</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Core.MVC.Controller.Plugin.html">Plugin</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-900382698"></a>
+                                <a href="../namespaces/Gishiki.Core.Router.html" style="margin-left: 30px; padding-left: 0">Router</a>
+            </div>
+            <div id="namespace-900382698" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Gishiki.Core.Router.RouteInterface.html">RouteInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Core.Router.MatchableRoute.html">MatchableRoute</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Core.Router.Route.html">Route</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Core.Router.Router.html">Router</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Core.Router.RouterException.html">RouterException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Core.Application.html">Application</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Core.Config.html">Config</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Core.Exception.html">Exception</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1533373753"></a>
+                                <a href="../namespaces/Gishiki.Database.html" style="margin-left: 30px; padding-left: 0">Database</a>
+            </div>
+            <div id="namespace-1533373753" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-819838310"></a>
+                                <a href="../namespaces/Gishiki.Database.Adapters.html" style="margin-left: 30px; padding-left: 0">Adapters</a>
+            </div>
+            <div id="namespace-819838310" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-785928850"></a>
+                                <a href="../namespaces/Gishiki.Database.Adapters.Utils.html" style="margin-left: 30px; padding-left: 0">Utils</a>
+            </div>
+            <div id="namespace-785928850" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1329149428"></a>
+                                <a href="../namespaces/Gishiki.Database.Adapters.Utils.QueryBuilder.html" style="margin-left: 30px; padding-left: 0">QueryBuilder</a>
+            </div>
+            <div id="namespace-1329149428" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Utils.QueryBuilder.MySQLQueryBuilder.html">MySQLQueryBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Utils.QueryBuilder.PostgreSQLQueryBuilder.html">PostgreSQLQueryBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Utils.QueryBuilder.SQLiteQueryBuilder.html">SQLiteQueryBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Utils.QueryBuilder.SQLQueryBuilder.html">SQLQueryBuilder</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1450218962"></a>
+                                <a href="../namespaces/Gishiki.Database.Adapters.Utils.SQLGenerator.html" style="margin-left: 30px; padding-left: 0">SQLGenerator</a>
+            </div>
+            <div id="namespace-1450218962" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.GenericSQL.html">GenericSQL</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.MySQLWrapper.html">MySQLWrapper</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.PostgreSQLWrapper.html">PostgreSQLWrapper</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Utils.SQLGenerator.SQLiteWrapper.html">SQLiteWrapper</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Mysql.html">Mysql</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.PDODatabase.html">PDODatabase</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Pgsql.html">Pgsql</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Adapters.Sqlite.html">Sqlite</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1748573083"></a>
+                                <a href="../namespaces/Gishiki.Database.ORM.html" style="margin-left: 30px; padding-left: 0">ORM</a>
+            </div>
+            <div id="namespace-1748573083" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Database.ORM.DatabaseStructure.html">DatabaseStructure</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.ORM.StructureException.html">StructureException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-34500534"></a>
+                                <a href="../namespaces/Gishiki.Database.Runtime.html" style="margin-left: 30px; padding-left: 0">Runtime</a>
+            </div>
+            <div id="namespace-34500534" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Database.Runtime.FieldOrdering.html">FieldOrdering</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Runtime.FieldRelation.html">FieldRelation</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Runtime.ResultModifier.html">ResultModifier</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Runtime.SelectionCriteria.html">SelectionCriteria</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1648094837"></a>
+                                <a href="../namespaces/Gishiki.Database.Schema.html" style="margin-left: 30px; padding-left: 0">Schema</a>
+            </div>
+            <div id="namespace-1648094837" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Database.Schema.Column.html">Column</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Schema.ColumnRelation.html">ColumnRelation</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Schema.ColumnType.html">ColumnType</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.Schema.Table.html">Table</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Gishiki.Database.DatabaseInterface.html">DatabaseInterface</a></li>
+                                                    <li class="interface"><a href="../classes/Gishiki.Database.RelationalDatabaseInterface.html">RelationalDatabaseInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Database.DatabaseException.html">DatabaseException</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Database.DatabaseManager.html">DatabaseManager</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1958493384"></a>
+                                <a href="../namespaces/Gishiki.Logging.html" style="margin-left: 30px; padding-left: 0">Logging</a>
+            </div>
+            <div id="namespace-1958493384" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Logging.LoggerManager.html">LoggerManager</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1509049091"></a>
+                                <a href="../namespaces/Gishiki.Security.html" style="margin-left: 30px; padding-left: 0">Security</a>
+            </div>
+            <div id="namespace-1509049091" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1381551832"></a>
+                                <a href="../namespaces/Gishiki.Security.Encryption.html" style="margin-left: 30px; padding-left: 0">Encryption</a>
+            </div>
+            <div id="namespace-1381551832" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2010569227"></a>
+                                <a href="../namespaces/Gishiki.Security.Encryption.Asymmetric.html" style="margin-left: 30px; padding-left: 0">Asymmetric</a>
+            </div>
+            <div id="namespace-2010569227" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Security.Encryption.Asymmetric.AsymmetricException.html">AsymmetricException</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Security.Encryption.Asymmetric.Cryptography.html">Cryptography</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Security.Encryption.Asymmetric.PrivateKey.html">PrivateKey</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Security.Encryption.Asymmetric.PublicKey.html">PublicKey</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2064759020"></a>
+                                <a href="../namespaces/Gishiki.Security.Encryption.Symmetric.html" style="margin-left: 30px; padding-left: 0">Symmetric</a>
+            </div>
+            <div id="namespace-2064759020" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Security.Encryption.Symmetric.Cryptography.html">Cryptography</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Security.Encryption.Symmetric.SecretKey.html">SecretKey</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Security.Encryption.Symmetric.SymmetricException.html">SymmetricException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-903911302"></a>
+                                <a href="../namespaces/Gishiki.Security.Hashing.html" style="margin-left: 30px; padding-left: 0">Hashing</a>
+            </div>
+            <div id="namespace-903911302" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Security.Hashing.Algorithm.html">Algorithm</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Security.Hashing.Hasher.html">Hasher</a></li>
+                                                    <li class="class"><a href="../classes/Gishiki.Security.Hashing.HashingException.html">HashingException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-192432586"></a>
+                                <a href="../namespaces/Gishiki.Services.html" style="margin-left: 30px; padding-left: 0">Services</a>
+            </div>
+            <div id="namespace-192432586" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Gishiki.Services.ErrorHandling.html">ErrorHandling</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Gishiki.Core.Router.html">\Gishiki\Core\Router</a>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Gishiki\Core\Router</small>RouteInterface</h1>
+                    <p><em>This interface describes how a route must be implemented
+in its basic implementation.</em></p>
+                    
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span6">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span6">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span6">
+                                                                    <a href="../classes/Gishiki.Core.Router.RouteInterface.html#method___invoke">__invoke()</a><br />
+                                                                    <a href="../classes/Gishiki.Core.Router.RouteInterface.html#method_getURI">getURI()</a><br />
+                                                                    <a href="../classes/Gishiki.Core.Router.RouteInterface.html#method_getStatus">getStatus()</a><br />
+                                                                    <a href="../classes/Gishiki.Core.Router.RouteInterface.html#method_getMethods">getMethods()</a><br />
+                                                                    <a href="../classes/Gishiki.Core.Router.RouteInterface.html#method_matches">matches()</a><br />
+                                                            </section>
+                            <section class="span6">
+                                                                    <a href="../classes/Gishiki.Core.Router.RouteInterface.html#constant_GET">GET</a><br />
+                                                                    <a href="../classes/Gishiki.Core.Router.RouteInterface.html#constant_POST">POST</a><br />
+                                                                    <a href="../classes/Gishiki.Core.Router.RouteInterface.html#constant_DELETE">DELETE</a><br />
+                                                                    <a href="../classes/Gishiki.Core.Router.RouteInterface.html#constant_HEAD">HEAD</a><br />
+                                                                    <a href="../classes/Gishiki.Core.Router.RouteInterface.html#constant_PUT">PUT</a><br />
+                                                                    <a href="../classes/Gishiki.Core.Router.RouteInterface.html#constant_PATCH">PATCH</a><br />
+                                                                    <a href="../classes/Gishiki.Core.Router.RouteInterface.html#constant_OPTIONS">OPTIONS</a><br />
+                                                                    <a href="../classes/Gishiki.Core.Router.RouteInterface.html#constant_OK">OK</a><br />
+                                                                    <a href="../classes/Gishiki.Core.Router.RouteInterface.html#constant_NOT_FOUND">NOT_FOUND</a><br />
+                                                                    <a href="../classes/Gishiki.Core.Router.RouteInterface.html#constant_NOT_ALLOWED">NOT_ALLOWED</a><br />
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span6">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span6">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span6">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span6">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        <dl>
+                        <dt>File</dt>
+                            <dd>
+                                <a href="../files/Core.Router.RouteInterface.html"><div class="path-wrapper">Core/Router/RouteInterface.php</div></a>
+                            </dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Default</div></dd>
+                                                
+                                            </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>author</th>
+                            <td>
+                                                                    <p>Benato Denis <a href="mailto:benato.denis96@gmail.com">benato.denis96@gmail.com</a></p>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                            <a id="constants" name="constants"></a>
+                <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Constants</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_GET" name="constant_GET" class="anchor"></a>
+            <article id="constant_GET" class="constant">
+                <h3 class="">GET</h3>
+                <pre class="signature">GET</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_POST" name="constant_POST" class="anchor"></a>
+            <article id="constant_POST" class="constant">
+                <h3 class="">POST</h3>
+                <pre class="signature">POST</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_DELETE" name="constant_DELETE" class="anchor"></a>
+            <article id="constant_DELETE" class="constant">
+                <h3 class="">DELETE</h3>
+                <pre class="signature">DELETE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_HEAD" name="constant_HEAD" class="anchor"></a>
+            <article id="constant_HEAD" class="constant">
+                <h3 class="">HEAD</h3>
+                <pre class="signature">HEAD</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_PUT" name="constant_PUT" class="anchor"></a>
+            <article id="constant_PUT" class="constant">
+                <h3 class="">PUT</h3>
+                <pre class="signature">PUT</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_PATCH" name="constant_PATCH" class="anchor"></a>
+            <article id="constant_PATCH" class="constant">
+                <h3 class="">PATCH</h3>
+                <pre class="signature">PATCH</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_OPTIONS" name="constant_OPTIONS" class="anchor"></a>
+            <article id="constant_OPTIONS" class="constant">
+                <h3 class="">OPTIONS</h3>
+                <pre class="signature">OPTIONS</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_OK" name="constant_OK" class="anchor"></a>
+            <article id="constant_OK" class="constant">
+                <h3 class="">OK</h3>
+                <pre class="signature">OK</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_NOT_FOUND" name="constant_NOT_FOUND" class="anchor"></a>
+            <article id="constant_NOT_FOUND" class="constant">
+                <h3 class="">NOT_FOUND</h3>
+                <pre class="signature">NOT_FOUND</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_NOT_ALLOWED" name="constant_NOT_ALLOWED" class="anchor"></a>
+            <article id="constant_NOT_ALLOWED" class="constant">
+                <h3 class="">NOT_ALLOWED</h3>
+                <pre class="signature">NOT_ALLOWED</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                        <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Methods</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___invoke" name="method___invoke" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__invoke()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__invoke(\Psr\Http\Message\RequestInterface  <span class="argument">$request</span>, \Psr\Http\Message\ResponseInterface  <span class="argument">$response</span>, \Gishiki\Algorithms\Collections\GenericCollection  <span class="argument">$arguments</span>, array  <span class="argument">$controllerArgs = array()</span>) </pre>
+                <p><em>Execute the callback associated with the current route.</em></p>
+                <p>This function is called <strong>AUTOMATICALLY</strong> by the framework when the
+route can be used to fulfill the given request.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Psr\Http\Message\RequestInterface</td>
+                                <td>$request </td>
+                                <td><p>a copy of the request made to the application</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\Psr\Http\Message\ResponseInterface</td>
+                                <td>$response </td>
+                                <td><p>the action must filled, and what will be returned to the client</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\Gishiki\Algorithms\Collections\GenericCollection</td>
+                                <td>$arguments </td>
+                                <td><p>a list of reversed URI parameters</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$controllerArgs </td>
+                                <td><p>an array containing data created from the application initialization</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getURI" name="method_getURI" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getURI()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getURI() : string</pre>
+                <p><em>Get the URI mapped by this Route</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>the URI of this route</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getStatus" name="method_getStatus" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getStatus()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getStatus() : integer</pre>
+                <p><em>Get the status code mapped by this Route</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>the status code of this route</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getMethods" name="method_getMethods" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getMethods()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getMethods() : array&lt;mixed,string&gt;</pre>
+                <p><em>Get the URI mapped by this Route</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>the list of HTTP verbs allowed</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_matches" name="method_matches" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">matches()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">matches(string  <span class="argument">$method</span>, string  <span class="argument">$url</span>, mixed  <span class="argument">$matchedExpr</span>) : boolean</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$method </td>
+                                <td><p>the HTTP method used on the Request</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url </td>
+                                <td><p>the URL invoked</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$matchedExpr </td>
+                                <td><p>will be filled with an associative array of paramName =&gt; urlValue</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>true if the given method and url matches this route</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">RouteInterface.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Core/Router/RouteInterface.php.txt" class="language-php"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Gishiki.html">\Gishiki</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on October 16th, 2017 at 17:01.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

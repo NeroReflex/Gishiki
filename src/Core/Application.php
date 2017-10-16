@@ -177,9 +177,9 @@ final class Application
             $this->connectDatabase($connections);
         }
 
-        $loggers = $this->configuration->getConfiguration()->get('loggers');
+        $loggers = $this->configuration->getConfiguration()->get('logging')['interfaces'];
         if (is_array($loggers)) {
-            $this->connectLogger($loggers, $this->configuration->getConfiguration()->get('general')['autolog']);
+            $this->connectLogger($loggers, $this->configuration->getConfiguration()->get('logging')['automatic']);
         }
     }
 

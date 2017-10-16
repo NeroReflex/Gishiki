@@ -218,19 +218,19 @@ a fully-working configuration.</p>
 <p>the real configuration file is stored inside the application root directory and is called settings.json</p>
 <p>It has a fixed (minimum) structure:</p>
 <pre><code class="json">{
-    &quot;general&quot;: {
-        &quot;autolog&quot;: &quot;default&quot;
-    },
-    &quot;loggers&quot;: {
-        &quot;default&quot;: [
-            {
-                &quot;class&quot;: &quot;StreamHandler&quot;,
-                &quot;connection&quot;: [
-                    &quot;customLog.log&quot;,
-                    400
-                ]
-            }
-        ]
+    &quot;logging&quot;: {
+        &quot;autolog&quot;: &quot;default&quot;,
+        &quot;interfaces&quot;: {
+            &quot;default&quot;: [
+                {
+                    &quot;class&quot;: &quot;StreamHandler&quot;,
+                    &quot;connection&quot;: [
+                        &quot;customLog.log&quot;,
+                        400
+                    ]
+                }
+            ]
+        }
     },
     &quot;connections&quot;: [
         {

@@ -172,8 +172,6 @@ final class Application
      */
     protected function applyConfiguration()
     {
-        $this->setDevelopmentEnv($this->configuration->getConfiguration()->get('general')['development']);
-
         $connections = $this->configuration->getConfiguration()->get('connections');
         if (is_array($connections)) {
             $this->connectDatabase($connections);
@@ -217,19 +215,6 @@ final class Application
         foreach ($connections as $connection) {
             $this->databaseConnections->connect($connection['name'], $connection['query']);
         }
-    }
-
-    /**
-     * Set all development output on true.
-     *
-     * @param $val bool if true development enabled
-     */
-    protected function setDevelopmentEnv($val)
-    {
-        //development configuration
-        /*if ($val === true) {
-
-        }*/
     }
 }
 

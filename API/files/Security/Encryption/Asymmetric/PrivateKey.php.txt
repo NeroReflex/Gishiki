@@ -33,8 +33,6 @@ final class PrivateKey
     const RSA4096 = 4096;
     const RSAEXTREME = 16384;
 
-    public static $openSSLConf = "";
-
     /**
      * Create a random private key of the given length (in bits).
      *
@@ -85,12 +83,6 @@ final class PrivateKey
             'private_key_bits' => $keyLength,
             'private_key_type' => OPENSSL_KEYTYPE_RSA,
         ];
-        //use the application openssl configuration
-        if (is_string(self::$openSSLConf)) {
-            $config = array_merge(
-                    $config,
-                    ['config' => (file_exists(self::$openSSLConf)) ? self::$openSSLConf : null]);
-        }
 
         //create a new private key
         $privateKey = openssl_pkey_new($config);
@@ -219,13 +211,6 @@ final class PrivateKey
             'digest_alg' => 'sha512',
             'private_key_type' => OPENSSL_KEYTYPE_RSA,
         ];
-
-        //use the application openssl configuration
-        if (is_string(self::$openSSLConf)) {
-            $config = array_merge(
-                $config,
-                ['config' => (file_exists(self::$openSSLConf)) ? self::$openSSLConf : null]);
-        }
 
         //serialize the key and encrypt it if requested
         if (strlen($keyPassword) > 0) {

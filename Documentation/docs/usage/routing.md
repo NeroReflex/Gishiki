@@ -11,13 +11,13 @@ to a controller and action withing that controller.
 ## HTTP methods
 As for HTTP standards a client can perform a resource request using these verbs:
 
-   -  GET identified as Route::GET
-   -  POST  identified as Route::POST
-   -  DELETE identified as Route::DELETE
-   -  PUT identified as Route::PUT
-   -  HEAD identified as Route::HEAD
-   -  PATCH identified as Route::PATCH
-   -  OPTIONS identified as Route::OPTIONS
+   -  GET identified as RouteInterface::GET
+   -  POST  identified as RouteInterface::POST
+   -  DELETE identified as RouteInterface::DELETE
+   -  PUT identified as RouteInterface::PUT
+   -  HEAD identified as RouteInterface::HEAD
+   -  PATCH identified as RouteInterface::PATCH
+   -  OPTIONS identified as RouteInterface::OPTIONS
 
 When you set a routing rule (either static or dynamic) you have to select the
 verb that you want to be served in that route.

@@ -26,49 +26,24 @@ use Gishiki\Core\MVC\Controller\Plugins\ResponseSerializer as SerializerPlugin;
 use Gishiki\Core\MVC\Controller\Plugins\ResponseAssembler as AssemblerPlugin;
 
 /**
- * This class is used to provide a small layer of Laravel-compatibility
- * and ease of routing usage.
+ * This class represents a route that will resolve in a Controller call.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class Route
+class Route extends MatchableRoute
 {
-
-    const GET = 'GET';
-    const POST = 'POST';
-    const DELETE = 'DELETE';
-    const HEAD = 'HEAD';
-    const PUT = 'PUT';
-    const PATCH = 'PATCH';
-    const OPTIONS = 'OPTIONS';
-
-
-    const OK = 200;
-    const NOT_FOUND = 404;
-    const NOT_ALLOWED = 405;
-
     /**
-     * @var array the route definition
-     */
-    private $route = [
-        "plugins" => [
-            "deserializer" => DeserializerPlugin::class,
-            "serializer" => SerializerPlugin::class,
-            "assembler" => AssemblerPlugin::class,
-        ]
-    ];
-
-    /**
-     * Build a new route to be registered within a Gishiki\Core\Router instance.
+     * Build a new route to be registered within a Router instance.
      *
      * An usage example is:
      * <code>
+     * <?php
      * $route = new Route([
      *     "verbs" => [
-     *          Route::GET
+     *          RouteInterface::GET
      *      ],
      *      "uri" => "/",
-     *      "status" => Route::OK,
+     *      "status" => RouteInterface::OK,
      *      "controller" => MyController::class,
      *      "action" => "index",
      * ]);
@@ -80,6 +55,14 @@ final class Route
      */
     public function __construct(array $options)
     {
+        $this->route = [
+            "plugins" => [
+                "deserializer" => DeserializerPlugin::class,
+                "serializer" => SerializerPlugin::class,
+                "assembler" => AssemblerPlugin::class,
+            ]
+        ];
+
         foreach ($options as $key => &$value)
         {
             if (is_string($key))
@@ -136,17 +119,15 @@ final class Route
     }
 
     /**
-     * Execute the router callback, may it be a string (for controller->action)
-     * or an anonymous function.
+     * Execute the route callback by instantiating the given controller class and
+     * calling the specified action.
      *
-     * This function is called __AUTOMATICALLY__ by the framework when the
-     * route can be used to fulfill the given request.
-     *
-     * @param RequestInterface  $request   a copy of the request made to the application
-     * @param ResponseInterface $response  the action must fille, and what will be returned to the client
-     * @param GenericCollection $arguments a list of reversed URI parameters
+     * @param RequestInterface  $request        a copy of the request made to the application
+     * @param ResponseInterface $response       the action must filled, and what will be returned to the client
+     * @param GenericCollection $arguments      a list of reversed URI parameters
+     * @param array             $controllerArgs an array containing data created from the application initialization
      */
-    public function __invoke(RequestInterface &$request, ResponseInterface &$response, GenericCollection &$arguments, array $controllerArgs = [])
+    public function __invoke(RequestInterface &$request, ResponseInterface &$response, GenericCollection &$arguments, $controllerArgs = [])
     {
         //import middleware
         $plugins = $this->route["plugins"];
@@ -173,35 +154,5 @@ final class Route
 
         //and execute it
         $reflectedAction->invoke($controller);
-    }
-
-    /**
-     * Get the URI mapped by this Route
-     *
-     * @return string the URI of this route
-     */
-    public function getURI() : string
-    {
-        return $this->route["uri"];
-    }
-
-    /**
-     * Get the status code mapped by this Route
-     *
-     * @return integer the status code of this route
-     */
-    public function getStatus() : int
-    {
-        return $this->route["status"];
-    }
-
-    /**
-     * Get the URI mapped by this Route
-     *
-     * @return array the list of HTTP verbs allowed
-     */
-    public function getMethods() : array
-    {
-        return $this->route["verbs"];
     }
 }

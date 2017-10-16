@@ -34,6 +34,24 @@ use PHPUnit\Framework\TestCase;
  */
 class RouteTest extends TestCase
 {
+    /*public function testBadUrl()
+    {
+        $expr = null;
+
+        $route = new Route([
+            "verbs" => [
+                Route::GET, Route::POST
+            ],
+            "uri" => "/email/{mail:email}",
+            "status" => Route::OK,
+            "controller" => 6,
+            "action" => "quickAction"
+        ]);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $route->matches("/home", null, $expr);
+    }*/
+
     public function testBadController()
     {
         $this->expectException(RouterException::class);
@@ -163,6 +181,178 @@ class RouteTest extends TestCase
             "controller" => "I don't exists :)",
             "action" => 'none',
         ]);
+    }
+
+    public function testStrangeMatch()
+    {
+        $expr = null;
+
+        $route = new Route([
+            "verbs" => [
+                Route::GET
+            ],
+            "uri" => "/home",
+            "status" => Route::OK,
+            "controller" => \FakeController::class,
+            "action" => 'do',
+        ]);
+
+        $this->assertEquals(false, $route->matches(Route::GET, "/", $expr));
+    }
+
+    public function testStatic()
+    {
+        $expr = null;
+
+        $route = new Route([
+            "verbs" => [
+                Route::POST
+            ],
+            "uri" => "/home/hello/test",
+            "status" => Route::OK,
+            "controller" => \FakeController::class,
+            "action" => 'do',
+        ]);
+
+        $this->assertEquals(true, $route->matches(Route::POST, "/home/hello/test", $expr));
+    }
+
+    public function testDynamicEmail()
+    {
+        $expr = [];
+
+        $route = new Route([
+            "verbs" => [
+                Route::POST
+            ],
+            "uri" => "/email/{address:email}",
+            "status" => Route::OK,
+            "controller" => \FakeController::class,
+            "action" => 'do',
+        ]);
+
+        $this->assertEquals(true, $route->matches(Route::POST, "/email/example@gmail.com", $expr));
+        $this->assertEquals([
+            "address" => "example@gmail.com"
+        ], $expr);
+    }
+
+    public function testDynamicUint()
+    {
+        $expr = [];
+
+        $route = new Route([
+            "verbs" => [
+                Route::POST
+            ],
+            "uri" => "/uint/{number:uint}",
+            "status" => Route::OK,
+            "controller" => \FakeController::class,
+            "action" => 'do',
+        ]);
+
+        $this->assertEquals(true, $route->matches(Route::POST, "/uint/54", $expr));
+        $this->assertEquals([
+            "number" => 54
+        ], $expr);
+    }
+
+    public function testDynamicSint()
+    {
+        $expr = null;
+
+        $route = new Route([
+            "verbs" => [
+                Route::POST
+            ],
+            "uri" => "/sint/{number:int}",
+            "status" => Route::OK,
+            "controller" => \FakeController::class,
+            "action" => 'do',
+        ]);
+
+        $this->assertEquals(true, $route->matches(Route::POST, "/sint/-55", $expr));
+        $this->assertEquals([
+            "number" => -55
+        ], $expr);
+    }
+
+    public function testDynamicString()
+    {
+        $expr = null;
+
+        $route = new Route([
+            "verbs" => [
+                Route::POST
+            ],
+            "uri" => "/hello/{name:str}",
+            "status" => Route::OK,
+            "controller" => \FakeController::class,
+            "action" => 'do',
+        ]);
+
+        $this->assertEquals(true, $route->matches(Route::POST, "/hello/John", $expr));
+        $this->assertEquals([
+            "name" => "John",
+        ], $expr);
+    }
+
+    public function testDynamicFloat()
+    {
+        $expr = null;
+
+        $route = new Route([
+            "verbs" => [
+                Route::HEAD
+            ],
+            "uri" => "/float/{number:float}",
+            "status" => Route::OK,
+            "controller" => \FakeController::class,
+            "action" => 'do',
+        ]);
+
+        $this->assertEquals(true, $route->matches(Route::HEAD, "/float/-55.25", $expr));
+        $this->assertEquals([
+            "number" => -55.25
+        ], $expr);
+    }
+
+    public function testDynamicComplex()
+    {
+        $expr = null;
+
+        $route = new Route([
+            "verbs" => [
+                Route::DELETE
+            ],
+            "uri" => "/cplx/{id:uint}/{mail:email}/set",
+            "status" => Route::OK,
+            "controller" => \FakeController::class,
+            "action" => 'do',
+        ]);
+
+        $this->assertEquals(true, $route->matches(Route::DELETE, "/cplx/9/example@xmpl.com/set", $expr));
+        $this->assertEquals([
+            "id" => 9,
+            "mail" => "example@xmpl.com"
+        ], $expr);
+    }
+
+    public function testDynamicBadSplitNumber()
+    {
+        $expr = null;
+
+        $route = new Route([
+            "verbs" => [
+                Route::GET
+            ],
+            "uri" => "/cplx/{id:uint}",
+            "status" => Route::OK,
+            "controller" => \FakeController::class,
+            "action" => 'do',
+        ]);
+
+        $this->assertEquals(false, $route->matches(Route::GET, "/cplx", $expr));
     }
 
     public function testRouteInvoke()

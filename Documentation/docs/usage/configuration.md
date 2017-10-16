@@ -9,7 +9,6 @@ It has a fixed (minimum) structure:
 ```json
 {
     "general": {
-        "development": true,
         "autolog": "default"
     },
     "loggers": {

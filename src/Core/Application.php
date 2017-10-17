@@ -20,7 +20,6 @@ namespace Gishiki\Core;
 use Gishiki\Core\Router\Router;
 use Gishiki\Database\DatabaseManager;
 use Gishiki\Logging\LoggerManager;
-use Gishiki\Security\Encryption\Asymmetric\PrivateKey;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -87,10 +86,6 @@ final class Application
             filter_input(INPUT_SERVER, 'DOCUMENT_ROOT') : getcwd();
 
         $this->currentDirectory .= DIRECTORY_SEPARATOR;
-
-        if (file_exists($this->currentDirectory.'openssl.cnf')) {
-            PrivateKey::$openSSLConf = $this->currentDirectory.'openssl.cnf';
-        }
 
         //load application configuration
         if (file_exists($this->currentDirectory . "settings.json")) {
@@ -177,16 +172,14 @@ final class Application
      */
     protected function applyConfiguration()
     {
-        $this->setDevelopmentEnv($this->configuration->getConfiguration()->get('general')['development']);
-
         $connections = $this->configuration->getConfiguration()->get('connections');
         if (is_array($connections)) {
             $this->connectDatabase($connections);
         }
 
-        $loggers = $this->configuration->getConfiguration()->get('loggers');
+        $loggers = $this->configuration->getConfiguration()->get('logging')['interfaces'];
         if (is_array($loggers)) {
-            $this->connectLogger($loggers, $this->configuration->getConfiguration()->get('general')['autolog']);
+            $this->connectLogger($loggers, $this->configuration->getConfiguration()->get('logging')['automatic']);
         }
     }
 
@@ -221,19 +214,6 @@ final class Application
         //connect every db connection
         foreach ($connections as $connection) {
             $this->databaseConnections->connect($connection['name'], $connection['query']);
-        }
-    }
-
-    /**
-     * Set all development output on true.
-     *
-     * @param $val bool if true development enabled
-     */
-    protected function setDevelopmentEnv($val)
-    {
-        //development configuration
-        if ($val === true) {
-
         }
     }
 }

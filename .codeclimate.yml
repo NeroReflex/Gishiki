@@ -9,17 +9,18 @@ engines:
   phpmd:
     enabled: true
     checks:
+      Controversial/Superglobals:
+        enabled: false
       CleanCode/BooleanArgumentFlag:
         enabled: true
       Design/WeightedMethodCount:
         enabled: true
       CleanCode/StaticAccess:
-        enabled: true
+        enabled: false
       Design/TooManyPublicMethods:
         enabled: true
 ratings:
   paths:
-  - "**.inc"
   - "**.php"
 exclude_paths:
 - "/tests"

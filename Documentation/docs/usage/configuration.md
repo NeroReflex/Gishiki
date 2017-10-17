@@ -8,20 +8,19 @@ the real configuration file is stored inside the application root directory and 
 It has a fixed (minimum) structure:
 ```json
 {
-    "general": {
-        "development": true,
-        "autolog": "default"
-    },
-    "loggers": {
-        "default": [
-            {
-                "class": "StreamHandler",
-                "connection": [
-                    "customLog.log",
-                    400
-                ]
-            }
-        ]
+    "logging": {
+        "autolog": "default",
+        "interfaces": {
+            "default": [
+                {
+                    "class": "StreamHandler",
+                    "connection": [
+                        "customLog.log",
+                        400
+                    ]
+                }
+            ]
+        }
     },
     "connections": [
         {

@@ -57,7 +57,7 @@ abstract class MatchableRoute implements RouteInterface
 
     public function matches($method, $url, &$matchedExpr) : bool
     {
-        return ((in_array($method, $this->getMethods())) && (self::matchURI($this->getURI(), $url, $matchedExpr)));
+        return ((in_array($method, $this->getMethods())) && (static::matchURI($this->getURI(), $url, $matchedExpr)));
     }
 
     /**

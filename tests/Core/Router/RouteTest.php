@@ -34,6 +34,42 @@ use PHPUnit\Framework\TestCase;
  */
 class RouteTest extends TestCase
 {
+    public function testBadUriParamType()
+    {
+        $expr = [];
+
+        $expr = null;
+
+        $route = new Route([
+            "verbs" => [
+                Route::GET, Route::POST
+            ],
+            "uri" => "/{my_string:bad}",
+            "status" => Route::OK,
+            "controller" => "FakeController",
+            "action" => "quickAction"
+        ]);
+
+        $this->expectException(RouterException::class);
+        $route->matches(Route::GET, "/whatever", $expr);
+    }
+
+    public function testBadUrlInMatchURI()
+    {
+        $expr = [];
+
+        $this->expectException(\InvalidArgumentException::class);
+        Route::matchURI("/", null, $expr);
+    }
+
+    public function testBadUriInMatchURI()
+    {
+        $expr = [];
+
+        $this->expectException(\InvalidArgumentException::class);
+        Route::matchURI(null, "", $expr);
+    }
+
     public function testBadUrl()
     {
         $expr = null;

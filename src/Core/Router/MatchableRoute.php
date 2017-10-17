@@ -71,11 +71,15 @@ abstract class MatchableRoute implements RouteInterface
      *
      * @param $urlSplit  string the piece of URL to be checked
      * @param $type      int    the type of accepted parameter
-     *
+     * @throws RouterException  the given type is invalid
      * @return bool true on success, false otherwise
      */
     protected static function paramCheck($urlSplit, $type) : bool
     {
+        if ((!is_int($type)) || ($type < 0) || ($type > 4)) {
+            throw new RouterException("Invalid parameter type", 100);
+        }
+
         switch ($type)
         {
             case 0:
@@ -92,9 +96,6 @@ abstract class MatchableRoute implements RouteInterface
 
             case 4:
                 return SimpleLexer::isEmail($urlSplit);
-
-            default:
-                return false;
         }
     }
 

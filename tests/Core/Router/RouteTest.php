@@ -34,7 +34,7 @@ use PHPUnit\Framework\TestCase;
  */
 class RouteTest extends TestCase
 {
-    /*public function testBadUrl()
+    public function testBadUrl()
     {
         $expr = null;
 
@@ -44,13 +44,13 @@ class RouteTest extends TestCase
             ],
             "uri" => "/email/{mail:email}",
             "status" => Route::OK,
-            "controller" => 6,
+            "controller" => "FakeController",
             "action" => "quickAction"
         ]);
 
         $this->expectException(\InvalidArgumentException::class);
-        $route->matches("/home", null, $expr);
-    }*/
+        $route->matches(Route::GET, null, $expr);
+    }
 
     public function testBadController()
     {

@@ -84,4 +84,9 @@ class FakeController extends Controller
     {
         $this->getResponse()->getBody()->write("404 - Not Found (Custom :))");
     }
+
+    public function customNotAllowed()
+    {
+        $this->getResponse()->getBody()->write("405 - Not Allowed (Custom :))");
+    }
 }

@@ -216,6 +216,62 @@ class ApplicationTest extends TestCase
         $this->assertEquals(Route::NOT_FOUND, $emitter->getStatusCode());
     }
 
+    public function testRouteCustomNotAllowed()
+    {
+        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
+        $app = new Application(new \TestingEmitter());
+        unlink(__DIR__."/../../settings.json");
+
+        $router = new Router();
+
+        $request = new \ReflectionProperty($app, 'request');
+        $request->setAccessible(true);
+
+        $testRequest = new Request();
+        $testRequest = $testRequest->withMethod('OPTIONS');
+        $uri = new Uri();
+        $uri = $uri->withHost('www.testingsite.com');
+        $uri = $uri->withPort(80);
+        $uri = $uri->withPath('/doCoolStuff');
+        $testRequest = $testRequest->withUri($uri);
+
+        $request->setValue($app, $testRequest);
+
+        $router->add(new Route([
+            "verbs" => [
+                Route::GET
+            ],
+            "uri" => "/doCoolStuff",
+            "status" => Route::NOT_FOUND,
+            "controller" => "FakeController",
+            "action" => "customNotAllowed"
+        ]));
+
+        $router->add(new Route([
+            "verbs" => [
+                Route::OPTIONS
+            ],
+            "uri" => "",
+            "status" => Route::NOT_ALLOWED,
+            "controller" => "FakeController",
+            "action" => "customNotAllowed"
+        ]));
+
+        $response = new \ReflectionProperty($app, 'response');
+        $response->setAccessible(true);
+
+        $app->run($router);
+
+        $app->emit();
+
+        $emitterReflector = new \ReflectionProperty($app, 'emitter');
+        $emitterReflector->setAccessible(true);
+        $emitter = $emitterReflector->getValue($app);
+
+        $this->assertEquals('405 - Not Allowed (Custom :))', $emitter->getBodyContent());
+        $this->assertEquals(Route::NOT_ALLOWED, $emitter->getStatusCode());
+    }
+
     public function testException()
     {
         copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");

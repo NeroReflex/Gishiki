@@ -275,10 +275,15 @@ EOD;
 
     public function testBadYamlDeserialization()
     {
+        $badYaml = "
+- just: write some
+- yaml: 
+  - [here, and]
+  - {it: updates, in: real-time}
+ead<ckj
+";
+
         $this->expectException(DeserializationException::class);
-        $badYaml =
-'x
-language:';
 
         SerializableCollection::deserialize($badYaml, SerializableCollection::YAML);
     }

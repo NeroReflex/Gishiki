@@ -17,6 +17,10 @@ limitations under the License.
 
 namespace Gishiki\Algorithms\Collections;
 
+use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Exception\ParseException;
+use Gishiki\Algorithms\XmlDomConstructor;
+
 /**
  * The structured data management class.
  *
@@ -42,7 +46,7 @@ class SerializableCollection extends GenericCollection
     {
         if (is_array($data)) {
             parent::__construct($data);
-        } elseif ($data instanceof \Gishiki\Algorithms\Collections\CollectionInterface) {
+        } elseif ($data instanceof CollectionInterface) {
             $this->data = $data->all();
         }
     }
@@ -53,7 +57,6 @@ class SerializableCollection extends GenericCollection
      * @param int $format an integer representing one of the allowed formats
      * @throw  \InvalidArgumentException      the serialization format is invalid
      * @throw  SerializationException         the error occurred while serializing the collection in json format
-     *
      * @return string the collection serialized
      */
     public function serialize($format = self::JSON)
@@ -76,7 +79,7 @@ class SerializableCollection extends GenericCollection
                 break;
 
             case self::XML:
-                $xml = new \Gishiki\Algorithms\XmlDomConstructor('1.0', 'utf-8');
+                $xml = new XmlDomConstructor('1.0', 'utf-8');
                 $xml->xmlStandalone = true;
                 $xml->formatOutput = true;
                 $xml->fromMixed($this->all());
@@ -86,7 +89,7 @@ class SerializableCollection extends GenericCollection
                 break;
 
             case self::YAML:
-                $result = \Symfony\Component\Yaml\Yaml::dump($this->all());
+                $result = Yaml::dump($this->all());
                 break;
 
             default:
@@ -97,7 +100,7 @@ class SerializableCollection extends GenericCollection
     }
 
     /**
-     * Deserialize the given data collectionand create a serializable data collection.
+     * Deserialize the given data collection and create a serializable data collection.
      *
      * @param string|array|CollectionInterface $message the string containing the serialized data or the array of data
      * @param int                              $format  an integer representing one of the allowed formats
@@ -163,8 +166,8 @@ class SerializableCollection extends GenericCollection
             //attempt to deserialize the yaml file
             $nativeSerialization = null;
             try {
-                $nativeSerialization = \Symfony\Component\Yaml\Yaml::parse($message, true, true);
-            } catch (\Symfony\Component\Yaml\Exception\ParseException $ex) {
+                $nativeSerialization = Yaml::parse($message, true, true);
+            } catch (ParseException $ex) {
                 throw new DeserializationException('The given YAML content cannot be deserialized', 9);
             }
 
@@ -188,7 +191,7 @@ class SerializableCollection extends GenericCollection
      */
     public function __toString()
     {
-        //use the default serializator
+        //use the default serialization format
         return $this->serialize();
     }
 }

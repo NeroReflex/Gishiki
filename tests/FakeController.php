@@ -79,4 +79,9 @@ class FakeController extends Controller
     {
         $this->getResponse()->getBody()->write("bye bye ".$this->arguments->get('name'));
     }
+
+    public function customNotFound()
+    {
+        $this->getResponse()->getBody()->write("404 - Not Found (Custom :))");
+    }
 }

@@ -15,9 +15,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
+use Zend\Diactoros\Response\EmitterInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class TestingEmitter
+class TestingEmitter implements EmitterInterface
 {
     /**
      * @var ResponseInterface the response

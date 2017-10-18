@@ -18,11 +18,9 @@ limitations under the License.
 namespace Gishiki\tests\Core\Router;
 
 use Gishiki\Core\Application;
-
 use Gishiki\Core\Router\Route;
 use Gishiki\Core\Router\Router;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Request;
 use Zend\Diactoros\Uri;
 
@@ -35,7 +33,9 @@ class ApplicationTest extends TestCase
 {
     public function testDirectory()
     {
-        $app = new Application();
+        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
+        $app = new Application(new \TestingEmitter());
+        unlink(__DIR__."/../../settings.json");
 
         $directory = new \ReflectionProperty($app, 'currentDirectory');
         $directory->setAccessible(true);
@@ -47,7 +47,7 @@ class ApplicationTest extends TestCase
     public function testCompleteApplication()
     {
         copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
-        $app = new Application();
+        $app = new Application(new \TestingEmitter());
         unlink(__DIR__."/../../settings.json");
 
         $router = new Router();
@@ -79,7 +79,11 @@ class ApplicationTest extends TestCase
 
         $app->run($router);
 
-        $emitter = $app->emit('TestingEmitter');
+        $app->emit();
+
+        $emitterReflector = new \ReflectionProperty($app, 'emitter');
+        $emitterReflector->setAccessible(true);
+        $emitter = $emitterReflector->getValue($app);
 
         $this->assertEquals('bye bye Mario', $emitter->getBodyContent());
     }
@@ -87,7 +91,7 @@ class ApplicationTest extends TestCase
     public function testRouteDefaultNotAllowed()
     {
         copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
-        $app = new Application();
+        $app = new Application(new \TestingEmitter());
         unlink(__DIR__."/../../settings.json");
 
         $router = new Router();
@@ -120,7 +124,11 @@ class ApplicationTest extends TestCase
 
         $app->run($router);
 
-        $emitter = $app->emit(\TestingEmitter::class);
+        $app->emit();
+
+        $emitterReflector = new \ReflectionProperty($app, 'emitter');
+        $emitterReflector->setAccessible(true);
+        $emitter = $emitterReflector->getValue($app);
 
         $this->assertEquals('405 - Not Allowed', $emitter->getBodyContent());
         $this->assertEquals(Route::NOT_ALLOWED, $emitter->getStatusCode());
@@ -129,7 +137,7 @@ class ApplicationTest extends TestCase
     public function testRouteDefaultNotFound()
     {
         copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
-        $app = new Application();
+        $app = new Application(new \TestingEmitter());
         unlink(__DIR__."/../../settings.json");
 
         $router = new Router();
@@ -152,56 +160,66 @@ class ApplicationTest extends TestCase
 
         $app->run($router);
 
-        $emitter = $app->emit(\TestingEmitter::class);
+        $app->emit();
+
+        $emitterReflector = new \ReflectionProperty($app, 'emitter');
+        $emitterReflector->setAccessible(true);
+        $emitter = $emitterReflector->getValue($app);
 
         $this->assertEquals('404 - Not Found', $emitter->getBodyContent());
         $this->assertEquals(Route::NOT_FOUND, $emitter->getStatusCode());
     }
 
-    public function testCompleteApplicationBadEmitter()
+    public function testRouteCustomNotFound()
     {
         copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
-        $app = new Application();
+        $app = new Application(new \TestingEmitter());
         unlink(__DIR__."/../../settings.json");
 
         $router = new Router();
-        $router->add(new Route([
-            "verbs" => [
-                Route::DELETE
-            ],
-            "uri" => "/bye/{name:str}",
-            "status" => Route::OK,
-            "controller" => "FakeController",
-            "action" => "completeTest"
-        ]));
 
         $request = new \ReflectionProperty($app, 'request');
         $request->setAccessible(true);
 
         $testRequest = new Request();
-        $testRequest = $testRequest->withMethod('DELETE');
+        $testRequest = $testRequest->withMethod('HEAD');
         $uri = new Uri();
         $uri = $uri->withHost('www.testingsite.com');
         $uri = $uri->withPort(80);
-        $uri = $uri->withPath('/bye/Mario');
+        $uri = $uri->withPath('/isJonasHere');
         $testRequest = $testRequest->withUri($uri);
 
         $request->setValue($app, $testRequest);
+
+        $router->add(new Route([
+            "verbs" => [
+                Route::HEAD
+            ],
+            "uri" => "",
+            "status" => Route::NOT_FOUND,
+            "controller" => "FakeController",
+            "action" => "customNotFound"
+        ]));
 
         $response = new \ReflectionProperty($app, 'response');
         $response->setAccessible(true);
 
         $app->run($router);
 
-        $this->expectException(\Exception::class);
+        $app->emit();
 
-        $emitter = $app->emit('BadEmitter');
+        $emitterReflector = new \ReflectionProperty($app, 'emitter');
+        $emitterReflector->setAccessible(true);
+        $emitter = $emitterReflector->getValue($app);
+
+        $this->assertEquals('404 - Not Found (Custom :))', $emitter->getBodyContent());
+        $this->assertEquals(Route::NOT_FOUND, $emitter->getStatusCode());
     }
 
     public function testException()
     {
         copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
-        $app = new Application();
+        $app = new Application(new \TestingEmitter());
         unlink(__DIR__."/../../settings.json");
 
         $router = new Router();

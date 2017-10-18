@@ -36,6 +36,16 @@ class LoggerManagerTest extends TestCase
         $loggers->connect(6, []);
     }
 
+    public function testConnectBadSearch()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $loggers = new LoggerManager();
+
+        $this->expectException(\InvalidArgumentException::class);
+        $loggers->isConnected(7);
+    }
+
     public function testConnectBadValue()
     {
         $this->expectException(\InvalidArgumentException::class);

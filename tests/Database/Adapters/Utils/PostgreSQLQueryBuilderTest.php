@@ -31,6 +31,66 @@ use Gishiki\Database\Schema\ColumnRelation;
  */
 class PostgreSQLQueryBuilderTest extends TestCase
 {
+    public function testCreateTableWithNoForeignKeyBigintVersion()
+    {
+        $table = new Table(__FUNCTION__);
+
+        $idColumn = new Column('id', ColumnType::BIGINT);
+        $idColumn->setNotNull(true);
+        $idColumn->setAutoIncrement(true);
+        $idColumn->setPrimaryKey(true);
+        $table->addColumn($idColumn);
+        $nameColumn = new Column('name', ColumnType::TEXT);
+        $nameColumn->setNotNull(true);
+        $table->addColumn($nameColumn);
+        $creditColumn = new Column('credit', ColumnType::DOUBLE);
+        $creditColumn->setNotNull(true);
+        $table->addColumn($creditColumn);
+        $registeredColumn = new Column('registered', ColumnType::DATETIME);
+        $registeredColumn->setNotNull(false);
+        $table->addColumn($registeredColumn);
+
+        $query = new PostgreSQLWrapper();
+        $query->createTable($table->getName())->definedAs($table->getColumns());
+
+        $this->assertEquals(PostgreSQLWrapper::beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
+            .'id serial PRIMARY KEY, '
+            .'name text NOT NULL, '
+            .'credit double NOT NULL, '
+            .'registered integer'
+            .')'), PostgreSQLWrapper::beautify($query->exportQuery()));
+    }
+
+    public function testCreateTableWithNoForeignKeySmallintVersion()
+    {
+        $table = new Table(__FUNCTION__);
+
+        $idColumn = new Column('id', ColumnType::SMALLINT);
+        $idColumn->setNotNull(true);
+        $idColumn->setAutoIncrement(true);
+        $idColumn->setPrimaryKey(true);
+        $table->addColumn($idColumn);
+        $nameColumn = new Column('name', ColumnType::TEXT);
+        $nameColumn->setNotNull(true);
+        $table->addColumn($nameColumn);
+        $creditColumn = new Column('credit', ColumnType::NUMERIC);
+        $creditColumn->setNotNull(true);
+        $table->addColumn($creditColumn);
+        $registeredColumn = new Column('registered', ColumnType::DATETIME);
+        $registeredColumn->setNotNull(false);
+        $table->addColumn($registeredColumn);
+
+        $query = new PostgreSQLWrapper();
+        $query->createTable($table->getName())->definedAs($table->getColumns());
+
+        $this->assertEquals(PostgreSQLWrapper::beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
+            .'id serial PRIMARY KEY, '
+            .'name text NOT NULL, '
+            .'credit numeric NOT NULL, '
+            .'registered integer'
+            .')'), PostgreSQLWrapper::beautify($query->exportQuery()));
+    }
+
     public function testCreateTableWithNoForeignKey()
     {
         $table = new Table(__FUNCTION__);

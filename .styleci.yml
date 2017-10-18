@@ -1,0 +1,21 @@
+preset: psr2
+
+risky: false
+
+enabled:
+  - short_array_syntax
+  - strict
+  - unalign_double_arrow
+
+disabled:
+  - align_double_arrow
+  - long_array_syntax
+
+finder:
+  exclude:
+    - "tests"
+    - "vendor"
+  name:
+    - "*.php"
+  not-name:
+    - "*Stub.php"

@@ -5,6 +5,7 @@
 | CI           | Status  |
 |--------------|---------|
 | Codacy       | [![Codacy Badge](https://api.codacy.com/project/badge/Grade/87f9e5edde4d4708b94306e92842d87c)](https://www.codacy.com/app/NeroReflex/Gishiki?utm_source=github.com&utm_medium=referral&utm_content=NeroReflex/Gishiki&utm_campaign=badger) |
+| Coding Style | [![StyleCI](https://styleci.io/repos/43607669/shield?branch=master)](https://styleci.io/repos/43607669) |
 | Code Metrics | [![Code Climate](https://codeclimate.com/github/NeroReflex/Gishiki/badges/gpa.svg)](https://codeclimate.com/github/NeroReflex/Gishiki)     |
 | Coverage     | [![Test Coverage](https://codeclimate.com/github/NeroReflex/Gishiki/badges/coverage.svg)](https://codeclimate.com/github/NeroReflex/Gishiki/coverage) |
 | Test         | [![Build Status](https://travis-ci.org/NeroReflex/Gishiki.svg?branch=master)](https://travis-ci.org/NeroReflex/Gishiki)  |

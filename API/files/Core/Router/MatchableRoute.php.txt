@@ -20,7 +20,7 @@ namespace Gishiki\Core\Router;
 use Gishiki\Algorithms\Strings\SimpleLexer;
 
 /**
- * Working implementation of RouteInterface.
+ * Working implementation of RouteInterface ready to be implemented by a route.
  *
  * Written to ease the process of extending the Router component
  * with routes written by third-parties and reducing my own codebase.
@@ -29,7 +29,7 @@ use Gishiki\Algorithms\Strings\SimpleLexer;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-abstract class MatchableRoute implements RouteInterface
+trait MatchableRoute
 {
     /**
      * uri => string (begins with / example: "/do_something")
@@ -80,23 +80,32 @@ abstract class MatchableRoute implements RouteInterface
             throw new RouterException("Invalid parameter type", 100);
         }
 
+        $result = false;
+
         switch ($type)
         {
             case 0:
-                return SimpleLexer::isUnsignedInteger($urlSplit);
+                $result = SimpleLexer::isUnsignedInteger($urlSplit);
+                break;
 
             case 1:
-                return SimpleLexer::isSignedInteger($urlSplit);
+                $result = SimpleLexer::isSignedInteger($urlSplit);
+                break;
 
             case 2:
-                return SimpleLexer::isFloat($urlSplit);
+                $result = SimpleLexer::isFloat($urlSplit);
+                break;
 
             case 3:
-                return SimpleLexer::isString($urlSplit);
+                $result = SimpleLexer::isString($urlSplit);
+                break;
 
             case 4:
-                return SimpleLexer::isEmail($urlSplit);
+                $result = SimpleLexer::isEmail($urlSplit);
+                break;
         }
+
+        return $result;
     }
 
     /**

@@ -46,7 +46,7 @@ use Gishiki\Database\Runtime\FieldOrdering;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class GenericSQL
+trait SQLWrapper
 {
     /**
      * @var string the SQL query that contains placeholders
@@ -143,7 +143,7 @@ class GenericSQL
      *
      * @param string $table the name of the table to be updated
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
      */
     public function &update($table)
     {
@@ -158,7 +158,7 @@ class GenericSQL
      *
      * @param array $values an associative array of columns => value to be changed
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
      */
     public function &set(array $values)
     {
@@ -217,7 +217,7 @@ class GenericSQL
      *
      * @param SelectionCriteria $where the selection criteria
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
      */
     public function &where(SelectionCriteria $where)
     {
@@ -275,7 +275,7 @@ class GenericSQL
      *
      * @param string $table the name of the table to be affected
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
      */
     public function &insertInto($table)
     {
@@ -290,7 +290,7 @@ class GenericSQL
      *
      * @param array $values an associative array of columnName => rowValue
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
      */
     public function &values(array $values)
     {
@@ -318,7 +318,7 @@ class GenericSQL
      *
      * @param ResultModifier $mod the result modifier
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
      */
     public function &limitOffsetOrderBy(ResultModifier $mod)
     {
@@ -362,7 +362,7 @@ class GenericSQL
      *
      * @param string $table the name of the table to be affected
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
      */
     public function &selectAllFrom($table)
     {
@@ -378,7 +378,7 @@ class GenericSQL
      * @param string $table  the name of the table to be affected
      * @param array  $fields the list containing names of columns to be selected
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
      */
     public function &selectFrom($table, array $fields)
     {
@@ -393,7 +393,7 @@ class GenericSQL
      *
      * @param string $table the name of the table to be affected
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL the updated sql builder
+     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
      */
     public function &deleteFrom($table)
     {

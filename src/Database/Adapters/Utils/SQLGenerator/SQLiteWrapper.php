@@ -27,8 +27,9 @@ use Gishiki\Database\Schema\ColumnType;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class SQLiteWrapper extends GenericSQL
+final class SQLiteWrapper
 {
+    use SQLWrapper;
 
     /**
      * Add (id INTEGER PRIMARY KEY NUT NULL, name TEXT NOT NULL, ... ) to the SQL query.

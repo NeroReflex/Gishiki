@@ -17,7 +17,7 @@ limitations under the License.
 
 namespace Gishiki\Database\Adapters\Utils\QueryBuilder;
 
-use Gishiki\Database\Adapters\Utils\SQLGenerator\GenericSQL;
+use Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper;
 use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\ResultModifier;
 use Gishiki\Database\Schema\Table;
@@ -27,18 +27,8 @@ use Gishiki\Database\Schema\Table;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class SQLQueryBuilder
+trait SQLQueryBuilder
 {
-    /**
-     * Return the SQL query builder specialized for the current database
-     *
-     * @return GenericSQL the specialized SQLQueryBuilder
-     */
-    protected function getQueryBuilder()
-    {
-        return new GenericSQL();
-    }
-
     public function createTableQuery(Table $table)
     {
         //build the sql query

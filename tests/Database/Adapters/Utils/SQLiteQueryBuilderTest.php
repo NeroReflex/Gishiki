@@ -20,6 +20,10 @@ namespace Gishiki\tests\Database\Adapters\Utils;
 use PHPUnit\Framework\TestCase;
 
 use Gishiki\Database\Adapters\Utils\SQLGenerator\SQLiteWrapper;
+use Gishiki\Database\Runtime\SelectionCriteria;
+use Gishiki\Database\Runtime\ResultModifier;
+use Gishiki\Database\Runtime\FieldRelation;
+use Gishiki\Database\Runtime\FieldOrdering;
 use Gishiki\Database\Schema\Table;
 use Gishiki\Database\Schema\Column;
 use Gishiki\Database\Schema\ColumnType;
@@ -32,6 +36,13 @@ use Gishiki\Database\Schema\ColumnRelation;
  */
 class SQLiteQueryBuilderTest extends TestCase
 {
+    public function testBeautify()
+    {
+        $this->assertEquals(
+            'SELECT * FROM test0 WHERE id = ? OR name = ? ORDER BY id DESC',
+            SQLiteWrapper::beautify('SELECT  *  FROM  test0 WHERE id   = ? OR name = ? ORDER BY id DESC'));
+    }
+
     public function testCreateTableWithNoForeignKey()
     {
         $table = new Table(__FUNCTION__);
@@ -128,5 +139,100 @@ class SQLiteQueryBuilderTest extends TestCase
             .'credit REAL NOT NULL, '
             .'registered INTEGER'
             .')'), SQLiteWrapper::beautify($query->exportQuery()));
+    }
+
+    public function testDropTable()
+    {
+        $query = new SQLiteWrapper();
+        $query->dropTable(__FUNCTION__);
+
+        $this->assertEquals(SQLiteWrapper::beautify('DROP TABLE IF EXISTS '.__FUNCTION__), SQLiteWrapper::beautify($query->exportQuery()));
+    }
+
+    public function testSelectAllFrom()
+    {
+        $query = new SQLiteWrapper();
+        $query->selectAllFrom('test1');
+
+        $this->assertEquals(SQLiteWrapper::beautify('SELECT * FROM test1'), SQLiteWrapper::beautify($query->exportQuery()));
+        $this->assertEquals([], $query->exportParams());
+    }
+
+    public function testSelectAllFromWhere()
+    {
+        $query = new SQLiteWrapper();
+        $query->selectAllFrom('test1')->where(SelectionCriteria::select([
+            'id' => [5, 6, 7],
+        ])->orWhere('name', FieldRelation::NOT_LIKE, '%inv%'));
+
+        $this->assertEquals(SQLiteWrapper::beautify('SELECT * FROM test1 WHERE id IN (?,?,?) OR name NOT LIKE ?'), SQLiteWrapper::beautify($query->exportQuery()));
+        $this->assertEquals([5, 6, 7, '%inv%'], $query->exportParams());
+    }
+
+    public function testSelectAllFromWhereLimitOffsetOrderBy()
+    {
+        $query = new SQLiteWrapper();
+        $query->selectAllFrom('test1')
+            ->where(SelectionCriteria::select([
+                'id' => [5, 6, 7],
+            ])->orWhere('price', FieldRelation::GREATER_THAN, 1.25))
+            ->limitOffsetOrderBy(ResultModifier::initialize([
+                'limit' => 1024,
+                'skip' => 100,
+                'name' => FieldOrdering::ASC,
+            ]));
+
+        $this->assertEquals(SQLiteWrapper::beautify('SELECT * FROM test1 WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC'), SQLiteWrapper::beautify($query->exportQuery()));
+        $this->assertEquals([5, 6, 7, 1.25], $query->exportParams());
+    }
+
+    public function testSelectFromWhereLimitOffsetOrderBy()
+    {
+        $query = new SQLiteWrapper();
+        $query->selectFrom('test1', ['name', 'surname'])
+            ->where(SelectionCriteria::select([
+                'id' => [5, 6, 7],
+            ])->orWhere('price', FieldRelation::GREATER_THAN, 1.25))
+            ->limitOffsetOrderBy(ResultModifier::initialize([
+                'limit' => 1024,
+                'skip' => 100,
+                'name' => FieldOrdering::ASC,
+                'surname' => FieldOrdering::DESC,
+            ]));
+
+        $this->assertEquals(SQLiteWrapper::beautify('SELECT name, surname FROM test1 WHERE id IN (?,?,?) OR price > ? LIMIT 1024 OFFSET 100 ORDER BY name ASC, surname DESC'), SQLiteWrapper::beautify($query->exportQuery()));
+        $this->assertEquals([5, 6, 7, 1.25], $query->exportParams());
+    }
+
+    public function testInsertIntoValues()
+    {
+        $query = new SQLiteWrapper();
+        $query->insertInto('users')->values([
+            'name' => 'Mario',
+            'surname' => 'Rossi',
+            'age' => 25,
+            'time' => 56.04,
+        ]);
+
+        $this->assertEquals(SQLiteWrapper::beautify('INSERT INTO users (name, surname, age, time) VALUES (?,?,?,?)'), SQLiteWrapper::beautify($query->exportQuery()));
+        $this->assertEquals(['Mario', 'Rossi', 25, 56.04], $query->exportParams());
+    }
+
+    public function testDeleteFrom()
+    {
+        $query = new SQLiteWrapper();
+        $query->deleteFrom('users');
+
+        $this->assertEquals(SQLiteWrapper::beautify('DELETE FROM users'), SQLiteWrapper::beautify($query->exportQuery()));
+        $this->assertEquals([], $query->exportParams());
+    }
+
+    public function testUpdateSetWhere()
+    {
+        $query = new SQLiteWrapper();
+        $query->update('users')->set(['name' => 'Gianni', 'surname' => 'Pinotto'])->where(SelectionCriteria::select(['id' => 200]));
+
+        $this->assertEquals(SQLiteWrapper::beautify('UPDATE users SET name = ?, surname = ? WHERE id = ?'), SQLiteWrapper::beautify($query->exportQuery()));
+        $this->assertEquals(['Gianni', 'Pinotto', 200], $query->exportParams());
     }
 }

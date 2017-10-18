@@ -31,6 +31,44 @@ use Gishiki\Database\Schema\ColumnRelation;
  */
 class MySQLQueryBuilderTest extends TestCase
 {
+    public function testCreateTableWithNoForeignKeyAndMultipleTypes()
+    {
+        $table = new Table(__FUNCTION__);
+
+        $idColumn = new Column('id', ColumnType::INTEGER);
+        $idColumn->setNotNull(true);
+        $idColumn->setPrimaryKey(true);
+        $table->addColumn($idColumn);
+        $nameColumn = new Column('name', ColumnType::TEXT);
+        $nameColumn->setNotNull(true);
+        $table->addColumn($nameColumn);
+        $creditColumn = new Column('credit', ColumnType::NUMERIC);
+        $creditColumn->setNotNull(true);
+        $table->addColumn($creditColumn);
+        $registeredColumn = new Column('paidYears', ColumnType::SMALLINT);
+        $registeredColumn->setNotNull(true);
+        $table->addColumn($registeredColumn);
+        $registeredColumn = new Column('idCode', ColumnType::BIGINT);
+        $registeredColumn->setNotNull(false);
+        $table->addColumn($registeredColumn);
+        $registeredColumn = new Column('registered', ColumnType::DATETIME);
+        $registeredColumn->setNotNull(false);
+        $table->addColumn($registeredColumn);
+
+        $query = new MySQLWrapper();
+        $query->createTable($table->getName())->definedAs($table->getColumns());
+
+        $this->assertEquals(MySQLWrapper::beautify('CREATE TABLE IF NOT EXISTS '.__FUNCTION__.' ('
+            .'id INTEGER NOT NULL, '
+            .'name TEXT NOT NULL, '
+            .'credit DOUBLE NOT NULL, '
+            .'paidYears SMALLINT NOT NULL, '
+            .'idCode BIGINT, '
+            .'registered INTEGER, '
+            .'PRIMARY KEY (id)'
+            .')'), MySQLWrapper::beautify($query->exportQuery()));
+    }
+
     public function testCreateTableWithNoForeignKey()
     {
         $table = new Table(__FUNCTION__);

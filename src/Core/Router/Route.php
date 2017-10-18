@@ -30,8 +30,10 @@ use Gishiki\Core\MVC\Controller\Plugins\ResponseAssembler as AssemblerPlugin;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class Route extends MatchableRoute
+class Route implements RouteInterface
 {
+    use MatchableRoute;
+
     /**
      * Build a new route to be registered within a Router instance.
      *

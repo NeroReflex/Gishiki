@@ -20,9 +20,6 @@ namespace Gishiki\Database\ORM;
 use Gishiki\Algorithms\Collections\CollectionInterface;
 use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Algorithms\Collections\StackCollection;
-use Gishiki\Algorithms\Collections\SerializableCollection;
-use Gishiki\Database\DatabaseManager;
-use Gishiki\Database\RelationalDatabaseInterface;
 use Gishiki\Database\Schema\Column;
 use Gishiki\Database\Schema\ColumnType;
 use Gishiki\Database\Schema\Table;
@@ -61,7 +58,7 @@ final class DatabaseStructure
         $this->connectionName = $description->get('connection');
 
         if ((!is_string($this->connectionName)) || (strlen($this->connectionName) <= 0)) {
-            new StructureException('The connection name must be given as a non-empty string', 3);
+            throw new StructureException('The connection name must be given as a non-empty string', 3);
         }
 
         if (!$description->has('tables'))  {
@@ -75,8 +72,8 @@ final class DatabaseStructure
 
             $table = new GenericCollection($tb);
 
-            if (!$table->has('name')) {
-                throw new StructureException('Each table must have a name', 4);
+            if ((!$table->has('name')) || (!is_string($table->get('name'))) || (strlen($table->get('name')) <= 0)) {
+                throw new StructureException('Each table must have a name given as a non-empty string', 4);
             }
 
             $currentTable = new Table($table->get('name'));

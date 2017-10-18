@@ -26,9 +26,83 @@ use PHPUnit\Framework\TestCase;
 
 class DatabaseStructureTest extends TestCase
 {
-    public function testBadFieldName()
+    public function testBadTypeName()
     {
         $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => __FUNCTION__,
+                    "fields" => [
+                        [
+                            "name" => "randomName",
+                            "type" => "lol, away from me",
+                            "primary_key" => true,
+                            "not_null" => true,
+                            "auto_increment" => true,
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->expectException(StructureException::class);
+
+        new DatabaseStructure($description);
+    }
+
+    public function testNoTypeName()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => __FUNCTION__,
+                    "fields" => [
+                        [
+                            "name" => "lol, no type :)",
+                            "primary_key" => true,
+                            "not_null" => true,
+                            "auto_increment" => true,
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->expectException(StructureException::class);
+
+        new DatabaseStructure($description);
+    }
+
+    public function testNoFieldName()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => __FUNCTION__,
+                    "fields" => [
+                        [
+                            "type" => "int",
+                            "primary_key" => true,
+                            "not_null" => true,
+                            "auto_increment" => true,
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->expectException(StructureException::class);
+
+        new DatabaseStructure($description);
+    }
+
+    public function testBadTableName()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
             "tables" => [
                 [
                     "name" => "",

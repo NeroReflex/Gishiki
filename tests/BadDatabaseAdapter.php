@@ -15,37 +15,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-namespace Gishiki\Database\Adapters;
-
-use Gishiki\Database\Adapters\Utils\QueryBuilder\PostgreSQLQueryBuilder;
-use Gishiki\Database\RelationalDatabaseInterface;
 use Gishiki\Database\Adapters\Utils\PDODatabase;
+use Gishiki\Database\RelationalDatabaseInterface;
 
 /**
- * Represent a PostgreSQL database.
- *
- * The documentation is available on the implemented interfaces (look for see also).
- *
- * @see RelationalDatabaseInterface Documentation.
+ * A fake database adapter used to extend testing.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class Pgsql implements RelationalDatabaseInterface
+class BadDatabaseAdapter implements RelationalDatabaseInterface
 {
     use PDODatabase;
 
     protected function getPDODriverName() : string
     {
-        return 'pgsql';
-    }
-
-    /**
-     * Get the query builder for PostgreSQL.
-     *
-     * @return PostgreSQLQueryBuilder the query builder for the used pdo adapter
-     */
-    protected function getQueryBuilder() : PostgreSQLQueryBuilder
-    {
-        return new PostgreSQLQueryBuilder();
+        return 'bad';
     }
 }

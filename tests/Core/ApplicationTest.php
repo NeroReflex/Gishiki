@@ -22,6 +22,7 @@ use Gishiki\Core\Router\Route;
 use Gishiki\Core\Router\Router;
 use PHPUnit\Framework\TestCase;
 use Zend\Diactoros\Request;
+use Zend\Diactoros\Response\SapiEmitter;
 use Zend\Diactoros\Uri;
 
 /**
@@ -31,6 +32,33 @@ use Zend\Diactoros\Uri;
  */
 class ApplicationTest extends TestCase
 {
+    public function testBadResponseType()
+    {
+        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
+        $app = new Application(new \TestingEmitter());
+        unlink(__DIR__."/../../settings.json");
+
+        $response = new \ReflectionProperty($app, 'response');
+        $response->setAccessible(true);
+        $response->setValue($app, null);
+
+        $this->expectException(\RuntimeException::class);
+
+        $app->emit();
+    }
+
+    public function testDefaultEmitter()
+    {
+        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
+        $app = new Application();
+        unlink(__DIR__."/../../settings.json");
+
+        $emitter = new \ReflectionProperty($app, 'emitter');
+        $emitter->setAccessible(true);
+
+        $this->assertEquals(SapiEmitter::class, get_class($emitter->getValue($app)));
+    }
+
     public function testDirectory()
     {
         copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");

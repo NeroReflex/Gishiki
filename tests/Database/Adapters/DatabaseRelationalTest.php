@@ -43,6 +43,13 @@ class DatabaseRelationalTest extends TestCase
         return new Sqlite(":memory:");
     }
 
+    public function testBadAdapter()
+    {
+        $this->expectException(DatabaseException::class);
+
+        new \BadDatabaseAdapter("this is pointless. An exception will be thrown");
+    }
+
     public function testMultipleOperationsWithRelations()
     {
         // build the author table

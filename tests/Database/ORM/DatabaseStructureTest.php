@@ -21,11 +21,213 @@ use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Database\ORM\DatabaseStructure;
 use Gishiki\Database\ORM\StructureException;
 use Gishiki\Algorithms\Collections\SerializableCollection;
+use Gishiki\Database\Schema\ColumnType;
+use Gishiki\Database\Schema\Table;
 use PHPUnit\Framework\TestCase;
 
 
 class DatabaseStructureTest extends TestCase
 {
+    public function testTypeMoney()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => __FUNCTION__,
+                    "fields" => [
+                        [
+                            "name" => __FUNCTION__,
+                            "type" => "money"
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $dbStructure = new DatabaseStructure($description);
+        $tables = $dbStructure->getTables();
+
+        $testField = $tables->pop()->getColumns()[0];
+
+        $this->assertEquals(ColumnType::MONEY, $testField->getType());
+    }
+
+    public function testTypeDatetime()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => __FUNCTION__,
+                    "fields" => [
+                        [
+                            "name" => __FUNCTION__,
+                            "type" => "datetime"
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $dbStructure = new DatabaseStructure($description);
+        $tables = $dbStructure->getTables();
+
+        $testField = $tables->pop()->getColumns()[0];
+
+        $this->assertEquals(ColumnType::DATETIME, $testField->getType());
+    }
+
+    public function testTypeDouble()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => __FUNCTION__,
+                    "fields" => [
+                        [
+                            "name" => __FUNCTION__,
+                            "type" => "double"
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $dbStructure = new DatabaseStructure($description);
+        $tables = $dbStructure->getTables();
+
+        $testField = $tables->pop()->getColumns()[0];
+
+        $this->assertEquals(ColumnType::DOUBLE, $testField->getType());
+    }
+
+    public function testTypeFloat()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => __FUNCTION__,
+                    "fields" => [
+                        [
+                            "name" => __FUNCTION__,
+                            "type" => "float"
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $dbStructure = new DatabaseStructure($description);
+        $tables = $dbStructure->getTables();
+
+        $testField = $tables->pop()->getColumns()[0];
+
+        $this->assertEquals(ColumnType::FLOAT, $testField->getType());
+    }
+
+    public function testTypeNumeric()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => __FUNCTION__,
+                    "fields" => [
+                        [
+                            "name" => __FUNCTION__,
+                            "type" => "numeric"
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $dbStructure = new DatabaseStructure($description);
+        $tables = $dbStructure->getTables();
+
+        $testField = $tables->pop()->getColumns()[0];
+
+        $this->assertEquals(ColumnType::NUMERIC, $testField->getType());
+    }
+
+    public function testTypeBigint()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => __FUNCTION__,
+                    "fields" => [
+                        [
+                            "name" => __FUNCTION__,
+                            "type" => "bigint"
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $dbStructure = new DatabaseStructure($description);
+        $tables = $dbStructure->getTables();
+
+        $testField = $tables->pop()->getColumns()[0];
+
+        $this->assertEquals(ColumnType::BIGINT, $testField->getType());
+    }
+
+    public function testTypeSmallint()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => __FUNCTION__,
+                    "fields" => [
+                        [
+                            "name" => __FUNCTION__,
+                            "type" => "smallint"
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $dbStructure = new DatabaseStructure($description);
+        $tables = $dbStructure->getTables();
+
+        $testField = $tables->pop()->getColumns()[0];
+
+        $this->assertEquals(ColumnType::SMALLINT, $testField->getType());
+    }
+
+    public function testTypeInt()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => __FUNCTION__,
+                    "fields" => [
+                        [
+                            "name" => __FUNCTION__,
+                            "type" => "integer"
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $dbStructure = new DatabaseStructure($description);
+        $tables = $dbStructure->getTables();
+
+        $testField = $tables->pop()->getColumns()[0];
+
+        $this->assertEquals(ColumnType::INTEGER, $testField->getType());
+    }
+
     public function testBadTypeName()
     {
         $description = new SerializableCollection([

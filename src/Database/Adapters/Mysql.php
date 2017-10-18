@@ -19,6 +19,7 @@ namespace Gishiki\Database\Adapters;
 
 use Gishiki\Database\Adapters\Utils\QueryBuilder\MySQLQueryBuilder;
 use Gishiki\Database\RelationalDatabaseInterface;
+use Gishiki\Database\Adapters\Utils\PDODatabase;
 
 /**
  * Represent a MySQL database.
@@ -29,8 +30,10 @@ use Gishiki\Database\RelationalDatabaseInterface;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class Mysql extends PDODatabase
+final class Mysql implements RelationalDatabaseInterface
 {
+    use PDODatabase;
+
     protected function getPDODriverName() : string
     {
         return 'mysql';

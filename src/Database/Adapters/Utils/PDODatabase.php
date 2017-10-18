@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-namespace Gishiki\Database\Adapters;
+namespace Gishiki\Database\Adapters\Utils;
 
 use Gishiki\Algorithms\Collections\CollectionInterface;
 use Gishiki\Database\DatabaseException;
@@ -23,7 +23,6 @@ use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\ResultModifier;
 use Gishiki\Database\RelationalDatabaseInterface;
 use Gishiki\Database\Schema\Table;
-use Gishiki\Database\Adapters\Utils\QueryBuilder\SQLQueryBuilder;
 
 /**
  * Represent a generic relational database.
@@ -36,17 +35,17 @@ use Gishiki\Database\Adapters\Utils\QueryBuilder\SQLQueryBuilder;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class PDODatabase implements RelationalDatabaseInterface
+trait PDODatabase
 {
     /**
-     * Return the name of the PDO driver to be used for this database type.
-     *
-     * @return string the PDO driver name
+     * @var bool TRUE only if the connection is alive
      */
-    protected function getPDODriverName() : string
-    {
-        return '';
-    }
+    protected $connected;
+
+    /**
+     * @var \PDO the native pdo connection
+     */
+    protected $connection;
 
     /**
      * Generate a PDO connection string that will be used to connect a database.
@@ -66,26 +65,6 @@ class PDODatabase implements RelationalDatabaseInterface
     }
 
     /**
-     * Get the query builder for the current RDBMS.
-     *
-     * @return SQLQueryBuilder the query builder for the used pdo adapter
-     */
-    protected function getQueryBuilder()
-    {
-        return new SQLQueryBuilder();
-    }
-
-    /**
-     * @var bool TRUE only if the connection is alive
-     */
-    protected $connected;
-
-    /**
-     * @var \PDO the native pdo connection
-     */
-    protected $connection;
-
-    /**
      * Create a new database connection using the given connection string.
      *
      * The connect function is automatically called.
@@ -103,14 +82,14 @@ class PDODatabase implements RelationalDatabaseInterface
 
     public function connect($details)
     {
+        //check for the pdo driver
+        if (!in_array($this->getPDODriverName(), \PDO::getAvailableDrivers())) {
+            throw new DatabaseException('No '.$this->getPDODriverName().' PDO driver', 0);
+        }
+
         //check for argument type
         if ((!is_string($details)) || (strlen($details) <= 0)) {
             throw new \InvalidArgumentException('The connection query must be given as a non-empty string');
-        }
-
-        //check for the pdo driver
-        if ((strlen($this->getPDODriverName()) > 0) && (!in_array($this->getPDODriverName(), \PDO::getAvailableDrivers()))) {
-            throw new DatabaseException('No '.$this->getPDODriverName().' PDO driver', 0);
         }
 
         //open the connection
@@ -133,6 +112,11 @@ class PDODatabase implements RelationalDatabaseInterface
         $this->connected = false;
     }
 
+    public function connected() : bool
+    {
+        return $this->connected;
+    }
+
     public function createTable(Table $table)
     {
         //check for closed database connection
@@ -153,11 +137,6 @@ class PDODatabase implements RelationalDatabaseInterface
         } catch (\PDOException $ex) {
             throw new DatabaseException('Error while performing the table creation operation: '.$ex->getMessage(), 7);
         }
-    }
-
-    public function connected() : bool
-    {
-        return $this->connected;
     }
 
     public function create($collection, $data)

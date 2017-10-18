@@ -31,5 +31,6 @@ $autoloader->addPsr4('Gishiki\\Tests\\', __DIR__);
 
 require dirname(__DIR__).'/tests/FakeController.php';
 require dirname(__DIR__).'/tests/TestingEmitter.php';
+require dirname(__DIR__).'/tests/BadDatabaseAdapter.php';
 
 file_put_contents("tests/db_test.sqlite", "");

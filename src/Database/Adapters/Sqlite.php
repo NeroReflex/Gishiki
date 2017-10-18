@@ -18,6 +18,8 @@ limitations under the License.
 namespace Gishiki\Database\Adapters;
 
 use Gishiki\Database\Adapters\Utils\QueryBuilder\SQLiteQueryBuilder;
+use Gishiki\Database\RelationalDatabaseInterface;
+use Gishiki\Database\Adapters\Utils\PDODatabase;
 
 /**
  * Represent a SQLite database.
@@ -28,8 +30,10 @@ use Gishiki\Database\Adapters\Utils\QueryBuilder\SQLiteQueryBuilder;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class Sqlite extends PDODatabase
+final class Sqlite implements RelationalDatabaseInterface
 {
+    use PDODatabase;
+
     protected function getPDODriverName() : string
     {
         return 'sqlite';

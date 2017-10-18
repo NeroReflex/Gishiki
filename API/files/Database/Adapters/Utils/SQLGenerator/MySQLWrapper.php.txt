@@ -27,8 +27,10 @@ use Gishiki\Database\Schema\ColumnType;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class MySQLWrapper extends GenericSQL
+final class MySQLWrapper
 {
+    use SQLWrapper;
+
     /**
      * Add (id INTEGER PRIMARY KEY NUT NULL, name TEXT NOT NULL, ... ) to the SQL query.
      *

@@ -24,8 +24,10 @@ use Gishiki\Database\Adapters\Utils\SQLGenerator\PostgreSQLWrapper;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class PostgreSQLQueryBuilder extends SQLQueryBuilder
+final class PostgreSQLQueryBuilder
 {
+    use SQLQueryBuilder;
+
     /**
      * @return PostgreSQLWrapper the SQLite specialized query builder
      */

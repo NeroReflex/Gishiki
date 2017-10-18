@@ -26,8 +26,11 @@ use Gishiki\Database\Schema\ColumnType;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class PostgreSQLWrapper extends GenericSQL
+final class PostgreSQLWrapper
 {
+
+    use SQLWrapper;
+
     /**
      * Add RETURNING %id% to the SQL query.
      *

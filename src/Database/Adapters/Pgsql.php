@@ -44,5 +44,4 @@ final class Pgsql extends PDODatabase
     {
         return new PostgreSQLQueryBuilder();
     }
-
 }

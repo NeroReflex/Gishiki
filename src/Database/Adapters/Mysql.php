@@ -20,7 +20,6 @@ namespace Gishiki\Database\Adapters;
 use Gishiki\Database\Adapters\Utils\QueryBuilder\MySQLQueryBuilder;
 use Gishiki\Database\RelationalDatabaseInterface;
 
-
 /**
  * Represent a MySQL database.
  *
@@ -83,5 +82,4 @@ final class Mysql extends PDODatabase
     {
         return new MySQLQueryBuilder();
     }
-
 }

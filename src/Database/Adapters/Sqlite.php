@@ -19,7 +19,6 @@ namespace Gishiki\Database\Adapters;
 
 use Gishiki\Database\Adapters\Utils\QueryBuilder\SQLiteQueryBuilder;
 
-
 /**
  * Represent a SQLite database.
  *
@@ -45,5 +44,4 @@ final class Sqlite extends PDODatabase
     {
         return new SQLiteQueryBuilder();
     }
-
 }

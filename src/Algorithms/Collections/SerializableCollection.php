@@ -171,11 +171,6 @@ class SerializableCollection extends GenericCollection
                 throw new DeserializationException('The given YAML content cannot be deserialized', 9);
             }
 
-            //check for the result type
-            if (!is_array($nativeSerialization)) {
-                throw new DeserializationException('The YAML deserialization result cannot be used to build a collection', 10);
-            }
-
             //return the deserialization result
             return new self($nativeSerialization);
         }

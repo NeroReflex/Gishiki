@@ -28,7 +28,6 @@ use Gishiki\Database\Schema\ColumnType;
  */
 final class PostgreSQLWrapper
 {
-
     use SQLWrapper;
 
     /**

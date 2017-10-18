@@ -105,7 +105,7 @@ final class PostgreSQLWrapper extends GenericSQL
                 $this->appendToQuery('PRIMARY KEY ');
             }
 
-            if (($column->isNotNull()) && ($typename != 'serial')){
+            if (($column->isNotNull()) && ($typename != 'serial')) {
                 $this->appendToQuery('NOT NULL');
             }
 

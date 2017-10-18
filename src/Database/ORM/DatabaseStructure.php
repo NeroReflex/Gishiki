@@ -61,7 +61,7 @@ final class DatabaseStructure
             throw new StructureException('The connection name must be given as a non-empty string', 3);
         }
 
-        if (!$description->has('tables'))  {
+        if (!$description->has('tables')) {
             throw new StructureException("A database description must contains a tables field", 1);
         }
 

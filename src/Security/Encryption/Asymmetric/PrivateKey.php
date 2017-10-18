@@ -74,7 +74,7 @@ final class PrivateKey
 
         //if the key length is extremely long, a very long time will be needed to generate the key, and it is necessary ti set no time limits to generate it
         //if ($keyLength == self::RSAEXTREME) {
-            set_time_limit(0);
+        set_time_limit(0);
         //}
 
         //build the configuration array

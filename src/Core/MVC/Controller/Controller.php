@@ -167,7 +167,7 @@ abstract class Controller
         $returnValue = null;
         $executed = false;
 
-        foreach($this->plugins as &$plugin) {
+        foreach ($this->plugins as &$plugin) {
             try {
                 $reflectedFunction = new \ReflectionMethod($plugin, $name);
                 $reflectedFunction->setAccessible(true);

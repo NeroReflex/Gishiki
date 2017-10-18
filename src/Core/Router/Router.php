@@ -69,8 +69,7 @@ final class Router
                 (strcmp($method, RouteInterface::DELETE) == 0) ||
                 (strcmp($method, RouteInterface::HEAD) == 0) ||
                 (strcmp($method, RouteInterface::OPTIONS) == 0) ||
-                (strcmp($method, RouteInterface::PATCH) == 0))
-            {
+                (strcmp($method, RouteInterface::PATCH) == 0)) {
                 $this->routes[$method][] = &$route;
             }
         }

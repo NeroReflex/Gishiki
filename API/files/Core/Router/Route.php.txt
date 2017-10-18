@@ -65,21 +65,19 @@ class Route implements RouteInterface
             ]
         ];
 
-        foreach ($options as $key => &$value)
-        {
-            if (is_string($key))
-            {
+        foreach ($options as $key => &$value) {
+            if (is_string($key)) {
                 if (strcmp(strtolower($key), "verbs") == 0) {
                     $this->route["verbs"] = $value;
-                } else if (strcmp(strtolower($key), "uri") == 0) {
+                } elseif (strcmp(strtolower($key), "uri") == 0) {
                     $this->route["uri"] = $value;
-                } else if (strcmp(strtolower($key), "action") == 0) {
+                } elseif (strcmp(strtolower($key), "action") == 0) {
                     $this->route["action"] = $value;
-                } else if (strcmp(strtolower($key), "status") == 0) {
+                } elseif (strcmp(strtolower($key), "status") == 0) {
                     $this->route["status"] = $value;
-                } else if (strcmp(strtolower($key), "controller") == 0) {
+                } elseif (strcmp(strtolower($key), "controller") == 0) {
                     $this->route["controller"] = $value;
-                } else if ((strcmp(strtolower($key), "plugins") == 0) && (is_array($value))) {
+                } elseif ((strcmp(strtolower($key), "plugins") == 0) && (is_array($value))) {
                     $this->route["plugins"] = array_merge($this->route["plugins"], $value);
                 }
             }

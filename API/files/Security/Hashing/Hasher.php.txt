@@ -52,24 +52,22 @@ final class Hasher
      * @param string $algorithm the algorithm to be used
      * @throws HashingException the given algorithm is unsupported
      */
-    public function __construct($algorithm = Algorithm::BCRYPT) {
+    public function __construct($algorithm = Algorithm::BCRYPT)
+    {
         //check if the hashing algorithm is supported
         if (strcmp($algorithm, Algorithm::BCRYPT) == 0) {
             $this->algorithm = $algorithm;
             $this->hashCallback = Algorithm::class."::".Algorithm::BCRYPT."Hash";
             $this->verifyCallback = Algorithm::class."::".Algorithm::BCRYPT."Verify";
-        }
-        else if (strcmp($algorithm, Algorithm::PBKDF2) == 0) {
+        } elseif (strcmp($algorithm, Algorithm::PBKDF2) == 0) {
             $this->algorithm = $algorithm;
             $this->hashCallback = Algorithm::class."::".Algorithm::BCRYPT."Hash";
             $this->verifyCallback = Algorithm::class."::".Algorithm::BCRYPT."Verify";
-        }
-        else if (strcmp($algorithm, Algorithm::ROT13) == 0) {
+        } elseif (strcmp($algorithm, Algorithm::ROT13) == 0) {
             $this->algorithm = $algorithm;
             $this->hashCallback = Algorithm::class."::".Algorithm::ROT13."Hash";
             $this->verifyCallback = Algorithm::class."::".Algorithm::ROT13."Verify";
-        }
-        else if ((in_array($algorithm, openssl_get_md_methods())) && (in_array($algorithm, hash_algos()))) {
+        } elseif ((in_array($algorithm, openssl_get_md_methods())) && (in_array($algorithm, hash_algos()))) {
             $this->algorithm = $algorithm;
             $this->algorithmRequired = true;
             $this->hashCallback = Algorithm::class."::opensslHash";
@@ -91,7 +89,8 @@ final class Hasher
      * @throws \InvalidArgumentException the message or the message digest is given as a non-string or an empty string
      * @throws HashingException          the error occurred while generating the hash for the given message
      */
-    public function hash($message) {
+    public function hash($message)
+    {
         $callbackParams = ($this->algorithmRequired) ? [$message, $this->algorithm] : [$message];
 
         return call_user_func_array($this->hashCallback, $callbackParams);
@@ -108,7 +107,8 @@ final class Hasher
      * @throws \InvalidArgumentException the message or the message digest is given as a non-string or an empty string
      * @throws HashingException          the error occurred while generating the hash for the given message
      */
-    public function verify($message, $digest) {
+    public function verify($message, $digest)
+    {
         $callbackParams = ($this->algorithmRequired) ? [$message, $digest, $this->algorithm] : [$message, $digest];
 
         return call_user_func_array($this->verifyCallback, $callbackParams);

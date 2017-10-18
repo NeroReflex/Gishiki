@@ -70,7 +70,7 @@ final class MySQLWrapper extends GenericSQL
                     $typename = 'INTEGER';
                     break;
 
-                case ColumnType::BIGINT;
+                case ColumnType::BIGINT:
                     $typename = 'BIGINT';
                     break;
 

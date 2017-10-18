@@ -57,7 +57,7 @@ class SQLQueryBuilder
         return $queryBuilder;
     }
 
-    public function updateQuery($collection,  array $adaptedData, SelectionCriteria $where)
+    public function updateQuery($collection, array $adaptedData, SelectionCriteria $where)
     {
         //build the sql query
         $queryBuilder = $this->getQueryBuilder();
@@ -66,7 +66,8 @@ class SQLQueryBuilder
         return $queryBuilder;
     }
 
-    public function deleteQuery($collection, SelectionCriteria $where) {
+    public function deleteQuery($collection, SelectionCriteria $where)
+    {
         //build the sql query
         $queryBuilder = $this->getQueryBuilder();
         $queryBuilder->deleteFrom($collection)->where($where);

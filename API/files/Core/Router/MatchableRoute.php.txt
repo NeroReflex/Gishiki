@@ -82,8 +82,7 @@ trait MatchableRoute
 
         $result = false;
 
-        switch ($type)
-        {
+        switch ($type) {
             case 0:
                 $result = SimpleLexer::isUnsignedInteger($urlSplit);
                 break;
@@ -129,13 +128,13 @@ trait MatchableRoute
 
             if (strcmp($uriParamType, 'uint') == 0) {
                 $type = 0;
-            } else if (strcmp($uriParamType, 'int') == 0) {
+            } elseif (strcmp($uriParamType, 'int') == 0) {
                 $type = 1;
-            } else if ((strcmp($uriParamType, 'str') == 0) || (strcmp($uriParamType, 'string') == 0)) {
+            } elseif ((strcmp($uriParamType, 'str') == 0) || (strcmp($uriParamType, 'string') == 0)) {
                 $type = 3;
-            } else if (strcmp($uriParamType, 'float') == 0) {
+            } elseif (strcmp($uriParamType, 'float') == 0) {
                 $type = 2;
-            } else if ((strcmp($uriParamType, 'email') == 0) || (strcmp($uriParamType, 'mail') == 0)) {
+            } elseif ((strcmp($uriParamType, 'email') == 0) || (strcmp($uriParamType, 'mail') == 0)) {
                 $type = 4;
             }
 
@@ -149,7 +148,7 @@ trait MatchableRoute
                 $result = true;
                 $params[$uriSplitExploded[0]] = $urlSplitCType;
             }
-        } else if (strcmp($uriSplit, $urlSplit) == 0) {
+        } elseif (strcmp($uriSplit, $urlSplit) == 0) {
             $result = true;
         }
 
@@ -193,6 +192,5 @@ trait MatchableRoute
 
         return $result;
     }
-
 }
 

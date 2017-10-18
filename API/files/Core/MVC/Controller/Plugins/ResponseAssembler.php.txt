@@ -63,7 +63,7 @@ class ResponseAssembler extends Plugin
     {
         $return = null;
         try {
-             $return = $callable($input, $this->assembly());
+            $return = $callable($input, $this->assembly());
         } catch (\Error $ex) {
             throw new ControllerException("The given function doesn't accept passed parameters", 103);
         }

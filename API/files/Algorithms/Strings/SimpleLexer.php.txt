@@ -65,9 +65,9 @@ abstract class SimpleLexer
         for ($counter = 0; $counter < $len; $counter++) {
             if (($counter != 0) && (($str[$counter] == '-') || ($str[$counter] == '+'))) {
                 return false;
-            } else if (($str[$counter] == '.') && ($fountDot === true)) {
+            } elseif (($str[$counter] == '.') && ($fountDot === true)) {
                 return false;
-            } else if (strpos("+-.0123456789", $str[$counter]) === false) {
+            } elseif (strpos("+-.0123456789", $str[$counter]) === false) {
                 return false;
             }
 

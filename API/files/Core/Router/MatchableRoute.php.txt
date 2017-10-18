@@ -166,12 +166,12 @@ trait MatchableRoute
      */
     public static function matchURI($uri, $url, &$matchedExpr) : bool
     {
-        if ((!is_string($url)) || (strlen($url) <= 0)) {
-            throw new \InvalidArgumentException("The URL must be given as a non-empty string");
+        if (!is_string($url)) {
+            throw new \InvalidArgumentException("The URL must be given as a valid string");
         }
 
-        if ((!is_string($uri)) || (strlen($uri) <= 0)) {
-            throw new \InvalidArgumentException("The URI must be given as a non-empty string");
+        if (!is_string($uri)) {
+            throw new \InvalidArgumentException("The URI must be given as a valid string");
         }
 
         $matchedExpr = [];

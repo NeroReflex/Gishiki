@@ -38,8 +38,6 @@ class RouteTest extends TestCase
     {
         $expr = [];
 
-        $expr = null;
-
         $route = new Route([
             "verbs" => [
                 Route::GET, Route::POST
@@ -67,7 +65,7 @@ class RouteTest extends TestCase
         $expr = [];
 
         $this->expectException(\InvalidArgumentException::class);
-        Route::matchURI(null, "", $expr);
+        Route::matchURI(null, "/", $expr);
     }
 
     public function testBadUrl()
@@ -147,6 +145,7 @@ class RouteTest extends TestCase
             "status" => $status,
             "controller" => "FakeController",
             "action" => 'none',
+            "plugins" => []
         ]);
 
         $this->assertEquals([$verb], $route->getMethods());

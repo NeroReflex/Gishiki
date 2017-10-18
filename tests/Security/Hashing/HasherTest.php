@@ -37,6 +37,20 @@ class HasherTest extends TestCase
         new Hasher('bad algo');
     }
 
+    public function testRot13()
+    {
+        $random = bin2hex(openssl_random_pseudo_bytes(128));
+
+        $hasher = new Hasher(Algorithm::ROT13);
+
+        $rot13Text = $hasher->hash($random);
+
+        $this->assertEquals(str_rot13($random), $rot13Text);
+
+        $this->assertEquals(true, $hasher->verify($random, $rot13Text));
+        $this->assertEquals(false, $hasher->verify($random, 'anything else'));
+    }
+
     public function testBCrypt()
     {
         $random = bin2hex(openssl_random_pseudo_bytes(128));

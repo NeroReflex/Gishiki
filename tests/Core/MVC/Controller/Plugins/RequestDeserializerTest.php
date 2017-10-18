@@ -34,6 +34,30 @@ use PHPUnit\Framework\TestCase;
  */
 class RequestDeserializerTest extends TestCase
 {
+    public function testDeserializationWithNoContentType()
+    {
+        $data = \FakeController::generateTestingData();
+
+        $request = new Request();
+        $request->getBody()->write(
+            json_encode($data)
+        );
+        $request->getBody()->rewind();
+
+        $response = new Response();
+
+        $collection = new GenericCollection([]);
+        $plugins = [
+            RequestDeserializer::class
+        ];
+
+        $controller = new \FakeController($request, $response, $collection, $plugins);
+
+        $this->expectException(ControllerException::class);
+
+        $controller->getRequestDeserialized();
+    }
+
     public function testJsonDeserialization()
     {
         $data = \FakeController::generateTestingData();

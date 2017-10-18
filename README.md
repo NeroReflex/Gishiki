@@ -52,10 +52,7 @@ Gishiki aims to deploy a framework complete and easy to use to build classic web
 
 ## Security
 
-Security is never enough, especially when dealing with people's data in a
-digital environment!
-
-To help you obtaining a secure working environment Gishiki deploy a set of
+In order to help you obtaining a secure working environment Gishiki deploy a set of
 cryptographic utilities based on the OpenSSL ones and abstract away most
 common cryptographic operations.
 

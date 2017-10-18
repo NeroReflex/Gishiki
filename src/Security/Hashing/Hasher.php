@@ -66,8 +66,8 @@ final class Hasher
         }
         else if (strcmp($algorithm, Algorithm::ROT13) == 0) {
             $this->algorithm = $algorithm;
-            $this->hashCallback = Algorithm::class."::".Algorithm::BCRYPT."Hash";
-            $this->verifyCallback = Algorithm::class."::".Algorithm::BCRYPT."Verify";
+            $this->hashCallback = Algorithm::class."::".Algorithm::ROT13."Hash";
+            $this->verifyCallback = Algorithm::class."::".Algorithm::ROT13."Verify";
         }
         else if ((in_array($algorithm, openssl_get_md_methods())) && (in_array($algorithm, hash_algos()))) {
             $this->algorithm = $algorithm;

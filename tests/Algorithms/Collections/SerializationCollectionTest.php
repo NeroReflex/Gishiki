@@ -300,6 +300,19 @@ XML;
         SerializableCollection::deserialize($badXml, SerializableCollection::XML);
     }
 
+    public function testXmlWithCdataDeserialization()
+    {
+        $badXml = <<<'XML'
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root><![CDATA[4 < 5]]></root>
+XML;
+
+        $resultArray = (SerializableCollection::deserialize($badXml, SerializableCollection::XML)->all());
+        $this->assertEquals([
+            '4 < 5'
+        ], $resultArray);
+    }
+
     public function testBadJsonDeserialization()
     {
         $this->expectException(DeserializationException::class);

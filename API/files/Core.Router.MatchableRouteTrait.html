@@ -21,7 +21,55 @@
     <script src="../js/jquery.smooth-scroll.js"></script>
     <script src="../js/prism.min.js"></script>
     <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-    
+        <script type="text/javascript">
+        function loadExternalCodeSnippets() {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+                var src = pre.getAttribute('data-src');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist or is empty';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        $(document).ready(function(){
+            loadExternalCodeSnippets();
+        });
+        $('#source-view').on('shown', function () {
+            loadExternalCodeSnippets();
+        })
+    </script>
+
     <link rel="shortcut icon" href="../images/favicon.ico"/>
     <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
     <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
@@ -96,37 +144,37 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1472745508"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-651534723"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1472745508" class="accordion-body collapse in">
+            <div id="namespace-651534723" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-359499988"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-832317469"></a>
                                 <a href="../namespaces/Gishiki.html" style="margin-left: 30px; padding-left: 0">Gishiki</a>
             </div>
-            <div id="namespace-359499988" class="accordion-body collapse ">
+            <div id="namespace-832317469" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-360739685"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1274360963"></a>
                                 <a href="../namespaces/Gishiki.Algorithms.html" style="margin-left: 30px; padding-left: 0">Algorithms</a>
             </div>
-            <div id="namespace-360739685" class="accordion-body collapse ">
+            <div id="namespace-1274360963" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1738889863"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1925609240"></a>
                                 <a href="../namespaces/Gishiki.Algorithms.Collections.html" style="margin-left: 30px; padding-left: 0">Collections</a>
             </div>
-            <div id="namespace-1738889863" class="accordion-body collapse ">
+            <div id="namespace-1925609240" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -145,10 +193,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-293815696"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1999660583"></a>
                                 <a href="../namespaces/Gishiki.Algorithms.Strings.html" style="margin-left: 30px; padding-left: 0">Strings</a>
             </div>
-            <div id="namespace-293815696" class="accordion-body collapse ">
+            <div id="namespace-1999660583" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -174,37 +222,37 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1522316763"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-202024613"></a>
                                 <a href="../namespaces/Gishiki.Core.html" style="margin-left: 30px; padding-left: 0">Core</a>
             </div>
-            <div id="namespace-1522316763" class="accordion-body collapse ">
+            <div id="namespace-202024613" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-763152933"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-548687905"></a>
                                 <a href="../namespaces/Gishiki.Core.MVC.html" style="margin-left: 30px; padding-left: 0">MVC</a>
             </div>
-            <div id="namespace-763152933" class="accordion-body collapse ">
+            <div id="namespace-548687905" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-971126763"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1300369322"></a>
                                 <a href="../namespaces/Gishiki.Core.MVC.Controller.html" style="margin-left: 30px; padding-left: 0">Controller</a>
             </div>
-            <div id="namespace-971126763" class="accordion-body collapse ">
+            <div id="namespace-1300369322" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1431348403"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-989634710"></a>
                                 <a href="../namespaces/Gishiki.Core.MVC.Controller.Plugins.html" style="margin-left: 30px; padding-left: 0">Plugins</a>
             </div>
-            <div id="namespace-1431348403" class="accordion-body collapse ">
+            <div id="namespace-989634710" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -240,10 +288,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1521835739"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-536084566"></a>
                                 <a href="../namespaces/Gishiki.Core.Router.html" style="margin-left: 30px; padding-left: 0">Router</a>
             </div>
-            <div id="namespace-1521835739" class="accordion-body collapse ">
+            <div id="namespace-536084566" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -273,28 +321,28 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1706392144"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-910015417"></a>
                                 <a href="../namespaces/Gishiki.Database.html" style="margin-left: 30px; padding-left: 0">Database</a>
             </div>
-            <div id="namespace-1706392144" class="accordion-body collapse ">
+            <div id="namespace-910015417" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-867220092"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2122016209"></a>
                                 <a href="../namespaces/Gishiki.Database.Adapters.html" style="margin-left: 30px; padding-left: 0">Adapters</a>
             </div>
-            <div id="namespace-867220092" class="accordion-body collapse ">
+            <div id="namespace-2122016209" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1145026037"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1455501811"></a>
                                 <a href="../namespaces/Gishiki.Database.Adapters.ConnectionParser.html" style="margin-left: 30px; padding-left: 0">ConnectionParser</a>
             </div>
-            <div id="namespace-1145026037" class="accordion-body collapse ">
+            <div id="namespace-1455501811" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -309,19 +357,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1666718944"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-702692473"></a>
                                 <a href="../namespaces/Gishiki.Database.Adapters.Utils.html" style="margin-left: 30px; padding-left: 0">Utils</a>
             </div>
-            <div id="namespace-1666718944" class="accordion-body collapse ">
+            <div id="namespace-702692473" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1656546257"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1448700861"></a>
                                 <a href="../namespaces/Gishiki.Database.Adapters.Utils.ConnectionParser.html" style="margin-left: 30px; padding-left: 0">ConnectionParser</a>
             </div>
-            <div id="namespace-1656546257" class="accordion-body collapse ">
+            <div id="namespace-1448700861" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -340,10 +388,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-972758823"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-260997162"></a>
                                 <a href="../namespaces/Gishiki.Database.Adapters.Utils.QueryBuilder.html" style="margin-left: 30px; padding-left: 0">QueryBuilder</a>
             </div>
-            <div id="namespace-972758823" class="accordion-body collapse ">
+            <div id="namespace-260997162" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -361,10 +409,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1126762163"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-420373210"></a>
                                 <a href="../namespaces/Gishiki.Database.Adapters.Utils.SQLGenerator.html" style="margin-left: 30px; padding-left: 0">SQLGenerator</a>
             </div>
-            <div id="namespace-1126762163" class="accordion-body collapse ">
+            <div id="namespace-420373210" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -402,10 +450,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-69372014"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-251614786"></a>
                                 <a href="../namespaces/Gishiki.Database.ORM.html" style="margin-left: 30px; padding-left: 0">ORM</a>
             </div>
-            <div id="namespace-69372014" class="accordion-body collapse ">
+            <div id="namespace-251614786" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -421,10 +469,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-982273451"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1312780045"></a>
                                 <a href="../namespaces/Gishiki.Database.Runtime.html" style="margin-left: 30px; padding-left: 0">Runtime</a>
             </div>
-            <div id="namespace-982273451" class="accordion-body collapse ">
+            <div id="namespace-1312780045" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -442,10 +490,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1717218216"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2139865800"></a>
                                 <a href="../namespaces/Gishiki.Database.Schema.html" style="margin-left: 30px; padding-left: 0">Schema</a>
             </div>
-            <div id="namespace-1717218216" class="accordion-body collapse ">
+            <div id="namespace-2139865800" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -475,10 +523,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2076978662"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1286237391"></a>
                                 <a href="../namespaces/Gishiki.Logging.html" style="margin-left: 30px; padding-left: 0">Logging</a>
             </div>
-            <div id="namespace-2076978662" class="accordion-body collapse ">
+            <div id="namespace-1286237391" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -493,28 +541,28 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1946844440"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-196620947"></a>
                                 <a href="../namespaces/Gishiki.Security.html" style="margin-left: 30px; padding-left: 0">Security</a>
             </div>
-            <div id="namespace-1946844440" class="accordion-body collapse ">
+            <div id="namespace-196620947" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-379602632"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1563436539"></a>
                                 <a href="../namespaces/Gishiki.Security.Encryption.html" style="margin-left: 30px; padding-left: 0">Encryption</a>
             </div>
-            <div id="namespace-379602632" class="accordion-body collapse ">
+            <div id="namespace-1563436539" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1237069418"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-890828430"></a>
                                 <a href="../namespaces/Gishiki.Security.Encryption.Asymmetric.html" style="margin-left: 30px; padding-left: 0">Asymmetric</a>
             </div>
-            <div id="namespace-1237069418" class="accordion-body collapse ">
+            <div id="namespace-890828430" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -532,10 +580,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-502786668"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-597827760"></a>
                                 <a href="../namespaces/Gishiki.Security.Encryption.Symmetric.html" style="margin-left: 30px; padding-left: 0">Symmetric</a>
             </div>
-            <div id="namespace-502786668" class="accordion-body collapse ">
+            <div id="namespace-597827760" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -560,10 +608,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-93158018"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1168992138"></a>
                                 <a href="../namespaces/Gishiki.Security.Hashing.html" style="margin-left: 30px; padding-left: 0">Hashing</a>
             </div>
-            <div id="namespace-93158018" class="accordion-body collapse ">
+            <div id="namespace-1168992138" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -588,10 +636,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1640724185"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-922990372"></a>
                                 <a href="../namespaces/Gishiki.Services.html" style="margin-left: 30px; padding-left: 0">Services</a>
             </div>
-            <div id="namespace-1640724185" class="accordion-body collapse ">
+            <div id="namespace-922990372" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -624,46 +672,38 @@
     <section class="row-fluid">
         <div class="span10 offset2">
             <div class="row-fluid">
-                <div class="span8 content namespace">
+                <div class="span8 content file">
                     <nav>
-                                                <a href="../namespaces/Gishiki.Security.html">\Gishiki\Security</a>
-                                            </nav>
-                    <h1><small>\Gishiki\Security</small>Hashing</h1>
+                                                                    </nav>
 
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+                    <h1><small>Core/Router</small>MatchableRouteTrait.php</h1>
+                    <p><em></em></p>
                     
-                    
-                    
-                                        <h2>Classes</h2>
+
+                                        <h2>Traits</h2>
                     <table class="table table-hover">
-                                            <tr>
-                            <td><a href="../classes/Gishiki.Security.Hashing.Algorithm.html">Algorithm</a></td>
-                            <td><em>This class is a collection of supported algorithms.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/Gishiki.Security.Hashing.Hasher.html">Hasher</a></td>
-                            <td><em>This class provides hashing functions while abstracting the algorithm.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/Gishiki.Security.Hashing.HashingException.html">HashingException</a></td>
-                            <td><em>The hashing exception thrown by Gishiki
-when an hash operation results is bad.</em></td>
-                        </tr>
-                                        </table>
+                                                    <tr>
+                                <td><a href="../classes/Gishiki.Core.Router.MatchableRouteTrait.html">MatchableRouteTrait</a></td>
+                                <td><em>Working implementation of RouteInterface ready to be implemented by a route.</em></td>
+                            </tr>
+                                            </table>
+                    
+                    
                                     </div>
 
                 <aside class="span4 detailsbar">
                     <dl>
-                        <dt>Namespace hierarchy</dt>
-                        <dd class="hierarchy">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-                                    <div class="namespace-wrapper"><a href="../namespaces/default.html">\</a></div>
-                                                            
-                                    <div class="namespace-wrapper"><a href="../namespaces/Gishiki.html">\Gishiki</a></div>
-                                                            
-                                    <div class="namespace-wrapper"><a href="../namespaces/Gishiki.Security.html">\Gishiki\Security</a></div>
-                                                                                        <div class="namespace-wrapper">\Gishiki\Security\Hashing</div>
-                        </dd>
+                                                    <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Default</div></dd>
+                        
+                        
                     </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                                            </table>
+
                 </aside>
             </div>
 
@@ -671,6 +711,16 @@ when an hash operation results is bad.</em></td>
             
         </div>
     </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label"></h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Core/Router/MatchableRouteTrait.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
 
     <footer class="row-fluid">
         <section class="span10 offset2">

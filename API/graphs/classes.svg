@@ -102,8 +102,8 @@
 <text text-anchor="middle" x="615.5" y="-1437.2" font-family="Times,serif" font-size="11.00" fill="gray">Core</text>
 </g>
 <g id="clust24" class="cluster"><title>cluster_\Gishiki\Core\Router</title>
-<path fill="none" stroke="gray" d="M371,-1144C371,-1144 830,-1144 830,-1144 836,-1144 842,-1150 842,-1156 842,-1156 842,-1366 842,-1366 842,-1372 836,-1378 830,-1378 830,-1378 371,-1378 371,-1378 365,-1378 359,-1372 359,-1366 359,-1366 359,-1156 359,-1156 359,-1150 365,-1144 371,-1144"/>
-<text text-anchor="middle" x="600.5" y="-1365.2" font-family="Times,serif" font-size="11.00" fill="gray">Router</text>
+<path fill="none" stroke="gray" d="M371,-1144C371,-1144 844,-1144 844,-1144 850,-1144 856,-1150 856,-1156 856,-1156 856,-1366 856,-1366 856,-1372 850,-1378 844,-1378 844,-1378 371,-1378 371,-1378 365,-1378 359,-1372 359,-1366 359,-1366 359,-1156 359,-1156 359,-1150 365,-1144 371,-1144"/>
+<text text-anchor="middle" x="607.5" y="-1365.2" font-family="Times,serif" font-size="11.00" fill="gray">Router</text>
 </g>
 <g id="clust25" class="cluster"><title>cluster_\Gishiki\Core\MVC</title>
 <path fill="none" stroke="gray" d="M377,-786C377,-786 860,-786 860,-786 866,-786 872,-792 872,-798 872,-798 872,-1124 872,-1124 872,-1130 866,-1136 860,-1136 860,-1136 377,-1136 377,-1136 371,-1136 365,-1130 365,-1124 365,-1124 365,-798 365,-798 365,-792 371,-786 377,-786"/>
@@ -542,10 +542,10 @@
 <path fill="none" stroke="black" stroke-dasharray="1,5" d="M747.979,-1224C693.624,-1224 566.635,-1224 488.766,-1224"/>
 <polygon fill="none" stroke="black" points="488.585,-1220.5 478.585,-1224 488.585,-1227.5 488.585,-1220.5"/>
 </g>
-<!-- \\Gishiki\\Core\\Router\\MatchableRoute -->
-<g id="node58" class="node"><title>\\Gishiki\\Core\\Router\\MatchableRoute</title>
-<polygon fill="none" stroke="black" points="830.5,-1188 719.5,-1188 719.5,-1152 830.5,-1152 830.5,-1188"/>
-<text text-anchor="middle" x="775" y="-1167.2" font-family="Courier,monospace" font-size="11.00">MatchableRoute</text>
+<!-- \\Gishiki\\Core\\Router\\MatchableRouteTrait -->
+<g id="node58" class="node"><title>\\Gishiki\\Core\\Router\\MatchableRouteTrait</title>
+<polygon fill="none" stroke="black" points="847.5,-1188 702.5,-1188 702.5,-1152 847.5,-1152 847.5,-1188"/>
+<text text-anchor="middle" x="775" y="-1167.2" font-family="Courier,monospace" font-size="11.00">MatchableRouteTrait</text>
 </g>
 <!-- \\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseSerializer -->
 <g id="node59" class="node"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseSerializer</title>

@@ -18,10 +18,10 @@ limitations under the License.
 namespace Gishiki\Database\Adapters\Utils\ConnectionParser;
 
 /**
-* Class PgsqlConnectionParser
-*
-* @package Gishiki\Database\Adapters\Utils\ConnectionParser
-*/
+ * the parser for SQLite connection queries.
+ *
+ * @author Benato Denis <benato.denis96@gmail.com>
+ */
 final class SqliteConnectionParser implements ConnectionParserInterface
 {
     protected $file;
@@ -36,7 +36,7 @@ final class SqliteConnectionParser implements ConnectionParserInterface
         $this->file = $connection;
     }
 
-    public function getPDOConnection()
+    public function getPDOConnection() : array
     {
         $query = $this->getPDODriverName() . ':' . $this->file;
         return [

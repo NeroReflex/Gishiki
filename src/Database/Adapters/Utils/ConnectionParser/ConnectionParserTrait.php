@@ -139,8 +139,6 @@ trait ConnectionParserTrait
         if (!is_string($connection)) {
             throw new \InvalidArgumentException("the connection query must be given as a string");
         }
-
-
     }
 
     public function getPDOConnection()

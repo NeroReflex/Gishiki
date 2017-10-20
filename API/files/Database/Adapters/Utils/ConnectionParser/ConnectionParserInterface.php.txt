@@ -46,3 +46,4 @@ interface ConnectionParserInterface
      */
     public function getPDOConnection();
 }
+

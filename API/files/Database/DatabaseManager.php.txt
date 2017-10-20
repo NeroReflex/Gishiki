@@ -17,6 +17,10 @@ limitations under the License.
 
 namespace Gishiki\Database;
 
+use Gishiki\Database\Adapters\Sqlite;
+use Gishiki\Database\Adapters\Pgsql;
+use Gishiki\Database\Adapters\Mysql;
+
 /**
  * Represent the database manager of the entire framework.
  *
@@ -26,9 +30,13 @@ final class DatabaseManager
 {
     //used to give a second name to an adapter
     const ADAPTERS_MAP = [
-        'Sqlite3' => 'Sqlite',
-        'Postgres' => 'Pgsql',
-        'Postgre' => 'Pgsql',
+        'sqlite' => Sqlite::class,
+        'sqlite3' => Sqlite::class,
+        'pgsql' => Pgsql::class,
+        'postgres' => Pgsql::class,
+        'postgre' => Pgsql::class,
+        'mysql' => Mysql::class,
+        'mariadb'
     ];
 
     /**
@@ -54,14 +62,18 @@ final class DatabaseManager
 
         //get the adapter name
         $temp = explode('://', $connectionString);
-        $adapterTemp = ucfirst($temp[0]);
-        $adapter = (array_key_exists($adapterTemp, self::ADAPTERS_MAP)) ?
-            $this->adaptersMap[$adapterTemp] : $adapterTemp;
+        $adapterTemp = strtolower($temp[0]);
+
+        if (!array_key_exists($adapterTemp, self::ADAPTERS_MAP)) {
+            throw new DatabaseException("The given database type is not valid or not supported.", 40);
+        }
+
+        $adapter = $temp[0];
         $connectionQuery = $temp[1];
 
         try {
             //reflect the adapter
-            $reflectedAdapter = new \ReflectionClass('Gishiki\\Database\\Adapters\\'.$adapter);
+            $reflectedAdapter = new \ReflectionClass(self::ADAPTERS_MAP[$adapter]);
 
             //and use the adapter to establish the database connection and return the connection handler
             $this->connections[sha1($connectionName)] = $reflectedAdapter->newInstance($connectionQuery);

@@ -17,9 +17,10 @@ limitations under the License.
 
 namespace Gishiki\Database\Adapters;
 
+use Gishiki\Database\Adapters\Utils\ConnectionParser\SqliteConnectionParser;
 use Gishiki\Database\Adapters\Utils\QueryBuilder\SQLiteQueryBuilder;
 use Gishiki\Database\RelationalDatabaseInterface;
-use Gishiki\Database\Adapters\Utils\PDODatabase;
+use Gishiki\Database\Adapters\Utils\PDODatabaseTrait;
 
 /**
  * Represent a SQLite database.
@@ -32,12 +33,7 @@ use Gishiki\Database\Adapters\Utils\PDODatabase;
  */
 final class Sqlite implements RelationalDatabaseInterface
 {
-    use PDODatabase;
-
-    protected function getPDODriverName() : string
-    {
-        return 'sqlite';
-    }
+    use PDODatabaseTrait;
 
     /**
      * Get the query builder for SQLite.
@@ -47,6 +43,16 @@ final class Sqlite implements RelationalDatabaseInterface
     protected function getQueryBuilder() : SQLiteQueryBuilder
     {
         return new SQLiteQueryBuilder();
+    }
+
+    /**
+     * Get the connection query parser for MySQL.
+     *
+     * @return SqliteConnectionParser the connection query parser
+     */
+    protected function getConnectionParser() : SqliteConnectionParser
+    {
+        return new SqliteConnectionParser();
     }
 }
 

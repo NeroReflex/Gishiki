@@ -31,4 +31,3 @@ final class PgsqlConnectionParser implements ConnectionParserInterface
         return 'pgsql';
     }
 }
-

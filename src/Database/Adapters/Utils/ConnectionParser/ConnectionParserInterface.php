@@ -44,5 +44,5 @@ interface ConnectionParserInterface
      *
      * @return array the list of arguments to be passed to the pdo driver
      */
-    public function getPDOConnection();
+    public function getPDOConnection() : array;
 }

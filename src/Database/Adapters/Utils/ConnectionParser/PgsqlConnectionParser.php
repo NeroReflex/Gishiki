@@ -18,9 +18,9 @@ limitations under the License.
 namespace Gishiki\Database\Adapters\Utils\ConnectionParser;
 
 /**
- * Class PgsqlConnectionParser
+ * the parser for PostgreSQL connection queries.
  *
- * @package Gishiki\Database\Adapters\Utils\ConnectionParser
+ * @author Benato Denis <benato.denis96@gmail.com>
  */
 final class PgsqlConnectionParser implements ConnectionParserInterface
 {

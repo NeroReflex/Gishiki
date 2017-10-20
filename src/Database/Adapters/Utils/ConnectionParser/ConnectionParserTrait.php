@@ -141,7 +141,7 @@ trait ConnectionParserTrait
         }
     }
 
-    public function getPDOConnection()
+    public function getPDOConnection() : array
     {
         $query = $this->getPDODriverName() . ':';
 

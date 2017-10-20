@@ -37,3 +37,4 @@ final class ConnectionParserException extends Exception
         parent::__construct($message, $errorCode);
     }
 }
+

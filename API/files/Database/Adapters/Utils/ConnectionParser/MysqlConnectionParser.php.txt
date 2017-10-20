@@ -31,3 +31,4 @@ final class MysqlConnectionParser implements ConnectionParserInterface
         return 'mysql';
     }
 }
+

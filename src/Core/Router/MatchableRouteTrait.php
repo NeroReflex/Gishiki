@@ -29,7 +29,7 @@ use Gishiki\Algorithms\Strings\SimpleLexer;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-trait MatchableRoute
+trait MatchableRouteTrait
 {
     /**
      * uri => string (begins with / example: "/do_something")

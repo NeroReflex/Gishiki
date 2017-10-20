@@ -32,7 +32,7 @@ use Gishiki\Core\MVC\Controller\Plugins\ResponseAssembler as AssemblerPlugin;
  */
 class Route implements RouteInterface
 {
-    use MatchableRoute;
+    use MatchableRouteTrait;
 
     /**
      * Build a new route to be registered within a Router instance.

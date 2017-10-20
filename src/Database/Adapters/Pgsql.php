@@ -17,9 +17,10 @@ limitations under the License.
 
 namespace Gishiki\Database\Adapters;
 
+use Gishiki\Database\Adapters\Utils\ConnectionParser\PgsqlConnectionParser;
 use Gishiki\Database\Adapters\Utils\QueryBuilder\PostgreSQLQueryBuilder;
 use Gishiki\Database\RelationalDatabaseInterface;
-use Gishiki\Database\Adapters\Utils\PDODatabase;
+use Gishiki\Database\Adapters\Utils\PDODatabaseTrait;
 
 /**
  * Represent a PostgreSQL database.
@@ -32,12 +33,7 @@ use Gishiki\Database\Adapters\Utils\PDODatabase;
  */
 final class Pgsql implements RelationalDatabaseInterface
 {
-    use PDODatabase;
-
-    protected function getPDODriverName() : string
-    {
-        return 'pgsql';
-    }
+    use PDODatabaseTrait;
 
     /**
      * Get the query builder for PostgreSQL.
@@ -47,5 +43,15 @@ final class Pgsql implements RelationalDatabaseInterface
     protected function getQueryBuilder() : PostgreSQLQueryBuilder
     {
         return new PostgreSQLQueryBuilder();
+    }
+
+    /**
+     * Get the connection query parser for MySQL.
+     *
+     * @return PgsqlConnectionParser the connection query parser
+     */
+    protected function getConnectionParser() : PgsqlConnectionParser
+    {
+        return new PgsqlConnectionParser();
     }
 }

@@ -24,7 +24,6 @@ use PHPUnit\Framework\TestCase;
 use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\FieldRelation;
 use Gishiki\Database\Runtime\ResultModifier;
-use Gishiki\Database\Runtime\FieldOrdering;
 use Gishiki\Database\Schema\Table;
 use Gishiki\Database\Schema\Column;
 use Gishiki\Database\Schema\ColumnType;
@@ -41,13 +40,6 @@ class DatabaseRelationalTest extends TestCase
     protected function getDatabase()
     {
         return new Sqlite(":memory:");
-    }
-
-    public function testBadAdapter()
-    {
-        $this->expectException(DatabaseException::class);
-
-        new \BadDatabaseAdapter("this is pointless. An exception will be thrown");
     }
 
     public function testMultipleOperationsWithRelations()
@@ -70,7 +62,8 @@ class DatabaseRelationalTest extends TestCase
         $bookIdColumn->setNotNull(true);
         $bookTable->addColumn($bookIdColumn);
         $authorIdColumn = new Column('author_id', ColumnType::INTEGER);
-        $authorIdColumn->getRelation(new ColumnRelation($authorTable, $idColumn));
+        $rel = new ColumnRelation($authorTable, $idColumn);
+        $authorIdColumn->setRelation($rel);
         $authorIdColumn->setNotNull(true);
         $bookTable->addColumn($authorIdColumn);
         $bookTitleColumn = new Column('title', ColumnType::TEXT);
@@ -88,7 +81,7 @@ class DatabaseRelationalTest extends TestCase
         $connection->createTable($authorTable);
         $connection->createTable($bookTable);
 
-        $ARMBookId = $connection->create(
+        $connection->create(
             'books',
             [
                 'id' => 1,

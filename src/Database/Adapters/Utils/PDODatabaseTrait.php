@@ -35,7 +35,7 @@ use Gishiki\Database\Schema\Table;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-trait PDODatabase
+trait PDODatabaseTrait
 {
     /**
      * @var bool TRUE only if the connection is alive
@@ -46,23 +46,6 @@ trait PDODatabase
      * @var \PDO the native pdo connection
      */
     protected $connection;
-
-    /**
-     * Generate a PDO connection string that will be used to connect a database.
-     *
-     * @param  mixed  $details           information used to open a database connection with PDO
-     * @throws \InvalidArgumentException invalid connection details
-     * @return array                     arguments to be passed to the PDO driver
-     */
-    protected function generateConnectionQuery($details)
-    {
-        return [
-            $this->getPDODriverName().':'.$details,
-            null,
-            null,
-            null
-        ];
-    }
 
     /**
      * Create a new database connection using the given connection string.
@@ -82,11 +65,6 @@ trait PDODatabase
 
     public function connect($details)
     {
-        //check for the pdo driver
-        if (!in_array($this->getPDODriverName(), \PDO::getAvailableDrivers())) {
-            throw new DatabaseException('No '.$this->getPDODriverName().' PDO driver', 0);
-        }
-
         //check for argument type
         if ((!is_string($details)) || (strlen($details) <= 0)) {
             throw new \InvalidArgumentException('The connection query must be given as a non-empty string');
@@ -94,9 +72,11 @@ trait PDODatabase
 
         //open the connection
         try {
-            $connectionInfo = $this->generateConnectionQuery($details);
+            $connectionParser = $this->getConnectionParser();
+            $connectionParser->parse($details);
+            $connectionInfo = $connectionParser->getPDOConnection();
 
-            $this->connection = new \PDO($connectionInfo[0], $connectionInfo[1], $connectionInfo[2], $connectionInfo[3]);
+            $this->connection = new \PDO(...$connectionInfo);
             $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
             //the connection is opened

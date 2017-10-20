@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-use Gishiki\Database\Adapters\Utils\PDODatabase;
+use Gishiki\Database\Adapters\Utils\PDODatabaseTrait;
 use Gishiki\Database\RelationalDatabaseInterface;
 
 /**
@@ -25,7 +25,7 @@ use Gishiki\Database\RelationalDatabaseInterface;
  */
 class BadDatabaseAdapter implements RelationalDatabaseInterface
 {
-    use PDODatabase;
+    use PDODatabaseTrait;
 
     protected function getPDODriverName() : string
     {

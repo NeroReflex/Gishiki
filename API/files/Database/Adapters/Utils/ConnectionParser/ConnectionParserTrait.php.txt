@@ -95,7 +95,7 @@ trait ConnectionParserTrait
             }
 
             if ($param[strlen($param) - 1] == ';') {
-                $param = substr($param, 0, strlen($param) - 1);
+                $param = substr($param, 0, -1);
             }
 
             $exploded = explode('=', $param, 2);
@@ -151,14 +151,10 @@ trait ConnectionParserTrait
         $query .= ((is_string($this->port)) && (strlen($this->port) > 0)) ?
             'port=' . $this->port . ';' : '';
 
-        $query .= ((is_string($this->user)) && (strlen($this->user) > 0)) ?
-            'user=' . $this->user . ';' : '';
+        $query .= ((is_string($this->name)) && (strlen($this->name) > 0)) ?
+            'dbname=' . $this->name . ';' : '';
 
-        $query .= ((is_string($this->password)) && (strlen($this->password) > 0)) ?
-            'password=' . $this->password . ';' : '';
-
-        $query = substr($query, 0, strlen($query) - 1);
-
+        $query = substr($query, 0, -1);
         $dbUser = ((is_string($this->user)) && (strlen($this->user) > 0)) ? $this->user : null;
         $dbPass = ((is_string($this->password)) && (strlen($this->password) > 0)) ? $this->password : null;
 

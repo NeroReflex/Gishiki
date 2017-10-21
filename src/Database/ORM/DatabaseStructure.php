@@ -18,18 +18,14 @@ limitations under the License.
 namespace Gishiki\Database\ORM;
 
 use Gishiki\Algorithms\Collections\CollectionInterface;
-use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Algorithms\Collections\StackCollection;
-use Gishiki\Database\Schema\Column;
-use Gishiki\Database\Schema\ColumnType;
-use Gishiki\Database\Schema\Table;
 
 /**
- * Build the database logic structure from a json descriptor.
+ * Build the database logic structure from a collection in a fixed format.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class DatabaseStructure
+final class DatabaseStructure extends DatabaseStructureParseAlgorithm
 {
     /**
      * @var string The name of the corresponding connection
@@ -42,107 +38,45 @@ final class DatabaseStructure
     protected $stackTables;
 
     /**
-     * Build the Database structure from a json text.
+     * Initialize the instance with an empty database structure.
+     */
+    public function __construct()
+    {
+        $this->stackTables = new \SplStack();
+    }
+
+    /**
+     * Build the Database structure from a collection with a fixed structure.
      *
-     * @param  CollectionInterface $description the json description of the database
+     * Also responsible for building the internal tables stack.
+     * Tables are organized as a stack because the order matters!
+     *
+     * @param  CollectionInterface $structure the json description of the database
      * @throws StructureException the error in the description
      */
-    public function __construct(CollectionInterface &$description)
+    public function parse(CollectionInterface &$structure)
     {
-        $this->stackTables = new StackCollection();
-
-        if (!$description->has('connection')) {
+        if (!$structure->has('connection')) {
             throw new StructureException('A database description must contains the connection field', 0);
         }
 
-        $this->connectionName = $description->get('connection');
+        $this->connectionName = $structure->get('connection');
 
         if ((!is_string($this->connectionName)) || (strlen($this->connectionName) <= 0)) {
             throw new StructureException('The connection name must be given as a non-empty string', 3);
         }
 
-        if (!$description->has('tables')) {
+        if (!$structure->has('tables')) {
             throw new StructureException("A database description must contains a tables field", 1);
         }
 
-        foreach ($description->get('tables') as $tb) {
-            if (!is_array($tb)) {
-                throw new StructureException("Wrong structure: the 'tables' filed must contains arrays", 2);
+        foreach ($structure->get('tables') as &$table) {
+            if (!is_array($table)) {
+                throw new StructureException("Wrong structure: the 'tables' field must contains arrays", 2);
             }
 
-            $table = new GenericCollection($tb);
-
-            if ((!$table->has('name')) || (!is_string($table->get('name'))) || (strlen($table->get('name')) <= 0)) {
-                throw new StructureException('Each table must have a name given as a non-empty string', 4);
-            }
-
-            $currentTable = new Table($table->get('name'));
-
-            foreach ($table->get('fields') as $fd) {
-                $field = new GenericCollection($fd);
-
-                if (!$field->has('name')) {
-                    throw new StructureException('Each column must have a name', 5);
-                }
-
-                if (!$field->has('type')) {
-                    throw new StructureException('Each column must have a type', 6);
-                }
-
-                $typeIdentifier = ColumnType::UNKNOWN;
-                switch ($field->get('type')) {
-                    case 'string':
-                    case 'text':
-                        $typeIdentifier = ColumnType::TEXT;
-                        break;
-
-                    case 'smallint':
-                        $typeIdentifier = ColumnType::SMALLINT;
-                        break;
-
-                    case 'int':
-                    case 'integer':
-                        $typeIdentifier = ColumnType::INTEGER;
-                        break;
-
-                    case 'bigint':
-                        $typeIdentifier = ColumnType::BIGINT;
-                        break;
-
-                    case 'money':
-                        $typeIdentifier = ColumnType::MONEY;
-                        break;
-
-                    case 'numeric':
-                        $typeIdentifier = ColumnType::NUMERIC;
-                        break;
-
-                    case 'float':
-                        $typeIdentifier = ColumnType::FLOAT;
-                        break;
-
-                    case 'double':
-                        $typeIdentifier = ColumnType::DOUBLE;
-                        break;
-
-                    case 'datetime':
-                        $typeIdentifier = ColumnType::DATETIME;
-                        break;
-
-                    default:
-                        throw new StructureException('Invalid data type for column '.$field->get('name'), 7);
-                }
-
-                $currentField = new Column($field->get('name'), $typeIdentifier);
-                $currentField->setPrimaryKey(($field->get('primary_key') === true));
-                $currentField->setNotNull(($field->get('not_null') === true));
-                $currentField->setAutoIncrement(($field->get('auto_increment') === true));
-
-                $currentTable->addColumn($currentField);
-            }
-
-            //add the table to the collection
-            $this->stackTables->push($currentTable);
+            //parse the current table (the parseTable function also pops onto the stack)
+            self::parseTable($table, $this->stackTables);
         }
     }
 
@@ -161,16 +95,11 @@ final class DatabaseStructure
      * Get the collection of tables in a stack where the first table to be popped
      * is the first that must be created.
      *
-     * @return StackCollection the collection of tables
+     * @return \SplStack the collection of tables
      */
-    public function getTables() : StackCollection
+    public function &getTables() : \SplStack
     {
-        //clone the database structure
-        $tables = clone $this->stackTables;
-
-        //reverse the table order to ease the life of the caller
-        $tables->reverse();
-
-        return $tables;
+        //return the database structure
+        return $this->stackTables;
     }
 }

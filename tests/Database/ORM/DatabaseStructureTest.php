@@ -22,12 +22,41 @@ use Gishiki\Database\ORM\DatabaseStructure;
 use Gishiki\Database\ORM\StructureException;
 use Gishiki\Algorithms\Collections\SerializableCollection;
 use Gishiki\Database\Schema\ColumnType;
-use Gishiki\Database\Schema\Table;
+
 use PHPUnit\Framework\TestCase;
 
-
+/**
+ * Tester to ensure a database structure is imported as expected.
+ *
+ * @author Benato Denis <benato.denis96@gmail.com>
+ */
 class DatabaseStructureTest extends TestCase
 {
+
+    public function testBadRelation()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => __FUNCTION__,
+                    "fields" => [
+                        [
+                            "name" => __FUNCTION__,
+                            "type" => "money",
+                            "relation" => null
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->expectException(StructureException::class);
+
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
+    }
+
     public function testTypeMoney()
     {
         $description = new SerializableCollection([
@@ -38,14 +67,16 @@ class DatabaseStructureTest extends TestCase
                     "fields" => [
                         [
                             "name" => __FUNCTION__,
-                            "type" => "money"
+                            "type" => "money",
                         ]
                     ]
                 ]
             ]
         ]);
 
-        $dbStructure = new DatabaseStructure($description);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
+
         $tables = $dbStructure->getTables();
 
         $testField = $tables->pop()->getColumns()[0];
@@ -70,7 +101,8 @@ class DatabaseStructureTest extends TestCase
             ]
         ]);
 
-        $dbStructure = new DatabaseStructure($description);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
         $tables = $dbStructure->getTables();
 
         $testField = $tables->pop()->getColumns()[0];
@@ -95,7 +127,8 @@ class DatabaseStructureTest extends TestCase
             ]
         ]);
 
-        $dbStructure = new DatabaseStructure($description);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
         $tables = $dbStructure->getTables();
 
         $testField = $tables->pop()->getColumns()[0];
@@ -120,7 +153,8 @@ class DatabaseStructureTest extends TestCase
             ]
         ]);
 
-        $dbStructure = new DatabaseStructure($description);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
         $tables = $dbStructure->getTables();
 
         $testField = $tables->pop()->getColumns()[0];
@@ -145,7 +179,8 @@ class DatabaseStructureTest extends TestCase
             ]
         ]);
 
-        $dbStructure = new DatabaseStructure($description);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
         $tables = $dbStructure->getTables();
 
         $testField = $tables->pop()->getColumns()[0];
@@ -170,7 +205,8 @@ class DatabaseStructureTest extends TestCase
             ]
         ]);
 
-        $dbStructure = new DatabaseStructure($description);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
         $tables = $dbStructure->getTables();
 
         $testField = $tables->pop()->getColumns()[0];
@@ -195,7 +231,8 @@ class DatabaseStructureTest extends TestCase
             ]
         ]);
 
-        $dbStructure = new DatabaseStructure($description);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
         $tables = $dbStructure->getTables();
 
         $testField = $tables->pop()->getColumns()[0];
@@ -220,12 +257,40 @@ class DatabaseStructureTest extends TestCase
             ]
         ]);
 
-        $dbStructure = new DatabaseStructure($description);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
         $tables = $dbStructure->getTables();
 
         $testField = $tables->pop()->getColumns()[0];
 
         $this->assertEquals(ColumnType::INTEGER, $testField->getType());
+    }
+
+    public function testBadFieldDefinition()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => __FUNCTION__,
+                    "fields" => [
+                        [
+                            "name" => "randomName",
+                            "type" => "int",
+                            "primary_key" => true,
+                            "not_null" => true,
+                            "auto_increment" => true,
+                        ],
+                        null
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->expectException(StructureException::class);
+
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
     }
 
     public function testBadTypeName()
@@ -250,7 +315,8 @@ class DatabaseStructureTest extends TestCase
 
         $this->expectException(StructureException::class);
 
-        new DatabaseStructure($description);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
     }
 
     public function testNoTypeName()
@@ -274,7 +340,8 @@ class DatabaseStructureTest extends TestCase
 
         $this->expectException(StructureException::class);
 
-        new DatabaseStructure($description);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
     }
 
     public function testNoFieldName()
@@ -298,7 +365,8 @@ class DatabaseStructureTest extends TestCase
 
         $this->expectException(StructureException::class);
 
-        new DatabaseStructure($description);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
     }
 
     public function testBadTableName()
@@ -323,7 +391,8 @@ class DatabaseStructureTest extends TestCase
 
         $this->expectException(StructureException::class);
 
-        new DatabaseStructure($description);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
     }
 
     public function testBadField()
@@ -335,7 +404,8 @@ class DatabaseStructureTest extends TestCase
 
         $this->expectException(StructureException::class);
 
-        new DatabaseStructure($description);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
     }
 
     public function testNoTables()
@@ -346,7 +416,8 @@ class DatabaseStructureTest extends TestCase
 
         $this->expectException(StructureException::class);
 
-        new DatabaseStructure($description);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
     }
 
     public function testNoConnectionName()
@@ -375,7 +446,8 @@ class DatabaseStructureTest extends TestCase
 
         $this->expectException(StructureException::class);
 
-        new DatabaseStructure($description);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
     }
 
     public function testBadConnectionName()
@@ -405,7 +477,8 @@ class DatabaseStructureTest extends TestCase
 
         $this->expectException(StructureException::class);
 
-        new DatabaseStructure($description);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
     }
 
     public function testNoRelation()
@@ -433,11 +506,12 @@ class DatabaseStructureTest extends TestCase
             ]
         ]);
 
-        $structure = new DatabaseStructure($description);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
 
-        $this->assertEquals("example", $structure->getConnectionName());
+        $this->assertEquals("example", $dbStructure->getConnectionName());
 
-        $tables = $structure->getTables();
+        $tables = $dbStructure->getTables();
 
         $firstTable = $tables->pop();
 
@@ -453,13 +527,14 @@ class DatabaseStructureTest extends TestCase
 
     public function testNoConnection()
     {
-        $descr = new GenericCollection([
+        $description = new GenericCollection([
             "columns" => [ ]
         ]);
 
         $this->expectException(StructureException::class);
 
-        new DatabaseStructure($descr);
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
     }
 
 

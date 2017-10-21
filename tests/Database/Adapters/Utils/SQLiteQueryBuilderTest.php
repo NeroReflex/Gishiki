@@ -104,8 +104,7 @@ class SQLiteQueryBuilderTest extends TestCase
 
         $this->assertEquals(SQLiteWrapper::beautify('CREATE TABLE IF NOT EXISTS orders ('
                 .'id INTEGER PRIMARY KEY NOT NULL, '
-                .'customer_id INTEGER NOT NULL, '
-                .'FOREIGN KEY (customer_id) REFERENCES users(id), '
+                .'customer_id INTEGER NOT NULL REFERENCES users(id), '
                 .'spent REAL NOT NULL, '
                 .'ship_date INTEGER'
                 .')'), SQLiteWrapper::beautify($query->exportQuery()));

@@ -55,6 +55,9 @@ class DatabaseRelationalTest extends TestCase
         $nameColumn->setNotNull(true);
         $authorTable->addColumn($nameColumn);
 
+        //build the relation...
+        $authorRelation = new ColumnRelation($authorTable, $idColumn);
+
         // build the book table
         $bookTable = new Table('books');
         $bookIdColumn = new Column('id', ColumnType::INTEGER);
@@ -62,8 +65,7 @@ class DatabaseRelationalTest extends TestCase
         $bookIdColumn->setNotNull(true);
         $bookTable->addColumn($bookIdColumn);
         $authorIdColumn = new Column('author_id', ColumnType::INTEGER);
-        $rel = new ColumnRelation($authorTable, $idColumn);
-        $authorIdColumn->setRelation($rel);
+        $authorIdColumn->setRelation($authorRelation);
         $authorIdColumn->setNotNull(true);
         $bookTable->addColumn($authorIdColumn);
         $bookTitleColumn = new Column('title', ColumnType::TEXT);

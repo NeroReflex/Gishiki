@@ -81,7 +81,7 @@ trait PDODatabaseTrait
 
             //the connection is opened
             $this->connected = true;
-        } catch (\PDOException $ex) {
+        } catch (\Exception $ex) {
             throw new DatabaseException('Error while opening the database connection:'.$ex->getMessage(), 1);
         }
     }
@@ -114,7 +114,7 @@ trait PDODatabaseTrait
 
             //execute the statement resolving placeholders
             $stmt->execute($queryBuilder->exportParams());
-        } catch (\PDOException $ex) {
+        } catch (\Exception $ex) {
             throw new DatabaseException('Error while performing the table creation operation: '.$ex->getMessage(), 7);
         }
     }
@@ -152,7 +152,7 @@ trait PDODatabaseTrait
 
             //as per documentation return the id of the last inserted row
             return $this->connection->lastInsertId();
-        } catch (\PDOException $ex) {
+        } catch (\Exception $ex) {
             throw new DatabaseException('Error while performing the creation operation: '.$ex->getMessage(), 3);
         }
     }
@@ -191,7 +191,7 @@ trait PDODatabaseTrait
 
             //return the number of affected rows
             return $stmt->rowCount();
-        } catch (\PDOException $ex) {
+        } catch (\Exception $ex) {
             throw new DatabaseException('Error while performing the update operation: '.$ex->getMessage(), 4);
         }
     }
@@ -221,7 +221,7 @@ trait PDODatabaseTrait
 
             //return the number of affected rows
             return $stmt->rowCount();
-        } catch (\PDOException $ex) {
+        } catch (\Exception $ex) {
             throw new DatabaseException('Error while performing the delete operation: '.$ex->getMessage(), 5);
         }
     }
@@ -251,7 +251,7 @@ trait PDODatabaseTrait
 
             //return the number of affected rows
             return $stmt->rowCount();
-        } catch (\PDOException $ex) {
+        } catch (\Exception $ex) {
             throw new DatabaseException('Error while performing the delete operation: '.$ex->getMessage(), 5);
         }
     }
@@ -281,7 +281,7 @@ trait PDODatabaseTrait
 
             //return an associative array of data
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        } catch (\PDOException $ex) {
+        } catch (\Exception $ex) {
             throw new DatabaseException('Error while performing the read operation: '.$ex->getMessage(), 6);
         }
     }
@@ -311,7 +311,7 @@ trait PDODatabaseTrait
 
             //return the fetch result
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        } catch (\PDOException $ex) {
+        } catch (\Exception $ex) {
             throw new DatabaseException('Error while performing the read operation: '.$ex->getMessage(), 6);
         }
     }

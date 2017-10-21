@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
  *****************************************************************************/
 
-namespace Gishiki\Database\Adapters\ConnectionParser;
+namespace Gishiki\Database\Adapters\Utils\ConnectionParser;
 
 use Gishiki\Core\Exception;
 

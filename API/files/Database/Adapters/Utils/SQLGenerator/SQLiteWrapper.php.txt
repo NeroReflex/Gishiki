@@ -83,12 +83,12 @@ final class SQLiteWrapper
             }
 
             if ($column->isNotNull()) {
-                $this->appendToQuery('NOT NULL');
+                $this->appendToQuery('NOT NULL ');
             }
 
             $relation = $column->getRelation();
             if (!is_null($relation)) {
-                $this->appendToQuery(', FOREIGN KEY ('.$column->getName().') REFERENCES '.$relation->getForeignTable()->getName().'('.$relation->getForeignKey()->getName().')');
+                $this->appendToQuery('REFERENCES '.$relation->getForeignTable()->getName().'('.$relation->getForeignKey()->getName().')');
             }
 
             $first = false;

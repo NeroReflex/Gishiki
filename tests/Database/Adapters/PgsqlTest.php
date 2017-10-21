@@ -19,7 +19,7 @@ namespace Gishiki\tests\Database\Adapters;
 
 use Gishiki\Database\Adapters\Pgsql;
 use Gishiki\Database\DatabaseException;
-use Gishiki\tests\Database\Adapters\DatabaseRelationalTest;
+use Gishiki\Database\Schema\Table;
 
 /**
  * The tester for the Pgsql class.
@@ -49,6 +49,9 @@ class PgsqlTest extends DatabaseRelationalTest
     {
         $this->expectException(DatabaseException::class);
 
-        new Pgsql("database=doesntExists;user=postgres");
+        $testTable = new Table('test');
+
+        $notExistingDatabase = new Pgsql("database=doesntExists;user=postgres");
+        $notExistingDatabase->createTable($testTable);
     }
 }

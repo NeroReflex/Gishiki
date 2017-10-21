@@ -19,7 +19,6 @@ namespace Gishiki\tests\Database\Adapters;
 
 use Gishiki\Database\Adapters\Mysql;
 use Gishiki\Database\DatabaseException;
-use Gishiki\tests\Database\Adapters\DatabaseRelationalTest;
 
 /**
  * The tester for the Mysql class.

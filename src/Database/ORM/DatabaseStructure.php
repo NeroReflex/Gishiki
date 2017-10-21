@@ -18,7 +18,6 @@ limitations under the License.
 namespace Gishiki\Database\ORM;
 
 use Gishiki\Algorithms\Collections\CollectionInterface;
-use Gishiki\Algorithms\Collections\StackCollection;
 
 /**
  * Build the database logic structure from a collection in a fixed format.
@@ -33,7 +32,7 @@ final class DatabaseStructure extends DatabaseStructureParseAlgorithm
     protected $connectionName;
 
     /**
-     * @var StackCollection the collection of tables in creation reversed order
+     * @var \SplStack the collection of tables in creation reversed order
      */
     protected $stackTables;
 
@@ -56,28 +55,7 @@ final class DatabaseStructure extends DatabaseStructureParseAlgorithm
      */
     public function parse(CollectionInterface &$structure)
     {
-        if (!$structure->has('connection')) {
-            throw new StructureException('A database description must contains the connection field', 0);
-        }
-
-        $this->connectionName = $structure->get('connection');
-
-        if ((!is_string($this->connectionName)) || (strlen($this->connectionName) <= 0)) {
-            throw new StructureException('The connection name must be given as a non-empty string', 3);
-        }
-
-        if (!$structure->has('tables')) {
-            throw new StructureException("A database description must contains a tables field", 1);
-        }
-
-        foreach ($structure->get('tables') as &$table) {
-            if (!is_array($table)) {
-                throw new StructureException("Wrong structure: the 'tables' field must contains arrays", 2);
-            }
-
-            //parse the current table (the parseTable function also pops onto the stack)
-            self::parseTable($table, $this->stackTables);
-        }
+        static::parseDatabase($structure, $this->stackTables, $this->connectionName);
     }
 
     /**

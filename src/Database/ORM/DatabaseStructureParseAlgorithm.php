@@ -19,9 +19,9 @@ namespace Gishiki\Database\ORM;
 
 use Gishiki\Algorithms\Collections\CollectionInterface;
 use Gishiki\Algorithms\Collections\GenericCollection;
-use Gishiki\Algorithms\Collections\StackCollection;
 use Gishiki\Database\Runtime\FieldRelation;
 use Gishiki\Database\Schema\Column;
+use Gishiki\Database\Schema\ColumnRelation;
 use Gishiki\Database\Schema\ColumnType;
 use Gishiki\Database\Schema\Table;
 
@@ -45,6 +45,44 @@ abstract class DatabaseStructureParseAlgorithm
         'double' => ColumnType::DOUBLE,
         'datetime' => ColumnType::DATETIME,
     ];
+
+    /**
+     * Build the Database structure from a collection with a fixed structure.
+     *
+     * Also responsible for building the internal tables stack.
+     * Tables are organized as a stack because the order matters!
+     *
+     * @param  CollectionInterface   $structure      the json description of the database
+     * @param  \SplStack             $tableStack     the collection of tables to be updated
+     * @param  string                $connectionName will be filled with the connection name
+     * @throws StructureException the error in the description
+     */
+    public function parseDatabase(CollectionInterface &$structure, \SplStack &$tableStack, &$connectionName)
+    {
+        if (!$structure->has('connection')) {
+            throw new StructureException('A database description must contains the connection field', 0);
+        }
+
+        if ((!is_string($structure->get('connection'))) || (strlen($structure->get('connection')) <= 0)) {
+            throw new StructureException('The connection name must be given as a non-empty string', 3);
+        }
+
+        if (!$structure->has('tables')) {
+            throw new StructureException("A database description must contains a tables field", 1);
+        }
+
+        //update the connection name
+        $connectionName = $structure->get('connection');
+
+        foreach ($structure->get('tables') as &$table) {
+            if (!is_array($table)) {
+                throw new StructureException("Wrong structure: the 'tables' field must contains arrays", 2);
+            }
+
+            //parse the current table (the parseTable function also pops onto the stack)
+            self::parseTable($table, $tableStack);
+        }
+    }
 
     /**
      * Parse a table given its definition.
@@ -135,19 +173,40 @@ abstract class DatabaseStructureParseAlgorithm
      *
      * @param  array $relationDescription the definition of the relation
      * @param  \SplStack $tableStack      the collection of tables to be used when searching for related table and column
-     * @return FieldRelation the relation built from its description
+     * @return ColumnRelation the relation built from its description
      * @throws StructureException the error in the description
      */
-    protected static function parseRelation(array &$relationDescription, \SplStack &$tableStack) : FieldRelation
+    protected static function parseRelation(array &$relationDescription, \SplStack &$tableStack) : ColumnRelation
     {
         $relation = new GenericCollection($relationDescription);
 
-        if (!$relation->has('table')) {
-            throw new StructureException('', 10);
+        if ((!$relation->has('table')) || (!is_string($relation->get('table'))) || (strlen($relation->get('table')) < 0)) {
+            throw new StructureException('To define a relation the name of the table containing the related field must be given', 10);
         }
 
-        if (!$relation->has('field')) {
-            throw new StructureException('', 11);
+        if ((!$relation->has('field')) || (!is_string($relation->get('field'))) || (strlen($relation->get('field')) < 0)) {
+            throw new StructureException('To define a relation the name of the related field must be given', 11);
         }
+
+        $currentRelation = null;
+        foreach ($tableStack as &$currentTable) {
+            if (strcmp($currentTable->getName(), $relation->get('table')) != 0) {
+                continue;
+            }
+
+            foreach ($currentTable->getColumns() as $currentColumn) {
+                if (strcmp($currentColumn->getName(), $relation->get('table')) != 0) {
+                    continue;
+                }
+
+                $currentRelation = new ColumnRelation($currentTable, $currentColumn);
+            }
+        }
+
+        if (!($currentRelation instanceof FieldRelation)) {
+            throw new StructureException('The related table and column cannot be found. The related table must be defined before an external relation.', 12);
+        }
+
+        return $currentRelation;
     }
 }

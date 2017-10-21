@@ -17,6 +17,7 @@ limitations under the License.
 
 namespace Gishiki\tests\Database;
 
+use Gishiki\Database\Adapters\Utils\ConnectionParser\ConnectionParserException;
 use PHPUnit\Framework\TestCase;
 
 use Gishiki\Database\DatabaseException;
@@ -38,7 +39,7 @@ class DatabaseManagerTest extends TestCase
 
     public function testConnectionQuery()
     {
-        $this->expectException(DatabaseException::class);
+        $this->expectException(ConnectionParserException::class);
         $dbManager = new DatabaseManager();
         $dbManager->connect('default', 'unknown_db_adapter://user:pass@host:port/db');
     }

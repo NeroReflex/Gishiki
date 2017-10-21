@@ -20,6 +20,7 @@ namespace Gishiki\Database;
 use Gishiki\Database\Adapters\Sqlite;
 use Gishiki\Database\Adapters\Pgsql;
 use Gishiki\Database\Adapters\Mysql;
+use Gishiki\Database\Adapters\Utils\ConnectionParser\ConnectionParserException;
 
 /**
  * Represent the database manager of the entire framework.
@@ -36,7 +37,7 @@ final class DatabaseManager
         'postgres' => Pgsql::class,
         'postgre' => Pgsql::class,
         'mysql' => Mysql::class,
-        'mariadb'
+        'mariadb' => Mysql::class,
     ];
 
     /**
@@ -50,7 +51,8 @@ final class DatabaseManager
      * @param string $connectionName     the name of the database connection
      * @param string $connectionString   the connection string
      * @throws \InvalidArgumentException invalid name or connection string
-     * @throws DatabaseException         a database adapter with the given name doesn't exists
+     * @throws DatabaseException         the error occurred while opening the database connection
+     * @throws ConnectionParserException a database adapter with the given name doesn't exists
      * @return DatabaseInterface         the connected database instance
      */
     public function connect($connectionName, $connectionString)
@@ -65,23 +67,20 @@ final class DatabaseManager
         $adapterTemp = strtolower($temp[0]);
 
         if (!array_key_exists($adapterTemp, self::ADAPTERS_MAP)) {
-            throw new DatabaseException("The given database type is not valid or not supported.", 40);
+            throw new ConnectionParserException("The given database type is not valid or not supported.", 40);
         }
 
+        //get the adapter and the connection query
         $adapter = $temp[0];
         $connectionQuery = $temp[1];
 
-        try {
-            //reflect the adapter
-            $reflectedAdapter = new \ReflectionClass(self::ADAPTERS_MAP[$adapter]);
+        //reflect the adapter
+        $reflectedAdapter = new \ReflectionClass(self::ADAPTERS_MAP[$adapter]);
 
-            //and use the adapter to establish the database connection and return the connection handler
-            $this->connections[sha1($connectionName)] = $reflectedAdapter->newInstance($connectionQuery);
+        //and use the adapter to establish the database connection and return the connection handler
+        $this->connections[sha1($connectionName)] = $reflectedAdapter->newInstance($connectionQuery);
 
-            return $this->connections[sha1($connectionName)];
-        } catch (\ReflectionException $ex) {
-            throw new DatabaseException('The given connection query requires an nonexistent adapter', 0);
-        }
+        return $this->connections[sha1($connectionName)];
     }
 
     /**

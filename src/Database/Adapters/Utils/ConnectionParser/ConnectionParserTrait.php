@@ -17,8 +17,6 @@ limitations under the License.
 
 namespace Gishiki\Database\Adapters\Utils\ConnectionParser;
 
-use Gishiki\Database\Adapters\ConnectionParser\ConnectionParserException;
-
 /**
  * Implements a working connection string parser.
  *
@@ -29,27 +27,27 @@ trait ConnectionParserTrait
     /**
      * @var string the database host
      */
-    protected $host;
+    protected $host = null;
 
     /**
      * @var string the database port
      */
-    protected $port;
+    protected $port = null;
 
     /**
      * @var string the database name
      */
-    protected $name;
+    protected $name = null;
 
     /**
      * @var string the database user
      */
-    protected $user;
+    protected $user = null;
 
     /**
      * @var string the user password
      */
-    protected $password;
+    protected $password = null;
 
     /**
      * @var array|null the arguments in pdo format
@@ -82,20 +80,16 @@ trait ConnectionParserTrait
      */
     protected function parsePDOConnectionQuery($connection)
     {
-        if (!is_string($connection)) {
-            throw new \InvalidArgumentException("the connection query must be given as a string");
-        }
-
         $rawParams = [];
         $paramSplit = explode(';', $connection);
 
         foreach ($paramSplit as &$param) {
-            if (strpos($param, '=') === false) {
-                throw new ConnectionParserException("Invalid PDO parameter: $param", 1);
+            if (strlen($param) <= 0) {
+                continue;
             }
 
-            if ($param[strlen($param) - 1] == ';') {
-                $param = substr($param, 0, -1);
+            if (strpos($param, '=') === false) {
+                throw new ConnectionParserException("Invalid PDO parameter: ".$param, 1);
             }
 
             $exploded = explode('=', $param, 2);
@@ -136,9 +130,6 @@ trait ConnectionParserTrait
      */
     protected function parseStandardConnectionQuery($connection)
     {
-        if (!is_string($connection)) {
-            throw new \InvalidArgumentException("the connection query must be given as a string");
-        }
     }
 
     public function getPDOConnection() : array
@@ -154,7 +145,6 @@ trait ConnectionParserTrait
         $query .= ((is_string($this->name)) && (strlen($this->name) > 0)) ?
             'dbname=' . $this->name . ';' : '';
 
-        $query = substr($query, 0, -1);
         $dbUser = ((is_string($this->user)) && (strlen($this->user) > 0)) ? $this->user : null;
         $dbPass = ((is_string($this->password)) && (strlen($this->password) > 0)) ? $this->password : null;
 

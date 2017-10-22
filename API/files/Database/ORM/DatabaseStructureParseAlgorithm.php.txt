@@ -19,7 +19,6 @@ namespace Gishiki\Database\ORM;
 
 use Gishiki\Algorithms\Collections\CollectionInterface;
 use Gishiki\Algorithms\Collections\GenericCollection;
-use Gishiki\Database\Runtime\FieldRelation;
 use Gishiki\Database\Schema\Column;
 use Gishiki\Database\Schema\ColumnRelation;
 use Gishiki\Database\Schema\ColumnType;
@@ -74,13 +73,22 @@ abstract class DatabaseStructureParseAlgorithm
         //update the connection name
         $connectionName = $structure->get('connection');
 
+        //this will be used to build references
+        $tables = [];
+
         foreach ($structure->get('tables') as &$table) {
             if (!is_array($table)) {
                 throw new StructureException("Wrong structure: the 'tables' field must contains arrays", 2);
             }
 
             //parse the current table (the parseTable function also pops onto the stack)
-            self::parseTable($table, $tableStack);
+            $currentTable = self::parseTable($table, $tables);
+
+            //update the collection tables
+            $tables[] = &$currentTable;
+
+            //add the table to the collection
+            $tableStack->push($currentTable);
         }
     }
 
@@ -88,11 +96,11 @@ abstract class DatabaseStructureParseAlgorithm
      * Parse a table given its definition.
      *
      * @param  array     $tableDescription the definition of the table
-     * @param  \SplStack $tableStack       the collection of tables to be updated
+     * @param  Column[]  $tableStack       the collection of tables to be updated
      * @return Table the table built from its description
      * @throws StructureException the error in the description
      */
-    protected static function parseTable(array &$tableDescription, \SplStack &$tableStack) : Table
+    protected static function parseTable(array &$tableDescription, array &$tableStack) : Table
     {
         $table = new GenericCollection($tableDescription);
 
@@ -114,9 +122,6 @@ abstract class DatabaseStructureParseAlgorithm
             $currentTable->addColumn($currentField);
         }
 
-        //add the table to the collection
-        $tableStack->push($currentTable);
-
         //return the parsed table
         return $currentTable;
     }
@@ -124,12 +129,12 @@ abstract class DatabaseStructureParseAlgorithm
     /**
      * Parse a field given its definition.
      *
-     * @param  array $fieldDescription the definition of the field/column
-     * @param  \SplStack $tableStack   the collection of tables to be updated
+     * @param  array    $fieldDescription the definition of the field/column
+     * @param  Column[] $tableStack   the collection of tables to be updated
      * @return Column the field built from its description
      * @throws StructureException the error in the description
      */
-    protected static function parseField(array &$fieldDescription, \SplStack &$tableStack) : Column
+    protected static function parseField(array &$fieldDescription, array &$tableStack) : Column
     {
         $field = new GenericCollection($fieldDescription);
 
@@ -171,12 +176,12 @@ abstract class DatabaseStructureParseAlgorithm
     /**
      * Parse a relation given its definition.
      *
-     * @param  array $relationDescription the definition of the relation
-     * @param  \SplStack $tableStack      the collection of tables to be used when searching for related table and column
+     * @param  array     $relationDescription the definition of the relation
+     * @param  Column[] $tableStack          the collection of tables to be used when searching for related table and column
      * @return ColumnRelation the relation built from its description
      * @throws StructureException the error in the description
      */
-    protected static function parseRelation(array &$relationDescription, \SplStack &$tableStack) : ColumnRelation
+    protected static function parseRelation(array &$relationDescription, array &$tableStack) : ColumnRelation
     {
         $relation = new GenericCollection($relationDescription);
 
@@ -195,15 +200,13 @@ abstract class DatabaseStructureParseAlgorithm
             }
 
             foreach ($currentTable->getColumns() as $currentColumn) {
-                if (strcmp($currentColumn->getName(), $relation->get('table')) != 0) {
-                    continue;
+                if (strcmp($currentColumn->getName(), $relation->get('field')) == 0) {
+                    $currentRelation = new ColumnRelation($currentTable, $currentColumn);
                 }
-
-                $currentRelation = new ColumnRelation($currentTable, $currentColumn);
             }
         }
 
-        if (!($currentRelation instanceof FieldRelation)) {
+        if (!($currentRelation instanceof ColumnRelation)) {
             throw new StructureException('The related table and column cannot be found. The related table must be defined before an external relation.', 12);
         }
 

@@ -34,6 +34,14 @@ class MysqlConnectionParserTest extends TestCase
         return new MysqlConnectionParser();
     }
 
+    public function testBadParam()
+    {
+        $parser = static::getParser();
+
+        $this->expectException(\InvalidArgumentException::class);
+        $parser->parse(null);
+    }
+
     public function testInvalidFormat()
     {
         $parser = static::getParser();

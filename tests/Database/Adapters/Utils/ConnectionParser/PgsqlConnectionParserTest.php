@@ -34,6 +34,14 @@ class PgsqlConnectionParserTest extends TestCase
         return new PgsqlConnectionParser();
     }
 
+    public function testBadParam()
+    {
+        $parser = static::getParser();
+
+        $this->expectException(\InvalidArgumentException::class);
+        $parser->parse(null);
+    }
+
     public function testInvalidFormat()
     {
         $parser = static::getParser();

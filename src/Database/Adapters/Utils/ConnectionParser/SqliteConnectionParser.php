@@ -33,6 +33,10 @@ final class SqliteConnectionParser implements ConnectionParserInterface
 
     public function parse($connection)
     {
+        if (!is_string($connection)) {
+            throw new \InvalidArgumentException("the connection query must be given as a string");
+        }
+
         $this->file = $connection;
     }
 

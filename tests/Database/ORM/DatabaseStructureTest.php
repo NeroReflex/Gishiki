@@ -32,6 +32,109 @@ use PHPUnit\Framework\TestCase;
  */
 class DatabaseStructureTest extends TestCase
 {
+    public function testRelation()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => 'bar',
+                    "fields" => [
+                        [
+                            "name" => 'foo',
+                            "type" => "int",
+                            "primary_key" => true,
+                            "not_null" => true,
+                            "auto_increment" => true,
+                        ],
+                        [
+                            "name" => 'cash',
+                            "type" => "money",
+                            "not_null" => true,
+                        ]
+                    ]
+                ],
+
+                [
+                    "name" => 'etc',
+                    "fields" => [
+                        [
+                            "name" => __FUNCTION__,
+                            "type" => "money",
+                            "relation" => [
+                                "table" => 'bar',
+                                "field" => 'foo'
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
+
+        $dbStructure->getTables()->rewind();
+
+        $this->assertEquals(2, $dbStructure->getTables()->count());
+
+        $etcTable = $dbStructure->getTables()->current();
+        $this->assertEquals('etc', $etcTable->getName());
+    }
+
+    public function testBadFieldRelation()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => __FUNCTION__,
+                    "fields" => [
+                        [
+                            "name" => __FUNCTION__,
+                            "type" => "money",
+                            "relation" => [
+                                "table" => 'bar',
+                                "field" => 4
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->expectException(StructureException::class);
+
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
+    }
+
+    public function testBadTableRelation()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => __FUNCTION__,
+                    "fields" => [
+                        [
+                            "name" => __FUNCTION__,
+                            "type" => "money",
+                            "relation" => [
+                                "table" => null,
+                                "field" => 'foo'
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->expectException(StructureException::class);
+
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
+    }
 
     public function testBadRelation()
     {

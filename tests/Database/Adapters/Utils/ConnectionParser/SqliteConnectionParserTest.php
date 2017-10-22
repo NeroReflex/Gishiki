@@ -32,6 +32,14 @@ class SqliteConnectionParserTest extends TestCase
         return new SqliteConnectionParser();
     }
 
+    public function testBadParam()
+    {
+        $parser = static::getParser();
+
+        $this->expectException(\InvalidArgumentException::class);
+        $parser->parse(null);
+    }
+
     public function testValidrelativePath()
     {
         $parser = static::getParser();

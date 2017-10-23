@@ -32,7 +32,7 @@ final class DatabaseStructure extends DatabaseStructureParseAlgorithm
     protected $connectionName;
 
     /**
-     * @var \SplStack the collection of tables in creation reversed order
+     * @var array the collection of tables in creation order
      */
     protected $stackTables;
 
@@ -41,7 +41,7 @@ final class DatabaseStructure extends DatabaseStructureParseAlgorithm
      */
     public function __construct()
     {
-        $this->stackTables = new \SplStack();
+        $this->stackTables = [];
     }
 
     /**
@@ -70,12 +70,12 @@ final class DatabaseStructure extends DatabaseStructureParseAlgorithm
     }
 
     /**
-     * Get the collection of tables in a stack where the first table to be popped
-     * is the first that must be created.
+     * Get the collection of tables in the exact order they need to be
+     * pushed onto the database.
      *
-     * @return \SplStack the collection of tables
+     * @return array the collection of tables
      */
-    public function &getTables() : \SplStack
+    public function &getTables() : array
     {
         //return the database structure
         return $this->stackTables;

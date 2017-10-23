@@ -32,6 +32,116 @@ use PHPUnit\Framework\TestCase;
  */
 class DatabaseStructureTest extends TestCase
 {
+    public function testNonTrivialRelation()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => 'reseller',
+                    "fields" => [
+                        [
+                            "name" => 'name',
+                            "type" => "text",
+                            "not_null" => true,
+                        ],
+                        [
+                            "name" => 'id',
+                            "type" => "int",
+                            "primary_key" => true,
+                            "not_null" => true,
+                            "auto_increment" => true,
+                        ],
+                    ]
+                ],
+                [
+                    "name" => 'author',
+                    "fields" => [
+                        [
+                            "name" => 'first_name',
+                            "type" => "text",
+                            "not_null" => true,
+                        ],
+                        [
+                            "name" => 'last_name',
+                            "type" => "text",
+                            "not_null" => true,
+                        ],
+                        [
+                            "name" => 'id',
+                            "type" => "int",
+                            "primary_key" => true,
+                            "not_null" => true,
+                            "auto_increment" => true,
+                        ],
+                    ]
+                ],
+                [
+                    "name" => 'book',
+                    "fields" => [
+                        [
+                            "name" => "id",
+                            "type" => "int",
+                            "not_null" => true,
+                            "auto_increment" => true,
+                            "primary_key" => true
+                        ],
+                        [
+                            "name" => "title",
+                            "type" => "text",
+                        ],
+                        [
+                            "name" => "cost",
+                            "type" => "money",
+                        ],
+                        [
+                            "name" => "author_id",
+                            "type" => "int",
+                            "not_null" => true,
+                            "relation" => [
+                                "table" => 'author',
+                                "field" => 'id'
+                            ]
+                        ],
+                        [
+                            "name" => "reseller_id",
+                            "type" => "int",
+                            "not_null" => true,
+                            "relation" => [
+                                "table" => 'reseller',
+                                "field" => 'id'
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
+
+        $this->assertEquals(3, count($dbStructure->getTables()));
+
+        $bookTable = $dbStructure->getTables()[2];
+        $this->assertEquals('book', $bookTable->getName());
+
+        $bookcolumns = 0;
+        foreach ($bookTable->getColumns() as $currentColumn) {
+
+            if (strcmp($currentColumn->getName(), "author_id") == 0) {
+                $this->assertEquals('author', $currentColumn->getRelation()->getForeignTable()->getName());
+                $this->assertEquals('id', $currentColumn->getRelation()->getForeignKey()->getName());
+            } elseif (strcmp($currentColumn->getName(), "reseller_id") == 0) {
+                $this->assertEquals('reseller', $currentColumn->getRelation()->getForeignTable()->getName());
+                $this->assertEquals('id', $currentColumn->getRelation()->getForeignKey()->getName());
+            }
+
+            $bookcolumns++;
+        }
+
+        $this->assertEquals(5, $bookcolumns);
+    }
+
     public function testRelation()
     {
         $description = new SerializableCollection([
@@ -74,12 +184,40 @@ class DatabaseStructureTest extends TestCase
         $dbStructure = new DatabaseStructure();
         $dbStructure->parse($description);
 
-        $dbStructure->getTables()->rewind();
+        $this->assertEquals(2, count($dbStructure->getTables()));
 
-        $this->assertEquals(2, $dbStructure->getTables()->count());
+        $barTable = $dbStructure->getTables()[0];
+        $this->assertEquals('bar', $barTable->getName());
 
-        $etcTable = $dbStructure->getTables()->current();
+        $etcTable = $dbStructure->getTables()[1];
         $this->assertEquals('etc', $etcTable->getName());
+    }
+
+    public function testBadRelation()
+    {
+        $description = new SerializableCollection([
+            "connection" => "example",
+            "tables" => [
+                [
+                    "name" => 'etc',
+                    "fields" => [
+                        [
+                            "name" => __FUNCTION__,
+                            "type" => "money",
+                            "relation" => [
+                                "table" => 'bar',
+                                "field" => 'foo'
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        $this->expectException(StructureException::class);
+
+        $dbStructure = new DatabaseStructure();
+        $dbStructure->parse($description);
     }
 
     public function testBadFieldRelation()
@@ -136,7 +274,7 @@ class DatabaseStructureTest extends TestCase
         $dbStructure->parse($description);
     }
 
-    public function testBadRelation()
+    public function testBadRelationType()
     {
         $description = new SerializableCollection([
             "connection" => "example",
@@ -180,9 +318,7 @@ class DatabaseStructureTest extends TestCase
         $dbStructure = new DatabaseStructure();
         $dbStructure->parse($description);
 
-        $tables = $dbStructure->getTables();
-
-        $testField = $tables->pop()->getColumns()[0];
+        $testField = (current($dbStructure->getTables()))->getColumns()[0];
 
         $this->assertEquals(ColumnType::MONEY, $testField->getType());
     }
@@ -206,9 +342,8 @@ class DatabaseStructureTest extends TestCase
 
         $dbStructure = new DatabaseStructure();
         $dbStructure->parse($description);
-        $tables = $dbStructure->getTables();
 
-        $testField = $tables->pop()->getColumns()[0];
+        $testField = (current($dbStructure->getTables()))->getColumns()[0];
 
         $this->assertEquals(ColumnType::DATETIME, $testField->getType());
     }
@@ -232,9 +367,8 @@ class DatabaseStructureTest extends TestCase
 
         $dbStructure = new DatabaseStructure();
         $dbStructure->parse($description);
-        $tables = $dbStructure->getTables();
 
-        $testField = $tables->pop()->getColumns()[0];
+        $testField = (current($dbStructure->getTables()))->getColumns()[0];
 
         $this->assertEquals(ColumnType::DOUBLE, $testField->getType());
     }
@@ -258,9 +392,8 @@ class DatabaseStructureTest extends TestCase
 
         $dbStructure = new DatabaseStructure();
         $dbStructure->parse($description);
-        $tables = $dbStructure->getTables();
 
-        $testField = $tables->pop()->getColumns()[0];
+        $testField = (current($dbStructure->getTables()))->getColumns()[0];
 
         $this->assertEquals(ColumnType::FLOAT, $testField->getType());
     }
@@ -284,9 +417,8 @@ class DatabaseStructureTest extends TestCase
 
         $dbStructure = new DatabaseStructure();
         $dbStructure->parse($description);
-        $tables = $dbStructure->getTables();
 
-        $testField = $tables->pop()->getColumns()[0];
+        $testField = (current($dbStructure->getTables()))->getColumns()[0];
 
         $this->assertEquals(ColumnType::NUMERIC, $testField->getType());
     }
@@ -310,9 +442,8 @@ class DatabaseStructureTest extends TestCase
 
         $dbStructure = new DatabaseStructure();
         $dbStructure->parse($description);
-        $tables = $dbStructure->getTables();
 
-        $testField = $tables->pop()->getColumns()[0];
+        $testField = (current($dbStructure->getTables()))->getColumns()[0];
 
         $this->assertEquals(ColumnType::BIGINT, $testField->getType());
     }
@@ -336,9 +467,8 @@ class DatabaseStructureTest extends TestCase
 
         $dbStructure = new DatabaseStructure();
         $dbStructure->parse($description);
-        $tables = $dbStructure->getTables();
 
-        $testField = $tables->pop()->getColumns()[0];
+        $testField = (current($dbStructure->getTables()))->getColumns()[0];
 
         $this->assertEquals(ColumnType::SMALLINT, $testField->getType());
     }
@@ -362,9 +492,8 @@ class DatabaseStructureTest extends TestCase
 
         $dbStructure = new DatabaseStructure();
         $dbStructure->parse($description);
-        $tables = $dbStructure->getTables();
 
-        $testField = $tables->pop()->getColumns()[0];
+        $testField = (current($dbStructure->getTables()))->getColumns()[0];
 
         $this->assertEquals(ColumnType::INTEGER, $testField->getType());
     }
@@ -616,7 +745,7 @@ class DatabaseStructureTest extends TestCase
 
         $tables = $dbStructure->getTables();
 
-        $firstTable = $tables->pop();
+        $firstTable = $tables[0];
 
         $this->assertEquals("users", $firstTable->getName());
 
@@ -639,6 +768,4 @@ class DatabaseStructureTest extends TestCase
         $dbStructure = new DatabaseStructure();
         $dbStructure->parse($description);
     }
-
-
 }

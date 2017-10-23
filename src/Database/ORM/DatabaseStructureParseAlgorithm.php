@@ -48,15 +48,15 @@ abstract class DatabaseStructureParseAlgorithm
     /**
      * Build the Database structure from a collection with a fixed structure.
      *
-     * Also responsible for building the internal tables stack.
-     * Tables are organized as a stack because the order matters!
+     * Also responsible for appending each table into the stack into the exact
+     * order they need to be pushed into the database.
      *
      * @param  CollectionInterface   $structure      the json description of the database
-     * @param  \SplStack             $tableStack     the collection of tables to be updated
+     * @param  array                 $tableStack     the collection of tables to be updated
      * @param  string                $connectionName will be filled with the connection name
      * @throws StructureException the error in the description
      */
-    public function parseDatabase(CollectionInterface &$structure, \SplStack &$tableStack, &$connectionName)
+    public function parseDatabase(CollectionInterface &$structure, array &$tableStack, &$connectionName)
     {
         if (!$structure->has('connection')) {
             throw new StructureException('A database description must contains the connection field', 0);
@@ -73,22 +73,13 @@ abstract class DatabaseStructureParseAlgorithm
         //update the connection name
         $connectionName = $structure->get('connection');
 
-        //this will be used to build references
-        $tables = [];
-
         foreach ($structure->get('tables') as &$table) {
             if (!is_array($table)) {
                 throw new StructureException("Wrong structure: the 'tables' field must contains arrays", 2);
             }
 
-            //parse the current table (the parseTable function also pops onto the stack)
-            $currentTable = self::parseTable($table, $tables);
-
             //update the collection tables
-            $tables[] = &$currentTable;
-
-            //add the table to the collection
-            $tableStack->push($currentTable);
+            $tableStack[] = self::parseTable($table, $tableStack);
         }
     }
 
@@ -194,20 +185,32 @@ abstract class DatabaseStructureParseAlgorithm
         }
 
         $currentRelation = null;
+
+        //speed up the search algorithm
+        $relatedTableName = $relation->get('table');
+        $relatedTableField = $relation->get('field');
+        $found = false;
+
         foreach ($tableStack as &$currentTable) {
-            if (strcmp($currentTable->getName(), $relation->get('table')) != 0) {
+            if (strcmp($currentTable->getName(), $relatedTableName) != 0) {
                 continue;
             }
 
+
             foreach ($currentTable->getColumns() as $currentColumn) {
-                if (strcmp($currentColumn->getName(), $relation->get('field')) == 0) {
+                if (strcmp($currentColumn->getName(), $relatedTableField) == 0) {
                     $currentRelation = new ColumnRelation($currentTable, $currentColumn);
+                    $found = true;
                 }
+            }
+
+            if ($found) {
+                break;
             }
         }
 
         if (!($currentRelation instanceof ColumnRelation)) {
-            throw new StructureException('The related table and column cannot be found. The related table must be defined before an external relation.', 12);
+            throw new StructureException('The related table ('.$relation->get('table').') and column ('.$relation->get('field').') cannot be found. The related table must be defined before an external relation.', 12);
         }
 
         return $currentRelation;

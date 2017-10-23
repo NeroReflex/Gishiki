@@ -34,6 +34,60 @@ class MysqlConnectionParserTest extends TestCase
         return new MysqlConnectionParser();
     }
 
+    public function testValidStandardFormat()
+    {
+        $parser = static::getParser();
+
+        $parser->parse("root:test_pw@localhost:4580/database");
+
+        $this->assertEquals([
+            'mysql:host=localhost;port=4580;dbname=database;',
+            'root',
+            'test_pw',
+            null
+        ], $parser->getPDOConnection());
+    }
+
+    public function testValidAndCompleteStandardFormat()
+    {
+        $parser = static::getParser();
+
+        $parser->parse("root:test_pw@localhost:4580/database?charset=utf8");
+
+        $this->assertEquals([
+            'mysql:host=localhost;port=4580;dbname=database;',
+            'root',
+            'test_pw',
+            [
+                'charset' => 'utf8'
+            ]
+        ], $parser->getPDOConnection());
+    }
+
+    public function testInvalidUsernameStandardFormat()
+    {
+        $parser = static::getParser();
+
+        $this->expectException(ConnectionParserException::class);
+        $parser->parse(":test_pw@localhost:4580/database?charset=utf8");
+    }
+
+    public function testInvalidHostnameStandardFormat()
+    {
+        $parser = static::getParser();
+
+        $this->expectException(ConnectionParserException::class);
+        $parser->parse("user:test_pw@:4580/database");
+    }
+
+    public function testInvalidDatabaseStandardFormat()
+    {
+        $parser = static::getParser();
+
+        $this->expectException(ConnectionParserException::class);
+        $parser->parse("user:test_pw@localhost:4580");
+    }
+
     public function testBadParam()
     {
         $parser = static::getParser();

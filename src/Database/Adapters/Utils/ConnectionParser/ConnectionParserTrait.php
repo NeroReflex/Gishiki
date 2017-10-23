@@ -130,6 +130,44 @@ trait ConnectionParserTrait
      */
     protected function parseStandardConnectionQuery($connection)
     {
+        /*
+         * split the string into an array like
+         *     0 => 'user:pass',
+         *     1 => 'host:port/database?whatever=anyvalue'
+        */
+        $atSplit = explode('@', $connection);
+
+        $userAndPass = $atSplit[0];
+        $slashSplit = explode('/', $atSplit[1], 2);
+        $hostAndPort = $slashSplit[0];
+        $dbAndParams = (count($slashSplit) == 2) ? $slashSplit[1] : '';
+
+        $userPassExpl = explode(':', $userAndPass, 2);
+        $hostPortExpl = explode(':', $hostAndPort, 2);
+        $dbParamsExpl = explode('?', $dbAndParams, 2);
+
+        //check for bad connection parameters
+        if (strlen($hostPortExpl[0]) <= 0) {
+            throw new ConnectionParserException('Invalid hostname', 6);
+        }
+
+        if (strlen($userPassExpl[0]) <= 0) {
+            throw new ConnectionParserException('Invalid username', 6);
+        }
+
+        if (strlen($dbParamsExpl[0]) <= 0) {
+            throw new ConnectionParserException('Invalid database', 6);
+        }
+
+        //import connection details
+        $this->user = $userPassExpl[0];
+        $this->password = ((count($userPassExpl) == 2) && (strlen($userPassExpl[1]) > 0)) ? $userPassExpl[1] : null;
+        $this->host = $hostPortExpl[0];
+        $this->port = ((count($hostPortExpl) == 2) && (strlen($hostPortExpl[1]) > 0)) ? $hostPortExpl[1] : null;
+        $this->name = $dbParamsExpl[0];
+        if ((count($dbParamsExpl) == 2) && (strlen($dbParamsExpl[1]))) {
+            parse_str($dbParamsExpl[1], $this->args);
+        }
     }
 
     public function getPDOConnection() : array

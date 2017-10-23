@@ -1,6 +1,7 @@
 language: php
 sudo: required
 php:
+  - '7.2'
   - '7.1'
   - '7.0'
 

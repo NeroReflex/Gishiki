@@ -49,15 +49,15 @@ class ColumnRelationTest extends TestCase
     
     public function testColumnRelationUnbindedColumn()
     {
-        $this->expectException(DatabaseException::class);
-        
         $externTable = new Table(__FUNCTION__);
 
         $externColumn = new Column('id', ColumnType::INTEGER);
         $externColumn->setPrimaryKey(true);
         $externColumn->setNotNull(true);
 
-        $relation = new ColumnRelation($externTable, $externColumn);
+        $this->expectException(DatabaseException::class);
+
+        new ColumnRelation($externTable, $externColumn);
     }
 
     public function testColumnRelation()

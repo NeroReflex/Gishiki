@@ -18,12 +18,9 @@ limitations under the License.
 namespace Gishiki\Core;
 
 use Gishiki\Core\Router\Router;
-use Gishiki\Database\DatabaseManager;
-use Gishiki\Logging\LoggerManager;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use Zend\Diactoros\Response\SapiStreamEmitter;
 use Zend\Diactoros\Response\EmitterInterface;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequestFactory;
@@ -35,6 +32,9 @@ use Zend\Diactoros\ServerRequestFactory;
  */
 final class Application
 {
+    use ApplicationDatabaseTrait;
+    use ApplicationLoggerTrait;
+
     /**
      * @var Config the application configuration
      */
@@ -44,21 +44,6 @@ final class Application
      * @var string the path of the current directory
      */
     protected $currentDirectory;
-
-    /**
-     * @var DatabaseManager the group of database connections
-     */
-    protected $databaseConnections;
-
-    /**
-     * @var LoggerManager the logger manager
-     */
-    protected $loggersConnections;
-
-    /**
-     * @var string the name of the default logger to be used when logging an unhandled exception
-     */
-    protected $exceptionLoggerName;
 
     /**
      * @var RequestInterface the request sent to the framework
@@ -96,10 +81,6 @@ final class Application
             $this->emitter = new Response\SapiEmitter();
         }
 
-        //setup basic stuff
-        $this->databaseConnections = new DatabaseManager();
-        $this->loggersConnections = new LoggerManager();
-
         //get the root path
         $documentRoot = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
 
@@ -128,6 +109,22 @@ final class Application
     }
 
     /**
+     * Apply the application configuration.
+     */
+    protected function applyConfiguration()
+    {
+        $connections = $this->configuration->getConfiguration()->get('connections');
+        if (is_array($connections)) {
+            $this->connectDatabase($connections);
+        }
+
+        $loggers = $this->configuration->getConfiguration()->get('logging')['interfaces'];
+        if (is_array($loggers)) {
+            $this->connectLogger($loggers, $this->configuration->getConfiguration()->get('logging')['automatic']);
+        }
+    }
+
+    /**
      * Execute the requested operation.
      *
      * @param $router Router the router configured
@@ -137,8 +134,8 @@ final class Application
         //...generate the response
         try {
             $router->run($this->request, $this->response, [
-                'connections' => &$this->databaseConnections,
-                'loggers'     => &$this->loggersConnections,
+                'connections' => $this->getDatabaseManager(),
+                'loggers'     => $this->getLoggerManager(),
             ]);
         } catch (\Exception $ex) {
             //generate the response
@@ -146,9 +143,9 @@ final class Application
             $this->response = $this->response->getBody()->write("<h1>500 Internal Server Error</h1>");
 
             //write a log entry if necessary
-            if ($this->loggersConnections->isConnected($this->exceptionLoggerName)) {
+            if ($this->getLoggerManager()->isConnected($this->getDefaultLoggerName())) {
                 //retrieve the default logger instance
-                $logger = $this->loggersConnections->retrieve($this->exceptionLoggerName);
+                $logger = $this->getLoggerManager()->retrieve($this->getDefaultLoggerName());
 
                 if ($logger instanceof LoggerInterface) {
                     //write the log of the exception
@@ -175,55 +172,5 @@ final class Application
         }
 
         $this->emitter->emit($this->response);
-    }
-
-    /**
-     * Apply the application configuration.
-     */
-    protected function applyConfiguration()
-    {
-        $connections = $this->configuration->getConfiguration()->get('connections');
-        if (is_array($connections)) {
-            $this->connectDatabase($connections);
-        }
-
-        $loggers = $this->configuration->getConfiguration()->get('logging')['interfaces'];
-        if (is_array($loggers)) {
-            $this->connectLogger($loggers, $this->configuration->getConfiguration()->get('logging')['automatic']);
-        }
-    }
-
-    /**
-     * Prepare every logger instance setting the default one.
-     *
-     * If the default logger name is given it will be set as the default one.
-     *
-     * @param array  $connections the array of connections
-     * @param string $default     the name of the default connection
-     */
-    protected function connectLogger(array $connections, $default)
-    {
-        //connect every logger instance
-        foreach ($connections as $connectionName => &$connectionDetails) {
-            $this->loggersConnections->connect($connectionName, $connectionDetails);
-        }
-
-        //set the default logger connection
-        if (is_string($default) && (strlen($default) > 0) && (array_key_exists($default, $connections))) {
-            $this->exceptionLoggerName = $default;
-        }
-    }
-
-    /**
-     * Prepare connections to databases.
-     *
-     * @param array $connections the array of connections
-     */
-    protected function connectDatabase(array $connections)
-    {
-        //connect every db connection
-        foreach ($connections as $connection) {
-            $this->databaseConnections->connect($connection['name'], $connection['query']);
-        }
     }
 }

@@ -23,6 +23,7 @@ ratings:
   paths:
   - "**.php"
 exclude_paths:
-- "**Interface.php"
 - "/tests"
 - "/Documentation"
+exclude_patterns:
+- "**Interface.php"

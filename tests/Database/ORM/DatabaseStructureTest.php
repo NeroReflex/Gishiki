@@ -191,6 +191,8 @@ class DatabaseStructureTest extends TestCase
 
         $etcTable = $dbStructure->getTables()[1];
         $this->assertEquals('etc', $etcTable->getName());
+        $this->assertEquals('bar', ($etcTable->getColumns()[0])->getRelation()->getForeignTable()->getName());
+        $this->assertEquals('foo', ($etcTable->getColumns()[0])->getRelation()->getForeignKey()->getName());
     }
 
     public function testBadRelation()

@@ -32,11 +32,33 @@ use Zend\Diactoros\Uri;
  */
 class ApplicationTest extends TestCase
 {
+    protected static function setupTestingApplication($emitter = null)
+    {
+        $emitter = (is_null($emitter)) ? new \TestingEmitter() : $emitter;
+
+        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
+        $app = new Application($emitter);
+        unlink(__DIR__."/../../settings.json");
+
+        return $app;
+    }
+
+    public function testAutoUpdateValue()
+    {
+        $app = self::setupTestingApplication();
+
+        $this->assertEquals(false, $app->checkDatabaseAutoUpdate());
+
+        $app->setDatabaseAutoUpdate(true);
+        $this->assertEquals(true, $app->checkDatabaseAutoUpdate());
+
+        $app->setDatabaseAutoUpdate(false);
+        $this->assertEquals(false, $app->checkDatabaseAutoUpdate());
+    }
+
     public function testBadResponseType()
     {
-        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
-        $app = new Application(new \TestingEmitter());
-        unlink(__DIR__."/../../settings.json");
+        $app = self::setupTestingApplication();
 
         $response = new \ReflectionProperty($app, 'response');
         $response->setAccessible(true);
@@ -49,9 +71,7 @@ class ApplicationTest extends TestCase
 
     public function testDefaultEmitter()
     {
-        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
-        $app = new Application();
-        unlink(__DIR__."/../../settings.json");
+        $app = self::setupTestingApplication(new SapiEmitter());
 
         $emitter = new \ReflectionProperty($app, 'emitter');
         $emitter->setAccessible(true);
@@ -61,9 +81,7 @@ class ApplicationTest extends TestCase
 
     public function testDirectory()
     {
-        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
-        $app = new Application(new \TestingEmitter());
-        unlink(__DIR__."/../../settings.json");
+        $app = self::setupTestingApplication();
 
         $directory = new \ReflectionProperty($app, 'currentDirectory');
         $directory->setAccessible(true);
@@ -74,9 +92,7 @@ class ApplicationTest extends TestCase
 
     public function testCompleteApplication()
     {
-        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
-        $app = new Application(new \TestingEmitter());
-        unlink(__DIR__."/../../settings.json");
+        $app = self::setupTestingApplication();
 
         $router = new Router();
         $router->add(new Route([
@@ -118,9 +134,7 @@ class ApplicationTest extends TestCase
 
     public function testRouteDefaultNotAllowed()
     {
-        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
-        $app = new Application(new \TestingEmitter());
-        unlink(__DIR__."/../../settings.json");
+        $app = self::setupTestingApplication();
 
         $router = new Router();
 
@@ -164,9 +178,7 @@ class ApplicationTest extends TestCase
 
     public function testRouteDefaultNotFound()
     {
-        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
-        $app = new Application(new \TestingEmitter());
-        unlink(__DIR__."/../../settings.json");
+        $app = self::setupTestingApplication();
 
         $router = new Router();
 
@@ -200,9 +212,7 @@ class ApplicationTest extends TestCase
 
     public function testRouteCustomNotFound()
     {
-        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
-        $app = new Application(new \TestingEmitter());
-        unlink(__DIR__."/../../settings.json");
+        $app = self::setupTestingApplication();
 
         $router = new Router();
 
@@ -246,9 +256,7 @@ class ApplicationTest extends TestCase
 
     public function testRouteCustomNotAllowed()
     {
-        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
-        $app = new Application(new \TestingEmitter());
-        unlink(__DIR__."/../../settings.json");
+        $app = self::setupTestingApplication();
 
         $router = new Router();
 
@@ -302,9 +310,7 @@ class ApplicationTest extends TestCase
 
     public function testException()
     {
-        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
-        $app = new Application(new \TestingEmitter());
-        unlink(__DIR__."/../../settings.json");
+        $app = self::setupTestingApplication();
 
         $router = new Router();
         $router->add(new Route([

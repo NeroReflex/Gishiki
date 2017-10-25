@@ -24,6 +24,11 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory>./src/</directory>
+            <exclude>
+                <file>./src/Database/Runtime/FieldOrdering.php</file>
+                <file>./src/Database/Runtime/FieldRelation.php</file>
+                <directory suffix="Interface.php">./src</directory>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>

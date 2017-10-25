@@ -71,7 +71,9 @@ class ApplicationTest extends TestCase
 
     public function testDefaultEmitter()
     {
-        $app = self::setupTestingApplication(new SapiEmitter());
+        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
+        $app = new Application();
+        unlink(__DIR__."/../../settings.json");
 
         $emitter = new \ReflectionProperty($app, 'emitter');
         $emitter->setAccessible(true);

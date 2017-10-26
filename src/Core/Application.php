@@ -17,6 +17,7 @@ limitations under the License.
 
 namespace Gishiki\Core;
 
+use Gishiki\Algorithms\Collections\SerializableCollection;
 use Gishiki\Core\Router\Router;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -113,11 +114,26 @@ final class Application
      */
     protected function applyConfiguration()
     {
+        //apply the database configuration
         $connections = $this->configuration->getConfiguration()->get('connections');
         if (is_array($connections)) {
             $this->connectDatabase($connections);
         }
 
+        //parse databases structure
+        $structures = $this->configuration->getConfiguration()->get('structures');
+        if (is_array($structures)) {
+            foreach($structures as $structureFile) {
+                $description = file_get_contents($this->currentDirectory . $structureFile);
+
+                $importedDescription = SerializableCollection::deserialize($description);
+
+                $this->registerDatabaseStructure($importedDescription);
+            }
+        }
+        //populateStructures
+
+        //apply the logging configuration
         $loggers = $this->configuration->getConfiguration()->get('logging')['interfaces'];
         if (is_array($loggers)) {
             $this->connectLogger($loggers, $this->configuration->getConfiguration()->get('logging')['automatic']);

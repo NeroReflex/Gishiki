@@ -1,0 +1,62 @@
+{
+  "connection": "example",
+  "tables": [
+    {
+      "name": "author",
+      "fields": [
+        {
+          "name": "first_name",
+          "type": "text",
+          "not_null": true
+        },
+        {
+          "name": "last_name",
+          "type": "text",
+          "not_null": true
+        },
+        {
+          "name": "id",
+          "type": "int",
+          "primary_key": true,
+          "not_null": true,
+          "auto_increment": true
+        }
+      ]
+    },
+    {
+      "name": "book",
+      "fields": [
+        {
+          "name": "id",
+          "type": "int",
+          "not_null": true,
+          "auto_increment": true,
+          "primary_key": true
+        },
+        {
+          "name": "title",
+          "type": "text"
+        },
+        {
+          "name": "isbn",
+          "type": "text",
+          "not_null": true
+        },
+        {
+          "name": "cost",
+          "type": "money",
+          "not_null": true
+        },
+        {
+          "name": "author_id",
+          "type": "int",
+          "not_null": true,
+          "relation": {
+            "table": "author",
+            "field": "id"
+          }
+        }
+      ]
+    }
+  ]
+}

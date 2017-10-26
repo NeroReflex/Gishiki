@@ -123,7 +123,7 @@ final class Application
         //parse databases structure
         $structures = $this->configuration->getConfiguration()->get('structures');
         if (is_array($structures)) {
-            foreach($structures as $structureFile) {
+            foreach ($structures as $structureFile) {
                 $description = file_get_contents($this->currentDirectory . $structureFile);
 
                 $importedDescription = SerializableCollection::deserialize($description);

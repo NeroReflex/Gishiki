@@ -17,7 +17,9 @@ limitations under the License.
 
 namespace Gishiki\Core;
 
+use Gishiki\Algorithms\Collections\CollectionInterface;
 use Gishiki\Database\DatabaseManager;
+use Gishiki\Database\ORM\DatabaseStructure;
 
 /**
  * This is a working implementation of database connections handler for the Application class.
@@ -30,6 +32,11 @@ trait ApplicationDatabaseTrait
      * @var DatabaseManager the group of database connections
      */
     protected $databaseConnections;
+
+    /**
+     * @var DatabaseStructure[] the database structure list
+     */
+    protected $databaseStructures = [];
 
     /**
      * @var bool auto update the database if true
@@ -88,5 +95,30 @@ trait ApplicationDatabaseTrait
         foreach ($connections as $connection) {
             $this->databaseConnections->connect($connection['name'], $connection['query']);
         }
+    }
+
+    /**
+     * Create, fill and register a database structure within the current application.
+     *
+     * @param CollectionInterface $structure the database description
+     */
+    protected function registerDatabaseStructure(CollectionInterface &$structure)
+    {
+        //parse the collection
+        $currentStructure = new DatabaseStructure();
+        $currentStructure->parse($structure);
+
+        //the parsed database structure is stored in the current application
+        $this->databaseStructures[] = $currentStructure;
+    }
+
+    /**
+     * get the full list of database structures used within the current application.
+     *
+     * @return DatabaseStructure[] the collection of database structures
+     */
+    public function getDatabaseStructure() : array
+    {
+        return $this->databaseStructures;
     }
 }

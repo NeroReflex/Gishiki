@@ -17,6 +17,7 @@ limitations under the License.
 
 namespace Gishiki\tests\Core\Router;
 
+use Gishiki\Algorithms\Collections\SerializableCollection;
 use Gishiki\Core\Application;
 use Gishiki\Core\Router\Route;
 use Gishiki\Core\Router\Router;
@@ -32,15 +33,26 @@ use Zend\Diactoros\Uri;
  */
 class ApplicationTest extends TestCase
 {
-    protected static function setupTestingApplication($emitter = null)
+    protected static function setupTestingApplication($emitter = null, $dbFiles = [])
     {
         $emitter = (is_null($emitter)) ? new \TestingEmitter() : $emitter;
 
-        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
+        $content = SerializableCollection::deserialize(file_get_contents(__DIR__."/../testSettings.json"));
+        $content->set('structures', $dbFiles);
+        file_put_contents(__DIR__."/../../settings.json", $content->serialize());
+
         $app = new Application($emitter);
+
         unlink(__DIR__."/../../settings.json");
 
         return $app;
+    }
+
+    public function testDatabaseStructureIntegration()
+    {
+        $app = self::setupTestingApplication(null, ["tests/defaultDatabase.json"]);
+
+        $this->assertEquals("author", (($app->getDatabaseStructure()[0])->getTables()[0])->getName());
     }
 
     public function testAutoUpdateValue()

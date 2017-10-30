@@ -19,6 +19,9 @@ before_install:
   - sudo apt-get install -y graphviz
 
 before_script:
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
+    - ./cc-test-reporter before-build
     - mysql -e 'CREATE DATABASE travis_ci_test;'
     - psql -c 'create database travis_ci_test;' -U postgres
     - if [[ "$TRAVIS_OS_NAME" == 'linux' ]] ; then sudo apt-get install rsync ; fi
@@ -27,7 +30,6 @@ before_script:
     - pecl config-set php_ini travis.php.ini
     - pear config-set php_ini travis.php.ini
     - phpenv config-add travis.php.ini
- #   - composer self-update
     - composer install
  #   - sleep 15
  #   - mongo localhost:27017/gishiki ./tests/SetupTestingMongo.js
@@ -38,7 +40,7 @@ script:
     
 after_script:
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then php vendor/bin/codacycoverage clover build/logs/clover.xml ; fi
-  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then ./vendor/bin/test-reporter ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer api-gen ;fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then curl -O https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py && sudo pip install mkdocs ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then cd Documentation && mkdocs build && cd ../ ; fi

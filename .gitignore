@@ -31,4 +31,5 @@ ubuntu-xenial-16.04-cloudimg-console.log
 /tests/*.log
 
 # Code Climate
-cc-test-reporter
+/coverage
+/cc-test-reporter

@@ -18,7 +18,7 @@ limitations under the License.
 namespace Gishiki\Algorithms;
 
 /**
- * An helper class for string manipulation.
+ * An helper class for base64 algorithm.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */

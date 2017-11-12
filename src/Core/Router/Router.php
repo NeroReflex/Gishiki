@@ -21,6 +21,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Services\ErrorHandling;
+use Gishiki\Core\Application;
 
 /**
  * This component represents the application as a set of HTTP rules.
@@ -194,11 +195,12 @@ final class Router
      * This function is __CALLED INTERNALLY__ and, therefore
      * it __MUST NOT__ be called by the user!
      *
-     * @param  RequestInterface  $requestToFulfill the request to be served/fulfilled
-     * @param  ResponseInterface $response         the response to be filled
-     * @param  array             $controllerArgs   an associative array with more parameters to be passed to the called controller
+     * @param RequestInterface  $requestToFulfill the request to be served/fulfilled
+     * @param ResponseInterface $response         the response to be filled
+     * @param array             $controllerArgs   an associative array with more parameters to be passed to the called controller
+     * @param Application|null  $app      the current application instance
      */
-    public function run(RequestInterface &$requestToFulfill, ResponseInterface &$response, array $controllerArgs = [])
+    public function run(RequestInterface &$requestToFulfill, ResponseInterface &$response, array $controllerArgs = [], Application $app = null)
     {
         //clone the request
         $request = clone $requestToFulfill;
@@ -211,7 +213,7 @@ final class Router
             //this will hold the parameters passed on the URL
             $deductedParams = new GenericCollection($params);
 
-            $matchedRoute($request, $response, $deductedParams, $controllerArgs);
+            $matchedRoute($request, $response, $deductedParams, $controllerArgs, $app);
 
             return;
         }

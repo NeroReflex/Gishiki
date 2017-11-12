@@ -89,4 +89,16 @@ class FakeController extends Controller
     {
         $this->getResponse()->getBody()->write("405 - Not Allowed (Custom :))");
     }
+
+    public function templatePrettyTest()
+    {
+        $this->setTwigLoader(new \Twig_Loader_Array([
+            "index.html" => "<html><head>{{ title }}</head><body>{{ text }}</body></html>",
+        ]));
+
+        $this->renderTwigTemplate("index.html", [
+            "title" => "",
+            "text" => "",
+        ]);
+    }
 }

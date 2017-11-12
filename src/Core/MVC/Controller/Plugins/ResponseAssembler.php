@@ -22,6 +22,7 @@ use Gishiki\Core\MVC\Controller\ControllerException;
 use Gishiki\Core\MVC\Controller\Plugin;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Gishiki\Core\Application;
 
 /**
  * This is a plugin used to generate data to be serialized before being transported by an HTTP Response.
@@ -42,11 +43,12 @@ class ResponseAssembler extends Plugin
      *
      * @param RequestInterface  $request  the HTTP request
      * @param ResponseInterface $response the HTTP response
+     * @param Application|null  $app      the current application instance
      */
-    public function __construct(RequestInterface &$request, ResponseInterface &$response)
+    public function __construct(RequestInterface &$request, ResponseInterface &$response, Application $app = null)
     {
         //this is important, NEVER forget!
-        parent::__construct($request, $response);
+        parent::__construct($request, $response, $app);
 
         $this->data = new SerializableCollection();
     }

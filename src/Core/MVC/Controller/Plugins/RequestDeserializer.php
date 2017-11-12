@@ -18,6 +18,7 @@ limitations under the License.
 namespace Gishiki\Core\MVC\Controller\Plugins;
 
 use Gishiki\Algorithms\Collections\DeserializationException;
+use Gishiki\Core\Application;
 use Gishiki\Core\MVC\Controller\Plugin;
 use Gishiki\Core\MVC\Controller\ControllerException;
 use Gishiki\Algorithms\Collections\SerializableCollection;
@@ -63,11 +64,12 @@ final class RequestDeserializer extends Plugin
      *
      * @param RequestInterface  $request  the HTTP request
      * @param ResponseInterface $response the HTTP response
+     * @param Application|null  $app      the current application instance
      */
-    public function __construct(RequestInterface &$request, ResponseInterface &$response)
+    public function __construct(RequestInterface &$request, ResponseInterface &$response, Application $app = null)
     {
         //this is important, NEVER forget!
-        parent::__construct($request, $response);
+        parent::__construct($request, $response, $app);
 
         $this->registerMediaTypeParser([
             'text/yaml',

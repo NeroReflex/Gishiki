@@ -17,6 +17,7 @@ limitations under the License.
 
 namespace Gishiki\Core\MVC\Controller;
 
+use Gishiki\Core\Application;
 use Gishiki\Database\DatabaseManager;
 use Gishiki\Logging\LoggerManager;
 use Psr\Http\Message\RequestInterface;
@@ -68,6 +69,11 @@ abstract class Controller
     protected $loggers;
 
     /**
+     * @var Application|null the application current instance
+     */
+    protected $application;
+
+    /**
      * Create a new controller that will fulfill the given request filling the given response.
      *
      * __Warning:__ you should *never* attempt to use another construction in your controllers,
@@ -77,9 +83,10 @@ abstract class Controller
      * @param  ResponseInterface $controllerResponse  the response to be given to the client
      * @param  GenericCollection $controllerArguments the collection of matched URI params
      * @param  array             $plugins             the array containing passed plugins
+     * @param  Application|null  $app                 the current application instance
      * @throws ControllerException the error preventing the controller creation
      */
-    public function __construct(RequestInterface &$controllerRequest, ResponseInterface &$controllerResponse, GenericCollection &$controllerArguments, array &$plugins)
+    public function __construct(RequestInterface &$controllerRequest, ResponseInterface &$controllerResponse, GenericCollection &$controllerArguments, array &$plugins, Application $app = null)
     {
         $this->connections = new DatabaseManager();
 
@@ -92,12 +99,15 @@ abstract class Controller
         //save the arguments collection
         $this->arguments = $controllerArguments;
 
+        //save the application reference
+        $this->application = &$app;
+
         //load middleware collection
         $this->plugins = [];
         foreach ($plugins as $pluginKey => &$pluginValue) {
             try {
                 $reflectedMiddleware = new \ReflectionClass($pluginValue);
-                $this->plugins[$pluginKey] = $reflectedMiddleware->newInstanceArgs([&$this->request, &$this->response]);
+                $this->plugins[$pluginKey] = $reflectedMiddleware->newInstanceArgs([&$this->request, &$this->response, &$this->application]);
             } catch (\ReflectionException $ex) {
                 throw new ControllerException("Invalid plugin class", 1);
             }

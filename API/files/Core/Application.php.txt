@@ -110,6 +110,16 @@ final class Application
     }
 
     /**
+     * Get the directory containing the application
+     *
+     * @return string the current directory
+     */
+    public function getCurrentDirectory() : string
+    {
+        return $this->currentDirectory;
+    }
+
+    /**
      * Apply the application configuration.
      */
     protected function applyConfiguration()
@@ -152,7 +162,7 @@ final class Application
             $router->run($this->request, $this->response, [
                 'connections' => $this->getDatabaseManager(),
                 'loggers'     => $this->getLoggerManager(),
-            ]);
+            ], $this);
         } catch (\Exception $ex) {
             //generate the response
             $this->response = $this->response->withStatus(500);

@@ -21,7 +21,55 @@
     <script src="../js/jquery.smooth-scroll.js"></script>
     <script src="../js/prism.min.js"></script>
     <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-    
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
     <link rel="shortcut icon" href="../images/favicon.ico"/>
     <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
     <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
@@ -96,37 +144,37 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-495473237"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-109211489"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-495473237" class="accordion-body collapse in">
+            <div id="namespace-109211489" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1275371425"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1930492754"></a>
                                 <a href="../namespaces/Gishiki.html" style="margin-left: 30px; padding-left: 0">Gishiki</a>
             </div>
-            <div id="namespace-1275371425" class="accordion-body collapse ">
+            <div id="namespace-1930492754" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1054769658"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1838455259"></a>
                                 <a href="../namespaces/Gishiki.Algorithms.html" style="margin-left: 30px; padding-left: 0">Algorithms</a>
             </div>
-            <div id="namespace-1054769658" class="accordion-body collapse ">
+            <div id="namespace-1838455259" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1947841568"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2125237390"></a>
                                 <a href="../namespaces/Gishiki.Algorithms.Collections.html" style="margin-left: 30px; padding-left: 0">Collections</a>
             </div>
-            <div id="namespace-1947841568" class="accordion-body collapse ">
+            <div id="namespace-2125237390" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -143,10 +191,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1058449576"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-156957905"></a>
                                 <a href="../namespaces/Gishiki.Algorithms.Strings.html" style="margin-left: 30px; padding-left: 0">Strings</a>
             </div>
-            <div id="namespace-1058449576" class="accordion-body collapse ">
+            <div id="namespace-156957905" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -172,37 +220,37 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1464292968"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-3329436"></a>
                                 <a href="../namespaces/Gishiki.Core.html" style="margin-left: 30px; padding-left: 0">Core</a>
             </div>
-            <div id="namespace-1464292968" class="accordion-body collapse ">
+            <div id="namespace-3329436" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-441280173"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1674291815"></a>
                                 <a href="../namespaces/Gishiki.Core.MVC.html" style="margin-left: 30px; padding-left: 0">MVC</a>
             </div>
-            <div id="namespace-441280173" class="accordion-body collapse ">
+            <div id="namespace-1674291815" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-913600683"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-315306834"></a>
                                 <a href="../namespaces/Gishiki.Core.MVC.Controller.html" style="margin-left: 30px; padding-left: 0">Controller</a>
             </div>
-            <div id="namespace-913600683" class="accordion-body collapse ">
+            <div id="namespace-315306834" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-457389147"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-203516718"></a>
                                 <a href="../namespaces/Gishiki.Core.MVC.Controller.Plugins.html" style="margin-left: 30px; padding-left: 0">Plugins</a>
             </div>
-            <div id="namespace-457389147" class="accordion-body collapse ">
+            <div id="namespace-203516718" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -239,10 +287,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-144264218"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1273686370"></a>
                                 <a href="../namespaces/Gishiki.Core.Router.html" style="margin-left: 30px; padding-left: 0">Router</a>
             </div>
-            <div id="namespace-144264218" class="accordion-body collapse ">
+            <div id="namespace-1273686370" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -274,37 +322,37 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-172131524"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2127364659"></a>
                                 <a href="../namespaces/Gishiki.Database.html" style="margin-left: 30px; padding-left: 0">Database</a>
             </div>
-            <div id="namespace-172131524" class="accordion-body collapse ">
+            <div id="namespace-2127364659" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-274383932"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1694251713"></a>
                                 <a href="../namespaces/Gishiki.Database.Adapters.html" style="margin-left: 30px; padding-left: 0">Adapters</a>
             </div>
-            <div id="namespace-274383932" class="accordion-body collapse ">
+            <div id="namespace-1694251713" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1771758426"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1151393072"></a>
                                 <a href="../namespaces/Gishiki.Database.Adapters.Utils.html" style="margin-left: 30px; padding-left: 0">Utils</a>
             </div>
-            <div id="namespace-1771758426" class="accordion-body collapse ">
+            <div id="namespace-1151393072" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-731215227"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-540028239"></a>
                                 <a href="../namespaces/Gishiki.Database.Adapters.Utils.ConnectionParser.html" style="margin-left: 30px; padding-left: 0">ConnectionParser</a>
             </div>
-            <div id="namespace-731215227" class="accordion-body collapse ">
+            <div id="namespace-540028239" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -324,10 +372,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1349303305"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-33115337"></a>
                                 <a href="../namespaces/Gishiki.Database.Adapters.Utils.QueryBuilder.html" style="margin-left: 30px; padding-left: 0">QueryBuilder</a>
             </div>
-            <div id="namespace-1349303305" class="accordion-body collapse ">
+            <div id="namespace-33115337" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -345,10 +393,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1100621288"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2146033405"></a>
                                 <a href="../namespaces/Gishiki.Database.Adapters.Utils.SQLGenerator.html" style="margin-left: 30px; padding-left: 0">SQLGenerator</a>
             </div>
-            <div id="namespace-1100621288" class="accordion-body collapse ">
+            <div id="namespace-2146033405" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -386,10 +434,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1234049360"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-353243194"></a>
                                 <a href="../namespaces/Gishiki.Database.ORM.html" style="margin-left: 30px; padding-left: 0">ORM</a>
             </div>
-            <div id="namespace-1234049360" class="accordion-body collapse ">
+            <div id="namespace-353243194" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -406,10 +454,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2086118412"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-556495665"></a>
                                 <a href="../namespaces/Gishiki.Database.Runtime.html" style="margin-left: 30px; padding-left: 0">Runtime</a>
             </div>
-            <div id="namespace-2086118412" class="accordion-body collapse ">
+            <div id="namespace-556495665" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -427,10 +475,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-620694830"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1336267958"></a>
                                 <a href="../namespaces/Gishiki.Database.Schema.html" style="margin-left: 30px; padding-left: 0">Schema</a>
             </div>
-            <div id="namespace-620694830" class="accordion-body collapse ">
+            <div id="namespace-1336267958" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -460,10 +508,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2025976894"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-695891"></a>
                                 <a href="../namespaces/Gishiki.Logging.html" style="margin-left: 30px; padding-left: 0">Logging</a>
             </div>
-            <div id="namespace-2025976894" class="accordion-body collapse ">
+            <div id="namespace-695891" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -478,28 +526,28 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1150338119"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-238690940"></a>
                                 <a href="../namespaces/Gishiki.Security.html" style="margin-left: 30px; padding-left: 0">Security</a>
             </div>
-            <div id="namespace-1150338119" class="accordion-body collapse ">
+            <div id="namespace-238690940" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1375580797"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1517061925"></a>
                                 <a href="../namespaces/Gishiki.Security.Encryption.html" style="margin-left: 30px; padding-left: 0">Encryption</a>
             </div>
-            <div id="namespace-1375580797" class="accordion-body collapse ">
+            <div id="namespace-1517061925" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-40916685"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-276234400"></a>
                                 <a href="../namespaces/Gishiki.Security.Encryption.Asymmetric.html" style="margin-left: 30px; padding-left: 0">Asymmetric</a>
             </div>
-            <div id="namespace-40916685" class="accordion-body collapse ">
+            <div id="namespace-276234400" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -517,10 +565,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-765568726"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1502722123"></a>
                                 <a href="../namespaces/Gishiki.Security.Encryption.Symmetric.html" style="margin-left: 30px; padding-left: 0">Symmetric</a>
             </div>
-            <div id="namespace-765568726" class="accordion-body collapse ">
+            <div id="namespace-1502722123" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -545,10 +593,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2129144200"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-87060334"></a>
                                 <a href="../namespaces/Gishiki.Security.Hashing.html" style="margin-left: 30px; padding-left: 0">Hashing</a>
             </div>
-            <div id="namespace-2129144200" class="accordion-body collapse ">
+            <div id="namespace-87060334" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -573,10 +621,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1679003938"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1939302461"></a>
                                 <a href="../namespaces/Gishiki.Services.html" style="margin-left: 30px; padding-left: 0">Services</a>
             </div>
-            <div id="namespace-1679003938" class="accordion-body collapse ">
+            <div id="namespace-1939302461" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -609,72 +657,576 @@
     <section class="row-fluid">
         <div class="span10 offset2">
             <div class="row-fluid">
-                <div class="span8 content namespace">
+                <div class="span8 content class">
                     <nav>
-                                                <a href="../namespaces/Gishiki.html">\Gishiki</a>
+                                                <a href="../namespaces/Gishiki.Core.MVC.Controller.Plugins.html">\Gishiki\Core\MVC\Controller\Plugins</a> <i class="icon-level-up"></i>
                                             </nav>
-                    <h1><small>\Gishiki</small>Database</h1>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
-                                        <h2>Namespaces</h2>
-                    <table class="table table-hover">
-                                                    <tr>
-                                <td><a href="../namespaces/Gishiki.Database.Adapters.html">Adapters</a></td>
-                            </tr>
-                                                    <tr>
-                                <td><a href="../namespaces/Gishiki.Database.ORM.html">ORM</a></td>
-                            </tr>
-                                                    <tr>
-                                <td><a href="../namespaces/Gishiki.Database.Runtime.html">Runtime</a></td>
-                            </tr>
-                                                    <tr>
-                                <td><a href="../namespaces/Gishiki.Database.Schema.html">Schema</a></td>
-                            </tr>
-                                            </table>
+                    <h1><small>\Gishiki\Core\MVC\Controller\Plugins</small>TwigWrapper</h1>
+                    <p><em>This is a plugin used to call the Twig template engine.</em></p>
                     
                     
-                                        <h2>Interfaces</h2>
-                    <table class="table table-hover">
-                                                    <tr>
-                                <td><a href="../classes/Gishiki.Database.DatabaseInterface.html">DatabaseInterface</a></td>
-                                <td><em>Represent how a database connection must be implemented.</em></td>
-                            </tr>
-                                                    <tr>
-                                <td><a href="../classes/Gishiki.Database.RelationalDatabaseInterface.html">RelationalDatabaseInterface</a></td>
-                                <td><em>Represent how a relational database connection must be implemented.</em></td>
-                            </tr>
-                                            </table>
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Gishiki.Core.MVC.Controller.Plugins.TwigWrapper.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Gishiki.Core.MVC.Controller.Plugin.html#method_getResponse" class="">getResponse()</a><br />
+                                                                    <a href="../classes/Gishiki.Core.MVC.Controller.Plugin.html#method_getRequest" class="">getRequest()</a><br />
+                                                                    <a href="../classes/Gishiki.Core.MVC.Controller.Plugins.TwigWrapper.html#method_setTwigLoader" class="">setTwigLoader()</a><br />
+                                                                    <a href="../classes/Gishiki.Core.MVC.Controller.Plugins.TwigWrapper.html#method_renderTwigTemplate" class="">renderTwigTemplate()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Gishiki.Core.MVC.Controller.Plugins.TwigWrapper.html#constant_TEMPLATE_DIRECTORY" class="">TEMPLATE_DIRECTORY</a><br />
+                                                                    <a href="../classes/Gishiki.Core.MVC.Controller.Plugins.TwigWrapper.html#constant_CACHE_DIRECTORY" class="">CACHE_DIRECTORY</a><br />
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Gishiki.Core.MVC.Controller.Plugin.html#property_request" class="">$request</a><br />
+                                                                    <a href="../classes/Gishiki.Core.MVC.Controller.Plugin.html#property_response" class="">$response</a><br />
+                                                                    <a href="../classes/Gishiki.Core.MVC.Controller.Plugin.html#property_application" class="">$application</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/Gishiki.Core.MVC.Controller.Plugins.TwigWrapper.html#method_isLoaderReady" class="">isLoaderReady()</a><br />
+                                                                    <a href="../classes/Gishiki.Core.MVC.Controller.Plugins.TwigWrapper.html#method_isLoadedTwig" class="">isLoadedTwig()</a><br />
+                                                                    <a href="../classes/Gishiki.Core.MVC.Controller.Plugins.TwigWrapper.html#method_prepareTwig" class="">prepareTwig()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Gishiki.Core.MVC.Controller.Plugins.TwigWrapper.html#property_loader" class="">$loader</a><br />
+                                                                    <a href="../classes/Gishiki.Core.MVC.Controller.Plugins.TwigWrapper.html#property_twig" class="">$twig</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                                                <span class="label label-info">final</span>
                     
-                                        <h2>Classes</h2>
-                    <table class="table table-hover">
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Core.MVC.Controller.Plugins.TwigWrapper.html"><div class="path-wrapper">Core/MVC/Controller/Plugins/TwigWrapper.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper"><a href="../classes/Gishiki.Core.MVC.Controller.Plugin.html">\Gishiki\Core\MVC\Controller\Plugin</a></div>
+                                                                                                    <div class="namespace-wrapper">\Gishiki\Core\MVC\Controller\Plugins\TwigWrapper</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
                                             <tr>
-                            <td><a href="../classes/Gishiki.Database.DatabaseException.html">DatabaseException</a></td>
-                            <td><em>An exception related to the database.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/Gishiki.Database.DatabaseManager.html">DatabaseManager</a></td>
-                            <td><em>Represent the database manager of the entire framework.</em></td>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Benato Denis <a href="mailto:benato.denis96@gmail.com">benato.denis96@gmail.com</a></p>
+                                                            </td>
                         </tr>
                                         </table>
-                                    </div>
-
-                <aside class="span4 detailsbar">
-                    <dl>
-                        <dt>Namespace hierarchy</dt>
-                        <dd class="hierarchy">
-                                                                                                                                                                                                                                                                                                                                                                                                            
-                                    <div class="namespace-wrapper"><a href="../namespaces/default.html">\</a></div>
-                                                            
-                                    <div class="namespace-wrapper"><a href="../namespaces/Gishiki.html">\Gishiki</a></div>
-                                                                                        <div class="namespace-wrapper">\Gishiki\Database</div>
-                        </dd>
-                    </dl>
                 </aside>
             </div>
 
-            
-            
+                                    <a id="constants" name="constants"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Constants</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_TEMPLATE_DIRECTORY" name="constant_TEMPLATE_DIRECTORY" class="anchor"></a>
+            <article id="constant_TEMPLATE_DIRECTORY" class="constant">
+                <h3 class="">TEMPLATE_DIRECTORY</h3>
+                <pre class="signature">TEMPLATE_DIRECTORY</pre>
+                <p><em></em></p>
+                
+            </article>
         </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_CACHE_DIRECTORY" name="constant_CACHE_DIRECTORY" class="anchor"></a>
+            <article id="constant_CACHE_DIRECTORY" class="constant">
+                <h3 class="">CACHE_DIRECTORY</h3>
+                <pre class="signature">CACHE_DIRECTORY</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_request" name="property_request" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$request</h3>
+                <pre class="signature">$request : \Psr\Http\Message\RequestInterface</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Psr\Http\Message\RequestInterface
+                &mdash; reference to the HTTP request                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Core.MVC.Controller.Plugin.html"><div class="path-wrapper">\Gishiki\Core\MVC\Controller\Plugin</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_response" name="property_response" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$response</h3>
+                <pre class="signature">$response : \Psr\Http\Message\ResponseInterface</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Psr\Http\Message\ResponseInterface
+                &mdash; reference to the HTTP response                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Core.MVC.Controller.Plugin.html"><div class="path-wrapper">\Gishiki\Core\MVC\Controller\Plugin</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_application" name="property_application" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$application</h3>
+                <pre class="signature">$application : \Gishiki\Core\Application|null</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                <a href="../classes/Gishiki.Core.Application.html">\Gishiki\Core\Application</a>|null
+                &mdash; the application current instance                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Core.MVC.Controller.Plugin.html"><div class="path-wrapper">\Gishiki\Core\MVC\Controller\Plugin</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_loader" name="property_loader" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$loader</h3>
+                <pre class="signature">$loader : \Twig_LoaderInterface|null</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Twig_LoaderInterface|null
+                &mdash; the filesystem loader                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_twig" name="property_twig" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$twig</h3>
+                <pre class="signature">$twig : \Twig_Environment|null</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Twig_Environment|null
+                &mdash; the environment                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(\Psr\Http\Message\RequestInterface  <span class="argument">$request</span>, \Psr\Http\Message\ResponseInterface  <span class="argument">$response</span>, \Gishiki\Core\Application|null  <span class="argument">$app = null</span>) </pre>
+                <p><em>TwigWrapper constructor:
+setup the plugin</em></p>
+                <p><strong>Warning:</strong> you should <em>never</em> attempt to use another construction in your plugin,
+unless it calls parent::__construct()</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Psr\Http\Message\RequestInterface</td>
+                                <td>$request </td>
+                                <td><p>the HTTP request</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\Psr\Http\Message\ResponseInterface</td>
+                                <td>$response </td>
+                                <td><p>the HTTP response</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Gishiki.Core.Application.html">\Gishiki\Core\Application</a>|null</td>
+                                <td>$app </td>
+                                <td><p>the current application instance</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getResponse" name="method_getResponse" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getResponse()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getResponse() : \Psr\Http\Message\ResponseInterface</pre>
+                <p><em>Get the HTTP response.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Psr\Http\Message\ResponseInterface
+                                            &mdash; <p>the HTTP response</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Core.MVC.Controller.Plugin.html"><div class="path-wrapper">\Gishiki\Core\MVC\Controller\Plugin</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRequest" name="method_getRequest" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRequest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRequest() : \Psr\Http\Message\RequestInterface</pre>
+                <p><em>Get the HTTP request.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Psr\Http\Message\RequestInterface
+                                            &mdash; <p>the HTTP request</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Gishiki.Core.MVC.Controller.Plugin.html"><div class="path-wrapper">\Gishiki\Core\MVC\Controller\Plugin</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setTwigLoader" name="method_setTwigLoader" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setTwigLoader()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setTwigLoader(\Twig_LoaderInterface  <span class="argument">$loader = null</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Twig_LoaderInterface</td>
+                                <td>$loader </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_renderTwigTemplate" name="method_renderTwigTemplate" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">renderTwigTemplate()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">renderTwigTemplate(  <span class="argument">$template</span>, \Gishiki\Algorithms\Collections\CollectionInterface  <span class="argument">$data</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$template </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>\Gishiki\Algorithms\Collections\CollectionInterface</td>
+                                <td>$data </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isLoaderReady" name="method_isLoaderReady" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">isLoaderReady()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isLoaderReady() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isLoadedTwig" name="method_isLoadedTwig" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">isLoadedTwig()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isLoadedTwig() : boolean</pre>
+                <p><em>Check if the twig environment is already loaded.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>true only if the twig environment is already loaded</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_prepareTwig" name="method_prepareTwig" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">prepareTwig()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">prepareTwig() </pre>
+                <p><em>Prepare the Twig environment from loader loaded into constructor.</em></p>
+                <p>Lazily loading the Twig environment is super-useful for Unit testing!</p>
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
     </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">TwigWrapper.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Core/MVC/Controller/Plugins/TwigWrapper.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
 
     <footer class="row-fluid">
         <section class="span10 offset2">

@@ -17,6 +17,7 @@ limitations under the License.
 
 namespace Gishiki\Core\Router;
 
+use Gishiki\Core\Application;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Gishiki\Algorithms\Collections\GenericCollection;
@@ -24,6 +25,7 @@ use Gishiki\Core\MVC\Controller\Plugin;
 use Gishiki\Core\MVC\Controller\Plugins\RequestDeserializer as DeserializerPlugin;
 use Gishiki\Core\MVC\Controller\Plugins\ResponseSerializer as SerializerPlugin;
 use Gishiki\Core\MVC\Controller\Plugins\ResponseAssembler as AssemblerPlugin;
+use Gishiki\Core\MVC\Controller\Plugins\TwigWrapper as TwigPlugin;
 
 /**
  * This class represents a route that will resolve in a Controller call.
@@ -62,6 +64,7 @@ class Route implements RouteInterface
                 "deserializer" => DeserializerPlugin::class,
                 "serializer" => SerializerPlugin::class,
                 "assembler" => AssemblerPlugin::class,
+                "twig" => TwigPlugin::class,
             ]
         ];
 
@@ -126,8 +129,9 @@ class Route implements RouteInterface
      * @param ResponseInterface $response       the action must filled, and what will be returned to the client
      * @param GenericCollection $arguments      a list of reversed URI parameters
      * @param array             $controllerArgs an array containing data created from the application initialization
+     * @param Application|null  $app            the current application instance
      */
-    public function __invoke(RequestInterface &$request, ResponseInterface &$response, GenericCollection &$arguments, $controllerArgs = [])
+    public function __invoke(RequestInterface &$request, ResponseInterface &$response, GenericCollection &$arguments, $controllerArgs = [], Application $app = null)
     {
         //import middleware
         $plugins = $this->route["plugins"];
@@ -143,7 +147,7 @@ class Route implements RouteInterface
         $reflectedController = new \ReflectionClass($controllerName);
 
         //and create a new instance of it
-        $controller = $reflectedController->newInstanceArgs([&$request, &$response, &$arguments, &$plugins]);
+        $controller = $reflectedController->newInstanceArgs([&$request, &$response, &$arguments, &$plugins, &$app]);
 
         //register additional arguments
         $controller->loadDependencies($controllerArgs);

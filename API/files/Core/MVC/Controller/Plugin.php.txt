@@ -17,6 +17,7 @@ limitations under the License.
 
 namespace Gishiki\Core\MVC\Controller;
 
+use Gishiki\Core\Application;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -38,6 +39,11 @@ abstract class Plugin
     protected $response;
 
     /**
+     * @var Application|null the application current instance
+     */
+    protected $application;
+
+    /**
      * Plugin constructor.
      *
      * __Warning:__ you should *never* attempt to use another construction in your plugin,
@@ -45,11 +51,13 @@ abstract class Plugin
      *
      * @param RequestInterface  $request  the HTTP request
      * @param ResponseInterface $response the HTTP response
+     * @param Application|null  $app      the current application instance
      */
-    public function __construct(RequestInterface &$request, ResponseInterface &$response)
+    public function __construct(RequestInterface &$request, ResponseInterface &$response, Application $app = null)
     {
         $this->request = &$request;
         $this->response = &$response;
+        $this->application = &$app;
     }
 
     /**

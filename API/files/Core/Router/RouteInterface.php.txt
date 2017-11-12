@@ -20,6 +20,7 @@ namespace Gishiki\Core\Router;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Core\Application;
 
 /**
  * This interface describes how a route must be implemented
@@ -51,8 +52,9 @@ interface RouteInterface
      * @param ResponseInterface $response       the action must filled, and what will be returned to the client
      * @param GenericCollection $arguments      a list of reversed URI parameters
      * @param array             $controllerArgs an array containing data created from the application initialization
+     * @param Application|null  $app      the current application instance
      */
-    public function __invoke(RequestInterface &$request, ResponseInterface &$response, GenericCollection &$arguments, $controllerArgs = []);
+    public function __invoke(RequestInterface &$request, ResponseInterface &$response, GenericCollection &$arguments, $controllerArgs = [], Application $app = null);
 
     /**
      * Get the URI mapped by this Route

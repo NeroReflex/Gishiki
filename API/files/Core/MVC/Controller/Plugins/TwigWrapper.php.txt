@@ -105,6 +105,12 @@ final class TwigWrapper extends Plugin
         ]);
     }
 
+    /**
+     * Render the template with the given name using passed data.
+     *
+     * @param string              $template the template name
+     * @param CollectionInterface $data     data collection to be used on rendering
+     */
     public function renderTwigTemplate($template, CollectionInterface &$data)
     {
         if (!$this->isLoadedTwig()) {
@@ -122,3 +128,5 @@ final class TwigWrapper extends Plugin
         $this->getResponse()->getBody()->write($renderBuffer);
     }
 }
+
+

@@ -92,20 +92,20 @@ final class TwigWrapper extends Plugin
      */
     private function prepareTwig()
     {
+        $twigEnvParam = [];
+
         $cacheDirectory = ($this->application instanceof Application) ? $this->application->getCurrentDirectory() : filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/';
         $cacheDirectory .= $cacheDirectory.static::CACHE_DIRECTORY;
 
-        if (!file_exists($cacheDirectory)) {
-            mkdir($cacheDirectory);
-        }
+        $twigEnvParam = array_merge($twigEnvParam,
+            (file_exists($cacheDirectory)) ? [ "cache" => $cacheDirectory ] : []
+        );
 
         //load the twig environment
-        $this->twig = new \Twig_Environment($this->loader, [
-            "cache" => $cacheDirectory
-        ]);
+        $this->twig = new \Twig_Environment($this->loader, $twigEnvParam);
     }
 
-    public function renderTwigTemplate($template, CollectionInterface &$data)
+    public function renderTwigTemplate($template, CollectionInterface $data)
     {
         if (!$this->isLoadedTwig()) {
             if (!$this->isLoaderReady()) {
@@ -116,7 +116,8 @@ final class TwigWrapper extends Plugin
         }
 
         //use twig to render the template.... nice and easy!
-        $renderBuffer = $this->twig->render($template, $data->all());
+        $nativeFormatData = (!is_null($data)) ? $data->all() : [];
+        $renderBuffer = $this->twig->render($template, $nativeFormatData);
 
         //write the result to the current response
         $this->getResponse()->getBody()->write($renderBuffer);

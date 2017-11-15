@@ -123,4 +123,3 @@ final class TwigWrapper extends Plugin
         $this->getResponse()->getBody()->write($renderBuffer);
     }
 }
-

@@ -67,7 +67,7 @@ final class TwigWrapper extends Plugin
         $templatesDirectory = ($this->application instanceof Application) ? $this->application->getCurrentDirectory() : filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/';
         $templatesDirectory .= static::TEMPLATE_DIRECTORY;
 
-        if (!file_exists($templatesDirectory)) {
+        if (((is_null($loader))) && (!file_exists($templatesDirectory))) {
             mkdir($templatesDirectory);
         }
 
@@ -123,3 +123,4 @@ final class TwigWrapper extends Plugin
         $this->getResponse()->getBody()->write($renderBuffer);
     }
 }
+

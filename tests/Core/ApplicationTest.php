@@ -33,7 +33,7 @@ use Zend\Diactoros\Uri;
  */
 class ApplicationTest extends TestCase
 {
-    protected static function setupTestingApplication($emitter = null, $dbFiles = [])
+    public static function setupTestingApplication($emitter = null, $dbFiles = [])
     {
         $emitter = (is_null($emitter)) ? new \TestingEmitter() : $emitter;
 
@@ -97,11 +97,8 @@ class ApplicationTest extends TestCase
     {
         $app = self::setupTestingApplication();
 
-        $directory = new \ReflectionProperty($app, 'currentDirectory');
-        $directory->setAccessible(true);
-
         //appending ../../ because the test MUST be launched at the project root
-        $this->assertEquals(realpath(__DIR__.'/../../'), realpath($directory->getValue($app)));
+        $this->assertEquals(realpath(__DIR__.'/../../').'/', $app->getCurrentDirectory());
     }
 
     public function testCompleteApplication()

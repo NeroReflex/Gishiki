@@ -19,6 +19,7 @@ namespace Gishiki\Core\MVC\Controller\Plugins;
 
 use Gishiki\Algorithms\Collections\CollectionInterface;
 use Gishiki\Core\MVC\Controller\Plugin;
+use Gishiki\Core\MVC\Controller\PluginException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Gishiki\Core\Application;
@@ -57,18 +58,29 @@ final class TwigWrapper extends Plugin
         parent::__construct($request, $response, $app);
     }
 
-    private function isLoaderReady()
+    /**
+     * Check if the Twig environment is loaded.
+     *
+     * @return bool true if the environment is already loaded
+     */
+    private function isLoaderReady() : bool
     {
         return ($this->loader instanceof \Twig_LoaderInterface);
     }
 
+    /**
+     * Load the Twig environment with the given loader.
+     *
+     * @param \Twig_LoaderInterface|null $loader the Twig loader, null for the default one
+     * @throws PluginException the given Twig loader is not valid
+     */
     public function setTwigLoader(\Twig_LoaderInterface $loader = null)
     {
         $templatesDirectory = ($this->application instanceof Application) ? $this->application->getCurrentDirectory() : filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/';
         $templatesDirectory .= static::TEMPLATE_DIRECTORY;
 
         if (((is_null($loader))) && (!file_exists($templatesDirectory))) {
-            mkdir($templatesDirectory);
+            throw new PluginException("The default template directory doesn't exist and a valid Twig loader is not given.", 1);
         }
 
         //load the template directory
@@ -105,6 +117,13 @@ final class TwigWrapper extends Plugin
         $this->twig = new \Twig_Environment($this->loader, $twigEnvParam);
     }
 
+    /**
+     * Render a Twig template and write the result to the response content.
+     * Also set the mime type as text/html.
+     *
+     * @param string $template          the template file name
+     * @param CollectionInterface $data the data to be processed to create the final result
+     */
     public function renderTwigTemplate($template, CollectionInterface $data)
     {
         if (!$this->isLoadedTwig()) {
@@ -121,5 +140,7 @@ final class TwigWrapper extends Plugin
 
         //write the result to the current response
         $this->getResponse()->getBody()->write($renderBuffer);
+
+        $this->response = $this->response->withHeader('Content-Type', 'text/html');
     }
 }

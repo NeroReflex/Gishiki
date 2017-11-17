@@ -19,7 +19,9 @@ namespace Gishiki\tests\Core\MVC\Controller\Plugins;
 
 use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Algorithms\Collections\SerializableCollection;
+use Gishiki\Core\MVC\Controller\PluginException;
 use Gishiki\Core\MVC\Controller\Plugins\TwigWrapper;
+use Gishiki\tests\Core\Router\ApplicationTest;
 use Zend\Diactoros\Request;
 use Zend\Diactoros\Response;
 
@@ -32,6 +34,27 @@ use PHPUnit\Framework\TestCase;
  */
 class TwigWrapperTest extends TestCase
 {
+    public function testDefaultDirectoryThatDoesntExist()
+    {
+        $app = ApplicationTest::setupTestingApplication();
+
+        $request = new Request();
+        $request->getBody()->rewind();
+
+        $response = new Response();
+
+        $collection = new GenericCollection([]);
+        $plugins = [
+            TwigWrapper::class
+        ];
+
+        $controller = new \FakeController($request, $response, $collection, $plugins, $app);
+
+        $this->expectException(PluginException::class);
+
+        $controller->setTwigLoader();
+    }
+
     public function testTemplateCompilation()
     {
         $request = new Request();

@@ -52,6 +52,13 @@ class AlgorithmTest extends TestCase
         Algorithm::bcryptHash('');
     }
 
+    public function testInvalidMessageForPbkdf2Hash()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        Algorithm::pbkdf2Hash('');
+    }
+
     public function testInvalidMessageForOpensslVerify()
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -69,6 +76,14 @@ class AlgorithmTest extends TestCase
     }
 
     public function testInvalidMessageForBcryptVerify()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        //test hash compatibility
+        Algorithm::bcryptVerify('', ':)');
+    }
+
+    public function testInvalidMessageForPbkdf2Verify()
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -98,6 +113,14 @@ class AlgorithmTest extends TestCase
 
         //test hash compatibility
         Algorithm::bcryptVerify('My message', '');
+    }
+
+    public function testInvalidMessageDigestForPbkdf2Verify()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        //test hash compatibility
+        Algorithm::pbkdf2Verify('My message', '');
     }
 
     public function testOpensslVerify()

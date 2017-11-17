@@ -121,14 +121,15 @@ final class TwigWrapper extends Plugin
      * Render a Twig template and write the result to the response content.
      * Also set the mime type as text/html.
      *
-     * @param string $template          the template file name
-     * @param CollectionInterface $data the data to be processed to create the final result
+     * @param  string $template          the template file name
+     * @param  CollectionInterface $data the data to be processed to create the final result
+     * @throws ControllerException       the Twig loader is not ready
      */
     public function renderTwigTemplate($template, CollectionInterface $data)
     {
         if (!$this->isLoadedTwig()) {
             if (!$this->isLoaderReady()) {
-                $this->setLoader();
+                throw new ControllerException("The Twig engine is not fully loaded: a Twig loader was not provided.", 702);
             }
 
             $this->prepareTwig();

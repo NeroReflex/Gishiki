@@ -79,6 +79,28 @@ class TwigWrapperTest extends TestCase
         $controller->renderTwigTemplate('test.html.twig', $data);
 
         $this->assertEquals("<html><head></head><body>Hello, world!</body></html>", (string)$controller->getResponse()->getBody());
+    }
 
+    public function testRenderBeforePreparingLoader()
+    {
+        $request = new Request();
+        $request->getBody()->rewind();
+
+        $response = new Response();
+
+        $collection = new GenericCollection([]);
+        $plugins = [
+            TwigWrapper::class
+        ];
+
+        $controller = new \FakeController($request, $response, $collection, $plugins);
+
+        $this->expectException(ControllerException::class);
+
+        $data = new SerializableCollection([
+            'this' => 'test will fail'
+        ]);
+
+        $controller->renderTwigTemplate('test.html.twig', $data);
     }
 }

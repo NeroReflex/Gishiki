@@ -22,10 +22,9 @@ engines:
 ratings:
   paths:
   - "**.php"
-exclude_paths:
+exclude_patterns:
 - "/tests"
 - "/Documentation"
-exclude_patterns:
 - "**Interface.php"
 - "/src/Database/Runtime/FieldOrdering.php"
 - "/src/Database/Runtime/ColumnType.php"

@@ -139,11 +139,21 @@ class AlgorithmTest extends TestCase
         $message_rot13 = 'guvf vf n fznyy>rknzcyr<gb/grfg ebg-13';
 
         //test hash compatibility
-        $rot_ed = Algorithm::rot13Hash($message, Algorithm::ROT13);
+        $rot_ed = Algorithm::rot13Hash($message);
         $this->assertEquals($message_rot13, $rot_ed);
         $this->assertEquals($message, Algorithm::rot13Hash($rot_ed, Algorithm::ROT13));
 
         $this->assertEquals(true, Algorithm::rot13Verify($message, $rot_ed));
+    }
+
+    public function testPbkdf2()
+    {
+        $message = 'this is a small>example<to/test pbkdf2';
+
+        //test hash compatibility
+        $hashed = Algorithm::pbkdf2Hash($message);
+
+        $this->assertEquals(true, Algorithm::pbkdf2Verify($message, $hashed));
     }
 
     public function testHashCompatibility()

@@ -18,8 +18,8 @@ limitations under the License.
 namespace Gishiki\Core\MVC\Controller\Plugins;
 
 use Gishiki\Algorithms\Collections\CollectionInterface;
+use Gishiki\Core\MVC\Controller\ControllerException;
 use Gishiki\Core\MVC\Controller\Plugin;
-use Gishiki\Core\MVC\Controller\PluginException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Gishiki\Core\Application;
@@ -72,7 +72,7 @@ final class TwigWrapper extends Plugin
      * Load the Twig environment with the given loader.
      *
      * @param \Twig_LoaderInterface|null $loader the Twig loader, null for the default one
-     * @throws PluginException the given Twig loader is not valid
+     * @throws ControllerException the given Twig loader is not valid
      */
     public function setTwigLoader(\Twig_LoaderInterface $loader = null)
     {
@@ -80,7 +80,7 @@ final class TwigWrapper extends Plugin
         $templatesDirectory .= static::TEMPLATE_DIRECTORY;
 
         if (((is_null($loader))) && (!file_exists($templatesDirectory))) {
-            throw new PluginException("The default template directory doesn't exist and a valid Twig loader is not given.", 1);
+            throw new ControllerException("The default template directory doesn't exist and a valid Twig loader is not given.", 701);
         }
 
         //load the template directory

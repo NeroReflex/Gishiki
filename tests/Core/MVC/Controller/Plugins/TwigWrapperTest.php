@@ -19,7 +19,7 @@ namespace Gishiki\tests\Core\MVC\Controller\Plugins;
 
 use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Algorithms\Collections\SerializableCollection;
-use Gishiki\Core\MVC\Controller\PluginException;
+use Gishiki\Core\MVC\Controller\ControllerException;
 use Gishiki\Core\MVC\Controller\Plugins\TwigWrapper;
 use Gishiki\tests\Core\Router\ApplicationTest;
 use Zend\Diactoros\Request;
@@ -50,7 +50,7 @@ class TwigWrapperTest extends TestCase
 
         $controller = new \FakeController($request, $response, $collection, $plugins, $app);
 
-        $this->expectException(PluginException::class);
+        $this->expectException(ControllerException::class);
 
         $controller->setTwigLoader();
     }

@@ -76,14 +76,9 @@ abstract class Cryptography
         //get the managed version of the key
         $managedKey = $key();
 
+        //check key size
         if (!self::checkKeySize($managedKey, $algorithm)) {
-            if ($algorithm == self::AES_CBC_128) {
-                throw new SymmetricException('You must be using a key with the correct length for the chosen algorithm', 3);
-            } elseif ($algorithm == self::AES_CBC_192) {
-                throw new SymmetricException('You must be using a key with the correct length for the chosen algorithm', 4);
-            } elseif ($algorithm == self::AES_CBC_256) {
-                throw new SymmetricException('You must be using a key with the correct length for the chosen algorithm', 5);
-            }
+            throw new SymmetricException('You must be using a key with the correct length for the chosen algorithm', 3);
         }
 
         //generate and store a random IV
@@ -140,14 +135,9 @@ abstract class Cryptography
         //get the managed version of the key
         $managedKey = $key();
 
+        //check key size
         if (!self::checkKeySize($managedKey, $algorithm)) {
-            if ($algorithm == self::AES_CBC_128) {
-                throw new SymmetricException('You must be using a key with the correct length for the chosen algorithm', 3);
-            } elseif ($algorithm == self::AES_CBC_192) {
-                throw new SymmetricException('You must be using a key with the correct length for the chosen algorithm', 4);
-            } elseif ($algorithm == self::AES_CBC_256) {
-                throw new SymmetricException('You must be using a key with the correct length for the chosen algorithm', 5);
-            }
+            throw new SymmetricException('You must be using a key with the correct length for the chosen algorithm', 3);
         }
 
         //get the IV
@@ -180,6 +170,5 @@ abstract class Cryptography
 
         return true;
     }
-
 }
 

@@ -38,3 +38,4 @@ class PluginException extends Exception
         parent::__construct($message, $errorCode);
     }
 }
+

@@ -30,6 +30,83 @@ use Gishiki\Security\Encryption\Symmetric\Cryptography;
  */
 class CriptographyTest extends TestCase
 {
+    public function testInvalidMessageEncryption()
+    {
+        //generate the key
+        $key = new SecretKey(SecretKey::generate('testing/key'));
+
+        $message = 80;
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        // try to encrypt the message
+        Cryptography::encrypt($key, $message);
+    }
+
+    public function testInvalidMessageDecryption()
+    {
+        //generate the key
+        $key = new SecretKey(SecretKey::generate('testing/key'));
+
+        $message = 'you should hide this, lol!';
+
+        //encrypt the message
+        $enc_message = Cryptography::encrypt($key, $message);
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        //decrypt the message
+        Cryptography::decrypt($key, 70, $enc_message['IV_base64']);
+    }
+
+    public function testAES128BadSizeDecryption()
+    {
+        //generate the key
+        $key = new SecretKey(SecretKey::generate('testing/key'));
+
+        $message = 'you should hide this, lol!';
+
+        //encrypt the message
+        $enc_message = Cryptography::encrypt($key, $message);
+
+        $this->expectException(SymmetricException::class);
+
+        //decrypt the message
+        Cryptography::decrypt($key, $enc_message['Encryption']."b sz :(", $enc_message['IV_base64']);
+    }
+
+    public function testAES192BadSizeDecryption()
+    {
+        //generate the key
+        $key = new SecretKey(SecretKey::generate('testing/key'));
+
+        $message = 'you should hide this, lol!';
+
+        //encrypt the message
+        $enc_message = Cryptography::encrypt($key, $message);
+
+        $this->expectException(SymmetricException::class);
+
+        //decrypt the message
+        Cryptography::decrypt($key, $enc_message['Encryption']."b sz :(", $enc_message['IV_base64'], Cryptography::AES_CBC_192);
+    }
+
+    public function testAES256BadSizeDecryption()
+    {
+        //generate the key
+        $key = new SecretKey(SecretKey::generate('testing/key'));
+
+        $message = 'you should hide this, lol!';
+
+        //encrypt the message
+        $enc_message = Cryptography::encrypt($key, $message);
+
+        $this->expectException(SymmetricException::class);
+
+        //decrypt the message
+        Cryptography::decrypt($key, $enc_message['Encryption']."b sz :(", $enc_message['IV_base64'], Cryptography::AES_CBC_256);
+    }
+
     public function testAES128Encryption()
     {
         //generate the key

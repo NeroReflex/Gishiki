@@ -73,16 +73,17 @@ abstract class Cryptography
             throw new \InvalidArgumentException('The plain message to be encrypted must be given as a non-empty string');
         }
 
-        //get the managed kersion of the key
+        //get the managed version of the key
         $managedKey = $key();
 
-        //check for the key length
-        if (($algorithm == self::AES_CBC_128) && ($managedKey['byteLength'] != 16)) {
-            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm ('.$managedKey['byteLength'].'/16)', 0);
-        } elseif (($algorithm == self::AES_CBC_192) && ($managedKey['byteLength'] != 24)) {
-            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm ('.$managedKey['byteLength'].'/24)', 1);
-        } elseif (($algorithm == self::AES_CBC_256) && ($managedKey['byteLength'] != 32)) {
-            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm ('.$managedKey['byteLength'].'/32)', 2);
+        if (!self::checkKeySize($managedKey, $algorithm)) {
+            if ($algorithm == self::AES_CBC_128) {
+                throw new SymmetricException('You must be using a key with the correct length for the chosen algorithm', 3);
+            } elseif ($algorithm == self::AES_CBC_192) {
+                throw new SymmetricException('You must be using a key with the correct length for the chosen algorithm', 4);
+            } elseif ($algorithm == self::AES_CBC_256) {
+                throw new SymmetricException('You must be using a key with the correct length for the chosen algorithm', 5);
+            }
         }
 
         //generate and store a random IV
@@ -139,13 +140,14 @@ abstract class Cryptography
         //get the managed version of the key
         $managedKey = $key();
 
-        //check for the key length
-        if (($algorithm == self::AES_CBC_128) && ($managedKey['byteLength'] != 16)) {
-            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm ('.$managedKey['byteLength'].'/16)', 3);
-        } elseif (($algorithm == self::AES_CBC_192) && ($managedKey['byteLength'] != 24)) {
-            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm ('.$managedKey['byteLength'].'/24)', 4);
-        } elseif (($algorithm == self::AES_CBC_256) && ($managedKey['byteLength'] != 32)) {
-            throw new SymmetricException('You must be using a key with the correct length for the choosen algorithm ('.$managedKey['byteLength'].'/32)', 5);
+        if (!self::checkKeySize($managedKey, $algorithm)) {
+            if ($algorithm == self::AES_CBC_128) {
+                throw new SymmetricException('You must be using a key with the correct length for the chosen algorithm', 3);
+            } elseif ($algorithm == self::AES_CBC_192) {
+                throw new SymmetricException('You must be using a key with the correct length for the chosen algorithm', 4);
+            } elseif ($algorithm == self::AES_CBC_256) {
+                throw new SymmetricException('You must be using a key with the correct length for the chosen algorithm', 5);
+            }
         }
 
         //get the IV
@@ -157,5 +159,27 @@ abstract class Cryptography
         //decrypt and return the result
         return openssl_decrypt($encrypted, $algorithm, $managedKey['key'], OPENSSL_RAW_DATA, $decodedIv);
     }
+
+    /**
+     * Check whether the given key can be used within the given algorithm.
+     *
+     * @param  array  $managedKey the key in an exported format
+     * @param  string $algorithm  the used algorithm
+     * @return bool true only if the password is valid
+     */
+    private static function checkKeySize($managedKey, $algorithm) : bool
+    {
+        //check for the key length
+        if (($algorithm == self::AES_CBC_128) && ($managedKey['byteLength'] != 16)) {
+            return false;
+        } elseif (($algorithm == self::AES_CBC_192) && ($managedKey['byteLength'] != 24)) {
+            return false;
+        } elseif (($algorithm == self::AES_CBC_256) && ($managedKey['byteLength'] != 32)) {
+            return false;
+        }
+
+        return true;
+    }
+
 }
 

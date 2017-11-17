@@ -42,6 +42,8 @@ abstract class Algorithm
     const BCRYPT = 'bcrypt';
     const PBKDF2 = 'pbkdf2';
 
+    private static $pbkdf2Delimiter = '%_%%';
+
     /**
      * Generate the message digest for the given message using the OpenSSL library
      *
@@ -233,6 +235,11 @@ abstract class Algorithm
      */
     public static function pbkdf2Hash($message)
     {
+        //check for the message
+        if ((!is_string($message)) || (strlen($message) <= 0)) {
+            throw new \InvalidArgumentException('The message to be hashed must be given as a valid non-empty string');
+        }
+
         $iteration = 16777216;
         $hashingAlgorithm = 'sha512';
 
@@ -240,7 +247,7 @@ abstract class Algorithm
 
         $hash = Base64::encode(self::pbkdf2($message, $salt, 64, $iteration, $hashingAlgorithm));
 
-        return '|pbkdf2%'.$hashingAlgorithm.'%'.$iteration.'%'.$salt.'%'.$hash;
+        return '|pbkdf2'.self::$pbkdf2Delimiter.$hashingAlgorithm.self::$pbkdf2Delimiter.$iteration.self::$pbkdf2Delimiter.$salt.self::$pbkdf2Delimiter.$hash;
     }
 
     /**
@@ -266,9 +273,9 @@ abstract class Algorithm
             throw new \InvalidArgumentException('The message digest to be checked must be given as a valid non-empty string');
         }
 
-        $params = explode('%', $digest);
+        $params = explode(self::$pbkdf2Delimiter, $digest);
 
-        if (count($params) < 5) {
+        if (count($params) != 5) {
             return false;
         }
 
@@ -279,10 +286,11 @@ abstract class Algorithm
         $hashingAlgorithm = $params[1];
         $iteration = intval($params[2]);
         $salt = $params[3];
+        $oldHash = $params[4];
 
-        $hashRecalc = Base64::encode(self::pbkdf2($message, $salt, 64, $iteration, $hashingAlgorithm));
+        $newHash = Base64::encode(self::pbkdf2($message, $salt, 64, $iteration, $hashingAlgorithm));
 
-        return (strcmp($digest, $hashRecalc) == 0);
+        return (strcmp($oldHash, $newHash) == 0);
     }
 
     /**

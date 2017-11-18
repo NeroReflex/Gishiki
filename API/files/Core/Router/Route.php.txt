@@ -127,7 +127,7 @@ class Route implements RouteInterface
      *
      * @param RequestInterface  $request        a copy of the request made to the application
      * @param ResponseInterface $response       the action must filled, and what will be returned to the client
-     * @param GenericCollection $arguments      a list of reversed URI parameters
+     * @param GenericCollection $arguments      a list of reversed URI and GET parameters
      * @param array             $controllerArgs an array containing data created from the application initialization
      * @param Application|null  $app            the current application instance
      */

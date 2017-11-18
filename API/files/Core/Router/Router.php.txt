@@ -214,7 +214,10 @@ final class Router
 
         if (!is_null($matchedRoute)) {
             //this will hold the parameters passed on the URL
-            $deductedParams = new GenericCollection($params);
+            $deductedParams = new GenericCollection([
+                "uri" => $params,
+                "get" => $get,
+            ]);
 
             $matchedRoute($request, $response, $deductedParams, $controllerArgs, $app);
 

@@ -143,9 +143,9 @@ trait SQLWrapper
      *
      * @param string $table the name of the table to be updated
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
+     * @return SQLWrapperInterface the updated sql builder
      */
-    public function &update($table)
+    public function &update($table) : SQLWrapperInterface
     {
         $this->appendToQuery('UPDATE '.$table.' ');
 
@@ -158,9 +158,9 @@ trait SQLWrapper
      *
      * @param array $values an associative array of columns => value to be changed
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
+     * @return SQLWrapperInterface the updated sql builder
      */
-    public function &set(array $values)
+    public function &set(array $values) : SQLWrapperInterface
     {
         $this->appendToQuery('SET ');
 
@@ -187,9 +187,9 @@ trait SQLWrapper
      *
      * @param string $tableName the name of the table
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLiteWrapper the updated sql builder
+     * @return SQLWrapperInterface the updated sql builder
      */
-    public function &createTable($tableName)
+    public function &createTable($tableName) : SQLWrapperInterface
     {
         $this->appendToQuery('CREATE TABLE IF NOT EXISTS '.$tableName.' ');
 
@@ -202,9 +202,9 @@ trait SQLWrapper
      *
      * @param string $tableName the name of the table
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLiteWrapper the updated sql builder
+     * @return SQLWrapperInterface the updated sql builder
      */
-    public function &dropTable($tableName)
+    public function &dropTable($tableName) : SQLWrapperInterface
     {
         $this->appendToQuery('DROP TABLE IF EXISTS '.$tableName.' ');
 
@@ -217,9 +217,9 @@ trait SQLWrapper
      *
      * @param SelectionCriteria $where the selection criteria
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
+     * @return SQLWrapperInterface the updated sql builder
      */
-    public function &where(SelectionCriteria $where)
+    public function &where(SelectionCriteria $where) : SQLWrapperInterface
     {
         //execute the private function 'export'
         $exportMethod = new \ReflectionMethod($where, 'export');
@@ -275,9 +275,9 @@ trait SQLWrapper
      *
      * @param string $table the name of the table to be affected
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
+     * @return SQLWrapperInterface the updated sql builder
      */
-    public function &insertInto($table)
+    public function &insertInto($table) : SQLWrapperInterface
     {
         $this->appendToQuery('INSERT INTO '.$table.' ');
 
@@ -290,9 +290,9 @@ trait SQLWrapper
      *
      * @param array $values an associative array of columnName => rowValue
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
+     * @return SQLWrapperInterface the updated sql builder
      */
-    public function &values(array $values)
+    public function &values(array $values) : SQLWrapperInterface
     {
         $this->appendToQuery('('.implode(', ', array_keys($values)).') VALUES (');
 
@@ -314,13 +314,13 @@ trait SQLWrapper
     }
 
     /**
-     * Add LIMIT ? OFFSET ? ORDER BY ..... to the SQL query wheter they are needed.
+     * Add LIMIT ? OFFSET ? ORDER BY ..... to the SQL query whether they are needed.
      *
      * @param ResultModifier $mod the result modifier
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
+     * @return SQLWrapperInterface the updated sql builder
      */
-    public function &limitOffsetOrderBy(ResultModifier $mod)
+    public function &limitOffsetOrderBy(ResultModifier $mod) : SQLWrapperInterface
     {
         //execute the private function 'export'
         $exportMethod = new \ReflectionMethod($mod, 'export');
@@ -362,9 +362,9 @@ trait SQLWrapper
      *
      * @param string $table the name of the table to be affected
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
+     * @return SQLWrapperInterface the updated sql builder
      */
-    public function &selectAllFrom($table)
+    public function &selectAllFrom($table) : SQLWrapperInterface
     {
         $this->appendToQuery('SELECT * FROM '.$table.' ');
 
@@ -378,9 +378,9 @@ trait SQLWrapper
      * @param string $table  the name of the table to be affected
      * @param array  $fields the list containing names of columns to be selected
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
+     * @return SQLWrapperInterface the updated sql builder
      */
-    public function &selectFrom($table, array $fields)
+    public function &selectFrom($table, array $fields) : SQLWrapperInterface
     {
         $this->appendToQuery('SELECT '.implode(', ', $fields).' FROM '.$table.' ');
 
@@ -393,9 +393,9 @@ trait SQLWrapper
      *
      * @param string $table the name of the table to be affected
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper the updated sql builder
+     * @return SQLWrapperInterface the updated sql builder
      */
-    public function &deleteFrom($table)
+    public function &deleteFrom($table) : SQLWrapperInterface
     {
         $this->appendToQuery('DELETE FROM '.$table.' ');
 
@@ -408,7 +408,7 @@ trait SQLWrapper
      *
      * @return string the SQL query without values
      */
-    public function exportQuery()
+    public function exportQuery() : string
     {
         return self::beautify($this->sql);
     }
@@ -418,7 +418,7 @@ trait SQLWrapper
      *
      * @return array the list of params
      */
-    public function exportParams()
+    public function exportParams() : array
     {
         return $this->params;
     }

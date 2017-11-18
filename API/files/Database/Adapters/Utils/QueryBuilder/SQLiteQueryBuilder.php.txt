@@ -24,7 +24,7 @@ use Gishiki\Database\Adapters\Utils\SQLGenerator\SQLiteWrapper;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class SQLiteQueryBuilder
+final class SQLiteQueryBuilder implements SQLQueryBuilderInterface
 {
     use SQLQueryBuilder;
 

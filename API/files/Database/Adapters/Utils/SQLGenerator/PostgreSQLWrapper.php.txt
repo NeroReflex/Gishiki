@@ -26,7 +26,7 @@ use Gishiki\Database\Schema\ColumnType;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class PostgreSQLWrapper
+final class PostgreSQLWrapper implements SQLWrapperInterface
 {
     use SQLWrapper;
 
@@ -35,9 +35,9 @@ final class PostgreSQLWrapper
      *
      * @param string $idFieldName the name of the table primary key
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\PostgreSQLWrapper the updated sql builder
+     * @return PostgreSQLWrapper the updated sql builder
      */
-    public function &returning($idFieldName)
+    public function &returning($idFieldName) : PostgreSQLWrapper
     {
         $this->appendToQuery(' RETURNING "'.$idFieldName.'" ');
 
@@ -50,9 +50,9 @@ final class PostgreSQLWrapper
      *
      * @param array $columns a collection of Gishiki\Database\Schema\Column
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\PostgreSQLWrapper the updated sql builder
+     * @return SQLWrapperInterface the updated sql builder
      */
-    public function &definedAs(array $columns)
+    public function &definedAs(array $columns) : SQLWrapperInterface
     {
         $this->appendToQuery('(');
 

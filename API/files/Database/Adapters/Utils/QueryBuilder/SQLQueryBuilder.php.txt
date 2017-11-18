@@ -17,7 +17,6 @@ limitations under the License.
 
 namespace Gishiki\Database\Adapters\Utils\QueryBuilder;
 
-use Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapper;
 use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\ResultModifier;
 use Gishiki\Database\Schema\Table;

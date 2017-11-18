@@ -18,6 +18,7 @@ limitations under the License.
 namespace Gishiki\Database\Adapters\Utils;
 
 use Gishiki\Algorithms\Collections\CollectionInterface;
+use Gishiki\Database\Adapters\Utils\SQLGenerator\SQLWrapperInterface;
 use Gishiki\Database\DatabaseException;
 use Gishiki\Database\Runtime\SelectionCriteria;
 use Gishiki\Database\Runtime\ResultModifier;
@@ -109,11 +110,7 @@ trait PDODatabaseTrait
 
         //open a new statement and execute it
         try {
-            //prepare a statement with that safe sql string
-            $stmt = $this->connection->prepare($queryBuilder->exportQuery());
-
-            //execute the statement resolving placeholders
-            $stmt->execute($queryBuilder->exportParams());
+            $this->executeQuery($queryBuilder);
         } catch (\Exception $ex) {
             throw new DatabaseException('Error while performing the table creation operation: '.$ex->getMessage(), 7);
         }
@@ -144,11 +141,7 @@ trait PDODatabaseTrait
 
         //open a new statement and execute it
         try {
-            //prepare a statement with that safe sql string
-            $stmt = $this->connection->prepare($queryBuilder->exportQuery());
-
-            //execute the statement resolving placeholders
-            $stmt->execute($queryBuilder->exportParams());
+            $this->executeQuery($queryBuilder);
 
             //as per documentation return the id of the last inserted row
             return $this->connection->lastInsertId();
@@ -182,15 +175,8 @@ trait PDODatabaseTrait
 
         //open a new statement and execute it
         try {
-            //prepare a statement with that safe sql string
-            $sql = $queryBuilder->exportQuery();
-            $stmt = $this->connection->prepare($sql);
-
-            //execute the statement resolving placeholders
-            $stmt->execute($queryBuilder->exportParams());
-
             //return the number of affected rows
-            return $stmt->rowCount();
+            return $this->executeQuery($queryBuilder)->rowCount();
         } catch (\Exception $ex) {
             throw new DatabaseException('Error while performing the update operation: '.$ex->getMessage(), 4);
         }
@@ -213,14 +199,8 @@ trait PDODatabaseTrait
 
         //open a new statement and execute it
         try {
-            //prepare a statement with that safe sql string
-            $stmt = $this->connection->prepare($queryBuilder->exportQuery());
-
-            //execute the statement resolving placeholders
-            $stmt->execute($queryBuilder->exportParams());
-
             //return the number of affected rows
-            return $stmt->rowCount();
+            return $this->executeQuery($queryBuilder)->rowCount();
         } catch (\Exception $ex) {
             throw new DatabaseException('Error while performing the delete operation: '.$ex->getMessage(), 5);
         }
@@ -243,14 +223,8 @@ trait PDODatabaseTrait
 
         //open a new statement and execute it
         try {
-            //prepare a statement with that safe sql string
-            $stmt = $this->connection->prepare($queryBuilder->exportQuery());
-
-            //execute the statement resolving placeholders
-            $stmt->execute($queryBuilder->exportParams());
-
             //return the number of affected rows
-            return $stmt->rowCount();
+            return $this->executeQuery($queryBuilder)->rowCount();
         } catch (\Exception $ex) {
             throw new DatabaseException('Error while performing the delete operation: '.$ex->getMessage(), 5);
         }
@@ -273,14 +247,8 @@ trait PDODatabaseTrait
 
         //open a new statement and execute it
         try {
-            //prepare a statement with that safe sql string
-            $stmt = $this->connection->prepare($queryBuilder->exportQuery());
-
-            //execute the statement resolving placeholders
-            $stmt->execute($queryBuilder->exportParams());
-
             //return an associative array of data
-            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            return $this->executeQuery($queryBuilder)->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\Exception $ex) {
             throw new DatabaseException('Error while performing the read operation: '.$ex->getMessage(), 6);
         }
@@ -303,17 +271,30 @@ trait PDODatabaseTrait
 
         //open a new statement and execute it
         try {
-            //prepare a statement with that safe sql string
-            $stmt = $this->connection->prepare($queryBuilder->exportQuery());
-
-            //execute the statement resolving placeholders
-            $stmt->execute($queryBuilder->exportParams());
-
             //return the fetch result
-            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            return $this->executeQuery($queryBuilder)->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\Exception $ex) {
             throw new DatabaseException('Error while performing the read operation: '.$ex->getMessage(), 6);
         }
+    }
+
+    /**
+     * Create the query from the given query builder,
+     * execute it and return the execution statement.
+     *
+     * @param  SQLWrapperInterface $queryBuilder the loaded query builder
+     * @return \PDOStatement the statement after query execution
+     */
+    protected function executeQuery(SQLWrapperInterface &$queryBuilder) : \PDOStatement
+    {
+        //prepare a statement with that safe sql string
+        $stmt = $this->connection->prepare($queryBuilder->exportQuery());
+
+        //execute the statement resolving placeholders
+        $stmt->execute($queryBuilder->exportParams());
+
+        //return the statement
+        return $stmt;
     }
 }
 

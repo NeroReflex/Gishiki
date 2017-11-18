@@ -27,7 +27,7 @@ use Gishiki\Database\Schema\ColumnType;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class MySQLWrapper
+final class MySQLWrapper implements SQLWrapperInterface
 {
     use SQLWrapper;
 
@@ -36,9 +36,9 @@ final class MySQLWrapper
      *
      * @param array $columns a collection of Gishiki\Database\Schema\Column
      *
-     * @return \Gishiki\Database\Adapters\Utils\SQLGenerator\MySQLWrapper the updated sql builder
+     * @return SQLWrapperInterface the updated sql builder
      */
-    public function &definedAs(array $columns)
+    public function &definedAs(array $columns) : SQLWrapperInterface
     {
         //mysql wants PRIMARY KEY(...) after column definitions
         $primaryKeyName = '';

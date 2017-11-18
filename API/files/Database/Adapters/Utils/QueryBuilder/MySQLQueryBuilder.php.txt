@@ -24,7 +24,7 @@ use Gishiki\Database\Adapters\Utils\SQLGenerator\MySQLWrapper;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class MySQLQueryBuilder
+final class MySQLQueryBuilder implements SQLQueryBuilderInterface
 {
     use SQLQueryBuilder;
 

@@ -59,6 +59,9 @@ class FakeController extends Controller
     public function myAction()
     {
         $this->response->getBody()->write('My email is: '.$this->arguments->get('mail'));
+
+        if ($this->get->has('frequency'))
+            $this->response->getBody()->write(' and I am accepting newsletter '.$this->get->get('frequency'));
     }
 
     public function quickAction()

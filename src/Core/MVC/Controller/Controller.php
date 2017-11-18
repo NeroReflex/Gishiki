@@ -54,6 +54,13 @@ abstract class Controller
     protected $arguments;
 
     /**
+     * This is the collection of arguments passed as GET.
+     *
+     * @var GenericCollection the collection of arguments passed as GET
+     */
+    protected $get;
+
+    /**
      * @var array an array containing specified plugin collection as instantiated objects
      */
     protected $plugins;
@@ -81,7 +88,7 @@ abstract class Controller
      *
      * @param  RequestInterface  $controllerRequest   the request arrived from the client
      * @param  ResponseInterface $controllerResponse  the response to be given to the client
-     * @param  GenericCollection $controllerArguments the collection of matched URI params
+     * @param  GenericCollection $controllerArguments the collection of matched URI params and GET params
      * @param  array             $plugins             the array containing passed plugins
      * @param  Application|null  $app                 the current application instance
      * @throws ControllerException the error preventing the controller creation
@@ -97,7 +104,8 @@ abstract class Controller
         $this->response = $controllerResponse;
 
         //save the arguments collection
-        $this->arguments = $controllerArguments;
+        $this->arguments = ($controllerArguments->has('uri')) ? new GenericCollection($controllerArguments->get('uri')) : new GenericCollection();
+        $this->get = ($controllerArguments->has('get')) ? new GenericCollection($controllerArguments->get('get')) : new GenericCollection();
 
         //save the application reference
         $this->application = &$app;

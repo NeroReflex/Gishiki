@@ -195,4 +195,15 @@ cf1zSJX0I5GEo9EIBb2r7cFNdOLa02qTL/IO4a3c5NbHqmDBqyfh9lpU6Do=
 
         new PublicKey("You won't be able to get a valid key from me even in a thousand years!");
     }
+
+    public function testPrivateKeyExportBadPassword()
+    {
+        $this->expectException(AsymmetricException::class);
+
+        $key = new PrivateKey(self::getTestRSAPrivateKey());
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        $key->export(90);
+    }
 }

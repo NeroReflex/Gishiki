@@ -190,8 +190,6 @@ final class PrivateKey
     {
         if (!is_string($keyPassword)) {
             throw new \InvalidArgumentException('The private key password cannot be something else than a string');
-        } elseif (!$this->isLoaded()) {
-            throw new AsymmetricException('It is impossible to serialize an unloaded private key: '.openssl_error_string(), 1);
         }
 
         $serializedKey = '';

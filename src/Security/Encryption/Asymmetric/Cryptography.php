@@ -58,11 +58,6 @@ abstract class Cryptography
             throw new \InvalidArgumentException('The plain message to be encrypted must be given as a non-empty string');
         }
 
-        //check for the private key
-        if (!$key->isLoaded()) {
-            throw new AsymmetricException('It is impossible to generate a digital signature with an unloaded key', 11);
-        }
-
         //get the key in native format and its length
         $managedKey = $key();
 
@@ -114,11 +109,6 @@ abstract class Cryptography
         //check the plain message type
         if ((!is_string($message)) || (strlen($message) <= 0)) {
             throw new \InvalidArgumentException('The plain message to be encrypted must be given as a non-empty string');
-        }
-
-        //check for the public key
-        if (!$key->isLoaded()) {
-            throw new AsymmetricException('It is impossible to generate a digital signature with an unloaded key', 11);
         }
 
         //get the key in native format and its length
@@ -179,11 +169,6 @@ abstract class Cryptography
             throw new \InvalidArgumentException('The encrypted message to be decrypted must be given as a non-empty string');
         }
 
-        //check for the public key
-        if (!$key->isLoaded()) {
-            throw new AsymmetricException('It is impossible to generate a digital signature with an unloaded key', 11);
-        }
-
         //base64-decode of the encrypted message
         $completeMsg = base64_decode($encryptedMsg);
 
@@ -242,11 +227,6 @@ abstract class Cryptography
         //check the encrypted message type
         if ((!is_string($encryptedMsg)) || (strlen($encryptedMsg) <= 0)) {
             throw new \InvalidArgumentException('The encrypted message to be decrypted must be given as a non-empty string');
-        }
-
-        //check for the private key
-        if (!$key->isLoaded()) {
-            throw new AsymmetricException('It is impossible to generate a digital signature with an unloaded key', 11);
         }
 
         //base64-decode of the encrypted message
@@ -310,11 +290,6 @@ abstract class Cryptography
             throw new \InvalidArgumentException('The message to be signed must be a non-empty string');
         }
 
-        //check for the private key
-        if (!$key->isLoaded()) {
-            throw new AsymmetricException('It is impossible to generate a digital signature with an unloaded key', 11);
-        }
-
         //get the managed version of the native key
         $managedKey = $key();
 
@@ -361,16 +336,8 @@ abstract class Cryptography
         //check the message type
         if ((!is_string($message)) || (strlen($message) <= 0)) {
             throw new \InvalidArgumentException('The message to be checked must be a non-empty string');
-        }
-
-        //check the message type
-        if ((!is_string($signature)) || (strlen($signature) <= 0)) {
+        } elseif ((!is_string($signature)) || (strlen($signature) <= 0)) {
             throw new \InvalidArgumentException('The digital signature of the message must be a non-empty string');
-        }
-
-        //check for the private key
-        if (!$key->isLoaded()) {
-            throw new AsymmetricException('It is impossible to generate a digital signature with an unloaded key', 13);
         }
 
         //get the signature result

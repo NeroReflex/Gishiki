@@ -181,4 +181,18 @@ cf1zSJX0I5GEo9EIBb2r7cFNdOLa02qTL/IO4a3c5NbHqmDBqyfh9lpU6Do=
 
         $this->assertEquals($serialized_private_key, (string)$handler);
     }
+
+    public function testLoadPublicKeyBadArgumentType()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        new PublicKey(50);
+    }
+
+    public function testLoadPublicKeyBadKey()
+    {
+        $this->expectException(AsymmetricException::class);
+
+        new PublicKey("You won't be able to get a valid key from me even in a thousand years!");
+    }
 }

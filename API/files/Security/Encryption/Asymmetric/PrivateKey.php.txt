@@ -72,11 +72,6 @@ final class PrivateKey
             throw new \InvalidArgumentException('The key length must be a power of two');
         }
 
-        //if the key length is extremely long, a very long time will be needed to generate the key, and it is necessary ti set no time limits to generate it
-        //if ($keyLength == self::RSAEXTREME) {
-        set_time_limit(0);
-        //}
-
         //build the configuration array
         $config = [
             'digest_alg' => 'sha512',
@@ -98,11 +93,6 @@ final class PrivateKey
 
         //free the memory space used to hold the newly generated key
         openssl_free_key($privateKey);
-
-        //check for the result
-        if (!is_string($pKeyEncoded)) {
-            throw new AsymmetricException("The key generation was completed, but the result couldn't be exported", 9);
-        }
 
         //return the operation result
         return $pKeyEncoded;
@@ -213,11 +203,8 @@ final class PrivateKey
         ];
 
         //serialize the key and encrypt it if requested
-        if (strlen($keyPassword) > 0) {
-            openssl_pkey_export($this->key, $serializedKey, $keyPassword, $config);
-        } else {
-            openssl_pkey_export($this->key, $serializedKey, null, $config);
-        }
+        $passwordInput = (strlen($keyPassword) > 0) ? $keyPassword : null;
+        openssl_pkey_export($this->key, $serializedKey, $passwordInput, $config);
 
         //return the serialized key
         return $serializedKey;
@@ -252,10 +239,6 @@ final class PrivateKey
      */
     public function __invoke()
     {
-        if (!$this->isLoaded()) {
-            throw new AsymmetricException('It is impossible to obtain an unloaded private key', 1);
-        }
-
         //get private key details
         $details = openssl_pkey_get_details($this->key);
 

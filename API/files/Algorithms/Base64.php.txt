@@ -26,6 +26,8 @@ abstract class Base64
 {
     /**
      * Create the Base64 binary-safe representation of the given message.
+     * The generated base64 is different from the stock PHP implementation as
+     * the generated string can be used on URLs.
      *
      * The given message can be a binary unsafe string.
      *
@@ -39,21 +41,15 @@ abstract class Base64
      * </code>
      *
      * @param string $message       the binary-unsafe message
-     * @param bool   $urlCompatible the generated result doesn't contains special characters
      *
      * @return string the binary-safe representation of the given message
      *
      * @throws \InvalidArgumentException the given message is not represented as a string or the URL safety is not boolean
      */
-    public static function encode($message, $urlCompatible = true) : string
+    public static function encode($message) : string
     {
         //check for the message type
         if (!is_string($message)) {
-            throw new \InvalidArgumentException('the binary unsafe content must be given as a string');
-        }
-
-        //check for url safety param
-        if (!is_bool($urlCompatible)) {
             throw new \InvalidArgumentException('the binary unsafe content must be given as a string');
         }
 
@@ -61,7 +57,7 @@ abstract class Base64
         $encoded = base64_encode($message);
 
         //return the url safe version if requested
-        return ($urlCompatible) ? rtrim(strtr($encoded, '+/=', '-_~'), '~') : $encoded;
+        return rtrim(strtr($encoded, '+/=', '-_~'), '~');
     }
 
     /**

@@ -78,10 +78,14 @@ interface RouteInterface
     public function getMethods() : array;
 
     /**
+     * Check if the given URL matches the route URI.
+     * Also fill GET and expressions parameters.
+     *
      * @param  string $method      the HTTP method used on the Request
      * @param  string $url         the URL invoked
-     * @param  mixed  $matchedExpr will be filled with an associative array of paramName => urlValue
+     * @param  array  $matchedExpr will be filled with an associative array of paramName => urlValue
+     * @param  array  $matchedGet  will be filled with an associative array of paramName => urlValue (reserved for get parameters)
      * @return bool true if the given method and url matches this route
      */
-    public function matches($method, $url, &$matchedExpr) : bool;
+    public function matches($method, $url, array &$matchedExpr, array &$matchedGet) : bool;
 }

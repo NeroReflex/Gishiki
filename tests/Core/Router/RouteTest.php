@@ -37,6 +37,7 @@ class RouteTest extends TestCase
     public function testBadUriParamType()
     {
         $expr = [];
+        $get = [];
 
         $route = new Route([
             "verbs" => [
@@ -49,28 +50,31 @@ class RouteTest extends TestCase
         ]);
 
         $this->expectException(RouterException::class);
-        $route->matches(Route::GET, "/whatever", $expr);
+        $route->matches(Route::GET, "/whatever", $expr, $get);
     }
 
     public function testBadUrlInMatchURI()
     {
         $expr = [];
+        $get = [];
 
         $this->expectException(\InvalidArgumentException::class);
-        Route::matchURI("/", null, $expr);
+        Route::matchURI("/", null, $expr, $get);
     }
 
     public function testBadUriInMatchURI()
     {
         $expr = [];
+        $get = [];
 
         $this->expectException(\InvalidArgumentException::class);
-        Route::matchURI(null, "/", $expr);
+        Route::matchURI(null, "/", $expr, $get);
     }
 
     public function testBadUrl()
     {
-        $expr = null;
+        $expr = [];
+        $get = [];
 
         $route = new Route([
             "verbs" => [
@@ -83,7 +87,7 @@ class RouteTest extends TestCase
         ]);
 
         $this->expectException(\InvalidArgumentException::class);
-        $route->matches(Route::GET, null, $expr);
+        $route->matches(Route::GET, null, $expr, $get);
     }
 
     public function testBadController()
@@ -220,7 +224,8 @@ class RouteTest extends TestCase
 
     public function testStrangeMatch()
     {
-        $expr = null;
+        $expr = [];
+        $get = [];
 
         $route = new Route([
             "verbs" => [
@@ -232,12 +237,13 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(false, $route->matches(Route::GET, "/", $expr));
+        $this->assertEquals(false, $route->matches(Route::GET, "/", $expr, $get));
     }
 
     public function testStatic()
     {
-        $expr = null;
+        $expr = [];
+        $get = [];
 
         $route = new Route([
             "verbs" => [
@@ -249,12 +255,13 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(true, $route->matches(Route::POST, "/home/hello/test", $expr));
+        $this->assertEquals(true, $route->matches(Route::POST, "/home/hello/test", $expr, $get));
     }
 
     public function testDynamicEmail()
     {
         $expr = [];
+        $get = [];
 
         $route = new Route([
             "verbs" => [
@@ -266,7 +273,7 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(true, $route->matches(Route::POST, "/email/example@gmail.com", $expr));
+        $this->assertEquals(true, $route->matches(Route::POST, "/email/example@gmail.com", $expr, $get));
         $this->assertEquals([
             "address" => "example@gmail.com"
         ], $expr);
@@ -275,6 +282,7 @@ class RouteTest extends TestCase
     public function testDynamicUint()
     {
         $expr = [];
+        $get = [];
 
         $route = new Route([
             "verbs" => [
@@ -286,7 +294,7 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(true, $route->matches(Route::POST, "/uint/54", $expr));
+        $this->assertEquals(true, $route->matches(Route::POST, "/uint/54", $expr, $get));
         $this->assertEquals([
             "number" => 54
         ], $expr);
@@ -294,7 +302,8 @@ class RouteTest extends TestCase
 
     public function testDynamicSint()
     {
-        $expr = null;
+        $expr = [];
+        $get = [];
 
         $route = new Route([
             "verbs" => [
@@ -306,7 +315,7 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(true, $route->matches(Route::POST, "/sint/-55", $expr));
+        $this->assertEquals(true, $route->matches(Route::POST, "/sint/-55", $expr, $get));
         $this->assertEquals([
             "number" => -55
         ], $expr);
@@ -314,7 +323,8 @@ class RouteTest extends TestCase
 
     public function testDynamicString()
     {
-        $expr = null;
+        $expr = [];
+        $get = [];
 
         $route = new Route([
             "verbs" => [
@@ -326,7 +336,7 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(true, $route->matches(Route::POST, "/hello/John", $expr));
+        $this->assertEquals(true, $route->matches(Route::POST, "/hello/John", $expr, $get));
         $this->assertEquals([
             "name" => "John",
         ], $expr);
@@ -334,7 +344,8 @@ class RouteTest extends TestCase
 
     public function testDynamicFloat()
     {
-        $expr = null;
+        $expr = [];
+        $get = [];
 
         $route = new Route([
             "verbs" => [
@@ -346,7 +357,7 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(true, $route->matches(Route::HEAD, "/float/-55.25", $expr));
+        $this->assertEquals(true, $route->matches(Route::HEAD, "/float/-55.25", $expr, $get));
         $this->assertEquals([
             "number" => -55.25
         ], $expr);
@@ -354,7 +365,8 @@ class RouteTest extends TestCase
 
     public function testDynamicComplex()
     {
-        $expr = null;
+        $expr = [];
+        $get = [];
 
         $route = new Route([
             "verbs" => [
@@ -366,7 +378,7 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(true, $route->matches(Route::DELETE, "/cplx/9/example@xmpl.com/set", $expr));
+        $this->assertEquals(true, $route->matches(Route::DELETE, "/cplx/9/example@xmpl.com/set", $expr, $get));
         $this->assertEquals([
             "id" => 9,
             "mail" => "example@xmpl.com"
@@ -375,7 +387,8 @@ class RouteTest extends TestCase
 
     public function testDynamicBadSplitNumber()
     {
-        $expr = null;
+        $expr = [];
+        $get = [];
 
         $route = new Route([
             "verbs" => [
@@ -387,7 +400,7 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(false, $route->matches(Route::GET, "/cplx", $expr));
+        $this->assertEquals(false, $route->matches(Route::GET, "/cplx", $expr, $get));
     }
 
     public function testRouteInvoke()
@@ -475,5 +488,30 @@ class RouteTest extends TestCase
         $this->assertEquals("My email is: ".$value, $body->getContents());
 
         $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    public function testDynamicWithGet()
+    {
+        $expr = [];
+        $get = [];
+
+        $route = new Route([
+            "verbs" => [
+                Route::GET
+            ],
+            "uri" => "/search/{type:int}",
+            "status" => Route::OK,
+            "controller" => \FakeController::class,
+            "action" => 'do',
+        ]);
+
+        $this->assertEquals(true, $route->matches(Route::GET, "/search/4/?distanceMax=50km&distanceMin=1km", $expr, $get));
+        $this->assertEquals([
+            "type" => 4
+        ], $expr);
+        $this->assertEquals([
+            "distanceMax" => "50km",
+            "distanceMin" => "1km",
+        ], $get);
     }
 }

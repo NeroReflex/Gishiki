@@ -17,22 +17,29 @@ limitations under the License.
 
 namespace Gishiki\Database\Adapters\Utils\QueryBuilder;
 
-use Gishiki\Database\Adapters\Utils\SQLGenerator\MySQLWrapper;
+use Gishiki\Database\Runtime\SelectionCriteria;
+use Gishiki\Database\Runtime\ResultModifier;
+use Gishiki\Database\Schema\Table;
 
 /**
- * Uses SQL generators to generate valid SQL queries for MySQL.
+ * Represents how a SQL query builder must be implemented when designing a new database connector.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class MySQLQueryBuilder implements SQLQueryBuilderInterface
+interface SQLQueryBuilderInterface
 {
-    use SQLQueryBuilder;
+    public function createTableQuery(Table $table);
 
-    /**
-     * @return MySQLWrapper the MySQL specialized query builder
-     */
-    protected function getQueryBuilder()
-    {
-        return new MySQLWrapper();
-    }
+    public function insertQuery($collection, array $adaptedData);
+
+    public function updateQuery($collection, array $adaptedData, SelectionCriteria $where);
+
+    public function deleteQuery($collection, SelectionCriteria $where);
+
+    public function deleteAllQuery($collection);
+
+    public function readQuery($collection, SelectionCriteria $where, ResultModifier $mod);
+
+    public function selectiveReadQuery($collection, $fields, SelectionCriteria $where, ResultModifier $mod);
+
 }

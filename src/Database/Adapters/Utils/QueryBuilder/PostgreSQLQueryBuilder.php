@@ -24,7 +24,7 @@ use Gishiki\Database\Adapters\Utils\SQLGenerator\PostgreSQLWrapper;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-final class PostgreSQLQueryBuilder
+final class PostgreSQLQueryBuilder implements SQLQueryBuilderInterface
 {
     use SQLQueryBuilder;
 

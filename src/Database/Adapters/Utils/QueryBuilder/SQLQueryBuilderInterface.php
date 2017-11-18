@@ -41,5 +41,4 @@ interface SQLQueryBuilderInterface
     public function readQuery($collection, SelectionCriteria $where, ResultModifier $mod);
 
     public function selectiveReadQuery($collection, $fields, SelectionCriteria $where, ResultModifier $mod);
-
 }

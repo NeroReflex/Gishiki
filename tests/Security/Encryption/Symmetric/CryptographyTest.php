@@ -178,4 +178,15 @@ class CryptographyTest extends TestCase
         //encrypt the message (trigger the exception)
         Cryptography::encrypt($key, $message, null, Cryptography::AES_CBC_256);
     }
+
+    public function testAES256BadKeyDecrypt()
+    {
+        //generate the key
+        $key = new SecretKey(SecretKey::generate('T3st1n9/k3y <3', 12));
+
+        $this->expectException(SymmetricException::class);
+
+        //encrypt the message (trigger the exception)
+        Cryptography::decrypt($key, "This message is useless.", openssl_random_pseudo_bytes(20), Cryptography::AES_CBC_256);
+    }
 }

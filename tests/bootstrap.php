@@ -15,6 +15,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 *****************************************************************************/
 
+//remove time limit
+set_time_limit(0);
+
 // Set timezone
 date_default_timezone_set('America/New_York');
 // Prevent session cookies

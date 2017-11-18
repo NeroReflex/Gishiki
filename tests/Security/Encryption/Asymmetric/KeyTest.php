@@ -103,6 +103,34 @@ cf1zSJX0I5GEo9EIBb2r7cFNdOLa02qTL/IO4a3c5NbHqmDBqyfh9lpU6Do=
 -----END RSA PRIVATE KEY-----';
     }
 
+    public function testGenerateBadKeyTypeOnSize()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        PrivateKey::generate("hello, world! ...mybe not the best place to be....");
+    }
+
+    public function testGenerateBadKeySize()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        PrivateKey::generate(9);
+    }
+
+    public function testPrivateKeyloadWithInvalidPassword()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        new PrivateKey(self::getTestRSAPrivateKey(), 500);
+    }
+
+    public function testPrivateKeyloadWithInvalidKey()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        new PrivateKey(null, 'mypass');
+    }
+
     public function testPrivateKeyload()
     {
         $loadedKey = new PrivateKey(self::getTestRSAPrivateKey());
@@ -142,5 +170,15 @@ cf1zSJX0I5GEo9EIBb2r7cFNdOLa02qTL/IO4a3c5NbHqmDBqyfh9lpU6Do=
         $private_key = new PrivateKey($serialized_private_key);
 
         $this->assertEquals(true, $private_key->isLoaded());
+    }
+
+    public function testKeyExport()
+    {
+        //generate a new serialized key
+        $serialized_private_key = PrivateKey::generate();
+
+        $handler = new PrivateKey($serialized_private_key);
+
+        $this->assertEquals($serialized_private_key, (string)$handler);
     }
 }

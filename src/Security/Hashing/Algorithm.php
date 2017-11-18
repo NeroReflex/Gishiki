@@ -77,11 +77,6 @@ abstract class Algorithm
         //calculate the hash for the given message
         $result = ((in_array($algorithm, openssl_get_md_methods()))) ? openssl_digest($message, $algorithm, false) : hash($algorithm, $algorithm, false);
 
-        //check for errors
-        if ($result === false) {
-            throw new HashingException('An unknown error occurred while generating the hash', 1);
-        }
-
         //return the calculated message digest
         return $result;
     }
@@ -185,13 +180,7 @@ abstract class Algorithm
             throw new \InvalidArgumentException('The message to be hashed must be given as a valid non-empty string');
         }
 
-        $result = password_hash($message, PASSWORD_BCRYPT);
-
-        if ($result === false) {
-            throw new HashingException('An unknown error occurred while generating the hash', 1);
-        }
-
-        return $result;
+        return password_hash($message, PASSWORD_BCRYPT);
     }
 
     /**
@@ -227,9 +216,7 @@ abstract class Algorithm
      * This function should be *NEVER* called directly: use an instance of the Hasher class!
      *
      * @param string $message      the string to be hashed
-     *
      * @return string the result of the hash algorithm
-     *
      * @throws \InvalidArgumentException the message is given as a non-string or an empty string
      * @throws HashingException          the error occurred while generating the hash for the given message
      */
@@ -328,11 +315,6 @@ abstract class Algorithm
 
         //an algorithm is represented as a string of only lowercase chars
         $algorithm = strtolower($algorithm);
-
-        //the raw output of the max length (beyond the $keyLength algorithm)
-        $output = '';
-
-        /*          execute the native openssl_pbkdf2                   */
 
         //check if the algorithm is valid
         if (!in_array($algorithm, openssl_get_md_methods(true), true)) {

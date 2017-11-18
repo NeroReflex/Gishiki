@@ -31,11 +31,10 @@ before_script:
     - pear config-set php_ini travis.php.ini
     - phpenv config-add travis.php.ini
     - composer install
- #   - sleep 15
- #   - mongo localhost:27017/gishiki ./tests/SetupTestingMongo.js
 
 script:
     - mkdir build && mkdir build/logs
+    - export COMPOSER_PROCESS_TIMEOUT=600 #yup. Tests are taking a long time now. pbkdf2 is slow.
     - composer test
     
 after_script:

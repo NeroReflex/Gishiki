@@ -88,7 +88,7 @@ class AlgorithmTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
 
         //test hash compatibility
-        Algorithm::bcryptVerify('', ':)');
+        Algorithm::pbkdf2Verify(9, ':((');
     }
 
     public function testInvalidMessageDigestForOpensslVerify()

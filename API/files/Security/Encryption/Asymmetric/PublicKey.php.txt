@@ -39,7 +39,7 @@ final class PublicKey
      * @throws \InvalidArgumentException the given key isn't a valid serialized key
      * @throws AsymmetricException       the given key is invalid
      */
-    public function __construct($key = null)
+    public function __construct($key)
     {
         if (!is_string($key)) {
             throw new \InvalidArgumentException('The serialized public key must be a string');
@@ -83,10 +83,6 @@ final class PublicKey
      */
     public function __invoke()
     {
-        if (!$this->isLoaded()) {
-            throw new AsymmetricException('It is impossible to obtain an unloaded public key', 1);
-        }
-
         //get private key details
         $details = openssl_pkey_get_details($this->key);
 

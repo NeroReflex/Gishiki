@@ -84,10 +84,7 @@ final class Application
 
         //get the root path
         $documentRoot = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
-
-        $this->currentDirectory = (strlen($documentRoot) > 0) ?
-            filter_input(INPUT_SERVER, 'DOCUMENT_ROOT') : getcwd();
-
+        $this->currentDirectory = (strlen($documentRoot) > 0) ? $documentRoot : getcwd();
         $this->currentDirectory .= DIRECTORY_SEPARATOR;
 
         //load application configuration

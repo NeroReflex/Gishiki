@@ -27,7 +27,6 @@ use Gishiki\Algorithms\Collections\SerializableCollection;
  */
 final class Config
 {
-
     /**
      * @var array the application configuration
      */

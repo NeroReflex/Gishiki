@@ -82,14 +82,15 @@ final class Router
      * @param string $method the HTTP used verb
      * @param string $url    the url decoded string of the called url
      * @param array  $params will contains matched url slices
+     * @param array  $get    will contains matched url get options
      * @return null|Route the matched route or null
      */
-    protected function search($method, $url, array &$params)
+    protected function search($method, $url, array &$params, array &$get)
     {
         foreach ($this->routes[$method] as $currentRoute) {
 
             //if the current URL matches the current URI
-            if ($currentRoute->matches($method, $url, $params)) {
+            if ($currentRoute->matches($method, $url, $params, $get)) {
 
                 //this will hold the parameters passed on the URL
                 return $currentRoute;
@@ -110,10 +111,11 @@ final class Router
     protected function checkNotAllowed($requestURL, $requestMethod) : bool
     {
         $params = [];
+        $get = [];
 
         foreach (array_keys($this->routes) as $method) {
             $matchedRoute = (strcmp($method, $requestMethod) != 0) ?
-                $this->search($method, $requestURL, $params) : null;
+                $this->search($method, $requestURL, $params, $get) : null;
 
             if (!is_null($matchedRoute)) {
                 return true;
@@ -206,8 +208,9 @@ final class Router
         $request = clone $requestToFulfill;
 
         $params = [];
+        $get = [];
 
-        $matchedRoute = $this->search($request->getMethod(), urldecode($request->getUri()->getPath()), $params);
+        $matchedRoute = $this->search($request->getMethod(), urldecode($request->getUri()->getPath()), $params, $get);
 
         if (!is_null($matchedRoute)) {
             //this will hold the parameters passed on the URL

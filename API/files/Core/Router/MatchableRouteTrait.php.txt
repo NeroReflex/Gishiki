@@ -55,9 +55,19 @@ trait MatchableRouteTrait
         return $this->route["verbs"];
     }
 
-    public function matches($method, $url, &$matchedExpr) : bool
+    /**
+     * Check if the given URL matches the route URI.
+     * Also fill GET and expressions parameters.
+     *
+     * @param  string $method      the HTTP method used on the Request
+     * @param  string $url         the URL invoked
+     * @param  array  $matchedExpr will be filled with an associative array of paramName => urlValue
+     * @param  array  $matchedGet  will be filled with an associative array of paramName => urlValue (reserved for get parameters)
+     * @return bool true if the given method and url matches this route
+     */
+    public function matches($method, $url, array &$matchedExpr, array &$matchedGet) : bool
     {
-        return ((in_array($method, $this->getMethods())) && (static::matchURI($this->getURI(), $url, $matchedExpr)));
+        return ((in_array($method, $this->getMethods())) && (static::matchURI($this->getURI(), $url, $matchedExpr, $matchedGet)));
     }
 
     /**
@@ -115,7 +125,7 @@ trait MatchableRouteTrait
      * @param  mixed  $params   used to register the correspondence (if any)
      * @return bool  true if the URL slice matches the URI slice, false otherwise
      */
-    protected static function matchCheck($uriSplit, $urlSplit, &$params) : bool
+    protected static function matchCheck($uriSplit, $urlSplit, array &$params) : bool
     {
         $result = false;
 
@@ -156,15 +166,16 @@ trait MatchableRouteTrait
     }
 
     /**
-     * Check if the given URL matches the route URI.
+     * Check if the given URL matches the given URI.
      * $matchedExpr is given as an associative array: name => value
      *
      * @param string $uri         the URI to be matched against the given URL
      * @param string $url         the URL to be matched
-     * @param mixed  $matchedExpr an *empty* array
+     * @param array  $matchedExpr the variable to be filled with matched parameters
+     * @param array  $matchedGet  the variable to be filled with GET options
      * @return bool true if the URL matches the URI, false otherwise
      */
-    public static function matchURI($uri, $url, &$matchedExpr) : bool
+    public static function matchURI($uri, $url, array &$matchedExpr, array &$matchedGet) : bool
     {
         if (!is_string($url)) {
             throw new \InvalidArgumentException("The URL must be given as a valid string");
@@ -180,14 +191,25 @@ trait MatchableRouteTrait
         $urlSlices = explode('/', $url);
         $uriSlices = explode('/', $uri);
 
-        $slicesCount = count($uriSlices);
-        if ($slicesCount != count($urlSlices)) {
+        $uriSlicesCount = count($uriSlices);
+        $urlSlicesCount = count($urlSlices);
+        if (($uriSlicesCount != $urlSlicesCount) && ($uriSlicesCount != ($urlSlicesCount - 1))) {
             return false;
         }
 
-        for ($i = 0; ($i < $slicesCount) && ($result); $i++) {
+        for ($i = 0; ($i < $uriSlicesCount) && ($result); $i++) {
             //try matching the current URL slice with the current URI slice
             $result = self::matchCheck($uriSlices[$i], $urlSlices[$i], $matchedExpr);
+        }
+
+        $result = ($result) &&
+            ((($uriSlicesCount == ($urlSlicesCount - 1)) && ($urlSlices[$urlSlicesCount - 1][0] == '?'))
+                || ($uriSlicesCount == $urlSlicesCount));
+
+        $matchedGet = [];
+        if (($result) && ($uriSlicesCount == ($urlSlicesCount - 1))) {
+            //parse the string containing GET parameters, without the beginning '?' character
+            parse_str(substr($urlSlices[$urlSlicesCount - 1], 1), $matchedGet);
         }
 
         return $result;

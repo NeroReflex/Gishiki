@@ -1,8 +1,8 @@
 # Docker
-The official Docker environment for Gishiki can be found on [DockerHub](https://hub.docker.com/r/neroreflex/gishiki/)..
+The official Docker environment for Gishiki can be found on [DockerHub](https://hub.docker.com/r/neroreflex/gishiki/).
 
 This Docker image is derived from php:7.1-apache (more info [here](https://hub.docker.com/_/php/)),
-the purpose of that image is to be able to deploy an application based on Gishiki is every environment
+the purpose of that image is to be able to deploy an application based on Gishiki on every environment
 with a few minutes of work.
 
 ## Usage
@@ -27,6 +27,15 @@ You can change port by issuig the following command:
 
 ```sh
 docker run -d -p 80:8081 --name gishiki-app -v "$PWD":/var/www/html neroreflex/gishiki
+```
+
+## Caching
+As Gishiki can speedup configuration loading using memcached you should _really_
+deploy a memcached container and link it with the application one:
+
+```sh
+docker run -d --name gishiki-cache -d memcached
+docker run -d -p 80:8081 --name gishiki-app -v "$PWD":/var/www/html --link gishiki-cache:cachelink neroreflex/gishiki
 ```
 
 ## Database

@@ -26,6 +26,7 @@ before_script:
     - psql -c 'create database travis_ci_test;' -U postgres
     - if [[ "$TRAVIS_OS_NAME" == 'linux' ]] ; then sudo apt-get install rsync ; fi
     - touch travis.php.ini
+    - echo "extension = memcached.so" >> travis.php.ini
     - sudo chmod 0777 travis.php.ini
     - pecl config-set php_ini travis.php.ini
     - pear config-set php_ini travis.php.ini

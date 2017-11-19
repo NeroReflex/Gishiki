@@ -16,6 +16,7 @@ pages:
 - API: apidoc.md
 - Usage:
     - Configuration:    usage/configuration.md
+    - Application:      usage/application.md
     - Router:           usage/routing.md
     - Request:          usage/request.md
     - Response:         usage/response.md

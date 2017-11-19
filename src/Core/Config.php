@@ -28,30 +28,66 @@ use Gishiki\Algorithms\Collections\SerializableCollection;
 final class Config
 {
     /**
-     * @var array the application configuration
+     * @var array|null the application configuration
      */
     protected $configuration = null;
 
     /**
-     * @var string the name of the configuration file
+     * @var string|null the name of the configuration file
      */
     protected $filename = null;
 
+    /**
+     * @var \Memcached|null
+     */
+    protected $cache = null;
 
     /**
      * Config constructor.
      * Parse the application configuration file when cached
      * content from a previous parse is not available.
      *
-     * @param null|string $filename
+     * @param null|string     $filename the path and name of the file, or null for default
+     * @param \Memcached|null $cache    the memcached caching instance. Speedup loading when provided.
      */
-    public function __construct($filename = null)
+    public function __construct($filename = null, \Memcached $cache = null)
     {
         //set the filename
         $this->setFilename($filename);
 
-        //load settings from the loaded file
+        //set the cache
+        if (!is_null($cache)) {
+            $this->cache = $cache;
+        }
+
+        //load settings
+        $this->finalizeLoading();
+    }
+
+    /**
+     * Load configuration faster than possible.
+     *
+     * If caching is enabled attempt to load configuration from there.
+     * It configuration cannot be found in cache load from file and
+     * update the cache.
+     */
+    protected function finalizeLoading()
+    {
+        if (!is_null($this->cache)) {
+            $cacheContent = $this->cache->get('app-settings');
+
+            if ($this->cache->getResultCode() != \Memcached::RES_NOTFOUND) {
+                $this->configuration = unserialize($cacheContent);
+            }
+            return;
+        }
+
+        //load setting using the old-fashioned way :)
         $this->loadSettingsFromFile();
+
+        if (!is_null($this->cache)) {
+            $this->cache->set('app-settings', serialize($this->configuration));
+        }
     }
 
     /**

@@ -1,11 +1,10 @@
 # Configuration
-Gishiki is a bit tricky to configure, but don't worry: you just need to edit
-what you don't like as the [gishiki CLI](../cli/index.md) takes care of bootstrapping
-a fully-working configuration.
+Every Gishiki [Application](application.md) need to be configured in order to properly work.
 
-the real configuration file is stored inside the application root directory and is called settings.json
+This is done by creating a json file called settings.json, you can use any other name but you'll also
+need to pass that file name as a parameter o the Application constructor.
 
-It has a fixed (minimum) structure:
+A settings file has a fixed (minimum) structure:
 ```json
 {
     "logging": {
@@ -43,7 +42,7 @@ As you might have thought those {{@VAR_NAMES}} are replaced with constants defin
 in your environment AND/OR Heroku (or similar) "Config Variables"!
 
 This is a *GREAT* feature that keeps *SECRET* your database connection descriptor and
-your master server key while allowing application portability among illimitate environments!
+your master server key while allowing application portability among multiple environments!
 
 
 ## Automatic Logger

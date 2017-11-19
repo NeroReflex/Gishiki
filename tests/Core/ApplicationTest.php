@@ -41,7 +41,7 @@ class ApplicationTest extends TestCase
         $content->set('structures', $dbFiles);
         file_put_contents(__DIR__."/../../settings.json", $content->serialize());
 
-        $app = new Application($emitter);
+        $app = new Application($emitter, __DIR__."/../../settings.json");
 
         unlink(__DIR__."/../../settings.json");
 

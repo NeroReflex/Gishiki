@@ -19,13 +19,13 @@ Vagrant.configure(2) do |config|
 
      vb.name = "Gishiki"
      # Customize the amount of memory on the VM:
-     vb.memory = "1024"
+     vb.memory = "512"
 
      # Avoid ubuntu network problems at boot
      vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
 
      # Limit CPU usage
-     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
+     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "80"]
 
      # Open and forward port for admin tools
      config.vm.network "forwarded_port", guest: 88, host: 8088

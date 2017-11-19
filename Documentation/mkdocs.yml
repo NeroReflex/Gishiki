@@ -4,6 +4,7 @@ pages:
 - Home: index.md
 - Installation: 
     - Environment:          installation/index.md
+    - Docker:               installation/docker.md
     - Basic PHP:            installation/basic_php.md
     - PHP 7.0 & nginx:      installation/php_7_nginx.md
     - Basic nginx:          installation/basic_nginx.md

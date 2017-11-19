@@ -30,24 +30,80 @@ final class Config
     /**
      * @var array the application configuration
      */
-    protected $configuration;
+    protected $configuration = null;
 
     /**
-     * Generate configuration from a json file and environment values.
+     * @var string the name of the configuration file
+     */
+    protected $filename = null;
+
+
+    /**
+     * Config constructor.
+     * Parse the application configuration file when cached
+     * content from a previous parse is not available.
      *
-     * If available the configuration will be load from cache.
+     * @param null|string $filename
+     */
+    public function __construct($filename = null)
+    {
+        //set the filename
+        $this->setFilename($filename);
+
+        //load settings from the loaded file
+        $this->loadSettingsFromFile();
+    }
+
+    /**
+     * Get the path of the file containing the application configuration.
      *
-     * @param  string $filename the path and name of the file
+     * @return string the current configuration file path
+     */
+    public function getFilename() : string
+    {
+        return $this->filename;
+    }
+
+    /**
+     * Get the path that contains the application configuration file.
+     *
+     * @return string the settings file directory
+     */
+    public function getDirectory() : string
+    {
+        return dirname($this->getFilename());
+    }
+
+    /**
+     * Set the path of the file containing the application configuration.
+     *
+     * @param  string|null $filename the path and name of the file, or null for default
      * @throws Exception the error preventing the file to be read
      */
-    public function __construct($filename)
+    public function setFilename($filename = null)
     {
+        $filename = (is_null($filename)) ? Application::getCurrentDirectory() . "settings.json" : $filename;
+
         if (!file_exists($filename)) {
             throw new Exception("The given configuration file cannot be read", 100);
         }
 
+        $this->filename = $filename;
+    }
+
+    /**
+     * Load the configuration from the loaded file.
+     *
+     * @throws Exception the error preventing the file to be read
+     */
+    protected function loadSettingsFromFile()
+    {
+        if (!is_string($this->filename)) {
+            throw new Exception("The configuration file is not specified", 101);
+        }
+
         //get the json encoded application settings
-        $configContent = file_get_contents($filename);
+        $configContent = file_get_contents($this->filename);
 
         //parse the settings file
         $incompleteConfig = SerializableCollection::deserialize($configContent)->all();

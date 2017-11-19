@@ -56,6 +56,36 @@
             "title": "Let's go!"
         }, 
         {
+            "location": "/installation/docker/", 
+            "text": "Docker\n\n\nThe official Docker environment for Gishiki can be found on \nDockerHub\n..\n\n\nThis Docker image is derived from php:7.1-apache (more info \nhere\n),\nthe purpose of that image is to be able to deploy an application based on Gishiki is every environment\nwith a few minutes of work.\n\n\nUsage\n\n\nYou have to pull the base image, create a container and execute that container.\n\n\nThis can be done with the following command line arguments:\n\n\ndocker pull neroreflex/gishiki\ndocker run -d -p 80:80 --name gishiki-app -v \n$PWD\n:/var/www/html neroreflex/gishiki\n\n\n\n\nThe first command pull the base image.\n\n\nThe second command performs multiple operations:\n   - create the container from the gishiki image\n   - symlink the current directory with the documentRoot directory inside the container\n   - bind the port 80 inside the container to the host port 80\n   - run the apache service\n\n\nYou can change port by issuig the following command:\n\n\ndocker run -d -p 80:8081 --name gishiki-app -v \n$PWD\n:/var/www/html neroreflex/gishiki\n\n\n\n\nDatabase\n\n\nThe vast majority of applications, services and websites need a place to store data,\nusually that place is a database.\n\n\nI suggest you to use the \nPostgreSQL\n image,\nor the \nMySQL\n one, when pgsql \ncannot\n be used.\n\n\nProvided you have a database container running, and that container is called \"database-container\"\nyou can link the application container with that database container:\n\n\ndocker run -d -p 80:8081 --name gishiki-app -v \n$PWD\n:/var/www/html --link database-container:dblink neroreflex/gishiki\n\n\n\n\nEdit \n Save\n\n\nYou can use the container shell in order to prepare and personalize your container:\n\n\ndocker exec -i -t gishiki-app /bin/bash\n\n\n\n\nWhen you are done remember to create a container out of your customized environment\nand push it to \nDockerHub\n (create a new repository before, in this example my_image):\n\n\ndocker commit gishiki-app customized_gishiki_img\n\nexport DOCKER_ID_USER=\nusername\n\ndocker login #login to dockerhub\ndocker tag customized_gishiki_img $DOCKER_ID_USER/my_image\ndocker push $DOCKER_ID_USER/my_image\n\n\n\n\nYou can find a tutorial \nhere\n.\n\n\nFinal Notes\n\n\nThe Gishiki image deploy everything is needed to run the gishiki framework:\n   - PHP (obviously)\n   - PDO drivers (for database access)\n   - Memcached (faster framework execution when used)\n   - XDebug (remotely debug your application)\n\n\nWARNING:\n XDebug is a powerful extension but when leaved on in a release environment\nis to be considered a security breach: make sure to fine-tune your own environment!", 
+            "title": "Docker"
+        }, 
+        {
+            "location": "/installation/docker/#docker", 
+            "text": "The official Docker environment for Gishiki can be found on  DockerHub ..  This Docker image is derived from php:7.1-apache (more info  here ),\nthe purpose of that image is to be able to deploy an application based on Gishiki is every environment\nwith a few minutes of work.", 
+            "title": "Docker"
+        }, 
+        {
+            "location": "/installation/docker/#usage", 
+            "text": "You have to pull the base image, create a container and execute that container.  This can be done with the following command line arguments:  docker pull neroreflex/gishiki\ndocker run -d -p 80:80 --name gishiki-app -v  $PWD :/var/www/html neroreflex/gishiki  The first command pull the base image.  The second command performs multiple operations:\n   - create the container from the gishiki image\n   - symlink the current directory with the documentRoot directory inside the container\n   - bind the port 80 inside the container to the host port 80\n   - run the apache service  You can change port by issuig the following command:  docker run -d -p 80:8081 --name gishiki-app -v  $PWD :/var/www/html neroreflex/gishiki", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/installation/docker/#database", 
+            "text": "The vast majority of applications, services and websites need a place to store data,\nusually that place is a database.  I suggest you to use the  PostgreSQL  image,\nor the  MySQL  one, when pgsql  cannot  be used.  Provided you have a database container running, and that container is called \"database-container\"\nyou can link the application container with that database container:  docker run -d -p 80:8081 --name gishiki-app -v  $PWD :/var/www/html --link database-container:dblink neroreflex/gishiki", 
+            "title": "Database"
+        }, 
+        {
+            "location": "/installation/docker/#edit-save", 
+            "text": "You can use the container shell in order to prepare and personalize your container:  docker exec -i -t gishiki-app /bin/bash  When you are done remember to create a container out of your customized environment\nand push it to  DockerHub  (create a new repository before, in this example my_image):  docker commit gishiki-app customized_gishiki_img\n\nexport DOCKER_ID_USER= username \ndocker login #login to dockerhub\ndocker tag customized_gishiki_img $DOCKER_ID_USER/my_image\ndocker push $DOCKER_ID_USER/my_image  You can find a tutorial  here .", 
+            "title": "Edit &amp; Save"
+        }, 
+        {
+            "location": "/installation/docker/#final-notes", 
+            "text": "The Gishiki image deploy everything is needed to run the gishiki framework:\n   - PHP (obviously)\n   - PDO drivers (for database access)\n   - Memcached (faster framework execution when used)\n   - XDebug (remotely debug your application)  WARNING:  XDebug is a powerful extension but when leaved on in a release environment\nis to be considered a security breach: make sure to fine-tune your own environment!", 
+            "title": "Final Notes"
+        }, 
+        {
             "location": "/installation/basic_php/", 
             "text": "Basic PHP\n\n\nYou may not want to install a webserver in you development machine, but you might\nwant to test your products by yourself and locally before performing the push/deploy.\n\n\nYou can test your products by starting the PHP built-in webserver (inside the project directory):\n\n\nphp -S localhost:8080 -t ./\n\n\n\n\nThis feature is meant for testing purpouse \nONLY\n because it is IDE friendly\nand easy to use without an IDE, but you \nshould avoid\n using PHP webserver\nin a production environment due to its \nreally\n low performance!", 
             "title": "Basic PHP"

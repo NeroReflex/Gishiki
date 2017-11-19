@@ -42,11 +42,6 @@ final class Application
     protected $configuration;
 
     /**
-     * @var string the path of the current directory
-     */
-    protected $currentDirectory;
-
-    /**
      * @var RequestInterface the request sent to the framework
      */
     protected $request;
@@ -74,24 +69,21 @@ final class Application
      */
     public function __construct(EmitterInterface $emitter = null)
     {
+        //load application configuration
+        try {
+            $this->configuration = new Config();
+
+            $this->applyConfiguration();
+        } catch (Exception $ex) {
+
+        }
+
         //setup the emitter (dependency-injection style)
         $this->emitter = $emitter;
 
         //if a valid one was not provided...
         if (is_null($this->emitter)) {
             $this->emitter = new Response\SapiEmitter();
-        }
-
-        //get the root path
-        $documentRoot = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
-        $this->currentDirectory = (strlen($documentRoot) > 0) ? $documentRoot : getcwd();
-        $this->currentDirectory .= DIRECTORY_SEPARATOR;
-
-        //load application configuration
-        if (file_exists($this->currentDirectory . "settings.json")) {
-            $this->configuration = new Config($this->currentDirectory . "settings.json");
-
-            $this->applyConfiguration();
         }
 
         //get current request...
@@ -107,13 +99,23 @@ final class Application
     }
 
     /**
+     * Get the current working directory
+     *
+     * @return string the current directory
+     */
+    public static function getCurrentDirectory() : string
+    {
+        return getcwd() . DIRECTORY_SEPARATOR;
+    }
+
+    /**
      * Get the directory containing the application
      *
      * @return string the current directory
      */
-    public function getCurrentDirectory() : string
+    public function getApplicationDirectory() : string
     {
-        return $this->currentDirectory;
+        return $this->configuration->getDirectory();
     }
 
     /**
@@ -131,14 +133,13 @@ final class Application
         $structures = $this->configuration->getConfiguration()->get('structures');
         if (is_array($structures)) {
             foreach ($structures as $structureFile) {
-                $description = file_get_contents($this->currentDirectory . $structureFile);
+                $description = file_get_contents($this->getCurrentDirectory() . $structureFile);
 
                 $importedDescription = SerializableCollection::deserialize($description);
 
                 $this->registerDatabaseStructure($importedDescription);
             }
         }
-        //populateStructures
 
         //apply the logging configuration
         $loggers = $this->configuration->getConfiguration()->get('logging')['interfaces'];

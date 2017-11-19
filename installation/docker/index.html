@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>PaaS - Gishiki</title>
+  <title>Docker - Gishiki</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,9 +17,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "PaaS";
-    var mkdocs_page_input_path = "installation/paas.md";
-    var mkdocs_page_url = "/installation/paas/";
+    var mkdocs_page_name = "Docker";
+    var mkdocs_page_input_path = "installation/docker.md";
+    var mkdocs_page_url = "/installation/docker/";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -60,9 +60,27 @@
                     
     <a class="" href="../">Environment</a>
                 </li>
-                <li class="">
+                <li class=" current">
                     
-    <a class="" href="../docker/">Docker</a>
+    <a class="current" href="./">Docker</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#docker">Docker</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#usage">Usage</a></li>
+        
+            <li><a class="toctree-l4" href="#database">Database</a></li>
+        
+            <li><a class="toctree-l4" href="#edit-save">Edit &amp; Save</a></li>
+        
+            <li><a class="toctree-l4" href="#final-notes">Final Notes</a></li>
+        
+        </ul>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
@@ -92,23 +110,9 @@
                     
     <a class="" href="../composer/">Composer</a>
                 </li>
-                <li class=" current">
+                <li class="">
                     
-    <a class="current" href="./">PaaS</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#paas">PaaS</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l4" href="#getting-started">Getting Started</a></li>
-        
-            <li><a class="toctree-l4" href="#database">Database</a></li>
-        
-        </ul>
-    
-
-    </ul>
+    <a class="" href="../paas/">PaaS</a>
                 </li>
     </ul>
 	    </li>
@@ -201,7 +205,7 @@
         
       
     
-    <li>PaaS</li>
+    <li>Docker</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -211,44 +215,62 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="paas">PaaS</h1>
-<p><strong><em>PaaS</em></strong> stands for: <strong>P</strong>latform <strong>a</strong>s <strong>a</strong> <strong>S</strong>ervice.</p>
-<p>A PaaS is a service that give life to your application, which is hosted in a
-cloud (often sandboxed) environment, giving you additional protection to your
-application and abstracting away from you the problem of scaling large-scale
-server intensive applications.</p>
-<p>A PaaS provider ofter adds to its service a set of utilities that simplify your
-life, especially with automatic content delivery and/or application update:
-for example Heroku automatically Sync your application with its GitHub repository
-and automatically deploy your application on each push if it passes the
-automatic integration testing set!</p>
-<p>A small list of supported PaaS may be:
- - Heroku
- - OpenShift
- - Google AppEngine
- - PagodaBox
- - elastx
- - Microsoft Azure</p>
-<p>But there are many, many more of them: everything that can run PHP 5.4 will work!</p>
-<h2 id="getting-started">Getting Started</h2>
-<p>Gishiki is tested costantly with Heroku because Heroku is fantastic
-and empowers your application with a lot of simple tools without forcing you to
-maintain a server or a container!</p>
-<p>Setting up a perfectly working Heroku/OpenShift application is super-easy:</p>
-<ul>
-<li>Register &amp; Login to your PaaS provider website</li>
-<li>Create a new application using your PaaS provider website</li>
-<li>Setup auto-deploy using your PaaS provider website</li>
-<li>Create a new application using <a href="../composer/">composer</a></li>
-</ul>
-<p>Edit locally your application, commit and when a <em>git push</em> is performed to GitHub your
-Heroku/openShift application is automatically updated! Have fun &lt;3.</p>
+                <h1 id="docker">Docker</h1>
+<p>The official Docker environment for Gishiki can be found on <a href="https://hub.docker.com/r/neroreflex/gishiki/">DockerHub</a>..</p>
+<p>This Docker image is derived from php:7.1-apache (more info <a href="https://hub.docker.com/_/php/">here</a>),
+the purpose of that image is to be able to deploy an application based on Gishiki is every environment
+with a few minutes of work.</p>
+<h2 id="usage">Usage</h2>
+<p>You have to pull the base image, create a container and execute that container.</p>
+<p>This can be done with the following command line arguments:</p>
+<pre><code class="sh">docker pull neroreflex/gishiki
+docker run -d -p 80:80 --name gishiki-app -v &quot;$PWD&quot;:/var/www/html neroreflex/gishiki
+</code></pre>
+
+<p>The first command pull the base image.</p>
+<p>The second command performs multiple operations:
+   - create the container from the gishiki image
+   - symlink the current directory with the documentRoot directory inside the container
+   - bind the port 80 inside the container to the host port 80
+   - run the apache service</p>
+<p>You can change port by issuig the following command:</p>
+<pre><code class="sh">docker run -d -p 80:8081 --name gishiki-app -v &quot;$PWD&quot;:/var/www/html neroreflex/gishiki
+</code></pre>
+
 <h2 id="database">Database</h2>
-<p>You are free to host your database everywhere, but Heroku, OpenShift and many
-others PaaS are providing database support as simple add-ons to your application,
-and Gishiki is able to take advantage of those add-ons!</p>
-<p>For example you can pick the "Heroku Postgres" add-on to have for free a PostgreSQL
-database binded with your application!</p>
+<p>The vast majority of applications, services and websites need a place to store data,
+usually that place is a database.</p>
+<p>I suggest you to use the <a href="https://hub.docker.com/_/postgres/">PostgreSQL</a> image,
+or the <a href="https://hub.docker.com/_/mysql/">MySQL</a> one, when pgsql <strong>cannot</strong> be used.</p>
+<p>Provided you have a database container running, and that container is called "database-container"
+you can link the application container with that database container:</p>
+<pre><code class="sh">docker run -d -p 80:8081 --name gishiki-app -v &quot;$PWD&quot;:/var/www/html --link database-container:dblink neroreflex/gishiki
+</code></pre>
+
+<h2 id="edit-save">Edit &amp; Save</h2>
+<p>You can use the container shell in order to prepare and personalize your container:</p>
+<pre><code class="sh">docker exec -i -t gishiki-app /bin/bash
+</code></pre>
+
+<p>When you are done remember to create a container out of your customized environment
+and push it to <a href="https://hub.docker.com/">DockerHub</a> (create a new repository before, in this example my_image):</p>
+<pre><code class="sh">docker commit gishiki-app customized_gishiki_img
+
+export DOCKER_ID_USER=&quot;username&quot;
+docker login #login to dockerhub
+docker tag customized_gishiki_img $DOCKER_ID_USER/my_image
+docker push $DOCKER_ID_USER/my_image
+</code></pre>
+
+<p>You can find a tutorial <a href="https://docs.docker.com/docker-cloud/builds/push-images/">here</a>.</p>
+<h2 id="final-notes">Final Notes</h2>
+<p>The Gishiki image deploy everything is needed to run the gishiki framework:
+   - PHP (obviously)
+   - PDO drivers (for database access)
+   - Memcached (faster framework execution when used)
+   - XDebug (remotely debug your application)</p>
+<p><strong>WARNING:</strong> XDebug is a powerful extension but when leaved on in a release environment
+is to be considered a security breach: make sure to fine-tune your own environment!</p>
               
             </div>
           </div>
@@ -256,10 +278,10 @@ database binded with your application!</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../../apidoc/" class="btn btn-neutral float-right" title="API">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../basic_php/" class="btn btn-neutral float-right" title="Basic PHP">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../composer/" class="btn btn-neutral" title="Composer"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../" class="btn btn-neutral" title="Environment"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -285,10 +307,10 @@ database binded with your application!</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../composer/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../../apidoc/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../basic_php/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

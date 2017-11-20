@@ -249,7 +249,7 @@ $caching = new Memcached();
 $caching-&gt;addServer(&quot;127.0.0.1&quot;, 11211);
 
 // notice that settings will be load from cache
-$app = new Application(&quot;settings.json&quot;, $caching);
+$app = new Application(null, &quot;settings.json&quot;, $caching);
 
 // create the router and populate it with routes
 $router = new Router();

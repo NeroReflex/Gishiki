@@ -239,8 +239,13 @@ docker run -d -p 80:80 --name gishiki-app -v &quot;$PWD&quot;:/var/www/html nero
    - symlink the current directory with the documentRoot directory inside the container
    - bind the port 80 inside the container to the host port 80
    - run the apache service</p>
-<p>You can change port by issuig the following command:</p>
+<p>You can change port by issuing the following command:</p>
 <pre><code class="sh">docker run -d -p 80:8081 --name gishiki-app -v &quot;$PWD&quot;:/var/www/html neroreflex/gishiki
+</code></pre>
+
+<p>When the container is ready you can run composer and finalize the container:</p>
+<pre><code class="sh">docker exec -i -t gishiki-app /bin/bash
+composer install --no-dev
 </code></pre>
 
 <h2 id="caching">Caching</h2>

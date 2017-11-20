@@ -74,7 +74,7 @@ final class Config
     protected function finalizeLoading()
     {
         if (!is_null($this->cache)) {
-            $cacheContent = $this->cache->get('app-settings');
+            $cacheContent = $this->cache->get(sha1($this->getFilename()));
 
             if ($this->cache->getResultCode() != \Memcached::RES_NOTFOUND) {
                 $this->configuration = unserialize($cacheContent);
@@ -86,7 +86,7 @@ final class Config
         $this->loadSettingsFromFile();
 
         if (!is_null($this->cache)) {
-            $this->cache->set('app-settings', serialize($this->configuration));
+            $this->cache->set(sha1($this->getFilename()), serialize($this->configuration));
         }
     }
 
@@ -134,10 +134,6 @@ final class Config
      */
     protected function loadSettingsFromFile()
     {
-        if (!is_string($this->filename)) {
-            throw new Exception("The configuration file is not specified", 101);
-        }
-
         //get the json encoded application settings
         $configContent = file_get_contents($this->filename);
 
@@ -145,7 +141,7 @@ final class Config
         $incompleteConfig = SerializableCollection::deserialize($configContent)->all();
 
         //complete the request
-        $this->configuration = $this->getValueFromEnvironment($incompleteConfig);
+        $this->configuration = $this->completeSettings($incompleteConfig);
     }
 
     /**
@@ -166,24 +162,33 @@ final class Config
      * @param  array $collection the configuration to be finished
      * @return array the completed configuration
      */
-    protected function getValueFromEnvironment(array &$collection) : array
+    protected function completeSettings(array &$collection) : array
     {
         foreach ($collection as &$value) {
             //check for substitution
             if ((is_string($value)) && ((strpos($value, '{{@') === 0) && (strpos($value, '}}') !== false))) {
-                if (($toReplace = Manipulation::getBetween($value, '{{@', '}}')) != '') {
-                    $value = getenv($toReplace);
-                    if ($value !== false) {
-                        continue;
-                    } elseif (defined($toReplace)) {
-                        $value = constant($toReplace);
-                    }
-                }
+                $value = (($toReplace = Manipulation::getBetween($value, '{{@', '}}')) != '') ?
+                    $this->getValueFromEnvironment($toReplace) : $value;
             } elseif (is_array($value)) {
-                $value = $this->getValueFromEnvironment($value);
+                $value = $this->completeSettings($value);
             }
         }
 
         return $collection;
+    }
+
+    /**
+     * Get the value of an environment variable from its name.
+     *
+     * @param  string $key the name of environment variable
+     * @return string the value of the environment variable
+     */
+    protected function getValueFromEnvironment($key) : string
+    {
+        if (($value = getenv($key)) === false) {
+            $value = constant($key);
+        }
+
+        return (string)$value;
     }
 }

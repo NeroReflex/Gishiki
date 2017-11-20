@@ -19,6 +19,7 @@ namespace Gishiki\tests\Core\Router;
 
 use Gishiki\Algorithms\Collections\SerializableCollection as Serializable;
 
+use Gishiki\Algorithms\Collections\SerializableCollection;
 use Gishiki\Core\Config;
 use Gishiki\Core\Exception;
 use PHPUnit\Framework\TestCase;
@@ -32,6 +33,37 @@ use PHPUnit\Framework\TestCase;
  */
 class ConfigTest extends TestCase
 {
+    public function testCachedLoading()
+    {
+        $data = new SerializableCollection([
+            "oncache" => false
+        ]);
+
+        $filename = 'tests/config_'.__FUNCTION__.'.json';
+        file_put_contents($filename, $data->serialize());
+
+        $cache = new \Memcached();
+        $cache->addServer("127.0.0.1", 11211);
+
+        //clean the cache to have a clean testing environment
+        $cache->delete(sha1($filename));
+
+        $config = new Config($filename, $cache);
+
+        $this->assertEquals(false, $config->getConfiguration()->get("oncache"));
+
+        //change value on cache only :)
+        $data->set("oncache", true);
+        $cache->set(sha1($config->getFilename()), serialize($data->all()));
+
+        $config = new Config($filename, $cache);
+
+        //make sure settings were loaded from cache
+        $this->assertEquals(true, $config->getConfiguration()->get("oncache"));
+
+        //remove the used config file
+        unlink($filename);
+    }
 
     public function testBadFileConfig()
     {

@@ -71,6 +71,8 @@
         
             <li><a class="toctree-l4" href="#usage">Usage</a></li>
         
+            <li><a class="toctree-l4" href="#caching">Caching</a></li>
+        
             <li><a class="toctree-l4" href="#database">Database</a></li>
         
             <li><a class="toctree-l4" href="#edit-save">Edit &amp; Save</a></li>
@@ -129,6 +131,10 @@
                 <li class="">
                     
     <a class="" href="../../usage/configuration/">Configuration</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../usage/application/">Application</a>
                 </li>
                 <li class="">
                     
@@ -216,9 +222,9 @@
             <div class="section">
               
                 <h1 id="docker">Docker</h1>
-<p>The official Docker environment for Gishiki can be found on <a href="https://hub.docker.com/r/neroreflex/gishiki/">DockerHub</a>..</p>
+<p>The official Docker environment for Gishiki can be found on <a href="https://hub.docker.com/r/neroreflex/gishiki/">DockerHub</a>.</p>
 <p>This Docker image is derived from php:7.1-apache (more info <a href="https://hub.docker.com/_/php/">here</a>),
-the purpose of that image is to be able to deploy an application based on Gishiki is every environment
+the purpose of that image is to be able to deploy an application based on Gishiki on every environment
 with a few minutes of work.</p>
 <h2 id="usage">Usage</h2>
 <p>You have to pull the base image, create a container and execute that container.</p>
@@ -235,6 +241,13 @@ docker run -d -p 80:80 --name gishiki-app -v &quot;$PWD&quot;:/var/www/html nero
    - run the apache service</p>
 <p>You can change port by issuig the following command:</p>
 <pre><code class="sh">docker run -d -p 80:8081 --name gishiki-app -v &quot;$PWD&quot;:/var/www/html neroreflex/gishiki
+</code></pre>
+
+<h2 id="caching">Caching</h2>
+<p>As Gishiki can speedup configuration loading using memcached you should <em>really</em>
+deploy a memcached container and link it with the application one:</p>
+<pre><code class="sh">docker run -d --name gishiki-cache -d memcached
+docker run -d -p 80:8081 --name gishiki-app -v &quot;$PWD&quot;:/var/www/html --link gishiki-cache:cachelink neroreflex/gishiki
 </code></pre>
 
 <h2 id="database">Database</h2>

@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Database - Gishiki</title>
+  <title>Application - Gishiki</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,9 +17,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Database";
-    var mkdocs_page_input_path = "usage/database.md";
-    var mkdocs_page_url = "/usage/database/";
+    var mkdocs_page_name = "Application";
+    var mkdocs_page_input_path = "usage/application.md";
+    var mkdocs_page_url = "/usage/application/";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -112,9 +112,21 @@
                     
     <a class="" href="../configuration/">Configuration</a>
                 </li>
-                <li class="">
+                <li class=" current">
                     
-    <a class="" href="../application/">Application</a>
+    <a class="current" href="./">Application</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#application">Application</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#caching">Caching</a></li>
+        
+        </ul>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
@@ -132,25 +144,9 @@
                     
     <a class="" href="../logging/">Logger</a>
                 </li>
-                <li class=" current">
+                <li class="">
                     
-    <a class="current" href="./">Database</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#database">Database</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l4" href="#connecting-database">Connecting Database</a></li>
-        
-            <li><a class="toctree-l4" href="#differences-between-databases">Differences between databases</a></li>
-        
-            <li><a class="toctree-l4" href="#operations-on-databases">Operations on Databases</a></li>
-        
-        </ul>
-    
-
-    </ul>
+    <a class="" href="../database/">Database</a>
                 </li>
                 <li class="">
                     
@@ -207,7 +203,7 @@
         
       
     
-    <li>Database</li>
+    <li>Application</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -217,40 +213,56 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="database">Database</h1>
-<p>Gishiki is developed to reflect the MVC pattern: this means that the data lifecycle
-is a foundamental characteristic within the framework!</p>
-<p>Data persistence, coherence and integrity is managed by the database manager.</p>
-<p>To connect a database manager you have to edit the active <a href="../configuration/">configuration</a>.</p>
-<p>There isn't a limit to the number of database connection, but each one <strong>MUST</strong>
-have a name, and there <strong>CANNOT</strong> be two connections with the same name.</p>
-<h2 id="connecting-database">Connecting Database</h2>
-<p>A database connection have the following form:</p>
-<pre><code>adapter://adapter_manageable_conenction_query
+                <h1 id="application">Application</h1>
+<p>An <strong>Application</strong> object is the entrypoint of the Gishiki framework.</p>
+<p>An application instance is responsible of:
+   1. loading application <a href="../configuration/">settings</a>
+   1. creating a PSR-7 Request out of the request received by the web server
+   1. running the router to generate a PSR-7 Response
+   1. emit the generated Response</p>
+<p>When you are done configuring your web server to call index.php on each request you are
+ready to write the entrypoint for your application:</p>
+<pre><code class="php">use Gishiki\Core\Application;
+
+// you can also avoid passing parameters if you want to use the default configuration file (settings.json)
+$app = new Application(&quot;settings.json&quot;);
+
+// create the router and populate it with routes
+$router = new Router();
+$router-&gt;add( ... );
+
+// run the router to call the correct code and generate the Response
+$app-&gt;run($router);
+
+// emit the generated response
+$app-&gt;emit();
 </code></pre>
 
-<p>where the connection query is a string that the adapter can parse.</p>
-<h3 id="mongodb">MongoDB</h3>
-<p>A MongoDB connection can be enstabilished by using the mongodb adapter bundled
-with Gishiki.</p>
-<p>The MongoDB adapter uses the mongodb php native extension: Composer calls it
-<a href="https://pecl.php.net/package/mongodb">ext-mongodb</a>: </p>
-<pre><code>mongodb://username:password@host:port/dbname
+<p>This is it. This is the entrypoint of your application.</p>
+<h2 id="caching">Caching</h2>
+<p>As you might expect every request force the framework to read a file: this may become
+a major performance issue, this is why memcached is used:</p>
+<pre><code class="php">use Gishiki\Core\Application;
+
+// create a Memcached instance and connect to servers
+$caching = new Memcached();
+$caching-&gt;addServer(&quot;127.0.0.1&quot;, 11211);
+
+// notice that settings will be load from cache
+$app = new Application(&quot;settings.json&quot;, $caching);
+
+// create the router and populate it with routes
+$router = new Router();
+$router-&gt;add( ... );
+
+// run the router to call the correct code and generate the Response
+$app-&gt;run($router);
+
+// emit the generated response
+$app-&gt;emit();
 </code></pre>
 
-<h2 id="differences-between-databases">Differences between databases</h2>
-<p>Each database manager has different characteristics: Gishiki aims to preserve
-strong points of each one, but miracles are not possibles: everything comes to
-a price.</p>
-<p>Following are <strong>RULES</strong> you <strong>MUST</strong> follow when designing database tables.</p>
-<ul>
-<li>The name must be the plural form of the name of object to store</li>
-<li>The name must be written in underscore_case with no UPPER characters</li>
-<li>The unique id field (when possible) must be called _id</li>
-</ul>
-<h2 id="operations-on-databases">Operations on Databases</h2>
-<p>To understand how to interact with the database you have to read the <a href="../CRUD/">CRUD</a>
-chapter of this tutorial.</p>
+<p>You just can't do better than that.</p>
               
             </div>
           </div>
@@ -258,10 +270,10 @@ chapter of this tutorial.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../CRUD/" class="btn btn-neutral float-right" title="CRUD">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../routing/" class="btn btn-neutral float-right" title="Router">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../logging/" class="btn btn-neutral" title="Logger"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../configuration/" class="btn btn-neutral" title="Configuration"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -287,10 +299,10 @@ chapter of this tutorial.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../logging/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../configuration/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../CRUD/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../routing/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

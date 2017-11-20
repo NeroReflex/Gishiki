@@ -65,18 +65,15 @@ final class Application
      *
      * The suggester emitter is Zend\Diactoros\Response\SapiEmitter;
      *
-     * @param EmitterInterface|null $emitter the emitter to be used when producing output
+     * @param EmitterInterface|null $emitter      the emitter to be used when producing output
+     * @param string|null           $settingsFile the path of the settings file
+     * @throws Exception the error preventing the application to be loaded
      */
-    public function __construct(EmitterInterface $emitter = null)
+    public function __construct(EmitterInterface $emitter = null, $settingsFile = null)
     {
         //load application configuration
-        try {
-            $this->configuration = new Config();
-
-            $this->applyConfiguration();
-        } catch (Exception $ex) {
-
-        }
+        $this->configuration = new Config($settingsFile);
+        $this->applyConfiguration();
 
         //setup the emitter (dependency-injection style)
         $this->emitter = $emitter;

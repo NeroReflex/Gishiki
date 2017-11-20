@@ -67,12 +67,13 @@ final class Application
      *
      * @param EmitterInterface|null $emitter      the emitter to be used when producing output
      * @param string|null           $settingsFile the path of the settings file
+     * @param \Memcached|null       $cache        the memcache handler
      * @throws Exception the error preventing the application to be loaded
      */
-    public function __construct(EmitterInterface $emitter = null, $settingsFile = null)
+    public function __construct(EmitterInterface $emitter = null, $settingsFile = null, \Memcached $cache = null)
     {
         //load application configuration
-        $this->configuration = new Config($settingsFile);
+        $this->configuration = new Config($settingsFile, $cache);
         $this->applyConfiguration();
 
         //setup the emitter (dependency-injection style)

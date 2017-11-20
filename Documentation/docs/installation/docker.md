@@ -5,6 +5,7 @@ This Docker image is derived from php:7.1-apache (more info [here](https://hub.d
 the purpose of that image is to be able to deploy an application based on Gishiki on every environment
 with a few minutes of work.
 
+
 ## Usage
 You have to pull the base image, create a container and execute that container.
 
@@ -23,10 +24,17 @@ The second command performs multiple operations:
    - bind the port 80 inside the container to the host port 80
    - run the apache service
    
-You can change port by issuig the following command:
+You can change port by issuing the following command:
 
 ```sh
 docker run -d -p 80:8081 --name gishiki-app -v "$PWD":/var/www/html neroreflex/gishiki
+```
+
+When the container is ready you can run composer and finalize the container:
+
+```sh
+docker exec -i -t gishiki-app /bin/bash
+composer install --no-dev
 ```
 
 ## Caching
@@ -52,6 +60,7 @@ you can link the application container with that database container:
 docker run -d -p 80:8081 --name gishiki-app -v "$PWD":/var/www/html --link database-container:dblink neroreflex/gishiki
 ```
 
+
 ## Edit & Save
 You can use the container shell in order to prepare and personalize your container:
 
@@ -72,6 +81,7 @@ docker push $DOCKER_ID_USER/my_image
 ```
 
 You can find a tutorial [here](https://docs.docker.com/docker-cloud/builds/push-images/).
+
 
 ## Final Notes
 

@@ -93,12 +93,26 @@ class ApplicationTest extends TestCase
         $this->assertEquals(SapiEmitter::class, get_class($emitter->getValue($app)));
     }
 
+    public function testCurrentDirectory()
+    {
+        //appending ../../ because the test MUST be launched at the project root
+        $this->assertEquals(realpath(__DIR__.'/../../').'/', Application::getCurrentDirectory());
+    }
+
     public function testDirectory()
     {
-        $app = self::setupTestingApplication();
+        $data = new SerializableCollection([
+            "development" => true
+        ]);
 
-        //appending ../../ because the test MUST be launched at the project root
-        $this->assertEquals(realpath(__DIR__.'/../../').'/', $app->getCurrentDirectory());
+        $filename = 'tests/config_'.__FUNCTION__.'.json';
+        file_put_contents($filename, $data->serialize());
+
+        $app = new Application(null, $filename);
+
+        $this->assertEquals(realpath(dirname($filename)), realpath($app->getApplicationDirectory()));
+
+        unlink($filename);
     }
 
     public function testCompleteApplication()

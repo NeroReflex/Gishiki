@@ -73,10 +73,13 @@ final class Config
      */
     protected function finalizeLoading()
     {
-        if (!is_null($this->cache)) {
-            $cacheContent = $this->cache->get(sha1($this->getFilename()));
+        $cacheKey = sha1($this->getFilename());
 
-            if ($this->cache->getResultCode() != \Memcached::RES_NOTFOUND) {
+        //check if settings are available inside memcached
+        if (!is_null($this->cache)) {
+            $cacheContent = $this->cache->get($cacheKey);
+
+            if ($this->cache->getResultCode() !== \Memcached::RES_NOTFOUND) {
                 $this->configuration = unserialize($cacheContent);
             }
             return;
@@ -85,8 +88,9 @@ final class Config
         //load setting using the old-fashioned way :)
         $this->loadSettingsFromFile();
 
+        //serialize and cache settings
         if (!is_null($this->cache)) {
-            $this->cache->set(sha1($this->getFilename()), serialize($this->configuration));
+            $this->cache->set($cacheKey, serialize($this->configuration), 60*60*24);
         }
     }
 

@@ -41,7 +41,7 @@ $caching = new Memcached();
 $caching->addServer("127.0.0.1", 11211);
 
 // notice that settings will be load from cache
-$app = new Application("settings.json", $caching);
+$app = new Application(null, "settings.json", $caching);
 
 // create the router and populate it with routes
 $router = new Router();

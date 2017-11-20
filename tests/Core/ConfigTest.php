@@ -20,6 +20,7 @@ namespace Gishiki\tests\Core\Router;
 use Gishiki\Algorithms\Collections\SerializableCollection as Serializable;
 
 use Gishiki\Algorithms\Collections\SerializableCollection;
+use Gishiki\Core\Application;
 use Gishiki\Core\Config;
 use Gishiki\Core\Exception;
 use PHPUnit\Framework\TestCase;
@@ -43,18 +44,20 @@ class ConfigTest extends TestCase
         file_put_contents($filename, $data->serialize());
 
         $cache = new \Memcached();
-        $cache->addServer("127.0.0.1", 11211);
+        $cache->addServer("localhost", 11211, 100);
 
         //clean the cache to have a clean testing environment
-        $cache->delete(sha1($filename));
+        $cache->flush();
 
         $config = new Config($filename, $cache);
+
+        $cacheKey = sha1($config->getFilename());
 
         $this->assertEquals(false, $config->getConfiguration()->get("oncache"));
 
         //change value on cache only :)
         $data->set("oncache", true);
-        $cache->set(sha1($config->getFilename()), serialize($data->all()));
+        $cache->set($cacheKey, serialize($data->all()));
 
         $config = new Config($filename, $cache);
 

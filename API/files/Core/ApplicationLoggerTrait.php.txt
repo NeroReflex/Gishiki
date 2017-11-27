@@ -75,9 +75,7 @@ trait ApplicationLoggerTrait
     protected function initializeLoggerHandler()
     {
         //setup the logger manager if necessary
-        if (!($this->loggersConnections instanceof LoggerManager)) {
-            $this->loggersConnections = new LoggerManager();
-        }
+        $this->loggersConnections = new LoggerManager();
     }
 
     /**
@@ -90,6 +88,10 @@ trait ApplicationLoggerTrait
      */
     public function connectLogger(array $connections, $default)
     {
+        if (!($this->loggersConnections instanceof LoggerManager)) {
+            $this->initializeLoggerHandler();
+        }
+
         //connect every logger instance
         foreach ($connections as $connectionName => &$connectionDetails) {
             $this->loggersConnections->connect($connectionName, $connectionDetails);

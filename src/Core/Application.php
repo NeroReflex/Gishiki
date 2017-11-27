@@ -94,6 +94,12 @@ final class Application
         );
 
         $this->response = new Response();
+
+        //initialize the database handler
+        $this->initializeDatabaseHandler();
+
+        //initialize the logger handler
+        $this->initializeLoggerHandler();
     }
 
     /**

@@ -85,9 +85,7 @@ trait ApplicationDatabaseTrait
     protected function initializeDatabaseHandler()
     {
         //setup the database manager if necessary
-        if (!($this->databaseConnections instanceof DatabaseManager)) {
-            $this->databaseConnections = new DatabaseManager();
-        }
+        $this->databaseConnections = new DatabaseManager();
     }
 
     /**
@@ -97,6 +95,10 @@ trait ApplicationDatabaseTrait
      */
     public function connectDatabase(array $connections)
     {
+        if (!($this->databaseConnections instanceof DatabaseManager)) {
+            $this->initializeDatabaseHandler();
+        }
+
         //connect every db connection
         foreach ($connections as $connection) {
             $this->databaseConnections->connect($connection['name'], $connection['query']);

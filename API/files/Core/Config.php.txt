@@ -56,8 +56,8 @@ final class Config
         $this->setFilename($filename);
 
         //set the cache
-        if (!is_null($cache)) {
-            $this->cache = $cache;
+        if ($cache instanceof \Memcached) {
+            $this->cache = &$cache;
         }
 
         //load settings
@@ -76,7 +76,7 @@ final class Config
         $cacheKey = sha1($this->getFilename());
 
         //check if settings are available inside memcached
-        if (!is_null($this->cache)) {
+        if ($this->cache instanceof \Memcached) {
             $cacheContent = $this->cache->get($cacheKey);
 
             if ($this->cache->getResultCode() !== \Memcached::RES_NOTFOUND) {
@@ -89,7 +89,7 @@ final class Config
         $this->loadSettingsFromFile();
 
         //serialize and cache settings
-        if (!is_null($this->cache)) {
+        if ($this->cache instanceof \Memcached) {
             $this->cache->set($cacheKey, serialize($this->configuration), 60*60*24);
         }
     }

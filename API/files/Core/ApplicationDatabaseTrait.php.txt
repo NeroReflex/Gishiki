@@ -80,17 +80,23 @@ trait ApplicationDatabaseTrait
     }
 
     /**
+     * Initialize the application internal database handler
+     */
+    protected function initializeDatabaseHandler()
+    {
+        //setup the database manager if necessary
+        if (!($this->databaseConnections instanceof DatabaseManager)) {
+            $this->databaseConnections = new DatabaseManager();
+        }
+    }
+
+    /**
      * Prepare connections to databases.
      *
      * @param array $connections the array of connections
      */
     public function connectDatabase(array $connections)
     {
-        //setup the database manager if necessary
-        if (!($this->databaseConnections instanceof DatabaseManager)) {
-            $this->databaseConnections = new DatabaseManager();
-        }
-
         //connect every db connection
         foreach ($connections as $connection) {
             $this->databaseConnections->connect($connection['name'], $connection['query']);

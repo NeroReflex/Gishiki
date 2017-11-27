@@ -70,6 +70,17 @@ trait ApplicationLoggerTrait
     }
 
     /**
+     * Initialize the application internal logger handler
+     */
+    protected function initializeLoggerHandler()
+    {
+        //setup the logger manager if necessary
+        if (!($this->loggersConnections instanceof LoggerManager)) {
+            $this->loggersConnections = new LoggerManager();
+        }
+    }
+
+    /**
      * Prepare every logger instance setting the default one.
      *
      * If the default logger name is given it will be set as the default one.
@@ -79,11 +90,6 @@ trait ApplicationLoggerTrait
      */
     public function connectLogger(array $connections, $default)
     {
-        //setup the logger manager if necessary
-        if (!($this->loggersConnections instanceof LoggerManager)) {
-            $this->loggersConnections = new LoggerManager();
-        }
-
         //connect every logger instance
         foreach ($connections as $connectionName => &$connectionDetails) {
             $this->loggersConnections->connect($connectionName, $connectionDetails);

@@ -123,6 +123,8 @@
         
             <li><a class="toctree-l4" href="#caching">Caching</a></li>
         
+            <li><a class="toctree-l4" href="#emitters">Emitters</a></li>
+        
         </ul>
     
 
@@ -223,9 +225,11 @@
 <p>When you are done configuring your web server to call index.php on each request you are
 ready to write the entrypoint for your application:</p>
 <pre><code class="php">use Gishiki\Core\Application;
+use Gishiki\Core\Router\Router;
+use Gishiki\Core\Router\Route;
 
 // you can also avoid passing parameters if you want to use the default configuration file (settings.json)
-$app = new Application(&quot;settings.json&quot;);
+$app = new Application(null, &quot;settings.json&quot;);
 
 // create the router and populate it with routes
 $router = new Router();
@@ -243,6 +247,8 @@ $app-&gt;emit();
 <p>As you might expect every request force the framework to read a file: this may become
 a major performance issue, this is why memcached is used:</p>
 <pre><code class="php">use Gishiki\Core\Application;
+use Gishiki\Core\Router\Router;
+use Gishiki\Core\Router\Route;
 
 // create a Memcached instance and connect to servers
 $caching = new Memcached();
@@ -263,6 +269,32 @@ $app-&gt;emit();
 </code></pre>
 
 <p>You just can't do better than that.</p>
+<h2 id="emitters">Emitters</h2>
+<p>The standard Zend Emitter is brilliant and works great out of the box, however you may need
+to use a different one, especially when dealing with large files.</p>
+<p>You can change the default emitter by passing the preferred one to the Application constructor as the first argument.</p>
+<pre><code class="php">use Gishiki\Core\Application;
+use Gishiki\Core\Router\Router;
+use Gishiki\Core\Router\Route;
+
+$customEmitter = new CustomEmitter();
+
+//the custom emitter will be used
+$app = new Application($customEmitter);
+
+// create the router and populate it with routes
+$router = new Router();
+$router-&gt;add( ... );
+
+// run the router to call the correct code and generate the Response
+$app-&gt;run($router);
+
+// emit the generated response with the custom emitter
+$app-&gt;emit();
+</code></pre>
+
+<p>Notice that to be used an emitter <strong>must</strong> implement EmitterInterface (From <a href="https://github.com/zendframework/zend-diactoros">Zend Diactoros</a>).</p>
+<p>A ready to use alternative emitter is the zend diactoros SapiStreamEmitter.</p>
               
             </div>
           </div>

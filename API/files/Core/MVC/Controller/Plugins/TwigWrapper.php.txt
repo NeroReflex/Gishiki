@@ -144,5 +144,15 @@ final class TwigWrapper extends Plugin
 
         $this->response = $this->response->withHeader('Content-Type', 'text/html');
     }
+
+    /**
+     * Return a reference to the native twig object.
+     *
+     * @return \Twig the native twig oject
+     */
+    public function &getTwig() : \Twig
+    {
+        return $this->twig;
+    }
 }
 

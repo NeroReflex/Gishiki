@@ -74,7 +74,7 @@ trait ApplicationLoggerTrait
      */
     protected function initializeLoggerHandler()
     {
-        //setup the logger manager if necessary
+        //setup the logger manager
         $this->loggersConnections = new LoggerManager();
     }
 

@@ -66,16 +66,6 @@ abstract class Controller
     protected $plugins;
 
     /**
-     * @var DatabaseManager a container for alive database connections
-     */
-    protected $connections;
-
-    /**
-     * @var LoggerManager a container for alive loggers instances
-     */
-    protected $loggers;
-
-    /**
      * @var Application|null the application current instance
      */
     protected $application;
@@ -119,25 +109,6 @@ abstract class Controller
             } catch (\ReflectionException $ex) {
                 throw new ControllerException("Invalid plugin class", 1);
             }
-        }
-    }
-
-    /**
-     * Load additional information inside the current controller.
-     *
-     * *Note:* this function is designed to be called *only* by
-     * the Route class!
-     *
-     * @param array $args additional parameters
-     */
-    public function loadDependencies(array $args = [])
-    {
-        if ((array_key_exists('connections', $args)) && ($args['connections'] instanceof DatabaseManager)) {
-            $this->connections = $args['connections'];
-        }
-
-        if ((array_key_exists('loggers', $args)) && ($args['loggers'] instanceof LoggerManager)) {
-            $this->loggers = $args['loggers'];
         }
     }
 

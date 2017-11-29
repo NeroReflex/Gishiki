@@ -75,7 +75,19 @@ trait ApplicationLoggerTrait
     protected function initializeLoggerHandler()
     {
         //setup the logger manager
-        $this->loggersConnections = new LoggerManager();
+        if (!$this->isInitializedLoggerHandler()) {
+            $this->loggersConnections = new LoggerManager();
+        }
+    }
+
+    /**
+     * Check if the logger handler has been initialized.
+     *
+     * @return bool true if the logger handler is initialized
+     */
+    protected function isInitializedLoggerHandler() : bool
+    {
+        return !is_null($this->loggersConnections);
     }
 
     /**
@@ -88,7 +100,7 @@ trait ApplicationLoggerTrait
      */
     public function connectLogger(array $connections, $default)
     {
-        if (!($this->loggersConnections instanceof LoggerManager)) {
+        if (!$this->isInitializedLoggerHandler()) {
             $this->initializeLoggerHandler();
         }
 

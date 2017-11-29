@@ -18,8 +18,10 @@ limitations under the License.
 namespace Gishiki\Core;
 
 use Gishiki\Algorithms\Collections\CollectionInterface;
+use Gishiki\Database\DatabaseException;
 use Gishiki\Database\DatabaseManager;
 use Gishiki\Database\ORM\DatabaseStructure;
+use Gishiki\Database\ORM\StructureException;
 
 /**
  * This is a working implementation of database connections handler for the Application class.
@@ -84,18 +86,31 @@ trait ApplicationDatabaseTrait
      */
     protected function initializeDatabaseHandler()
     {
-        //setup the database manager
-        $this->databaseConnections = new DatabaseManager();
+        if (!$this->isInitializedDatabaseHandler()) {
+            //setup the database manager
+            $this->databaseConnections = new DatabaseManager();
+        }
+    }
+
+    /**
+     * Check if the database handler has been initialized.
+     *
+     * @return bool true if the database handler is initialized
+     */
+    protected function isInitializedDatabaseHandler() : bool
+    {
+        return !is_null($this->databaseConnections);
     }
 
     /**
      * Prepare connections to databases.
      *
      * @param array $connections the array of connections
+     * @throws DatabaseException error while connecting the database
      */
     public function connectDatabase(array $connections)
     {
-        if (!($this->databaseConnections instanceof DatabaseManager)) {
+        if (!$this->isInitializedDatabaseHandler()) {
             $this->initializeDatabaseHandler();
         }
 
@@ -109,6 +124,7 @@ trait ApplicationDatabaseTrait
      * Create, fill and register a database structure within the current application.
      *
      * @param CollectionInterface $structure the database description
+     * @throws StructureException the database structure is not well-formed
      */
     protected function registerDatabaseStructure(CollectionInterface &$structure)
     {

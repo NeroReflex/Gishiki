@@ -28,7 +28,7 @@ class SqliteTest extends DatabaseRelationalTest
 {
     protected function getDatabase()
     {
-        return new Sqlite("tests/db_test.sqlite");
+        return new Sqlite(\TestingEnvironment::getSQLiteConnectionQuery());
     }
 
     public function testBadConnectionParam()

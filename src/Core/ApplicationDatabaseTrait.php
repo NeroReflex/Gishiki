@@ -84,7 +84,7 @@ trait ApplicationDatabaseTrait
      */
     protected function initializeDatabaseHandler()
     {
-        //setup the database manager if necessary
+        //setup the database manager
         $this->databaseConnections = new DatabaseManager();
     }
 

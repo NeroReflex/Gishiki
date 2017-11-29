@@ -44,7 +44,7 @@ class ConfigTest extends TestCase
         file_put_contents($filename, $data->serialize());
 
         $cache = new \Memcached();
-        $cache->addServer("localhost", 11211, 100);
+        $cache->addServer(...(\TestingEnvironment::getMemcachedServer()));
 
         //clean the cache to have a clean testing environment
         $cache->flush();

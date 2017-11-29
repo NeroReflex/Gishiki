@@ -30,11 +30,7 @@ class PgsqlTest extends DatabaseRelationalTest
 
     protected function getDatabase()
     {
-        $postgreConnectionStr = (getenv("CI")) ?
-            getenv("PG_CONN") :
-            "host=localhost;port=5432;dbname=travis;user=vagrant;password=vagrant";
-
-        return new Pgsql($postgreConnectionStr);
+        return new Pgsql(\TestingEnvironment::getPostgreSQLConnectionQuery());
     }
 
     public function testBadConnectionParam()

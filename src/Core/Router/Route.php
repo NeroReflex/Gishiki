@@ -149,9 +149,6 @@ class Route implements RouteInterface
         //and create a new instance of it
         $controller = $reflectedController->newInstanceArgs([&$request, &$response, &$arguments, &$plugins, &$app]);
 
-        //register additional arguments
-        $controller->loadDependencies($controllerArgs);
-
         //reflect the requested action
         $reflectedAction = new \ReflectionMethod($controllerName, $controllerAction);
         $reflectedAction->setAccessible(true); //can invoke private methods :)

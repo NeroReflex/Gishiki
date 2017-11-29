@@ -13,7 +13,7 @@ vagrant.xml
 *~
 
 # test files
-testLog.log
+/testLog.log
 
 # Vagrant
 acceptance_config.yml

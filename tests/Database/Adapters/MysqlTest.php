@@ -33,11 +33,7 @@ class MysqlTest extends DatabaseRelationalTest
      */
     protected function getDatabase()
     {
-        $mysqlConnectionStr = (getenv("CI")) ?
-            getenv("MYSQL_CONN") :
-            "host=localhost;dbname=travis;user=root;password=";
-
-        return new Mysql($mysqlConnectionStr);
+        return new Mysql(\TestingEnvironment::getMySQLConnectionQuery());
     }
 
     public function testBadConnectionParam()

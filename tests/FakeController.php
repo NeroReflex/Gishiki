@@ -75,7 +75,7 @@ class FakeController extends Controller
 
     public function exceptionTest()
     {
-        throw new \Gishiki\Core\Exception("testing exception", 0);
+        throw new \Gishiki\Core\Exception("testing exception thrown by contoller", 0);
     }
 
     public function completeTest()
@@ -99,9 +99,10 @@ class FakeController extends Controller
             "index.html" => "<html><head>{{ title }}</head><body>{{ text }}</body></html>",
         ]));
 
-        $this->renderTwigTemplate("index.html", [
-            "title" => "",
-            "text" => "",
-        ]);
+        $this->response->getBody()->write(
+            $this->getTwig()->render("index.html", [
+                "title" => "",
+                "text" => "",
+            ]));
     }
 }

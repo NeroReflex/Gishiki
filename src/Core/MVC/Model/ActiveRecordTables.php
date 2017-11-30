@@ -31,13 +31,11 @@ abstract class ActiveRecordTables
 
     public static function register($className, Table $table)
     {
-        if ((!is_string($className)) || (strlen($className) < 3))
-        {
+        if ((!is_string($className)) || (strlen($className) < 3)) {
             throw new \InvalidArgumentException('Invalid name for an ActiveRecord instance');
         }
 
-        if (self::isRegistered($className))
-        {
+        if (self::isRegistered($className)) {
             throw new ActiveRecordException("An ActiveRecord with the same name ($className) has already been registered.", 200);
         }
 
@@ -46,13 +44,11 @@ abstract class ActiveRecordTables
 
     public static function &retrieve($className) : Table
     {
-        if ((!is_string($className)) || (strlen($className) < 3))
-        {
+        if ((!is_string($className)) || (strlen($className) < 3)) {
             throw new \InvalidArgumentException('Invalid name for an ActiveRecord instance.');
         }
 
-        if (!self::isRegistered($className))
-        {
+        if (!self::isRegistered($className)) {
             throw new ActiveRecordException("An ActiveRecord with the given name ($className) does not exists.", 200);
         }
 
@@ -61,8 +57,7 @@ abstract class ActiveRecordTables
 
     public static function isRegistered($className) : bool
     {
-        if ((!is_string($className)) || (strlen($className) < 3))
-        {
+        if ((!is_string($className)) || (strlen($className) < 3)) {
             throw new \InvalidArgumentException('Invalid name for an ActiveRecord instance');
         }
 

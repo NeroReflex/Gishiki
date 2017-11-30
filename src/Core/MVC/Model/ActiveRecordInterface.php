@@ -70,5 +70,4 @@ interface ActiveRecordInterface
      * Return the current object ID, as it is used within the database
      */
     public function getObjectID();
-
 }

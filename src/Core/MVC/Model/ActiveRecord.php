@@ -57,7 +57,7 @@ class ActiveRecord extends SerializableCollection implements ActiveRecordInterfa
 
     public function getObjectID()
     {
-
+        // TODO: Implement getObjectID() method.
     }
 
     public static function load(DatabaseInterface &$connection) : array

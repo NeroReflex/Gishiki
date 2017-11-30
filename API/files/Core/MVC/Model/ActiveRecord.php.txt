@@ -17,7 +17,7 @@ limitations under the License.
 
 namespace Gishiki\Core\MVC\Model;
 
-use Gishiki\Algorithms\Collections\SerializableCollection;
+use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Database\DatabaseInterface;
 
 /**
@@ -28,7 +28,7 @@ use Gishiki\Database\DatabaseInterface;
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-class ActiveRecord extends SerializableCollection implements ActiveRecordInterface
+abstract class ActiveRecord extends GenericCollection implements ActiveRecordInterface
 {
     use ActiveRecordTableTrait;
 

@@ -29,14 +29,6 @@ use Gishiki\Database\Schema\Table;
 interface ActiveRecordInterface
 {
     /**
-     * Get the table that will be used when doing CRUD operations.
-     *
-     * @return Table the table currently used for operations
-     * @throws ActiveRecordException the exception preventing definition to be inspected
-     */
-    public static function &getTableDefinition() : Table;
-
-    /**
      * Create a new object.
      *
      * @param DatabaseInterface $connection the database connection to be used

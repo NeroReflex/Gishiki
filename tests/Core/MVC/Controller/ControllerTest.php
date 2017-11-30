@@ -24,7 +24,6 @@ use Zend\Diactoros\Response;
 
 use PHPUnit\Framework\TestCase;
 
-
 /**
  * The tester for the Controller class.
  *

@@ -32,7 +32,7 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
     /**
      * Create new collection from the given properties collection.
      *
-     * @param array|GenericCollection $collection Pre-populate collection of key => value
+     * @param array|CollectionInterface $collection pre-populate collection of key => value
      *
      * @throws \InvalidArgumentException an invalid collection was given
      */
@@ -45,9 +45,7 @@ class GenericCollection implements CollectionInterface, \IteratorAggregate
             throw new \InvalidArgumentException('The collection of properties and nested data must be expressed as an array: '.gettype($items).' given');
         }
 
-        foreach ($items as $key => &$value) {
-            $this->set($key, $value);
-        }
+        $this->data = $items;
     }
 
     /**

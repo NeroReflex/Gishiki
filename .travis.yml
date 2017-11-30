@@ -1,4 +1,4 @@
-language: php
+language: phpch
 sudo: required
 php:
   - '7.2'

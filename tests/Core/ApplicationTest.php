@@ -55,19 +55,6 @@ class ApplicationTest extends TestCase
         $this->assertEquals("author", (($app->getDatabaseStructure()[0])->getTables()[0])->getName());
     }
 
-    public function testAutoUpdateValue()
-    {
-        $app = self::setupTestingApplication();
-
-        $this->assertEquals(false, $app->checkDatabaseAutoUpdate());
-
-        $app->setDatabaseAutoUpdate(true);
-        $this->assertEquals(true, $app->checkDatabaseAutoUpdate());
-
-        $app->setDatabaseAutoUpdate(false);
-        $this->assertEquals(false, $app->checkDatabaseAutoUpdate());
-    }
-
     public function testBadResponseType()
     {
         $app = self::setupTestingApplication();

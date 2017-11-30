@@ -41,37 +41,6 @@ trait ApplicationDatabaseTrait
     protected $databaseStructures = [];
 
     /**
-     * @var bool auto update the database if true
-     */
-    protected $autoUpdate = false;
-
-    /**
-     * Set a new value to the auto-update database operation.
-     *
-     * When the auto-update is on (has been __manually__ set to true)
-     * the database is updated before running the application.
-     *
-     * Running an application is done by calling the run() function,
-     * so this function __must__ be called before the run() call.
-     *
-     * @param bool $value the new value
-     */
-    public function setDatabaseAutoUpdate($value)
-    {
-        $this->autoUpdate = ($value === true);
-    }
-
-    /**
-     * Check whether the auto-update is set on the current application.
-     *
-     * @return bool true on auto-update enabled
-     */
-    public function checkDatabaseAutoUpdate() : bool
-    {
-        return $this->autoUpdate;
-    }
-
-    /**
      * Get the collection of opened database handlers within the current application.
      *
      * @return DatabaseManager the collection of database handlers

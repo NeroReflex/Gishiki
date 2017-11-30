@@ -4,7 +4,7 @@
     
     <url>
      <loc>/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -13,61 +13,61 @@
         
     <url>
      <loc>/installation/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/installation/docker/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/installation/basic_php/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/installation/php_7_nginx/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/installation/basic_nginx/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/installation/basic_apache/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/installation/basic_lighttpd/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/installation/basic_iis/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/installation/composer/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/installation/paas/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -76,7 +76,7 @@
     
     <url>
      <loc>/apidoc/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -85,49 +85,49 @@
         
     <url>
      <loc>/usage/configuration/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/usage/application/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/usage/routing/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/usage/request/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/usage/response/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/usage/logging/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/usage/database/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/usage/CRUD/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -137,7 +137,7 @@
         
     <url>
      <loc>/cli/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -147,7 +147,7 @@
         
     <url>
      <loc>/license/</loc>
-     <lastmod>2017-11-29</lastmod>
+     <lastmod>2017-11-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
         

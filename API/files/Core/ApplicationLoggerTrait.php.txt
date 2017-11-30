@@ -54,7 +54,7 @@ trait ApplicationLoggerTrait
     public function setDefaultLoggerName($name)
     {
         //set the default logger connection
-        if (is_string($name) && (strlen($name) > 0) && ($this->getLoggerManager()->isConnected($name))) {
+        if ((is_string($name)) && (strlen($name) > 0)) {
             $this->defaultLoggerName = $name;
         }
     }
@@ -66,7 +66,7 @@ trait ApplicationLoggerTrait
      */
     public function getDefaultLoggerName() : string
     {
-        return $this->defaultLoggerName;
+        return !is_null($this->defaultLoggerName) ? $this->defaultLoggerName : "default";
     }
 
     /**

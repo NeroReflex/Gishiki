@@ -65,3 +65,19 @@ class TModelBadFieldType extends ActiveRecord
         ]
     ];
 }
+
+class TModelCorrectNoRelations extends ActiveRecord
+{
+    protected static $structure = [
+        "name" => 'id_only',
+        "fields" => [
+            [
+                "name" => "id",
+                "type" => "integer",
+                "not_null" => true,
+                "auto_increment" => true,
+                "primary_key" => true,
+            ]
+        ]
+    ];
+}

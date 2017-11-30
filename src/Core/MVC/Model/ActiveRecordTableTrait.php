@@ -46,31 +46,16 @@ trait ActiveRecordTableTrait
         'datetime' => ColumnType::DATETIME,
     ];
 
-    /**
-     * @var Table|null the table definition
-     */
-    protected static $table = null;
-
     protected static $structure = [];
 
-    /**
-     * Check if the table definition has been loaded
-     *
-     * @return bool true if the table is defined
-     */
-    private static function isTableLoaded() :bool
+    private static function &getTableDefinition() : Table
     {
-        return !is_null(static::$table);
-    }
-
-
-    public static function &getTableDefinition() : Table
-    {
-        if (!self::isTableLoaded()) {
-            self::loadTable();
+        if (!ActiveRecordTables::isRegistered(static::class)) {
+            $table = self::loadTable();
+            ActiveRecordTables::register(static::class, $table);
         }
 
-        return static::$table;
+        return ActiveRecordTables::retrieve(static::class);
     }
 
     /**
@@ -78,40 +63,44 @@ trait ActiveRecordTableTrait
      *
      * @throws ActiveRecordException the exception preventing data to be parsed correctly
      */
-    private static function loadTable()
+    private static function loadTable() : Table
     {
         if ((!array_key_exists('name', static::$structure)) || (!is_string(static::$structure['name'])) || (strlen(static::$structure['name']) <= 0)) {
             throw new ActiveRecordException('Table definition does not contains a valid name', 100);
         }
 
-        static::$table = new Table(static::$structure['name']);
+        $table = new Table(static::$structure['name']);
 
-        self::loadFields();
+        self::loadFields($table);
+
+        return $table;
     }
 
     /**
      * Load all fields inside the table from the static::$structure array.
      *
+     * @param Table $table the table structure to be finalized with fields
      * @throws ActiveRecordException the exception preventing data to be parsed correctly
      */
-    private static function loadFields()
+    private static function loadFields(Table &$table)
     {
         if ((!array_key_exists('fields', static::$structure)) || (!is_array(static::$structure['fields'])) || (count(static::$structure['fields']) <= 0)) {
             throw new ActiveRecordException('Table definition does not contains a valid fields set', 104);
         }
 
         foreach (static::$structure['fields'] as &$fieldDefinition) {
-            self::loadField($fieldDefinition);
+            self::loadField($table, $fieldDefinition);
         }
     }
 
     /**
      * Load a field inside the table from the static::$structure array.
      *
+     * @param Table $table           the table structure to be finalized with fields
      * @param array $fieldDefinition the field definition
      * @throws ActiveRecordException the exception preventing data to be parsed correctly
      */
-    private static function loadField(array $fieldDefinition)
+    private static function loadField(Table &$table, array $fieldDefinition)
     {
         $field = new GenericCollection($fieldDefinition);
 
@@ -129,10 +118,10 @@ trait ActiveRecordTableTrait
 
         //build the field as it was defined
         $currentField = new Column($field->get('name'), self::$typeMap[$field->get('type')]);
-        $currentField->setAutoIncrement($field->has('primary_key') && ($field->get('primary_key') === true));
-        $currentField->setAutoIncrement($field->has('not_null') && ($field->get('not_null') === true));
+        $currentField->setPrimaryKey($field->has('primary_key') && ($field->get('primary_key') === true));
+        $currentField->setNotNull($field->has('not_null') && ($field->get('not_null') === true));
         $currentField->setAutoIncrement($field->has('auto_increment') && ($field->get('auto_increment') === true));
 
-        static::$table->addColumn($currentField);
+        $table->addColumn($currentField);
     }
 }

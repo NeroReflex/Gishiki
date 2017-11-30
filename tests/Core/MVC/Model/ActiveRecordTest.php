@@ -19,6 +19,7 @@ namespace Gishiki\tests\Core\MVC\Model;
 
 use Gishiki\Core\MVC\Model\ActiveRecordException;
 
+use Gishiki\Core\MVC\Model\ActiveRecordTables;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -35,7 +36,12 @@ class ActiveRecordTest extends TestCase
         $this->expectException(ActiveRecordException::class);
         $this->expectExceptionCode(100);
 
-        \TModelNoTableName::getTableDefinition();
+        $reflectedRecord = new \ReflectionClass(\TModelNoTableName::class);
+        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
+        $reflectedMethod->setAccessible(true);
+        $reflectedMethod->invoke(null);
+
+        $this->assertFalse(ActiveRecordTables::isRegistered(\TModelNoTableName::class));
     }
 
     public function testSchemaWithNoFields()
@@ -43,7 +49,12 @@ class ActiveRecordTest extends TestCase
         $this->expectException(ActiveRecordException::class);
         $this->expectExceptionCode(104);
 
-        \TModelNoFields::getTableDefinition();
+        $reflectedRecord = new \ReflectionClass(\TModelNoFields::class);
+        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
+        $reflectedMethod->setAccessible(true);
+        $reflectedMethod->invoke(null);
+
+        $this->assertFalse(ActiveRecordTables::isRegistered(\TModelNoFields::class));
     }
 
     public function testSchemaWithNoFieldName()
@@ -51,7 +62,12 @@ class ActiveRecordTest extends TestCase
         $this->expectException(ActiveRecordException::class);
         $this->expectExceptionCode(101);
 
-        \TModelNoFieldName::getTableDefinition();
+        $reflectedRecord = new \ReflectionClass(\TModelNoFieldName::class);
+        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
+        $reflectedMethod->setAccessible(true);
+        $reflectedMethod->invoke(null);
+
+        $this->assertFalse(ActiveRecordTables::isRegistered(\TModelNoFieldName::class));
     }
 
     public function testSchemaWithNoFieldType()
@@ -59,14 +75,34 @@ class ActiveRecordTest extends TestCase
         $this->expectException(ActiveRecordException::class);
         $this->expectExceptionCode(102);
 
-        \TModelNoFieldType::getTableDefinition();
+        $reflectedRecord = new \ReflectionClass(\TModelNoFieldType::class);
+        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
+        $reflectedMethod->setAccessible(true);
+        $reflectedMethod->invoke(null);
+
+        $this->assertFalse(ActiveRecordTables::isRegistered(\TModelNoFieldType::class));
     }
 
     public function testSchemaWithBadFieldType()
     {
         $this->expectException(ActiveRecordException::class);
-        $this->expectExceptionCode(102);
+        $this->expectExceptionCode(103);
 
-        \TModelBadFieldType::getTableDefinition();
+        $reflectedRecord = new \ReflectionClass(\TModelBadFieldType::class);
+        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
+        $reflectedMethod->setAccessible(true);
+        $reflectedMethod->invoke(null);
+
+        $this->assertFalse(ActiveRecordTables::isRegistered(\TModelBadFieldType::class));
+    }
+
+    public function testCorrectSchemaWithNoRelations()
+    {
+        $reflectedRecord = new \ReflectionClass(\TModelCorrectNoRelations::class);
+        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
+        $reflectedMethod->setAccessible(true);
+        $reflectedMethod->invoke(null);
+
+        $this->assertTrue(ActiveRecordTables::isRegistered(\TModelCorrectNoRelations::class));
     }
 }

@@ -122,6 +122,15 @@ trait ActiveRecordTableTrait
         $currentField->setNotNull($field->has('not_null') && ($field->get('not_null') === true));
         $currentField->setAutoIncrement($field->has('auto_increment') && ($field->get('auto_increment') === true));
 
+        if (($field->has('relation')) && (is_array($field->get('relation')))) {
+
+        }
+
         $table->addColumn($currentField);
+    }
+
+    private static function loadRelation(Table &$table, $className, $fieldName) : ColumnRelation
+    {
+        //TODO: implement this function
     }
 }

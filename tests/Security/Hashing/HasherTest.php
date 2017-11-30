@@ -47,8 +47,8 @@ class HasherTest extends TestCase
 
         $this->assertEquals(str_rot13($random), $rot13Text);
 
-        $this->assertEquals(true, $hasher->verify($random, $rot13Text));
-        $this->assertEquals(false, $hasher->verify($random, 'anything else'));
+        $this->assertTrue($hasher->verify($random, $rot13Text));
+        $this->assertFalse($hasher->verify($random, 'anything else'));
     }
 
     public function testBCrypt()
@@ -59,8 +59,8 @@ class HasherTest extends TestCase
 
         $digest = $hasher->hash($random);
 
-        $this->assertEquals(true, $hasher->verify($random, $digest));
-        $this->assertEquals(false, $hasher->verify($random, 'anything else'));
+        $this->assertTrue($hasher->verify($random, $digest));
+        $this->assertFalse($hasher->verify($random, 'anything else'));
     }
 
     public function testOpenssl()
@@ -71,8 +71,8 @@ class HasherTest extends TestCase
 
         $digest = $hasher->hash($random);
 
-        $this->assertEquals(true, $hasher->verify($random, $digest));
-        $this->assertEquals(false, $hasher->verify($random, 'anything else'));
+        $this->assertTrue($hasher->verify($random, $digest));
+        $this->assertFalse($hasher->verify($random, 'anything else'));
     }
 
     public function testPbkdf2()
@@ -83,13 +83,13 @@ class HasherTest extends TestCase
 
         $digest = $hasher->hash($random);
 
-        $this->assertEquals(true, $hasher->verify($random, $digest));
-        $this->assertEquals(false, $hasher->verify($random, 'anything else'));
+        $this->assertTrue($hasher->verify($random, $digest));
+        $this->assertFalse($hasher->verify($random, 'anything else'));
 
         $badHash = $digest;
         $badHash[2] = 'k';
         $badHash[strlen($badHash) - 2] = 'a';
 
-        $this->assertEquals(false, $hasher->verify($random, $badHash));
+        $this->assertFalse($hasher->verify($random, $badHash));
     }
 }

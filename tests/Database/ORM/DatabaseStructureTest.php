@@ -754,9 +754,9 @@ class DatabaseStructureTest extends TestCase
         $userColumns = $firstTable->getColumns();
 
         $this->assertEquals("id", $userColumns[0]->getName());
-        $this->assertEquals(true, $userColumns[0]->isPrimaryKey());
-        $this->assertEquals(true, $userColumns[0]->isNotNull());
-        $this->assertEquals(true, $userColumns[0]->isAutoIncrement());
+        $this->assertTrue($userColumns[0]->isPrimaryKey());
+        $this->assertTrue($userColumns[0]->isNotNull());
+        $this->assertTrue($userColumns[0]->isAutoIncrement());
     }
 
     public function testNoConnection()

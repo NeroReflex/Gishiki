@@ -18,9 +18,6 @@ limitations under the License.
 namespace Gishiki\tests\Core\Router;
 
 use Gishiki\Algorithms\Collections\SerializableCollection as Serializable;
-
-use Gishiki\Algorithms\Collections\SerializableCollection;
-use Gishiki\Core\Application;
 use Gishiki\Core\Config;
 use Gishiki\Core\Exception;
 use PHPUnit\Framework\TestCase;
@@ -36,11 +33,11 @@ class ConfigTest extends TestCase
 {
     public function testCachedLoading()
     {
-        $data = new SerializableCollection([
+        $data = new Serializable([
             "oncache" => false
         ]);
 
-        $filename = 'tests/config_'.__FUNCTION__.'.json';
+        $filename = __DIR__.'/../../tests/config_'.__FUNCTION__.'.json';
         file_put_contents($filename, $data->serialize());
 
         $cache = new \Memcached();
@@ -53,7 +50,7 @@ class ConfigTest extends TestCase
 
         $cacheKey = sha1($config->getFilename());
 
-        $this->assertEquals(false, $config->getConfiguration()->get("oncache"));
+        $this->assertFalse($config->getConfiguration()->get("oncache"));
 
         //change value on cache only :)
         $data->set("oncache", true);
@@ -62,7 +59,7 @@ class ConfigTest extends TestCase
         $config = new Config($filename, $cache);
 
         //make sure settings were loaded from cache
-        $this->assertEquals(true, $config->getConfiguration()->get("oncache"));
+        $this->assertTrue($config->getConfiguration()->get("oncache"));
 
         //remove the used config file
         unlink($filename);
@@ -91,7 +88,7 @@ class ConfigTest extends TestCase
 
         $config = new Config($filename);
 
-        $this->assertEquals(true, $config->getConfiguration()->get("general")["development"]);
+        $this->assertTrue($config->getConfiguration()->get("general")["development"]);
 
         unlink($filename);
     }

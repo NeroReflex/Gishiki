@@ -51,11 +51,11 @@ class ColumnTest extends TestCase
         //create a testing column (by default a new column is NOT a primary key)
         $col = new Column('id', ColumnType::INTEGER);
 
-        $this->assertEquals(false, $col->isPrimaryKey());
+        $this->assertFalse($col->isPrimaryKey());
 
         $col->setPrimaryKey(true);
 
-        $this->assertEquals(true, $col->isPrimaryKey());
+        $this->assertTrue($col->isPrimaryKey());
     }
 
     public function testColumnBadPrimaryKey()
@@ -72,11 +72,11 @@ class ColumnTest extends TestCase
         //create a testing column (by default a new column is NOT a primary key)
         $col = new Column('id', ColumnType::INTEGER);
 
-        $this->assertEquals(false, $col->isAutoIncrement());
+        $this->assertFalse($col->isAutoIncrement());
 
         $col->setAutoIncrement(true);
 
-        $this->assertEquals(true, $col->isAutoIncrement());
+        $this->assertTrue($col->isAutoIncrement());
     }
 
     public function testColumnBadAutoIncrement()
@@ -102,11 +102,11 @@ class ColumnTest extends TestCase
         //create a testing column (by default a new column is NOT a primary key)
         $col = new Column('id', ColumnType::INTEGER);
 
-        $this->assertEquals(false, $col->isNotNull());
+        $this->assertFalse($col->isNotNull());
 
         $col->setNotNull(true);
 
-        $this->assertEquals(true, $col->isNotNull());
+        $this->assertTrue($col->isNotNull());
     }
 
     public function testColumnBadType()

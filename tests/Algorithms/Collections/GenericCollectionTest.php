@@ -35,9 +35,9 @@ class GenericCollectionTest extends TestCase
            5, 6, 'ciao', [true, false, true, true]
         ]);
 
-        $this->assertEquals(false, $collection->empty());
+        $this->assertFalse($collection->empty());
         $collection->clear();
-        $this->assertEquals(true, $collection->empty());
+        $this->assertTrue($collection->empty());
     }
 
     public function testIteration()
@@ -176,14 +176,14 @@ class GenericCollectionTest extends TestCase
         //test if the collection rebuild process has given the right result
         $this->assertEquals($native_collection, $rebuilt_collection);
 
-        $this->assertEquals(true, $collection_to_test->offsetExists('test1'));
+        $this->assertTrue($collection_to_test->offsetExists('test1'));
 
         $collection_to_test->offsetUnset('test1');
 
-        $this->assertEquals(false, $collection_to_test->offsetExists('test1'));
+        $this->assertFalse($collection_to_test->offsetExists('test1'));
 
         $collection_to_test->offsetSet('test1', false);
 
-        $this->assertEquals(true, $collection_to_test->offsetExists('test1'));
+        $this->assertTrue($collection_to_test->offsetExists('test1'));
     }
 }

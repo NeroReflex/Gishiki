@@ -129,9 +129,9 @@ class AlgorithmTest extends TestCase
 
         //test hash compatibility
         $hash = Algorithm::opensslHash($random, Algorithm::SHA512);
-        $this->assertEquals(true, Algorithm::opensslVerify($random, $hash, Algorithm::SHA512));
+        $this->assertTrue(Algorithm::opensslVerify($random, $hash, Algorithm::SHA512));
 
-        $this->assertEquals(false, Algorithm::opensslVerify($random, 'any other thing', Algorithm::SHA512));
+        $this->assertFalse(Algorithm::opensslVerify($random, 'any other thing', Algorithm::SHA512));
     }
 
     public function testRot13Verify()
@@ -140,9 +140,9 @@ class AlgorithmTest extends TestCase
 
         //test hash compatibility
         $hash = Algorithm::rot13Hash($random);
-        $this->assertEquals(true, Algorithm::rot13Verify($random, $hash));
+        $this->assertTrue(Algorithm::rot13Verify($random, $hash));
 
-        $this->assertEquals(false, Algorithm::rot13Verify($random, 'any other thing'));
+        $this->assertFalse(Algorithm::rot13Verify($random, 'any other thing'));
     }
 
     public function testBCryptVerify()
@@ -151,9 +151,9 @@ class AlgorithmTest extends TestCase
 
         //test hash compatibility
         $hash = Algorithm::bcryptHash($random);
-        $this->assertEquals(true, Algorithm::bcryptVerify($random, $hash));
+        $this->assertTrue(Algorithm::bcryptVerify($random, $hash));
 
-        $this->assertEquals(false, Algorithm::bcryptVerify($random, 'any other thing'));
+        $this->assertFalse(Algorithm::bcryptVerify($random, 'any other thing'));
     }
 
     public function testROT13()
@@ -166,7 +166,7 @@ class AlgorithmTest extends TestCase
         $this->assertEquals($message_rot13, $rot_ed);
         $this->assertEquals($message, Algorithm::rot13Hash($rot_ed, Algorithm::ROT13));
 
-        $this->assertEquals(true, Algorithm::rot13Verify($message, $rot_ed));
+        $this->assertTrue(Algorithm::rot13Verify($message, $rot_ed));
     }
 
     public function testPbkdf2()
@@ -176,7 +176,7 @@ class AlgorithmTest extends TestCase
         //test hash compatibility
         $hashed = Algorithm::pbkdf2Hash($message);
 
-        $this->assertEquals(true, Algorithm::pbkdf2Verify($message, $hashed));
+        $this->assertTrue(Algorithm::pbkdf2Verify($message, $hashed));
     }
 
     public function testHashCompatibility()

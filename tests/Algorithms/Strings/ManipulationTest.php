@@ -81,7 +81,7 @@ e di {{is}} è tornato.';
         $this->assertEquals('this is a test ', Manipulation::getBetween($string, '>', '#'));
 
         //test for strange failures
-        $this->assertEquals(false, Manipulation::getBetween($string, '@', '##'));
+        $this->assertFalse(Manipulation::getBetween($string, '@', '##'));
     }
 
     public function testReplaceOnce()

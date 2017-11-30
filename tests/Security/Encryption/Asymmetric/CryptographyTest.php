@@ -38,7 +38,7 @@ class CryptographyTest extends TestCase
         $privateKey = new PrivateKey(PrivateKey::generate());
 
         //check if the private key has been loaded correctly
-        $this->assertEquals(true, $privateKey->isLoaded());
+        $this->assertTrue($privateKey->isLoaded());
 
         //attempt to perform the bad encryption
         Cryptography::encrypt($privateKey, 73);
@@ -68,7 +68,7 @@ class CryptographyTest extends TestCase
         $publicKey = new PublicKey($privateKey->exportPublicKey());
 
         //check if the private key has been loaded correctly
-        $this->assertEquals(true, $privateKey->isLoaded());
+        $this->assertTrue($privateKey->isLoaded());
 
         //attempt to perform the bad decryption
         $decryption_result = Cryptography::decrypt($publicKey, '');
@@ -135,13 +135,13 @@ class CryptographyTest extends TestCase
         $privateKey = new PrivateKey(PrivateKey::generate());
 
         //check if the private key has been loaded correctly
-        $this->assertEquals(true, $privateKey->isLoaded());
+        $this->assertTrue($privateKey->isLoaded());
 
         //perform the encryption
         $encrytpion_result = Cryptography::encrypt($privateKey, 'ciao bello!');
 
         //check if the encryption result has the correct type
-        $this->assertEquals(true, is_string($encrytpion_result));
+        $this->assertTrue(is_string($encrytpion_result));
     }
 
     public function testMessage()
@@ -154,7 +154,7 @@ class CryptographyTest extends TestCase
         $publicKey = new PublicKey($privateKey->exportPublicKey());
 
         //check if the private key has been loaded correctly
-        $this->assertEquals(true, $privateKey->isLoaded());
+        $this->assertTrue($privateKey->isLoaded());
 
         //perform the encryption and decryption
         $encrytpion_result = Cryptography::encrypt($privateKey, $message);
@@ -174,7 +174,7 @@ class CryptographyTest extends TestCase
         $message = openssl_random_pseudo_bytes(25 * $privateKey()['byteLength']);
 
         //check if the private key has been loaded correctly
-        $this->assertEquals(true, $privateKey->isLoaded());
+        $this->assertTrue($privateKey->isLoaded());
 
         //perform the encryption and decryption
         $encrytpion_result = Cryptography::encrypt($privateKey, $message);
@@ -196,7 +196,7 @@ class CryptographyTest extends TestCase
         $message = openssl_random_pseudo_bytes(5 * $privateKey()['byteLength']);
 
         //check if the private key has been loaded correctly
-        $this->assertEquals(true, $privateKey->isLoaded());
+        $this->assertTrue($privateKey->isLoaded());
 
         //perform the encryption and decryption
         $encrytpion_result = Cryptography::encrypt($privateKey, $message);
@@ -224,7 +224,7 @@ class CryptographyTest extends TestCase
         $signature = Cryptography::generateDigitalSignature($privKey, $message);
 
         //check the result
-        $this->assertEquals(true, Cryptography::verifyDigitalSignature($pubKey, $message, $signature));
+        $this->assertTrue(Cryptography::verifyDigitalSignature($pubKey, $message, $signature));
     }
 
     public function testReverse()

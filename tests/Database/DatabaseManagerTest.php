@@ -68,6 +68,6 @@ class DatabaseManagerTest extends TestCase
         $connection = $dbManager->retrieve('temp_db');
 
         //test for a successful retrieve operation
-        $this->assertEquals(true, $connection->connected());
+        $this->assertTrue($connection->connected());
     }
 }

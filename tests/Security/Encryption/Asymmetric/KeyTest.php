@@ -136,7 +136,7 @@ cf1zSJX0I5GEo9EIBb2r7cFNdOLa02qTL/IO4a3c5NbHqmDBqyfh9lpU6Do=
         $loadedKey = new PrivateKey(self::getTestRSAPrivateKey());
 
         //check if the private key has been loaded correctly
-        $this->assertEquals(true, $loadedKey->isLoaded());
+        $this->assertTrue($loadedKey->isLoaded());
     }
 
     public function testPublicKeyload()
@@ -144,7 +144,7 @@ cf1zSJX0I5GEo9EIBb2r7cFNdOLa02qTL/IO4a3c5NbHqmDBqyfh9lpU6Do=
         $loadedKey = new PublicKey(self::getTestRSAPublicKey());
 
         //check if the private key has been loaded correctly
-        $this->assertEquals(true, $loadedKey->isLoaded());
+        $this->assertTrue($loadedKey->isLoaded());
     }
 
     public function testFakePrivateKeyload()
@@ -164,12 +164,12 @@ cf1zSJX0I5GEo9EIBb2r7cFNdOLa02qTL/IO4a3c5NbHqmDBqyfh9lpU6Do=
         //generate a new serialized key
         $serialized_private_key = PrivateKey::generate();
 
-        $this->assertEquals(true, strlen($serialized_private_key) > 1);
+        $this->assertTrue(strlen($serialized_private_key) > 1);
 
         //load the newly generated key
         $private_key = new PrivateKey($serialized_private_key);
 
-        $this->assertEquals(true, $private_key->isLoaded());
+        $this->assertTrue($private_key->isLoaded());
     }
 
     public function testKeyExport()

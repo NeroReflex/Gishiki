@@ -237,7 +237,7 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(false, $route->matches(Route::GET, "/", $expr, $get));
+        $this->assertFalse($route->matches(Route::GET, "/", $expr, $get));
     }
 
     public function testStatic()
@@ -255,7 +255,7 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(true, $route->matches(Route::POST, "/home/hello/test", $expr, $get));
+        $this->assertTrue($route->matches(Route::POST, "/home/hello/test", $expr, $get));
     }
 
     public function testDynamicEmail()
@@ -273,7 +273,7 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(true, $route->matches(Route::POST, "/email/example@gmail.com", $expr, $get));
+        $this->assertTrue($route->matches(Route::POST, "/email/example@gmail.com", $expr, $get));
         $this->assertEquals([
             "address" => "example@gmail.com"
         ], $expr);
@@ -294,7 +294,7 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(true, $route->matches(Route::POST, "/uint/54", $expr, $get));
+        $this->assertTrue($route->matches(Route::POST, "/uint/54", $expr, $get));
         $this->assertEquals([
             "number" => 54
         ], $expr);
@@ -315,7 +315,7 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(true, $route->matches(Route::POST, "/sint/-55", $expr, $get));
+        $this->assertTrue($route->matches(Route::POST, "/sint/-55", $expr, $get));
         $this->assertEquals([
             "number" => -55
         ], $expr);
@@ -336,7 +336,7 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(true, $route->matches(Route::POST, "/hello/John", $expr, $get));
+        $this->assertTrue($route->matches(Route::POST, "/hello/John", $expr, $get));
         $this->assertEquals([
             "name" => "John",
         ], $expr);
@@ -357,7 +357,7 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(true, $route->matches(Route::HEAD, "/float/-55.25", $expr, $get));
+        $this->assertTrue($route->matches(Route::HEAD, "/float/-55.25", $expr, $get));
         $this->assertEquals([
             "number" => -55.25
         ], $expr);
@@ -378,7 +378,7 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(true, $route->matches(Route::DELETE, "/cplx/9/example@xmpl.com/set", $expr, $get));
+        $this->assertTrue($route->matches(Route::DELETE, "/cplx/9/example@xmpl.com/set", $expr, $get));
         $this->assertEquals([
             "id" => 9,
             "mail" => "example@xmpl.com"
@@ -400,7 +400,7 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(false, $route->matches(Route::GET, "/cplx", $expr, $get));
+        $this->assertFalse($route->matches(Route::GET, "/cplx", $expr, $get));
     }
 
     public function testRouteInvoke()
@@ -555,7 +555,7 @@ class RouteTest extends TestCase
             "action" => 'do',
         ]);
 
-        $this->assertEquals(true, $route->matches(Route::GET, "/search/4/?distanceMax=50km&distanceMin=1km", $expr, $get));
+        $this->assertTrue($route->matches(Route::GET, "/search/4/?distanceMax=50km&distanceMin=1km", $expr, $get));
         $this->assertEquals([
             "type" => 4
         ], $expr);

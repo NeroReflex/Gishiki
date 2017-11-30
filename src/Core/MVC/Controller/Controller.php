@@ -18,8 +18,6 @@ limitations under the License.
 namespace Gishiki\Core\MVC\Controller;
 
 use Gishiki\Core\Application;
-use Gishiki\Database\DatabaseManager;
-use Gishiki\Logging\LoggerManager;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Gishiki\Algorithms\Collections\GenericCollection;
@@ -85,8 +83,6 @@ abstract class Controller
      */
     public function __construct(RequestInterface &$controllerRequest, ResponseInterface &$controllerResponse, GenericCollection &$controllerArguments, array &$plugins, Application $app = null)
     {
-        $this->connections = new DatabaseManager();
-
         //save the request
         $this->request = $controllerRequest;
 

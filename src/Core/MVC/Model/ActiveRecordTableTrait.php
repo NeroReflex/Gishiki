@@ -120,7 +120,7 @@ trait ActiveRecordTableTrait
         }
 
         if ((!$field->has('type')) || (!is_string($field->get('type'))) || (strlen($field->get('type')) <= 0)) {
-            throw new ActiveRecordException('Table definition contains a field with no type', 102);
+            throw new ActiveRecordException('Table definition contains a field with no type ('.$field->get('name').')', 102);
         }
 
         if (!array_key_exists($field->get('type'), self::$typeMap)) {

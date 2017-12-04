@@ -28,6 +28,29 @@ use Gishiki\Algorithms\Strings\Manipulation;
 class Configuration extends SerializableCollection
 {
     /**
+     * Parse the given configuration file.
+     *
+     * Read the given file in JSON format and produce a Configuration
+     * from it, where placeholders have been replaced with correct values.
+     *
+     * @param string|null $filename the name of the file to be used or null for default
+     * @return Configuration the parsed configuration
+     * @throws Exception the given file cannot be found
+     */
+    public static function loadFromFile($filename = null) : Configuration
+    {
+        $filename = (is_null($filename)) ? Application::getCurrentDirectory() . "settings.json" : $filename;
+
+        if (!file_exists($filename)) {
+            throw new Exception("The given configuration file cannot be read", 100);
+        }
+
+        $config = SerializableCollection::deserialize(file_get_contents($filename));
+
+        return new self($config->all());
+    }
+
+    /**
      * Load Application configuration.
      *
      * Load configuration from the given data,
@@ -79,3 +102,4 @@ class Configuration extends SerializableCollection
         return $value;
     }
 }
+

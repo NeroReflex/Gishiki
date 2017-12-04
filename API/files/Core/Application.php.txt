@@ -65,14 +65,13 @@ final class Application
      *
      * The suggester emitter is Zend\Diactoros\Response\SapiEmitter;
      *
-     * @param EmitterInterface|null $emitter      the emitter to be used when producing output
-     * @param string|null           $settingsFile the path of the settings file
-     * @param \Memcached|null       $cache        the memcache handler
+     * @param EmitterInterface|null $emitter  the emitter to be used when producing output
+     * @param string|array|null     $settings the path of the settings file
      */
-    public function __construct(EmitterInterface $emitter = null, $settingsFile = null, \Memcached $cache = null)
+    public function __construct(EmitterInterface $emitter = null, $settings = null)
     {
         //load application configuration
-        $this->configuration = new Config($settingsFile, $cache);
+        $this->configuration = (is_array($settings)) ? new Configuration($settings) : Configuration::loadFromFile($settings);
         $this->applyConfiguration();
 
         //setup the emitter (dependency-injection style)
@@ -112,13 +111,13 @@ final class Application
     }
 
     /**
-     * Get the directory containing the application
+     * Get the application configuration.
      *
-     * @return string the current directory
+     * @return Configuration the configuration
      */
-    public function getApplicationDirectory() : string
+    public function getConfiguration() : Configuration
     {
-        return $this->configuration->getDirectory();
+        return clone $this->configuration;
     }
 
     /**
@@ -127,16 +126,16 @@ final class Application
     protected function applyConfiguration()
     {
         //apply the database configuration
-        $connections = $this->configuration->getConfiguration()->get('connections');
+        $connections = $this->configuration->get('connections');
         if (is_array($connections)) {
             $this->connectDatabase($connections);
         }
 
         //parse databases structure
-        $structures = $this->configuration->getConfiguration()->get('structures');
+        $structures = $this->configuration->get('structures');
         if (is_array($structures)) {
             foreach ($structures as $structureFile) {
-                $description = file_get_contents($this->getCurrentDirectory() . $structureFile);
+                $description = file_get_contents(static::getCurrentDirectory() . $structureFile);
 
                 $importedDescription = SerializableCollection::deserialize($description);
 
@@ -145,9 +144,9 @@ final class Application
         }
 
         //apply the logging configuration
-        $loggers = $this->configuration->getConfiguration()->get('logging')['interfaces'];
+        $loggers = $this->configuration->get('logging')['interfaces'];
         if (is_array($loggers)) {
-            $this->connectLogger($loggers, $this->configuration->getConfiguration()->get('logging')['automatic']);
+            $this->connectLogger($loggers, $this->configuration->get('logging')['automatic']);
         }
     }
 

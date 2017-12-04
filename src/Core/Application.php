@@ -37,7 +37,7 @@ final class Application
     use ApplicationLoggerTrait;
 
     /**
-     * @var Config the application configuration
+     * @var Configuration the application configuration
      */
     protected $configuration;
 

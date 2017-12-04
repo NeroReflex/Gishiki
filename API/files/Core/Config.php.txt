@@ -166,7 +166,7 @@ final class Config
      * @param  array $collection the configuration to be finished
      * @return array the completed configuration
      */
-    protected function completeSettings(array &$collection) : array
+    private function completeSettings(array &$collection) : array
     {
         foreach ($collection as &$value) {
             //check for substitution

@@ -68,7 +68,6 @@ final class Application
      * @param EmitterInterface|null $emitter      the emitter to be used when producing output
      * @param string|null           $settingsFile the path of the settings file
      * @param \Memcached|null       $cache        the memcache handler
-     * @throws Exception the error preventing the application to be loaded
      */
     public function __construct(EmitterInterface $emitter = null, $settingsFile = null, \Memcached $cache = null)
     {

@@ -1,0 +1,81 @@
+<?php
+/**************************************************************************
+Copyright 2017 Benato Denis
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+ *****************************************************************************/
+
+namespace Gishiki\Core;
+
+use Gishiki\Algorithms\Collections\SerializableCollection;
+use Gishiki\Algorithms\Strings\Manipulation;
+
+/**
+ * Represents the application configuration.
+ *
+ * @author Benato Denis <benato.denis96@gmail.com>
+ */
+class Configuration extends SerializableCollection
+{
+    /**
+     * Load Application configuration.
+     *
+     * Load configuration from the given data,
+     * read documentation for more.
+     *
+     * @param array $data configuration data
+     */
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+
+        //finalize configuration
+        self::completeSettings($this->data);
+    }
+
+    /**
+     * Complete the configuration resolving every value placeholder.
+     *
+     * Read more on documentation.
+     *
+     * @param  array $collection the configuration to be finished
+     * @return array the completed configuration
+     */
+    private static function completeSettings(array &$collection) : array
+    {
+        foreach ($collection as &$value) {
+            //check for substitution
+            if ((is_string($value)) && ((strpos($value, '{{@') === 0) && (strpos($value, '}}') !== false))) {
+                $value = (($toReplace = Manipulation::getBetween($value, '{{@', '}}')) != '') ?
+                    self::getValueFromEnvironment($toReplace) : $value;
+            } elseif (is_array($value)) {
+                $value = self::completeSettings($value);
+            }
+        }
+
+        return $collection;
+    }
+
+    /**
+     * Get the value of an environment variable from its name.
+     *
+     * @param  string $key the name of environment variable
+     * @return string the value of the environment variable
+     */
+    private static function getValueFromEnvironment($key) : string
+    {
+        $value = (Environment::has($key)) ? Environment::get($key) : constant($key);
+
+        return $value;
+    }
+}

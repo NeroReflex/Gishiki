@@ -42,7 +42,7 @@ class SerializableCollection extends GenericCollection
      *
      * @throws \InvalidArgumentException an invalid collection was given
      */
-    public function __construct($data = array())
+    public function __construct($data = [])
     {
         if (is_array($data)) {
             parent::__construct($data);

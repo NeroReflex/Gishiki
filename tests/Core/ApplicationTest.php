@@ -86,22 +86,6 @@ class ApplicationTest extends TestCase
         $this->assertEquals(realpath(__DIR__.'/../../').'/', Application::getCurrentDirectory());
     }
 
-    public function testDirectory()
-    {
-        $data = new SerializableCollection([
-            "development" => true
-        ]);
-
-        $filename = 'tests/config_'.__FUNCTION__.'.json';
-        file_put_contents($filename, $data->serialize());
-
-        $app = new Application(null, $filename);
-
-        $this->assertEquals(realpath(dirname($filename)), realpath($app->getApplicationDirectory()));
-
-        unlink($filename);
-    }
-
     public function testCompleteApplication()
     {
         $app = self::setupTestingApplication();

@@ -22,6 +22,8 @@ use Gishiki\Core\Application;
 use Gishiki\Core\Exception;
 use Gishiki\Core\Router\Route;
 use Gishiki\Core\Router\Router;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 use Zend\Diactoros\Request;
 use Zend\Diactoros\Response\SapiEmitter;
@@ -44,12 +46,9 @@ class ApplicationTest extends TestCase
                 'automatic' => 'default',
                 'interfaces' => [
                     'default' => [
-                        0 => [
-                            'class' => 'StreamHandler',
-                            'connection' => [
-                                0 => 'tests/customLog.log',
-                                1 => 400,
-                            ],
+                        [
+                            'class' => StreamHandler::class,
+                            'connection' => ['tests/customLog.log', Logger::ERROR],
                         ],
                     ],
                 ],

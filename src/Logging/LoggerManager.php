@@ -74,21 +74,22 @@ final class LoggerManager
                 throw new \InvalidArgumentException('The logger configuration is not fully-qualified');
             }
 
-            try {
-                $adapterClassName = (strpos($handlerCollection->get('class'), "\\") === false) ?
-                    'Monolog\\Handler\\'.$handlerCollection->get('class') :
-                    $handlerCollection->get('class');
+            $adapterClassName = (strpos($handlerCollection->get('class'), "\\") === false) ?
+                'Monolog\\Handler\\' . $handlerCollection->get('class') :
+                $handlerCollection->get('class');
 
-                //reflect the adapter
-                $reflectedAdapter = new \ReflectionClass($adapterClassName);
-
-                //bind the handler to the current logger
-                $this->connections[sha1($name)]->pushHandler(
-                    $reflectedAdapter->newInstanceArgs($handlerCollection->get('connection'))
-                );
-            } catch (\ReflectionException $ex) {
+            //check for the adapter
+            if (!class_exists($adapterClassName)) {
                 throw new \InvalidArgumentException('The given connection requires an unknown class');
             }
+
+            //reflect the adapter
+            $reflectedAdapter = new \ReflectionClass($adapterClassName);
+
+            //bind the handler to the current logger
+            $this->connections[sha1($name)]->pushHandler(
+                $reflectedAdapter->newInstanceArgs($handlerCollection->get('connection'))
+            );
         }
 
         //return the newly created logger

@@ -33,7 +33,7 @@ use Zend\Diactoros\Uri;
  */
 class ApplicationTest extends TestCase
 {
-    public static function setupTestingApplication($emitter = null
+    public static function setupTestingApplication($emitter = null)
     {
         $emitter = (is_null($emitter)) ? new \TestingEmitter() : $emitter;
 
@@ -64,12 +64,11 @@ class ApplicationTest extends TestCase
         return new Application($emitter, $settings);
     }
 
-    public function testSettingsFromFile($emitter = null, $dbFiles = [])
+    public function testSettingsFromFile($emitter = null)
     {
         $emitter = (is_null($emitter)) ? new \TestingEmitter() : $emitter;
 
         $content = SerializableCollection::deserialize(file_get_contents(__DIR__ . "/../testSettings.json"));
-        $content->set('structures', $dbFiles);
         file_put_contents(__DIR__ . "/../../settings.json", $content->serialize());
 
         $app = new Application($emitter, __DIR__ . "/../../settings.json");

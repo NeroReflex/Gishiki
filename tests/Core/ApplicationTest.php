@@ -19,6 +19,7 @@ namespace Gishiki\tests\Core\Router;
 
 use Gishiki\Algorithms\Collections\SerializableCollection;
 use Gishiki\Core\Application;
+use Gishiki\Core\Exception;
 use Gishiki\Core\Router\Route;
 use Gishiki\Core\Router\Router;
 use PHPUnit\Framework\TestCase;
@@ -76,6 +77,15 @@ class ApplicationTest extends TestCase
         unlink(__DIR__ . "/../../settings.json");
 
         $this->assertTrue($app->getConfiguration()->get('testing'));
+    }
+
+    public function testSettingsFromBadFile($emitter = null)
+    {
+        $emitter = (is_null($emitter)) ? new \TestingEmitter() : $emitter;
+
+        $this->expectException(Exception::class);
+
+        new Application($emitter, __DIR__ . "/../FakeController.php");
     }
 
     public function testBadResponseType()

@@ -1,6 +1,5 @@
 # Contributing
 
-
 ## Locale Setup (Docker)
 Steps to test the code (using [PHPUnit]()) are following:
   1. Install PHP and required extensions
@@ -31,12 +30,6 @@ docker run -d -p 3306:3306 \
 mysql:8.0.3
 ```
 
-Setup a Memcached instance:
-
-```sh
-docker run -d -p 11211:11211 --name gishiki-memcached -d memcached
-```
-
 Then you are ready to test the framework:
 
 ```sh
@@ -44,3 +37,14 @@ composer install # mandatory: download dependencies
 export COMPOSER_PROCESS_TIMEOUT=600 # give testing some time to process
 composer test
 ```
+
+## Coding Style
+Source code of Gishiki __must__ be following [PSR-2](http://www.php-fig.org/psr/psr-2/) specification.
+
+## Guideline
+You can improve the framework by applying a pull request on the [GitHub repo](https://github.com/NeroReflex/Gishiki).
+
+When adding new source code you __have to__ provide PHPUnit tests to cover at least 90% of new source.
+
+## New Classes
+When adding a new class you __must__ provide your full name and, optionally, your email address.

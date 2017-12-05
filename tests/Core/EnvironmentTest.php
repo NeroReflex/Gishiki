@@ -66,4 +66,32 @@ class EnvironmentTest extends TestCase
 
         $this->assertFalse(Environment::has('test_env_key_unset'));
     }
+
+    public function testInvalidSet()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        Environment::set(4, "value");
+    }
+
+    public function testInvalidGet()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        Environment::get(null);
+    }
+
+    public function testInvalidRemove()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        Environment::remove(null);
+    }
+
+    public function testInvalidHas()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        Environment::has(90.4);
+    }
 }

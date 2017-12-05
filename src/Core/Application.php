@@ -41,7 +41,7 @@ final class Application
     /**
      * @var Configuration the application configuration
      */
-    protected $configuration;
+    private $configuration;
 
     /**
      * @var RequestInterface the request sent to the framework
@@ -69,11 +69,13 @@ final class Application
      *
      * @param EmitterInterface|null $emitter  the emitter to be used when producing output
      * @param string|array|null     $settings the path of the settings file
+     * @throws Exception the error preventing configuration to be load
      */
     public function __construct(EmitterInterface $emitter = null, $settings = null)
     {
         //load application configuration
         $this->configuration = (is_array($settings)) ? new Configuration($settings) : Configuration::loadFromFile($settings);
+
         $this->applyConfiguration();
 
         //setup the emitter (dependency-injection style)
@@ -125,7 +127,7 @@ final class Application
     /**
      * Apply the application configuration.
      */
-    protected function applyConfiguration()
+    private function applyConfiguration()
     {
         if ($this->getConfiguration()->get('debug', false) == true) {
             Debug::enable();

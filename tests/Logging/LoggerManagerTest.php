@@ -79,7 +79,7 @@ class LoggerManagerTest extends TestCase
         $loggers->retrieve(100.05);
     }
 
-    public function testRetrieveInexistentConnectionName()
+    public function testRetrieveNonExistentConnectionName()
     {
         $this->expectException(\InvalidArgumentException::class);
 

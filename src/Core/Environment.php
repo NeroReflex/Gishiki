@@ -30,9 +30,14 @@ abstract class Environment
      *
      * @param string $key the key to be searched
      * @return bool true whether the given key is defined
+     * @throws \InvalidArgumentException the given key is not valid
      */
     public static function has($key) : bool
     {
+        if ((!is_string($key)) || (strlen($key) < 0)) {
+            throw new \InvalidArgumentException("The given environment key must be a non-empty valid string");
+        }
+
         return (($value = getenv($key)) !== false);
     }
 
@@ -43,9 +48,14 @@ abstract class Environment
      * @param string $key     the key to be read
      * @param mixed  $default the default value returned when the key is not found
      * @return array|false|string the value held by the environment
+     * @throws \InvalidArgumentException the given key is not valid
      */
     public static function get($key, $default = null)
     {
+        if ((!is_string($key)) || (strlen($key) < 0)) {
+            throw new \InvalidArgumentException("The given environment key must be a non-empty valid string");
+        }
+
         return (static::has($key)) ? getenv($key) : $default;
     }
 
@@ -56,9 +66,14 @@ abstract class Environment
      *
      * @param string $key the key to be added
      * @param string $value the value to be associated with the key
+     * @throws \InvalidArgumentException the given key is not valid
      */
     public static function set($key, $value)
     {
+        if ((!is_string($key)) || (strlen($key) < 0)) {
+            throw new \InvalidArgumentException("The given environment key must be a non-empty valid string");
+        }
+
         putenv("$key=".$value);
     }
 
@@ -66,9 +81,14 @@ abstract class Environment
      * Remove in the current execution environment the given entry.
      *
      * @param string $key the key to be removed
+     * @throws \InvalidArgumentException the given key is not valid
      */
     public static function remove($key)
     {
+        if ((!is_string($key)) || (strlen($key) < 0)) {
+            throw new \InvalidArgumentException("The given environment key must be a non-empty valid string");
+        }
+
         putenv("$key");
     }
 }

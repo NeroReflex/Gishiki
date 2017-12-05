@@ -17,6 +17,7 @@ limitations under the License.
 
 namespace Gishiki\Core;
 
+use Gishiki\Algorithms\Collections\DeserializationException;
 use Gishiki\Algorithms\Collections\SerializableCollection;
 use Gishiki\Algorithms\Strings\Manipulation;
 
@@ -45,7 +46,11 @@ class Configuration extends SerializableCollection
             throw new Exception("The given configuration file cannot be read", 100);
         }
 
-        $config = SerializableCollection::deserialize(file_get_contents($filename));
+        try {
+            $config = SerializableCollection::deserialize(file_get_contents($filename));
+        } catch (DeserializationException $ex) {
+            throw new Exception("The given configuration file contains syntax error(s)", 101);
+        }
 
         return new self($config->all());
     }

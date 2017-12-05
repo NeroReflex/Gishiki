@@ -123,7 +123,6 @@ trait ActiveRecordTableTrait
         $currentField->setAutoIncrement($field->has('auto_increment') && ($field->get('auto_increment') === true));
 
         if (($field->has('relation')) && (is_array($field->get('relation')))) {
-
         }
 
         $table->addColumn($currentField);

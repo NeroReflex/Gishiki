@@ -40,12 +40,13 @@ abstract class Environment
      * Return the value associated with the given key
      * in the current execution environment.
      *
-     * @param string $key the key to be read
+     * @param string $key     the key to be read
+     * @param mixed  $default the default value returned when the key is not found
      * @return array|false|string the value held by the environment
      */
-    public static function get($key)
+    public static function get($key, $default = null)
     {
-        return getenv($key);
+        return (static::has($key)) ? getenv($key) : $default;
     }
 
     /**

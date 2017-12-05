@@ -18,5 +18,7 @@
       "name": "default",
       "query": "sqlite:\/\/tests\/default.sqlite"
     }
-  ]
+  ],
+
+  "testing": true
 }

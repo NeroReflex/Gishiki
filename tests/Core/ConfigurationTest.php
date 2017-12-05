@@ -32,12 +32,10 @@ class ConfigurationTest extends TestCase
     public function testConfig()
     {
         $config = new Configuration([
-            "general" => [
-                "development" => true
-            ]
+            "development" => true,
         ]);
 
-        $this->assertTrue($config->get("general")["development"]);
+        $this->assertTrue($config->get("development"));
     }
 
     public function testEnvConfig()
@@ -46,9 +44,7 @@ class ConfigurationTest extends TestCase
         putenv ( "SERIAL=".$random);
 
         $config = new Configuration([
-            "general" => [
-                "development" => true
-            ],
+            "development" => true,
             "serial" => "{{@SERIAL}}"
         ]);
 
@@ -61,9 +57,7 @@ class ConfigurationTest extends TestCase
         define('MACRO', $random);
 
         $config = new Configuration([
-            "general" => [
-                "development" => true
-            ],
+            "development" => true,
             "macro" => "{{@MACRO}}"
         ]);
 

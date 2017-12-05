@@ -1,18 +1,18 @@
 <?php
 /**************************************************************************
-Copyright 2017 Benato Denis
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+ * Copyright 2017 Benato Denis
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *****************************************************************************/
 
 namespace Gishiki\tests\Core\Router;
@@ -33,26 +33,50 @@ use Zend\Diactoros\Uri;
  */
 class ApplicationTest extends TestCase
 {
-    public static function setupTestingApplication($emitter = null, $dbFiles = [])
+    public static function setupTestingApplication($emitter = null
     {
         $emitter = (is_null($emitter)) ? new \TestingEmitter() : $emitter;
 
-        $content = SerializableCollection::deserialize(file_get_contents(__DIR__."/../testSettings.json"));
-        $content->set('structures', $dbFiles);
-        file_put_contents(__DIR__."/../../settings.json", $content->serialize());
+        $settings = [
+            'debug' => true,
+            'logging' => [
+                'automatic' => 'default',
+                'interfaces' => [
+                    'default' => [
+                        0 => [
+                            'class' => 'StreamHandler',
+                            'connection' => [
+                                0 => 'tests/customLog.log',
+                                1 => 400,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'connections' => [
+                0 => [
+                    'name' => 'default',
+                    'query' => 'sqlite://tests/default.sqlite',
+                ],
+            ],
+        ];
 
-        $app = new Application($emitter, __DIR__."/../../settings.json");
-
-        unlink(__DIR__."/../../settings.json");
-
-        return $app;
+        return new Application($emitter, $settings);
     }
 
-    public function testDatabaseStructureIntegration()
+    public function testSettingsFromFile($emitter = null, $dbFiles = [])
     {
-        $app = self::setupTestingApplication(null, ["tests/defaultDatabase.json"]);
+        $emitter = (is_null($emitter)) ? new \TestingEmitter() : $emitter;
 
-        $this->assertEquals("author", (($app->getDatabaseStructure()[0])->getTables()[0])->getName());
+        $content = SerializableCollection::deserialize(file_get_contents(__DIR__ . "/../testSettings.json"));
+        $content->set('structures', $dbFiles);
+        file_put_contents(__DIR__ . "/../../settings.json", $content->serialize());
+
+        $app = new Application($emitter, __DIR__ . "/../../settings.json");
+
+        unlink(__DIR__ . "/../../settings.json");
+
+        $this->assertTrue($app->getConfiguration()->get('testing'));
     }
 
     public function testBadResponseType()
@@ -70,9 +94,9 @@ class ApplicationTest extends TestCase
 
     public function testDefaultEmitter()
     {
-        copy(__DIR__."/../testSettings.json", __DIR__."/../../settings.json");
+        copy(__DIR__ . "/../testSettings.json", __DIR__ . "/../../settings.json");
         $app = new Application();
-        unlink(__DIR__."/../../settings.json");
+        unlink(__DIR__ . "/../../settings.json");
 
         $emitter = new \ReflectionProperty($app, 'emitter');
         $emitter->setAccessible(true);
@@ -83,7 +107,7 @@ class ApplicationTest extends TestCase
     public function testCurrentDirectory()
     {
         //appending ../../ because the test MUST be launched at the project root
-        $this->assertEquals(realpath(__DIR__.'/../../').'/', Application::getCurrentDirectory());
+        $this->assertEquals(realpath(__DIR__ . '/../../') . '/', Application::getCurrentDirectory());
     }
 
     public function testCompleteApplication()
@@ -335,10 +359,10 @@ class ApplicationTest extends TestCase
         $response = new \ReflectionProperty($app, 'response');
         $response->setAccessible(true);
 
-        file_put_contents(__DIR__."/../customLog.log", "");
+        file_put_contents(__DIR__ . "/../customLog.log", "");
 
         $app->run($router);
 
-        $this->assertGreaterThan(20, strlen(file_get_contents(__DIR__."/../customLog.log")));
+        $this->assertGreaterThan(20, strlen(file_get_contents(__DIR__ . "/../customLog.log")));
     }
 }

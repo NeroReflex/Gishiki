@@ -96,6 +96,39 @@ class ActiveRecordTest extends TestCase
         $this->assertFalse(ActiveRecordTables::isRegistered(\TModelBadFieldType::class));
     }
 
+    public function testSchemaWithBadRelationClassName()
+    {
+        $this->expectException(ActiveRecordException::class);
+        $this->expectExceptionCode(109);
+
+        $reflectedRecord = new \ReflectionClass(\TModelBadRelationClassName::class);
+        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
+        $reflectedMethod->setAccessible(true);
+        $reflectedMethod->invoke(null);
+    }
+
+    public function testSchemaWithBadRelationClass()
+    {
+        $this->expectException(ActiveRecordException::class);
+        $this->expectExceptionCode(110);
+
+        $reflectedRecord = new \ReflectionClass(\TModelBadRelationClass::class);
+        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
+        $reflectedMethod->setAccessible(true);
+        $reflectedMethod->invoke(null);
+    }
+
+    public function testSchemaWithBadRelationField()
+    {
+        $this->expectException(ActiveRecordException::class);
+        $this->expectExceptionCode(107);
+
+        $reflectedRecord = new \ReflectionClass(\TModelBookBadRelation::class);
+        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
+        $reflectedMethod->setAccessible(true);
+        $reflectedMethod->invoke(null);
+    }
+
     public function testCorrectSchemaWithNoRelations()
     {
         $reflectedRecord = new \ReflectionClass(\TModelCorrectNoRelations::class);
@@ -116,5 +149,18 @@ class ActiveRecordTest extends TestCase
         $this->assertTrue(ActiveRecordTables::isRegistered(\TModelBook::class));
 
         $this->assertEquals("book", $table->getName());
+
+        $asserted = false;
+
+        foreach ($table->getColumns() as &$currentColumn) {
+            if (strcmp($currentColumn->getName(), "author_id") == 0) {
+                $asserted = true;
+                $this->assertEquals($currentColumn->getRelation()->getForeignTable()->getName(), "author");
+                $this->assertEquals($currentColumn->getRelation()->getForeignKey()->getName(), "id");
+            }
+        }
+
+        $this->assertTrue($asserted);
+
     }
 }

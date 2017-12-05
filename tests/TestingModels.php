@@ -66,6 +66,40 @@ class TModelBadFieldType extends ActiveRecord
     ];
 }
 
+class TModelBadRelationClassName extends ActiveRecord
+{
+    protected static $structure = [
+        "name" => 'my_table',
+        "fields" => [
+            [
+                "name" => "relation",
+                "type" => "integer",
+                "relation" => [
+                    "No_class, ha!",
+                    "id"
+                ]
+            ]
+        ]
+    ];
+}
+
+class TModelBadRelationClass extends ActiveRecord
+{
+    protected static $structure = [
+        "name" => 'my_table',
+        "fields" => [
+            [
+                "name" => "relation",
+                "type" => "integer",
+                "relation" => [
+                    "stdClass",
+                    "id"
+                ]
+            ]
+        ]
+    ];
+}
+
 class TModelCorrectNoRelations extends ActiveRecord
 {
     protected static $structure = [
@@ -77,6 +111,36 @@ class TModelCorrectNoRelations extends ActiveRecord
                 "not_null" => true,
                 "auto_increment" => true,
                 "primary_key" => true,
+            ]
+        ]
+    ];
+}
+
+class TModelBookBadRelation extends ActiveRecord
+{
+    protected static $structure = [
+        "name" => 'book',
+        "fields" => [
+            "id" => [
+                "name" => "id",
+                "type" => "integer",
+                "not_null" => true,
+                "auto_increment" => true,
+                "primary_key" => true,
+            ],
+            "title" => [
+                "name" => "title",
+                "type" => "string",
+                "not_null" => true,
+            ],
+            "author_id" => [
+                "name" => "author_id",
+                "type" => "integer",
+                "not_null" => true,
+                "relation" => [
+                    TModelBookAuthor::class,
+                    "auth_id"
+                ]
             ]
         ]
     ];

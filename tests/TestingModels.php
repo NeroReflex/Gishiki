@@ -81,3 +81,49 @@ class TModelCorrectNoRelations extends ActiveRecord
         ]
     ];
 }
+
+class TModelBook extends ActiveRecord
+{
+    protected static $structure = [
+        "name" => 'book',
+        "fields" => [
+            [
+                "name" => "id",
+                "type" => "integer",
+                "not_null" => true,
+                "auto_increment" => true,
+                "primary_key" => true,
+            ],
+            [
+                "name" => "title",
+                "type" => "string",
+                "not_null" => true,
+            ],
+            [
+                "name" => "author_id",
+                "type" => "integer",
+                "not_null" => true,
+                "relation" => [
+                    TModelBookAuthor::class,
+                    "id"
+                ]
+            ]
+        ]
+    ];
+}
+
+class TModelBookAuthor extends ActiveRecord
+{
+    protected static $structure = [
+        "name" => 'author',
+        "fields" => [
+            [
+                "name" => "id",
+                "type" => "integer",
+                "not_null" => true,
+                "auto_increment" => true,
+                "primary_key" => true,
+            ]
+        ]
+    ];
+}

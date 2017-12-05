@@ -151,13 +151,13 @@ trait ActiveRecordTableTrait
      */
     private static function loadRelation(Column &$column, $className, $propName)
     {
-
+        self::checkActiveRecord($className);
 
         $reflectedClass = new \ReflectionClass($className);
         $getTableRef = $reflectedClass->getMethod("getTableDefinition");
         $getTableRef->setAccessible(true);
 
-        $referencedTable = $getTableRef->invoke(null);;
+        $referencedTable = $getTableRef->invoke(null);
         try {
             ActiveRecordTables::retrieve($className);
         } catch (ActiveRecordException $ex) {
@@ -177,5 +177,16 @@ trait ActiveRecordTableTrait
 
         $relation = new ColumnRelation($referencedTable, $referencedColumn);
         $column->setRelation($relation);
+    }
+
+    private static function checkActiveRecord($className)
+    {
+        if (!class_exists($className)) {
+            throw new ActiveRecordException("The class $className doesn't exists.", 109);
+        }
+
+        if (!is_subclass_of($className, ActiveRecord::class)) {
+            throw new ActiveRecordException("The class $className isn't a valid ActiveRecord implementation.", 110);
+        }
     }
 }

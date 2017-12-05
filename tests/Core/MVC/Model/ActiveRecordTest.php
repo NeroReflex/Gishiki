@@ -105,4 +105,16 @@ class ActiveRecordTest extends TestCase
 
         $this->assertTrue(ActiveRecordTables::isRegistered(\TModelCorrectNoRelations::class));
     }
+
+    public function testCorrectSchema()
+    {
+        $reflectedRecord = new \ReflectionClass(\TModelBook::class);
+        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
+        $reflectedMethod->setAccessible(true);
+        $table = $reflectedMethod->invoke(null);
+
+        $this->assertTrue(ActiveRecordTables::isRegistered(\TModelBook::class));
+
+        $this->assertEquals("book", $table->getName());
+    }
 }

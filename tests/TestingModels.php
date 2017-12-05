@@ -128,11 +128,6 @@ class TModelBookBadRelation extends ActiveRecord
                 "auto_increment" => true,
                 "primary_key" => true,
             ],
-            "title" => [
-                "name" => "title",
-                "type" => "string",
-                "not_null" => true,
-            ],
             "author_id" => [
                 "name" => "author_id",
                 "type" => "integer",

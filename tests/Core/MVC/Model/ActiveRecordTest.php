@@ -121,7 +121,7 @@ class ActiveRecordTest extends TestCase
     public function testSchemaWithBadRelationField()
     {
         $this->expectException(ActiveRecordException::class);
-        $this->expectExceptionCode(107);
+        $this->expectExceptionCode(106);
 
         $reflectedRecord = new \ReflectionClass(\TModelBookBadRelation::class);
         $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
@@ -161,6 +161,5 @@ class ActiveRecordTest extends TestCase
         }
 
         $this->assertTrue($asserted);
-
     }
 }

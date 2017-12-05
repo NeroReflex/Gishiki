@@ -19,6 +19,7 @@ namespace Gishiki\Core;
 
 use Gishiki\Database\DatabaseException;
 use Gishiki\Database\DatabaseManager;
+
 /**
  * This is a working implementation of database connections handler for the Application class.
  *

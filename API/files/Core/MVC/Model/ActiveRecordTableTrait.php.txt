@@ -18,6 +18,7 @@ limitations under the License.
 namespace Gishiki\Core\MVC\Model;
 
 use Gishiki\Algorithms\Collections\GenericCollection;
+use Gishiki\Database\DatabaseException;
 use Gishiki\Database\Schema\Column;
 use Gishiki\Database\Schema\ColumnRelation;
 use Gishiki\Database\Schema\ColumnType;
@@ -88,7 +89,7 @@ trait ActiveRecordTableTrait
             throw new ActiveRecordException('Table definition does not contains a valid fields set', 104);
         }
 
-        foreach (static::$structure['fields'] as &$fieldDefinition) {
+        foreach (static::$structure['fields'] as $fieldName => &$fieldDefinition) {
             self::loadField($table, $fieldDefinition);
         }
     }
@@ -96,11 +97,12 @@ trait ActiveRecordTableTrait
     /**
      * Load a field inside the table from the static::$structure array.
      *
-     * @param Table $table           the table structure to be finalized with fields
-     * @param array $fieldDefinition the field definition
+     * @param Table  $table           the table structure to be finalized with fields
+     * @param array  $fieldDefinition the field definition
+     * @param string $fieldName       the short name for the column
      * @throws ActiveRecordException the exception preventing data to be parsed correctly
      */
-    private static function loadField(Table &$table, array $fieldDefinition)
+    private static function loadField(Table &$table, array $fieldDefinition, $fieldName = null)
     {
         $field = new GenericCollection($fieldDefinition);
 
@@ -123,14 +125,69 @@ trait ActiveRecordTableTrait
         $currentField->setAutoIncrement($field->has('auto_increment') && ($field->get('auto_increment') === true));
 
         if (($field->has('relation')) && (is_array($field->get('relation')))) {
+            $className = $field->get('relation')[0];
+            $propName = $field->get('relation')[1];
+
+            self::loadRelation($currentField, $className, $propName);
         }
 
-        $table->addColumn($currentField);
+        try {
+            $table->addColumn($currentField);
+        } catch (DatabaseException $ex) {
+            throw new ActiveRecordException("The given field cannot be registered: ".$ex->getMessage(), 108);
+        }
     }
 
-    private static function loadRelation(Table &$table, $className, $fieldName) : ColumnRelation
+    /**
+     * Load a relation to another class.
+     *
+     * If the given class is not registered attempt to register it by loading
+     * its table structure definition.
+     *
+     * @param Column $column    the column to be updated with the given relation
+     * @param string $className the name of the ActiveRecord class
+     * @param string $propName  the name of the property to be used
+     * @throws ActiveRecordException the exception preventing relation to be created
+     */
+    private static function loadRelation(Column &$column, $className, $propName)
     {
-        //TODO: implement this function
+        self::checkActiveRecord($className);
+
+        $reflectedClass = new \ReflectionClass($className);
+        $getTableRef = $reflectedClass->getMethod("getTableDefinition");
+        $getTableRef->setAccessible(true);
+
+        $referencedTable = $getTableRef->invoke(null);
+        try {
+            ActiveRecordTables::retrieve($className);
+        } catch (ActiveRecordException $ex) {
+            throw new ActiveRecordException("The given class doesn't contains any mapped table", 107);
+        }
+        $referencedColumn = null;
+
+        foreach ($referencedTable->getColumns() as &$currentColumn) {
+            if (strcmp($currentColumn->getName(), $propName) == 0) {
+                $referencedColumn = $currentColumn;
+            }
+        }
+
+        if (is_null($referencedColumn)) {
+            throw new ActiveRecordException("The table mapped to $className does not contains the $propName property.", 106);
+        }
+
+        $relation = new ColumnRelation($referencedTable, $referencedColumn);
+        $column->setRelation($relation);
+    }
+
+    private static function checkActiveRecord($className)
+    {
+        if (!class_exists($className)) {
+            throw new ActiveRecordException("The class $className doesn't exists.", 109);
+        }
+
+        if (!is_subclass_of($className, ActiveRecord::class)) {
+            throw new ActiveRecordException("The class $className isn't a valid ActiveRecord implementation.", 110);
+        }
     }
 }
 

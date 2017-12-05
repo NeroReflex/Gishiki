@@ -17,12 +17,8 @@ limitations under the License.
 
 namespace Gishiki\Core;
 
-use Gishiki\Algorithms\Collections\CollectionInterface;
 use Gishiki\Database\DatabaseException;
 use Gishiki\Database\DatabaseManager;
-use Gishiki\Database\ORM\DatabaseStructure;
-use Gishiki\Database\ORM\StructureException;
-
 /**
  * This is a working implementation of database connections handler for the Application class.
  *
@@ -34,11 +30,6 @@ trait ApplicationDatabaseTrait
      * @var DatabaseManager the group of database connections
      */
     protected $databaseConnections;
-
-    /**
-     * @var DatabaseStructure[] the database structure list
-     */
-    protected $databaseStructures = [];
 
     /**
      * Get the collection of opened database handlers within the current application.
@@ -53,7 +44,7 @@ trait ApplicationDatabaseTrait
     /**
      * Initialize the application internal database handler
      */
-    protected function initializeDatabaseHandler()
+    private function initializeDatabaseHandler()
     {
         if (!$this->isInitializedDatabaseHandler()) {
             //setup the database manager
@@ -66,7 +57,7 @@ trait ApplicationDatabaseTrait
      *
      * @return bool true if the database handler is initialized
      */
-    protected function isInitializedDatabaseHandler() : bool
+    private function isInitializedDatabaseHandler() : bool
     {
         return !is_null($this->databaseConnections);
     }
@@ -87,32 +78,6 @@ trait ApplicationDatabaseTrait
         foreach ($connections as $connection) {
             $this->databaseConnections->connect($connection['name'], $connection['query']);
         }
-    }
-
-    /**
-     * Create, fill and register a database structure within the current application.
-     *
-     * @param CollectionInterface $structure the database description
-     * @throws StructureException the database structure is not well-formed
-     */
-    protected function registerDatabaseStructure(CollectionInterface &$structure)
-    {
-        //parse the collection
-        $currentStructure = new DatabaseStructure();
-        $currentStructure->parse($structure);
-
-        //the parsed database structure is stored in the current application
-        $this->databaseStructures[] = $currentStructure;
-    }
-
-    /**
-     * get the full list of database structures used within the current application.
-     *
-     * @return DatabaseStructure[] the collection of database structures
-     */
-    public function getDatabaseStructure() : array
-    {
-        return $this->databaseStructures;
     }
 }
 

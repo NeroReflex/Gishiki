@@ -17,7 +17,9 @@ limitations under the License.
 
 namespace Gishiki\Core;
 
-use Gishiki\Algorithms\Collections\SerializableCollection;
+use Symfony\Component\Debug\Debug;
+use Symfony\Component\Debug\ErrorHandler;
+use Symfony\Component\Debug\ExceptionHandler;
 use Gishiki\Core\Router\Router;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -37,7 +39,7 @@ final class Application
     use ApplicationLoggerTrait;
 
     /**
-     * @var Config the application configuration
+     * @var Configuration the application configuration
      */
     protected $configuration;
 
@@ -125,22 +127,16 @@ final class Application
      */
     protected function applyConfiguration()
     {
+        if ($this->getConfiguration()->get('debug', false) == true) {
+            Debug::enable();
+            ErrorHandler::register();
+            ExceptionHandler::register();
+        }
+
         //apply the database configuration
         $connections = $this->configuration->get('connections');
         if (is_array($connections)) {
             $this->connectDatabase($connections);
-        }
-
-        //parse databases structure
-        $structures = $this->configuration->get('structures');
-        if (is_array($structures)) {
-            foreach ($structures as $structureFile) {
-                $description = file_get_contents(static::getCurrentDirectory() . $structureFile);
-
-                $importedDescription = SerializableCollection::deserialize($description);
-
-                $this->registerDatabaseStructure($importedDescription);
-            }
         }
 
         //apply the logging configuration

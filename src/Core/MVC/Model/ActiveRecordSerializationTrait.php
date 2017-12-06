@@ -16,6 +16,7 @@ limitations under the License.
  *****************************************************************************/
 
 namespace Gishiki\Core\MVC\Model;
+use Gishiki\Database\Schema\ColumnType;
 
 /**
  * Provides a working implementation of table schema extractor.
@@ -62,7 +63,7 @@ trait ActiveRecordSerializationTrait
         }
 
         foreach (static::$structure['fields'] as $fieldName => &$fieldDefinition) {
-            $this->transformations[$fieldDefinition] = $fieldDefinition["name"];
+            $this->transformations[$fieldName] = $fieldDefinition["name"];
         }
 
         $table = ActiveRecordTables::retrieve(static::class);
@@ -72,12 +73,58 @@ trait ActiveRecordSerializationTrait
         foreach ($table->getColumns() as &$column) {
             $dataType = $column->getType();
 
-            /*switch ($dataType) {
-                case 1:
-                    $this->filters[0][] = function ($value) { return intval($value); };
+            //the filter does nothing by default
+            $filter = function ($value) {
+                return $value;
+            };
+            switch ($dataType) {
+                case ColumnType::BIGINT:
+                case ColumnType::INTEGER:
+                case ColumnType::SMALLINT:
+                    $filter = function ($value) {
+                        return intval($value);
+                    };
                     break;
-            }*/
+
+                case ColumnType::DOUBLE:
+                case ColumnType::FLOAT:
+                case ColumnType::NUMERIC:
+                case ColumnType::MONEY:
+                    $filter = function ($value) {
+                        return floatval($value);
+                    };
+                    break;
+
+                case ColumnType::TEXT:
+                    $filter = function ($value) {
+                        return "$value";
+                    };
+                    break;
+            }
+
+            $targetField = $this->getModelKeyFromDatabase($column->getName());
+            $this->filters[$targetField][] = $filter;
         }
+    }
+
+    private function getModelKeyFromDatabase($keyOnDatabase)
+    {
+        $keyOnModel = array_search($keyOnDatabase, $this->transformations);
+
+        if ($keyOnModel === false) {
+            throw new ActiveRecordException("", 301);
+        }
+
+        return $keyOnDatabase;
+    }
+
+    private function getDatabaseKeyFromModel($keyOnModel)
+    {
+        if (!array_key_exists($keyOnModel, $this->transformations)) {
+            throw new ActiveRecordException("", 302);
+        }
+
+        return $this->transformations[$keyOnModel];
     }
 
     /**
@@ -133,7 +180,11 @@ trait ActiveRecordSerializationTrait
      */
     private function executeFilter($keyOnModel, $value)
     {
-        $filtered = $this->filters[$keyOnModel]($value);
+        $filtered = $value;
+
+        foreach ($this->filters[$keyOnModel] as $filterNumber => $filter) {
+            $filtered = $filter($filtered);
+        }
 
         return $filtered;
     }

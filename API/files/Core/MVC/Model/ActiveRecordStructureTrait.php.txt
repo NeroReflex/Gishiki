@@ -19,6 +19,8 @@ namespace Gishiki\Core\MVC\Model;
 
 use Gishiki\Algorithms\Collections\GenericCollection;
 use Gishiki\Database\DatabaseException;
+use Gishiki\Database\DatabaseInterface;
+use Gishiki\Database\RelationalDatabaseInterface;
 use Gishiki\Database\Schema\Column;
 use Gishiki\Database\Schema\ColumnRelation;
 use Gishiki\Database\Schema\ColumnType;
@@ -53,6 +55,16 @@ trait ActiveRecordStructureTrait
         }
 
         return ActiveRecordTables::retrieve(static::class);
+    }
+
+    private static function initSchema(DatabaseInterface &$connection)
+    {
+        if ($connection instanceof RelationalDatabaseInterface) {
+            $table = static::getTableDefinition();
+
+            //create the table inside the database
+            $connection->createTable($table);
+        }
     }
 
     /**

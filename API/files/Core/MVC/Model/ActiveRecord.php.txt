@@ -43,6 +43,7 @@ abstract class ActiveRecord extends GenericCollection implements ActiveRecordInt
      */
     protected $database = null;
 
+
     public function __construct(DatabaseInterface &$connection)
     {
         //store a reference to the database connection
@@ -57,13 +58,25 @@ abstract class ActiveRecord extends GenericCollection implements ActiveRecordInt
 
     public function save()
     {
-        if (!is_null($this->getObjectID())) {
-            $this->database->create($this->getCollectionName(), $this->executeSerialization($this->all()));
+        //setup the database schema to avoid errors
+        static::initSchema($this->database);
+
+        //get data as used from model
+        $unfilteredData = $this->all();
+
+        //filter it to be written to the database
+        $filteredData = $this->executeSerialization($unfilteredData);
+
+        if (is_null($this->getObjectID())) {
+            $this->database->create($this->getCollectionName(), $filteredData);
         }
     }
 
     public function delete()
     {
+        //setup the database schema to avoid errors
+        static::initSchema($this->database);
+
         // TODO: Implement delete() method.
     }
 
@@ -74,14 +87,17 @@ abstract class ActiveRecord extends GenericCollection implements ActiveRecordInt
 
     public static function load(DatabaseInterface &$connection) : array
     {
+        //setup the database schema to avoid errors
+        static::initSchema($connection);
+
         // TODO: Implement load() method.
     }
 
     public function set($key, $value)
     {
+        $filteredValue = $this->executeFilter($key, $value);
 
-
-        $this->data[$key] = $value;
+        parent::set($key, $filteredValue);
     }
 
     public function get($key, $default = null)

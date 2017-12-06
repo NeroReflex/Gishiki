@@ -18,148 +18,34 @@ limitations under the License.
 namespace Gishiki\tests\Core\MVC\Model;
 
 use Gishiki\Core\MVC\Model\ActiveRecordException;
-
-use Gishiki\Core\MVC\Model\ActiveRecordTables;
+use Gishiki\Database\Adapters\Sqlite;
 use PHPUnit\Framework\TestCase;
 
 /**
  * The tester for the ActiveRecord class.
  *
- * Used to test every feature of the ActiveRecord class
+ * Used to test the schema parser feature of the ActiveRecord class.
  *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
 class ActiveRecordTest extends TestCase
 {
-    public function testSchemaWithNoName()
+    private static function getTestingConnection()
     {
-        $this->expectException(ActiveRecordException::class);
-        $this->expectExceptionCode(100);
-
-        $reflectedRecord = new \ReflectionClass(\TModelNoTableName::class);
-        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
-        $reflectedMethod->setAccessible(true);
-        $reflectedMethod->invoke(null);
-
-        $this->assertFalse(ActiveRecordTables::isRegistered(\TModelNoTableName::class));
+        return new Sqlite(":memory:");
     }
 
-    public function testSchemaWithNoFields()
+    public function testInsertNoRelations()
     {
-        $this->expectException(ActiveRecordException::class);
-        $this->expectExceptionCode(104);
+        $database = self::getTestingConnection();
 
-        $reflectedRecord = new \ReflectionClass(\TModelNoFields::class);
-        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
-        $reflectedMethod->setAccessible(true);
-        $reflectedMethod->invoke(null);
+        $first_link = new \TModelLink($database);
+        $first_link->description = "dependency injection container";
+        $first_link->link = "http://php-di.org/";
 
-        $this->assertFalse(ActiveRecordTables::isRegistered(\TModelNoFields::class));
+        $this->assertNull($first_link->getObjectID());
+
+        $this->assertNotNull($first_link->getReferenceID());
     }
 
-    public function testSchemaWithNoFieldName()
-    {
-        $this->expectException(ActiveRecordException::class);
-        $this->expectExceptionCode(101);
-
-        $reflectedRecord = new \ReflectionClass(\TModelNoFieldName::class);
-        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
-        $reflectedMethod->setAccessible(true);
-        $reflectedMethod->invoke(null);
-
-        $this->assertFalse(ActiveRecordTables::isRegistered(\TModelNoFieldName::class));
-    }
-
-    public function testSchemaWithNoFieldType()
-    {
-        $this->expectException(ActiveRecordException::class);
-        $this->expectExceptionCode(102);
-
-        $reflectedRecord = new \ReflectionClass(\TModelNoFieldType::class);
-        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
-        $reflectedMethod->setAccessible(true);
-        $reflectedMethod->invoke(null);
-
-        $this->assertFalse(ActiveRecordTables::isRegistered(\TModelNoFieldType::class));
-    }
-
-    public function testSchemaWithBadFieldType()
-    {
-        $this->expectException(ActiveRecordException::class);
-        $this->expectExceptionCode(103);
-
-        $reflectedRecord = new \ReflectionClass(\TModelBadFieldType::class);
-        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
-        $reflectedMethod->setAccessible(true);
-        $reflectedMethod->invoke(null);
-
-        $this->assertFalse(ActiveRecordTables::isRegistered(\TModelBadFieldType::class));
-    }
-
-    public function testSchemaWithBadRelationClassName()
-    {
-        $this->expectException(ActiveRecordException::class);
-        $this->expectExceptionCode(109);
-
-        $reflectedRecord = new \ReflectionClass(\TModelBadRelationClassName::class);
-        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
-        $reflectedMethod->setAccessible(true);
-        $reflectedMethod->invoke(null);
-    }
-
-    public function testSchemaWithBadRelationClass()
-    {
-        $this->expectException(ActiveRecordException::class);
-        $this->expectExceptionCode(110);
-
-        $reflectedRecord = new \ReflectionClass(\TModelBadRelationClass::class);
-        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
-        $reflectedMethod->setAccessible(true);
-        $reflectedMethod->invoke(null);
-    }
-
-    public function testSchemaWithBadRelationField()
-    {
-        $this->expectException(ActiveRecordException::class);
-        $this->expectExceptionCode(106);
-
-        $reflectedRecord = new \ReflectionClass(\TModelBookBadRelation::class);
-        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
-        $reflectedMethod->setAccessible(true);
-        $reflectedMethod->invoke(null);
-    }
-
-    public function testCorrectSchemaWithNoRelations()
-    {
-        $reflectedRecord = new \ReflectionClass(\TModelCorrectNoRelations::class);
-        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
-        $reflectedMethod->setAccessible(true);
-        $reflectedMethod->invoke(null);
-
-        $this->assertTrue(ActiveRecordTables::isRegistered(\TModelCorrectNoRelations::class));
-    }
-
-    public function testCorrectSchema()
-    {
-        $reflectedRecord = new \ReflectionClass(\TModelBook::class);
-        $reflectedMethod = $reflectedRecord->getMethod("getTableDefinition");
-        $reflectedMethod->setAccessible(true);
-        $table = $reflectedMethod->invoke(null);
-
-        $this->assertTrue(ActiveRecordTables::isRegistered(\TModelBook::class));
-
-        $this->assertEquals("book", $table->getName());
-
-        $asserted = false;
-
-        foreach ($table->getColumns() as &$currentColumn) {
-            if (strcmp($currentColumn->getName(), "author_id") == 0) {
-                $asserted = true;
-                $this->assertEquals($currentColumn->getRelation()->getForeignTable()->getName(), "author");
-                $this->assertEquals($currentColumn->getRelation()->getForeignKey()->getName(), "id");
-            }
-        }
-
-        $this->assertTrue($asserted);
-    }
 }

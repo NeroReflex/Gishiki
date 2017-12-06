@@ -186,3 +186,29 @@ class TModelBookAuthor extends ActiveRecord
         ]
     ];
 }
+
+class TModelLink extends ActiveRecord
+{
+    protected static $structure = [
+        "name" => 'author',
+        "fields" => [
+            [
+                "name" => "id",
+                "type" => "integer",
+                "not_null" => true,
+                "auto_increment" => true,
+                "primary_key" => true,
+            ],
+            [
+                "name" => "description",
+                "type" => "string",
+                "not_null" => true,
+            ],
+            [
+                "name" => "link",
+                "type" => "string",
+                "not_null" => true,
+            ]
+        ]
+    ];
+}

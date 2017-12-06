@@ -41,7 +41,22 @@ trait ActiveRecordSerializationTrait
     private $collection = "";
 
     /**
-     * Get the nae of the table or collection that will hold data.
+     * @var string the name (model wise) of the primary key (if any)
+     */
+    private $primaryKey = "";
+
+    /**
+     * Get the name of the primary key field.
+     *
+     * @return string the name of the primary key
+     */
+    private function getPrimaryKeyName() : string
+    {
+        return $this->primaryKey;
+    }
+
+    /**
+     * Get the name of the table or collection that will hold data.
      *
      * @return string the collection name
      */
@@ -71,6 +86,10 @@ trait ActiveRecordSerializationTrait
         //update the table name
         $this->collection = $table->getName();
         foreach ($table->getColumns() as &$column) {
+
+            //attempt to register it as the primary key
+            $this->primaryKey = ($column->isPrimaryKey()) ? $column->getName() : $this->primaryKey;
+
             $dataType = $column->getType();
 
             //the filter does nothing by default
@@ -102,87 +121,40 @@ trait ActiveRecordSerializationTrait
                     break;
             }
 
-            $targetField = $this->getModelKeyFromDatabase($column->getName());
+            $targetField = $column->getName();
             $this->filters[$targetField][] = $filter;
         }
     }
 
-    private function getModelKeyFromDatabase($keyOnDatabase)
-    {
-        $keyOnModel = array_search($keyOnDatabase, $this->transformations);
-
-        if ($keyOnModel === false) {
-            throw new ActiveRecordException("", 301);
-        }
-
-        return $keyOnDatabase;
-    }
-
-    private function getDatabaseKeyFromModel($keyOnModel)
-    {
-        if (!array_key_exists($keyOnModel, $this->transformations)) {
-            throw new ActiveRecordException("", 302);
-        }
-
-        return $this->transformations[$keyOnModel];
-    }
-
     /**
-     * Generate data to be written on the database.
+     * Apply data filters on the given data.
      *
-     * Generated data is compatible with the table structure in use
-     * and can be used with Gishiki database adapters.
-     *
-     * @param array $data the data contained inside the current model
-     * @return array the data to be presented to the database manager
+     * @param array $data the data to be filtered
+     * @return array the filtered data, ready to be written to the database
      */
-    private function executeSerialization(array &$data) : array
+    private function executeFilters(array $data)
     {
-        $result = [];
+        $filtered = [];
 
-        foreach ($this->transformations as $keyOnModel => $keyOnDatabase) {
-            if (array_key_exists($keyOnModel, $data)) {
-                $result[$keyOnDatabase] = $this->executeFilter($keyOnModel, $data[$keyOnModel]);
-            }
+        foreach ($data as $key => $value) {
+            $filtered[$key] = $this->executeFilter($key, $value);
         }
 
-        return $result;
-    }
-
-    /**
-     * Generate data to be used on a model.
-     *
-     * Generated comes from a database adapter and is converted
-     * to be loaded in the current model.
-     *
-     * @param array $data the data contained inside the database
-     * @return array the data to be loaded on the current model
-     */
-    private function executeDeserialization(array &$data) : array
-    {
-        $result = [];
-
-        foreach ($this->transformations as $keyOnModel => $keyOnDatabase) {
-            if (array_key_exists($keyOnDatabase, $data)) {
-                $result[$keyOnModel] = $this->executeFilter($keyOnModel, $data[$keyOnModel]);
-            }
-        }
-
-        return $result;
+        return $filtered;
     }
 
     /**
      * Perform every necessary filtering value on a given model portion.
      *
-     * @param  string $keyOnModel the key associated with the value
-     * @param  mixed  $value      the value to be filtered
+     * @param  string $key   the key associated with the given value
+     * @param  mixed  $value the value to be filtered
      * @return mixed the filtered value
      */
-    private function executeFilter($keyOnModel, $value)
+    private function executeFilter($key, $value)
     {
         $filtered = $value;
 
-        foreach ($this->filters[$keyOnModel] as $filterNumber => $filter) {
+        foreach ($this->filters[$key] as $filterNumber => $filter) {
             $filtered = $filter($filtered);
         }
 

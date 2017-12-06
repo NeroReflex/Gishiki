@@ -41,7 +41,7 @@ interface ActiveRecordInterface
      * This function automatically performs create or update,
      * based on data availability within the database.
      */
-    public function save();
+    public function save() : int;
 
     /**
      * Read one or more object from the database.
@@ -59,8 +59,21 @@ interface ActiveRecordInterface
     public function delete();
 
     /**
-     * Return the current object ID, as it is used within the database
+     * Return the current object ID, as it is used within the database.
+     *
+     * @return integer|null the current object ID, as it is used within the database, or null if the object is not stored.
      */
     public function getObjectID();
+
+    /**
+     * Return the current object ID.
+     *
+     * Exactly as getObjectID(), this function also ensure an ID is returned,
+     * and if it is not a save() operation will be performed, in order to generate
+     * that ID.
+     *
+     * @return integer the current object ID, as it is used within the database
+     */
+    public function getReferenceID() : int;
 }
 

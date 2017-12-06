@@ -39,10 +39,14 @@ abstract class ActiveRecord extends GenericCollection implements ActiveRecordInt
     protected static $structure = [];
 
     /**
-     * @var DatabaseInterface|null the database handler
+     * @var DatabaseInterface the database handler
      */
-    protected $database = null;
+    protected $database;
 
+    /**
+     * @var string[] the list of property changed
+     */
+    private $changes = [];
 
     public function __construct(DatabaseInterface &$connection)
     {
@@ -56,7 +60,7 @@ abstract class ActiveRecord extends GenericCollection implements ActiveRecordInt
         $this->initTransitionSchema();
     }
 
-    public function save()
+    public function save() : int
     {
         //setup the database schema to avoid errors
         static::initSchema($this->database);
@@ -65,11 +69,20 @@ abstract class ActiveRecord extends GenericCollection implements ActiveRecordInt
         $unfilteredData = $this->all();
 
         //filter it to be written to the database
-        $filteredData = $this->executeSerialization($unfilteredData);
+        $filteredData = $this->executeFilters($unfilteredData);
 
-        if (is_null($this->getObjectID())) {
-            $this->database->create($this->getCollectionName(), $filteredData);
+        //create a new database entry or update the existing one
+        $currentObjectID = $this->getObjectID();
+        if (is_null($currentObjectID)) {
+            $currentObjectID = $this->database->create($this->getCollectionName(), $filteredData);
+        } elseif (!count($this->changes) == 0) {
+
+
+            //empty the changes
+            $this->changes = [];
         }
+
+        return $currentObjectID;
     }
 
     public function delete()
@@ -80,11 +93,6 @@ abstract class ActiveRecord extends GenericCollection implements ActiveRecordInt
         // TODO: Implement delete() method.
     }
 
-    public function getObjectID()
-    {
-        // TODO: Implement getObjectID() method.
-    }
-
     public static function load(DatabaseInterface &$connection) : array
     {
         //setup the database schema to avoid errors
@@ -93,11 +101,26 @@ abstract class ActiveRecord extends GenericCollection implements ActiveRecordInt
         // TODO: Implement load() method.
     }
 
+    public function getObjectID()
+    {
+        return ($this->has($this->getPrimaryKeyName())) ? $this->get($this->getPrimaryKeyName()) : null;
+    }
+
+    public function getReferenceID() : int
+    {
+        return (!is_null($this->getObjectID())) ? $this->getObjectID() : $this->save();
+    }
+
     public function set($key, $value)
     {
+        //filter the input value
         $filteredValue = $this->executeFilter($key, $value);
 
+        //perform action as GenericCollection does
         parent::set($key, $filteredValue);
+
+        //register the value change
+        $this->changes[] = $key;
     }
 
     public function get($key, $default = null)

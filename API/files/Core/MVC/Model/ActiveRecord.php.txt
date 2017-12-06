@@ -30,7 +30,13 @@ use Gishiki\Database\DatabaseInterface;
  */
 abstract class ActiveRecord extends GenericCollection implements ActiveRecordInterface
 {
-    use ActiveRecordTableTrait;
+    use ActiveRecordStructureTrait;
+    use ActiveRecordSerializationTrait;
+
+    /**
+     * @var array the structure descriptor
+     */
+    protected static $structure = [];
 
     /**
      * @var DatabaseInterface|null the database handler
@@ -41,12 +47,18 @@ abstract class ActiveRecord extends GenericCollection implements ActiveRecordInt
     {
         //store a reference to the database connection
         $this->database = &$connection;
+
+        //enforce loading table definition
+        static::getTableDefinition();
+
+        //enforce loading of serialization
+        $this->initTransitionSchema();
     }
 
     public function save()
     {
         if (!is_null($this->getObjectID())) {
-            $this->database->create("", $this->all());
+            $this->database->create($this->getCollectionName(), $this->executeSerialization($this->all()));
         }
     }
 
@@ -63,6 +75,18 @@ abstract class ActiveRecord extends GenericCollection implements ActiveRecordInt
     public static function load(DatabaseInterface &$connection) : array
     {
         // TODO: Implement load() method.
+    }
+
+    public function set($key, $value)
+    {
+
+
+        $this->data[$key] = $value;
+    }
+
+    public function get($key, $default = null)
+    {
+        return $this->has($key) ? $this->data[$key] : $default;
     }
 }
 

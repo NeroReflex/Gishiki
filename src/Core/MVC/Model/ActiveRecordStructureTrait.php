@@ -27,11 +27,9 @@ use Gishiki\Database\Schema\Table;
 /**
  * Provides a working implementation of table schema extractor.
  *
- * @see ActiveRecordInterface Documentation.
- *
  * @author Benato Denis <benato.denis96@gmail.com>
  */
-trait ActiveRecordTableTrait
+trait ActiveRecordStructureTrait
 {
     private static $typeMap = [
         'text' => ColumnType::TEXT,
@@ -46,8 +44,6 @@ trait ActiveRecordTableTrait
         'double' => ColumnType::DOUBLE,
         'datetime' => ColumnType::DATETIME,
     ];
-
-    protected static $structure = [];
 
     private static function &getTableDefinition() : Table
     {

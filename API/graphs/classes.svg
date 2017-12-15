@@ -17,342 +17,605 @@
 <path fill="none" stroke="gray" d="M28,-106C28,-106 1082,-106 1082,-106 1088,-106 1094,-112 1094,-118 1094,-118 1094,-4220 1094,-4220 1094,-4226 1088,-4232 1082,-4232 1082,-4232 28,-4232 28,-4232 22,-4232 16,-4226 16,-4220 16,-4220 16,-118 16,-118 16,-112 22,-106 28,-106"/>
 <text text-anchor="middle" x="555" y="-4219.2" font-family="Times,serif" font-size="11.00" fill="gray">Gishiki</text>
 </g>
-<g id="clust3" class="cluster"><title>cluster_\Gishiki\Logging</title>
-<path fill="none" stroke="gray" d="M978,-2745C978,-2745 1074,-2745 1074,-2745 1080,-2745 1086,-2751 1086,-2757 1086,-2757 1086,-2805 1086,-2805 1086,-2811 1080,-2817 1074,-2817 1074,-2817 978,-2817 978,-2817 972,-2817 966,-2811 966,-2805 966,-2805 966,-2757 966,-2757 966,-2751 972,-2745 978,-2745"/>
-<text text-anchor="middle" x="1026" y="-2804.2" font-family="Times,serif" font-size="11.00" fill="gray">Logging</text>
-</g>
-<g id="clust4" class="cluster"><title>cluster_\Gishiki\Database</title>
-<path fill="none" stroke="gray" d="M36,-2544C36,-2544 905,-2544 905,-2544 911,-2544 917,-2550 917,-2556 917,-2556 917,-4192 917,-4192 917,-4198 911,-4204 905,-4204 905,-4204 36,-4204 36,-4204 30,-4204 24,-4198 24,-4192 24,-4192 24,-2556 24,-2556 24,-2550 30,-2544 36,-2544"/>
-<text text-anchor="middle" x="470.5" y="-4191.2" font-family="Times,serif" font-size="11.00" fill="gray">Database</text>
-</g>
-<g id="clust5" class="cluster"><title>cluster_\Gishiki\Database\Runtime</title>
-<path fill="none" stroke="gray" d="M730,-3942C730,-3942 854,-3942 854,-3942 860,-3942 866,-3948 866,-3954 866,-3954 866,-4164 866,-4164 866,-4170 860,-4176 854,-4176 854,-4176 730,-4176 730,-4176 724,-4176 718,-4170 718,-4164 718,-4164 718,-3954 718,-3954 718,-3948 724,-3942 730,-3942"/>
-<text text-anchor="middle" x="792" y="-4163.2" font-family="Times,serif" font-size="11.00" fill="gray">Runtime</text>
-</g>
-<g id="clust6" class="cluster"><title>cluster_\Gishiki\Database\Schema</title>
-<path fill="none" stroke="gray" d="M740,-3700C740,-3700 844,-3700 844,-3700 850,-3700 856,-3706 856,-3712 856,-3712 856,-3922 856,-3922 856,-3928 850,-3934 844,-3934 844,-3934 740,-3934 740,-3934 734,-3934 728,-3928 728,-3922 728,-3922 728,-3712 728,-3712 728,-3706 734,-3700 740,-3700"/>
-<text text-anchor="middle" x="792" y="-3921.2" font-family="Times,serif" font-size="11.00" fill="gray">Schema</text>
-</g>
-<g id="clust7" class="cluster"><title>cluster_\Gishiki\Database\Adapters</title>
-<path fill="none" stroke="gray" d="M318,-2650C318,-2650 897,-2650 897,-2650 903,-2650 909,-2656 909,-2662 909,-2662 909,-3680 909,-3680 909,-3686 903,-3692 897,-3692 897,-3692 318,-3692 318,-3692 312,-3692 306,-3686 306,-3680 306,-3680 306,-2662 306,-2662 306,-2656 312,-2650 318,-2650"/>
-<text text-anchor="middle" x="607.5" y="-3679.2" font-family="Times,serif" font-size="11.00" fill="gray">Adapters</text>
-</g>
-<g id="clust8" class="cluster"><title>cluster_\Gishiki\Database\Adapters\Utils</title>
-<path fill="none" stroke="gray" d="M326,-2658C326,-2658 889,-2658 889,-2658 895,-2658 901,-2664 901,-2670 901,-2670 901,-3500 901,-3500 901,-3506 895,-3512 889,-3512 889,-3512 326,-3512 326,-3512 320,-3512 314,-3506 314,-3500 314,-3500 314,-2670 314,-2670 314,-2664 320,-2658 326,-2658"/>
-<text text-anchor="middle" x="607.5" y="-3499.2" font-family="Times,serif" font-size="11.00" fill="gray">Utils</text>
-</g>
-<g id="clust9" class="cluster"><title>cluster_\Gishiki\Database\Adapters\Utils\QueryBuilder</title>
-<path fill="none" stroke="gray" d="M337,-3250C337,-3250 871,-3250 871,-3250 877,-3250 883,-3256 883,-3262 883,-3262 883,-3472 883,-3472 883,-3478 877,-3484 871,-3484 871,-3484 337,-3484 337,-3484 331,-3484 325,-3478 325,-3472 325,-3472 325,-3262 325,-3262 325,-3256 331,-3250 337,-3250"/>
-<text text-anchor="middle" x="604" y="-3471.2" font-family="Times,serif" font-size="11.00" fill="gray">QueryBuilder</text>
-</g>
-<g id="clust10" class="cluster"><title>cluster_\Gishiki\Database\Adapters\Utils\ConnectionParser</title>
-<path fill="none" stroke="gray" d="M334,-2954C334,-2954 881,-2954 881,-2954 887,-2954 893,-2960 893,-2966 893,-2966 893,-3230 893,-3230 893,-3236 887,-3242 881,-3242 881,-3242 334,-3242 334,-3242 328,-3242 322,-3236 322,-3230 322,-3230 322,-2966 322,-2966 322,-2960 328,-2954 334,-2954"/>
-<text text-anchor="middle" x="607.5" y="-3229.2" font-family="Times,serif" font-size="11.00" fill="gray">ConnectionParser</text>
-</g>
-<g id="clust11" class="cluster"><title>cluster_\Gishiki\Database\Adapters\Utils\SQLGenerator</title>
-<path fill="none" stroke="gray" d="M354,-2712C354,-2712 854,-2712 854,-2712 860,-2712 866,-2718 866,-2724 866,-2724 866,-2934 866,-2934 866,-2940 860,-2946 854,-2946 854,-2946 354,-2946 354,-2946 348,-2946 342,-2940 342,-2934 342,-2934 342,-2724 342,-2724 342,-2718 348,-2712 354,-2712"/>
-<text text-anchor="middle" x="604" y="-2933.2" font-family="Times,serif" font-size="11.00" fill="gray">SQLGenerator</text>
-</g>
-<g id="clust12" class="cluster"><title>cluster_\Gishiki\Security</title>
-<path fill="none" stroke="gray" d="M707,-1854C707,-1854 877,-1854 877,-1854 883,-1854 889,-1860 889,-1866 889,-1866 889,-2524 889,-2524 889,-2530 883,-2536 877,-2536 877,-2536 707,-2536 707,-2536 701,-2536 695,-2530 695,-2524 695,-2524 695,-1866 695,-1866 695,-1860 701,-1854 707,-1854"/>
-<text text-anchor="middle" x="792" y="-2523.2" font-family="Times,serif" font-size="11.00" fill="gray">Security</text>
-</g>
-<g id="clust13" class="cluster"><title>cluster_\Gishiki\Security\Hashing</title>
-<path fill="none" stroke="gray" d="M733,-2328C733,-2328 851,-2328 851,-2328 857,-2328 863,-2334 863,-2340 863,-2340 863,-2496 863,-2496 863,-2502 857,-2508 851,-2508 851,-2508 733,-2508 733,-2508 727,-2508 721,-2502 721,-2496 721,-2496 721,-2340 721,-2340 721,-2334 727,-2328 733,-2328"/>
-<text text-anchor="middle" x="792" y="-2495.2" font-family="Times,serif" font-size="11.00" fill="gray">Hashing</text>
-</g>
-<g id="clust14" class="cluster"><title>cluster_\Gishiki\Security\Encryption</title>
-<path fill="none" stroke="gray" d="M715,-1862C715,-1862 869,-1862 869,-1862 875,-1862 881,-1868 881,-1874 881,-1874 881,-2308 881,-2308 881,-2314 875,-2320 869,-2320 869,-2320 715,-2320 715,-2320 709,-2320 703,-2314 703,-2308 703,-2308 703,-1874 703,-1874 703,-1868 709,-1862 715,-1862"/>
-<text text-anchor="middle" x="792" y="-2307.2" font-family="Times,serif" font-size="11.00" fill="gray">Encryption</text>
-</g>
-<g id="clust15" class="cluster"><title>cluster_\Gishiki\Security\Encryption\Asymmetric</title>
-<path fill="none" stroke="gray" d="M723,-2058C723,-2058 861,-2058 861,-2058 867,-2058 873,-2064 873,-2070 873,-2070 873,-2280 873,-2280 873,-2286 867,-2292 861,-2292 861,-2292 723,-2292 723,-2292 717,-2292 711,-2286 711,-2280 711,-2280 711,-2070 711,-2070 711,-2064 717,-2058 723,-2058"/>
-<text text-anchor="middle" x="792" y="-2279.2" font-family="Times,serif" font-size="11.00" fill="gray">Asymmetric</text>
-</g>
-<g id="clust16" class="cluster"><title>cluster_\Gishiki\Security\Encryption\Symmetric</title>
-<path fill="none" stroke="gray" d="M727,-1870C727,-1870 857,-1870 857,-1870 863,-1870 869,-1876 869,-1882 869,-1882 869,-2038 869,-2038 869,-2044 863,-2050 857,-2050 857,-2050 727,-2050 727,-2050 721,-2050 715,-2044 715,-2038 715,-2038 715,-1882 715,-1882 715,-1876 721,-1870 727,-1870"/>
-<text text-anchor="middle" x="792" y="-2037.2" font-family="Times,serif" font-size="11.00" fill="gray">Symmetric</text>
-</g>
-<g id="clust17" class="cluster"><title>cluster_\Gishiki\Services</title>
-<path fill="none" stroke="gray" d="M978,-1278C978,-1278 1074,-1278 1074,-1278 1080,-1278 1086,-1284 1086,-1290 1086,-1290 1086,-1338 1086,-1338 1086,-1344 1080,-1350 1074,-1350 1074,-1350 978,-1350 978,-1350 972,-1350 966,-1344 966,-1338 966,-1338 966,-1290 966,-1290 966,-1284 972,-1278 978,-1278"/>
-<text text-anchor="middle" x="1026" y="-1337.2" font-family="Times,serif" font-size="11.00" fill="gray">Services</text>
-</g>
-<g id="clust18" class="cluster"><title>cluster_\Gishiki\Algorithms</title>
+<g id="clust3" class="cluster"><title>cluster_\Gishiki\Algorithms</title>
 <path fill="none" stroke="gray" d="M698,-114C698,-114 886,-114 886,-114 892,-114 898,-120 898,-126 898,-126 898,-552 898,-552 898,-558 892,-564 886,-564 886,-564 698,-564 698,-564 692,-564 686,-558 686,-552 686,-552 686,-126 686,-126 686,-120 692,-114 698,-114"/>
 <text text-anchor="middle" x="792" y="-551.2" font-family="Times,serif" font-size="11.00" fill="gray">Algorithms</text>
 </g>
-<g id="clust19" class="cluster"><title>cluster_\Gishiki\Algorithms\Collections</title>
-<path fill="none" stroke="gray" d="M706,-356C706,-356 878,-356 878,-356 884,-356 890,-362 890,-368 890,-368 890,-524 890,-524 890,-530 884,-536 878,-536 878,-536 706,-536 706,-536 700,-536 694,-530 694,-524 694,-524 694,-368 694,-368 694,-362 700,-356 706,-356"/>
-<text text-anchor="middle" x="792" y="-523.2" font-family="Times,serif" font-size="11.00" fill="gray">Collections</text>
+<g id="clust4" class="cluster"><title>cluster_\Gishiki\Algorithms\Strings</title>
+<path fill="none" stroke="gray" d="M747,-410C747,-410 837,-410 837,-410 843,-410 849,-416 849,-422 849,-422 849,-524 849,-524 849,-530 843,-536 837,-536 837,-536 747,-536 747,-536 741,-536 735,-530 735,-524 735,-524 735,-422 735,-422 735,-416 741,-410 747,-410"/>
+<text text-anchor="middle" x="792" y="-523.2" font-family="Times,serif" font-size="11.00" fill="gray">Strings</text>
 </g>
-<g id="clust20" class="cluster"><title>cluster_\Gishiki\Algorithms\Strings</title>
-<path fill="none" stroke="gray" d="M747,-222C747,-222 837,-222 837,-222 843,-222 849,-228 849,-234 849,-234 849,-336 849,-336 849,-342 843,-348 837,-348 837,-348 747,-348 747,-348 741,-348 735,-342 735,-336 735,-336 735,-234 735,-234 735,-228 741,-222 747,-222"/>
-<text text-anchor="middle" x="792" y="-335.2" font-family="Times,serif" font-size="11.00" fill="gray">Strings</text>
+<g id="clust5" class="cluster"><title>cluster_\Gishiki\Algorithms\Collections</title>
+<path fill="none" stroke="gray" d="M706,-222C706,-222 878,-222 878,-222 884,-222 890,-228 890,-234 890,-234 890,-390 890,-390 890,-396 884,-402 878,-402 878,-402 706,-402 706,-402 700,-402 694,-396 694,-390 694,-390 694,-234 694,-234 694,-228 700,-222 706,-222"/>
+<text text-anchor="middle" x="792" y="-389.2" font-family="Times,serif" font-size="11.00" fill="gray">Collections</text>
 </g>
-<g id="clust21" class="cluster"><title>cluster_\Gishiki\Core</title>
+<g id="clust6" class="cluster"><title>cluster_\Gishiki\Core</title>
 <path fill="none" stroke="gray" d="M332,-572C332,-572 914,-572 914,-572 920,-572 926,-578 926,-584 926,-584 926,-1834 926,-1834 926,-1840 920,-1846 914,-1846 914,-1846 332,-1846 332,-1846 326,-1846 320,-1840 320,-1834 320,-1834 320,-584 320,-584 320,-578 326,-572 332,-572"/>
 <text text-anchor="middle" x="623" y="-1833.2" font-family="Times,serif" font-size="11.00" fill="gray">Core</text>
 </g>
-<g id="clust22" class="cluster"><title>cluster_\Gishiki\Core\Router</title>
-<path fill="none" stroke="gray" d="M371,-1540C371,-1540 861,-1540 861,-1540 867,-1540 873,-1546 873,-1552 873,-1552 873,-1762 873,-1762 873,-1768 867,-1774 861,-1774 861,-1774 371,-1774 371,-1774 365,-1774 359,-1768 359,-1762 359,-1762 359,-1552 359,-1552 359,-1546 365,-1540 371,-1540"/>
-<text text-anchor="middle" x="616" y="-1761.2" font-family="Times,serif" font-size="11.00" fill="gray">Router</text>
+<g id="clust7" class="cluster"><title>cluster_\Gishiki\Core\Router</title>
+<path fill="none" stroke="gray" d="M371,-1584C371,-1584 861,-1584 861,-1584 867,-1584 873,-1590 873,-1596 873,-1596 873,-1806 873,-1806 873,-1812 867,-1818 861,-1818 861,-1818 371,-1818 371,-1818 365,-1818 359,-1812 359,-1806 359,-1806 359,-1596 359,-1596 359,-1590 365,-1584 371,-1584"/>
+<text text-anchor="middle" x="616" y="-1805.2" font-family="Times,serif" font-size="11.00" fill="gray">Router</text>
 </g>
-<g id="clust23" class="cluster"><title>cluster_\Gishiki\Core\MVC</title>
-<path fill="none" stroke="gray" d="M340,-732C340,-732 906,-732 906,-732 912,-732 918,-738 918,-744 918,-744 918,-1420 918,-1420 918,-1426 912,-1432 906,-1432 906,-1432 340,-1432 340,-1432 334,-1432 328,-1426 328,-1420 328,-1420 328,-744 328,-744 328,-738 334,-732 340,-732"/>
-<text text-anchor="middle" x="623" y="-1419.2" font-family="Times,serif" font-size="11.00" fill="gray">MVC</text>
+<g id="clust8" class="cluster"><title>cluster_\Gishiki\Core\MVC</title>
+<path fill="none" stroke="gray" d="M340,-840C340,-840 906,-840 906,-840 912,-840 918,-846 918,-852 918,-852 918,-1520 918,-1520 918,-1526 912,-1532 906,-1532 906,-1532 340,-1532 340,-1532 334,-1532 328,-1526 328,-1520 328,-1520 328,-852 328,-852 328,-846 334,-840 340,-840"/>
+<text text-anchor="middle" x="623" y="-1519.2" font-family="Times,serif" font-size="11.00" fill="gray">MVC</text>
 </g>
-<g id="clust24" class="cluster"><title>cluster_\Gishiki\Core\MVC\Controller</title>
-<path fill="none" stroke="gray" d="M385,-1036C385,-1036 869,-1036 869,-1036 875,-1036 881,-1042 881,-1048 881,-1048 881,-1392 881,-1392 881,-1398 875,-1404 869,-1404 869,-1404 385,-1404 385,-1404 379,-1404 373,-1398 373,-1392 373,-1392 373,-1048 373,-1048 373,-1042 379,-1036 385,-1036"/>
-<text text-anchor="middle" x="627" y="-1391.2" font-family="Times,serif" font-size="11.00" fill="gray">Controller</text>
+<g id="clust9" class="cluster"><title>cluster_\Gishiki\Core\MVC\Model</title>
+<path fill="none" stroke="gray" d="M348,-1216C348,-1216 898,-1216 898,-1216 904,-1216 910,-1222 910,-1228 910,-1228 910,-1492 910,-1492 910,-1498 904,-1504 898,-1504 898,-1504 348,-1504 348,-1504 342,-1504 336,-1498 336,-1492 336,-1492 336,-1228 336,-1228 336,-1222 342,-1216 348,-1216"/>
+<text text-anchor="middle" x="623" y="-1491.2" font-family="Times,serif" font-size="11.00" fill="gray">Model</text>
 </g>
-<g id="clust25" class="cluster"><title>cluster_\Gishiki\Core\MVC\Controller\Plugins</title>
-<path fill="none" stroke="gray" d="M723,-1044C723,-1044 861,-1044 861,-1044 867,-1044 873,-1050 873,-1056 873,-1056 873,-1266 873,-1266 873,-1272 867,-1278 861,-1278 861,-1278 723,-1278 723,-1278 717,-1278 711,-1272 711,-1266 711,-1266 711,-1056 711,-1056 711,-1050 717,-1044 723,-1044"/>
-<text text-anchor="middle" x="792" y="-1265.2" font-family="Times,serif" font-size="11.00" fill="gray">Plugins</text>
+<g id="clust10" class="cluster"><title>cluster_\Gishiki\Core\MVC\Controller</title>
+<path fill="none" stroke="gray" d="M385,-848C385,-848 869,-848 869,-848 875,-848 881,-854 881,-860 881,-860 881,-1196 881,-1196 881,-1202 875,-1208 869,-1208 869,-1208 385,-1208 385,-1208 379,-1208 373,-1202 373,-1196 373,-1196 373,-860 373,-860 373,-854 379,-848 385,-848"/>
+<text text-anchor="middle" x="627" y="-1195.2" font-family="Times,serif" font-size="11.00" fill="gray">Controller</text>
 </g>
-<g id="clust26" class="cluster"><title>cluster_\Gishiki\Core\MVC\Model</title>
-<path fill="none" stroke="gray" d="M348,-740C348,-740 898,-740 898,-740 904,-740 910,-746 910,-752 910,-752 910,-1016 910,-1016 910,-1022 904,-1028 898,-1028 898,-1028 348,-1028 348,-1028 342,-1028 336,-1022 336,-1016 336,-1016 336,-752 336,-752 336,-746 342,-740 348,-740"/>
-<text text-anchor="middle" x="623" y="-1015.2" font-family="Times,serif" font-size="11.00" fill="gray">Model</text>
+<g id="clust11" class="cluster"><title>cluster_\Gishiki\Core\MVC\Controller\Plugins</title>
+<path fill="none" stroke="gray" d="M723,-902C723,-902 861,-902 861,-902 867,-902 873,-908 873,-914 873,-914 873,-1124 873,-1124 873,-1130 867,-1136 861,-1136 861,-1136 723,-1136 723,-1136 717,-1136 711,-1130 711,-1124 711,-1124 711,-914 711,-914 711,-908 717,-902 723,-902"/>
+<text text-anchor="middle" x="792" y="-1123.2" font-family="Times,serif" font-size="11.00" fill="gray">Plugins</text>
+</g>
+<g id="clust12" class="cluster"><title>cluster_\Gishiki\Logging</title>
+<path fill="none" stroke="gray" d="M978,-2530C978,-2530 1074,-2530 1074,-2530 1080,-2530 1086,-2536 1086,-2542 1086,-2542 1086,-2590 1086,-2590 1086,-2596 1080,-2602 1074,-2602 1074,-2602 978,-2602 978,-2602 972,-2602 966,-2596 966,-2590 966,-2590 966,-2542 966,-2542 966,-2536 972,-2530 978,-2530"/>
+<text text-anchor="middle" x="1026" y="-2589.2" font-family="Times,serif" font-size="11.00" fill="gray">Logging</text>
+</g>
+<g id="clust13" class="cluster"><title>cluster_\Gishiki\Services</title>
+<path fill="none" stroke="gray" d="M978,-848C978,-848 1074,-848 1074,-848 1080,-848 1086,-854 1086,-860 1086,-860 1086,-908 1086,-908 1086,-914 1080,-920 1074,-920 1074,-920 978,-920 978,-920 972,-920 966,-914 966,-908 966,-908 966,-860 966,-860 966,-854 972,-848 978,-848"/>
+<text text-anchor="middle" x="1026" y="-907.2" font-family="Times,serif" font-size="11.00" fill="gray">Services</text>
+</g>
+<g id="clust14" class="cluster"><title>cluster_\Gishiki\Database</title>
+<path fill="none" stroke="gray" d="M36,-2544C36,-2544 905,-2544 905,-2544 911,-2544 917,-2550 917,-2556 917,-2556 917,-4192 917,-4192 917,-4198 911,-4204 905,-4204 905,-4204 36,-4204 36,-4204 30,-4204 24,-4198 24,-4192 24,-4192 24,-2556 24,-2556 24,-2550 30,-2544 36,-2544"/>
+<text text-anchor="middle" x="470.5" y="-4191.2" font-family="Times,serif" font-size="11.00" fill="gray">Database</text>
+</g>
+<g id="clust15" class="cluster"><title>cluster_\Gishiki\Database\Schema</title>
+<path fill="none" stroke="gray" d="M740,-3942C740,-3942 844,-3942 844,-3942 850,-3942 856,-3948 856,-3954 856,-3954 856,-4164 856,-4164 856,-4170 850,-4176 844,-4176 844,-4176 740,-4176 740,-4176 734,-4176 728,-4170 728,-4164 728,-4164 728,-3954 728,-3954 728,-3948 734,-3942 740,-3942"/>
+<text text-anchor="middle" x="792" y="-4163.2" font-family="Times,serif" font-size="11.00" fill="gray">Schema</text>
+</g>
+<g id="clust16" class="cluster"><title>cluster_\Gishiki\Database\Runtime</title>
+<path fill="none" stroke="gray" d="M730,-3700C730,-3700 854,-3700 854,-3700 860,-3700 866,-3706 866,-3712 866,-3712 866,-3922 866,-3922 866,-3928 860,-3934 854,-3934 854,-3934 730,-3934 730,-3934 724,-3934 718,-3928 718,-3922 718,-3922 718,-3712 718,-3712 718,-3706 724,-3700 730,-3700"/>
+<text text-anchor="middle" x="792" y="-3921.2" font-family="Times,serif" font-size="11.00" fill="gray">Runtime</text>
+</g>
+<g id="clust17" class="cluster"><title>cluster_\Gishiki\Database\Adapters</title>
+<path fill="none" stroke="gray" d="M318,-2650C318,-2650 897,-2650 897,-2650 903,-2650 909,-2656 909,-2662 909,-2662 909,-3680 909,-3680 909,-3686 903,-3692 897,-3692 897,-3692 318,-3692 318,-3692 312,-3692 306,-3686 306,-3680 306,-3680 306,-2662 306,-2662 306,-2656 312,-2650 318,-2650"/>
+<text text-anchor="middle" x="607.5" y="-3679.2" font-family="Times,serif" font-size="11.00" fill="gray">Adapters</text>
+</g>
+<g id="clust18" class="cluster"><title>cluster_\Gishiki\Database\Adapters\Utils</title>
+<path fill="none" stroke="gray" d="M326,-2658C326,-2658 889,-2658 889,-2658 895,-2658 901,-2664 901,-2670 901,-2670 901,-3500 901,-3500 901,-3506 895,-3512 889,-3512 889,-3512 326,-3512 326,-3512 320,-3512 314,-3506 314,-3500 314,-3500 314,-2670 314,-2670 314,-2664 320,-2658 326,-2658"/>
+<text text-anchor="middle" x="607.5" y="-3499.2" font-family="Times,serif" font-size="11.00" fill="gray">Utils</text>
+</g>
+<g id="clust19" class="cluster"><title>cluster_\Gishiki\Database\Adapters\Utils\QueryBuilder</title>
+<path fill="none" stroke="gray" d="M337,-3250C337,-3250 871,-3250 871,-3250 877,-3250 883,-3256 883,-3262 883,-3262 883,-3472 883,-3472 883,-3478 877,-3484 871,-3484 871,-3484 337,-3484 337,-3484 331,-3484 325,-3478 325,-3472 325,-3472 325,-3262 325,-3262 325,-3256 331,-3250 337,-3250"/>
+<text text-anchor="middle" x="604" y="-3471.2" font-family="Times,serif" font-size="11.00" fill="gray">QueryBuilder</text>
+</g>
+<g id="clust20" class="cluster"><title>cluster_\Gishiki\Database\Adapters\Utils\SQLGenerator</title>
+<path fill="none" stroke="gray" d="M354,-3008C354,-3008 854,-3008 854,-3008 860,-3008 866,-3014 866,-3020 866,-3020 866,-3230 866,-3230 866,-3236 860,-3242 854,-3242 854,-3242 354,-3242 354,-3242 348,-3242 342,-3236 342,-3230 342,-3230 342,-3020 342,-3020 342,-3014 348,-3008 354,-3008"/>
+<text text-anchor="middle" x="604" y="-3229.2" font-family="Times,serif" font-size="11.00" fill="gray">SQLGenerator</text>
+</g>
+<g id="clust21" class="cluster"><title>cluster_\Gishiki\Database\Adapters\Utils\ConnectionParser</title>
+<path fill="none" stroke="gray" d="M334,-2712C334,-2712 881,-2712 881,-2712 887,-2712 893,-2718 893,-2724 893,-2724 893,-2988 893,-2988 893,-2994 887,-3000 881,-3000 881,-3000 334,-3000 334,-3000 328,-3000 322,-2994 322,-2988 322,-2988 322,-2724 322,-2724 322,-2718 328,-2712 334,-2712"/>
+<text text-anchor="middle" x="607.5" y="-2987.2" font-family="Times,serif" font-size="11.00" fill="gray">ConnectionParser</text>
+</g>
+<g id="clust22" class="cluster"><title>cluster_\Gishiki\Security</title>
+<path fill="none" stroke="gray" d="M707,-1854C707,-1854 877,-1854 877,-1854 883,-1854 889,-1860 889,-1866 889,-1866 889,-2524 889,-2524 889,-2530 883,-2536 877,-2536 877,-2536 707,-2536 707,-2536 701,-2536 695,-2530 695,-2524 695,-2524 695,-1866 695,-1866 695,-1860 701,-1854 707,-1854"/>
+<text text-anchor="middle" x="792" y="-2523.2" font-family="Times,serif" font-size="11.00" fill="gray">Security</text>
+</g>
+<g id="clust23" class="cluster"><title>cluster_\Gishiki\Security\Encryption</title>
+<path fill="none" stroke="gray" d="M715,-2050C715,-2050 869,-2050 869,-2050 875,-2050 881,-2056 881,-2062 881,-2062 881,-2496 881,-2496 881,-2502 875,-2508 869,-2508 869,-2508 715,-2508 715,-2508 709,-2508 703,-2502 703,-2496 703,-2496 703,-2062 703,-2062 703,-2056 709,-2050 715,-2050"/>
+<text text-anchor="middle" x="792" y="-2495.2" font-family="Times,serif" font-size="11.00" fill="gray">Encryption</text>
+</g>
+<g id="clust24" class="cluster"><title>cluster_\Gishiki\Security\Encryption\Symmetric</title>
+<path fill="none" stroke="gray" d="M727,-2300C727,-2300 857,-2300 857,-2300 863,-2300 869,-2306 869,-2312 869,-2312 869,-2468 869,-2468 869,-2474 863,-2480 857,-2480 857,-2480 727,-2480 727,-2480 721,-2480 715,-2474 715,-2468 715,-2468 715,-2312 715,-2312 715,-2306 721,-2300 727,-2300"/>
+<text text-anchor="middle" x="792" y="-2467.2" font-family="Times,serif" font-size="11.00" fill="gray">Symmetric</text>
+</g>
+<g id="clust25" class="cluster"><title>cluster_\Gishiki\Security\Encryption\Asymmetric</title>
+<path fill="none" stroke="gray" d="M723,-2058C723,-2058 861,-2058 861,-2058 867,-2058 873,-2064 873,-2070 873,-2070 873,-2280 873,-2280 873,-2286 867,-2292 861,-2292 861,-2292 723,-2292 723,-2292 717,-2292 711,-2286 711,-2280 711,-2280 711,-2070 711,-2070 711,-2064 717,-2058 723,-2058"/>
+<text text-anchor="middle" x="792" y="-2279.2" font-family="Times,serif" font-size="11.00" fill="gray">Asymmetric</text>
+</g>
+<g id="clust26" class="cluster"><title>cluster_\Gishiki\Security\Hashing</title>
+<path fill="none" stroke="gray" d="M733,-1862C733,-1862 851,-1862 851,-1862 857,-1862 863,-1868 863,-1874 863,-1874 863,-2030 863,-2030 863,-2036 857,-2042 851,-2042 851,-2042 733,-2042 733,-2042 727,-2042 721,-2036 721,-2030 721,-2030 721,-1874 721,-1874 721,-1868 727,-1862 733,-1862"/>
+<text text-anchor="middle" x="792" y="-2029.2" font-family="Times,serif" font-size="11.00" fill="gray">Hashing</text>
+</g>
+<!-- \\Gishiki\\Algorithms\\Strings\\Manipulation -->
+<g id="node1" class="node"><title>\\Gishiki\\Algorithms\\Strings\\Manipulation</title>
+<polygon fill="none" stroke="black" points="841,-508 743,-508 743,-472 841,-472 841,-508"/>
+<text text-anchor="start" x="758" y="-493.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="751" y="-481.2" font-family="Courier,monospace" font-size="11.00">Manipulation</text>
+</g>
+<!-- \\Gishiki\\Algorithms\\Strings\\SimpleLexer -->
+<g id="node2" class="node"><title>\\Gishiki\\Algorithms\\Strings\\SimpleLexer</title>
+<polygon fill="none" stroke="black" points="837.5,-454 746.5,-454 746.5,-418 837.5,-418 837.5,-454"/>
+<text text-anchor="start" x="758" y="-439.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="754.5" y="-427.2" font-family="Courier,monospace" font-size="11.00">SimpleLexer</text>
+</g>
+<!-- \\Gishiki\\Algorithms\\Collections\\SerializationException -->
+<g id="node3" class="node"><title>\\Gishiki\\Algorithms\\Collections\\SerializationException</title>
+<polygon fill="none" stroke="black" points="874.5,-374 709.5,-374 709.5,-338 874.5,-338 874.5,-374"/>
+<text text-anchor="middle" x="792" y="-353.2" font-family="Courier,monospace" font-size="11.00">SerializationException</text>
+</g>
+<!-- \\Gishiki\\Core\\Exception -->
+<g id="node28" class="node"><title>\\Gishiki\\Core\\Exception</title>
+<polygon fill="none" stroke="black" points="461.5,-1576 384.5,-1576 384.5,-1540 461.5,-1540 461.5,-1576"/>
+<text text-anchor="middle" x="423" y="-1555.2" font-family="Courier,monospace" font-size="11.00">Exception</text>
+</g>
+<!-- \\Gishiki\\Algorithms\\Collections\\SerializationException&#45;&gt;\\Gishiki\\Core\\Exception -->
+<g id="edge1" class="edge"><title>\\Gishiki\\Algorithms\\Collections\\SerializationException&#45;&gt;\\Gishiki\\Core\\Exception</title>
+<path fill="none" stroke="black" d="M722.653,-374.008C706.882,-381.384 691.859,-391.681 682,-406 542.827,-608.133 765.591,-1318.22 610,-1508 576.93,-1548.34 515.099,-1558.08 471.837,-1559.54"/>
+<polygon fill="none" stroke="black" points="471.742,-1556.04 461.815,-1559.74 471.883,-1563.04 471.742,-1556.04"/>
+</g>
+<!-- \\Gishiki\\Algorithms\\Collections\\DeserializationException -->
+<g id="node4" class="node"><title>\\Gishiki\\Algorithms\\Collections\\DeserializationException</title>
+<polygon fill="none" stroke="black" points="881.5,-320 702.5,-320 702.5,-284 881.5,-284 881.5,-320"/>
+<text text-anchor="middle" x="792" y="-299.2" font-family="Courier,monospace" font-size="11.00">DeserializationException</text>
+</g>
+<!-- \\Gishiki\\Algorithms\\Collections\\DeserializationException&#45;&gt;\\Gishiki\\Core\\Exception -->
+<g id="edge2" class="edge"><title>\\Gishiki\\Algorithms\\Collections\\DeserializationException&#45;&gt;\\Gishiki\\Core\\Exception</title>
+<path fill="none" stroke="black" d="M702.363,-313.052C694.623,-317.054 687.615,-322.259 682,-329 514.01,-530.691 775.986,-1304.66 610,-1508 577.015,-1548.41 515.166,-1558.14 471.876,-1559.57"/>
+<polygon fill="none" stroke="black" points="471.777,-1556.07 461.847,-1559.77 471.914,-1563.07 471.777,-1556.07"/>
+</g>
+<!-- \\Gishiki\\Algorithms\\Collections\\SerializableCollection -->
+<g id="node5" class="node"><title>\\Gishiki\\Algorithms\\Collections\\SerializableCollection</title>
+<polygon fill="none" stroke="black" points="874.5,-266 709.5,-266 709.5,-230 874.5,-230 874.5,-266"/>
+<text text-anchor="middle" x="792" y="-245.2" font-family="Courier,monospace" font-size="11.00">SerializableCollection</text>
+</g>
+<!-- \\Gishiki\\Algorithms\\Collections\\GenericCollection -->
+<g id="node76" class="node"><title>\\Gishiki\\Algorithms\\Collections\\GenericCollection</title>
+<ellipse fill="none" stroke="black" cx="423" cy="-72" rx="186.567" ry="18"/>
+<text text-anchor="middle" x="423" y="-68.3" font-family="Times,serif" font-size="14.00" fill="gray">Gishiki\Algorithms\CollectionsGenericCollection</text>
+</g>
+<!-- \\Gishiki\\Algorithms\\Collections\\SerializableCollection&#45;&gt;\\Gishiki\\Algorithms\\Collections\\GenericCollection -->
+<g id="edge3" class="edge"><title>\\Gishiki\\Algorithms\\Collections\\SerializableCollection&#45;&gt;\\Gishiki\\Algorithms\\Collections\\GenericCollection</title>
+<path fill="none" stroke="black" d="M709.469,-234.72C700.071,-232.259 690.734,-229.374 682,-226 594.735,-192.289 503.12,-130.233 456.076,-96.0901"/>
+<polygon fill="none" stroke="black" points="457.959,-93.1313 447.821,-90.0528 453.827,-98.7814 457.959,-93.1313"/>
+</g>
+<!-- \\Gishiki\\Algorithms\\XmlDomConstructor -->
+<g id="node6" class="node"><title>\\Gishiki\\Algorithms\\XmlDomConstructor</title>
+<polygon fill="none" stroke="black" points="857.5,-212 726.5,-212 726.5,-176 857.5,-176 857.5,-212"/>
+<text text-anchor="middle" x="792" y="-191.2" font-family="Courier,monospace" font-size="11.00">XmlDomConstructor</text>
+</g>
+<!-- \\DOMDocument -->
+<g id="node77" class="node"><title>\\DOMDocument</title>
+<ellipse fill="none" stroke="black" cx="423" cy="-18" rx="71.4873" ry="18"/>
+<text text-anchor="middle" x="423" y="-14.3" font-family="Times,serif" font-size="14.00" fill="gray">\DOMDocument</text>
+</g>
+<!-- \\Gishiki\\Algorithms\\XmlDomConstructor&#45;&gt;\\DOMDocument -->
+<g id="edge4" class="edge"><title>\\Gishiki\\Algorithms\\XmlDomConstructor&#45;&gt;\\DOMDocument</title>
+<path fill="none" stroke="black" d="M726.438,-186.845C710.804,-182.828 694.899,-176.608 682,-167 631.508,-129.389 662.285,-80.0758 610,-45 579.048,-24.2357 538.687,-16.6258 503.476,-14.5653"/>
+<polygon fill="none" stroke="black" points="503.358,-11.0568 493.213,-14.1101 503.048,-18.0499 503.358,-11.0568"/>
+</g>
+<!-- \\Gishiki\\Algorithms\\Base64 -->
+<g id="node7" class="node"><title>\\Gishiki\\Algorithms\\Base64</title>
+<polygon fill="none" stroke="black" points="834,-158 750,-158 750,-122 834,-122 834,-158"/>
+<text text-anchor="start" x="758" y="-143.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="771.5" y="-131.2" font-family="Courier,monospace" font-size="11.00">Base64</text>
+</g>
+<!-- \\Gishiki\\Core\\Router\\Route -->
+<g id="node8" class="node"><title>\\Gishiki\\Core\\Router\\Route</title>
+<polygon fill="none" stroke="black" points="819,-1790 765,-1790 765,-1754 819,-1754 819,-1790"/>
+<text text-anchor="middle" x="792" y="-1769.2" font-family="Courier,monospace" font-size="11.00">Route</text>
+</g>
+<!-- \\Gishiki\\Core\\Router\\RouteInterface -->
+<g id="node11" class="node"><title>\\Gishiki\\Core\\Router\\RouteInterface</title>
+<polygon fill="none" stroke="black" points="478.5,-1790 367.5,-1790 367.5,-1754 478.5,-1754 478.5,-1790"/>
+<text text-anchor="middle" x="423" y="-1769.2" font-family="Courier,monospace" font-size="11.00">RouteInterface</text>
+</g>
+<!-- \\Gishiki\\Core\\Router\\Route&#45;&gt;\\Gishiki\\Core\\Router\\RouteInterface -->
+<g id="edge5" class="edge"><title>\\Gishiki\\Core\\Router\\Route&#45;&gt;\\Gishiki\\Core\\Router\\RouteInterface</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M764.9,-1772C707.894,-1772 570.817,-1772 488.903,-1772"/>
+<polygon fill="none" stroke="black" points="488.706,-1768.5 478.706,-1772 488.706,-1775.5 488.706,-1768.5"/>
+</g>
+<!-- \\Gishiki\\Core\\Router\\RouterException -->
+<g id="node9" class="node"><title>\\Gishiki\\Core\\Router\\RouterException</title>
+<polygon fill="none" stroke="black" points="851,-1736 733,-1736 733,-1700 851,-1700 851,-1736"/>
+<text text-anchor="middle" x="792" y="-1715.2" font-family="Courier,monospace" font-size="11.00">RouterException</text>
+</g>
+<!-- \\Gishiki\\Core\\Router\\RouterException&#45;&gt;\\Gishiki\\Core\\Exception -->
+<g id="edge6" class="edge"><title>\\Gishiki\\Core\\Router\\RouterException&#45;&gt;\\Gishiki\\Core\\Exception</title>
+<path fill="none" stroke="black" d="M732.944,-1711.96C715.387,-1708.03 696.845,-1701.58 682,-1691 634.111,-1656.88 659.928,-1611.06 610,-1580 568.473,-1554.16 511.538,-1551.09 471.634,-1552.95"/>
+<polygon fill="none" stroke="black" points="471.4,-1549.46 461.622,-1553.54 471.809,-1556.45 471.4,-1549.46"/>
+</g>
+<!-- \\Gishiki\\Core\\Router\\Router -->
+<g id="node10" class="node"><title>\\Gishiki\\Core\\Router\\Router</title>
+<polygon fill="none" stroke="black" points="820.5,-1682 763.5,-1682 763.5,-1646 820.5,-1646 820.5,-1682"/>
+<text text-anchor="middle" x="792" y="-1661.2" font-family="Courier,monospace" font-size="11.00">Router</text>
+</g>
+<!-- \\Gishiki\\Core\\Router\\MatchableRouteTrait -->
+<g id="node12" class="node"><title>\\Gishiki\\Core\\Router\\MatchableRouteTrait</title>
+<polygon fill="none" stroke="black" points="864.5,-1628 719.5,-1628 719.5,-1592 864.5,-1592 864.5,-1628"/>
+<text text-anchor="middle" x="792" y="-1607.2" font-family="Courier,monospace" font-size="11.00">MatchableRouteTrait</text>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecordException -->
+<g id="node13" class="node"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecordException</title>
+<polygon fill="none" stroke="black" points="871,-1476 713,-1476 713,-1440 871,-1440 871,-1476"/>
+<text text-anchor="middle" x="792" y="-1455.2" font-family="Courier,monospace" font-size="11.00">ActiveRecordException</text>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecordException&#45;&gt;\\Gishiki\\Core\\Exception -->
+<g id="edge9" class="edge"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecordException&#45;&gt;\\Gishiki\\Core\\Exception</title>
+<path fill="none" stroke="black" d="M726.105,-1476.04C691.631,-1485.6 648.53,-1497.5 610,-1508 562.912,-1520.83 509.056,-1535.29 471.456,-1545.34"/>
+<polygon fill="none" stroke="black" points="470.539,-1541.96 461.782,-1547.93 472.346,-1548.72 470.539,-1541.96"/>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecord -->
+<g id="node14" class="node"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecord</title>
+<polygon fill="none" stroke="black" points="841,-1422 743,-1422 743,-1386 841,-1386 841,-1422"/>
+<text text-anchor="start" x="758" y="-1407.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="751" y="-1395.2" font-family="Courier,monospace" font-size="11.00">ActiveRecord</text>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecordInterface -->
+<g id="node16" class="node"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecordInterface</title>
+<polygon fill="none" stroke="black" points="502,-1422 344,-1422 344,-1386 502,-1386 502,-1422"/>
+<text text-anchor="middle" x="423" y="-1401.2" font-family="Courier,monospace" font-size="11.00">ActiveRecordInterface</text>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecord&#45;&gt;\\Gishiki\\Core\\MVC\\Model\\ActiveRecordInterface -->
+<g id="edge11" class="edge"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecord&#45;&gt;\\Gishiki\\Core\\MVC\\Model\\ActiveRecordInterface</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M742.644,-1404C684.179,-1404 584.643,-1404 512.349,-1404"/>
+<polygon fill="none" stroke="black" points="512.335,-1400.5 502.335,-1404 512.335,-1407.5 512.335,-1400.5"/>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecord&#45;&gt;\\Gishiki\\Algorithms\\Collections\\GenericCollection -->
+<g id="edge10" class="edge"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecord&#45;&gt;\\Gishiki\\Algorithms\\Collections\\GenericCollection</title>
+<path fill="none" stroke="black" d="M742.962,-1403.78C721.307,-1401.08 697.23,-1393.98 682,-1377 602.195,-1288.03 632.026,-961.473 610,-844 554.85,-549.869 459.497,-199.492 431.77,-99.7254"/>
+<polygon fill="none" stroke="black" points="435.141,-98.7824 429.086,-90.0886 428.398,-100.661 435.141,-98.7824"/>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecordTables -->
+<g id="node15" class="node"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecordTables</title>
+<polygon fill="none" stroke="black" points="861,-1368 723,-1368 723,-1332 861,-1332 861,-1368"/>
+<text text-anchor="start" x="758" y="-1353.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="731" y="-1341.2" font-family="Courier,monospace" font-size="11.00">ActiveRecordTables</text>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecordStructureTrait -->
+<g id="node17" class="node"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecordStructureTrait</title>
+<polygon fill="none" stroke="black" points="888,-1314 696,-1314 696,-1278 888,-1278 888,-1314"/>
+<text text-anchor="middle" x="792" y="-1293.2" font-family="Courier,monospace" font-size="11.00">ActiveRecordStructureTrait</text>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecordSerializationTrait -->
+<g id="node18" class="node"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecordSerializationTrait</title>
+<polygon fill="none" stroke="black" points="901.5,-1260 682.5,-1260 682.5,-1224 901.5,-1224 901.5,-1260"/>
+<text text-anchor="middle" x="792" y="-1239.2" font-family="Courier,monospace" font-size="11.00">ActiveRecordSerializationTrait</text>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugins\\TwigWrapper -->
+<g id="node19" class="node"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugins\\TwigWrapper</title>
+<polygon fill="none" stroke="black" points="837.5,-1108 746.5,-1108 746.5,-1072 837.5,-1072 837.5,-1108"/>
+<text text-anchor="middle" x="792" y="-1087.2" font-family="Courier,monospace" font-size="11.00">TwigWrapper</text>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugin -->
+<g id="node25" class="node"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugin</title>
+<polygon fill="none" stroke="black" points="465,-1027 381,-1027 381,-991 465,-991 465,-1027"/>
+<text text-anchor="start" x="389" y="-1012.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="402.5" y="-1000.2" font-family="Courier,monospace" font-size="11.00">Plugin</text>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugins\\TwigWrapper&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Plugin -->
+<g id="edge13" class="edge"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugins\\TwigWrapper&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Plugin</title>
+<path fill="none" stroke="black" d="M746.366,-1080.15C677.857,-1065.03 547.159,-1036.18 475.006,-1020.26"/>
+<polygon fill="none" stroke="black" points="475.745,-1016.84 465.226,-1018.1 474.236,-1023.67 475.745,-1016.84"/>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseSerializer -->
+<g id="node20" class="node"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseSerializer</title>
+<polygon fill="none" stroke="black" points="861,-1054 723,-1054 723,-1018 861,-1018 861,-1054"/>
+<text text-anchor="middle" x="792" y="-1033.2" font-family="Courier,monospace" font-size="11.00">ResponseSerializer</text>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseSerializer&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Plugin -->
+<g id="edge14" class="edge"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseSerializer&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Plugin</title>
+<path fill="none" stroke="black" d="M722.83,-1030.98C651.158,-1025.71 540.012,-1017.53 475.389,-1012.78"/>
+<polygon fill="none" stroke="black" points="475.274,-1009.26 465.044,-1012.02 474.76,-1016.24 475.274,-1009.26"/>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugins\\RequestDeserializer -->
+<g id="node21" class="node"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugins\\RequestDeserializer</title>
+<polygon fill="none" stroke="black" points="864.5,-1000 719.5,-1000 719.5,-964 864.5,-964 864.5,-1000"/>
+<text text-anchor="middle" x="792" y="-979.2" font-family="Courier,monospace" font-size="11.00">RequestDeserializer</text>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugins\\RequestDeserializer&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Plugin -->
+<g id="edge15" class="edge"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugins\\RequestDeserializer&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Plugin</title>
+<path fill="none" stroke="black" d="M719.367,-987.27C647.638,-992.547 539.032,-1000.54 475.435,-1005.22"/>
+<polygon fill="none" stroke="black" points="474.962,-1001.74 465.246,-1005.97 475.476,-1008.72 474.962,-1001.74"/>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseAssembler -->
+<g id="node22" class="node"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseAssembler</title>
+<polygon fill="none" stroke="black" points="857.5,-946 726.5,-946 726.5,-910 857.5,-910 857.5,-946"/>
+<text text-anchor="middle" x="792" y="-925.2" font-family="Courier,monospace" font-size="11.00">ResponseAssembler</text>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseAssembler&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Plugin -->
+<g id="edge16" class="edge"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseAssembler&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Plugin</title>
+<path fill="none" stroke="black" d="M726.233,-942.295C654.645,-958.095 540.806,-983.22 475.183,-997.703"/>
+<polygon fill="none" stroke="black" points="474.09,-994.36 465.079,-999.934 475.598,-1001.2 474.09,-994.36"/>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Controller\\ControllerException -->
+<g id="node23" class="node"><title>\\Gishiki\\Core\\MVC\\Controller\\ControllerException</title>
+<polygon fill="none" stroke="black" points="864.5,-1180 719.5,-1180 719.5,-1144 864.5,-1144 864.5,-1180"/>
+<text text-anchor="middle" x="792" y="-1159.2" font-family="Courier,monospace" font-size="11.00">ControllerException</text>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Controller\\ControllerException&#45;&gt;\\Gishiki\\Core\\Exception -->
+<g id="edge12" class="edge"><title>\\Gishiki\\Core\\MVC\\Controller\\ControllerException&#45;&gt;\\Gishiki\\Core\\Exception</title>
+<path fill="none" stroke="black" d="M726.846,-1180.08C710.18,-1187.54 693.657,-1197.87 682,-1212 595.853,-1316.45 704.581,-1411.12 610,-1508 573.962,-1544.91 513.807,-1555.49 471.693,-1558.07"/>
+<polygon fill="none" stroke="black" points="471.486,-1554.58 461.667,-1558.56 471.824,-1561.57 471.486,-1554.58"/>
+</g>
+<!-- \\Gishiki\\Core\\MVC\\Controller\\Controller -->
+<g id="node24" class="node"><title>\\Gishiki\\Core\\MVC\\Controller\\Controller</title>
+<polygon fill="none" stroke="black" points="834,-892 750,-892 750,-856 834,-856 834,-892"/>
+<text text-anchor="start" x="758" y="-877.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="758" y="-865.2" font-family="Courier,monospace" font-size="11.00">Controller</text>
+</g>
+<!-- \\Gishiki\\Core\\Environment -->
+<g id="node26" class="node"><title>\\Gishiki\\Core\\Environment</title>
+<polygon fill="none" stroke="black" points="837.5,-832 746.5,-832 746.5,-796 837.5,-796 837.5,-832"/>
+<text text-anchor="start" x="758" y="-817.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="754.5" y="-805.2" font-family="Courier,monospace" font-size="11.00">Environment</text>
+</g>
+<!-- \\Gishiki\\Core\\Application -->
+<g id="node27" class="node"><title>\\Gishiki\\Core\\Application</title>
+<polygon fill="none" stroke="black" points="837.5,-778 746.5,-778 746.5,-742 837.5,-742 837.5,-778"/>
+<text text-anchor="middle" x="792" y="-757.2" font-family="Courier,monospace" font-size="11.00">Application</text>
+</g>
+<!-- \\Exception -->
+<g id="node78" class="node"><title>\\Exception</title>
+<ellipse fill="none" stroke="black" cx="98" cy="-72" rx="40.8928" ry="18"/>
+<text text-anchor="middle" x="98" y="-68.3" font-family="Times,serif" font-size="14.00" fill="gray">xception</text>
+</g>
+<!-- \\Gishiki\\Core\\Exception&#45;&gt;\\Exception -->
+<g id="edge7" class="edge"><title>\\Gishiki\\Core\\Exception&#45;&gt;\\Exception</title>
+<path fill="none" stroke="black" d="M384.412,-1559.55C341.442,-1559.08 272.368,-1551.03 236,-1508 141.549,-1396.24 105.37,-291.689 99.7867,-100.215"/>
+<polygon fill="none" stroke="black" points="103.282,-100.005 99.4959,-90.1101 96.2851,-100.207 103.282,-100.005"/>
+</g>
+<!-- \\Gishiki\\Core\\Configuration -->
+<g id="node29" class="node"><title>\\Gishiki\\Core\\Configuration</title>
+<polygon fill="none" stroke="black" points="844,-724 740,-724 740,-688 844,-688 844,-724"/>
+<text text-anchor="middle" x="792" y="-703.2" font-family="Courier,monospace" font-size="11.00">Configuration</text>
+</g>
+<!-- \\Gishiki\\Core\\Configuration&#45;&gt;\\Gishiki\\Algorithms\\Collections\\SerializableCollection -->
+<g id="edge8" class="edge"><title>\\Gishiki\\Core\\Configuration&#45;&gt;\\Gishiki\\Algorithms\\Collections\\SerializableCollection</title>
+<path fill="none" stroke="black" d="M844.203,-710.417C880.08,-710.183 924.905,-702.626 946,-670 969.287,-633.984 969.287,-320.016 946,-284 932.504,-263.127 909.295,-252.515 884.931,-247.516"/>
+<polygon fill="none" stroke="black" points="885.269,-244.023 874.817,-245.758 884.07,-250.919 885.269,-244.023"/>
+</g>
+<!-- \\Gishiki\\Core\\ApplicationLoggerTrait -->
+<g id="node30" class="node"><title>\\Gishiki\\Core\\ApplicationLoggerTrait</title>
+<polygon fill="none" stroke="black" points="874.5,-670 709.5,-670 709.5,-634 874.5,-634 874.5,-670"/>
+<text text-anchor="middle" x="792" y="-649.2" font-family="Courier,monospace" font-size="11.00">ApplicationLoggerTrait</text>
+</g>
+<!-- \\Gishiki\\Core\\ApplicationDatabaseTrait -->
+<g id="node31" class="node"><title>\\Gishiki\\Core\\ApplicationDatabaseTrait</title>
+<polygon fill="none" stroke="black" points="881.5,-616 702.5,-616 702.5,-580 881.5,-580 881.5,-616"/>
+<text text-anchor="middle" x="792" y="-595.2" font-family="Courier,monospace" font-size="11.00">ApplicationDatabaseTrait</text>
 </g>
 <!-- \\Gishiki\\Logging\\LoggerManager -->
-<g id="node1" class="node"><title>\\Gishiki\\Logging\\LoggerManager</title>
-<polygon fill="none" stroke="black" points="1078,-2789 974,-2789 974,-2753 1078,-2753 1078,-2789"/>
-<text text-anchor="middle" x="1026" y="-2768.2" font-family="Courier,monospace" font-size="11.00">LoggerManager</text>
+<g id="node32" class="node"><title>\\Gishiki\\Logging\\LoggerManager</title>
+<polygon fill="none" stroke="black" points="1078,-2574 974,-2574 974,-2538 1078,-2538 1078,-2574"/>
+<text text-anchor="middle" x="1026" y="-2553.2" font-family="Courier,monospace" font-size="11.00">LoggerManager</text>
 </g>
-<!-- \\Gishiki\\Database\\Runtime\\SelectionCriteria -->
-<g id="node2" class="node"><title>\\Gishiki\\Database\\Runtime\\SelectionCriteria</title>
-<polygon fill="none" stroke="black" points="857.5,-4148 726.5,-4148 726.5,-4112 857.5,-4112 857.5,-4148"/>
-<text text-anchor="middle" x="792" y="-4127.2" font-family="Courier,monospace" font-size="11.00">SelectionCriteria</text>
+<!-- \\Gishiki\\Services\\ErrorHandling -->
+<g id="node33" class="node"><title>\\Gishiki\\Services\\ErrorHandling</title>
+<polygon fill="none" stroke="black" points="1078,-892 974,-892 974,-856 1078,-856 1078,-892"/>
+<text text-anchor="middle" x="1026" y="-871.2" font-family="Courier,monospace" font-size="11.00">ErrorHandling</text>
 </g>
-<!-- \\Gishiki\\Database\\Runtime\\FieldRelation -->
-<g id="node3" class="node"><title>\\Gishiki\\Database\\Runtime\\FieldRelation</title>
-<polygon fill="none" stroke="black" points="844,-4094 740,-4094 740,-4058 844,-4058 844,-4094"/>
-<text text-anchor="start" x="758" y="-4079.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="748" y="-4067.2" font-family="Courier,monospace" font-size="11.00">FieldRelation</text>
-</g>
-<!-- \\Gishiki\\Database\\Runtime\\ResultModifier -->
-<g id="node4" class="node"><title>\\Gishiki\\Database\\Runtime\\ResultModifier</title>
-<polygon fill="none" stroke="black" points="847.5,-4040 736.5,-4040 736.5,-4004 847.5,-4004 847.5,-4040"/>
-<text text-anchor="middle" x="792" y="-4019.2" font-family="Courier,monospace" font-size="11.00">ResultModifier</text>
-</g>
-<!-- \\Gishiki\\Database\\Runtime\\FieldOrdering -->
-<g id="node5" class="node"><title>\\Gishiki\\Database\\Runtime\\FieldOrdering</title>
-<polygon fill="none" stroke="black" points="844,-3986 740,-3986 740,-3950 844,-3950 844,-3986"/>
-<text text-anchor="start" x="758" y="-3971.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="748" y="-3959.2" font-family="Courier,monospace" font-size="11.00">FieldOrdering</text>
-</g>
-<!-- \\Gishiki\\Database\\Schema\\Table -->
-<g id="node6" class="node"><title>\\Gishiki\\Database\\Schema\\Table</title>
-<polygon fill="none" stroke="black" points="819,-3906 765,-3906 765,-3870 819,-3870 819,-3906"/>
-<text text-anchor="middle" x="792" y="-3885.2" font-family="Courier,monospace" font-size="11.00">Table</text>
-</g>
-<!-- \\Gishiki\\Database\\Schema\\ColumnType -->
-<g id="node7" class="node"><title>\\Gishiki\\Database\\Schema\\ColumnType</title>
-<polygon fill="none" stroke="black" points="834,-3852 750,-3852 750,-3816 834,-3816 834,-3852"/>
-<text text-anchor="start" x="758" y="-3837.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="758" y="-3825.2" font-family="Courier,monospace" font-size="11.00">ColumnType</text>
-</g>
-<!-- \\Gishiki\\Database\\Schema\\Column -->
-<g id="node8" class="node"><title>\\Gishiki\\Database\\Schema\\Column</title>
-<polygon fill="none" stroke="black" points="820.5,-3798 763.5,-3798 763.5,-3762 820.5,-3762 820.5,-3798"/>
-<text text-anchor="middle" x="792" y="-3777.2" font-family="Courier,monospace" font-size="11.00">Column</text>
+<!-- \\Gishiki\\Services\\ErrorHandling&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Controller -->
+<g id="edge17" class="edge"><title>\\Gishiki\\Services\\ErrorHandling&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Controller</title>
+<path fill="none" stroke="black" d="M973.799,-874C935.378,-874 882.992,-874 844.499,-874"/>
+<polygon fill="none" stroke="black" points="844.033,-870.5 834.033,-874 844.033,-877.5 844.033,-870.5"/>
 </g>
 <!-- \\Gishiki\\Database\\Schema\\ColumnRelation -->
-<g id="node9" class="node"><title>\\Gishiki\\Database\\Schema\\ColumnRelation</title>
-<polygon fill="none" stroke="black" points="847.5,-3744 736.5,-3744 736.5,-3708 847.5,-3708 847.5,-3744"/>
-<text text-anchor="middle" x="792" y="-3723.2" font-family="Courier,monospace" font-size="11.00">ColumnRelation</text>
+<g id="node34" class="node"><title>\\Gishiki\\Database\\Schema\\ColumnRelation</title>
+<polygon fill="none" stroke="black" points="847.5,-4148 736.5,-4148 736.5,-4112 847.5,-4112 847.5,-4148"/>
+<text text-anchor="middle" x="792" y="-4127.2" font-family="Courier,monospace" font-size="11.00">ColumnRelation</text>
 </g>
-<!-- \\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLiteQueryBuilder -->
-<g id="node10" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLiteQueryBuilder</title>
-<polygon fill="none" stroke="black" points="861,-3348 723,-3348 723,-3312 861,-3312 861,-3348"/>
-<text text-anchor="middle" x="792" y="-3327.2" font-family="Courier,monospace" font-size="11.00">SQLiteQueryBuilder</text>
+<!-- \\Gishiki\\Database\\Schema\\ColumnType -->
+<g id="node35" class="node"><title>\\Gishiki\\Database\\Schema\\ColumnType</title>
+<polygon fill="none" stroke="black" points="834,-4094 750,-4094 750,-4058 834,-4058 834,-4094"/>
+<text text-anchor="start" x="758" y="-4079.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="758" y="-4067.2" font-family="Courier,monospace" font-size="11.00">ColumnType</text>
+</g>
+<!-- \\Gishiki\\Database\\Schema\\Table -->
+<g id="node36" class="node"><title>\\Gishiki\\Database\\Schema\\Table</title>
+<polygon fill="none" stroke="black" points="819,-4040 765,-4040 765,-4004 819,-4004 819,-4040"/>
+<text text-anchor="middle" x="792" y="-4019.2" font-family="Courier,monospace" font-size="11.00">Table</text>
+</g>
+<!-- \\Gishiki\\Database\\Schema\\Column -->
+<g id="node37" class="node"><title>\\Gishiki\\Database\\Schema\\Column</title>
+<polygon fill="none" stroke="black" points="820.5,-3986 763.5,-3986 763.5,-3950 820.5,-3950 820.5,-3986"/>
+<text text-anchor="middle" x="792" y="-3965.2" font-family="Courier,monospace" font-size="11.00">Column</text>
+</g>
+<!-- \\Gishiki\\Database\\Runtime\\ResultModifier -->
+<g id="node38" class="node"><title>\\Gishiki\\Database\\Runtime\\ResultModifier</title>
+<polygon fill="none" stroke="black" points="847.5,-3906 736.5,-3906 736.5,-3870 847.5,-3870 847.5,-3906"/>
+<text text-anchor="middle" x="792" y="-3885.2" font-family="Courier,monospace" font-size="11.00">ResultModifier</text>
+</g>
+<!-- \\Gishiki\\Database\\Runtime\\FieldOrdering -->
+<g id="node39" class="node"><title>\\Gishiki\\Database\\Runtime\\FieldOrdering</title>
+<polygon fill="none" stroke="black" points="844,-3852 740,-3852 740,-3816 844,-3816 844,-3852"/>
+<text text-anchor="start" x="758" y="-3837.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="748" y="-3825.2" font-family="Courier,monospace" font-size="11.00">FieldOrdering</text>
+</g>
+<!-- \\Gishiki\\Database\\Runtime\\SelectionCriteria -->
+<g id="node40" class="node"><title>\\Gishiki\\Database\\Runtime\\SelectionCriteria</title>
+<polygon fill="none" stroke="black" points="857.5,-3798 726.5,-3798 726.5,-3762 857.5,-3762 857.5,-3798"/>
+<text text-anchor="middle" x="792" y="-3777.2" font-family="Courier,monospace" font-size="11.00">SelectionCriteria</text>
+</g>
+<!-- \\Gishiki\\Database\\Runtime\\FieldRelation -->
+<g id="node41" class="node"><title>\\Gishiki\\Database\\Runtime\\FieldRelation</title>
+<polygon fill="none" stroke="black" points="844,-3744 740,-3744 740,-3708 844,-3708 844,-3744"/>
+<text text-anchor="start" x="758" y="-3729.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="748" y="-3717.2" font-family="Courier,monospace" font-size="11.00">FieldRelation</text>
+</g>
+<!-- \\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\PostgreSQLQueryBuilder -->
+<g id="node42" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\PostgreSQLQueryBuilder</title>
+<polygon fill="none" stroke="black" points="874.5,-3348 709.5,-3348 709.5,-3312 874.5,-3312 874.5,-3348"/>
+<text text-anchor="middle" x="792" y="-3327.2" font-family="Courier,monospace" font-size="11.00">PostgreSQLQueryBuilder</text>
 </g>
 <!-- \\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLQueryBuilderInterface -->
-<g id="node13" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLQueryBuilderInterface</title>
+<g id="node45" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLQueryBuilderInterface</title>
 <polygon fill="none" stroke="black" points="512.5,-3402 333.5,-3402 333.5,-3366 512.5,-3366 512.5,-3402"/>
 <text text-anchor="middle" x="423" y="-3381.2" font-family="Courier,monospace" font-size="11.00">SQLQueryBuilderInterface</text>
 </g>
-<!-- \\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLiteQueryBuilder&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLQueryBuilderInterface -->
-<g id="edge5" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLiteQueryBuilder&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLQueryBuilderInterface</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M722.83,-3340.03C666.555,-3348.31 585.944,-3360.17 522.625,-3369.49"/>
-<polygon fill="none" stroke="black" points="522.001,-3366.04 512.617,-3370.96 523.02,-3372.97 522.001,-3366.04"/>
+<!-- \\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\PostgreSQLQueryBuilder&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLQueryBuilderInterface -->
+<g id="edge22" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\PostgreSQLQueryBuilder&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLQueryBuilderInterface</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M709.095,-3342.05C653.977,-3350.16 581.001,-3360.9 522.681,-3369.48"/>
+<polygon fill="none" stroke="black" points="522.096,-3366.03 512.712,-3370.95 523.115,-3372.95 522.096,-3366.03"/>
 </g>
 <!-- \\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\MySQLQueryBuilder -->
-<g id="node11" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\MySQLQueryBuilder</title>
+<g id="node43" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\MySQLQueryBuilder</title>
 <polygon fill="none" stroke="black" points="857.5,-3456 726.5,-3456 726.5,-3420 857.5,-3420 857.5,-3456"/>
 <text text-anchor="middle" x="792" y="-3435.2" font-family="Courier,monospace" font-size="11.00">MySQLQueryBuilder</text>
 </g>
 <!-- \\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\MySQLQueryBuilder&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLQueryBuilderInterface -->
-<g id="edge6" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\MySQLQueryBuilder&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLQueryBuilderInterface</title>
+<g id="edge23" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\MySQLQueryBuilder&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLQueryBuilderInterface</title>
 <path fill="none" stroke="black" stroke-dasharray="1,5" d="M726.221,-3425.62C691.78,-3419.27 648.673,-3411.7 610,-3406 581.779,-3401.84 551.058,-3397.95 522.863,-3394.63"/>
 <polygon fill="none" stroke="black" points="522.938,-3391.11 512.6,-3393.43 522.127,-3398.07 522.938,-3391.11"/>
 </g>
-<!-- \\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\PostgreSQLQueryBuilder -->
-<g id="node12" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\PostgreSQLQueryBuilder</title>
-<polygon fill="none" stroke="black" points="874.5,-3402 709.5,-3402 709.5,-3366 874.5,-3366 874.5,-3402"/>
-<text text-anchor="middle" x="792" y="-3381.2" font-family="Courier,monospace" font-size="11.00">PostgreSQLQueryBuilder</text>
+<!-- \\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLiteQueryBuilder -->
+<g id="node44" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLiteQueryBuilder</title>
+<polygon fill="none" stroke="black" points="861,-3402 723,-3402 723,-3366 861,-3366 861,-3402"/>
+<text text-anchor="middle" x="792" y="-3381.2" font-family="Courier,monospace" font-size="11.00">SQLiteQueryBuilder</text>
 </g>
-<!-- \\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\PostgreSQLQueryBuilder&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLQueryBuilderInterface -->
-<g id="edge7" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\PostgreSQLQueryBuilder&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLQueryBuilderInterface</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M709.095,-3384C654.091,-3384 581.303,-3384 523.042,-3384"/>
-<polygon fill="none" stroke="black" points="522.713,-3380.5 512.712,-3384 522.712,-3387.5 522.713,-3380.5"/>
+<!-- \\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLiteQueryBuilder&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLQueryBuilderInterface -->
+<g id="edge24" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLiteQueryBuilder&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLQueryBuilderInterface</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M722.83,-3384C666.555,-3384 585.944,-3384 522.625,-3384"/>
+<polygon fill="none" stroke="black" points="522.617,-3380.5 512.617,-3384 522.617,-3387.5 522.617,-3380.5"/>
 </g>
 <!-- \\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLQueryBuilder -->
-<g id="node14" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLQueryBuilder</title>
+<g id="node46" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\QueryBuilder\\SQLQueryBuilder</title>
 <polygon fill="none" stroke="black" points="851,-3294 733,-3294 733,-3258 851,-3258 851,-3294"/>
 <text text-anchor="middle" x="792" y="-3273.2" font-family="Courier,monospace" font-size="11.00">SQLQueryBuilder</text>
 </g>
-<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\MysqlConnectionParser -->
-<g id="node15" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\MysqlConnectionParser</title>
-<polygon fill="none" stroke="black" points="871,-3160 713,-3160 713,-3124 871,-3124 871,-3160"/>
-<text text-anchor="middle" x="792" y="-3139.2" font-family="Courier,monospace" font-size="11.00">MysqlConnectionParser</text>
-</g>
-<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserInterface -->
-<g id="node19" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserInterface</title>
-<polygon fill="none" stroke="black" points="515.5,-3160 330.5,-3160 330.5,-3124 515.5,-3124 515.5,-3160"/>
-<text text-anchor="middle" x="423" y="-3139.2" font-family="Courier,monospace" font-size="11.00">ConnectionParserInterface</text>
-</g>
-<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\MysqlConnectionParser&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserInterface -->
-<g id="edge8" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\MysqlConnectionParser&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserInterface</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M712.719,-3142C658.193,-3142 584.945,-3142 525.872,-3142"/>
-<polygon fill="none" stroke="black" points="525.768,-3138.5 515.768,-3142 525.768,-3145.5 525.768,-3138.5"/>
-</g>
-<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserException -->
-<g id="node16" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserException</title>
-<polygon fill="none" stroke="black" points="884.5,-3052 699.5,-3052 699.5,-3016 884.5,-3016 884.5,-3052"/>
-<text text-anchor="middle" x="792" y="-3031.2" font-family="Courier,monospace" font-size="11.00">ConnectionParserException</text>
-</g>
-<!-- \\Gishiki\\Core\\Exception -->
-<g id="node73" class="node"><title>\\Gishiki\\Core\\Exception</title>
-<polygon fill="none" stroke="black" points="461.5,-1818 384.5,-1818 384.5,-1782 461.5,-1782 461.5,-1818"/>
-<text text-anchor="middle" x="423" y="-1797.2" font-family="Courier,monospace" font-size="11.00">Exception</text>
-</g>
-<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserException&#45;&gt;\\Gishiki\\Core\\Exception -->
-<g id="edge9" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserException&#45;&gt;\\Gishiki\\Core\\Exception</title>
-<path fill="none" stroke="black" d="M699.446,-3020.05C693.02,-3016.54 687.086,-3012.25 682,-3007 671.165,-2995.81 467.001,-2008.39 429.793,-1828.09"/>
-<polygon fill="none" stroke="black" points="433.22,-1827.38 427.771,-1818.29 426.364,-1828.79 433.22,-1827.38"/>
-</g>
-<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\SqliteConnectionParser -->
-<g id="node17" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\SqliteConnectionParser</title>
-<polygon fill="none" stroke="black" points="874.5,-3106 709.5,-3106 709.5,-3070 874.5,-3070 874.5,-3106"/>
-<text text-anchor="middle" x="792" y="-3085.2" font-family="Courier,monospace" font-size="11.00">SqliteConnectionParser</text>
-</g>
-<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\SqliteConnectionParser&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserInterface -->
-<g id="edge10" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\SqliteConnectionParser&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserInterface</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M709.095,-3100.05C654.875,-3108.03 583.376,-3118.55 525.545,-3127.06"/>
-<polygon fill="none" stroke="black" points="525.035,-3123.6 515.651,-3128.51 526.054,-3130.52 525.035,-3123.6"/>
-</g>
-<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\PgsqlConnectionParser -->
-<g id="node18" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\PgsqlConnectionParser</title>
-<polygon fill="none" stroke="black" points="871,-3214 713,-3214 713,-3178 871,-3178 871,-3214"/>
-<text text-anchor="middle" x="792" y="-3193.2" font-family="Courier,monospace" font-size="11.00">PgsqlConnectionParser</text>
-</g>
-<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\PgsqlConnectionParser&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserInterface -->
-<g id="edge11" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\PgsqlConnectionParser&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserInterface</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M712.719,-3184.48C658.193,-3176.46 584.945,-3165.68 525.872,-3156.99"/>
-<polygon fill="none" stroke="black" points="526.171,-3153.5 515.768,-3155.5 525.152,-3160.42 526.171,-3153.5"/>
-</g>
-<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserTrait -->
-<g id="node20" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserTrait</title>
-<polygon fill="none" stroke="black" points="871,-2998 713,-2998 713,-2962 871,-2962 871,-2998"/>
-<text text-anchor="middle" x="792" y="-2977.2" font-family="Courier,monospace" font-size="11.00">ConnectionParserTrait</text>
-</g>
-<!-- \\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\PostgreSQLWrapper -->
-<g id="node21" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\PostgreSQLWrapper</title>
-<polygon fill="none" stroke="black" points="857.5,-2810 726.5,-2810 726.5,-2774 857.5,-2774 857.5,-2810"/>
-<text text-anchor="middle" x="792" y="-2789.2" font-family="Courier,monospace" font-size="11.00">PostgreSQLWrapper</text>
+<!-- \\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLiteWrapper -->
+<g id="node47" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLiteWrapper</title>
+<polygon fill="none" stroke="black" points="844,-3106 740,-3106 740,-3070 844,-3070 844,-3106"/>
+<text text-anchor="middle" x="792" y="-3085.2" font-family="Courier,monospace" font-size="11.00">SQLiteWrapper</text>
 </g>
 <!-- \\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLWrapperInterface -->
-<g id="node24" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLWrapperInterface</title>
-<polygon fill="none" stroke="black" points="495.5,-2864 350.5,-2864 350.5,-2828 495.5,-2828 495.5,-2864"/>
-<text text-anchor="middle" x="423" y="-2843.2" font-family="Courier,monospace" font-size="11.00">SQLWrapperInterface</text>
-</g>
-<!-- \\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\PostgreSQLWrapper&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLWrapperInterface -->
-<g id="edge12" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\PostgreSQLWrapper&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLWrapperInterface</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M726.233,-2801.53C664.773,-2810.57 572.173,-2824.2 505.676,-2833.98"/>
-<polygon fill="none" stroke="black" points="505.034,-2830.54 495.65,-2835.46 506.053,-2837.46 505.034,-2830.54"/>
-</g>
-<!-- \\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLiteWrapper -->
-<g id="node22" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLiteWrapper</title>
-<polygon fill="none" stroke="black" points="844,-2918 740,-2918 740,-2882 844,-2882 844,-2918"/>
-<text text-anchor="middle" x="792" y="-2897.2" font-family="Courier,monospace" font-size="11.00">SQLiteWrapper</text>
+<g id="node50" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLWrapperInterface</title>
+<polygon fill="none" stroke="black" points="495.5,-3160 350.5,-3160 350.5,-3124 495.5,-3124 495.5,-3160"/>
+<text text-anchor="middle" x="423" y="-3139.2" font-family="Courier,monospace" font-size="11.00">SQLWrapperInterface</text>
 </g>
 <!-- \\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLiteWrapper&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLWrapperInterface -->
-<g id="edge13" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLiteWrapper&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLWrapperInterface</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M739.97,-2892.49C679.305,-2883.57 577.279,-2868.55 505.611,-2858.01"/>
-<polygon fill="none" stroke="black" points="506.111,-2854.54 495.708,-2856.55 505.092,-2861.47 506.111,-2854.54"/>
+<g id="edge25" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLiteWrapper&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLWrapperInterface</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M739.97,-3095.51C679.305,-3104.43 577.279,-3119.45 505.611,-3129.99"/>
+<polygon fill="none" stroke="black" points="505.092,-3126.53 495.708,-3131.45 506.111,-3133.46 505.092,-3126.53"/>
+</g>
+<!-- \\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\PostgreSQLWrapper -->
+<g id="node48" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\PostgreSQLWrapper</title>
+<polygon fill="none" stroke="black" points="857.5,-3214 726.5,-3214 726.5,-3178 857.5,-3178 857.5,-3214"/>
+<text text-anchor="middle" x="792" y="-3193.2" font-family="Courier,monospace" font-size="11.00">PostgreSQLWrapper</text>
+</g>
+<!-- \\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\PostgreSQLWrapper&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLWrapperInterface -->
+<g id="edge26" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\PostgreSQLWrapper&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLWrapperInterface</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M726.233,-3186.47C664.773,-3177.43 572.173,-3163.8 505.676,-3154.02"/>
+<polygon fill="none" stroke="black" points="506.053,-3150.54 495.65,-3152.54 505.034,-3157.46 506.053,-3150.54"/>
 </g>
 <!-- \\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\MySQLWrapper -->
-<g id="node23" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\MySQLWrapper</title>
-<polygon fill="none" stroke="black" points="841,-2864 743,-2864 743,-2828 841,-2828 841,-2864"/>
-<text text-anchor="middle" x="792" y="-2843.2" font-family="Courier,monospace" font-size="11.00">MySQLWrapper</text>
+<g id="node49" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\MySQLWrapper</title>
+<polygon fill="none" stroke="black" points="841,-3160 743,-3160 743,-3124 841,-3124 841,-3160"/>
+<text text-anchor="middle" x="792" y="-3139.2" font-family="Courier,monospace" font-size="11.00">MySQLWrapper</text>
 </g>
 <!-- \\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\MySQLWrapper&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLWrapperInterface -->
-<g id="edge14" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\MySQLWrapper&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLWrapperInterface</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M742.644,-2846C682.413,-2846 578.593,-2846 505.874,-2846"/>
-<polygon fill="none" stroke="black" points="505.827,-2842.5 495.827,-2846 505.827,-2849.5 505.827,-2842.5"/>
+<g id="edge27" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\MySQLWrapper&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLWrapperInterface</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M742.644,-3142C682.413,-3142 578.593,-3142 505.874,-3142"/>
+<polygon fill="none" stroke="black" points="505.827,-3138.5 495.827,-3142 505.827,-3145.5 505.827,-3138.5"/>
 </g>
 <!-- \\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLWrapper -->
-<g id="node25" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLWrapper</title>
-<polygon fill="none" stroke="black" points="834,-2756 750,-2756 750,-2720 834,-2720 834,-2756"/>
-<text text-anchor="middle" x="792" y="-2735.2" font-family="Courier,monospace" font-size="11.00">SQLWrapper</text>
+<g id="node51" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\SQLGenerator\\SQLWrapper</title>
+<polygon fill="none" stroke="black" points="834,-3052 750,-3052 750,-3016 834,-3016 834,-3052"/>
+<text text-anchor="middle" x="792" y="-3031.2" font-family="Courier,monospace" font-size="11.00">SQLWrapper</text>
+</g>
+<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\MysqlConnectionParser -->
+<g id="node52" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\MysqlConnectionParser</title>
+<polygon fill="none" stroke="black" points="871,-2918 713,-2918 713,-2882 871,-2882 871,-2918"/>
+<text text-anchor="middle" x="792" y="-2897.2" font-family="Courier,monospace" font-size="11.00">MysqlConnectionParser</text>
+</g>
+<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserInterface -->
+<g id="node56" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserInterface</title>
+<polygon fill="none" stroke="black" points="515.5,-2918 330.5,-2918 330.5,-2882 515.5,-2882 515.5,-2918"/>
+<text text-anchor="middle" x="423" y="-2897.2" font-family="Courier,monospace" font-size="11.00">ConnectionParserInterface</text>
+</g>
+<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\MysqlConnectionParser&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserInterface -->
+<g id="edge28" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\MysqlConnectionParser&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserInterface</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M712.719,-2900C658.193,-2900 584.945,-2900 525.872,-2900"/>
+<polygon fill="none" stroke="black" points="525.768,-2896.5 515.768,-2900 525.768,-2903.5 525.768,-2896.5"/>
+</g>
+<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\SqliteConnectionParser -->
+<g id="node53" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\SqliteConnectionParser</title>
+<polygon fill="none" stroke="black" points="874.5,-2864 709.5,-2864 709.5,-2828 874.5,-2828 874.5,-2864"/>
+<text text-anchor="middle" x="792" y="-2843.2" font-family="Courier,monospace" font-size="11.00">SqliteConnectionParser</text>
+</g>
+<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\SqliteConnectionParser&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserInterface -->
+<g id="edge29" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\SqliteConnectionParser&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserInterface</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M709.095,-2858.05C654.875,-2866.03 583.376,-2876.55 525.545,-2885.06"/>
+<polygon fill="none" stroke="black" points="525.035,-2881.6 515.651,-2886.51 526.054,-2888.52 525.035,-2881.6"/>
+</g>
+<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserException -->
+<g id="node54" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserException</title>
+<polygon fill="none" stroke="black" points="884.5,-2810 699.5,-2810 699.5,-2774 884.5,-2774 884.5,-2810"/>
+<text text-anchor="middle" x="792" y="-2789.2" font-family="Courier,monospace" font-size="11.00">ConnectionParserException</text>
+</g>
+<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserException&#45;&gt;\\Gishiki\\Core\\Exception -->
+<g id="edge30" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserException&#45;&gt;\\Gishiki\\Core\\Exception</title>
+<path fill="none" stroke="black" d="M699.305,-2779.28C692.778,-2775.53 686.865,-2770.84 682,-2765 513.19,-2562.26 791.152,-1771.79 610,-1580 575.347,-1543.31 514.346,-1543.02 471.682,-1548.48"/>
+<polygon fill="none" stroke="black" points="470.933,-1545.05 461.528,-1549.93 471.923,-1551.98 470.933,-1545.05"/>
+</g>
+<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\PgsqlConnectionParser -->
+<g id="node55" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\PgsqlConnectionParser</title>
+<polygon fill="none" stroke="black" points="871,-2972 713,-2972 713,-2936 871,-2936 871,-2972"/>
+<text text-anchor="middle" x="792" y="-2951.2" font-family="Courier,monospace" font-size="11.00">PgsqlConnectionParser</text>
+</g>
+<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\PgsqlConnectionParser&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserInterface -->
+<g id="edge31" class="edge"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\PgsqlConnectionParser&#45;&gt;\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserInterface</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M712.719,-2942.48C658.193,-2934.46 584.945,-2923.68 525.872,-2914.99"/>
+<polygon fill="none" stroke="black" points="526.171,-2911.5 515.768,-2913.5 525.152,-2918.42 526.171,-2911.5"/>
+</g>
+<!-- \\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserTrait -->
+<g id="node57" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\ConnectionParser\\ConnectionParserTrait</title>
+<polygon fill="none" stroke="black" points="871,-2756 713,-2756 713,-2720 871,-2720 871,-2756"/>
+<text text-anchor="middle" x="792" y="-2735.2" font-family="Courier,monospace" font-size="11.00">ConnectionParserTrait</text>
 </g>
 <!-- \\Gishiki\\Database\\Adapters\\Utils\\PDODatabaseTrait -->
-<g id="node26" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\PDODatabaseTrait</title>
+<g id="node58" class="node"><title>\\Gishiki\\Database\\Adapters\\Utils\\PDODatabaseTrait</title>
 <polygon fill="none" stroke="black" points="854.5,-2702 729.5,-2702 729.5,-2666 854.5,-2666 854.5,-2702"/>
 <text text-anchor="middle" x="792" y="-2681.2" font-family="Courier,monospace" font-size="11.00">PDODatabaseTrait</text>
 </g>
-<!-- \\Gishiki\\Database\\Adapters\\Mysql -->
-<g id="node27" class="node"><title>\\Gishiki\\Database\\Adapters\\Mysql</title>
-<polygon fill="none" stroke="black" points="819,-3556 765,-3556 765,-3520 819,-3520 819,-3556"/>
-<text text-anchor="middle" x="792" y="-3535.2" font-family="Courier,monospace" font-size="11.00">Mysql</text>
+<!-- \\Gishiki\\Database\\Adapters\\Sqlite -->
+<g id="node59" class="node"><title>\\Gishiki\\Database\\Adapters\\Sqlite</title>
+<polygon fill="none" stroke="black" points="820.5,-3556 763.5,-3556 763.5,-3520 820.5,-3520 820.5,-3556"/>
+<text text-anchor="middle" x="792" y="-3535.2" font-family="Courier,monospace" font-size="11.00">Sqlite</text>
 </g>
 <!-- \\Gishiki\\Database\\RelationalDatabaseInterface -->
-<g id="node33" class="node"><title>\\Gishiki\\Database\\RelationalDatabaseInterface</title>
+<g id="node64" class="node"><title>\\Gishiki\\Database\\RelationalDatabaseInterface</title>
 <polygon fill="none" stroke="black" points="522.5,-3736 323.5,-3736 323.5,-3700 522.5,-3700 522.5,-3736"/>
 <text text-anchor="middle" x="423" y="-3715.2" font-family="Courier,monospace" font-size="11.00">RelationalDatabaseInterface</text>
 </g>
-<!-- \\Gishiki\\Database\\Adapters\\Mysql&#45;&gt;\\Gishiki\\Database\\RelationalDatabaseInterface -->
-<g id="edge2" class="edge"><title>\\Gishiki\\Database\\Adapters\\Mysql&#45;&gt;\\Gishiki\\Database\\RelationalDatabaseInterface</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M764.778,-3542.27C742.267,-3546.45 709.238,-3553.83 682,-3565 596.041,-3600.24 504.596,-3660.66 457.054,-3694.06"/>
+<!-- \\Gishiki\\Database\\Adapters\\Sqlite&#45;&gt;\\Gishiki\\Database\\RelationalDatabaseInterface -->
+<g id="edge19" class="edge"><title>\\Gishiki\\Database\\Adapters\\Sqlite&#45;&gt;\\Gishiki\\Database\\RelationalDatabaseInterface</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M763.424,-3542.52C740.957,-3546.74 708.697,-3554.06 682,-3565 596.041,-3600.24 504.596,-3660.66 457.054,-3694.06"/>
 <polygon fill="none" stroke="black" points="454.843,-3691.34 448.699,-3699.97 458.885,-3697.05 454.843,-3691.34"/>
 </g>
-<!-- \\Gishiki\\Database\\Adapters\\Sqlite -->
-<g id="node28" class="node"><title>\\Gishiki\\Database\\Adapters\\Sqlite</title>
-<polygon fill="none" stroke="black" points="820.5,-3664 763.5,-3664 763.5,-3628 820.5,-3628 820.5,-3664"/>
-<text text-anchor="middle" x="792" y="-3643.2" font-family="Courier,monospace" font-size="11.00">Sqlite</text>
-</g>
-<!-- \\Gishiki\\Database\\Adapters\\Sqlite&#45;&gt;\\Gishiki\\Database\\RelationalDatabaseInterface -->
-<g id="edge3" class="edge"><title>\\Gishiki\\Database\\Adapters\\Sqlite&#45;&gt;\\Gishiki\\Database\\RelationalDatabaseInterface</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M763.415,-3651.41C713.698,-3661.17 606.733,-3682.15 526.085,-3697.97"/>
-<polygon fill="none" stroke="black" points="525.027,-3694.61 515.888,-3699.97 526.375,-3701.48 525.027,-3694.61"/>
-</g>
 <!-- \\Gishiki\\Database\\Adapters\\Pgsql -->
-<g id="node29" class="node"><title>\\Gishiki\\Database\\Adapters\\Pgsql</title>
-<polygon fill="none" stroke="black" points="819,-3610 765,-3610 765,-3574 819,-3574 819,-3610"/>
-<text text-anchor="middle" x="792" y="-3589.2" font-family="Courier,monospace" font-size="11.00">Pgsql</text>
+<g id="node60" class="node"><title>\\Gishiki\\Database\\Adapters\\Pgsql</title>
+<polygon fill="none" stroke="black" points="819,-3664 765,-3664 765,-3628 819,-3628 819,-3664"/>
+<text text-anchor="middle" x="792" y="-3643.2" font-family="Courier,monospace" font-size="11.00">Pgsql</text>
 </g>
 <!-- \\Gishiki\\Database\\Adapters\\Pgsql&#45;&gt;\\Gishiki\\Database\\RelationalDatabaseInterface -->
-<g id="edge4" class="edge"><title>\\Gishiki\\Database\\Adapters\\Pgsql&#45;&gt;\\Gishiki\\Database\\RelationalDatabaseInterface</title>
+<g id="edge20" class="edge"><title>\\Gishiki\\Database\\Adapters\\Pgsql&#45;&gt;\\Gishiki\\Database\\RelationalDatabaseInterface</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M764.9,-3651.12C715.903,-3660.73 607.754,-3681.95 526.32,-3697.93"/>
+<polygon fill="none" stroke="black" points="525.164,-3694.59 516.025,-3699.95 526.512,-3701.46 525.164,-3694.59"/>
+</g>
+<!-- \\Gishiki\\Database\\Adapters\\Mysql -->
+<g id="node61" class="node"><title>\\Gishiki\\Database\\Adapters\\Mysql</title>
+<polygon fill="none" stroke="black" points="819,-3610 765,-3610 765,-3574 819,-3574 819,-3610"/>
+<text text-anchor="middle" x="792" y="-3589.2" font-family="Courier,monospace" font-size="11.00">Mysql</text>
+</g>
+<!-- \\Gishiki\\Database\\Adapters\\Mysql&#45;&gt;\\Gishiki\\Database\\RelationalDatabaseInterface -->
+<g id="edge21" class="edge"><title>\\Gishiki\\Database\\Adapters\\Mysql&#45;&gt;\\Gishiki\\Database\\RelationalDatabaseInterface</title>
 <path fill="none" stroke="black" stroke-dasharray="1,5" d="M764.761,-3597.54C742.524,-3602.47 709.897,-3610.23 682,-3619 609.185,-3641.89 527.228,-3674.57 475.615,-3696.02"/>
 <polygon fill="none" stroke="black" points="474.22,-3692.81 466.34,-3699.9 476.917,-3699.27 474.22,-3692.81"/>
 </g>
+<!-- \\Gishiki\\Database\\DatabaseManager -->
+<g id="node62" class="node"><title>\\Gishiki\\Database\\DatabaseManager</title>
+<polygon fill="none" stroke="black" points="851,-2642 733,-2642 733,-2606 851,-2606 851,-2642"/>
+<text text-anchor="middle" x="792" y="-2621.2" font-family="Courier,monospace" font-size="11.00">DatabaseManager</text>
+</g>
 <!-- \\Gishiki\\Database\\DatabaseException -->
-<g id="node30" class="node"><title>\\Gishiki\\Database\\DatabaseException</title>
-<polygon fill="none" stroke="black" points="857.5,-2642 726.5,-2642 726.5,-2606 857.5,-2606 857.5,-2642"/>
-<text text-anchor="middle" x="792" y="-2621.2" font-family="Courier,monospace" font-size="11.00">DatabaseException</text>
+<g id="node63" class="node"><title>\\Gishiki\\Database\\DatabaseException</title>
+<polygon fill="none" stroke="black" points="857.5,-2588 726.5,-2588 726.5,-2552 857.5,-2552 857.5,-2588"/>
+<text text-anchor="middle" x="792" y="-2567.2" font-family="Courier,monospace" font-size="11.00">DatabaseException</text>
 </g>
 <!-- \\Gishiki\\Database\\DatabaseException&#45;&gt;\\Gishiki\\Core\\Exception -->
-<g id="edge1" class="edge"><title>\\Gishiki\\Database\\DatabaseException&#45;&gt;\\Gishiki\\Core\\Exception</title>
-<path fill="none" stroke="black" d="M726.296,-2619.08C710.211,-2615.07 694.122,-2608.3 682,-2597 446.758,-2377.73 425.412,-1942.65 423.962,-1828.15"/>
-<polygon fill="none" stroke="black" points="427.462,-1828.06 423.878,-1818.09 420.462,-1828.11 427.462,-1828.06"/>
-</g>
-<!-- \\Gishiki\\Database\\DatabaseManager -->
-<g id="node31" class="node"><title>\\Gishiki\\Database\\DatabaseManager</title>
-<polygon fill="none" stroke="black" points="851,-2588 733,-2588 733,-2552 851,-2552 851,-2588"/>
-<text text-anchor="middle" x="792" y="-2567.2" font-family="Courier,monospace" font-size="11.00">DatabaseManager</text>
+<g id="edge18" class="edge"><title>\\Gishiki\\Database\\DatabaseException&#45;&gt;\\Gishiki\\Core\\Exception</title>
+<path fill="none" stroke="black" d="M755.009,-2551.98C729.914,-2537.34 698.143,-2514.18 682,-2484 586.954,-2306.3 749.748,-1725.2 610,-1580 575.108,-1543.75 514.439,-1543.28 471.903,-1548.59"/>
+<polygon fill="none" stroke="black" points="471.197,-1545.15 461.776,-1550 472.164,-1552.08 471.197,-1545.15"/>
 </g>
 <!-- \\Gishiki\\Database\\DatabaseInterface -->
-<g id="node32" class="node"><title>\\Gishiki\\Database\\DatabaseInterface</title>
+<g id="node65" class="node"><title>\\Gishiki\\Database\\DatabaseInterface</title>
 <polygon fill="none" stroke="black" points="163.5,-3736 32.5,-3736 32.5,-3700 163.5,-3700 163.5,-3736"/>
 <text text-anchor="middle" x="98" y="-3715.2" font-family="Courier,monospace" font-size="11.00">DatabaseInterface</text>
 </g>
@@ -361,336 +624,73 @@
 <path fill="none" stroke="black" d="M323.334,-3718C275.314,-3718 218.512,-3718 174.081,-3718"/>
 <polygon fill="none" stroke="black" points="173.933,-3714.5 163.933,-3718 173.933,-3721.5 173.933,-3714.5"/>
 </g>
-<!-- \\Gishiki\\Security\\Hashing\\HashingException -->
-<g id="node34" class="node"><title>\\Gishiki\\Security\\Hashing\\HashingException</title>
-<polygon fill="none" stroke="black" points="854.5,-2480 729.5,-2480 729.5,-2444 854.5,-2444 854.5,-2480"/>
-<text text-anchor="middle" x="792" y="-2459.2" font-family="Courier,monospace" font-size="11.00">HashingException</text>
-</g>
-<!-- \\Gishiki\\Security\\Hashing\\HashingException&#45;&gt;\\Gishiki\\Core\\Exception -->
-<g id="edge15" class="edge"><title>\\Gishiki\\Security\\Hashing\\HashingException&#45;&gt;\\Gishiki\\Core\\Exception</title>
-<path fill="none" stroke="black" d="M729.389,-2457.09C712.478,-2453.16 695.188,-2446.42 682,-2435 487.159,-2266.22 437.324,-1928.38 426.605,-1828.46"/>
-<polygon fill="none" stroke="black" points="430.059,-1827.84 425.558,-1818.25 423.096,-1828.55 430.059,-1827.84"/>
-</g>
-<!-- \\Gishiki\\Security\\Hashing\\Hasher -->
-<g id="node35" class="node"><title>\\Gishiki\\Security\\Hashing\\Hasher</title>
-<polygon fill="none" stroke="black" points="820.5,-2426 763.5,-2426 763.5,-2390 820.5,-2390 820.5,-2426"/>
-<text text-anchor="middle" x="792" y="-2405.2" font-family="Courier,monospace" font-size="11.00">Hasher</text>
-</g>
-<!-- \\Gishiki\\Security\\Hashing\\Algorithm -->
-<g id="node36" class="node"><title>\\Gishiki\\Security\\Hashing\\Algorithm</title>
-<polygon fill="none" stroke="black" points="834,-2372 750,-2372 750,-2336 834,-2336 834,-2372"/>
-<text text-anchor="start" x="758" y="-2357.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="761.5" y="-2345.2" font-family="Courier,monospace" font-size="11.00">Algorithm</text>
-</g>
-<!-- \\Gishiki\\Security\\Encryption\\Asymmetric\\PublicKey -->
-<g id="node37" class="node"><title>\\Gishiki\\Security\\Encryption\\Asymmetric\\PublicKey</title>
-<polygon fill="none" stroke="black" points="830.5,-2264 753.5,-2264 753.5,-2228 830.5,-2228 830.5,-2264"/>
-<text text-anchor="middle" x="792" y="-2243.2" font-family="Courier,monospace" font-size="11.00">PublicKey</text>
-</g>
-<!-- \\Gishiki\\Security\\Encryption\\Asymmetric\\Cryptography -->
-<g id="node38" class="node"><title>\\Gishiki\\Security\\Encryption\\Asymmetric\\Cryptography</title>
-<polygon fill="none" stroke="black" points="841,-2210 743,-2210 743,-2174 841,-2174 841,-2210"/>
-<text text-anchor="start" x="758" y="-2195.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="751" y="-2183.2" font-family="Courier,monospace" font-size="11.00">Cryptography</text>
-</g>
-<!-- \\Gishiki\\Security\\Encryption\\Asymmetric\\AsymmetricException -->
-<g id="node39" class="node"><title>\\Gishiki\\Security\\Encryption\\Asymmetric\\AsymmetricException</title>
-<polygon fill="none" stroke="black" points="864.5,-2156 719.5,-2156 719.5,-2120 864.5,-2120 864.5,-2156"/>
-<text text-anchor="middle" x="792" y="-2135.2" font-family="Courier,monospace" font-size="11.00">AsymmetricException</text>
-</g>
-<!-- \\Gishiki\\Security\\Encryption\\Asymmetric\\AsymmetricException&#45;&gt;\\Gishiki\\Core\\Exception -->
-<g id="edge16" class="edge"><title>\\Gishiki\\Security\\Encryption\\Asymmetric\\AsymmetricException&#45;&gt;\\Gishiki\\Core\\Exception</title>
-<path fill="none" stroke="black" d="M719.439,-2127.19C706.373,-2123.33 693.311,-2118.1 682,-2111 562.995,-2036.3 472.28,-1888.12 438.432,-1827.17"/>
-<polygon fill="none" stroke="black" points="441.368,-1825.24 433.492,-1818.16 435.23,-1828.61 441.368,-1825.24"/>
-</g>
-<!-- \\Gishiki\\Security\\Encryption\\Asymmetric\\PrivateKey -->
-<g id="node40" class="node"><title>\\Gishiki\\Security\\Encryption\\Asymmetric\\PrivateKey</title>
-<polygon fill="none" stroke="black" points="834,-2102 750,-2102 750,-2066 834,-2066 834,-2102"/>
-<text text-anchor="middle" x="792" y="-2081.2" font-family="Courier,monospace" font-size="11.00">PrivateKey</text>
+<!-- \\Gishiki\\Security\\Encryption\\Symmetric\\SecretKey -->
+<g id="node66" class="node"><title>\\Gishiki\\Security\\Encryption\\Symmetric\\SecretKey</title>
+<polygon fill="none" stroke="black" points="830.5,-2452 753.5,-2452 753.5,-2416 830.5,-2416 830.5,-2452"/>
+<text text-anchor="middle" x="792" y="-2431.2" font-family="Courier,monospace" font-size="11.00">SecretKey</text>
 </g>
 <!-- \\Gishiki\\Security\\Encryption\\Symmetric\\SymmetricException -->
-<g id="node41" class="node"><title>\\Gishiki\\Security\\Encryption\\Symmetric\\SymmetricException</title>
-<polygon fill="none" stroke="black" points="861,-2022 723,-2022 723,-1986 861,-1986 861,-2022"/>
-<text text-anchor="middle" x="792" y="-2001.2" font-family="Courier,monospace" font-size="11.00">SymmetricException</text>
+<g id="node67" class="node"><title>\\Gishiki\\Security\\Encryption\\Symmetric\\SymmetricException</title>
+<polygon fill="none" stroke="black" points="861,-2398 723,-2398 723,-2362 861,-2362 861,-2398"/>
+<text text-anchor="middle" x="792" y="-2377.2" font-family="Courier,monospace" font-size="11.00">SymmetricException</text>
 </g>
 <!-- \\Gishiki\\Security\\Encryption\\Symmetric\\SymmetricException&#45;&gt;\\Gishiki\\Core\\Exception -->
-<g id="edge17" class="edge"><title>\\Gishiki\\Security\\Encryption\\Symmetric\\SymmetricException&#45;&gt;\\Gishiki\\Core\\Exception</title>
-<path fill="none" stroke="black" d="M722.862,-1991.12C709.029,-1987.4 694.805,-1982.75 682,-1977 591.079,-1936.17 497.954,-1862.94 452.491,-1824.73"/>
-<polygon fill="none" stroke="black" points="454.722,-1822.04 444.828,-1818.24 450.198,-1827.38 454.722,-1822.04"/>
+<g id="edge32" class="edge"><title>\\Gishiki\\Security\\Encryption\\Symmetric\\SymmetricException&#45;&gt;\\Gishiki\\Core\\Exception</title>
+<path fill="none" stroke="black" d="M722.835,-2376.33C707.356,-2372.24 692.426,-2365.12 682,-2353 569.489,-2222.21 730.465,-1703.5 610,-1580 574.866,-1543.98 514.247,-1543.47 471.79,-1548.7"/>
+<polygon fill="none" stroke="black" points="471.11,-1545.26 461.682,-1550.09 472.067,-1552.19 471.11,-1545.26"/>
 </g>
 <!-- \\Gishiki\\Security\\Encryption\\Symmetric\\Cryptography -->
-<g id="node42" class="node"><title>\\Gishiki\\Security\\Encryption\\Symmetric\\Cryptography</title>
-<polygon fill="none" stroke="black" points="841,-1968 743,-1968 743,-1932 841,-1932 841,-1968"/>
-<text text-anchor="start" x="758" y="-1953.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="751" y="-1941.2" font-family="Courier,monospace" font-size="11.00">Cryptography</text>
+<g id="node68" class="node"><title>\\Gishiki\\Security\\Encryption\\Symmetric\\Cryptography</title>
+<polygon fill="none" stroke="black" points="841,-2344 743,-2344 743,-2308 841,-2308 841,-2344"/>
+<text text-anchor="start" x="758" y="-2329.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="751" y="-2317.2" font-family="Courier,monospace" font-size="11.00">Cryptography</text>
 </g>
-<!-- \\Gishiki\\Security\\Encryption\\Symmetric\\SecretKey -->
-<g id="node43" class="node"><title>\\Gishiki\\Security\\Encryption\\Symmetric\\SecretKey</title>
-<polygon fill="none" stroke="black" points="830.5,-1914 753.5,-1914 753.5,-1878 830.5,-1878 830.5,-1914"/>
-<text text-anchor="middle" x="792" y="-1893.2" font-family="Courier,monospace" font-size="11.00">SecretKey</text>
+<!-- \\Gishiki\\Security\\Encryption\\Asymmetric\\PrivateKey -->
+<g id="node69" class="node"><title>\\Gishiki\\Security\\Encryption\\Asymmetric\\PrivateKey</title>
+<polygon fill="none" stroke="black" points="834,-2264 750,-2264 750,-2228 834,-2228 834,-2264"/>
+<text text-anchor="middle" x="792" y="-2243.2" font-family="Courier,monospace" font-size="11.00">PrivateKey</text>
 </g>
-<!-- \\Gishiki\\Services\\ErrorHandling -->
-<g id="node44" class="node"><title>\\Gishiki\\Services\\ErrorHandling</title>
-<polygon fill="none" stroke="black" points="1078,-1322 974,-1322 974,-1286 1078,-1286 1078,-1322"/>
-<text text-anchor="middle" x="1026" y="-1301.2" font-family="Courier,monospace" font-size="11.00">ErrorHandling</text>
+<!-- \\Gishiki\\Security\\Encryption\\Asymmetric\\AsymmetricException -->
+<g id="node70" class="node"><title>\\Gishiki\\Security\\Encryption\\Asymmetric\\AsymmetricException</title>
+<polygon fill="none" stroke="black" points="864.5,-2210 719.5,-2210 719.5,-2174 864.5,-2174 864.5,-2210"/>
+<text text-anchor="middle" x="792" y="-2189.2" font-family="Courier,monospace" font-size="11.00">AsymmetricException</text>
 </g>
-<!-- \\Gishiki\\Core\\MVC\\Controller\\Controller -->
-<g id="node62" class="node"><title>\\Gishiki\\Core\\MVC\\Controller\\Controller</title>
-<polygon fill="none" stroke="black" points="834,-1322 750,-1322 750,-1286 834,-1286 834,-1322"/>
-<text text-anchor="start" x="758" y="-1307.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="758" y="-1295.2" font-family="Courier,monospace" font-size="11.00">Controller</text>
+<!-- \\Gishiki\\Security\\Encryption\\Asymmetric\\AsymmetricException&#45;&gt;\\Gishiki\\Core\\Exception -->
+<g id="edge33" class="edge"><title>\\Gishiki\\Security\\Encryption\\Asymmetric\\AsymmetricException&#45;&gt;\\Gishiki\\Core\\Exception</title>
+<path fill="none" stroke="black" d="M719.411,-2187.09C705.248,-2182.88 691.763,-2176.02 682,-2165 508.241,-1968.96 795.672,-1764.8 610,-1580 574.443,-1544.61 514.19,-1543.89 471.92,-1548.9"/>
+<polygon fill="none" stroke="black" points="471.306,-1545.45 461.856,-1550.24 472.23,-1552.39 471.306,-1545.45"/>
 </g>
-<!-- \\Gishiki\\Services\\ErrorHandling&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Controller -->
-<g id="edge18" class="edge"><title>\\Gishiki\\Services\\ErrorHandling&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Controller</title>
-<path fill="none" stroke="black" d="M973.799,-1304C935.378,-1304 882.992,-1304 844.499,-1304"/>
-<polygon fill="none" stroke="black" points="844.033,-1300.5 834.033,-1304 844.033,-1307.5 844.033,-1300.5"/>
+<!-- \\Gishiki\\Security\\Encryption\\Asymmetric\\PublicKey -->
+<g id="node71" class="node"><title>\\Gishiki\\Security\\Encryption\\Asymmetric\\PublicKey</title>
+<polygon fill="none" stroke="black" points="830.5,-2156 753.5,-2156 753.5,-2120 830.5,-2120 830.5,-2156"/>
+<text text-anchor="middle" x="792" y="-2135.2" font-family="Courier,monospace" font-size="11.00">PublicKey</text>
 </g>
-<!-- \\Gishiki\\Algorithms\\Collections\\SerializationException -->
-<g id="node45" class="node"><title>\\Gishiki\\Algorithms\\Collections\\SerializationException</title>
-<polygon fill="none" stroke="black" points="874.5,-454 709.5,-454 709.5,-418 874.5,-418 874.5,-454"/>
-<text text-anchor="middle" x="792" y="-433.2" font-family="Courier,monospace" font-size="11.00">SerializationException</text>
+<!-- \\Gishiki\\Security\\Encryption\\Asymmetric\\Cryptography -->
+<g id="node72" class="node"><title>\\Gishiki\\Security\\Encryption\\Asymmetric\\Cryptography</title>
+<polygon fill="none" stroke="black" points="841,-2102 743,-2102 743,-2066 841,-2066 841,-2102"/>
+<text text-anchor="start" x="758" y="-2087.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="751" y="-2075.2" font-family="Courier,monospace" font-size="11.00">Cryptography</text>
 </g>
-<!-- \\Gishiki\\Algorithms\\Collections\\SerializationException&#45;&gt;\\Gishiki\\Core\\Exception -->
-<g id="edge20" class="edge"><title>\\Gishiki\\Algorithms\\Collections\\SerializationException&#45;&gt;\\Gishiki\\Core\\Exception</title>
-<path fill="none" stroke="black" d="M709.458,-443.726C698.911,-448.033 689.271,-454.214 682,-463 495.409,-688.463 810.318,-1564.64 610,-1778 575.457,-1814.79 514.433,-1815.06 471.733,-1809.57"/>
-<polygon fill="none" stroke="black" points="471.966,-1806.06 461.57,-1808.11 470.971,-1812.99 471.966,-1806.06"/>
+<!-- \\Gishiki\\Security\\Hashing\\Algorithm -->
+<g id="node73" class="node"><title>\\Gishiki\\Security\\Hashing\\Algorithm</title>
+<polygon fill="none" stroke="black" points="834,-2014 750,-2014 750,-1978 834,-1978 834,-2014"/>
+<text text-anchor="start" x="758" y="-1999.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="761.5" y="-1987.2" font-family="Courier,monospace" font-size="11.00">Algorithm</text>
 </g>
-<!-- \\Gishiki\\Algorithms\\Collections\\SerializableCollection -->
-<g id="node46" class="node"><title>\\Gishiki\\Algorithms\\Collections\\SerializableCollection</title>
-<polygon fill="none" stroke="black" points="874.5,-400 709.5,-400 709.5,-364 874.5,-364 874.5,-400"/>
-<text text-anchor="middle" x="792" y="-379.2" font-family="Courier,monospace" font-size="11.00">SerializableCollection</text>
+<!-- \\Gishiki\\Security\\Hashing\\HashingException -->
+<g id="node74" class="node"><title>\\Gishiki\\Security\\Hashing\\HashingException</title>
+<polygon fill="none" stroke="black" points="854.5,-1960 729.5,-1960 729.5,-1924 854.5,-1924 854.5,-1960"/>
+<text text-anchor="middle" x="792" y="-1939.2" font-family="Courier,monospace" font-size="11.00">HashingException</text>
 </g>
-<!-- \\Gishiki\\Algorithms\\Collections\\GenericCollection -->
-<g id="node77" class="node"><title>\\Gishiki\\Algorithms\\Collections\\GenericCollection</title>
-<ellipse fill="none" stroke="black" cx="423" cy="-72" rx="186.567" ry="18"/>
-<text text-anchor="middle" x="423" y="-68.3" font-family="Times,serif" font-size="14.00" fill="gray">Gishiki\Algorithms\CollectionsGenericCollection</text>
+<!-- \\Gishiki\\Security\\Hashing\\HashingException&#45;&gt;\\Gishiki\\Core\\Exception -->
+<g id="edge34" class="edge"><title>\\Gishiki\\Security\\Hashing\\HashingException&#45;&gt;\\Gishiki\\Core\\Exception</title>
+<path fill="none" stroke="black" d="M729.484,-1938.81C712.072,-1934.99 694.484,-1927.88 682,-1915 576.004,-1805.65 722.623,-1682.51 610,-1580 573.011,-1546.33 513.322,-1545.18 471.565,-1549.63"/>
+<polygon fill="none" stroke="black" points="471.134,-1546.15 461.625,-1550.82 471.972,-1553.1 471.134,-1546.15"/>
 </g>
-<!-- \\Gishiki\\Algorithms\\Collections\\SerializableCollection&#45;&gt;\\Gishiki\\Algorithms\\Collections\\GenericCollection -->
-<g id="edge21" class="edge"><title>\\Gishiki\\Algorithms\\Collections\\SerializableCollection&#45;&gt;\\Gishiki\\Algorithms\\Collections\\GenericCollection</title>
-<path fill="none" stroke="black" d="M709.412,-365.015C699.829,-361.45 690.463,-357.159 682,-352 570.793,-284.212 477.937,-154.908 441.06,-98.9352"/>
-<polygon fill="none" stroke="black" points="443.82,-96.7597 435.428,-90.2923 437.955,-100.581 443.82,-96.7597"/>
-</g>
-<!-- \\Gishiki\\Algorithms\\Collections\\DeserializationException -->
-<g id="node47" class="node"><title>\\Gishiki\\Algorithms\\Collections\\DeserializationException</title>
-<polygon fill="none" stroke="black" points="881.5,-508 702.5,-508 702.5,-472 881.5,-472 881.5,-508"/>
-<text text-anchor="middle" x="792" y="-487.2" font-family="Courier,monospace" font-size="11.00">DeserializationException</text>
-</g>
-<!-- \\Gishiki\\Algorithms\\Collections\\DeserializationException&#45;&gt;\\Gishiki\\Core\\Exception -->
-<g id="edge22" class="edge"><title>\\Gishiki\\Algorithms\\Collections\\DeserializationException&#45;&gt;\\Gishiki\\Core\\Exception</title>
-<path fill="none" stroke="black" d="M749.779,-508.1C725.581,-521.063 696.905,-541.01 682,-568 616.892,-685.899 702.419,-1680.03 610,-1778 575.37,-1814.71 514.364,-1814.99 471.693,-1809.53"/>
-<polygon fill="none" stroke="black" points="471.932,-1806.03 461.537,-1808.07 470.941,-1812.96 471.932,-1806.03"/>
-</g>
-<!-- \\Gishiki\\Algorithms\\Strings\\SimpleLexer -->
-<g id="node48" class="node"><title>\\Gishiki\\Algorithms\\Strings\\SimpleLexer</title>
-<polygon fill="none" stroke="black" points="837.5,-320 746.5,-320 746.5,-284 837.5,-284 837.5,-320"/>
-<text text-anchor="start" x="758" y="-305.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="754.5" y="-293.2" font-family="Courier,monospace" font-size="11.00">SimpleLexer</text>
-</g>
-<!-- \\Gishiki\\Algorithms\\Strings\\Manipulation -->
-<g id="node49" class="node"><title>\\Gishiki\\Algorithms\\Strings\\Manipulation</title>
-<polygon fill="none" stroke="black" points="841,-266 743,-266 743,-230 841,-230 841,-266"/>
-<text text-anchor="start" x="758" y="-251.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="751" y="-239.2" font-family="Courier,monospace" font-size="11.00">Manipulation</text>
-</g>
-<!-- \\Gishiki\\Algorithms\\Base64 -->
-<g id="node50" class="node"><title>\\Gishiki\\Algorithms\\Base64</title>
-<polygon fill="none" stroke="black" points="834,-212 750,-212 750,-176 834,-176 834,-212"/>
-<text text-anchor="start" x="758" y="-197.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="771.5" y="-185.2" font-family="Courier,monospace" font-size="11.00">Base64</text>
-</g>
-<!-- \\Gishiki\\Algorithms\\XmlDomConstructor -->
-<g id="node51" class="node"><title>\\Gishiki\\Algorithms\\XmlDomConstructor</title>
-<polygon fill="none" stroke="black" points="857.5,-158 726.5,-158 726.5,-122 857.5,-122 857.5,-158"/>
-<text text-anchor="middle" x="792" y="-137.2" font-family="Courier,monospace" font-size="11.00">XmlDomConstructor</text>
-</g>
-<!-- \\DOMDocument -->
-<g id="node76" class="node"><title>\\DOMDocument</title>
-<ellipse fill="none" stroke="black" cx="423" cy="-18" rx="71.4873" ry="18"/>
-<text text-anchor="middle" x="423" y="-14.3" font-family="Times,serif" font-size="14.00" fill="gray">\DOMDocument</text>
-</g>
-<!-- \\Gishiki\\Algorithms\\XmlDomConstructor&#45;&gt;\\DOMDocument -->
-<g id="edge19" class="edge"><title>\\Gishiki\\Algorithms\\XmlDomConstructor&#45;&gt;\\DOMDocument</title>
-<path fill="none" stroke="black" d="M763.78,-121.921C729.45,-100.036 667.892,-63.784 610,-45 575.684,-33.8659 536.316,-27.3129 502.66,-23.4608"/>
-<polygon fill="none" stroke="black" points="502.729,-19.9479 492.41,-22.35 501.975,-26.9071 502.729,-19.9479"/>
-</g>
-<!-- \\Gishiki\\Core\\Router\\RouterException -->
-<g id="node52" class="node"><title>\\Gishiki\\Core\\Router\\RouterException</title>
-<polygon fill="none" stroke="black" points="851,-1746 733,-1746 733,-1710 851,-1710 851,-1746"/>
-<text text-anchor="middle" x="792" y="-1725.2" font-family="Courier,monospace" font-size="11.00">RouterException</text>
-</g>
-<!-- \\Gishiki\\Core\\Router\\RouterException&#45;&gt;\\Gishiki\\Core\\Exception -->
-<g id="edge23" class="edge"><title>\\Gishiki\\Core\\Router\\RouterException&#45;&gt;\\Gishiki\\Core\\Exception</title>
-<path fill="none" stroke="black" d="M734.464,-1746C699.031,-1756.68 652.229,-1769.72 610,-1778 563.479,-1787.12 509.619,-1792.99 471.868,-1796.35"/>
-<polygon fill="none" stroke="black" points="471.329,-1792.88 461.667,-1797.23 471.932,-1799.86 471.329,-1792.88"/>
-</g>
-<!-- \\Gishiki\\Core\\Router\\Router -->
-<g id="node53" class="node"><title>\\Gishiki\\Core\\Router\\Router</title>
-<polygon fill="none" stroke="black" points="820.5,-1692 763.5,-1692 763.5,-1656 820.5,-1656 820.5,-1692"/>
-<text text-anchor="middle" x="792" y="-1671.2" font-family="Courier,monospace" font-size="11.00">Router</text>
-</g>
-<!-- \\Gishiki\\Core\\Router\\Route -->
-<g id="node54" class="node"><title>\\Gishiki\\Core\\Router\\Route</title>
-<polygon fill="none" stroke="black" points="819,-1638 765,-1638 765,-1602 819,-1602 819,-1638"/>
-<text text-anchor="middle" x="792" y="-1617.2" font-family="Courier,monospace" font-size="11.00">Route</text>
-</g>
-<!-- \\Gishiki\\Core\\Router\\RouteInterface -->
-<g id="node55" class="node"><title>\\Gishiki\\Core\\Router\\RouteInterface</title>
-<polygon fill="none" stroke="black" points="478.5,-1638 367.5,-1638 367.5,-1602 478.5,-1602 478.5,-1638"/>
-<text text-anchor="middle" x="423" y="-1617.2" font-family="Courier,monospace" font-size="11.00">RouteInterface</text>
-</g>
-<!-- \\Gishiki\\Core\\Router\\Route&#45;&gt;\\Gishiki\\Core\\Router\\RouteInterface -->
-<g id="edge24" class="edge"><title>\\Gishiki\\Core\\Router\\Route&#45;&gt;\\Gishiki\\Core\\Router\\RouteInterface</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M764.9,-1620C707.894,-1620 570.817,-1620 488.903,-1620"/>
-<polygon fill="none" stroke="black" points="488.706,-1616.5 478.706,-1620 488.706,-1623.5 488.706,-1616.5"/>
-</g>
-<!-- \\Gishiki\\Core\\Router\\MatchableRouteTrait -->
-<g id="node56" class="node"><title>\\Gishiki\\Core\\Router\\MatchableRouteTrait</title>
-<polygon fill="none" stroke="black" points="864.5,-1584 719.5,-1584 719.5,-1548 864.5,-1548 864.5,-1584"/>
-<text text-anchor="middle" x="792" y="-1563.2" font-family="Courier,monospace" font-size="11.00">MatchableRouteTrait</text>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugins\\TwigWrapper -->
-<g id="node57" class="node"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugins\\TwigWrapper</title>
-<polygon fill="none" stroke="black" points="837.5,-1250 746.5,-1250 746.5,-1214 837.5,-1214 837.5,-1250"/>
-<text text-anchor="middle" x="792" y="-1229.2" font-family="Courier,monospace" font-size="11.00">TwigWrapper</text>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugin -->
-<g id="node61" class="node"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugin</title>
-<polygon fill="none" stroke="black" points="465,-1169 381,-1169 381,-1133 465,-1133 465,-1169"/>
-<text text-anchor="start" x="389" y="-1154.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="402.5" y="-1142.2" font-family="Courier,monospace" font-size="11.00">Plugin</text>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugins\\TwigWrapper&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Plugin -->
-<g id="edge27" class="edge"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugins\\TwigWrapper&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Plugin</title>
-<path fill="none" stroke="black" d="M746.366,-1222.15C677.857,-1207.03 547.159,-1178.18 475.006,-1162.26"/>
-<polygon fill="none" stroke="black" points="475.745,-1158.84 465.226,-1160.1 474.236,-1165.67 475.745,-1158.84"/>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseSerializer -->
-<g id="node58" class="node"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseSerializer</title>
-<polygon fill="none" stroke="black" points="861,-1196 723,-1196 723,-1160 861,-1160 861,-1196"/>
-<text text-anchor="middle" x="792" y="-1175.2" font-family="Courier,monospace" font-size="11.00">ResponseSerializer</text>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseSerializer&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Plugin -->
-<g id="edge28" class="edge"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseSerializer&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Plugin</title>
-<path fill="none" stroke="black" d="M722.83,-1172.98C651.158,-1167.71 540.012,-1159.53 475.389,-1154.78"/>
-<polygon fill="none" stroke="black" points="475.274,-1151.26 465.044,-1154.02 474.76,-1158.24 475.274,-1151.26"/>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugins\\RequestDeserializer -->
-<g id="node59" class="node"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugins\\RequestDeserializer</title>
-<polygon fill="none" stroke="black" points="864.5,-1142 719.5,-1142 719.5,-1106 864.5,-1106 864.5,-1142"/>
-<text text-anchor="middle" x="792" y="-1121.2" font-family="Courier,monospace" font-size="11.00">RequestDeserializer</text>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugins\\RequestDeserializer&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Plugin -->
-<g id="edge29" class="edge"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugins\\RequestDeserializer&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Plugin</title>
-<path fill="none" stroke="black" d="M719.367,-1129.27C647.638,-1134.55 539.032,-1142.54 475.435,-1147.22"/>
-<polygon fill="none" stroke="black" points="474.962,-1143.74 465.246,-1147.97 475.476,-1150.72 474.962,-1143.74"/>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseAssembler -->
-<g id="node60" class="node"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseAssembler</title>
-<polygon fill="none" stroke="black" points="857.5,-1088 726.5,-1088 726.5,-1052 857.5,-1052 857.5,-1088"/>
-<text text-anchor="middle" x="792" y="-1067.2" font-family="Courier,monospace" font-size="11.00">ResponseAssembler</text>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseAssembler&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Plugin -->
-<g id="edge30" class="edge"><title>\\Gishiki\\Core\\MVC\\Controller\\Plugins\\ResponseAssembler&#45;&gt;\\Gishiki\\Core\\MVC\\Controller\\Plugin</title>
-<path fill="none" stroke="black" d="M726.233,-1084.29C654.645,-1100.09 540.806,-1125.22 475.183,-1139.7"/>
-<polygon fill="none" stroke="black" points="474.09,-1136.36 465.079,-1141.93 475.598,-1143.2 474.09,-1136.36"/>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Controller\\ControllerException -->
-<g id="node63" class="node"><title>\\Gishiki\\Core\\MVC\\Controller\\ControllerException</title>
-<polygon fill="none" stroke="black" points="864.5,-1376 719.5,-1376 719.5,-1340 864.5,-1340 864.5,-1376"/>
-<text text-anchor="middle" x="792" y="-1355.2" font-family="Courier,monospace" font-size="11.00">ControllerException</text>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Controller\\ControllerException&#45;&gt;\\Gishiki\\Core\\Exception -->
-<g id="edge26" class="edge"><title>\\Gishiki\\Core\\MVC\\Controller\\ControllerException&#45;&gt;\\Gishiki\\Core\\Exception</title>
-<path fill="none" stroke="black" d="M719.219,-1360.08C705.325,-1363.65 691.999,-1369.8 682,-1380 556.18,-1508.39 740.941,-1654.84 610,-1778 573.567,-1812.27 513.766,-1813.3 471.831,-1808.66"/>
-<polygon fill="none" stroke="black" points="472.202,-1805.18 461.846,-1807.41 471.335,-1812.13 472.202,-1805.18"/>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecordException -->
-<g id="node64" class="node"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecordException</title>
-<polygon fill="none" stroke="black" points="871,-1000 713,-1000 713,-964 871,-964 871,-1000"/>
-<text text-anchor="middle" x="792" y="-979.2" font-family="Courier,monospace" font-size="11.00">ActiveRecordException</text>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecordException&#45;&gt;\\Gishiki\\Core\\Exception -->
-<g id="edge31" class="edge"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecordException&#45;&gt;\\Gishiki\\Core\\Exception</title>
-<path fill="none" stroke="black" d="M733.035,-1000.12C713.735,-1009.05 694.096,-1021.92 682,-1040 590.389,-1176.97 725.317,-1660.3 610,-1778 574.787,-1813.94 514.185,-1814.47 471.753,-1809.27"/>
-<polygon fill="none" stroke="black" points="472.035,-1805.77 461.652,-1807.88 471.082,-1812.71 472.035,-1805.77"/>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecordTables -->
-<g id="node65" class="node"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecordTables</title>
-<polygon fill="none" stroke="black" points="861,-946 723,-946 723,-910 861,-910 861,-946"/>
-<text text-anchor="start" x="758" y="-931.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="731" y="-919.2" font-family="Courier,monospace" font-size="11.00">ActiveRecordTables</text>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecord -->
-<g id="node66" class="node"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecord</title>
-<polygon fill="none" stroke="black" points="841,-892 743,-892 743,-856 841,-856 841,-892"/>
-<text text-anchor="start" x="758" y="-877.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="751" y="-865.2" font-family="Courier,monospace" font-size="11.00">ActiveRecord</text>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecordInterface -->
-<g id="node67" class="node"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecordInterface</title>
-<polygon fill="none" stroke="black" points="502,-892 344,-892 344,-856 502,-856 502,-892"/>
-<text text-anchor="middle" x="423" y="-871.2" font-family="Courier,monospace" font-size="11.00">ActiveRecordInterface</text>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecord&#45;&gt;\\Gishiki\\Core\\MVC\\Model\\ActiveRecordInterface -->
-<g id="edge33" class="edge"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecord&#45;&gt;\\Gishiki\\Core\\MVC\\Model\\ActiveRecordInterface</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M742.644,-874C684.179,-874 584.643,-874 512.349,-874"/>
-<polygon fill="none" stroke="black" points="512.335,-870.5 502.335,-874 512.335,-877.5 512.335,-870.5"/>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecord&#45;&gt;\\Gishiki\\Algorithms\\Collections\\GenericCollection -->
-<g id="edge32" class="edge"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecord&#45;&gt;\\Gishiki\\Algorithms\\Collections\\GenericCollection</title>
-<path fill="none" stroke="black" d="M742.934,-872.26C721.926,-869.152 698.392,-862.152 682,-847 565.385,-739.203 455.339,-226.815 429.629,-100.294"/>
-<polygon fill="none" stroke="black" points="433.007,-99.344 427.597,-90.2346 426.146,-100.73 433.007,-99.344"/>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecordSerializationTrait -->
-<g id="node68" class="node"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecordSerializationTrait</title>
-<polygon fill="none" stroke="black" points="901.5,-838 682.5,-838 682.5,-802 901.5,-802 901.5,-838"/>
-<text text-anchor="middle" x="792" y="-817.2" font-family="Courier,monospace" font-size="11.00">ActiveRecordSerializationTrait</text>
-</g>
-<!-- \\Gishiki\\Core\\MVC\\Model\\ActiveRecordStructureTrait -->
-<g id="node69" class="node"><title>\\Gishiki\\Core\\MVC\\Model\\ActiveRecordStructureTrait</title>
-<polygon fill="none" stroke="black" points="888,-784 696,-784 696,-748 888,-748 888,-784"/>
-<text text-anchor="middle" x="792" y="-763.2" font-family="Courier,monospace" font-size="11.00">ActiveRecordStructureTrait</text>
-</g>
-<!-- \\Gishiki\\Core\\Application -->
-<g id="node70" class="node"><title>\\Gishiki\\Core\\Application</title>
-<polygon fill="none" stroke="black" points="837.5,-1476 746.5,-1476 746.5,-1440 837.5,-1440 837.5,-1476"/>
-<text text-anchor="middle" x="792" y="-1455.2" font-family="Courier,monospace" font-size="11.00">Application</text>
-</g>
-<!-- \\Gishiki\\Core\\Configuration -->
-<g id="node71" class="node"><title>\\Gishiki\\Core\\Configuration</title>
-<polygon fill="none" stroke="black" points="844,-1530 740,-1530 740,-1494 844,-1494 844,-1530"/>
-<text text-anchor="middle" x="792" y="-1509.2" font-family="Courier,monospace" font-size="11.00">Configuration</text>
-</g>
-<!-- \\Gishiki\\Core\\Configuration&#45;&gt;\\Gishiki\\Algorithms\\Collections\\SerializableCollection -->
-<g id="edge25" class="edge"><title>\\Gishiki\\Core\\Configuration&#45;&gt;\\Gishiki\\Algorithms\\Collections\\SerializableCollection</title>
-<path fill="none" stroke="black" d="M844.203,-1516.42C880.08,-1516.18 924.905,-1508.63 946,-1476 961.957,-1451.32 961.957,-442.679 946,-418 932.504,-397.127 909.295,-386.515 884.931,-381.516"/>
-<polygon fill="none" stroke="black" points="885.269,-378.023 874.817,-379.758 884.07,-384.919 885.269,-378.023"/>
-</g>
-<!-- \\Gishiki\\Core\\Environment -->
-<g id="node72" class="node"><title>\\Gishiki\\Core\\Environment</title>
-<polygon fill="none" stroke="black" points="837.5,-724 746.5,-724 746.5,-688 837.5,-688 837.5,-724"/>
-<text text-anchor="start" x="758" y="-709.2" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="754.5" y="-697.2" font-family="Courier,monospace" font-size="11.00">Environment</text>
-</g>
-<!-- \\Exception -->
-<g id="node78" class="node"><title>\\Exception</title>
-<ellipse fill="none" stroke="black" cx="98" cy="-72" rx="40.8928" ry="18"/>
-<text text-anchor="middle" x="98" y="-68.3" font-family="Times,serif" font-size="14.00" fill="gray">xception</text>
-</g>
-<!-- \\Gishiki\\Core\\Exception&#45;&gt;\\Exception -->
-<g id="edge34" class="edge"><title>\\Gishiki\\Core\\Exception&#45;&gt;\\Exception</title>
-<path fill="none" stroke="black" d="M384.228,-1808C341.75,-1814.54 273.782,-1817.23 236,-1778 114.569,-1651.92 100.609,-312.371 99.1575,-100.229"/>
-<polygon fill="none" stroke="black" points="102.657,-100.176 99.0926,-90.1986 95.6575,-100.221 102.657,-100.176"/>
-</g>
-<!-- \\Gishiki\\Core\\ApplicationLoggerTrait -->
-<g id="node74" class="node"><title>\\Gishiki\\Core\\ApplicationLoggerTrait</title>
-<polygon fill="none" stroke="black" points="874.5,-670 709.5,-670 709.5,-634 874.5,-634 874.5,-670"/>
-<text text-anchor="middle" x="792" y="-649.2" font-family="Courier,monospace" font-size="11.00">ApplicationLoggerTrait</text>
-</g>
-<!-- \\Gishiki\\Core\\ApplicationDatabaseTrait -->
-<g id="node75" class="node"><title>\\Gishiki\\Core\\ApplicationDatabaseTrait</title>
-<polygon fill="none" stroke="black" points="881.5,-616 702.5,-616 702.5,-580 881.5,-580 881.5,-616"/>
-<text text-anchor="middle" x="792" y="-595.2" font-family="Courier,monospace" font-size="11.00">ApplicationDatabaseTrait</text>
+<!-- \\Gishiki\\Security\\Hashing\\Hasher -->
+<g id="node75" class="node"><title>\\Gishiki\\Security\\Hashing\\Hasher</title>
+<polygon fill="none" stroke="black" points="820.5,-1906 763.5,-1906 763.5,-1870 820.5,-1870 820.5,-1906"/>
+<text text-anchor="middle" x="792" y="-1885.2" font-family="Courier,monospace" font-size="11.00">Hasher</text>
 </g>
 </g>
 </svg>
